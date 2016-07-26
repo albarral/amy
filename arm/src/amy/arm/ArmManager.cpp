@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "log4cxx/ndc.h"
 
-#include "ArmManager.h"
+#include "amy/arm/ArmManager.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/bus/ArmBus.h"
 
