@@ -1,0 +1,266 @@
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   albarral@migtron.com   *
+ ***************************************************************************/
+
+#include <unistd.h>
+#include "log4cxx/ndc.h"
+
+#include "ArmManager.h"
+#include "amy/arm/config/ArmConfig.h"
+#include "amy/arm/bus/ArmBus.h"
+
+using namespace log4cxx;
+
+namespace amy
+{
+LoggerPtr ArmManager::logger(Logger::getLogger("amy.arm"));
+
+// Constructor
+ArmManager::ArmManager ()
+{    
+    benabled = false;
+    level = 0;
+}
+
+// Destructor
+ArmManager::~ArmManager ()
+{
+}
+
+void ArmManager::init(std::string robotName)
+{
+    log4cxx::NDC::push("Arm Manager");   	
+    
+    LOG4CXX_INFO(logger, "INITIALIZING ... ");
+    
+    if (oArmConfig.loadRobot(robotName) == false)
+        LOG4CXX_ERROR(logger, "Not enabled !!! Robot not supported: " + robotName);
+    
+    // obtain (from config file) the list of joints to be controlled 
+    std::vector<std::string>& listJointNames = oArmConfig.getListJointNames();
+
+    initArm(listJointNames);
+    initBus(listJointNames);
+    initModules(listJointNames);
+
+    // TEMP: first soll angles are 0 (should be the ist)
+    int numJoints = listJointNames.size();
+    for (int i=0; i<numJoints; i++ )
+        listSollAngles.push_back(0);    
+   
+    benabled = true;    
+}
+
+
+void ArmManager::initArm(std::vector<std::string>& listJointNames)
+{
+    LOG4CXX_INFO(logger, ">> INIT Arm ...");
+    
+    // build arm with joints
+    int numJoints = listJointNames.size();
+    for (int i=0; i<numJoints; i++)
+    {        
+        std::string jointName = listJointNames.at(i);        
+        LOG4CXX_INFO(logger, jointName);
+        
+        // arm's joint
+        ParamsJoint& mParamsJoint = oArmConfig.getParamsJoint(jointName);                        
+        Joint oJoint; 
+        oJoint.init(mParamsJoint);    
+        oArm.addJoint(oJoint);                
+    }
+}
+
+
+void ArmManager::initBus(std::vector<std::string>& listJointNames)
+{
+    LOG4CXX_INFO(logger, ">> INIT Bus ...");
+    
+    // setup connections for each joint
+    int numJoints = listJointNames.size();
+    for (int i=0; i<numJoints; i++)
+    {        
+        std::string jointName = listJointNames.at(i);        
+        LOG4CXX_INFO(logger, jointName);
+        
+        if (oArmBus.add4Joint(jointName) == false)
+        {
+            LOG4CXX_ERROR(logger, "Error adding bus connection for joint " << jointName);
+            return;
+        }
+    }
+}
+
+void ArmManager::initModules(std::vector<std::string>& listJointNames)
+{    
+    float freq = oArmConfig.getModulesFreq();
+
+    // init modules FOR each joint
+    int numJoints = listJointNames.size();
+    
+    LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);
+    for (int i=0; i<numJoints; i++)
+    {        
+        std::string jointName = listJointNames.at(i);        
+        // bus connections for this joint
+        JointBus& oJointBus = oArmBus.getJointBus(jointName);
+
+        // joint control module
+        Joint& mJoint = oArm.getJointByName(jointName);
+        oJointControl[i].init(jointName, mJoint);  
+        oJointControl[i].connect(oJointBus);
+        oJointControl[i].setFrequency(freq);           
+    }
+    usleep(200000);
+    
+    level++;
+    LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
+    for (int i=0; i<numJoints; i++)
+    {        
+        std::string jointName = listJointNames.at(i);        
+        // bus connections for this joint
+        JointBus& oJointBus = oArmBus.getJointBus(jointName);
+
+        // joint mover module
+        ParamsJointMover& mParamsJointMover = oArmConfig.getParamsJointMover(jointName);        
+        oJointMover[i].init(jointName, mParamsJointMover);  
+        oJointMover[i].connect(oJointBus);
+        oJointMover[i].setFrequency(freq);
+    }
+    usleep(200000);
+
+    level++;
+    LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
+    // arm mover module
+    oArmMover.init(3000);
+    oArmMover.connect(oArmBus);
+    oArmMover.setFrequency(freq);
+    usleep(500000);
+    
+    level++;
+    LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
+    oArmComs.init();
+    oArmComs.connect(oArmBus);
+    oArmComs.setFrequency(freq);  
+    
+}
+
+
+void ArmManager::startModules()
+{
+    LOG4CXX_INFO(logger, "STARTING MODULES ...");
+    level = 0;
+
+    if (!benabled)
+        return;
+
+    int numJoints = oArmConfig.getNumJoints();    
+    
+    LOG4CXX_INFO(logger, ">> START level " << level);
+    for (int i=0; i<numJoints; i++)
+    {
+        if (oJointControl[i].isEnabled() && oJointControl[i].isConnected())
+            oJointControl[i].on();
+    }
+
+    level++;
+    LOG4CXX_INFO(logger, ">> START level " << level);
+    for (int i=0; i<numJoints; i++)
+    {
+        if (oJointMover[i].isEnabled() && oJointMover[i].isConnected())
+            oJointMover[i].on();
+    }
+    
+    level++;
+    LOG4CXX_INFO(logger, ">> START level " << level);
+    if (oArmMover.isEnabled() && oArmMover.isConnected())
+        oArmMover.on();
+
+    level++;
+    LOG4CXX_INFO(logger, ">> START level " << level);
+    if (oArmComs.isEnabled() && oArmComs.isConnected())
+        oArmComs.on();
+
+}
+
+void ArmManager::stopModules()
+{    
+    LOG4CXX_INFO(logger, "STOPPING MODULES ...");
+
+    if (!benabled)
+        return;
+
+    int numJoints = oArmConfig.getNumJoints();    
+
+    LOG4CXX_INFO(logger, ">> STOP level " << level);
+    oArmComs.off();
+    oArmComs.wait();
+
+    level--;
+    LOG4CXX_INFO(logger, ">> STOP level " << level);
+    oArmMover.off();
+    oArmMover.wait();
+
+    level--;
+    LOG4CXX_INFO(logger, ">> STOP level " << level);
+    for (int i=0; i<numJoints; i++)
+    {
+        // stop & wait for modules 
+        if (oJointMover[i].isEnabled())
+        {
+            oJointMover[i].off();
+            oJointMover[i].wait();
+        }
+    }
+
+    level--;
+    LOG4CXX_INFO(logger, ">> STOP level " << level);
+    for (int i=0; i<numJoints; i++)
+    {
+        // stop & wait for modules 
+        if (oJointControl[i].isEnabled()) 
+        {
+            oJointControl[i].off();
+            oJointControl[i].wait();
+        }
+    }       
+}
+
+
+// Writes to bus
+void ArmManager::setIstAngles(std::vector<float>& listAngles)
+{
+    int size = listAngles.size();
+    
+    for (int i=0; i<size; i++)
+    {
+        // write angle in SI_ANGLE
+        oArmBus.getJointBusByIndex(i).getSO_IST_ANGLE().setValue(listAngles.at(i));
+    }            
+}
+
+
+// Reads from bus
+void ArmManager::readSollAngles()
+{        
+    int numJoints = oArmConfig.getNumJoints();       
+    float jointAngle;    
+    
+    // for each joint, check if the commanded angle has changed & insert it into the soll list
+    for (int i=0; i<numJoints; i++)
+    {        
+        if (oArmBus.getJointBusByIndex(i).getCO_JOINT_ANGLE().checkRequested(jointAngle))
+            listSollAngles[i] = jointAngle;
+    }
+}
+
+bool ArmManager::checkEndRequested()
+{
+    return oArmBus.getCO_FINISH_MANAGER().checkRequested();
+}
+
+}
+
+
+
