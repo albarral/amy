@@ -1,5 +1,5 @@
-#ifndef __SAM_JOINT_MOVER_H
-#define __SAM_JOINT_MOVER_H
+#ifndef __AMY_JOINT_MOVER_H
+#define __AMY_JOINT_MOVER_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

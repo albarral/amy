@@ -1,5 +1,5 @@
-#ifndef __SAM_MANIPULATION_BUS_H
-#define __SAM_MANIPULATION_BUS_H
+#ifndef __AMY_ARM_BUS_H
+#define __AMY_ARM_BUS_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -27,7 +27,7 @@ class ArmBus
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
         
         // connections for individual joints 
-        JointBus oJointBus[SAM_MAX_JOINTS];
+        JointBus oJointBus[AMY_MAX_JOINTS];
         int numJoints;   // number of active joints
         
     public:

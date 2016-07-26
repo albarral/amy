@@ -79,7 +79,7 @@ void testBackbone()
    std::string  updateOK = "update TAB_CONTROL set proc=1 where area=1 and module=9";
     
     sam::DatabaseClient oDBClient;          // handler for database connections
-    oDBClient.init("tcp://127.0.0.1:3306", "sam", "sam", "SAM_BACKBONE");    
+    oDBClient.init("tcp://127.0.0.1:3306", "sam", "sam", "AMY_BACKBONE");    
     oDBClient.connect();
 
     if (!oDBClient.isConnected())

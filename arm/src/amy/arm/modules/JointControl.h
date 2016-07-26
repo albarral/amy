@@ -1,5 +1,5 @@
-#ifndef __SAM_JOINT_CONTROL_H
-#define __SAM_JOINT_CONTROL_H
+#ifndef __AMY_JOINT_CONTROL_H
+#define __AMY_JOINT_CONTROL_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -35,7 +35,7 @@ private:
     Joint* mJoint;        // controlled joint  
     // bus
     bool bconnected;        // connected to bus
-    JointBus* pConnectionsJoint;    // the bus connections corresponding to a given joint
+    JointBus* pJointBus;    // the bus connections corresponding to a given joint
     // logic
     float sollSpeed;        // speed requested by higher modules (deg/s)
     float sollSpeed_ms;  // speed requested by higher modules (deg/ms))

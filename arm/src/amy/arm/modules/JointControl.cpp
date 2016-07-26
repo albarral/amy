@@ -17,7 +17,7 @@ JointControl::JointControl()
 {
     benabled = false;
     bconnected = false;
-    pConnectionsJoint = 0;
+    pJointBus = 0;
     sollAngle = 0;
     limitBroken = 0;
 }
@@ -38,7 +38,7 @@ void JointControl::init(std::string jointName, Joint& oJoint)
 
 void JointControl::connect(JointBus& oConnectionsJoint)
 {
-    pConnectionsJoint = &oConnectionsJoint;
+    pJointBus = &oConnectionsJoint;
     bconnected = true;
 
     LOG4CXX_DEBUG(logger, modName << " connected to bus");      
@@ -80,29 +80,25 @@ void JointControl::loop()
 
 void JointControl::senseBus()
 {
-    // read CO_SOLL_ANGLE 
-    // to get the last systembroad SOLL angle
-    pConnectionsJoint->getCO_JOINT_ANGLE().getValue(sollAngle);
+    // get last commanded SOLL angle (CO_JOINT_ANGLE) 
+    pJointBus->getCO_JOINT_ANGLE().getValue(sollAngle);
     
-    // read CO_SOLL_SPEED 
-    // to check for new SOLL speed requests
-    if (pConnectionsJoint->getCO_JCONTROL_SPEED().checkRequested(sollSpeed))
+    // get speed request (CO_SOLL_SPEED) 
+    if (pJointBus->getCO_JCONTROL_SPEED().checkRequested(sollSpeed))
         sollSpeed_ms = sollSpeed/1000.0;
 }
 
 void JointControl::writeBus()
 {
-    // write CO_SOLL_ANGLE
-    // to request a new SOLL angle
-    pConnectionsJoint->getCO_JOINT_ANGLE().request(sollAngle);
+    // request new SOLL angle (CO_SOLL_ANGLE)
+    pJointBus->getCO_JOINT_ANGLE().request(sollAngle);
     LOG4CXX_DEBUG(logger, "angle=" << (int)sollAngle);
     
-    // write SO_REALSPEED
-    // to inform about the real IST speed
+    // update real IST speed (SO_REAL_SPEED)
     // TEMPORAL !!! 
     // We put the SOLL speed here instead of the IST speed. 
     // That's because we are not reading the IST angles yet, needed for its computation.
-    pConnectionsJoint->getSO_REAL_SPEED().setValue(sollSpeed);
+    pJointBus->getSO_REAL_SPEED().setValue(sollSpeed);
 }
 
 void JointControl::doSpeed2Angle()

@@ -1,5 +1,5 @@
-#ifndef __SAM_MANIPULATION_PARAMSJOINT_H
-#define __SAM_MANIPULATION_PARAMSJOINT_H
+#ifndef __AMY_ARM_PARAMSJOINT_H
+#define __AMY_ARM_PARAMSJOINT_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

@@ -1,5 +1,5 @@
-#ifndef __SAM_MANIPULATION_CONFIG_H
-#define __SAM_MANIPULATION_CONFIG_H
+#ifndef __AMY_ARM_CONFIG_H
+#define __AMY_ARM_CONFIG_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -30,9 +30,9 @@ public:
         std::vector<std::string> listJointNames;
         float modulesFreq;  // execution frequency for all modules (loops/sec)
         // joints
-        ParamsJoint oJointParams[SAM_MAX_JOINTS];
+        ParamsJoint oJointParams[AMY_MAX_JOINTS];
         // joint movers
-        ParamsJointMover oJointMoverParams[SAM_MAX_JOINTS];
+        ParamsJointMover oJointMoverParams[AMY_MAX_JOINTS];
         
     public:
         ArmConfig();

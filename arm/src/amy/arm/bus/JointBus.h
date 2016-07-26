@@ -1,5 +1,5 @@
-#ifndef __SAM_MANIPULATION_CONNECTIONS_JOINT_H
-#define __SAM_MANIPULATION_CONNECTIONS_JOINT_H
+#ifndef __AMY_ARM_JOINTBUS_H
+#define __AMY_ARM_JOINTBUS_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

@@ -1,5 +1,5 @@
-#ifndef __SAM_ARM_MANAGER_H
-#define __SAM_ARM_MANAGER_H
+#ifndef __AMY_ARM_MANAGER_H
+#define __AMY_ARM_MANAGER_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -34,8 +34,8 @@ class ArmManager
         int level;      // modules level activated 
         // modules ...
         ArmMover oArmMover;
-        JointMover oJointMover[SAM_MAX_JOINTS];
-        JointControl oJointControl[SAM_MAX_JOINTS];
+        JointMover oJointMover[AMY_MAX_JOINTS];
+        JointControl oJointControl[AMY_MAX_JOINTS];
         ArmComs1 oArmComs;   // communications module for handling of arm control commands & sensor info
         // system's IO
         //std::vector<float> listIstAngles;     // ist (sensed) joint angles

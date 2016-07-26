@@ -20,7 +20,7 @@ bool ArmBus::add4Joint(std::string jointName)
     if (checkExistingJoint(jointName))
         return false;
 
-    if (numJoints < SAM_MAX_JOINTS)
+    if (numJoints < AMY_MAX_JOINTS)
     {
         oJointBus[numJoints].init(jointName);
         numJoints++;        
@@ -45,7 +45,7 @@ JointBus& ArmBus::getJointBus(std::string jointName)
 
 JointBus& ArmBus::getJointBusByIndex(int index)
 {
-    if (index < SAM_MAX_JOINTS)
+    if (index < AMY_MAX_JOINTS)
         return oJointBus[index];
     
     // if not found return the first joint (should use lists)
@@ -54,7 +54,7 @@ JointBus& ArmBus::getJointBusByIndex(int index)
 
 bool ArmBus::checkExistingJoint(std::string jointName)
 {
-    for (int i=0; i<SAM_MAX_JOINTS; i++)
+    for (int i=0; i<AMY_MAX_JOINTS; i++)
     {
         if (oJointBus[i].getJointName().compare(jointName) == 0)
             return true;

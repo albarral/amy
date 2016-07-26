@@ -1,5 +1,5 @@
-#ifndef __SAM_MODULE2_H
-#define __SAM_MODULE2_H
+#ifndef __AMY_MODULE2_H
+#define __AMY_MODULE2_H
 
 /***************************************************************************
  *   Copyright (C) 2014 by Migtron Robotics   *
