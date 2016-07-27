@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "amy/arm/config/defines.h"
+#include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/utils/brooks/control.h"
 

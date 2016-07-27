@@ -100,13 +100,13 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     int numJoints = listJointNames.size();
     
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);
+    // joint control modules
     for (int i=0; i<numJoints; i++)
     {        
         std::string jointName = listJointNames.at(i);        
         // bus connections for this joint
         JointBus& oJointBus = oArmBus.getJointBus(jointName);
 
-        // joint control module
         Joint& mJoint = oArm.getJointByName(jointName);
         oJointControl[i].init(jointName, mJoint);  
         oJointControl[i].connect(oJointBus);
@@ -116,13 +116,13 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
+    // joint mover modules
     for (int i=0; i<numJoints; i++)
     {        
         std::string jointName = listJointNames.at(i);        
         // bus connections for this joint
         JointBus& oJointBus = oArmBus.getJointBus(jointName);
 
-        // joint mover module
         ParamsJointMover& mParamsJointMover = oArmConfig.getParamsJointMover(jointName);        
         oJointMover[i].init(jointName, mParamsJointMover);  
         oJointMover[i].connect(oJointBus);
@@ -140,10 +140,14 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
+    // coms in module
     oArmComs.init();
     oArmComs.connect(oArmBus);
     oArmComs.setFrequency(freq);  
-    
+    // coms out module
+    oArmComsOut.init(numJoints);
+    oArmComsOut.connect(oArmBus);
+    oArmComsOut.setFrequency(3.0);  // set to slower 3Hz because it uses a DB network  
 }
 
 
@@ -158,7 +162,8 @@ void ArmManager::startModules()
     int numJoints = oArmConfig.getNumJoints();    
     
     LOG4CXX_INFO(logger, ">> START level " << level);
-    for (int i=0; i<numJoints; i++)
+   // joint control modules
+   for (int i=0; i<numJoints; i++)
     {
         if (oJointControl[i].isEnabled() && oJointControl[i].isConnected())
             oJointControl[i].on();
@@ -166,7 +171,8 @@ void ArmManager::startModules()
 
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
-    for (int i=0; i<numJoints; i++)
+   // joint mover modules
+   for (int i=0; i<numJoints; i++)
     {
         if (oJointMover[i].isEnabled() && oJointMover[i].isConnected())
             oJointMover[i].on();
@@ -174,13 +180,18 @@ void ArmManager::startModules()
     
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
+    // arm mover module
     if (oArmMover.isEnabled() && oArmMover.isConnected())
         oArmMover.on();
 
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
+    // coms in module
     if (oArmComs.isEnabled() && oArmComs.isConnected())
         oArmComs.on();
+    // coms out module
+    if (oArmComsOut.isEnabled() && oArmComsOut.isConnected())
+        oArmComsOut.on();
 
 }
 
@@ -194,16 +205,22 @@ void ArmManager::stopModules()
     int numJoints = oArmConfig.getNumJoints();    
 
     LOG4CXX_INFO(logger, ">> STOP level " << level);
+    // coms out module
+    oArmComsOut.off();
+    oArmComsOut.wait();
+    // coms in module
     oArmComs.off();
     oArmComs.wait();
 
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);
+    // arm mover module
     oArmMover.off();
     oArmMover.wait();
 
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);
+    // joint mover modules
     for (int i=0; i<numJoints; i++)
     {
         // stop & wait for modules 
@@ -216,6 +233,7 @@ void ArmManager::stopModules()
 
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);
+    // joint control modules
     for (int i=0; i<numJoints; i++)
     {
         // stop & wait for modules 

@@ -7,7 +7,7 @@
 #include <stdexcept>      // std::invalid_argument
 #include "log4cxx/ndc.h"
 
-#include "ArmComs1.h"
+#include "amy/arm/coms/ArmComs1.h"
 #include "amy/arm/coms/ArmCommand.h"
 
 using namespace log4cxx;
@@ -82,7 +82,7 @@ void ArmComs1::first()
 
 void ArmComs1::loop()
 {
-    bool bret = false;;
+    bool bret = false;
     LOG4CXX_INFO(logger, "> ?");    
 
     // listen to user commands

@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "amy/arm/config/defines.h"
+#include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/config/ParamsJoint.h"
 #include "amy/arm/config/ParamsJointMover.h"
 

@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o \
 	${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o \
 	${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o \
+	${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o \
 	${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o \
@@ -109,6 +110,11 @@ ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o: src/amy/arm/coms/ArmComs1.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o src/amy/arm/coms/ArmComs1.cpp
+
+${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o: src/amy/arm/coms/ArmComsOut.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o src/amy/arm/coms/ArmComsOut.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config

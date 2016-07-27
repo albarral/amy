@@ -10,7 +10,7 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/config/defines.h"
+#include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/data/Arm.h"
@@ -18,6 +18,7 @@
 #include "amy/arm/modules/JointMover.h"
 #include "amy/arm/modules/JointControl.h"
 #include "amy/arm/coms/ArmComs1.h"
+#include "amy/arm/coms/ArmComsOut.h"
 
 namespace amy
 {
@@ -37,6 +38,7 @@ class ArmManager
         JointMover oJointMover[AMY_MAX_JOINTS];
         JointControl oJointControl[AMY_MAX_JOINTS];
         ArmComs1 oArmComs;   // communications module for handling of arm control commands & sensor info
+        ArmComsOut oArmComsOut;   // communications module for sending outputs to network
         // system's IO
         //std::vector<float> listIstAngles;     // ist (sensed) joint angles
         std::vector<float> listSollAngles;  // soll (commanded) joint angles

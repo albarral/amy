@@ -32,7 +32,7 @@ DBArmStorage::~DBArmStorage ()
 // sets soll (commanded) values for all joints
 bool DBArmStorage::storeArmSoll(int arm, ArmData& oArmData)
 {
-    LOG4CXX_INFO(logger, "DBArmStorage: store arm soll");
+    LOG4CXX_DEBUG(logger, "DBArmStorage: store arm soll");
     
     // try reconnection
     if (!connectDB())
@@ -58,7 +58,7 @@ bool DBArmStorage::storeArmSoll(int arm, ArmData& oArmData)
 // sets ist (measured) values for all joints
 bool DBArmStorage::storeArmIst(int arm, ArmData& oArmData)
 {
-    LOG4CXX_INFO(logger, "DBArmStorage: store arm ist");
+    LOG4CXX_DEBUG(logger, "DBArmStorage: store arm ist");
     
     // try reconnection
     if (!connectDB())
@@ -84,7 +84,7 @@ bool DBArmStorage::storeArmIst(int arm, ArmData& oArmData)
 // gets soll (commanded) values for all joints
 bool DBArmStorage::readArmSoll(int arm, ArmData& oArmData)
 {
-    LOG4CXX_INFO(logger, "DBArmStorage: read arm soll");
+    LOG4CXX_DEBUG(logger, "DBArmStorage: read arm soll");
     
     // try reconnection
     if (!connectDB())
@@ -118,7 +118,7 @@ bool DBArmStorage::readArmSoll(int arm, ArmData& oArmData)
 // gets ist (measured) values for all joints
 bool DBArmStorage::readArmIst(int arm, ArmData& oArmData)
 {
-    LOG4CXX_INFO(logger, "DBArmStorage: read arm ist");
+    LOG4CXX_DEBUG(logger, "DBArmStorage: read arm ist");
     
     // try reconnection
     if (!connectDB())

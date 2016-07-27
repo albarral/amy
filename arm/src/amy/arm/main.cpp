@@ -26,8 +26,8 @@ int main(int argc, char** argv)
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
     
-    //launchManipulation();
-    testAmyNetwork();
+    launchManipulation();
+    //testAmyNetwork();
       
     return 0;
 }
