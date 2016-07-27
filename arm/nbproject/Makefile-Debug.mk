@@ -66,13 +66,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-llog4cxx -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils
+LDLIBSOPTIONS=-llog4cxx -lmysqlcppconn -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_network/dist/Debug/GNU-Linux -L../amy_network/dist/Debug/GNU-Linux -lamy_network
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ../amy_utils/dist/Debug/GNU-Linux/libamy_utils.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ../amy_network/dist/Debug/GNU-Linux/libamy_network.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -81,81 +83,82 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ${OBJECTFILES}
 ${OBJECTDIR}/src/amy/arm/ArmManager.o: src/amy/arm/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmManager.o src/amy/arm/ArmManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmManager.o src/amy/arm/ArmManager.cpp
 
 ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o: src/amy/arm/bus/ArmBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o src/amy/arm/bus/ArmBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o src/amy/arm/bus/ArmBus.cpp
 
 ${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o: src/amy/arm/coms/ArmCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o src/amy/arm/coms/ArmCommand.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o src/amy/arm/coms/ArmCommand.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o: src/amy/arm/coms/ArmCommander.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o src/amy/arm/coms/ArmCommander.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o src/amy/arm/coms/ArmCommander.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o: src/amy/arm/coms/ArmComs1.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o src/amy/arm/coms/ArmComs1.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o src/amy/arm/coms/ArmComs1.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o: src/amy/arm/config/ParamsJoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o src/amy/arm/config/ParamsJoint.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o src/amy/arm/config/ParamsJoint.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o: src/amy/arm/config/ParamsJointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o src/amy/arm/config/ParamsJointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o src/amy/arm/config/ParamsJointMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/Arm.o: src/amy/arm/data/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Arm.o src/amy/arm/data/Arm.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Arm.o src/amy/arm/data/Arm.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/Joint.o: src/amy/arm/data/Joint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Joint.o src/amy/arm/data/Joint.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Joint.o src/amy/arm/data/Joint.cpp
 
 ${OBJECTDIR}/src/amy/arm/main.o: src/amy/arm/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/main.o src/amy/arm/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/main.o src/amy/arm/main.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl.o: src/amy/arm/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl.o src/amy/arm/modules/JointControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl.o src/amy/arm/modules/JointControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointMover.o: src/amy/arm/modules/JointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointMover.o src/amy/arm/modules/JointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointMover.o src/amy/arm/modules/JointMover.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../amy_network && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -165,6 +168,7 @@ ${OBJECTDIR}/src/amy/arm/modules/JointMover.o: src/amy/arm/modules/JointMover.cp
 # Subprojects
 .clean-subprojects:
 	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../amy_network && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

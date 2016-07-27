@@ -12,10 +12,10 @@ NetworkConfig::NetworkConfig ()
 {               
     dbServerUrl = "tcp://127.0.0.1:3306"; // mysql server
     dbUser = "amy";
-    dbPassword = "amy";
+    dbPassword = "amypwd";
     dbName = "DB_AMY";
    
-    tabArmJoints = "TAB_ARM_JOINTS";
+    tabArmJoints = "TAB_JOINTS";
 }
 
 }

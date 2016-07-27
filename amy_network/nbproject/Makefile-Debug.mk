@@ -35,7 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/network/ArmData.o \
 	${OBJECTDIR}/src/amy/network/ArmNetwork.o \
+	${OBJECTDIR}/src/amy/network/DBArmStorage.o \
 	${OBJECTDIR}/src/amy/network/config/NetworkConfig.o \
 	${OBJECTDIR}/src/amy/network/db/DBClient.o \
 	${OBJECTDIR}/src/amy/network/db/DBConnection.o \
@@ -66,10 +68,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_network.${CND_DLIB_EXT}: ${OBJ
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_network.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
+${OBJECTDIR}/src/amy/network/ArmData.o: src/amy/network/ArmData.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/network
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/network/ArmData.o src/amy/network/ArmData.cpp
+
 ${OBJECTDIR}/src/amy/network/ArmNetwork.o: src/amy/network/ArmNetwork.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/network
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/network/ArmNetwork.o src/amy/network/ArmNetwork.cpp
+
+${OBJECTDIR}/src/amy/network/DBArmStorage.o: src/amy/network/DBArmStorage.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/network
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/network/DBArmStorage.o src/amy/network/DBArmStorage.cpp
 
 ${OBJECTDIR}/src/amy/network/config/NetworkConfig.o: src/amy/network/config/NetworkConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/network/config

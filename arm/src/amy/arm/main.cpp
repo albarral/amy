@@ -3,7 +3,6 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-// TEST: SAM MANIPULATION
 
 #include <vector>
 #include <string>
@@ -13,12 +12,12 @@
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "amy/arm/ArmManager.h"
-//#include "sam/backbone/utils/DatabaseClient.h"  // for test
-//#include "sam/backbone/data/BoneMsg.h"
+#include "amy/network/ArmNetwork.h"
+#include "amy/network/ArmData.h"
 
 
-void testManipulation();
-//void testBackbone();
+void launchManipulation();
+void testAmyNetwork();
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 
@@ -27,15 +26,15 @@ int main(int argc, char** argv)
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
     
-    testManipulation();
-    //testBackbone();
+    //launchManipulation();
+    testAmyNetwork();
       
     return 0;
 }
 
-void testManipulation()
+void launchManipulation()
 {
-    LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST MANIPULATION >>>>>>>>>>>>>>");      
+    LOG4CXX_INFO(logger, "\n\nLAUNCH amy MANIPULATION ...\n");
     
     std::vector<float> listPrevAngles;
     
@@ -64,47 +63,40 @@ void testManipulation()
 
     return;
 }
-/*
-void testBackbone()
+
+void testAmyNetwork()
 {
-    LOG4CXX_INFO(logger, "<<<<<<<<<<<<<<<< TEST BACKBONE >>>>>>>>>>>>>>");      
+    LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST AMY NETWORK >>>>>>>>>>>>>>");      
 
-   std::string  j1_right = "update TAB_CONTROL set info=3, proc=0 where area=1 and module=9";
-   std::string  j1_brake = "update TAB_CONTROL set info=5, proc=0 where area=1 and module=9";
-   std::string  j1_stop = "update TAB_CONTROL set info=2, proc=0 where area=1 and module=9";
+    // initialize arm network
+    amy::ArmNetwork oArmNetwork;
+    oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);
 
-  std::string select = "SELECT * FROM TAB_CONTROL where area = 1 and proc = 0";
+    amy::ArmData oArmData1;
+    amy::ArmData oArmData2;
+    oArmData1.reset();
+    oArmData2.reset();
+    oArmData1.setSoll1(11.5);
+    oArmData1.setSoll2(12.5);
+    oArmData1.setSoll3(13.5);
+    oArmData1.setSoll4(14.5);
+    oArmData1.setSoll5(15.5);
+    oArmData1.setIst1(21.5);
+    oArmData1.setIst2(22.5);
+    oArmData1.setIst3(23.5);
+    oArmData1.setIst4(24.5);
+    oArmData1.setIst5(25.5);
     
-    // partial query (module needs to be informed)
-   std::string  updateOK = "update TAB_CONTROL set proc=1 where area=1 and module=9";
+    LOG4CXX_INFO(logger, oArmData1.toString());
     
-    sam::DatabaseClient oDBClient;          // handler for database connections
-    oDBClient.init("tcp://127.0.0.1:3306", "sam", "sam", "AMY_BACKBONE");    
-    oDBClient.connect();
-
-    if (!oDBClient.isConnected())
-        LOG4CXX_INFO(logger, "connection failed");        
+    oArmNetwork.setArmSoll(0, oArmData1);
+    oArmNetwork.setArmIst(0, oArmData1);
     
-    oDBClient.write(j1_right);
-  
-    int counter = 0;
+    oArmNetwork.getArmSoll(0, oArmData2);
+    oArmNetwork.getArmIst(0, oArmData2);
     
-    while (counter < 5)
-    {
-        LOG4CXX_INFO(logger, "iter " << counter);
-        // fetches new messages from DB & builds the unprocessed messages list    
-        sql::ResultSet* res = oDBClient.read(select);    
-        while (res->next())
-        {        
-           sam::BoneMsg oBoneMsg(res->getInt("area"), res->getInt("module"), res->getInt("info"), res->getInt("detail"));
-           LOG4CXX_INFO(logger, "message : " << oBoneMsg.toString());
-        }
-                
-        counter++;
-        if (counter==3)
-            oDBClient.write(j1_brake);
-    }
-
+    LOG4CXX_INFO(logger, oArmData2.toString());
+    
     LOG4CXX_INFO(logger, "TEST FINISHED");      
 }
- */ 
+  
