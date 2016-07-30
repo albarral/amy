@@ -84,6 +84,7 @@ bool DBArmStorage::storeArmIst(int arm, ArmData& oArmData)
 // gets soll (commanded) values for all joints
 bool DBArmStorage::readArmSoll(int arm, ArmData& oArmData)
 {
+    bool bread = false;
     LOG4CXX_DEBUG(logger, "DBArmStorage: read arm soll");
     
     // try reconnection
@@ -104,14 +105,15 @@ bool DBArmStorage::readArmSoll(int arm, ArmData& oArmData)
             oArmData.setSoll3((float)res->getDouble("joint3"));
             oArmData.setSoll4((float)res->getDouble("joint4"));
             oArmData.setSoll5((float)res->getDouble("joint5"));
+            bread = true;
         }
-        return true;
     }
     catch (const sql::SQLException& ex)
     {
       LOG4CXX_ERROR(logger, "DBArmStorage.readArmSoll failed! " << ex.what());
-      return false;        
     }
+    
+    return bread;
 }
 
 

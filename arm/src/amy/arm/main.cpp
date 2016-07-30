@@ -18,6 +18,7 @@
 
 void launchManipulation();
 void testAmyNetwork();
+void testAmyNetwork2();
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 
@@ -26,8 +27,8 @@ int main(int argc, char** argv)
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
     
-    launchManipulation();
-    //testAmyNetwork();
+  	launchManipulation();
+    //testAmyNetwork2();
       
     return 0;
 }
@@ -99,4 +100,42 @@ void testAmyNetwork()
     
     LOG4CXX_INFO(logger, "TEST FINISHED");      
 }
-  
+
+
+void testAmyNetwork2()
+{
+    LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST AMY NETWORK 2>>>>>>>>>>>>>>");      
+
+    // initialize arm network
+    amy::ArmNetwork oArmNetwork;
+    bool bok = oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);
+    
+    if (!bok)
+    {
+        LOG4CXX_ERROR(logger, "TEST FAILED");      
+        return;
+    }
+    
+    amy::ArmData oArmData;
+    amy::ArmData oArmData0; // for storage of previous data
+    oArmData0.reset();
+    int i=0, iters=30;
+    
+    while (i<iters) 
+    {
+        bok = oArmNetwork.getArmSoll(0, oArmData);
+        if (bok)
+        {
+            LOG4CXX_INFO(logger, "soll angles: " << (int)oArmData.getSoll1() << ", " << (int)oArmData.getSoll2() << ", " << (int)oArmData.getSoll3() << ", " << (int)oArmData.getSoll4());      
+        }
+        else
+        {
+            LOG4CXX_WARN(logger, "read failed");
+        }
+
+        sleep(1);  
+        i++;
+    }    
+    
+    LOG4CXX_INFO(logger, "TEST FINISHED");      
+}

@@ -54,6 +54,12 @@ class ArmData
         float getIst3() {return ist3;};        
         float getIst4() {return ist4;};        
         float getIst5() {return ist5;};        
+        
+        // check if specified object has same soll values
+        bool sameSollValues(ArmData& oArmData);
+        // check if specified object has same ist values        
+        bool sameIstValues(ArmData& oArmData);
+        
         // returns a description of the object
         std::string toString();
 };

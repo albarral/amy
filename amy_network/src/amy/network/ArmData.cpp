@@ -23,6 +23,27 @@ void ArmData::reset()
     ist5 = 0;
 }
 
+
+bool ArmData::sameSollValues(ArmData& oArmData)
+{
+    return ((soll1 == oArmData.soll1) &&
+                (soll2 == oArmData.soll2) &&
+                (soll3 == oArmData.soll3) &&
+                (soll4 == oArmData.soll4) &&
+                (soll5 == oArmData.soll5));
+}
+
+
+bool ArmData::sameIstValues(ArmData& oArmData)
+{
+    return ((ist1 == oArmData.ist1) &&
+                (ist2 == oArmData.ist2) &&
+                (ist3 == oArmData.ist3) &&
+                (ist4 == oArmData.ist4) &&
+                (ist5 == oArmData.ist5));
+}
+
+
 std::string ArmData::toString()
 {
     std::string desc = "[ArmData]: \n soll1 = " + std::to_string(soll1) + 
