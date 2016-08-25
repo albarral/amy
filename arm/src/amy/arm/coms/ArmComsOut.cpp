@@ -68,15 +68,16 @@ void ArmComsOut::loop()
 {    
     bool bchanged = false;
     
-    // get joint control values ...    
+    // read joints control values ...    
+    
     // h shoulder
-    pBusHShoulder->getCO_JOINT_ANGLE().getValue(angles[0]);
+    angles[0] = pBusHShoulder->getCO_JOINT_ANGLE().getValue();
     // v shoulder
-    pBusVShoulder->getCO_JOINT_ANGLE().getValue(angles[1]);
+    angles[1] = pBusVShoulder->getCO_JOINT_ANGLE().getValue();
     // elbow
-    pBusElbow->getCO_JOINT_ANGLE().getValue(angles[2]);
+    angles[2] = pBusElbow->getCO_JOINT_ANGLE().getValue();
     // wrist
-    pBusWrist->getCO_JOINT_ANGLE().getValue(angles[3]);
+    angles[3] = pBusWrist->getCO_JOINT_ANGLE().getValue();
 
     // check if they have changed 
     for (int i=0; i<numJoints; i++)

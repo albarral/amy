@@ -81,11 +81,14 @@ void JointControl::loop()
 void JointControl::senseBus()
 {
     // get last commanded SOLL angle (CO_JOINT_ANGLE) 
-    pJointBus->getCO_JOINT_ANGLE().getValue(sollAngle);
+    sollAngle = pJointBus->getCO_JOINT_ANGLE().getValue();
     
     // get speed request (CO_SOLL_SPEED) 
-    if (pJointBus->getCO_JCONTROL_SPEED().checkRequested(sollSpeed))
+    if (pJointBus->getCO_JCONTROL_SPEED().checkRequested())
+    {
+        sollSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();
         sollSpeed_ms = sollSpeed/1000.0;
+    }
 }
 
 void JointControl::writeBus()

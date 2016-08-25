@@ -113,12 +113,11 @@ void JointMover::loop()
 
 void JointMover::senseBus()
 {
-    int reqCommand;
     // read CO_MOVE_ACTION 
     // to get action requests
-    if (pConnectionsJoint->getCO_JMOVER_ACTION().checkRequested(reqCommand))
-    {
-        processActionRequest(reqCommand);
+    if (pConnectionsJoint->getCO_JMOVER_ACTION().checkRequested())
+    {        
+        processActionRequest(pConnectionsJoint->getCO_JMOVER_ACTION().getValue());
     }    
 }
 

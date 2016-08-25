@@ -9,6 +9,7 @@
 #include "amy/arm/ArmManager.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/bus/JointBus.h"
 
 using namespace log4cxx;
 
@@ -254,7 +255,8 @@ void ArmManager::setIstAngles(std::vector<float>& listAngles)
     for (int i=0; i<size; i++)
     {
         // write angle in SI_ANGLE
-        oArmBus.getJointBusByIndex(i).getSO_IST_ANGLE().setValue(listAngles.at(i));
+        JointBus& oJointBus = oArmBus.getJointBusByIndex(i);
+        oJointBus.getSO_IST_ANGLE().setValue(listAngles.at(i));
     }            
 }
 
@@ -267,9 +269,12 @@ void ArmManager::readSollAngles()
     
     // for each joint, check if the commanded angle has changed & insert it into the soll list
     for (int i=0; i<numJoints; i++)
-    {        
-        if (oArmBus.getJointBusByIndex(i).getCO_JOINT_ANGLE().checkRequested(jointAngle))
-            listSollAngles[i] = jointAngle;
+    {      
+        JointBus& oJointBus = oArmBus.getJointBusByIndex(i);
+        if (oJointBus.getCO_JOINT_ANGLE().checkRequested())
+        {
+            listSollAngles[i] = oJointBus.getCO_JOINT_ANGLE().getValue();
+        }
     }
 }
 

@@ -95,7 +95,7 @@ void testAmyNetwork()
 void testAmyNetwork2()
 {
     LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST AMY NETWORK 2>>>>>>>>>>>>>>");      
-
+    
     // initialize arm network
     amy::ArmNetwork oArmNetwork;
     bool bok = oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);

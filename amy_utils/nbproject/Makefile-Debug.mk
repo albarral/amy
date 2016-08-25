@@ -39,7 +39,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/utils/Console.o \
 	${OBJECTDIR}/src/amy/utils/brooks/control.o \
 	${OBJECTDIR}/src/amy/utils/brooks/inhibition.o \
-	${OBJECTDIR}/src/amy/utils/brooks/suppress_control.o \
 	${OBJECTDIR}/src/amy/utils/module.o \
 	${OBJECTDIR}/src/amy/utils/module2.o
 
@@ -87,11 +86,6 @@ ${OBJECTDIR}/src/amy/utils/brooks/inhibition.o: src/amy/utils/brooks/inhibition.
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils/brooks
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/brooks/inhibition.o src/amy/utils/brooks/inhibition.cpp
-
-${OBJECTDIR}/src/amy/utils/brooks/suppress_control.o: src/amy/utils/brooks/suppress_control.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/utils/brooks
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/brooks/suppress_control.o src/amy/utils/brooks/suppress_control.cpp
 
 ${OBJECTDIR}/src/amy/utils/module.o: src/amy/utils/module.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils

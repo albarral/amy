@@ -12,7 +12,7 @@
 namespace amy 
 {
 // This class implements a Brooks control command.
-// It works as the base Control class, but it additionaly stores the input parameter on command request & returns it on command state check.
+// It works as the base Control class, but allows for an input parameter on the command request.
 // Thread safety implemented.
 template <typename T>
 class ControlT : public Control
@@ -25,15 +25,12 @@ class ControlT : public Control
         ControlT();
         //~ControlT();
         
-        // Requests the execution of the control command, with a specified input parameter.
-        void request (T& value);
-                
-        // Checks if a command request is pending to be executed, giving access to the stored input parameter.
-        // After the check, the request is considered not pending anymore.
-        virtual bool checkRequested (T& value);
-        
+        // Requests the execution of the control command with an input parameter and a given priority
+        // returns true if the request is accepted
+        bool request (T& value, int vpriority = 0);
+                        
         // just gets the last requested value
-        void getValue (T& value);
+        T getValue();
 };
 
 // note: DEFINITIONS OF TEMPLATE CLASSES MUST BE PLACED IN HEADER
@@ -45,34 +42,26 @@ ControlT<T>::ControlT()
 }
     
 template <typename T>
-void ControlT<T>::request(T& value)
+bool ControlT<T>::request(T& value, int vpriority)
 {  
     std::lock_guard<std::mutex> locker(mutex2);
-
-    this->value = value;    
-    Control::request();
-}
-
-template <typename T>
-bool ControlT<T>::checkRequested(T& value)
-{
-    std::lock_guard<std::mutex> locker(mutex2);
     
-    if (Control::checkRequested())
+    // if a new request can be made (due to winner priority), the control value is updated
+    if (Control::request(vpriority))
     {
-        value = this->value;
+        this->value = value;    
         return true;
     }
-    else
-        return false;
+    else 
+        return false;          
 }
 
 template <typename T>
-void ControlT<T>::getValue(T& value)
+T ControlT<T>::getValue()
 {
     std::lock_guard<std::mutex> locker(mutex2);
     
-    value = this->value;
+    return value;
 }
 
 }    

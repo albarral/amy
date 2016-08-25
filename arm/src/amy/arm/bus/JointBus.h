@@ -23,18 +23,18 @@ class JointBus
 
         // CONTROLS (receiver modules)
         // JointMover 
-        amy::ControlT<int> CO_JMOVER_ACTION;     // UP >> JointMover: received actions (move, brake, keep, stop)
+        ControlT<int> CO_JMOVER_ACTION;     // UP >> JointMover: received actions (move, brake, keep, stop)
         // JointControl 
-        amy::ControlT<float> CO_JCONTROL_SPEED;    // JointMover >> JointControl: desired joint speed (degrees/s)
+        ControlT<float> CO_JCONTROL_SPEED;    // JointMover >> JointControl: desired joint speed (degrees/s)
         // ArmManager
-        amy::ControlT<float> CO_JOINT_ANGLE;         // desired joint angle (degrees)
+        ControlT<float> CO_JOINT_ANGLE;         // desired joint angle (degrees)
 
         // SENSORS (sender modules)        
         // ArmManager 
-        amy::SensorT<float> SO_IST_ANGLE;            // real joint angle (degrees)
+        SensorT<float> SO_IST_ANGLE;            // real joint angle (degrees)
         // JointControl 
-        amy::SensorT<float> SO_REAL_SPEED;     // real joint speed (degrees/s)
-        amy::SensorT<int> SO_LIMIT_REACHED;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
+        SensorT<float> SO_REAL_SPEED;     // real joint speed (degrees/s)
+        SensorT<int> SO_LIMIT_REACHED;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
         
     public:
         JointBus();
@@ -46,14 +46,14 @@ class JointBus
         std::string& getJointName() {return jointName;};
 
         // controls
-        amy::ControlT<int>& getCO_JMOVER_ACTION() {return CO_JMOVER_ACTION;};        
-        amy::ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
-        amy::ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
+        ControlT<int>& getCO_JMOVER_ACTION() {return CO_JMOVER_ACTION;};        
+        ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
+        ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
         // sensors
-        amy::SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
-        amy::SensorT<float>& getSO_REAL_SPEED() {return SO_REAL_SPEED;}; 
-        amy::SensorT<int>& getSO_LIMIT_REACHED() {return SO_LIMIT_REACHED;}; 
+        SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
+        SensorT<float>& getSO_REAL_SPEED() {return SO_REAL_SPEED;}; 
+        SensorT<int>& getSO_LIMIT_REACHED() {return SO_LIMIT_REACHED;}; 
 };
 
 }    

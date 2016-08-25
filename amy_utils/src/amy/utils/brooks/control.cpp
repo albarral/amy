@@ -11,17 +11,28 @@ namespace amy
 Control::Control ()
 {    
     brequested = false;
+    priority = 0;
 }
 
-void Control::request()
+bool Control::request(int vpriority)
 {
     std::lock_guard<std::mutex> locker(mutex1);
-    brequested = true;
+    
+    // raise flag if down or if up but new request with more (or same) priority
+    if (!brequested || vpriority >= priority)
+    {
+        brequested = true;
+        priority = vpriority;        
+        return true;        
+    }
+    else 
+        return false;          
 }
 
 bool Control::checkRequested()
 {
     std::lock_guard<std::mutex> locker(mutex1);
+    
     if (brequested)
     {
         brequested = false;

@@ -276,7 +276,7 @@ bool ArmComs1::buildMovementCommand()
         if (action == 1)
             targetAction = ArmCommand::eACT_MOVEMENT_START;
         // stop move
-        else if (action == 2)
+        else if (action == 0)
             targetAction = ArmCommand::eACT_MOVEMENT_STOP;
     } 
     // end arm control

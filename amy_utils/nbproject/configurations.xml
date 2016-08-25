@@ -23,9 +23,6 @@
               <itemPath>src/amy/utils/brooks/inhibition.h</itemPath>
               <itemPath>src/amy/utils/brooks/sensor.h</itemPath>
               <itemPath>src/amy/utils/brooks/sensorT.h</itemPath>
-              <itemPath>src/amy/utils/brooks/suppress_control.cpp</itemPath>
-              <itemPath>src/amy/utils/brooks/suppress_control.h</itemPath>
-              <itemPath>src/amy/utils/brooks/suppress_controlT.h</itemPath>
             </logicalFolder>
             <itemPath>src/amy/utils/Click.cpp</itemPath>
             <itemPath>src/amy/utils/Click.h</itemPath>
@@ -95,21 +92,6 @@
       </item>
       <item path="src/amy/utils/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/utils/brooks/suppress_control.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/suppress_control.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/suppress_controlT.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/utils/module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/module.h" ex="false" tool="3" flavor2="0">
@@ -163,21 +145,6 @@
       <item path="src/amy/utils/brooks/sensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/suppress_control.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/suppress_control.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/suppress_controlT.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/utils/module.cpp" ex="false" tool="1" flavor2="0">
       </item>
