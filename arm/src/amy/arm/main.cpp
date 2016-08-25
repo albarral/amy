@@ -17,8 +17,11 @@
 
 
 void launchManipulation();
+
 void testAmyNetwork();
 void testAmyNetwork2();
+void writePos(amy::ArmNetwork& oArmNetwork, int value);
+void readPos(amy::ArmNetwork& oArmNetwork);
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 
@@ -26,8 +29,8 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 int main(int argc, char** argv) 
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
-    
-  	launchManipulation();
+    	
+    launchManipulation();
     //testAmyNetwork2();
       
     return 0;
@@ -73,30 +76,17 @@ void testAmyNetwork()
     amy::ArmNetwork oArmNetwork;
     oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);
 
-    amy::ArmData oArmData1;
-    amy::ArmData oArmData2;
-    oArmData1.reset();
-    oArmData2.reset();
-    oArmData1.setSoll1(11.5);
-    oArmData1.setSoll2(12.5);
-    oArmData1.setSoll3(13.5);
-    oArmData1.setSoll4(14.5);
-    oArmData1.setSoll5(15.5);
-    oArmData1.setIst1(21.5);
-    oArmData1.setIst2(22.5);
-    oArmData1.setIst3(23.5);
-    oArmData1.setIst4(24.5);
-    oArmData1.setIst5(25.5);
-    
-    LOG4CXX_INFO(logger, oArmData1.toString());
-    
-    oArmNetwork.setArmSoll(0, oArmData1);
-    oArmNetwork.setArmIst(0, oArmData1);
-    
-    oArmNetwork.getArmSoll(0, oArmData2);
-    oArmNetwork.getArmIst(0, oArmData2);
-    
-    LOG4CXX_INFO(logger, oArmData2.toString());
+    // write 1
+    writePos(oArmNetwork, 21);
+
+    // read 1    
+    readPos(oArmNetwork);
+
+    // write 1
+    writePos(oArmNetwork, 41);
+
+    // read 2    
+    readPos(oArmNetwork);    
     
     LOG4CXX_INFO(logger, "TEST FINISHED");      
 }
@@ -109,33 +99,59 @@ void testAmyNetwork2()
     // initialize arm network
     amy::ArmNetwork oArmNetwork;
     bool bok = oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);
+    amy::ArmNetwork oArmNetwork2;
+    bool bok2 = oArmNetwork2.init(amy::ArmNetwork::eNETWORK_DB);
     
-    if (!bok)
+    if (!bok || !bok2)
     {
         LOG4CXX_ERROR(logger, "TEST FAILED");      
         return;
     }
     
-    amy::ArmData oArmData;
-    amy::ArmData oArmData0; // for storage of previous data
-    oArmData0.reset();
-    int i=0, iters=30;
+    int i=0, iters=12;
     
     while (i<iters) 
     {
-        bok = oArmNetwork.getArmSoll(0, oArmData);
-        if (bok)
-        {
-            LOG4CXX_INFO(logger, "soll angles: " << (int)oArmData.getSoll1() << ", " << (int)oArmData.getSoll2() << ", " << (int)oArmData.getSoll3() << ", " << (int)oArmData.getSoll4());      
-        }
-        else
-        {
-            LOG4CXX_WARN(logger, "read failed");
-        }
+        writePos(oArmNetwork, i*10);
+
+        readPos(oArmNetwork2);
 
         sleep(1);  
         i++;
     }    
     
     LOG4CXX_INFO(logger, "TEST FINISHED");      
+}
+
+void writePos(amy::ArmNetwork& oArmNetwork, int value)
+{
+    amy::ArmData oArmData;
+    oArmData.reset();
+
+    oArmData.setSoll1((float)value);
+    oArmData.setSoll2(10.0);
+    oArmData.setSoll3(10.0);
+    oArmData.setSoll4(10.0);
+    oArmData.setSoll5(10.0);
+//    oArmData.setIst1(21.5);
+//    oArmData.setIst2(22.5);
+//    oArmData.setIst3(23.5);
+//    oArmData.setIst4(24.5);
+//    oArmData.setIst5(25.5);    
+
+    // write 
+    oArmNetwork.setArmSoll(0, oArmData);
+    //oArmNetwork.setArmIst(0, oArmData);
+}
+
+
+void readPos(amy::ArmNetwork& oArmNetwork)
+{
+    amy::ArmData oArmData;
+    oArmData.reset();
+
+    // read     
+    oArmNetwork.getArmSoll(0, oArmData);
+    //oArmNetwork.getArmIst(0, oArmData);    
+    LOG4CXX_INFO(logger, "read:" << oArmData.toString());
 }

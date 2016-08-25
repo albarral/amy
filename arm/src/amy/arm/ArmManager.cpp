@@ -147,7 +147,7 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     // coms out module
     oArmComsOut.init(numJoints);
     oArmComsOut.connect(oArmBus);
-    oArmComsOut.setFrequency(3.0);  // set to slower 3Hz because it uses a DB network  
+    oArmComsOut.setFrequency(freq);  // set to slower 3Hz because it uses a DB network  
 }
 
 

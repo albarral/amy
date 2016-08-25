@@ -40,8 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/network/DBArmStorage.o \
 	${OBJECTDIR}/src/amy/network/config/NetworkConfig.o \
 	${OBJECTDIR}/src/amy/network/db/DBClient.o \
-	${OBJECTDIR}/src/amy/network/db/DBConnection.o \
-	${OBJECTDIR}/src/amy/network/db/Database.o
+	${OBJECTDIR}/src/amy/network/db/DBConnection.o
 
 
 # C Compiler Flags
@@ -97,11 +96,6 @@ ${OBJECTDIR}/src/amy/network/db/DBConnection.o: src/amy/network/db/DBConnection.
 	${MKDIR} -p ${OBJECTDIR}/src/amy/network/db
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/network/db/DBConnection.o src/amy/network/db/DBConnection.cpp
-
-${OBJECTDIR}/src/amy/network/db/Database.o: src/amy/network/db/Database.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/network/db
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/network/db/Database.o src/amy/network/db/Database.cpp
 
 # Subprojects
 .build-subprojects:

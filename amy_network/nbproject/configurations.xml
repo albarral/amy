@@ -22,8 +22,6 @@
           <itemPath>src/amy/network/db/DBClient.h</itemPath>
           <itemPath>src/amy/network/db/DBConnection.cpp</itemPath>
           <itemPath>src/amy/network/db/DBConnection.h</itemPath>
-          <itemPath>src/amy/network/db/Database.cpp</itemPath>
-          <itemPath>src/amy/network/db/Database.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/network/ArmData.cpp</itemPath>
         <itemPath>src/amy/network/ArmData.h</itemPath>
@@ -104,10 +102,6 @@
       </item>
       <item path="src/amy/network/db/DBConnection.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/network/db/Database.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/network/db/Database.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/network/iArmStorage.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -163,10 +157,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/network/db/DBConnection.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/network/db/Database.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/network/db/Database.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/network/iArmStorage.h" ex="false" tool="3" flavor2="0">
       </item>

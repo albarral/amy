@@ -44,7 +44,8 @@ void DBClient::connect()
         if (!con->isClosed())
         {
             con->setSchema(schema);    
-            con->setAutoCommit(0);
+            // CRITICAL: autocommit mode must remain set, otherwise consecutive selects won't change
+            //con->setAutoCommit(0);
         }
     }
 }

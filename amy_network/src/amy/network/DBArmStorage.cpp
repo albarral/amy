@@ -44,7 +44,7 @@ bool DBArmStorage::storeArmSoll(int arm, ArmData& oArmData)
     try 
     {
         pDBClient->write(query);
-        pDBClient->commit();   
+        //pDBClient->commit();   // not necessary, autocommit is set
         return true;
     }
     catch (const sql::SQLException& ex)
@@ -70,7 +70,7 @@ bool DBArmStorage::storeArmIst(int arm, ArmData& oArmData)
     try 
     {
         pDBClient->write(query);
-        pDBClient->commit();   
+        //pDBClient->commit();   // not necessary, autocommit is set
         return true;
     }
     catch (const sql::SQLException& ex)
@@ -145,7 +145,7 @@ bool DBArmStorage::readArmIst(int arm, ArmData& oArmData)
     }
     catch (const sql::SQLException& ex)
     {
-      LOG4CXX_ERROR(logger, "DBArmStorage.readArmSoll failed! " << ex.what());
+      LOG4CXX_ERROR(logger, "DBArmStorage.readArmIst failed! " << ex.what());
       return false;        
     }
 }
