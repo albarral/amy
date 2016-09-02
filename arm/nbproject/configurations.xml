@@ -52,8 +52,18 @@
             <itemPath>src/amy/arm/data/Arm.h</itemPath>
             <itemPath>src/amy/arm/data/Joint.cpp</itemPath>
             <itemPath>src/amy/arm/data/Joint.h</itemPath>
+            <itemPath>src/amy/arm/data/MoveStep.cpp</itemPath>
+            <itemPath>src/amy/arm/data/MoveStep.h</itemPath>
+            <itemPath>src/amy/arm/data/MoveStep3D.cpp</itemPath>
+            <itemPath>src/amy/arm/data/MoveStep3D.h</itemPath>
+            <itemPath>src/amy/arm/data/Movement.cpp</itemPath>
+            <itemPath>src/amy/arm/data/Movement.h</itemPath>
           </logicalFolder>
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
+            <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
+            <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
             <itemPath>src/amy/arm/modules/JointControl.cpp</itemPath>
             <itemPath>src/amy/arm/modules/JointControl.h</itemPath>
             <itemPath>src/amy/arm/modules/JointMover.cpp</itemPath>
@@ -209,7 +219,30 @@
       </item>
       <item path="src/amy/arm/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointControl.cpp"
             ex="false"
@@ -323,7 +356,30 @@
       </item>
       <item path="src/amy/arm/data/Joint.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointControl.cpp"
             ex="false"

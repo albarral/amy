@@ -29,8 +29,8 @@ ArmUR5::ArmUR5 ()
         bHW = false;  
         // vertical wrist - straight hand = 90
         bVW = true;    
-        lowerVW = 0;  
-        upperVW = 180;
+        lowerVW = 180;  
+        upperVW = 360;
         
         len = 20;
 }

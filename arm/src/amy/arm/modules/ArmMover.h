@@ -2,26 +2,25 @@
 #define __AMY_ARM_MOVER_H
 
 /***************************************************************************
- *   Copyright (C) 2015 by Migtron Robotics   *
+ *   Copyright (C) 2016 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
 #include <string>
 #include <log4cxx/logger.h>
 
+#include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/data/Movement.h"
+#include "amy/arm/data/MoveStep.h"
 #include "amy/utils/module2.h"
 #include "amy/utils/Click.h"
-#include "amy/arm/bus/ArmBus.h"
 
 namespace amy
 {
-// Module that performs a cyclic horizontal arm movement
-// It derives from base class Module2
-// It has 5 states:
+// Module to perform predefined arm movements 
+// States:
 // WAIT
-// RIGHT
-// CHANGE
-// LEFT
+// MOVE
 // STOP
 class ArmMover : public Module2
 {
@@ -30,9 +29,7 @@ public:
     enum eType
     {
          eSTATE_WAIT,
-         eSTATE_RIGHT, 
-         eSTATE_CHANGE, 
-         eSTATE_LEFT,
+         eSTATE_MOVE,
          eSTATE_STOP
     };
 
@@ -41,15 +38,14 @@ private:
     bool benabled;
     // params
     std::string modName;   // module name
-    int timeChange;     // milliseconds
-    std::string jointName;  // target joint
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
     // logic
-    float realSpeed;
-    int prevState;
-    amy::Click oClick;   
+    Movement oMovement;    // present movement (set of steps) to be done
+    MoveStep oMoveStep;    // present movement (set of steps) to be done    
+    int numStep;
+    amy::Click oClick;  
 
 public:
         ArmMover();
@@ -63,9 +59,7 @@ public:
        void connect(ArmBus& oConnections);
        bool isConnected() {return bconnected;};
        
-       void start();
-       void stop();
-        
+               
 private:       
         // first actions when the thread begins 
         virtual void first();
@@ -75,8 +69,16 @@ private:
         // read bus data
         void senseBus();
         // write action commands to bus
-        void writeBus(int command);
-
+        void writeBus();
+        
+        void fetchMovement();
+        void startMovement();
+        void stopMovement();
+        bool newStep();
+        
+        // temp (movements should be stored in DB)
+        void buildMovPajarita();
+        
         // shows the present state name
         void showState();
 };

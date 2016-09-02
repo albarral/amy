@@ -17,10 +17,11 @@ JointMover::JointMover()
 {
     benabled = false;
     direction = 0;
-    speed = 0;
+    targetSpeed = 0;
+    sollSpeed = 0;
     
     bconnected = false;
-    pConnectionsJoint = 0;
+    pJointBus = 0;
 }
 
 //JointMover::~JointMover()
@@ -31,25 +32,25 @@ void JointMover::init(std::string jointName, ParamsJointMover& oParamsJointMover
 {
     // all params must be positive
     if (oParamsJointMover.getAccel() <= 0 || 
-       oParamsJointMover.getMaxSpeed() <= 0 ||
-       oParamsJointMover.getDeaccel() <= 0)
+       oParamsJointMover.getCruiseSpeed() <= 0 ||
+       oParamsJointMover.getBrakeAccel() <= 0)
         return;
 
     modName = jointName + "-mover";
     accel = oParamsJointMover.getAccel();
-    maxSpeed = oParamsJointMover.getMaxSpeed();
-    deaccel = oParamsJointMover.getDeaccel();
     accel_ms = (float)this->accel/1000;
-    deaccel_ms = (float)this->deaccel/1000;
+    brakeAccel = oParamsJointMover.getBrakeAccel();
+    brakeAccel_ms = (float)this->brakeAccel/1000;
+    cruiseSpeed = oParamsJointMover.getCruiseSpeed();
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
-    LOG4CXX_INFO(logger, "accel=" << accel << ", maxSpeed=" << maxSpeed << ", deaccel=" << deaccel);      
+    LOG4CXX_DEBUG(logger, "accel=" << accel << ", cruiseSpeed=" << cruiseSpeed << ", brakeAccel=" << brakeAccel);      
 };
 
 void JointMover::connect(JointBus& oConnectionsJoint)
 {
-    pConnectionsJoint = &oConnectionsJoint;
+    pJointBus = &oConnectionsJoint;
     bconnected = true;
 
     LOG4CXX_DEBUG(logger, modName << " connected to bus");      
@@ -77,20 +78,19 @@ void JointMover::loop()
     {
         case eSTATE_ACCEL:
             {
+                bool bcruiseReached = accelMovement();
 
-                bool bmaxReached = doAccel();
-
-                // if max speed reached -> go to KEEP state
-                if (bmaxReached)
+                // if cruise speed reached -> go to KEEP state
+                if (bcruiseReached)
                     setNextState(eSTATE_KEEP);
             }
             break;
             
         case eSTATE_BRAKE:
             
-            doBrake();
+            brakeMovement();
             
-            if(speed == 0)
+            if(sollSpeed == 0)
                 setNextState(eSTATE_STOP);    
 
             break;
@@ -103,51 +103,66 @@ void JointMover::loop()
         case eSTATE_STOP:
             
             // abruptly reduces speed to 0
-            if(speed != 0)
-                speed = 0;
+            if(sollSpeed != 0)
+                sollSpeed = 0;
             break;
     }   // end switch    
     
     writeBus();
 }
 
+
+// sense bus requests
 void JointMover::senseBus()
 {
-    // read CO_MOVE_ACTION 
-    // to get action requests
-    if (pConnectionsJoint->getCO_JMOVER_ACTION().checkRequested())
-    {        
-        processActionRequest(pConnectionsJoint->getCO_JMOVER_ACTION().getValue());
-    }    
+    // CO_JMOVER_SPEED
+    if (pJointBus->getCO_JMOVER_SPEED().checkRequested())
+        speedRequest(pJointBus->getCO_JMOVER_SPEED().getValue());
+
+    // CO_JMOVER_ACTION
+    if (pJointBus->getCO_JMOVER_ACTION().checkRequested())
+        actionRequest(pJointBus->getCO_JMOVER_ACTION().getValue());
 }
 
+
+// send requests through bus
 void JointMover::writeBus()
 {
-    // write CO_SOLL_SPEED
-    // to request new SOLL speed
-    pConnectionsJoint->getCO_JCONTROL_SPEED().request(speed);
+    // CO_JCONTROL_SPEED
+    pJointBus->getCO_JCONTROL_SPEED().request(sollSpeed);
     
     // just show output changes
-    if(speed != lastOutput)
+    if(sollSpeed != lastOutput)
     {
-        LOG4CXX_INFO(logger, "speed = " << (int)speed);
-        lastOutput = speed;    
+        LOG4CXX_INFO(logger, "speed = " << (int)sollSpeed);
+        lastOutput = sollSpeed;    
     }
 }
 
-void JointMover::processActionRequest(int reqCommand)
+
+// process action requests (from bus)
+void JointMover::actionRequest(int reqCommand)
 {
+    LOG4CXX_DEBUG(logger, "action requested - " << reqCommand);      
+
+    int lastValue = direction;
     switch (reqCommand)
     {
         // start movement to the positive direction (right or up) 
         case eMOV_POSITIVE:
             direction = 1;
+            // if direction changed, update target speed
+            if (direction != lastValue)
+                changeTargetSpeed();
             setNextState(eSTATE_ACCEL);
             break;
             
         // start movement to the negative direction (left or down) 
         case eMOV_NEGATIVE:
             direction = -1;
+            // if direction changed, update target speed
+            if (direction != lastValue)
+                changeTargetSpeed();
             setNextState(eSTATE_ACCEL);
             break;
 
@@ -173,15 +188,37 @@ void JointMover::processActionRequest(int reqCommand)
 }
 
 
-// Increase speed in the proper direction. Returns true if max speed reached.
-bool JointMover::doAccel()
+// process speed requests (from bus)
+void JointMover::speedRequest(float value)
+{    
+    LOG4CXX_DEBUG(logger, "speed requested - " << value);      
+    
+    // if cruise speed changed, update target speed
+    if (cruiseSpeed != value)
+    {
+        cruiseSpeed = value;
+        changeTargetSpeed();
+      
+        // and jump to ACCEL if now in cruise stage
+        if (getState() == eSTATE_KEEP)
+            setNextState(eSTATE_ACCEL);
+    }
+}
+
+void JointMover::changeTargetSpeed()
 {
-    speed += (float)(direction*accel_ms*oClick.getMillis());
+    targetSpeed = direction * cruiseSpeed;    
+}
+
+// Increase speed in the proper direction. Returns true if max speed reached.
+bool JointMover::accelMovement()
+{
+    sollSpeed += (float)(direction*accel_ms*oClick.getMillis());
 
     // limit speed to max value 
-    if (abs(speed)>=maxSpeed)
+    if (abs(sollSpeed)>=cruiseSpeed)
     {
-        speed = (speed > 0 ? maxSpeed : -maxSpeed);
+        sollSpeed = (sollSpeed > 0 ? cruiseSpeed : -cruiseSpeed);
         return true;
     }
     else 
@@ -189,15 +226,15 @@ bool JointMover::doAccel()
 }
 
 // decrease speed in the proper direction
-void JointMover::doBrake()
+void JointMover::brakeMovement()
 {
-    speed -= (float)(direction*deaccel_ms*oClick.getMillis());
+    sollSpeed -= (float)(direction*brakeAccel_ms*oClick.getMillis());
 
     // set speed to 0 when overdecreased 
-    if ((direction > 0 && speed < 0) ||
-        (direction < 0 && speed > 0))
+    if ((direction > 0 && sollSpeed < 0) ||
+        (direction < 0 && sollSpeed > 0))
     {
-        speed = 0;
+        sollSpeed = 0;
     }
 }
 

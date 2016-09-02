@@ -35,6 +35,8 @@ bool ArmConfig::loadRobot (std::string& robotName)
         loadYoubot();
     else if (robotName.compare("UR5") == 0) 
         loadUR5();
+    
+    return true;
 }
 
 bool ArmConfig::checkRobotSupported(std::string& robotName)
@@ -84,14 +86,14 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
 {    
     int accel = 15;
     int brakeAccel = 30;
-    int maxSpeed = 40;
+    int cruiseSpeed = 40;
     int i=0;
     
     if (oArmVersion.hasHS())
     {
         std::string hshoulder = ArmConfig::horizontal_shoulder;
         oJointParams[i].set(hshoulder, oArmVersion.getHSlower(), oArmVersion.getHSupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(hshoulder, accel, maxSpeed, brakeAccel);        
+        oJointMoverParams[i].set(hshoulder, accel, cruiseSpeed, brakeAccel);        
         listJointNames.push_back(hshoulder);
     }
 
@@ -100,7 +102,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         std::string vshoulder = ArmConfig::vertical_shoulder;
         oJointParams[i].set(vshoulder, oArmVersion.getVSlower(), oArmVersion.getVSupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(vshoulder, accel, maxSpeed, brakeAccel);
+        oJointMoverParams[i].set(vshoulder, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(vshoulder);
     }
 
@@ -110,7 +112,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         std::string elbow = ArmConfig::elbow;
         oJointParams[i].set(elbow, oArmVersion.getELlower(), oArmVersion.getELupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(elbow, accel, maxSpeed, brakeAccel);
+        oJointMoverParams[i].set(elbow, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(elbow);
     }
 
@@ -119,7 +121,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         std::string hwrist = ArmConfig::horizontal_wrist;
         oJointParams[i].set(hwrist, oArmVersion.getHWlower(), oArmVersion.getHWupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(hwrist, accel, maxSpeed, brakeAccel);
+        oJointMoverParams[i].set(hwrist, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(hwrist);
     }
         
@@ -128,7 +130,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         std::string vwrist = ArmConfig::vertical_wrist;
         oJointParams[i].set(vwrist, oArmVersion.getVWlower(), oArmVersion.getVWupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(vwrist, accel, maxSpeed, brakeAccel);
+        oJointMoverParams[i].set(vwrist, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(vwrist);
     }
 

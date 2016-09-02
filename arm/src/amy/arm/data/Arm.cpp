@@ -6,7 +6,7 @@
 #include <vector>
 #include <stddef.h>
 
-#include "Arm.h"
+#include "amy/arm/data/Arm.h"
 
 namespace amy
 {

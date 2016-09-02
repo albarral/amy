@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Joint.h"
+#include "amy/arm/data/Joint.h"
 
 namespace amy
 {

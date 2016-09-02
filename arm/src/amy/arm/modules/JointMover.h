@@ -16,9 +16,11 @@
 
 namespace amy
 {
-// Module that moves a Joint granting a continuous speed value.
-// It derives from base class Module2
-// It has 4 states:
+// Module designed to perform dynamic, but soft movements with a joint.     
+// Each movements has 2 stages: an acceleration one and a cruise one (when the cruise speed is reached). 
+// These 2 stages provide fast movements with limited accelerations, thus granting speed continuity (without abrupt changes) and high dynamism.
+// The module is controlled with 4 simple commands (accel, brake, keep & stop) and the desired cruise speed.
+// It works with 4 states:
 // STOP    
 // move() -> ACCEL    (speed ++)
 // brake() -> BRAKE     (speed --)
@@ -40,10 +42,10 @@ public:
     // states of JointMover module
     enum eType
     {
-         eSTATE_ACCEL, 
-         eSTATE_BRAKE, 
-         eSTATE_KEEP, 
-         eSTATE_STOP
+         eSTATE_ACCEL,      // controls the joint speed to do the required movement
+         eSTATE_BRAKE,      // brakes the joint softly
+         eSTATE_KEEP,        // keeps the present joint speed 
+         eSTATE_STOP        // stops the joint abruptly
     };
 
 private:
@@ -51,18 +53,20 @@ private:
     bool benabled;
     // params
     std::string modName;   // module name
-    int accel;          // degrees/s2
-    int maxSpeed;  // maximum speed allowed for the joint
-    int deaccel;          // degrees/s2
+    int accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
+    float accel_ms;             // used version of accel (degres/s)/ms
+    int brakeAccel;          // deacceleration of brake movements (degrees/s2)
+    float brakeAccel_ms;     // used version of brakeAccel (degres/s)/ms
     // bus
     bool bconnected;        // connected to bus
-    JointBus* pConnectionsJoint;    // the bus connections corresponding to a given joint
+    JointBus* pJointBus;    // the bus connections corresponding to a given joint
+    // control
+    int direction;          // direction of movement (positive or negative)
+    float cruiseSpeed;  // cruise speed of the movement, always positive (degrees/s)
     // logic
-    int direction;
-    float speed;  // output: degrees/s (must be float to grant continuity)
+    float targetSpeed;  // speed target to be achieved in each movement (direction * cruise_speed)    
+    float sollSpeed;      // final speed commanded to output (degrees/s) (is always continuous)
     amy::Click oClick;   
-    float accel_ms;    // (degres/s)/ms
-    float deaccel_ms;    // (degres/s)/ms
     // aux
     float lastOutput;
 
@@ -77,12 +81,16 @@ public:
        // bus connection 
        void connect(JointBus& oConnectionsJoint);
        bool isConnected() {return bconnected;};
-
+       // params
+        void setAccel(int value) {accel = value;};
+        void setBrakeAccel(int value) {brakeAccel = value;};
         int getAccel() {return accel;};
-        int getMaxSpeed() {return maxSpeed;};
-        int getDeaccel() {return deaccel;};                
-        int getDirection() {return direction;};
-        float getSpeed() {return speed;};
+        int getBrakeAccel() {return brakeAccel;};                
+        // control
+        int getDirection() {return direction;};        
+        int getCruiseSpeed() {return cruiseSpeed;};
+        // logic
+        float getOutputSpeed() {return sollSpeed;};
         
 private:       
         // first actions when the thread begins 
@@ -95,13 +103,18 @@ private:
         // write data to bus (speed)
         void writeBus();
 
-        // process request received from bus
-        void processActionRequest(int reqCommand);
-
-        // softly increases speed till max value
-        bool doAccel();
+        // process action requests (from bus)
+        void actionRequest(int value);
+        // process speed requests (from bus)
+        void speedRequest(float value);
+        // updates the target speed
+        void changeTargetSpeed();
+        
+        // softly changes the output speed to achieve the target value
+        bool accelMovement();
         // softly reduces speed to 0
-        void doBrake();
+        void brakeMovement();
+                
         // shows the present state name
         void showState();
 };

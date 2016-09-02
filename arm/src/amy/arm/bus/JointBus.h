@@ -21,20 +21,16 @@ class JointBus
         bool benabled;
         std::string jointName;
 
-        // CONTROLS (receiver modules)
-        // JointMover 
-        ControlT<int> CO_JMOVER_ACTION;     // UP >> JointMover: received actions (move, brake, keep, stop)
-        // JointControl 
-        ControlT<float> CO_JCONTROL_SPEED;    // JointMover >> JointControl: desired joint speed (degrees/s)
-        // ArmManager
-        ControlT<float> CO_JOINT_ANGLE;         // desired joint angle (degrees)
+        // CONTROLS 
+        ControlT<int> CO_JMOVER_ACTION;         // >> JointMover: action requests (move, brake, keep, stop)
+        ControlT<float> CO_JMOVER_SPEED;        // >> JointMover: cruise speed requests
+        ControlT<float> CO_JCONTROL_SPEED;    // >> JointControl: desired joint speed (degrees/s)
+        ControlT<float> CO_JOINT_ANGLE;         // >> real arm: desired joint angle (degrees)
 
-        // SENSORS (sender modules)        
-        // ArmManager 
-        SensorT<float> SO_IST_ANGLE;            // real joint angle (degrees)
-        // JointControl 
-        SensorT<float> SO_REAL_SPEED;     // real joint speed (degrees/s)
-        SensorT<int> SO_LIMIT_REACHED;     // range limit reached: 0, 1 (top limit), -1 (bottom limit)
+        // SENSORS 
+        SensorT<float> SO_IST_ANGLE;            // real arm >> real joint angle (degrees)
+        SensorT<float> SO_REAL_SPEED;        //  JointControl >> real joint speed (degrees/s)
+        SensorT<int> SO_LIMIT_REACHED;      //  JointControl >> range limit reached: 0, 1 (top limit), -1 (bottom limit)
         
     public:
         JointBus();
@@ -47,6 +43,7 @@ class JointBus
 
         // controls
         ControlT<int>& getCO_JMOVER_ACTION() {return CO_JMOVER_ACTION;};        
+        ControlT<float>& getCO_JMOVER_SPEED() {return CO_JMOVER_SPEED;};        
         ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         

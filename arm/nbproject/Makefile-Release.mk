@@ -50,7 +50,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/config/versions/ArmYoubot.o \
 	${OBJECTDIR}/src/amy/arm/data/Arm.o \
 	${OBJECTDIR}/src/amy/arm/data/Joint.o \
+	${OBJECTDIR}/src/amy/arm/data/MoveStep.o \
+	${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o \
+	${OBJECTDIR}/src/amy/arm/data/Movement.o \
 	${OBJECTDIR}/src/amy/arm/main.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointMover.o
 
@@ -154,10 +159,35 @@ ${OBJECTDIR}/src/amy/arm/data/Joint.o: src/amy/arm/data/Joint.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Joint.o src/amy/arm/data/Joint.cpp
 
+${OBJECTDIR}/src/amy/arm/data/MoveStep.o: src/amy/arm/data/MoveStep.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep.o src/amy/arm/data/MoveStep.cpp
+
+${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o: src/amy/arm/data/MoveStep3D.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o src/amy/arm/data/MoveStep3D.cpp
+
+${OBJECTDIR}/src/amy/arm/data/Movement.o: src/amy/arm/data/Movement.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Movement.o src/amy/arm/data/Movement.cpp
+
 ${OBJECTDIR}/src/amy/arm/main.o: src/amy/arm/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/main.o src/amy/arm/main.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o: src/amy/arm/modules/ArmComputer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o src/amy/arm/modules/ArmComputer.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl.o: src/amy/arm/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

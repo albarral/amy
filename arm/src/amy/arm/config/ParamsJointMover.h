@@ -16,17 +16,17 @@ class ParamsJointMover
     private:                
         std::string jointName;
         int accel;          // degrees/s2
-        int maxSpeed;  // maximum speed allowed for the joint
+        int cruiseSpeed;  // cruise speed for the joint
         int brakeAccel;      // degrees/s2
         
     public:
         ParamsJointMover();
 
-        void set(std::string jointName, int accel, int maxSpeed, int brakeAccel) {this->jointName = jointName; this->accel = accel; this->maxSpeed = maxSpeed; this->brakeAccel = brakeAccel;}
+        void set(std::string jointName, int accel, int cruiseSpeed, int brakeAccel) {this->jointName = jointName; this->accel = accel; this->cruiseSpeed = cruiseSpeed; this->brakeAccel = brakeAccel;}
 
         std::string& getJointName() {return jointName;};
         int getAccel() {return accel;}
-        int getMaxSpeed() {return maxSpeed;}
+        int getCruiseSpeed() {return cruiseSpeed;}
         int getBrakeAccel() {return brakeAccel;}
 };
 

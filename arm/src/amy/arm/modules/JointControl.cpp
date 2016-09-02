@@ -33,7 +33,7 @@ void JointControl::init(std::string jointName, Joint& oJoint)
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
-    LOG4CXX_INFO(logger, "joint range= " << mJoint->getLowerLimit() << ", " << mJoint->getUpperLimit());
+    LOG4CXX_DEBUG(logger, "joint range= " << mJoint->getLowerLimit() << ", " << mJoint->getUpperLimit());
 };
 
 void JointControl::connect(JointBus& oConnectionsJoint)
