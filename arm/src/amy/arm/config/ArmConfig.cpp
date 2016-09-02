@@ -3,13 +3,16 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "ArmConfig.h"
+#include "amy/arm/config/ArmConfig.h"
+#include "amy/arm/config/versions/ArmUR5.h"
+#include "amy/arm/config/versions/ArmYoubot.h"
 
 namespace amy
 {
 const std::string ArmConfig::horizontal_shoulder = "hshoulder";
 const std::string ArmConfig::vertical_shoulder = "vshoulder";
 const std::string ArmConfig::elbow = "elbow";
+const std::string ArmConfig::horizontal_wrist = "hwrist";
 const std::string ArmConfig::vertical_wrist = "vwrist";
     
 // Constructor
@@ -76,62 +79,73 @@ ParamsJointMover& ArmConfig::getParamsJointMover(std::string jointName)
     return oJointMoverParams[0];        
 }
 
-void ArmConfig::loadYoubot()
+
+void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
 {    
+    int accel = 15;
+    int brakeAccel = 30;
+    int maxSpeed = 40;
     int i=0;
-    std::string jointName = ArmConfig::horizontal_shoulder;
-    oJointParams[i].set(jointName, 0, 90, 20);
-    oJointMoverParams[i].set(jointName, 3, 10, 3);        
-    listJointNames.push_back(jointName);
+    
+    if (oArmVersion.hasHS())
+    {
+        std::string hshoulder = ArmConfig::horizontal_shoulder;
+        oJointParams[i].set(hshoulder, oArmVersion.getHSlower(), oArmVersion.getHSupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(hshoulder, accel, maxSpeed, brakeAccel);        
+        listJointNames.push_back(hshoulder);
+    }
 
-    i++;
-    jointName = ArmConfig::vertical_shoulder;
-    oJointParams[i].set(jointName, -30, 160, 20);
-    oJointMoverParams[i].set(jointName, 3, 10, 3);
-    listJointNames.push_back(jointName);
+    if (oArmVersion.hasVS())
+    {
+        i++;
+        std::string vshoulder = ArmConfig::vertical_shoulder;
+        oJointParams[i].set(vshoulder, oArmVersion.getVSlower(), oArmVersion.getVSupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(vshoulder, accel, maxSpeed, brakeAccel);
+        listJointNames.push_back(vshoulder);
+    }
 
-    i++;
-    jointName = ArmConfig::elbow;
-    oJointParams[i].set(jointName, -240, -60, 20);
-    oJointMoverParams[i].set(jointName, 3, 10, 3);
-    listJointNames.push_back(jointName);
 
-    i++;
-    jointName = ArmConfig::vertical_wrist;
-    oJointParams[i].set(jointName, 0, 180, 20);
-    oJointMoverParams[i].set(jointName, 3, 10, 3);
-    listJointNames.push_back(jointName);
+    if (oArmVersion.hasEL())
+    {
+        i++;
+        std::string elbow = ArmConfig::elbow;
+        oJointParams[i].set(elbow, oArmVersion.getELlower(), oArmVersion.getELupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(elbow, accel, maxSpeed, brakeAccel);
+        listJointNames.push_back(elbow);
+    }
+
+    if (oArmVersion.hasHW())
+    {
+        i++;
+        std::string hwrist = ArmConfig::horizontal_wrist;
+        oJointParams[i].set(hwrist, oArmVersion.getHWlower(), oArmVersion.getHWupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(hwrist, accel, maxSpeed, brakeAccel);
+        listJointNames.push_back(hwrist);
+    }
+        
+    if (oArmVersion.hasVW())
+    {
+        i++;
+        std::string vwrist = ArmConfig::vertical_wrist;
+        oJointParams[i].set(vwrist, oArmVersion.getVWlower(), oArmVersion.getVWupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(vwrist, accel, maxSpeed, brakeAccel);
+        listJointNames.push_back(vwrist);
+    }
 
     numJoints = listJointNames.size();
 }
 
 void ArmConfig::loadUR5()
 {    
-    int i=0;
-    std::string jointName = ArmConfig::horizontal_shoulder;
-    oJointParams[i].set(jointName, -90, 90, 20);    // frontal arm = 0
-    oJointMoverParams[i].set(jointName, 15, 40, 30);        
-    listJointNames.push_back(jointName);
-
-    i++;
-    jointName = ArmConfig::vertical_shoulder;
-    oJointParams[i].set(jointName, 0, 135, 20);     // horizontal arm = 0
-    oJointMoverParams[i].set(jointName, 15, 40, 30);
-    listJointNames.push_back(jointName);
-
-    i++;
-    jointName = ArmConfig::elbow;
-    oJointParams[i].set(jointName, -90, 90, 20);     // straight arm = 0
-    oJointMoverParams[i].set(jointName, 15, 40, 30);
-    listJointNames.push_back(jointName);
-
-    i++;
-    jointName = ArmConfig::vertical_wrist;
-    oJointParams[i].set(jointName, 0, 180, 20);     // straight hand = 90
-    oJointMoverParams[i].set(jointName, 15, 40, 30);
-    listJointNames.push_back(jointName);
-
-    numJoints = listJointNames.size();
+    ArmUR5 oArmUR5;
+    loadArmVersion(oArmUR5);
 }
+
+void ArmConfig::loadYoubot()
+{    
+    ArmYoubot oArmYoubot;
+    loadArmVersion(oArmYoubot);
+}
+
 }
 

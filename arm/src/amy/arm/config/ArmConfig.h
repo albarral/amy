@@ -12,6 +12,7 @@
 #include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/config/ParamsJoint.h"
 #include "amy/arm/config/ParamsJointMover.h"
+#include "amy/arm/config/ArmVersion.h"
 
 namespace amy
 {
@@ -21,6 +22,7 @@ public:
     static const std::string horizontal_shoulder;
     static const std::string vertical_shoulder;
     static const std::string elbow;
+    static const std::string horizontal_wrist;
     static const std::string vertical_wrist;
     
     private:                
@@ -55,9 +57,10 @@ public:
         ParamsJointMover& getParamsJointMover(std::string jointName);
         
 private:
-    void loadYoubot();
+    void loadArmVersion(ArmVersion& oArmVersion);
     void loadUR5();
-    // void loadOwi();
+    void loadYoubot();
+    
 };
 
 }

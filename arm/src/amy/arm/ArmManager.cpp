@@ -134,10 +134,10 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
     // arm mover module
-    oArmMover.init(3000);
-    oArmMover.connect(oArmBus);
-    oArmMover.setFrequency(freq);
-    usleep(500000);
+//    oArmMover.init(3000);
+//    oArmMover.connect(oArmBus);
+//    oArmMover.setFrequency(freq);
+//    usleep(500000);
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
@@ -182,8 +182,8 @@ void ArmManager::startModules()
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
     // arm mover module
-    if (oArmMover.isEnabled() && oArmMover.isConnected())
-        oArmMover.on();
+//    if (oArmMover.isEnabled() && oArmMover.isConnected())
+//        oArmMover.on();
 
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
@@ -216,8 +216,8 @@ void ArmManager::stopModules()
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);
     // arm mover module
-    oArmMover.off();
-    oArmMover.wait();
+//    oArmMover.off();
+//    oArmMover.wait();
 
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);

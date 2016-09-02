@@ -43,12 +43,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o \
 	${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
+	${OBJECTDIR}/src/amy/arm/config/ArmVersion.o \
 	${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o \
 	${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o \
+	${OBJECTDIR}/src/amy/arm/config/versions/ArmUR5.o \
+	${OBJECTDIR}/src/amy/arm/config/versions/ArmYoubot.o \
 	${OBJECTDIR}/src/amy/arm/data/Arm.o \
 	${OBJECTDIR}/src/amy/arm/data/Joint.o \
 	${OBJECTDIR}/src/amy/arm/main.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointMover.o
 
@@ -121,6 +123,11 @@ ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
 
+${OBJECTDIR}/src/amy/arm/config/ArmVersion.o: src/amy/arm/config/ArmVersion.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmVersion.o src/amy/arm/config/ArmVersion.cpp
+
 ${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o: src/amy/arm/config/ParamsJoint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
@@ -130,6 +137,16 @@ ${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o: src/amy/arm/config/ParamsJoi
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o src/amy/arm/config/ParamsJointMover.cpp
+
+${OBJECTDIR}/src/amy/arm/config/versions/ArmUR5.o: src/amy/arm/config/versions/ArmUR5.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config/versions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/versions/ArmUR5.o src/amy/arm/config/versions/ArmUR5.cpp
+
+${OBJECTDIR}/src/amy/arm/config/versions/ArmYoubot.o: src/amy/arm/config/versions/ArmYoubot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config/versions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/versions/ArmYoubot.o src/amy/arm/config/versions/ArmYoubot.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/Arm.o: src/amy/arm/data/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
@@ -145,11 +162,6 @@ ${OBJECTDIR}/src/amy/arm/main.o: src/amy/arm/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/main.o src/amy/arm/main.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl.o: src/amy/arm/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
