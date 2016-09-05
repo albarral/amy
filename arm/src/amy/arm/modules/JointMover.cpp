@@ -6,11 +6,18 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/JointMover.h"
+#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
+const std::string JointMover::mov_positive = "forward";
+const std::string JointMover::mov_negative = "backward";
+const std::string JointMover::move_brake = "brake";
+const std::string JointMover::move_keep = "keep";
+const std::string JointMover::move_stop = "stop";
+
 LoggerPtr JointMover::logger(Logger::getLogger("amy.arm"));
 
 JointMover::JointMover()
@@ -36,7 +43,7 @@ void JointMover::init(std::string jointName, ParamsJointMover& oParamsJointMover
        oParamsJointMover.getBrakeAccel() <= 0)
         return;
 
-    modName = jointName + "-mover";
+    modName = "jmover-" + ArmConfig::getAlias4Joint(jointName);
     accel = oParamsJointMover.getAccel();
     accel_ms = (float)this->accel/1000;
     brakeAccel = oParamsJointMover.getBrakeAccel();
@@ -61,7 +68,7 @@ void JointMover::first()
     setState(eSTATE_STOP);
     setNextState(eSTATE_STOP);
     
-    log4cxx::NDC::push(modName + "-stop");   	
+    log4cxx::NDC::push(modName);   	
 }
                     
 void JointMover::loop()
@@ -244,28 +251,50 @@ void JointMover::showState()
     {
         case eSTATE_ACCEL:
             LOG4CXX_INFO(logger, ">> accel");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "(accel)");   	
             break;
             
         case eSTATE_BRAKE:
             LOG4CXX_INFO(logger, ">> brake");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "(brake)");   	
             break;
                     
         case eSTATE_KEEP:
             LOG4CXX_INFO(logger, ">> keep");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "(keep)");   	
             break;
             
         case eSTATE_STOP:
             LOG4CXX_INFO(logger, ">> stop");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "(stop)");   	
             break;
     }   // end switch    
 }
 
+
+std::string JointMover::getAlias4Command(int command)
+{
+    switch (command)
+    {
+        case eMOV_POSITIVE:
+            return JointMover::mov_positive;
+            break;
+            
+        case eMOV_NEGATIVE:
+            return JointMover::mov_negative;
+            break;
+
+        case eMOV_BRAKE:
+            return JointMover::move_brake;
+            break;
+            
+        case eMOV_KEEP:
+            return JointMover::move_keep;
+            break;
+            
+        case eMOV_STOP:
+            return JointMover::move_stop;
+            break;
+
+        default:
+            return "undef";
+            break;
+    }        
+}
 }

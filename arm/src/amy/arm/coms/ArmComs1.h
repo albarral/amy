@@ -18,6 +18,8 @@ namespace amy
 {
 // This module allows direct control of the arm from the command line.
 // A set of commands are available that involve the 3 modules of the arm control (ArmMover, JointMover's and JointControl's)
+// The module continuously listens to the command line interpreting user entered commands.
+// Then produces the corresponding movements by sending proper signals through the arm's bus.
 class ArmComs1 : public Module2
 {
 private:

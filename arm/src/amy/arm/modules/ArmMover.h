@@ -76,9 +76,6 @@ private:
         void stopMovement();
         bool newStep();
         
-        // temp (movements should be stored in DB)
-        void buildMovPajarita();
-        
         // shows the present state name
         void showState();
 };

@@ -195,12 +195,15 @@ bool ArmComs1::checkMovementCommand()
 bool ArmComs1::checkExtendedCommand()
 {
     bool bfound = false;
-                
+
+    // get first letter of the entered command
+    std::string base = entry.substr(0, lenExtended-1);
+
     // search the entered command in the list of commands
     for (std::string& command : listExtendedCommands)
     {
         // if found finish search
-        if (entry.compare(command) == 0) 
+        if (base.compare(command) == 0) 
         {
             bfound = true;                    
             break;

@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
 
 namespace amy
 {
@@ -58,6 +59,8 @@ public:
     int getYspeed() {return vy;}
     
     virtual bool is3D() {return false;};
+    
+    std::string getDescription();
 };
 }
 #endif

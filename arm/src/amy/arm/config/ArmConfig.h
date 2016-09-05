@@ -56,6 +56,8 @@ public:
         // gets the JointMover module paramaters for the given joint name
         ParamsJointMover& getParamsJointMover(std::string jointName);
         
+        static std::string getAlias4Joint(std::string jointName);
+        
 private:
     void loadArmVersion(ArmVersion& oArmVersion);
     void loadUR5();

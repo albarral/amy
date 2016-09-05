@@ -56,6 +56,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/main.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointMover.o
 
@@ -188,6 +189,11 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl.o: src/amy/arm/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

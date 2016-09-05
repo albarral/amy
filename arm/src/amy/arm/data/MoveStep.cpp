@@ -35,4 +35,16 @@ MoveStep::MoveStep(int angle, int tics, int maxSpeed)
     vy = 0;
 }
 
+std::string MoveStep::getDescription()
+{
+    return "MoveStep:[angle=" + std::to_string(angle) +
+            ", tics=" + std::to_string(tics) +
+            ", vmax=" + std::to_string(vmax) +
+            ", xmove=" + std::to_string(xmove) +
+            ", ymove=" + std::to_string(ymove) +
+            ", tics=" + std::to_string(tics) +
+            ", vx=" + std::to_string(vx) +
+            ", vy=" + std::to_string(vy) + "]"; 
+}
+
 }

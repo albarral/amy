@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/ArmMover.h"
+#include "amy/arm/modules/ArmPlanner.h"
 #include "amy/arm/modules/ArmComputer.h"
 #include "amy/arm/modules/JointMover.h"
 #include "amy/arm/bus/JointBus.h"
@@ -54,7 +55,7 @@ void ArmMover::first()
     setState(eSTATE_WAIT);
     setNextState(eSTATE_WAIT);
     
-    log4cxx::NDC::push(modName + "-wait");   	
+    log4cxx::NDC::push(modName);   	
 }
                     
 // performs a cyclic wave movement of the elbow
@@ -127,13 +128,11 @@ void ArmMover::writeBus()
     // command actions
     HSbus.getCO_JMOVER_ACTION().request(xaction);
     ELbus.getCO_JMOVER_ACTION().request(yaction);
-    
-    LOG4CXX_DEBUG(logger, "write bus: xaction = " << xaction << ", yaction = " << yaction);
 }
 
 void ArmMover::fetchMovement()
 {
-    buildMovPajarita();
+    ArmPlanner::buildPajaritaMovement(oMovement);
     
     ArmComputer::computeMovement(oMovement);    
 }
@@ -158,6 +157,7 @@ bool ArmMover::newStep()
     if (numStep <= oMovement.getListMoveSteps().size())
     {
         oMoveStep = oMovement.getListMoveSteps().at(numStep-1);
+        LOG4CXX_INFO(logger, "new step: " << oMoveStep.getDescription());
         return true;
     }
     // no more steps available
@@ -171,44 +171,16 @@ void ArmMover::showState()
     {
         case eSTATE_WAIT:
             LOG4CXX_INFO(logger, ">> wait");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "-wait");   	
             break;
                         
         case eSTATE_MOVE:
             LOG4CXX_INFO(logger, ">> move");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "-move");   	
             break;
 
         case eSTATE_STOP:
             LOG4CXX_INFO(logger, ">> stop");
-            log4cxx::NDC::pop();	          
-            log4cxx::NDC::push(modName + "-stop");   	
             break;
     }   // end switch    
-}
-
-
-
-void ArmMover::buildMovPajarita()
-{   
-    int maxSpeed = 40;    
-  
-    oMovement.reset();
-    oMovement.setMaxSpeed(maxSpeed);
-
-    // step1: move right for 1000 tics
-    MoveStep oStep1(0, 1000, maxSpeed);
-    // step2: move left for 1000 tics
-    MoveStep oStep2(180, 1000, maxSpeed);
-    // more steps to complete pajarita
-   
-    
-    oMovement.addMoveStep(oStep1);
-    oMovement.addMoveStep(oStep2);
-    
-    ArmComputer::computeMovement(oMovement);
 }
 
 

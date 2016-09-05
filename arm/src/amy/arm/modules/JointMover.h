@@ -29,6 +29,13 @@ namespace amy
 class JointMover : public Module2
 {
 public:
+    // aliases for JMover commands
+    static const std::string mov_positive;
+    static const std::string mov_negative;
+    static const std::string move_brake;
+    static const std::string move_keep;
+    static const std::string move_stop;
+
     // input commands
     enum eCommands
     {
@@ -91,6 +98,8 @@ public:
         int getCruiseSpeed() {return cruiseSpeed;};
         // logic
         float getOutputSpeed() {return sollSpeed;};
+        
+        static std::string getAlias4Command(int command);
         
 private:       
         // first actions when the thread begins 

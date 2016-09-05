@@ -88,54 +88,73 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     int brakeAccel = 30;
     int cruiseSpeed = 40;
     int i=0;
+    std::string jointName;
     
     if (oArmVersion.hasHS())
     {
-        std::string hshoulder = ArmConfig::horizontal_shoulder;
-        oJointParams[i].set(hshoulder, oArmVersion.getHSlower(), oArmVersion.getHSupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(hshoulder, accel, cruiseSpeed, brakeAccel);        
-        listJointNames.push_back(hshoulder);
+        jointName = ArmConfig::horizontal_shoulder;
+        oJointParams[i].set(jointName, oArmVersion.getHSlower(), oArmVersion.getHSupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);        
+        listJointNames.push_back(jointName);
     }
 
     if (oArmVersion.hasVS())
     {
         i++;
-        std::string vshoulder = ArmConfig::vertical_shoulder;
-        oJointParams[i].set(vshoulder, oArmVersion.getVSlower(), oArmVersion.getVSupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(vshoulder, accel, cruiseSpeed, brakeAccel);
-        listJointNames.push_back(vshoulder);
+        jointName = ArmConfig::vertical_shoulder;
+        oJointParams[i].set(jointName, oArmVersion.getVSlower(), oArmVersion.getVSupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
+        listJointNames.push_back(jointName);
     }
 
 
     if (oArmVersion.hasEL())
     {
         i++;
-        std::string elbow = ArmConfig::elbow;
-        oJointParams[i].set(elbow, oArmVersion.getELlower(), oArmVersion.getELupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(elbow, accel, cruiseSpeed, brakeAccel);
-        listJointNames.push_back(elbow);
+        jointName = ArmConfig::elbow;
+        oJointParams[i].set(jointName, oArmVersion.getELlower(), oArmVersion.getELupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
+        listJointNames.push_back(jointName);
     }
 
     if (oArmVersion.hasHW())
     {
         i++;
-        std::string hwrist = ArmConfig::horizontal_wrist;
-        oJointParams[i].set(hwrist, oArmVersion.getHWlower(), oArmVersion.getHWupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(hwrist, accel, cruiseSpeed, brakeAccel);
-        listJointNames.push_back(hwrist);
+        jointName = ArmConfig::horizontal_wrist;
+        oJointParams[i].set(jointName, oArmVersion.getHWlower(), oArmVersion.getHWupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
+        listJointNames.push_back(jointName);
     }
         
     if (oArmVersion.hasVW())
     {
         i++;
-        std::string vwrist = ArmConfig::vertical_wrist;
-        oJointParams[i].set(vwrist, oArmVersion.getVWlower(), oArmVersion.getVWupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(vwrist, accel, cruiseSpeed, brakeAccel);
-        listJointNames.push_back(vwrist);
+        jointName = ArmConfig::vertical_wrist;
+        oJointParams[i].set(jointName, oArmVersion.getVWlower(), oArmVersion.getVWupper(), oArmVersion.getLen());
+        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
+        listJointNames.push_back(jointName);
     }
 
     numJoints = listJointNames.size();
 }
+
+// return short alias for each joint
+std::string ArmConfig::getAlias4Joint(std::string jointName)
+{
+    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
+        return "HS";
+    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
+        return "VS";
+    else if (jointName.compare(ArmConfig::elbow) == 0)
+        return "EL";
+    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
+        return "HW";
+    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
+        return "VW";
+    else 
+        return "UNDEF";           
+}
+
 
 void ArmConfig::loadUR5()
 {    
