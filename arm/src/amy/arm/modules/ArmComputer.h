@@ -24,7 +24,7 @@ public:
     
 private:
     // get the proper joint command to reach the specified joint speed
-    static int fromSpeed2JointCommand(float v);
+    static int fromSpeed2JointCommand(int v);
 };
 }
 #endif

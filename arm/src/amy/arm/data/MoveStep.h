@@ -22,6 +22,7 @@ class MoveStep
 {
 private:
     bool bcomputed; // indicates cruise speeds & move commands are computed
+    bool bstepEnding;   // indicates this step is to end the previous one (braking or stopping)
     // params
     int angle;   // movement direction in frontal xy plane (degrees)
     int tics;      // movement duration (in tics)
@@ -39,6 +40,7 @@ public:
 
     void setComputed(bool value) {bcomputed = value;};
     bool isComputed() {return bcomputed;}
+    bool isStepEnding() {return bstepEnding;}
     
     void setAngle(int value) {angle = value;};
     void setTics(int value) {tics = value;};
@@ -48,15 +50,18 @@ public:
     int getTics() {return tics;}
     int getMaxSpeed() {return vmax;}
     
-    int setXmove(int value) {xmove = value;}
-    int setYmove(int value) {ymove = value;}
-    int setXspeed(float value) {vx = value;}
-    int setYspeed(float value) {vy = value;}
+    void setXmove(int value) {xmove = value;}
+    void setYmove(int value) {ymove = value;}
+    void setXspeed(float value) {vx = value;}
+    void setYspeed(float value) {vy = value;}
 
     int getXmove() {return xmove;}
     int getYmove() {return ymove;}
     int getXspeed() {return vx;}
     int getYspeed() {return vy;}
+    
+    // prepares a step ending command with the specified action (stop or brake)
+    void setStepEnding(int value);
     
     virtual bool is3D() {return false;};
     

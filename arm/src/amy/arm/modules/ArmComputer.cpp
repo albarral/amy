@@ -20,7 +20,8 @@ void ArmComputer::computeMovement(Movement& oMovement)
     
     for (MoveStep& oMoveStep : listMoveSteps)
     {
-        computeMoveStep(oMoveStep);
+        if (!oMoveStep.isStepEnding())
+            computeMoveStep(oMoveStep);
     }
     
     oMovement.setComputed(true);
@@ -92,7 +93,8 @@ void ArmComputer::computeMoveStep(MoveStep& oMoveStep)
 
 
 // get the proper joint command to reach the specified joint speed
-int ArmComputer::fromSpeed2JointCommand(float v)
+// used int to avoid triggering movements for |speeds| < 1.0
+int ArmComputer::fromSpeed2JointCommand(int v)
 {
     if (v > 0) 
         return JointMover::eMOV_POSITIVE;

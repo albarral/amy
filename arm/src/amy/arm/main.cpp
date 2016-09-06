@@ -12,13 +12,19 @@
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "amy/arm/ArmManager.h"
-#include "amy/network/ArmNetwork.h"
-#include "amy/network/ArmData.h"
+
+// test amy network
+//#include "amy/network/ArmNetwork.h"
+//#include "amy/network/ArmData.h"
+
+// test arm planner
+#include "amy/arm/modules/ArmComputer.h"
+#include "amy/arm/data/MoveStep.h"
 
 
 void launchManipulation();
 
-void testAmyNetwork();
+void testArmPlanner();
 void testAmyNetwork2();
 void writePos(amy::ArmNetwork& oArmNetwork, int value);
 void readPos(amy::ArmNetwork& oArmNetwork);
@@ -32,6 +38,7 @@ int main(int argc, char** argv)
     	
     launchManipulation();
     //testAmyNetwork2();
+    //testArmPlanner();
       
     return 0;
 }
@@ -68,29 +75,27 @@ void launchManipulation()
     return;
 }
 
-void testAmyNetwork()
+void testArmPlanner()
 {
-    LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST AMY NETWORK >>>>>>>>>>>>>>");      
-
-    // initialize arm network
-    amy::ArmNetwork oArmNetwork;
-    oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);
-
-    // write 1
-    writePos(oArmNetwork, 21);
-
-    // read 1    
-    readPos(oArmNetwork);
-
-    // write 1
-    writePos(oArmNetwork, 41);
-
-    // read 2    
-    readPos(oArmNetwork);    
+    amy::Movement oMovement;
+    int maxSpeed = 40;    
     
-    LOG4CXX_INFO(logger, "TEST FINISHED");      
+    amy::MoveStep oStep1(30, 5000, maxSpeed);
+    amy::MoveStep oStep2(45, 5000, maxSpeed);
+    amy::MoveStep oStep3(60, 5000, maxSpeed);
+    amy::MoveStep oStep4(89, 5000, maxSpeed);
+    
+    amy::ArmComputer::computeMoveStep(oStep1);
+    amy::ArmComputer::computeMoveStep(oStep2);
+    amy::ArmComputer::computeMoveStep(oStep3);
+    amy::ArmComputer::computeMoveStep(oStep4);
+    
+    LOG4CXX_INFO(logger, "step1: " << oStep1.getDescription());
+    LOG4CXX_INFO(logger, "step2: " << oStep2.getDescription());
+    LOG4CXX_INFO(logger, "step3: " << oStep3.getDescription());
+    LOG4CXX_INFO(logger, "step4: " << oStep4.getDescription());
 }
-
+    
 
 void testAmyNetwork2()
 {

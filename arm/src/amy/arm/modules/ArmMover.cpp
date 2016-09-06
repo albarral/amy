@@ -3,6 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <cmath>
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/ArmMover.h"
@@ -61,6 +62,8 @@ void ArmMover::first()
 // performs a cyclic wave movement of the elbow
 void ArmMover::loop()
 {
+    int tics;
+    
     senseBus();
 
     if (updateState())
@@ -72,8 +75,10 @@ void ArmMover::loop()
     {
         case eSTATE_MOVE:
             
+            // 1 second for step endings
+            tics = oMoveStep.isStepEnding() ? 1000 : oMoveStep.getTics();
             // if move step finished (or first step), get next step and start it
-            if (numStep == 0 || oClick.getMillis() > oMoveStep.getTics())
+            if (numStep == 0 || oClick.getMillis() > tics)
             {
                 if (newStep())
                 {
@@ -116,15 +121,19 @@ void ArmMover::writeBus()
     // command new move steps to the joints
     int xaction = oMoveStep.getXmove();
     int yaction = oMoveStep.getYmove();
-    float vx = oMoveStep.getXspeed();
-    float vy = oMoveStep.getYspeed();
+    float vx = fabs(oMoveStep.getXspeed());
+    float vy = fabs(oMoveStep.getYspeed());
     
     JointBus& HSbus = pBus->getJointBus(ArmConfig::horizontal_shoulder);
     JointBus& ELbus = pBus->getJointBus(ArmConfig::elbow);
-    
-    // command speeds 
-    HSbus.getCO_JMOVER_SPEED().request(vx);
-    ELbus.getCO_JMOVER_SPEED().request(vy);
+
+    // if not step ending, send cruise speeds
+    if (!oMoveStep.isStepEnding())
+    {
+        // command speeds 
+        HSbus.getCO_JMOVER_SPEED().request(vx);
+        ELbus.getCO_JMOVER_SPEED().request(vy);
+    }
     // command actions
     HSbus.getCO_JMOVER_ACTION().request(xaction);
     ELbus.getCO_JMOVER_ACTION().request(yaction);

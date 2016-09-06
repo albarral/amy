@@ -12,6 +12,7 @@ namespace amy
 MoveStep::MoveStep ()
 {
     bcomputed = false;
+    bstepEnding = false;    // by default not a step ending move
     angle = 0;   
     tics = 0;     
     vmax = 0; 
@@ -25,6 +26,7 @@ MoveStep::MoveStep ()
 MoveStep::MoveStep(int angle, int tics, int maxSpeed)
 {
     bcomputed = false;
+    bstepEnding = false;     // by default not a step ending move
     this->angle = angle;   
     this->tics = tics;     
     this->vmax = maxSpeed;         
@@ -35,6 +37,13 @@ MoveStep::MoveStep(int angle, int tics, int maxSpeed)
     vy = 0;
 }
 
+ void MoveStep::setStepEnding(int value)
+ {
+     xmove = value;
+     ymove = value;
+     bstepEnding = true;
+ }
+ 
 std::string MoveStep::getDescription()
 {
     return "MoveStep:[angle=" + std::to_string(angle) +
