@@ -25,6 +25,10 @@ class ArmBus
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
+        // Wrist mover
+        ControlT<float> CO_WRIST_PAN;       // target radius for the wrist
+        ControlT<float> CO_WRIST_TILT;       // target radius for the wrist
+        ControlT<float> CO_WRIST_RADIUS;       // target radius for the wrist
         
         // connections for individual joints 
         JointBus oBusHS;    // HS: horiz shoulder 
@@ -47,6 +51,7 @@ class ArmBus
         amy::Control& getCO_FINISH_MANAGER() {return CO_FINISH_MANAGER;};   
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
+        ControlT<float>& getCO_WRIST_RADIUS() {return CO_WRIST_RADIUS;};        
         // joints
         JointBus& getBusHS() {return oBusHS;};
         JointBus& getBusVS() {return oBusVS;};
