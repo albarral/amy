@@ -12,6 +12,7 @@
 
 #include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/bus/JointBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/data/Arm.h"
 #include "amy/arm/modules/ArmMover.h"
@@ -71,6 +72,8 @@ private:
     void initArm(std::vector<std::string>& listJointNames);
     void initBus(std::vector<std::string>& listJointNames);
     void initModules(std::vector<std::string>& listJointNames);
+    // maps joint buses to IO outputs
+    JointBus& mapBus2SystemIO(int i);
 };
 
 }    

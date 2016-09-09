@@ -8,8 +8,9 @@
 
 #include "amy/arm/ArmManager.h"
 #include "amy/arm/config/ArmConfig.h"
+#include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/bus/JointBus.h"
+
 
 using namespace log4cxx;
 
@@ -46,8 +47,7 @@ void ArmManager::init(std::string robotName)
     initModules(listJointNames);
 
     // TEMP: first soll angles are 0 (should be the ist)
-    int numJoints = listJointNames.size();
-    for (int i=0; i<numJoints; i++ )
+    for (int i=0; i<AMY_MAX_JOINTS; i++ )
         listSollAngles.push_back(0);    
    
     benabled = true;    
@@ -85,7 +85,7 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
         std::string jointName = listJointNames.at(i);        
         LOG4CXX_INFO(logger, jointName);
         
-        if (oArmBus.add4Joint(jointName) == false)
+        if (oArmBus.addJointBus(jointName) == false)
         {
             LOG4CXX_ERROR(logger, "Error adding bus connection for joint " << jointName);
             return;
@@ -255,7 +255,7 @@ void ArmManager::setIstAngles(std::vector<float>& listAngles)
     for (int i=0; i<size; i++)
     {
         // write angle in SI_ANGLE
-        JointBus& oJointBus = oArmBus.getJointBusByIndex(i);
+        JointBus& oJointBus = mapBus2SystemIO(i);
         oJointBus.getSO_IST_ANGLE().setValue(listAngles.at(i));
     }            
 }
@@ -265,17 +265,43 @@ void ArmManager::setIstAngles(std::vector<float>& listAngles)
 void ArmManager::readSollAngles()
 {        
     int numJoints = oArmConfig.getNumJoints();       
-    float jointAngle;    
     
     // for each joint, check if the commanded angle has changed & insert it into the soll list
     for (int i=0; i<numJoints; i++)
     {      
-        JointBus& oJointBus = oArmBus.getJointBusByIndex(i);
+        JointBus& oJointBus = mapBus2SystemIO(i);
         if (oJointBus.getCO_JOINT_ANGLE().checkRequested())
         {
             listSollAngles[i] = oJointBus.getCO_JOINT_ANGLE().getValue();
         }
     }
+}
+
+JointBus& ArmManager::mapBus2SystemIO(int i)
+{
+    switch (i)
+    {
+        case 0:
+            return oArmBus.getBusHS();
+            break;
+        case 1:
+            return oArmBus.getBusVS();
+            break;
+        case 2:
+            return oArmBus.getBusEL();
+            break;
+        case 3:
+            return oArmBus.getBusVW();
+            break;
+        case 4:
+            return oArmBus.getBusHW();
+            break;
+        // for invalid indexes return the HS           
+        default:
+            return oArmBus.getBusHS();
+            break;
+    }
+    
 }
 
 bool ArmManager::checkEndRequested()

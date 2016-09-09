@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/config/ArmConfig.h"
 
 namespace amy
 {
@@ -14,53 +15,73 @@ ArmBus::ArmBus ()
     numJoints = 0;
 }
 
-bool ArmBus::add4Joint(std::string jointName)
-{
-    // ignore if joint already used
-    if (checkExistingJoint(jointName))
-        return false;
-
-    if (numJoints < AMY_MAX_JOINTS)
+bool ArmBus::addJointBus(std::string jointName)
+{  
+    JointBus* pBusJoint = 0;
+    
+    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
     {
-        oJointBus[numJoints].init(jointName);
-        numJoints++;        
+        pBusJoint = &oBusHS;
+    }
+    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
+    {
+        pBusJoint = &oBusVS;
+    }
+    else if (jointName.compare(ArmConfig::elbow) == 0)
+    {
+        pBusJoint = &oBusEL;
+    }
+    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
+    {
+        pBusJoint = &oBusVW;
+    }
+    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
+    {
+        pBusJoint = &oBusHW;
+    }
+
+    if (pBusJoint != 0)
+    {
+        // ignore if joint already used
+        if (pBusJoint->isEnabled())
+            return false;
+        
+        pBusJoint->init(jointName);
+        numJoints++;     
+        // arm enabled
         benabled = true;    
-        return true;
-    }    
+        return true;                
+    }
+    // inexistent joint
     else
         return false;
 }
 
 JointBus& ArmBus::getJointBus(std::string jointName)
 {
-    for (int i=0; i<numJoints; i++)
+    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
     {
-        if (oJointBus[i].getJointName().compare(jointName) == 0)
-            return oJointBus[i];
+        return oBusHS;
+    }
+    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
+    {
+        return oBusVS;
+    }
+    else if (jointName.compare(ArmConfig::elbow) == 0)
+    {
+        return oBusEL;
+    }
+    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
+    {
+        return oBusVW;
+    }
+    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
+    {
+        return oBusHW;
     }
     
     // if not found return the first joint (should use lists)
-    return oJointBus[0];        
-}
-
-JointBus& ArmBus::getJointBusByIndex(int index)
-{
-    if (index < AMY_MAX_JOINTS)
-        return oJointBus[index];
-    
-    // if not found return the first joint (should use lists)
-    return oJointBus[0];        
-}
-
-bool ArmBus::checkExistingJoint(std::string jointName)
-{
-    for (int i=0; i<AMY_MAX_JOINTS; i++)
-    {
-        if (oJointBus[i].getJointName().compare(jointName) == 0)
-            return true;
-    }
-    
-    return false;        
+    return oBusHS;        
 }
 
 }

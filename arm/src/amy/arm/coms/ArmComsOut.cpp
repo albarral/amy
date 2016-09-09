@@ -24,7 +24,7 @@ ArmComsOut::ArmComsOut ()
     pBusHShoulder = 0;
     pBusVShoulder = 0;
     pBusElbow = 0;
-    pBusWrist = 0;    
+    pBusVWrist = 0;    
     for (int i=0; i<AMY_MAX_JOINTS; i++)
       lastAngles[i] = 0.0;
  }
@@ -50,10 +50,10 @@ void ArmComsOut::init (int numJoints)
 void ArmComsOut::connect(ArmBus& oBus)
 {
     pBus = &oBus;
-    pBusHShoulder = &pBus->getJointBus(ArmConfig::horizontal_shoulder);
-    pBusVShoulder = &pBus->getJointBus(ArmConfig::vertical_shoulder);
-    pBusElbow = &pBus->getJointBus(ArmConfig::elbow);
-    pBusWrist = &pBus->getJointBus(ArmConfig::vertical_wrist);
+    pBusHShoulder = &pBus->getBusHS();
+    pBusVShoulder = &pBus->getBusVS();
+    pBusElbow = &pBus->getBusEL();
+    pBusVWrist = &pBus->getBusVW();
     bconnected = true;
 
     LOG4CXX_DEBUG(logger, "ArmComsOut connected to bus");      
@@ -77,7 +77,7 @@ void ArmComsOut::loop()
     // elbow
     angles[2] = pBusElbow->getCO_JOINT_ANGLE().getValue();
     // wrist
-    angles[3] = pBusWrist->getCO_JOINT_ANGLE().getValue();
+    angles[3] = pBusVWrist->getCO_JOINT_ANGLE().getValue();
 
     // check if they have changed 
     for (int i=0; i<numJoints; i++)

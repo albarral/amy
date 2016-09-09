@@ -34,7 +34,7 @@ private:
     JointBus* pBusHShoulder;    // access to horizonal shoulder bus
     JointBus* pBusVShoulder;    // access to vertical shoulder bus
     JointBus* pBusElbow;          // access to elbow bus  
-    JointBus* pBusWrist;            // access to wrist bus    
+    JointBus* pBusVWrist;            // access to wrist bus    
     float angles[AMY_MAX_JOINTS];
     float lastAngles[AMY_MAX_JOINTS];
     int numJoints;

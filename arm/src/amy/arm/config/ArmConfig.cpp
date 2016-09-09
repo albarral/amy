@@ -9,11 +9,11 @@
 
 namespace amy
 {
-const std::string ArmConfig::horizontal_shoulder = "hshoulder";
-const std::string ArmConfig::vertical_shoulder = "vshoulder";
-const std::string ArmConfig::elbow = "elbow";
-const std::string ArmConfig::horizontal_wrist = "hwrist";
-const std::string ArmConfig::vertical_wrist = "vwrist";
+const std::string ArmConfig::horizontal_shoulder = "HS";
+const std::string ArmConfig::vertical_shoulder = "VS";
+const std::string ArmConfig::elbow = "EL";
+const std::string ArmConfig::horizontal_wrist = "HW";
+const std::string ArmConfig::vertical_wrist = "VW";
     
 // Constructor
 ArmConfig::ArmConfig ()
@@ -139,21 +139,21 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
 }
 
 // return short alias for each joint
-std::string ArmConfig::getAlias4Joint(std::string jointName)
-{
-    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
-        return "HS";
-    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
-        return "VS";
-    else if (jointName.compare(ArmConfig::elbow) == 0)
-        return "EL";
-    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
-        return "HW";
-    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
-        return "VW";
-    else 
-        return "UNDEF";           
-}
+//std::string ArmConfig::getAlias4Joint(std::string jointName)
+//{
+//    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
+//        return "HS";
+//    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
+//        return "VS";
+//    else if (jointName.compare(ArmConfig::elbow) == 0)
+//        return "EL";
+//    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
+//        return "HW";
+//    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
+//        return "VW";
+//    else 
+//        return "UNDEF";           
+//}
 
 
 void ArmConfig::loadUR5()

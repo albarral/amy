@@ -6,7 +6,6 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/JointMover.h"
-#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
@@ -43,7 +42,7 @@ void JointMover::init(std::string jointName, ParamsJointMover& oParamsJointMover
        oParamsJointMover.getBrakeAccel() <= 0)
         return;
 
-    modName = "jmover-" + ArmConfig::getAlias4Joint(jointName);
+    modName = "jmover-" + jointName;
     accel = oParamsJointMover.getAccel();
     accel_ms = (float)this->accel/1000;
     brakeAccel = oParamsJointMover.getBrakeAccel();

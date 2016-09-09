@@ -11,7 +11,7 @@
 #include "amy/arm/modules/ArmComputer.h"
 #include "amy/arm/modules/JointMover.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/arm/config/ArmConfig.h"
+
 
 using namespace log4cxx;
 
@@ -124,19 +124,19 @@ void ArmMover::writeBus()
     float vx = fabs(oMoveStep.getXspeed());
     float vy = fabs(oMoveStep.getYspeed());
     
-    JointBus& HSbus = pBus->getJointBus(ArmConfig::horizontal_shoulder);
-    JointBus& ELbus = pBus->getJointBus(ArmConfig::elbow);
+    JointBus& oBusHS = pBus->getBusHS();
+    JointBus& oBusEL = pBus->getBusEL();
 
     // if not step ending, send cruise speeds
     if (!oMoveStep.isStepEnding())
     {
         // command speeds 
-        HSbus.getCO_JMOVER_SPEED().request(vx);
-        ELbus.getCO_JMOVER_SPEED().request(vy);
+        oBusHS.getCO_JMOVER_SPEED().request(vx);
+        oBusEL.getCO_JMOVER_SPEED().request(vy);
     }
     // command actions
-    HSbus.getCO_JMOVER_ACTION().request(xaction);
-    ELbus.getCO_JMOVER_ACTION().request(yaction);
+    oBusHS.getCO_JMOVER_ACTION().request(xaction);
+    oBusEL.getCO_JMOVER_ACTION().request(yaction);
 }
 
 void ArmMover::fetchMovement()

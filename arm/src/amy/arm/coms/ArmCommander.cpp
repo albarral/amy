@@ -5,7 +5,6 @@
 
 
 #include "amy/arm/coms/ArmCommander.h"
-#include "amy/arm/config/ArmConfig.h"
 
 namespace amy
 {
@@ -16,16 +15,16 @@ ArmCommander::ArmCommander()
     pBusHShoulder = 0;
     pBusVShoulder = 0;
     pBusElbow = 0;
-    pBusWrist = 0;
+    pBusVWrist = 0;
 }
 
 void ArmCommander::connect(ArmBus& oArmBus) 
 {
     pBus = &oArmBus;
-    pBusHShoulder = &pBus->getJointBus(ArmConfig::horizontal_shoulder);
-    pBusVShoulder = &pBus->getJointBus(ArmConfig::vertical_shoulder);
-    pBusElbow = &pBus->getJointBus(ArmConfig::elbow);
-    pBusWrist = &pBus->getJointBus(ArmConfig::vertical_wrist);
+    pBusHShoulder = &pBus->getBusHS();
+    pBusVShoulder = &pBus->getBusVS();
+    pBusElbow = &pBus->getBusEL();
+    pBusVWrist = &pBus->getBusVW();
     bconnected = true;
 }
 
@@ -133,9 +132,9 @@ bool ArmCommander::send2JointMover(ArmCommand& oArmCommand)
             break;
             
         case ArmCommand::eJOINT_VWRIST:
-            if (pBusWrist > 0)
+            if (pBusVWrist > 0)
             {
-                pBusWrist->getCO_JMOVER_ACTION().request(busAction);            
+                pBusVWrist->getCO_JMOVER_ACTION().request(busAction);            
                 bret = true;                        
             }
             break;
@@ -178,9 +177,9 @@ bool ArmCommander::send2JointControl(ArmCommand& oArmCommand)
             break;
             
         case ArmCommand::eJOINT_VWRIST:
-            if (pBusWrist > 0)
+            if (pBusVWrist > 0)
             {
-                pBusWrist->getCO_JOINT_ANGLE().request(angle);
+                pBusVWrist->getCO_JOINT_ANGLE().request(angle);
                 bret = true;                        
             }
             break;

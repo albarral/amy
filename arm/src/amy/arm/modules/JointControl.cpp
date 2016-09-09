@@ -6,7 +6,6 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/JointControl.h"
-#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
@@ -29,7 +28,7 @@ JointControl::JointControl()
 
 void JointControl::init(std::string jointName, Joint& oJoint)
 {
-    modName = "jcontrol-" + ArmConfig::getAlias4Joint(jointName);
+    modName = "jcontrol-" + jointName;
     mJoint = &oJoint;
     benabled = true;
 
