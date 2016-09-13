@@ -16,43 +16,32 @@
 
 namespace amy
 {
-// Module designed to perform dynamic, but soft movements with a joint.     
-// Each movements has 2 stages: an acceleration one and a cruise one (when the cruise speed is reached). 
-// These 2 stages provide fast movements with limited accelerations, thus granting speed continuity (without abrupt changes) and high dynamism.
-// The module is controlled with 4 simple commands (accel, brake, keep & stop) and the desired cruise speed.
-// It works with 4 states:
-// STOP    
-// move() -> ACCEL    (speed ++)
-// brake() -> BRAKE     (speed --)
-// keep() -> KEEP        (speed =) 
-// stop()-> STOP         (speed 0)
+// Version 3    
+// Module designed to perform dynamic & soft movements with a joint, providing an auto brake behaviour.
+// It assures speed continuity by limiting the joint's acceleration.
+// On control requests (push, push_back and keep) it accelerates or keeps the speed of the joint.
+// On absence of request, it brakes the joint (limited deceleration) till speed is 0.    
+// States: 
+// AUTOBRAKE (default): if speed != 0 -> |speed|--
+// KEEP: speed =
+// ACCEL: speed ++ or speed --    
 class JointMover : public Module2
 {
 public:
-    // aliases for JMover commands
-    static const std::string mov_positive;
-    static const std::string mov_negative;
-    static const std::string move_brake;
-    static const std::string move_keep;
-    static const std::string move_stop;
-
     // input commands
     enum eCommands
     {
-        eMOV_POSITIVE,
-        eMOV_NEGATIVE,
-        eMOV_BRAKE,
         eMOV_KEEP,
-        eMOV_STOP
+        eMOV_PUSH_FRONT,
+        eMOV_PUSH_BACK,
     };
 
     // states of JointMover module
-    enum eType
+    enum eState
     {
-         eSTATE_ACCEL,      // controls the joint speed to do the required movement
-         eSTATE_BRAKE,      // brakes the joint softly
-         eSTATE_KEEP,        // keeps the present joint speed 
-         eSTATE_STOP        // stops the joint abruptly
+         eSTATE_AUTOBRAKE,     // brakes joint softly
+         eSTATE_KEEP,               // keeps present joint speed 
+         eSTATE_ACCEL             // alters joint speed 
     };
 
 private:
@@ -68,10 +57,8 @@ private:
     bool bconnected;        // connected to bus
     JointBus* pJointBus;    // the bus connections corresponding to a given joint
     // control
-    int direction;          // direction of movement (positive or negative)
-    float cruiseSpeed;  // cruise speed of the movement, always positive (degrees/s)
+    int targetDirection;     // direction of desired movement (positive or negative)
     // logic
-    float targetSpeed;  // speed target to be achieved in each movement (direction * cruise_speed)    
     float sollSpeed;      // final speed commanded to output (degrees/s) (is always continuous)
     amy::Click oClick;   
     // aux
@@ -93,14 +80,7 @@ public:
         void setBrakeAccel(int value) {brakeAccel = value;};
         int getAccel() {return accel;};
         int getBrakeAccel() {return brakeAccel;};                
-        // control
-        int getDirection() {return direction;};        
-        int getCruiseSpeed() {return cruiseSpeed;};
-        // logic
-        float getOutputSpeed() {return sollSpeed;};
-        
-        static std::string getAlias4Command(int command);
-        
+                
 private:       
         // first actions when the thread begins 
         virtual void first();
@@ -113,16 +93,12 @@ private:
         void writeBus();
 
         // process action requests (from bus)
-        void actionRequest(int value);
-        // process speed requests (from bus)
-        void speedRequest(float value);
-        // updates the target speed
-        void changeTargetSpeed();
+        void processRequest(int value);
         
-        // softly changes the output speed to achieve the target value
-        bool accelMovement();
+        // changes the output speed in the proper direction
+        void doAccelerate();
         // softly reduces speed to 0
-        void brakeMovement();
+        void doBrake();
                 
         // shows the present state name
         void showState();

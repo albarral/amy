@@ -23,7 +23,7 @@ class JointBus
 
         // CONTROLS 
         ControlT<int> CO_JMOVER_ACTION;         // >> JointMover: action requests (move, brake, keep, stop)
-        ControlT<float> CO_JMOVER_SPEED;        // >> JointMover: cruise speed requests
+//        ControlT<float> CO_JMOVER_SPEED;        // >> JointMover: cruise speed requests
         ControlT<float> CO_JCONTROL_SPEED;    // >> JointControl: desired joint speed (degrees/s)
         ControlT<float> CO_JOINT_ANGLE;         // >> real arm: desired joint angle (degrees)
 
@@ -43,7 +43,7 @@ class JointBus
 
         // controls
         ControlT<int>& getCO_JMOVER_ACTION() {return CO_JMOVER_ACTION;};        
-        ControlT<float>& getCO_JMOVER_SPEED() {return CO_JMOVER_SPEED;};        
+  //      ControlT<float>& getCO_JMOVER_SPEED() {return CO_JMOVER_SPEED;};        // not used since JointMover version 3
         ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         

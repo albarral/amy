@@ -87,12 +87,12 @@ bool ArmCommand::buildBusCommand()
             
         case eACT_JOINT_FORWARD:
                 setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_POSITIVE);
+                setBusAction(JointMover::eMOV_PUSH_FRONT);
             break;
             
         case eACT_JOINT_BACKWARDS:
                 setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_NEGATIVE);
+                setBusAction(JointMover::eMOV_PUSH_BACK);
             break;
 
         case eACT_JOINT_KEEP:
@@ -101,13 +101,13 @@ bool ArmCommand::buildBusCommand()
             break;
             
         case eACT_JOINT_BRAKE:
-                setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_BRAKE);
+//                setBusModule(eMOD_JOINTMOVER);
+//                setBusAction(JointMover::eMOV_BRAKE);
             break;
             
         case eACT_JOINT_STOP:
-                setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_STOP);
+//                setBusModule(eMOD_JOINTMOVER);
+//                setBusAction(JointMover::eMOV_STOP);
             break;
 
         case eACT_JOINT_SET:

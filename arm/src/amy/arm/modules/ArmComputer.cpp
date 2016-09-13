@@ -97,11 +97,11 @@ void ArmComputer::computeMoveStep(MoveStep& oMoveStep)
 int ArmComputer::fromSpeed2JointCommand(int v)
 {
     if (v > 0) 
-        return JointMover::eMOV_POSITIVE;
+        return JointMover::eMOV_PUSH_FRONT;
     else if (v < 0)
-        return JointMover::eMOV_NEGATIVE;
+        return JointMover::eMOV_PUSH_BACK;
     else
-        return JointMover::eMOV_STOP;
+        return 99; //JointMover::eMOV_STOP;
 };
 
 

@@ -11,7 +11,7 @@ namespace amy
 MoveStep3D::MoveStep3D ()
 {
     zangle = 0;   
-    zmove = JointMover::eMOV_STOP; 
+    //zmove = JointMover::eMOV_STOP; 
     vz = 0;
 }
 

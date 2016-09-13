@@ -93,9 +93,9 @@ void ArmMover::loop()
                         
         case eSTATE_STOP:
        
-            oMoveStep.setXmove(JointMover::eMOV_STOP);
-            oMoveStep.setYmove(JointMover::eMOV_STOP);
-            writeBus();                    
+//            oMoveStep.setXmove(JointMover::eMOV_STOP);
+//            oMoveStep.setYmove(JointMover::eMOV_STOP);
+//            writeBus();                    
             // after stopping, new wait stage
             setNextState(eSTATE_WAIT);
             break;
@@ -131,8 +131,8 @@ void ArmMover::writeBus()
     if (!oMoveStep.isStepEnding())
     {
         // command speeds 
-        oBusHS.getCO_JMOVER_SPEED().request(vx);
-        oBusEL.getCO_JMOVER_SPEED().request(vy);
+//        oBusHS.getCO_JMOVER_SPEED().request(vx);
+//        oBusEL.getCO_JMOVER_SPEED().request(vy);
     }
     // command actions
     oBusHS.getCO_JMOVER_ACTION().request(xaction);
