@@ -7,6 +7,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/AxisDriver.h"
+#include "amy/arm/modules/JointMover.h"
 
 using namespace log4cxx;
 
@@ -21,25 +22,28 @@ AxisDriver::AxisDriver()
     
     bconnected = false;
     pBus = 0;
+    pJointBus = 0;
 }
 
 //AxisDriver::~AxisDriver()
 //{
 //}
 
-void AxisDriver::init(int dH, int dL, int vH, int vL)
+void AxisDriver::init(int dH, int dL, int vDrive, int vApproach, float tolerance)
 {
     // valid params
-    if (dH > 0 && dL > 0 && vH > 0 && vL > 0 && dH >= dL)
+    if (dH > 0 && dL > 0 && vDrive > 0 && vApproach > 0 && dH > dL && tolerance > 0.0)
     {
         this->dH = dH;
         this->dL = dL;
-        this->vH = vH;
-        this->vL = vL;
+        this->vDrive = vDrive;
+        this->vApproach = vApproach;
+        vDriveTol = tolerance * vDrive;    
+        vApproachTol = tolerance * vApproach;
         benabled = true;
         
         LOG4CXX_INFO(logger, modName << " initialized");                  
-        LOG4CXX_DEBUG(logger, "dH=" << dH << ", dL=" << dL << ", vH=" << vH << ", vL=" << vL);      
+        LOG4CXX_DEBUG(logger, "dH=" << dH << ", dL=" << dL << ", vDrive=" << vDrive << ", vApproach=" << vApproach << ", tolerance=" << tolerance);      
     }
     // invalid params
     else
@@ -73,39 +77,53 @@ void AxisDriver::loop()
     if (updateState())
         showState();
     
-    float dist = targetValue - istValue;
+    bsendAction = false;
+    float dist = targetPos - istPos;
     float absDist = fabs(dist);
     
     switch (getState())
     {
         case eSTATE_DRIVE:
             
+            // big dist -> drive
             if (absDist > dH)
-                doDriveControl(dist);
+            {
+                doDrive(dist);
+                bsendAction = true;
+            }
+            // small dist -> approach
             else if (absDist > dL)
                 setNextState(eSTATE_APPROACH);
+            // tolerance -> arrived
             else 
                 setNextState(eSTATE_ARRIVED);
             break;
                         
         case eSTATE_APPROACH:
        
+            // big dist -> drive
             if (absDist > dH)
                 setNextState(eSTATE_DRIVE);
+            // small dist -> approach
             else if (absDist > dL)
-                doApproachControl(dist);                
+            {
+                doApproach(dist);                
+                bsendAction = true;
+            }
+            // tolerance -> arrived
             else 
                 setNextState(eSTATE_ARRIVED);
             break;
 
         case eSTATE_ARRIVED:
        
-            if (absDist <= dL)
-                doArrivedControl(dist);                
-            else if (absDist > dH)
+            // big dist -> drive
+            if (absDist > dH)
                 setNextState(eSTATE_DRIVE);
+            // small dist -> approach
             else if (absDist > dL)
                 setNextState(eSTATE_APPROACH);
+            // tolerance -> arrived (nothing)
             break;
 
         case eSTATE_FREE:
@@ -113,6 +131,53 @@ void AxisDriver::loop()
             // nothing to do
             break;            
     }   // end switch        
+    
+    if (bsendAction)
+        writeBus();
+}
+
+
+// move joint to target position at drive speed
+void AxisDriver::doDrive(float dist)
+{    
+    // deduce target speed (implies direction)
+    int targetSpeed = (dist > 0.0) ? vDrive : -vDrive;    
+
+    // compare target and real speeds
+    int speedDif = targetSpeed - (int)istSpeed;    
+    // if different, change joint speed (pushing it)
+    if (fabs(speedDif) > vDriveTol)
+    {
+        if (speedDif > 0)
+            outAction = JointMover::eMOV_PUSH_FRONT;
+        else 
+            outAction = JointMover::eMOV_PUSH_BACK;        
+    }
+    // if equal (under a tolerance), keep joint speed
+    else
+        outAction = JointMover::eMOV_KEEP;
+}
+
+
+// move joint to target position at approach speed
+void AxisDriver::doApproach(float dist)
+{
+    // deduce target speed (implies direction)
+    int targetSpeed = (dist > 0.0) ? vApproach : -vApproach;    
+
+    // compare target and real speeds
+    int speedDif = targetSpeed - (int)istSpeed;    
+    // if different, change joint speed (pushing it)
+    if (fabs(speedDif) > vApproachTol)
+    {
+        if (speedDif > 0)
+            outAction = JointMover::eMOV_PUSH_FRONT;
+        else 
+            outAction = JointMover::eMOV_PUSH_BACK;        
+    }
+    // if equal (under a tolerance), keep joint speed
+    else
+        outAction = JointMover::eMOV_KEEP;    
 }
 
 void AxisDriver::showState()

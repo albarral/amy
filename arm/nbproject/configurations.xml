@@ -62,8 +62,12 @@
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
             <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
+            <itemPath>src/amy/arm/modules/ArmExtender.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmExtender.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
+            <itemPath>src/amy/arm/modules/ArmPanner.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmPanner.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
             <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
@@ -72,8 +76,6 @@
             <itemPath>src/amy/arm/modules/JointControl.h</itemPath>
             <itemPath>src/amy/arm/modules/JointMover.cpp</itemPath>
             <itemPath>src/amy/arm/modules/JointMover.h</itemPath>
-            <itemPath>src/amy/arm/modules/WristExtender.cpp</itemPath>
-            <itemPath>src/amy/arm/modules/WristExtender.h</itemPath>
           </logicalFolder>
           <itemPath>src/amy/arm/ArmManager.cpp</itemPath>
           <itemPath>src/amy/arm/ArmManager.h</itemPath>
@@ -246,9 +248,20 @@
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmExtender.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -268,16 +281,6 @@
       <item path="src/amy/arm/modules/JointMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointMover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/WristExtender.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/WristExtender.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -401,9 +404,20 @@
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmExtender.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -423,16 +437,6 @@
       <item path="src/amy/arm/modules/JointMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointMover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/WristExtender.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/WristExtender.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
     </conf>
   </confs>

@@ -26,7 +26,7 @@ class ParamsJointMover
 
         std::string& getJointName() {return jointName;};
         int getAccel() {return accel;}
-        int getCruiseSpeed() {return cruiseSpeed;}
+        //int getCruiseSpeed() {return cruiseSpeed;}    // not used since JointMover version 3
         int getBrakeAccel() {return brakeAccel;}
 };
 

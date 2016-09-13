@@ -25,10 +25,14 @@ class ArmBus
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
-        // Wrist mover
-        ControlT<float> CO_WRIST_PAN;       // target radius for the wrist
-        ControlT<float> CO_WRIST_TILT;       // target radius for the wrist
-        ControlT<float> CO_WRIST_RADIUS;       // target radius for the wrist
+        // WristMover
+        ControlT<int> CO_ARM_PAN;       // arm's target pan
+        ControlT<int> CO_ARM_TILT;       // arm's target tilt
+        ControlT<int> CO_ARM_RADIUS;   // arm's target radius
+        // ArmPosition
+        SensorT<int> SO_ARM_PAN;      // arm's real pan
+        SensorT<int> SO_ARM_TILT;      // arm's real tilt
+        SensorT<int> SO_ARM_RADIUS;      // arm's real radius
         
         // connections for individual joints 
         JointBus oBusHS;    // HS: horiz shoulder 
@@ -51,7 +55,14 @@ class ArmBus
         amy::Control& getCO_FINISH_MANAGER() {return CO_FINISH_MANAGER;};   
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
-        ControlT<float>& getCO_WRIST_RADIUS() {return CO_WRIST_RADIUS;};        
+        ControlT<int>& getCO_ARM_PAN() {return CO_ARM_PAN;};        
+        ControlT<int>& getCO_ARM_TILT() {return CO_ARM_TILT;};        
+        ControlT<int>& getCO_ARM_RADIUS() {return CO_ARM_RADIUS;};        
+        // sensors
+        SensorT<int>& getSO_ARM_PAN() {return SO_ARM_PAN;};        
+        SensorT<int>& getSO_ARM_TILT() {return SO_ARM_TILT;};        
+        SensorT<int>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
+        
         // joints
         JointBus& getBusHS() {return oBusHS;};
         JointBus& getBusVS() {return oBusVS;};

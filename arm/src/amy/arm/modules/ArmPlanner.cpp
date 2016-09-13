@@ -17,7 +17,7 @@ void ArmPlanner::buildPajaritaMovement(Movement& oMovement)
     
     int angle = 45;
     int tics = 2000;
-    int endings = JointMover::eMOV_STOP;
+    int endings = 99; //JointMover::eMOV_STOP;
 
     oMovement.reset();
     oMovement.setMaxSpeed(maxSpeed);
