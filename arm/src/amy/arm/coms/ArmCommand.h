@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
 
 namespace amy
 {
@@ -24,12 +25,12 @@ public:
          eACT_ARM_STOP,                 /*! stop movements of all joints*/
          eACT_MOVEMENT_START,       /*! launch a predefined movement */
          eACT_MOVEMENT_STOP,        /*! stop any predefined movement */
-         eACT_JOINT_FORWARD,          /*! move a joint forward */
-         eACT_JOINT_BACKWARDS,      /*! move a joint backwards */
-         eACT_JOINT_KEEP,                /*! keep the speed of a joint */
+         eACT_SET_PAN,                    /*! move arm's pan */
+         eACT_SET_TILT,                    /*! move arm's tilt */
+         eACT_SET_EXTENSION,          /*! extend arm */
          eACT_JOINT_BRAKE,              /*! brake (stop softly) a joint */
          eACT_JOINT_STOP,                /*! stop (abruptly) a joint */
-         eACT_JOINT_SET,                 /*! move a joint to a given position (angle) */
+         eACT_JOINT_ANGLE,                 /*! move a joint to a given position (angle) */
          eACT_DIM
     };
 
@@ -50,6 +51,9 @@ public:
          eMOD_UNDEFINED,        /*! undefined module */
          eMOD_MANAGER,           /*! ArmManager */
          eMOD_ARMMOVER,         /*! ArmMover module */
+         eMOD_ARMPANNER,   
+         eMOD_ARMTILTER,     
+         eMOD_ARMEXTENDER,  
          eMOD_JOINTMOVER,       /*! JointMover modules */
          eMOD_JOINTCONTROL,   /*! JointControl modules */
          eMOD_DIM
@@ -57,7 +61,7 @@ public:
     
 private:
     int targetAction;   /*! action to be performed (one of eAction values)*/
-    int targetJoint;   /*! joint affected by the action (one of eJoint values) */
+    std::string targetJoint;   /*! joint affected by the action */
     int targetValue;   /*! value applied to the action */
 
     int busModule; /*! module to which the command must be sent (one of eModule values)*/    
@@ -67,10 +71,10 @@ public:
     ArmCommand();
 
     bool setTargetAction(int action);
-    bool setTargetJoint(int joint);
-    bool setTargetValue(int value) {targetValue=value;};
+    void setTargetJoint(std::string jointName) {targetJoint = jointName;};
+    void setTargetValue(int value) {targetValue=value;};
     int getTargetAction() {return targetAction;};
-    int getTargetJoint() {return targetJoint;};
+    std::string getTargetJoint() {return targetJoint;};
     int getTargetValue() {return targetValue;};
 
     void setBusModule(int module) {busModule=module;};

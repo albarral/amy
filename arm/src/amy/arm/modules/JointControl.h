@@ -42,7 +42,7 @@ private:
     float sollAngle;        // angle requested by this module (float to grant continuity)
     float prevSollAngle;       
     amy::Click oClick;   
-    int limitBroken;    // commanded angle out of joint's range  
+    int limitReached;    // commanded angle out of joint's range  
 
 public:
         JointControl();

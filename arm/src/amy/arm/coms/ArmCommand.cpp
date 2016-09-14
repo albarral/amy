@@ -40,29 +40,11 @@ bool ArmCommand::setTargetAction(int action)
     }
 }
 
-bool ArmCommand::setTargetJoint(int joint)
-{
-    // store joint if valid
-    if (joint > eJOINT_UNDEFINED && joint < eJOINT_DIM)
-    {
-        targetJoint = joint;
-        return true;
-    }
-    // otherwise set it undefined
-    else 
-    {
-        targetJoint = eJOINT_UNDEFINED;
-        return false;        
-    }    
-}
 
 /*! builds a proper control command to be sent though the bus */
 bool ArmCommand::buildBusCommand()
 {
     // skip if joint action but undefined joint
-    if (ArmCommand::isJointAction(targetAction) && targetJoint == eJOINT_UNDEFINED)
-        return false;
-    
     bool bret = true;
     switch (targetAction)
     {
@@ -85,19 +67,19 @@ bool ArmCommand::buildBusCommand()
                 setBusAction(0);
             break;
             
-        case eACT_JOINT_FORWARD:
-                setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_PUSH_FRONT);
+        case eACT_SET_PAN:
+                setBusModule(ArmCommand::eMOD_ARMPANNER);
+                setBusAction(targetValue);
             break;
             
-        case eACT_JOINT_BACKWARDS:
-                setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_PUSH_BACK);
+        case eACT_SET_TILT:
+                setBusModule(ArmCommand::eMOD_ARMTILTER);
+                setBusAction(targetValue);
             break;
 
-        case eACT_JOINT_KEEP:
-                setBusModule(eMOD_JOINTMOVER);
-                setBusAction(JointMover::eMOV_KEEP);
+        case eACT_SET_EXTENSION:
+                setBusModule(ArmCommand::eMOD_ARMEXTENDER);
+                setBusAction(targetValue);
             break;
             
         case eACT_JOINT_BRAKE:
@@ -110,7 +92,7 @@ bool ArmCommand::buildBusCommand()
 //                setBusAction(JointMover::eMOV_STOP);
             break;
 
-        case eACT_JOINT_SET:
+        case eACT_JOINT_ANGLE:
             setBusModule(ArmCommand::eMOD_JOINTCONTROL);
             setBusAction(targetValue);
         break;
@@ -129,12 +111,12 @@ bool ArmCommand::isJointAction(int action)
     
     switch (action)
     {
-        case eACT_JOINT_FORWARD:
-        case eACT_JOINT_BACKWARDS:
-        case eACT_JOINT_KEEP:
+        case eACT_SET_PAN:
+        case eACT_SET_TILT:
+        case eACT_SET_EXTENSION:
         case eACT_JOINT_BRAKE:
         case eACT_JOINT_STOP:
-        case eACT_JOINT_SET:
+        case eACT_JOINT_ANGLE:
             bjoint = true;
             break;
     }

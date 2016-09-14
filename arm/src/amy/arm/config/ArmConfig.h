@@ -56,7 +56,11 @@ public:
         // gets the JointMover module paramaters for the given joint name
         ParamsJointMover& getParamsJointMover(std::string jointName);
         
-        static std::string getAlias4Joint(std::string jointName);
+        // TEMPORAL configurations (to be removed)
+        // real position not read yet. When done, return true here
+        static bool isRealArmPositionRead() {return false;};
+        // ArmPosition module not created yet. When created, return true here
+        static bool isArmPositionModuleWorking() {return false;};
         
 private:
     void loadArmVersion(ArmVersion& oArmVersion);

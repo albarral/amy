@@ -27,10 +27,10 @@ private:
     enum eCommand
     {
          eCOM_EMPTY,            /*! empty command */
-         eCOM_INVALID,            /*! invalid command */    
-         eCOM_SELECTION,      /*! joint selection command */            
-         eCOM_MOVEMENT,      /*! movement command */
+         eCOM_INVALID,            /*! invalid command (ie. number when text expected)*/    
+         eCOM_UNKNOWN,        /*! unknown command (not in accepted list) */    
          eCOM_POSITION,         /*! position command */
+         eCOM_MOVEMENT,      /*! movement command */
          eCOM_DIM
     };
 
@@ -41,28 +41,25 @@ private:
     ArmBus* pBus;
     // logic
     std::string entry;            // command read from console
-    static const int lenSelection = 2;             //  length of joint selection commands (j1)
-    static const int lenCommand = 3;            //  length of movement commands (for)
-    static const int lenExtended = 4;            //  length of extended commands (arm + number)
-    int commandType;            // type of command (eCommand values)
+    bool bExpectingNumber;      // waiting for numeric commands
+    static const int lenSelection = 2;             //  length of joint selection commands (hs, vs, el, vw, hw)
+    static const int lenCommand = 3;            //  length of other commands (for)
+    int commandType;              // received command type
+    bool bArmedCommand;       // indicates the command can be sent to bus  
     std::vector<std::string> listCommands;      // accepted commands
     std::vector<std::string> listDescriptions;     // description of accepted commands 
-    std::vector<std::string> listExtendedCommands;  // accepted extended commands
-    std::vector<std::string> listExtendedDescriptions;     // description of accepted extended commands 
-    int targetJoint;    // controlled joint
-    std::string comsJSelection;         // command for joint selection
-    std::string comsJForward;       // command for moving a joint forward
-    std::string comsJBackward;    // command for moving a joint backwards
-    std::string comsJBrake;         // command for braking a joint
-    std::string comsJKeep;          // command for keeping a joint's speed
-    std::string comsJStop;          // command for stopping a joint
-    std::string comsArmMovement;   // (extended) command for launching/stopping a predefined movement
-    std::string comsEnd;            // command for stopping all arm control modules
+    std::string base;                      // base of a completed command 
+    std::string targetJoint;             // controlled joint   
     int value;
-//    bool bsendMove;           // flag indicating a movement command must be sent through the bus
-//    bool bsendPosition;       // flag indicating a position command must be sent through the bus
     ArmCommander oArmCommander;
     ArmCommand oArmCommand;
+    // commands
+    std::string comsPan;              // command for changing the arm's pan
+    std::string comsTilt;              // command for changing the arm's tilt
+    std::string comsExtend;         // command for changing the arm's extension 
+    std::string comsJStop;          // command for stopping a joint
+    std::string comsMovement;   // command for doing predefined movements
+    std::string comsEnd;            // command for stopping all arm control modules
 
 public:
     ArmComs1 ();
@@ -86,12 +83,14 @@ private:
     
     // listen for user's input (from console))
     void listen();
+    // analyses the textual input
+    void analyseText();
     // checks if entered command is a joint selection one
     bool checkSelectionCommand();
     // checks if entered command is a normal movement one 
-    bool checkMovementCommand();    
-    // checks if entered command is an extended movement one 
-    bool checkExtendedCommand();    
+    bool checkValidCommand();    
+    // checks if entered command needs a number to be completed
+    bool checkNeedsCompletion();    
     // checks if given text is a number
     bool checkNumericValue(std::string input);
     
@@ -101,10 +100,7 @@ private:
     bool buildPositionCommand();
     // sends built command through the bus
     void sendCommand();    
-    
-    // extract numeric suffix (last character) of a string
-    int extractNumericSuffix(std::string input);
-    
+        
     void showCommandsList();
 };
 }		

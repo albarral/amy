@@ -22,7 +22,8 @@
 #include "amy/arm/data/MoveStep.h"
 
 
-void launchManipulation();
+void launchArmManager(amy::ArmManager& oArmManager);
+void endArmManager(amy::ArmManager& oArmManager);
 
 void testArmPlanner();
 void testAmyNetwork2();
@@ -35,26 +36,38 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 int main(int argc, char** argv) 
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
-    	
-    launchManipulation();
+
+    amy::ArmManager oArmManager; 
+
+    launchArmManager(oArmManager);
     //testAmyNetwork2();
     //testArmPlanner();
+    endArmManager(oArmManager);
       
     return 0;
 }
 
-void launchManipulation()
+void launchArmManager(amy::ArmManager& oArmManager)
 {
     LOG4CXX_INFO(logger, "\n\nLAUNCH amy MANIPULATION ...\n");
     
-    std::vector<float> listPrevAngles;
-    
-    amy::ArmManager oArmManager; 
     oArmManager.init("UR5");
     if (!oArmManager.isEnabled())
         return;
     
     oArmManager.startModules();
+
+    return;
+}
+
+void endArmManager(amy::ArmManager& oArmManager)
+{
+    LOG4CXX_INFO(logger, "\nend amy MANIPULATION ...\n");
+    
+    std::vector<float> listPrevAngles;
+    
+    if (!oArmManager.isEnabled())
+        return;
     
     while (!oArmManager.checkEndRequested()) 
     {

@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/ArmPanner.h"
+#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
@@ -29,10 +30,19 @@ void ArmPanner::senseBus()
     // get requested arm pan
     if (pBus->getCO_ARM_PAN().checkRequested())
         targetPos = (int)pBus->getCO_ARM_PAN().getValue();    
+    
     // get real arm pan
-    istPos = pBus->getSO_ARM_PAN().getValue();  
-    // get real pan speed
-    istSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();     
+    // TEMP: ArmPosition module not created yet.
+    if (!ArmConfig::isArmPositionModuleWorking())
+    {
+        // Till then, arm pan read from HS angle
+        istPos = pJointBus->getSO_IST_ANGLE().getValue();        
+    }
+    else    
+        istPos = pBus->getSO_ARM_PAN().getValue();  
+    
+    // get real joint speed
+    istSpeed = pJointBus->getSO_REAL_SPEED().getValue();     
 }
 
 

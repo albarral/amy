@@ -9,11 +9,11 @@
 
 namespace amy
 {
-const std::string ArmConfig::horizontal_shoulder = "HS";
-const std::string ArmConfig::vertical_shoulder = "VS";
-const std::string ArmConfig::elbow = "EL";
-const std::string ArmConfig::horizontal_wrist = "HW";
-const std::string ArmConfig::vertical_wrist = "VW";
+const std::string ArmConfig::horizontal_shoulder = "hs";
+const std::string ArmConfig::vertical_shoulder = "vs";
+const std::string ArmConfig::elbow = "el";
+const std::string ArmConfig::horizontal_wrist = "hw";
+const std::string ArmConfig::vertical_wrist = "vw";
     
 // Constructor
 ArmConfig::ArmConfig ()

@@ -9,6 +9,7 @@
 
 #include "amy/arm/coms/ArmComs1.h"
 #include "amy/arm/coms/ArmCommand.h"
+#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
@@ -20,16 +21,15 @@ LoggerPtr ArmComs1::logger(Logger::getLogger("amy.arm"));
 ArmComs1::ArmComs1 ()
 {    
     benabled = false;
-
+    bExpectingNumber = false;   // text is initially expected
+    
     commandType = eCOM_EMPTY;    
     targetJoint = -1;   // default invalid value
-    comsJSelection = "j";
-    comsJForward = "for";
-    comsJBackward = "bac";
-    comsJKeep = "kip";
-    comsJBrake = "bra";
+    comsPan = "pan";
+    comsTilt = "til";
+    comsExtend ="ext";
     comsJStop = "sto";
-    comsArmMovement = "mov";
+    comsMovement = "mov";
     comsEnd = "end";
  }
 
@@ -42,24 +42,31 @@ ArmComs1::~ArmComs1 ()
 void ArmComs1::init ()
 {
     // list of normal movement commands
-    listCommands = {comsJForward, 
-                               comsJBackward,
-                               comsJKeep,
-                               comsJBrake,
-                               comsJStop,                               
-                               comsEnd};
+    listCommands = {
+        ArmConfig::horizontal_shoulder,
+        ArmConfig::vertical_shoulder, 
+        ArmConfig::elbow, 
+        ArmConfig::horizontal_wrist,
+        ArmConfig::vertical_wrist,
+        comsPan,
+        comsTilt,
+        comsExtend,
+        comsJStop,                         
+        comsMovement,
+        comsEnd};
 
-    // list of extended movement commands
-    listExtendedCommands = {comsArmMovement};
-
-    listDescriptions = {"move joint forward",
-                                "move joint backwards",
-                                "keep joint speed",
-                                "brake joint",
-                                "stop joint",
-                                "stop arm control"};
-
-    listExtendedDescriptions = {"start/stop predefined movement"};
+    listDescriptions = {
+        "select horizontal_shoulder",
+        "select vertical_shoulder", 
+        "select elbow", 
+        "select horizontal_wrist",
+        "select vertical_wrist",
+        "change pan",
+        "change tilt",
+        "change extension",
+        "stop joint",        
+        "do predefined movement"
+        "stop arm control"};
     
     benabled = true;    
     LOG4CXX_INFO(logger, "ArmComs1 initialized");          
@@ -85,6 +92,9 @@ void ArmComs1::loop()
     bool bret = false;
     LOG4CXX_INFO(logger, "> ?");    
 
+    // reset armed flag
+    bArmedCommand = false;
+    
     // listen to user commands
     listen();
 
@@ -97,18 +107,17 @@ void ArmComs1::loop()
     {
         LOG4CXX_ERROR(logger, "Invalid command! - " << entry);            
     }
-    else if (commandType == eCOM_SELECTION)
+    else if (commandType == eCOM_UNKNOWN)
     {
-        targetJoint = extractNumericSuffix(entry);       
-        LOG4CXX_INFO(logger, "Selected joint: " << targetJoint);  
+        LOG4CXX_ERROR(logger, "Unknown command! - " << entry);            
     }
-    else if (commandType == eCOM_MOVEMENT)
+    else if (commandType == eCOM_MOVEMENT && bArmedCommand)
     {
         bret = buildMovementCommand();
         if (bret)
             sendCommand();            
     }
-    else if (commandType == eCOM_POSITION)
+    else if (commandType == eCOM_POSITION && bArmedCommand)
     {
         bret = buildPositionCommand();
         if (bret)
@@ -121,58 +130,68 @@ void ArmComs1::listen()
 {
     // get input from console
     std::getline(std::cin, entry);    
-    
-    // set as default
-    commandType = eCOM_INVALID;
-    
+           
     // analyze user's entry
     if (!entry.empty())
-    {        
-        switch (entry.length())
+    {
+        // numeric input
+        if (checkNumericValue(entry))
         {
-            case lenSelection:                
-                // check if it's a selection command 
-                if (checkSelectionCommand())
-                    commandType = eCOM_SELECTION;
-                break;
-                
-            case lenCommand:
-                // check if it's a movement command 
-                if (checkMovementCommand())
-                    commandType = eCOM_MOVEMENT;
-                // check if it's a position command 
-                else if (checkNumericValue(entry))                    
-                    commandType = eCOM_POSITION;
-                break;
-                
-            case lenExtended:
-                // check if it's an extended movement command 
-                if (checkExtendedCommand())
-                    commandType = eCOM_MOVEMENT;
-                break;
+            // if number expected, command armed 
+            if (bExpectingNumber)
+                bArmedCommand = true;
+            // if text expected, invalid
+            else
+                commandType = eCOM_INVALID;                
         }
+        // text input, analyze it
+        else
+            analyseText();
     }    
     // empty command
     else        
         commandType = eCOM_EMPTY;
 }
 
-
-// checks if entered command is a joint selection one
-bool ArmComs1::checkSelectionCommand()
+void ArmComs1::analyseText()
 {
-    // get first letter of the entered command
-    std::string base = entry.substr(0, 1);
-    // compare it with the selection command
-    if (base.compare(comsJSelection) == 0) 
-        return true;
-    else
-        return false;
+    // initially unknown
+    commandType = eCOM_UNKNOWN;
+    switch (entry.length())
+    {
+        case lenSelection:                
+            // if selection command, expect numeric positions
+            if (checkValidCommand())
+            {
+                commandType = eCOM_POSITION;
+                targetJoint = entry;
+                bExpectingNumber = true;                
+            }
+            break;
+
+        case lenCommand:
+            // check if it's a movement command 
+            if (checkValidCommand())
+            {
+                commandType = eCOM_MOVEMENT;
+                base = entry;
+                // if complex command, expect numeric value
+                if (checkNeedsCompletion())
+                    bExpectingNumber = true;                
+                // otherwise, send it now
+                else
+                {
+                    bExpectingNumber = false;                
+                    bArmedCommand = true;
+                }                    
+            }
+            break;
+    }    
 }
 
 
-// checks if entered command is a normal movement one 
-bool ArmComs1::checkMovementCommand()
+// checks if entered command is a valid one 
+bool ArmComs1::checkValidCommand()
 {
     bool bfound = false;
                 
@@ -190,27 +209,13 @@ bool ArmComs1::checkMovementCommand()
     return bfound;
 }
 
-
-// checks if entered command is an extended movement one     
-bool ArmComs1::checkExtendedCommand()
+// checks if entered command is a joint selection one
+bool ArmComs1::checkNeedsCompletion()
 {
-    bool bfound = false;
-
-    // get first letter of the entered command
-    std::string base = entry.substr(0, lenExtended-1);
-
-    // search the entered command in the list of commands
-    for (std::string& command : listExtendedCommands)
-    {
-        // if found finish search
-        if (base.compare(command) == 0) 
-        {
-            bfound = true;                    
-            break;
-        }
-    }
-         
-    return bfound;
+    if (entry.compare(comsEnd) == 0)
+        return false;
+    else 
+        return true;;
 }
 
 // checks if the specified text is a number
@@ -234,46 +239,31 @@ bool ArmComs1::buildMovementCommand()
 {
     int targetAction = ArmCommand::eACT_UNDEFINED;
     bool bret = false;
-    std::string base = "";
 
     oArmCommand.resetCommand();
-    
-    // extract base in case of extended command 
-    if (entry.length() == lenExtended)            
-        base = entry.substr(0, lenCommand);
-    else
-        base = entry;
-        
-    // joint forward 
-    if (base.compare(comsJForward) == 0) 
+            
+    if (base.compare(comsPan) == 0) 
     {
-        targetAction = ArmCommand::eACT_JOINT_FORWARD;
+        targetAction = ArmCommand::eACT_SET_PAN;
     }
-    // joint backwards
-    else if (base.compare(comsJBackward) == 0) 
+    else if (base.compare(comsTilt) == 0) 
     {
-        targetAction = ArmCommand::eACT_JOINT_BACKWARDS;
+        targetAction = ArmCommand::eACT_SET_TILT;
     } 
-    // joint keep speed
-    else if (base.compare(comsJKeep) == 0) 
+    else if (base.compare(comsExtend) == 0) 
     {
-        targetAction = ArmCommand::eACT_JOINT_KEEP;        
-    } 
-    // joint brake
-    else if (base.compare(comsJBrake) == 0) 
-    {
-        targetAction = ArmCommand::eACT_JOINT_BRAKE;
+        targetAction = ArmCommand::eACT_SET_EXTENSION;        
     } 
     // joint stop
     else if (base.compare(comsJStop) == 0) 
     {
         targetAction = ArmCommand::eACT_JOINT_STOP;
     } 
-    // predefined arm movement
-    else if (base.compare(comsArmMovement) == 0) 
+    // predefined movement
+    else if (base.compare(comsMovement) == 0) 
     {
         // obtain action number
-        int action = extractNumericSuffix(entry);  
+        int action = value;
 
         // start move
         if (action == 1)
@@ -308,22 +298,18 @@ bool ArmComs1::buildPositionCommand()
 {    
     bool bret = false;
 
-    int targetAction = ArmCommand::eACT_JOINT_SET;
+    int targetAction = ArmCommand::eACT_JOINT_ANGLE;
 
     // set target action
     bret = oArmCommand.setTargetAction(targetAction);        
             
-    // set target joint
+    // build arm command
     if (bret)
-        bret = oArmCommand.setTargetJoint(targetJoint);        
-    
-    // set target value
-    if (bret)        
-        bret = oArmCommand.setTargetValue(value);
-
-    // build command
-    if (bret)
+    {
+        oArmCommand.setTargetJoint(targetJoint);        
+        oArmCommand.setTargetValue(value);
         bret = oArmCommand.buildBusCommand();
+    }
 
     return bret;
 }
@@ -341,63 +327,23 @@ void ArmComs1::sendCommand()
     }
 }
 
-// extract numeric suffix (last character) of a string
-int ArmComs1::extractNumericSuffix(std::string input)
-{
-    int number;
-    try
-    {
-        // extract suffix
-        int len = entry.length();        
-        std::string suffix = entry.substr(len-1, 1);          
-        number = std::stoi(suffix);        
-    }
-    catch (std::invalid_argument) 
-    {
-        number = -1;     // invalid numeric suffix
-    }
-    return number;
-}
-
 
 void ArmComs1::showCommandsList()
 {    
-    LOG4CXX_INFO(logger, "Usage: control the arm by alternating joint selection commands with movement commands or position commands ...");      
+    LOG4CXX_INFO(logger, "Control the arm by using next commands (most need completion with a numeric value)");      
 
-    std::vector<std::string>::iterator it_command, it_description, it_extcommand, it_extdescription;
+    std::vector<std::string>::iterator it_command, it_description;
     it_command = listCommands.begin();
     it_description = listDescriptions.begin();
-    it_extcommand = listExtendedCommands.begin();
-    it_extdescription = listExtendedDescriptions.begin();
 
-    LOG4CXX_INFO(logger, "Joint selection commands:");      
-
-    LOG4CXX_INFO(logger, comsJSelection << "1 -> use joint 1 (horizontal shoulder)");             
-    LOG4CXX_INFO(logger, comsJSelection << "2 -> use joint 2 (vertical shoulder)");             
-    LOG4CXX_INFO(logger, comsJSelection << "3 -> use joint 3 (elbow)");             
-    LOG4CXX_INFO(logger, comsJSelection << "4 -> use joint 4 (vertical wrist)");             
-
-    LOG4CXX_INFO(logger, "Simple movement commands:");      
+    LOG4CXX_INFO(logger, "Accepted commands:");      
 
     while (it_command != listCommands.end())
     {
         LOG4CXX_INFO(logger, *it_command << " -> " << *it_description);             
         it_command++;
         it_description++;
-    }
-    
-    LOG4CXX_INFO(logger, "Extended movement commands:");      
-
-    while (it_extcommand != listExtendedCommands.end())
-    {
-        LOG4CXX_INFO(logger, *it_extcommand << " -> " << *it_extdescription);             
-        it_extcommand++;
-        it_extdescription++;
-    }
-
-    LOG4CXX_INFO(logger, "Joint position commands:");      
-
-    LOG4CXX_INFO(logger, "120 -> move joint to angle 120");             
+    }    
 }
 
 }

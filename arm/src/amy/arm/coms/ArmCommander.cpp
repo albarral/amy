@@ -3,8 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-
 #include "amy/arm/coms/ArmCommander.h"
+#include "amy/arm/bus/JointBus.h"
 
 namespace amy
 {
@@ -12,19 +12,11 @@ ArmCommander::ArmCommander()
 {
     bconnected = false;
     pBus = 0;
-    pBusHShoulder = 0;
-    pBusVShoulder = 0;
-    pBusElbow = 0;
-    pBusVWrist = 0;
 }
 
 void ArmCommander::connect(ArmBus& oArmBus) 
 {
     pBus = &oArmBus;
-    pBusHShoulder = &pBus->getBusHS();
-    pBusVShoulder = &pBus->getBusVS();
-    pBusElbow = &pBus->getBusEL();
-    pBusVWrist = &pBus->getBusVW();
     bconnected = true;
 }
 
@@ -44,6 +36,18 @@ bool ArmCommander::sendCommand(ArmCommand& oArmCommand)
  
         case ArmCommand::eMOD_ARMMOVER:
             bret = send2ArmMover(oArmCommand);
+            break;
+
+        case ArmCommand::eMOD_ARMPANNER:
+            bret = send2ArmPanner(oArmCommand);
+            break;
+
+        case ArmCommand::eMOD_ARMTILTER:
+            bret = send2ArmTilter(oArmCommand);
+            break;
+
+        case ArmCommand::eMOD_ARMEXTENDER:
+            bret = send2ArmExtender(oArmCommand);
             break;
 
         case ArmCommand::eMOD_JOINTMOVER:
@@ -98,94 +102,59 @@ bool ArmCommander::send2ArmMover(ArmCommand& oArmCommand)
     return bret;    
 }
 
+/*! sends command to ArmPanner module */    
+bool ArmCommander::send2ArmPanner(ArmCommand& oArmCommand)
+{
+    bool bret = false;
+    int angle = (int)oArmCommand.getTargetValue();   
+
+    pBus->getCO_ARM_PAN().request(angle);            
+    return true;    
+}
+
+/*! sends command to ArmTilter module */    
+bool ArmCommander::send2ArmTilter(ArmCommand& oArmCommand)
+{
+    bool bret = false;
+    int angle = (int)oArmCommand.getTargetValue();   
+
+    pBus->getCO_ARM_TILT().request(angle);            
+    return true;    
+}
+
+/*! sends command to ArmExtender module */    
+bool ArmCommander::send2ArmExtender(ArmCommand& oArmCommand)
+{
+    bool bret = false;
+    int radius = (int)oArmCommand.getTargetValue();   
+
+    pBus->getCO_ARM_RADIUS().request(radius);            
+    return true;    
+}
+
 /*! sends command to JointMover modules */    
 bool ArmCommander::send2JointMover(ArmCommand& oArmCommand)
 {
     bool bret = false;
-    int targetJoint = oArmCommand.getTargetJoint();    
     int busAction = oArmCommand.getBusAction();    
     
-    switch (targetJoint)
-    {        
-        case ArmCommand::eJOINT_HSHOULDER:
-            if (pBusHShoulder > 0)
-            {
-                pBusHShoulder->getCO_JMOVER_ACTION().request(busAction);            
-                bret = true;                        
-            }
-            break;
-                        
-        case ArmCommand::eJOINT_VSHOULDER:
-            if (pBusVShoulder > 0)
-            {
-                pBusVShoulder->getCO_JMOVER_ACTION().request(busAction);            
-                bret = true;                        
-            }
-            break;
+    // access joint's bus
+    JointBus& pJointBus = pBus->getJointBus(oArmCommand.getTargetJoint());   
+    pJointBus.getCO_JMOVER_ACTION().request(busAction);   
 
-        case ArmCommand::eJOINT_ELBOW:
-            if (pBusElbow > 0)
-            {
-                pBusElbow->getCO_JMOVER_ACTION().request(busAction);            
-                bret = true;                        
-            }
-            break;
-            
-        case ArmCommand::eJOINT_VWRIST:
-            if (pBusVWrist > 0)
-            {
-                pBusVWrist->getCO_JMOVER_ACTION().request(busAction);            
-                bret = true;                        
-            }
-            break;
-    }    
-
-    return bret;    
+    return true;    
 }
 
 /*! sends command to JointControl modules */    
 bool ArmCommander::send2JointControl(ArmCommand& oArmCommand)
 {        
-    bool bret = false;
-    int targetJoint = oArmCommand.getTargetJoint();    
     float angle = oArmCommand.getTargetValue();    // the target value is the soll angle
     
-    switch (targetJoint)
-    {        
-        case ArmCommand::eJOINT_HSHOULDER:
-            if (pBusHShoulder > 0)
-            {
-                pBusHShoulder->getCO_JOINT_ANGLE().request(angle);       
-                bret = true;                        
-            }
-            break;
-                        
-        case ArmCommand::eJOINT_VSHOULDER:
-            if (pBusVShoulder > 0)
-            {
-                pBusVShoulder->getCO_JOINT_ANGLE().request(angle);    
-                bret = true;                        
-            }
-            break;
+    // access joint's bus
+    JointBus& pJointBus = pBus->getJointBus(oArmCommand.getTargetJoint());   
+    pJointBus.getCO_JOINT_ANGLE().request(angle);       
 
-        case ArmCommand::eJOINT_ELBOW:
-            if (pBusElbow > 0)
-            {
-                pBusElbow->getCO_JOINT_ANGLE().request(angle);          
-                bret = true;                        
-            }
-            break;
-            
-        case ArmCommand::eJOINT_VWRIST:
-            if (pBusVWrist > 0)
-            {
-                pBusVWrist->getCO_JOINT_ANGLE().request(angle);
-                bret = true;                        
-            }
-            break;
-    }    
-
-    return bret;    
+    return true;    
 }
 
 }

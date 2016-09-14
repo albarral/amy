@@ -8,7 +8,6 @@
 
 #include "amy/arm/coms/ArmCommand.h"
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/bus/JointBus.h"
 
 namespace amy
 {
@@ -20,10 +19,6 @@ class ArmCommander
 private:
     bool bconnected;        // connected to bus
     ArmBus* pBus;           // access to arm bus
-    JointBus* pBusHShoulder;    // access to horizonal shoulder bus
-    JointBus* pBusVShoulder;    // access to vertical shoulder bus
-    JointBus* pBusElbow;          // access to elbow bus  
-    JointBus* pBusVWrist;            // access to wrist bus
     // int priority;
     
 public:
@@ -42,6 +37,12 @@ private:
     bool send2ArmManager(ArmCommand& oArmCommand);
     /*! sends command to ArmMover module */    
     bool send2ArmMover(ArmCommand& oArmCommand);
+    /*! sends command to ArmPanner module */    
+    bool send2ArmPanner(ArmCommand& oArmCommand);
+    /*! sends command to ArmTilter module */    
+    bool send2ArmTilter(ArmCommand& oArmCommand);
+    /*! sends command to ArmExtender module */    
+    bool send2ArmExtender(ArmCommand& oArmCommand);
     /*! sends command to JointMover modules */    
     bool send2JointMover(ArmCommand& oArmCommand);
     /*! sends command to JointControl modules */    

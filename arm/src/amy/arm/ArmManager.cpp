@@ -95,6 +95,7 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
 
 void ArmManager::initModules(std::vector<std::string>& listJointNames)
 {    
+    int microsWait = 50000;  // 50ms
     float freq = oArmConfig.getModulesFreq();
 
     // init modules FOR each joint
@@ -112,8 +113,8 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
         oJointControl[i].init(jointName, mJoint);  
         oJointControl[i].connect(oJointBus);
         oJointControl[i].setFrequency(freq);           
+        usleep(microsWait);
     }
-    usleep(200000);
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
@@ -128,8 +129,8 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
         oJointMover[i].init(jointName, mParamsJointMover);  
         oJointMover[i].connect(oJointBus);
         oJointMover[i].setFrequency(freq);
+        usleep(microsWait);
     }
-    usleep(200000);
 
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
@@ -137,7 +138,12 @@ void ArmManager::initModules(std::vector<std::string>& listJointNames)
     oArmMover.init(3000);
     oArmMover.connect(oArmBus);
     oArmMover.setFrequency(freq);
-    usleep(500000);
+    usleep(microsWait); // 50ms
+    // arm panner module
+    oArmPanner.init(45, 15, 30, 10, 0.2);
+    oArmPanner.connect(oArmBus);
+    oArmPanner.setFrequency(freq);
+    usleep(microsWait); // 50ms
     
     level++;
     LOG4CXX_INFO(logger, ">> INIT modules ... level " << level);       
@@ -184,6 +190,9 @@ void ArmManager::startModules()
     // arm mover module
     if (oArmMover.isEnabled() && oArmMover.isConnected())
         oArmMover.on();
+    // arm panner module
+    if (oArmPanner.isEnabled() && oArmPanner.isConnected())
+        oArmPanner.on();
 
     level++;
     LOG4CXX_INFO(logger, ">> START level " << level);
@@ -215,6 +224,9 @@ void ArmManager::stopModules()
 
     level--;
     LOG4CXX_INFO(logger, ">> STOP level " << level);
+    // arm panner module
+    oArmPanner.off();
+    oArmPanner.wait();
     // arm mover module
     oArmMover.off();
     oArmMover.wait();

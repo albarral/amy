@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/JointControl.h"
+#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
@@ -19,7 +20,7 @@ JointControl::JointControl()
     bconnected = false;
     pJointBus = 0;
     sollAngle = 0;
-    limitBroken = 0;
+    limitReached = 0;
 }
 
 //JointControl::~JointControl()
@@ -80,28 +81,36 @@ void JointControl::loop()
 
 void JointControl::senseBus()
 {
-    // get last commanded SOLL angle (CO_JOINT_ANGLE) 
+    // get last commanded SOLL angle 
     sollAngle = pJointBus->getCO_JOINT_ANGLE().getValue();
     
-    // get speed request (CO_SOLL_SPEED) 
+    // get requested joint speed
     if (pJointBus->getCO_JCONTROL_SPEED().checkRequested())
     {
         sollSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();
+        // convert it for easier handling
         sollSpeed_ms = sollSpeed/1000.0;
     }
 }
 
 void JointControl::writeBus()
 {
-    // request new SOLL angle (CO_SOLL_ANGLE)
+    // send soll angle
     pJointBus->getCO_JOINT_ANGLE().request(sollAngle);
     LOG4CXX_DEBUG(logger, "angle=" << (int)sollAngle);
     
-    // update real IST speed (SO_REAL_SPEED)
-    // TEMPORAL !!! 
-    // We put the SOLL speed here instead of the IST speed. 
-    // That's because we are not reading the IST angles yet, needed for its computation.
-    pJointBus->getSO_REAL_SPEED().setValue(sollSpeed);
+    // inform limit reached
+    pJointBus->getSO_LIMIT_REACHED().setValue(limitReached);
+            
+    // inform real speed 
+    // TEMP: real position not read yet. 
+    if (!ArmConfig::isRealArmPositionRead())
+    {
+        // Till then, SOLL speed informed here
+        pJointBus->getSO_REAL_SPEED().setValue(sollSpeed);
+        // Till then, SOLL angles informed here
+        pJointBus->getSO_IST_ANGLE().setValue(sollAngle);
+    }
 }
 
 void JointControl::doSpeed2Angle()
@@ -116,16 +125,16 @@ void JointControl::doSpeed2Angle()
     {
         LOG4CXX_WARN(logger, "upper limit!");
         sollAngle = mJoint->getUpperLimit();
-        limitBroken = 1;
+        limitReached = 1;
     }
     else if (sollAngle < mJoint->getLowerLimit())
     {
         LOG4CXX_WARN(logger, "lower limit!");
         sollAngle = mJoint->getLowerLimit();
-        limitBroken = -1;
+        limitReached = -1;
     }
     else
-        limitBroken = 0;
+        limitReached = 0;
 }
 
 
