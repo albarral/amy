@@ -65,7 +65,7 @@ void ArmComs1::init ()
         "change tilt",
         "change extension",
         "stop joint",        
-        "do predefined movement"
+        "do predefined movement",
         "stop arm control"};
     
     benabled = true;    

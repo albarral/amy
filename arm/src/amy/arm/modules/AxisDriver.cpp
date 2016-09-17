@@ -23,6 +23,7 @@ AxisDriver::AxisDriver()
     bconnected = false;
     pBus = 0;
     pJointBus = 0;
+    targetPos = 0;  // TEMPORAL
 }
 
 //AxisDriver::~AxisDriver()
@@ -119,10 +120,16 @@ void AxisDriver::loop()
        
             // big dist -> drive
             if (absDist > dH)
+            {
                 setNextState(eSTATE_DRIVE);
+                LOG4CXX_INFO(logger, "target = " << targetPos);
+                LOG4CXX_INFO(logger, "ist = " << istPos);
+            }
             // small dist -> approach
             else if (absDist > dL)
+            {
                 setNextState(eSTATE_APPROACH);
+            }
             // tolerance -> arrived (nothing)
             break;
 
