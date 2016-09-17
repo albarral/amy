@@ -25,7 +25,8 @@
 namespace amy
 {
 // This class manages a robot's arm.
-// It is composed of various modules, each running its own thread.     
+// It is composed of various modules, each running its own thread. 
+// Modules are distributed on levels.     
 class ArmManager
 {
     private:
@@ -34,7 +35,8 @@ class ArmManager
         ArmBus oArmBus;
         ArmConfig oArmConfig;
         Arm oArm;
-        int level;      // modules level activated 
+        int level;      // highest level activated 
+        int maxLevel; // allow activation of modules until this level
         // modules ...
         ArmMover oArmMover;
         ArmPanner oArmPanner;
@@ -74,6 +76,12 @@ private:
     void initArm(std::vector<std::string>& listJointNames);
     void initBus(std::vector<std::string>& listJointNames);
     void initModules(std::vector<std::string>& listJointNames);
+   // init the modules of a level
+    void initLevel(int level, std::vector<std::string>& listJointNames);        
+   // start the modules of a level
+    void startLevel(int level);        
+   // stop the modules of a level
+    void stopLevel(int level);        
     // maps joint buses to IO outputs
     JointBus& mapBus2SystemIO(int i);
 };
