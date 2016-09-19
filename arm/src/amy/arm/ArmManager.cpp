@@ -92,6 +92,8 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
             return;
         }
     }
+    
+    LOG4CXX_INFO(logger, oArmBus.toString());
 }
 
 void ArmManager::initModules(std::vector<std::string>& listJointNames)
@@ -114,10 +116,12 @@ void ArmManager::startModules()
         return;
     
     level = -1;
+    int microsWait = 100000;  // 100ms
     for (int i=0; i<=maxLevel; i++)
     {
         startLevel(i);
         level = i;        
+        usleep(microsWait);
     }
 }
 
@@ -141,7 +145,6 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
 
     float freq = oArmConfig.getModulesFreq();
     int numJoints = listJointNames.size();
-    int microsWait = 100000;  // 100ms
     
     switch (num)
     {
@@ -170,7 +173,6 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
                 oJointControl[i].init(jointName, mJoint);  
                 oJointControl[i].connect(oJointBus);
                 oJointControl[i].setFrequency(freq);           
-                usleep(microsWait);
             }
             break;
 
@@ -187,7 +189,6 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
                 oJointMover[i].init(jointName, mParamsJointMover);  
                 oJointMover[i].connect(oJointBus);
                 oJointMover[i].setFrequency(freq);
-                usleep(microsWait);
             }
             break;
 
@@ -197,12 +198,10 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
             oArmMover.init(3000);
             oArmMover.connect(oArmBus);
             oArmMover.setFrequency(freq);
-            usleep(microsWait); // 50ms
             // arm panner module
             oArmPanner.init(45, 15, 30, 10, 0.2);
             oArmPanner.connect(oArmBus);
             oArmPanner.setFrequency(freq);
-            usleep(microsWait); // 50ms
             break;
 
         default:

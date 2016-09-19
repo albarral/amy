@@ -18,6 +18,7 @@ class ArmBus
 {
     private:        
         bool benabled;
+        std::string armName;
         
         // CONTROLS (receiver modules)
         // ArmManager
@@ -71,7 +72,9 @@ class ArmBus
         JointBus& getBusVW() {return oBusVW;};
 
         // gets the bus section for the specified joint name
-        JointBus& getJointBus(std::string jointName);                
+        JointBus& getJointBus(std::string jointName);    
+        
+        std::string toString();
 };
 
 }    

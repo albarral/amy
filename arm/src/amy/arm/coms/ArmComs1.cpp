@@ -130,7 +130,9 @@ void ArmComs1::listen()
 {
     // get input from console
     std::getline(std::cin, entry);    
-           
+    // show input
+    LOG4CXX_ERROR(logger, "< " << entry);
+       
     // analyze user's entry
     if (!entry.empty())
     {

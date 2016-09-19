@@ -61,9 +61,7 @@ void launchArmManager(amy::ArmManager& oArmManager)
 }
 
 void endArmManager(amy::ArmManager& oArmManager)
-{
-    LOG4CXX_INFO(logger, "\nend amy MANIPULATION ...\n");
-    
+{    
     std::vector<float> listPrevAngles;
     
     if (!oArmManager.isEnabled())
@@ -82,7 +80,8 @@ void endArmManager(amy::ArmManager& oArmManager)
 
         sleep(1);
     }    
-    
+
+    LOG4CXX_INFO(logger, "\nend amy MANIPULATION ...\n");
     oArmManager.stopModules();
 
     return;
