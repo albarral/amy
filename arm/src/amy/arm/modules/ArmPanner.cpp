@@ -27,11 +27,11 @@ void ArmPanner::selectBusJoint()
 
 void ArmPanner::senseBus()
 {
-    // get requested arm pan
+    // on pan request -> new move
     if (pBus->getCO_ARM_PAN().checkRequested())
     {
         targetPos = (int)pBus->getCO_ARM_PAN().getValue();    
-        bmoveRequested = true;
+        newMove();
     }
     
     // get real arm pan
@@ -46,6 +46,9 @@ void ArmPanner::senseBus()
     
     // get real joint speed
     istSpeed = pJointBus->getSO_REAL_SPEED().getValue();     
+    // check if movement blocked (due to reached joint limit)
+    if (pJointBus->getSO_LIMIT_REACHED().getValue() != 0)
+        blockedMove();
 }
 
 

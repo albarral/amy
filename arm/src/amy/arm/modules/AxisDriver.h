@@ -55,14 +55,14 @@ protected:
     ArmBus* pBus;
     JointBus* pJointBus;   // bus connection to a joint
     // logic
-    bool bmoveRequested;    // requested move
     int targetPos;          // desired axis position
     float istPos;            // real axis position
     float istSpeed;         // real arm speed
     int outAction;          // commanded action to JMover modules
+    int blockedTime;     // time that movement has been blocked (ie for limit reasons)
     // aux
-    int tolvHigh;          // drive speed tolerance (deg/s))
-    int tolvLow;            // approach speed tolerance (deg/s))            
+    int tolvHigh;          // drive speed tolerance (deg/s)
+    int tolvLow;            // approach speed tolerance (deg/s)            
 
 public:
         AxisDriver();
@@ -90,11 +90,15 @@ protected:
         // write action commands to bus
         virtual void writeBus() = 0;
         
+        // starts new move
+        void newMove();
         // move joint to target position at proper speed
         void doDrive(float dist, float absDist);
         // stop joint movement
         void doArrived();
         
+        // movement is blocked
+        void blockedMove();
         // shows the present state name
         void showState();
 };

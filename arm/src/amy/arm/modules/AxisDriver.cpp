@@ -24,7 +24,6 @@ AxisDriver::AxisDriver()
     pBus = 0;
     pJointBus = 0;
     targetPos = 0;  // TEMPORAL
-    bmoveRequested = false;
 }
 
 //AxisDriver::~AxisDriver()
@@ -79,15 +78,6 @@ void AxisDriver::loop()
 {
     senseBus();
 
-    // on move request -> drive
-    if (bmoveRequested)
-    {
-        setNextState(eSTATE_DRIVE);                
-        LOG4CXX_INFO(logger, "target = " << targetPos);  
-        LOG4CXX_INFO(logger, "ist = " << istPos);
-        bmoveRequested = false;
-    }
-
     if (updateState())
         showState();
         
@@ -104,7 +94,7 @@ void AxisDriver::loop()
         case eSTATE_DRIVE:
             
             // not in target -> drive joint
-            if (absDist > dTol)
+            if (absDist > dTol && blockedTime<5)
                 doDrive(dist, absDist);
             // in target -> arrived
             else 
@@ -116,15 +106,9 @@ void AxisDriver::loop()
                         
         case eSTATE_ARRIVED:
        
-            // not in target -> drive
-            if (absDist > dTol)
-                setNextState(eSTATE_DRIVE);
             // in target -> done
-            else
-            {
-                doArrived();
-                setNextState(eSTATE_DONE);                
-            }
+            doArrived();
+            setNextState(eSTATE_DONE);                
                 
             break;
     }   // end switch        
@@ -133,6 +117,22 @@ void AxisDriver::loop()
     LOG4CXX_INFO(logger, "out: " << outAction << " - ist = " << istPos);
 }
 
+
+// starts new move
+void AxisDriver::newMove()
+{
+    // reset blocked time and drive 
+    blockedTime = 0;
+    setNextState(eSTATE_DRIVE);   
+    LOG4CXX_INFO(logger, "target = " << targetPos);  
+    LOG4CXX_INFO(logger, "ist = " << istPos);
+}
+
+// increase blocked time
+void AxisDriver::blockedMove()
+{
+    blockedTime++;
+}
 
 // move joint to target position at proper speed (with a tolerance)
 void AxisDriver::doDrive(float dist, float absDist)

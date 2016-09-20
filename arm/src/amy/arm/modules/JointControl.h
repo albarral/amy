@@ -16,8 +16,7 @@
 
 namespace amy
 {
-// Module that sets a Joint's angle given a commanded speed value.
-// It derives from base class Module2
+// Last module in the arm's control chain. It transforms the desired joint speed into proper joint positions.
 class JointControl : public Module2
 {
 public:

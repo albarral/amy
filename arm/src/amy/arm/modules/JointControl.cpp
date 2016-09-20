@@ -72,11 +72,8 @@ void JointControl::loop()
             break;
     }   // end switch    
     
-    if (sollAngle != prevSollAngle)
-    {
-        writeBus();
-        prevSollAngle = sollAngle;
-    }
+    // core behaviour: must always write commands 
+    writeBus();
 }
 
 void JointControl::senseBus()
@@ -97,7 +94,12 @@ void JointControl::writeBus()
 {
     // send soll angle
     pJointBus->getCO_JOINT_ANGLE().request(sollAngle);
-    LOG4CXX_DEBUG(logger, "angle=" << (int)sollAngle);
+    // if changed, show it
+//    if (sollAngle != prevSollAngle)
+//    {
+//        LOG4CXX_INFO(logger, "angle=" << (int)sollAngle);
+//        prevSollAngle = sollAngle;
+//    }
     
     // inform limit reached
     pJointBus->getSO_LIMIT_REACHED().setValue(limitReached);
