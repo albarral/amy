@@ -90,17 +90,17 @@ std::string ArmBus::toString()
     std::string text = "ArmBus:[" + armName + "]\n" +       
          "CO_ARMMOVER_START: " + std::to_string(CO_ARMMOVER_START.getRequested()) + "\n" +
          "CO_ARMMOVER_STOP: " + std::to_string(CO_ARMMOVER_STOP.getRequested()) + "\n" +
-         "CO_ARM_PAN: " + std::to_string(CO_ARM_PAN.getValue()) + " - " + std::to_string(CO_ARM_PAN.getRequested()) + "\n" +
-         "CO_ARM_TILT: " + std::to_string(CO_ARM_TILT.getValue()) + " - " + std::to_string(CO_ARM_TILT.getRequested()) + "\n" +
-         "CO_ARM_RADIUS: " + std::to_string(CO_ARM_RADIUS.getValue()) + " - " + std::to_string(CO_ARM_RADIUS.getRequested()) + "\n" +
+         "CO_ARM_PAN: " + std::to_string(CO_ARM_PAN.getRequested()) + " - " + std::to_string(CO_ARM_PAN.getValue()) + "\n" +
+         "CO_ARM_TILT: " + std::to_string(CO_ARM_TILT.getRequested()) + " - " + std::to_string(CO_ARM_TILT.getValue()) + "\n" +
+         "CO_ARM_RADIUS: " + std::to_string(CO_ARM_RADIUS.getRequested()) + " - " + std::to_string(CO_ARM_RADIUS.getValue()) + "\n" +
          "SO_ARM_PAN: " + std::to_string(SO_ARM_PAN.getValue()) + "\n" +
          "SO_ARM_TILT: " + std::to_string(SO_ARM_TILT.getValue()) + "\n" +
          "SO_ARM_RADIUS: " + std::to_string(SO_ARM_RADIUS.getValue()) + "\n" +
-          oBusHS.toString() +   
-          oBusVS.toString() +   
-          oBusEL.toString() +   
-          oBusHW.toString() +   
-          oBusVW.toString();
+          "\n" + oBusHS.toString() +   
+          "\n" + oBusVS.toString() +   
+          "\n" + oBusEL.toString() +   
+          "\n" + oBusHW.toString() +   
+          "\n" + oBusVW.toString();
     
     return text;
 }

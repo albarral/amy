@@ -24,27 +24,30 @@ AxisDriver::AxisDriver()
     pBus = 0;
     pJointBus = 0;
     targetPos = 0;  // TEMPORAL
+    bmoveRequested = false;
 }
 
 //AxisDriver::~AxisDriver()
 //{
 //}
 
-void AxisDriver::init(int dH, int dL, int vDrive, int vApproach, float tolerance)
+//int dNear, int dTol, int vHigh, int vLow, float tolerance
+void AxisDriver::init(int dNear, int dTol, int vHigh, int vLow, float tolerance)
 {
     // valid params
-    if (dH > 0 && dL > 0 && vDrive > 0 && vApproach > 0 && dH > dL && tolerance > 0.0)
+    if (dNear > 0 && dTol > 0 && vHigh > 0 && vLow > 0 && dNear > dTol && tolerance > 0.0)
     {
-        this->dH = dH;
-        this->dL = dL;
-        this->vDrive = vDrive;
-        this->vApproach = vApproach;
-        vDriveTol = tolerance * vDrive;    
-        vApproachTol = tolerance * vApproach;
+        this->dNear = dNear;
+        this->dTol = dTol;
+        this->vHigh = vHigh;
+        this->vLow = vLow;
+        this->speedTolerance = tolerance;
+        tolvHigh = tolerance * vHigh;    
+        tolvLow = tolerance * vLow;
         benabled = true;
         
         LOG4CXX_INFO(logger, modName << " initialized");                  
-        LOG4CXX_DEBUG(logger, "dH=" << dH << ", dL=" << dL << ", vDrive=" << vDrive << ", vApproach=" << vApproach << ", tolerance=" << tolerance);      
+        LOG4CXX_DEBUG(logger, "dNear=" << dNear << ", dTol=" << dTol << ", vHigh=" << vHigh << ", vLow=" << vLow << ", speed tolerance=" << tolerance);      
     }
     // invalid params
     else
@@ -64,8 +67,9 @@ void AxisDriver::connect(ArmBus& oBus)
 
 void AxisDriver::first()
 {
-    setState(eSTATE_ARRIVED);
-    setNextState(eSTATE_ARRIVED);
+    // start at done
+    setState(eSTATE_DONE);
+    setNextState(eSTATE_DONE);
     
     log4cxx::NDC::push(modName);   	
 }
@@ -75,10 +79,23 @@ void AxisDriver::loop()
 {
     senseBus();
 
+    // on move request -> drive
+    if (bmoveRequested)
+    {
+        setNextState(eSTATE_DRIVE);                
+        LOG4CXX_INFO(logger, "target = " << targetPos);  
+        LOG4CXX_INFO(logger, "ist = " << istPos);
+        bmoveRequested = false;
+    }
+
     if (updateState())
         showState();
-    
-    bsendAction = false;
+        
+    // if done -> do nothing 
+    if (getState() == eSTATE_DONE)
+        return;
+
+    // otherwise, control arm
     float dist = targetPos - istPos;
     float absDist = fabs(dist);
     
@@ -86,121 +103,89 @@ void AxisDriver::loop()
     {
         case eSTATE_DRIVE:
             
-            // big dist -> drive
-            if (absDist > dH)
-            {
-                doDrive(dist);
-                bsendAction = true;
-            }
-            // small dist -> approach
-            else if (absDist > dL)
-                setNextState(eSTATE_APPROACH);
-            // tolerance -> arrived
+            // not in target -> drive joint
+            if (absDist > dTol)
+                doDrive(dist, absDist);
+            // in target -> arrived
             else 
+            {
+                doArrived();
                 setNextState(eSTATE_ARRIVED);
+            }
             break;
                         
-        case eSTATE_APPROACH:
-       
-            // big dist -> drive
-            if (absDist > dH)
-                setNextState(eSTATE_DRIVE);
-            // small dist -> approach
-            else if (absDist > dL)
-            {
-                doApproach(dist);                
-                bsendAction = true;
-            }
-            // tolerance -> arrived
-            else 
-                setNextState(eSTATE_ARRIVED);
-            break;
-
         case eSTATE_ARRIVED:
        
-            // big dist -> drive
-            if (absDist > dH)
-            {
+            // not in target -> drive
+            if (absDist > dTol)
                 setNextState(eSTATE_DRIVE);
-                LOG4CXX_INFO(logger, "target = " << targetPos);
-                LOG4CXX_INFO(logger, "ist = " << istPos);
-            }
-            // small dist -> approach
-            else if (absDist > dL)
+            // in target -> done
+            else
             {
-                setNextState(eSTATE_APPROACH);
+                doArrived();
+                setNextState(eSTATE_DONE);                
             }
-            // tolerance -> arrived (nothing)
+                
             break;
-
-        case eSTATE_FREE:
-            
-            // nothing to do
-            break;            
     }   // end switch        
     
-    if (bsendAction)
-        writeBus();
+    writeBus();
+    LOG4CXX_INFO(logger, "out: " << outAction << " - ist = " << istPos);
 }
 
 
-// move joint to target position at drive speed
-void AxisDriver::doDrive(float dist)
+// move joint to target position at proper speed (with a tolerance)
+void AxisDriver::doDrive(float dist, float absDist)
 {    
-    // deduce target speed (implies direction)
-    int targetSpeed = (dist > 0.0) ? vDrive : -vDrive;    
-
-    // compare target and real speeds
-    int speedDif = targetSpeed - (int)istSpeed;    
-    // if different, change joint speed (pushing it)
-    if (fabs(speedDif) > vDriveTol)
+    int vCruise, tolvCruise;
+        
+    // far target -> high speed
+    if (absDist > dNear)
     {
-        if (speedDif > 0)
+        vCruise = vHigh;
+        tolvCruise = tolvHigh;
+    }
+    // near target -> low speed
+    else if (absDist > dTol)
+    {
+        vCruise = vLow;
+        tolvCruise = tolvLow;
+    }
+    
+    // deduce target speed (implies direction)
+    int targetSpeed = (dist > 0.0) ? vCruise : -vCruise;
+    // compare target and real speeds
+    int difSpeed = targetSpeed - (int)istSpeed;    
+    
+    // push joint to reach target speed
+    if (fabs(difSpeed) > tolvCruise)
+    {
+        if (difSpeed > 0)
             outAction = JointMover::eMOV_PUSH_FRONT;
         else 
             outAction = JointMover::eMOV_PUSH_BACK;        
     }
-    // if equal (under a tolerance), keep joint speed
+    // if reached (with tolerance), keep joint speed
     else
         outAction = JointMover::eMOV_KEEP;
 }
 
-
-// move joint to target position at approach speed
-void AxisDriver::doApproach(float dist)
+// stop joint 
+void AxisDriver::doArrived()
 {
-    // deduce target speed (implies direction)
-    int targetSpeed = (dist > 0.0) ? vApproach : -vApproach;    
-
-    // compare target and real speeds
-    int speedDif = targetSpeed - (int)istSpeed;    
-    // if different, change joint speed (pushing it)
-    if (fabs(speedDif) > vApproachTol)
-    {
-        if (speedDif > 0)
-            outAction = JointMover::eMOV_PUSH_FRONT;
-        else 
-            outAction = JointMover::eMOV_PUSH_BACK;        
-    }
-    // if equal (under a tolerance), keep joint speed
-    else
-        outAction = JointMover::eMOV_KEEP;    
+    outAction = JointMover::eMOV_STOP;
 }
 
 void AxisDriver::showState()
 {
     switch (getState())
     {
-        case eSTATE_FREE:
-            LOG4CXX_INFO(logger, ">> free");
+        case eSTATE_DONE:
+            LOG4CXX_INFO(logger, ">> done");
             break;
                         
         case eSTATE_ARRIVED:
             LOG4CXX_INFO(logger, ">> arrived");
-            break;
-
-        case eSTATE_APPROACH:
-            LOG4CXX_INFO(logger, ">> approach");
             break;
 
         case eSTATE_DRIVE:

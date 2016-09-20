@@ -10,60 +10,52 @@ namespace amy
 {
 ArmCommander::ArmCommander()
 {
-    bconnected = false;
-    pBus = 0;
 }
 
-void ArmCommander::connect(ArmBus& oArmBus) 
+bool ArmCommander::sendCommand(ArmBus* pBus, ArmCommand& oArmCommand)
 {
-    pBus = &oArmBus;
-    bconnected = true;
-}
-
-bool ArmCommander::sendCommand(ArmCommand& oArmCommand)
-{
-    bool bret;
-    
-    if (!bconnected)
-        return false;
-    
+    bool bret = true;;
+        
     // distribute commands to each module sender
     switch (oArmCommand.getBusModule())
     {                
         case ArmCommand::eMOD_MANAGER:
-            bret = send2ArmManager(oArmCommand);
+            bret = send2ArmManager(pBus, oArmCommand);
             break;
  
         case ArmCommand::eMOD_ARMMOVER:
-            bret = send2ArmMover(oArmCommand);
+            bret = send2ArmMover(pBus, oArmCommand);
             break;
 
         case ArmCommand::eMOD_ARMPANNER:
-            bret = send2ArmPanner(oArmCommand);
+            send2ArmPanner(pBus, oArmCommand);
             break;
 
         case ArmCommand::eMOD_ARMTILTER:
-            bret = send2ArmTilter(oArmCommand);
+            send2ArmTilter(pBus, oArmCommand);
             break;
 
         case ArmCommand::eMOD_ARMEXTENDER:
-            bret = send2ArmExtender(oArmCommand);
+            send2ArmExtender(pBus, oArmCommand);
             break;
 
         case ArmCommand::eMOD_JOINTMOVER:
-            bret = send2JointMover(oArmCommand);
+            send2JointMover(pBus, oArmCommand);
             break;
 
         case ArmCommand::eMOD_JOINTCONTROL:
-            bret = send2JointControl(oArmCommand);
+            send2JointControl(pBus, oArmCommand);
             break;
+            
+        default:
+            bret = false;
     }    
     
     return bret;
 }
 
 /*! sends command to the ArmManager */        
-bool ArmCommander::send2ArmManager(ArmCommand& oArmCommand)
+bool ArmCommander::send2ArmManager(ArmBus* pBus, ArmCommand& oArmCommand)
 {
     bool bret = false;
     int busAction = oArmCommand.getBusAction();    
@@ -79,7 +71,7 @@ bool ArmCommander::send2ArmManager(ArmCommand& oArmCommand)
 }
 
 /*! sends command to ArmMover module */    
-bool ArmCommander::send2ArmMover(ArmCommand& oArmCommand)
+bool ArmCommander::send2ArmMover(ArmBus* pBus, ArmCommand& oArmCommand)
 {
     bool bret = false;
     int busAction = oArmCommand.getBusAction();    
@@ -103,58 +95,47 @@ bool ArmCommander::send2ArmMover(ArmCommand& oArmCommand)
 }
 
 /*! sends command to ArmPanner module */    
-bool ArmCommander::send2ArmPanner(ArmCommand& oArmCommand)
+void ArmCommander::send2ArmPanner(ArmBus* pBus, ArmCommand& oArmCommand)
 {
-    bool bret = false;
     int angle = (int)oArmCommand.getTargetValue();   
 
     pBus->getCO_ARM_PAN().request(angle);            
-    return true;    
 }
 
 /*! sends command to ArmTilter module */    
-bool ArmCommander::send2ArmTilter(ArmCommand& oArmCommand)
+void ArmCommander::send2ArmTilter(ArmBus* pBus, ArmCommand& oArmCommand)
 {
-    bool bret = false;
     int angle = (int)oArmCommand.getTargetValue();   
 
     pBus->getCO_ARM_TILT().request(angle);            
-    return true;    
 }
 
 /*! sends command to ArmExtender module */    
-bool ArmCommander::send2ArmExtender(ArmCommand& oArmCommand)
+void ArmCommander::send2ArmExtender(ArmBus* pBus, ArmCommand& oArmCommand)
 {
-    bool bret = false;
     int radius = (int)oArmCommand.getTargetValue();   
 
     pBus->getCO_ARM_RADIUS().request(radius);            
-    return true;    
 }
 
 /*! sends command to JointMover modules */    
-bool ArmCommander::send2JointMover(ArmCommand& oArmCommand)
+void ArmCommander::send2JointMover(ArmBus* pBus, ArmCommand& oArmCommand)
 {
-    bool bret = false;
     int busAction = oArmCommand.getBusAction();    
     
     // access joint's bus
     JointBus& pJointBus = pBus->getJointBus(oArmCommand.getTargetJoint());   
     pJointBus.getCO_JMOVER_ACTION().request(busAction);   
-
-    return true;    
 }
 
 /*! sends command to JointControl modules */    
-bool ArmCommander::send2JointControl(ArmCommand& oArmCommand)
+void ArmCommander::send2JointControl(ArmBus* pBus, ArmCommand& oArmCommand)
 {        
     float angle = oArmCommand.getTargetValue();    // the target value is the soll angle
     
     // access joint's bus
     JointBus& pJointBus = pBus->getJointBus(oArmCommand.getTargetJoint());   
     pJointBus.getCO_JOINT_ANGLE().request(angle);       
-
-    return true;    
 }
 
 }

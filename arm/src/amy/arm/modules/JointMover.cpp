@@ -56,8 +56,8 @@ void JointMover::connect(JointBus& oConnectionsJoint)
 
 void JointMover::first()
 {
-    setState(eSTATE_AUTOBRAKE);
-    setNextState(eSTATE_AUTOBRAKE);
+    setState(eSTATE_BRAKE);
+    setNextState(eSTATE_BRAKE);
     
     log4cxx::NDC::push(modName);   	
 }
@@ -74,7 +74,7 @@ void JointMover::loop()
       
     switch (getState())
     {
-        case eSTATE_AUTOBRAKE:            
+        case eSTATE_BRAKE:            
             
             if (sollSpeed != 0.0)
                 doBrake();    
@@ -107,7 +107,7 @@ void JointMover::senseBus()
         processRequest(pJointBus->getCO_JMOVER_ACTION().getValue());
     // if no requests -> auto brake
     else
-        setNextState(eSTATE_AUTOBRAKE);
+        setNextState(eSTATE_BRAKE);
 }
 
 
@@ -150,6 +150,11 @@ void JointMover::processRequest(int reqCommand)
             setNextState(eSTATE_KEEP);
             break;
             
+        // stop -> autobrake
+        case eMOV_STOP:
+            setNextState(eSTATE_BRAKE);
+            break;
+
         default:
             LOG4CXX_INFO(logger, "> unknown request");
             break;
@@ -182,7 +187,7 @@ void JointMover::showState()
 {
     switch (getState())
     {
-        case eSTATE_AUTOBRAKE:
+        case eSTATE_BRAKE:
             LOG4CXX_INFO(logger, ">> autobrake");
             break;
                     

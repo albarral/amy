@@ -31,6 +31,7 @@ public:
     // input commands
     enum eCommands
     {
+        eMOV_STOP,
         eMOV_KEEP,
         eMOV_PUSH_FRONT,
         eMOV_PUSH_BACK,
@@ -39,7 +40,7 @@ public:
     // states of JointMover module
     enum eState
     {
-         eSTATE_AUTOBRAKE,     // brakes joint softly
+         eSTATE_BRAKE,              // brakes joint softly
          eSTATE_KEEP,               // keeps present joint speed 
          eSTATE_ACCEL             // alters joint speed 
     };

@@ -199,7 +199,7 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
             oArmMover.connect(oArmBus);
             oArmMover.setFrequency(freq);
             // arm panner module
-            oArmPanner.init(45, 15, 30, 10, 0.2);
+            oArmPanner.init(15, 5, 30, 10, 0.2);
             oArmPanner.connect(oArmBus);
             oArmPanner.setFrequency(freq);
             break;

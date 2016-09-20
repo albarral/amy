@@ -29,7 +29,10 @@ void ArmPanner::senseBus()
 {
     // get requested arm pan
     if (pBus->getCO_ARM_PAN().checkRequested())
+    {
         targetPos = (int)pBus->getCO_ARM_PAN().getValue();    
+        bmoveRequested = true;
+    }
     
     // get real arm pan
     // TEMP: ArmPosition module not created yet.

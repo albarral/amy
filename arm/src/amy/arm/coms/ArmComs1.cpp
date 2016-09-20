@@ -74,8 +74,7 @@ void ArmComs1::init ()
 
 void ArmComs1::connect(ArmBus& oBus)
 {
-    pBus = &oBus;
-    oArmCommander.connect(oBus);
+    pBus = &oBus;    
     bconnected = true;
 
     LOG4CXX_DEBUG(logger, "ArmComs1 connected to bus");      
@@ -282,7 +281,10 @@ bool ArmComs1::buildMovementCommand()
     
     // set target action
     if (targetAction != ArmCommand::eACT_UNDEFINED)
+    {
         bret = oArmCommand.setTargetAction(targetAction);        
+        oArmCommand.setTargetValue(value);
+    }
             
     // set target joint
     if (bret && ArmCommand::isJointAction(targetAction))
@@ -319,9 +321,10 @@ bool ArmComs1::buildPositionCommand()
 // send command through the bus
 void ArmComs1::sendCommand()
 {
-    if (oArmCommander.sendCommand(oArmCommand))
+    if (oArmCommander.sendCommand(pBus, oArmCommand))
     {
         LOG4CXX_INFO(logger, "command sent");      
+        //LOG4CXX_INFO(logger, pBus->toString());
     }
     else
     {

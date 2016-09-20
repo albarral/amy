@@ -17,36 +17,29 @@ namespace amy
 class ArmCommander
 {
 private:
-    bool bconnected;        // connected to bus
-    ArmBus* pBus;           // access to arm bus
     // int priority;
     
 public:
     ArmCommander();
-
-    /*! connects to the arm bus */
-    void connect(ArmBus& oArmBus);
-    /*! checks if bus is connected */
-    bool isConnected() {return bconnected;};
     
     /*! sends given command to the arm bus. Returns true if ok, false otherwise */    
-    bool sendCommand(ArmCommand& oArmCommand);
+    bool sendCommand(ArmBus* pBus, ArmCommand& oArmCommand);
     
 private:
     /*! sends command to the ArmManager */    
-    bool send2ArmManager(ArmCommand& oArmCommand);
+    bool send2ArmManager(ArmBus* pBus, ArmCommand& oArmCommand);
     /*! sends command to ArmMover module */    
-    bool send2ArmMover(ArmCommand& oArmCommand);
+    bool send2ArmMover(ArmBus* pBus, ArmCommand& oArmCommand);
     /*! sends command to ArmPanner module */    
-    bool send2ArmPanner(ArmCommand& oArmCommand);
+    void send2ArmPanner(ArmBus* pBus, ArmCommand& oArmCommand);
     /*! sends command to ArmTilter module */    
-    bool send2ArmTilter(ArmCommand& oArmCommand);
+    void send2ArmTilter(ArmBus* pBus, ArmCommand& oArmCommand);
     /*! sends command to ArmExtender module */    
-    bool send2ArmExtender(ArmCommand& oArmCommand);
+    void send2ArmExtender(ArmBus* pBus, ArmCommand& oArmCommand);
     /*! sends command to JointMover modules */    
-    bool send2JointMover(ArmCommand& oArmCommand);
+    void send2JointMover(ArmBus* pBus, ArmCommand& oArmCommand);
     /*! sends command to JointControl modules */    
-    bool send2JointControl(ArmCommand& oArmCommand);
+    void send2JointControl(ArmBus* pBus, ArmCommand& oArmCommand);
     
 };
 }
