@@ -28,22 +28,23 @@ JointMover::JointMover()
 //{
 //}
 
-void JointMover::init(std::string jointName, ParamsJointMover& oParamsJointMover)
+void JointMover::init(std::string jointName, int brakeAccel, MovementControl& oMovementControl)
 {
     // all params must be positive
-    if (oParamsJointMover.getAccel() <= 0 || 
-       oParamsJointMover.getBrakeAccel() <= 0)
+    if (brakeAccel <= 0)
         return;
 
     modName = "jmover-" + jointName;
-    accel = oParamsJointMover.getAccel();
-    accel_ms = (float)this->accel/1000;
-    brakeAccel = oParamsJointMover.getBrakeAccel();
+    this->brakeAccel = brakeAccel;
     brakeAccel_ms = (float)this->brakeAccel/1000;
+    // sense movement control
+    pMovementControl = &oMovementControl;
+    accel = pMovementControl->getAccel();
+    accel_ms = (float)this->accel/1000;
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
-    LOG4CXX_DEBUG(logger, "accel=" << accel << ", brakeAccel=" << brakeAccel);      
+    LOG4CXX_DEBUG(logger, "brakeAccel=" << brakeAccel);      
 };
 
 void JointMover::connect(JointBus& oConnectionsJoint)
@@ -66,6 +67,13 @@ void JointMover::loop()
 {
     senseBus();
     
+    // sense movement control
+     if (accel != pMovementControl->getAccel())
+     {         
+        accel = pMovementControl->getAccel();
+        accel_ms = (float)this->accel/1000;
+     }
+
     if (updateState())
         showState();
     

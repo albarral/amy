@@ -10,7 +10,7 @@
 
 namespace amy
 {
-// Behaviour used to move the arm horizontally.
+// Behavior used to move the arm horizontally.
 // It controls the HORIZONTAL SHOULDER angle to reach a pan target position.
 // It's an AxisDriver module.
 class ArmPanner: public AxisDriver

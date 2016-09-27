@@ -20,6 +20,7 @@ ArmConfig::ArmConfig ()
 {    
     // TEMPORAL: all params should be read from a file    
     modulesFreq = 5;  // 5 Hz
+    brakeAccel = 30;
     
     listRobotNames.push_back("Youbot");    // Kuka Youbot
     listRobotNames.push_back("UR5");        // Universal Robots UR5    
@@ -69,24 +70,8 @@ ParamsJoint& ArmConfig::getParamsJoint(std::string jointName)
     return oJointParams[0];    
 }
 
-ParamsJointMover& ArmConfig::getParamsJointMover(std::string jointName)
-{
-    for (int i=0; i<numJoints; i++)
-    {
-        if (oJointMoverParams[i].getJointName().compare(jointName) == 0)                
-            return oJointMoverParams[i];
-    }
-
-    // temporal: if not found return the first (should use lists)
-    return oJointMoverParams[0];        
-}
-
-
 void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
 {    
-    int accel = 15;
-    int brakeAccel = 30;
-    int cruiseSpeed = 40;
     int i=0;
     std::string jointName;
     
@@ -94,7 +79,6 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     {
         jointName = ArmConfig::horizontal_shoulder;
         oJointParams[i].set(jointName, oArmVersion.getHSlower(), oArmVersion.getHSupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);        
         listJointNames.push_back(jointName);
     }
 
@@ -103,7 +87,6 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         jointName = ArmConfig::vertical_shoulder;
         oJointParams[i].set(jointName, oArmVersion.getVSlower(), oArmVersion.getVSupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(jointName);
     }
 
@@ -113,7 +96,6 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         jointName = ArmConfig::elbow;
         oJointParams[i].set(jointName, oArmVersion.getELlower(), oArmVersion.getELupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(jointName);
     }
 
@@ -122,7 +104,6 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         jointName = ArmConfig::horizontal_wrist;
         oJointParams[i].set(jointName, oArmVersion.getHWlower(), oArmVersion.getHWupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(jointName);
     }
         
@@ -131,7 +112,6 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
         i++;
         jointName = ArmConfig::vertical_wrist;
         oJointParams[i].set(jointName, oArmVersion.getVWlower(), oArmVersion.getVWupper(), oArmVersion.getLen());
-        oJointMoverParams[i].set(jointName, accel, cruiseSpeed, brakeAccel);
         listJointNames.push_back(jointName);
     }
 

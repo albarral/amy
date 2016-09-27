@@ -43,6 +43,8 @@ void ArmManager::init(std::string robotName)
     // obtain (from config file) the list of joints to be controlled 
     std::vector<std::string>& listJointNames = oArmConfig.getListJointNames();
 
+    oMovementControl.setElectricity(7);
+    oMovementControl.setTime4Move(2.0);
     initArm(listJointNames);
     initBus(listJointNames);
     initModules(listJointNames);
@@ -185,8 +187,7 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
                 // bus connections for this joint
                 JointBus& oJointBus = oArmBus.getJointBus(jointName);
 
-                ParamsJointMover& mParamsJointMover = oArmConfig.getParamsJointMover(jointName);        
-                oJointMover[i].init(jointName, mParamsJointMover);  
+                oJointMover[i].init(jointName, oArmConfig.getBrakeAccel(), oMovementControl);  
                 oJointMover[i].connect(oJointBus);
                 oJointMover[i].setFrequency(freq);
             }
@@ -199,9 +200,14 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
             oArmMover.connect(oArmBus);
             oArmMover.setFrequency(freq);
             // arm panner module
-            oArmPanner.init(15, 5, 50, 10, 0.2);
-            oArmPanner.connect(oArmBus);
-            oArmPanner.setFrequency(freq);
+            {
+                int dTol = 5;
+                int vApproach = 10;
+                float tolerance = 0.2;
+                oArmPanner.init(dTol, vApproach, tolerance, oMovementControl);
+                oArmPanner.connect(oArmBus);
+                oArmPanner.setFrequency(freq);
+            }
             break;
 
         default:

@@ -20,19 +20,11 @@ private:
     // configuration data
     std::string name;
     int rest;    // angle at which the joint rests (the effort is minimum)
-    //int type;    // type of joint (moves in pan plane or in tilt plane)
     int length;     // joint's length (cm)
     int limit1;      // lower allowed angle (degrees)
     int limit2;      // upper allowed angle (degrees)
 
 public:
-    // joint types
-    enum eType
-    {
-         eJOINT_PAN,   // moves with pan angles (horizontal plane)
-         eJOINT_TILT,   // moves with tilt angles (vertical plane)
-         eJOINT_INVALID   // none of the others
-    };
     
     Joint();
     ~Joint();
@@ -47,7 +39,6 @@ public:
 
     int getLowerLimit() {return limit1;}
     int getUpperLimit() {return limit2;}
-    //int getType() {return type;};
 };
 }
 #endif

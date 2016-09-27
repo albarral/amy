@@ -31,7 +31,7 @@ void ArmPanner::senseBus()
     if (pBus->getCO_ARM_PAN().checkRequested())
     {
         targetPos = (int)pBus->getCO_ARM_PAN().getValue();    
-        newMove();
+        bnewRequest = true;
     }
     
     // get real arm pan

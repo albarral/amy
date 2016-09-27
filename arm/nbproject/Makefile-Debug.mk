@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/ArmManager.o \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
+	${OBJECTDIR}/src/amy/arm/bus/MovementControl.o \
 	${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o \
 	${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o \
 	${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o \
@@ -45,7 +46,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmVersion.o \
 	${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o \
-	${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o \
 	${OBJECTDIR}/src/amy/arm/config/versions/ArmUR5.o \
 	${OBJECTDIR}/src/amy/arm/config/versions/ArmYoubot.o \
 	${OBJECTDIR}/src/amy/arm/data/Arm.o \
@@ -107,6 +107,11 @@ ${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
 
+${OBJECTDIR}/src/amy/arm/bus/MovementControl.o: src/amy/arm/bus/MovementControl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/MovementControl.o src/amy/arm/bus/MovementControl.cpp
+
 ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o: src/amy/arm/coms/ArmCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
@@ -141,11 +146,6 @@ ${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o: src/amy/arm/config/ParamsJoint.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJoint.o src/amy/arm/config/ParamsJoint.cpp
-
-${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o: src/amy/arm/config/ParamsJointMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ParamsJointMover.o src/amy/arm/config/ParamsJointMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/versions/ArmUR5.o: src/amy/arm/config/versions/ArmUR5.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config/versions

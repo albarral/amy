@@ -10,6 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/bus/MovementControl.h"
 #include "amy/utils/module2.h"
 
 namespace amy
@@ -27,6 +28,7 @@ namespace amy
 // speedTolerance:   tolerance for speed control    
 // - Outputs:
 // DRIVE:             PUSH_FRONT, PUSH_BAC, KEEP
+// APPROACH:      PUSH_FRONT, PUSH_BAC, KEEP
 // ARRIVED:          STOP
 // DONE:             nothing
 class AxisDriver: public Module2
@@ -37,6 +39,7 @@ public:
     {
          eSTATE_DONE,
          eSTATE_ARRIVED,
+         eSTATE_APPROACH,
          eSTATE_DRIVE
     };
 
@@ -45,31 +48,35 @@ protected:
     bool benabled;
     std::string modName;   // module name
     // params
-    int dNear;     // drive threshold distance
     int dTol;     // arrived threshold distance
-    int vHigh;     // drive speed 
-    int vLow;     // approach speed
-    float speedTolerance;    // tolerance in speed control
+    float tolerance;    // tolerance in speed control
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
     JointBus* pJointBus;   // bus connection to a joint
+     // shared control
+    MovementControl* pMovementControl;  // shared movement control
     // logic
+    bool bnewRequest;    // flag indicating new move requested
+    int vDrive;             // drive speed 
+    int vApproach;     // approach speed
     int targetPos;          // desired axis position
     float istPos;            // real axis position
+    float targetSpeed;    // desired arm speed
     float istSpeed;         // real arm speed
     int outAction;          // commanded action to JMover modules
     int blockedTime;     // time that movement has been blocked (ie for limit reasons)
-    // aux
-    int tolvHigh;          // drive speed tolerance (deg/s)
-    int tolvLow;            // approach speed tolerance (deg/s)            
+    // tolerances
+    int vDriveTol;         // tolerance over drive speed (deg/s)
+    int vApproachTol;     // tolerance over approach speed (deg/s)            
+    float speedTol;         // tolerance over target speed 
 
 public:
         AxisDriver();
         //~AxisDriver();
                 
        // module params
-       void init(int dNear, int dTol, int vHigh, int vLow, float speedTolerance);
+       void init(int dTol, int vApproach, float speedTolerance, MovementControl& oMovementControl);
        bool isEnabled() {return benabled;};
 
        // bus connection 
@@ -90,10 +97,10 @@ protected:
         // write action commands to bus
         virtual void writeBus() = 0;
         
-        // starts new move
-        void newMove();
+        // prepares for new move
+        void newMove(float dist);
         // move joint to target position at proper speed
-        void doDrive(float dist, float absDist);
+        //void doDrive(float dist, float absDist);
         // stop joint movement
         void doArrived();
         
@@ -101,6 +108,14 @@ protected:
         void blockedMove();
         // shows the present state name
         void showState();
+        
+private:
+        // gets target speed for drive stage
+        void setDriveSpeed(int dist);
+        // gets target speed for approach stage
+        void setApproachSpeed(int dist);
+        // gets the proper actions to reach the target speed
+        void controlSpeed();
 };
 }
 #endif

@@ -13,6 +13,7 @@
 #include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/JointBus.h"
+#include "amy/arm/bus/MovementControl.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/data/Arm.h"
 #include "amy/arm/modules/ArmMover.h"
@@ -35,6 +36,7 @@ class ArmManager
         ArmBus oArmBus;
         ArmConfig oArmConfig;
         Arm oArm;
+        MovementControl oMovementControl;   // shared movement control
         int level;      // highest level activated 
         int maxLevel; // allow activation of modules until this level
         // modules ...

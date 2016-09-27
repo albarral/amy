@@ -11,8 +11,8 @@
 
 #include "amy/utils/module2.h"
 #include "amy/utils/Click.h"
-#include "amy/arm/config/ParamsJointMover.h"
 #include "amy/arm/bus/JointBus.h"
+#include "amy/arm/bus/MovementControl.h"
 
 namespace amy
 {
@@ -50,13 +50,15 @@ private:
     bool benabled;
     // params
     std::string modName;   // module name
-    int accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
-    float accel_ms;             // used version of accel (degres/s)/ms
     int brakeAccel;          // deacceleration of brake movements (degrees/s2)
     float brakeAccel_ms;     // used version of brakeAccel (degres/s)/ms
     // bus
     bool bconnected;        // connected to bus
     JointBus* pJointBus;    // the bus connections corresponding to a given joint
+    // shared control
+    MovementControl* pMovementControl;  // shared movement control
+    int accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
+    float accel_ms;             // used version of accel (degres/s)/ms
     // control
     int targetDirection;     // direction of desired movement (positive or negative)
     // logic
@@ -70,7 +72,7 @@ public:
         //~JointMover();
                 
        // module params
-       void init (std::string jointName, ParamsJointMover& oParamsJointMover);       
+       void init (std::string jointName, int brakeAccel, MovementControl& oMovementControl);       
        bool isEnabled() {return benabled;};
 
        // bus connection 

@@ -18,7 +18,7 @@ LoggerPtr AxisDriver::logger(Logger::getLogger("amy.arm"));
 AxisDriver::AxisDriver()
 {
     benabled = false;
-    modName = "AxisDriver";
+    modName = "AxisDriver2";
     
     bconnected = false;
     pBus = 0;
@@ -26,27 +26,24 @@ AxisDriver::AxisDriver()
     targetPos = 0;  // TEMPORAL
 }
 
-//AxisDriver::~AxisDriver()
+//AxisDriver2::~AxisDriver2()
 //{
 //}
 
-//int dNear, int dTol, int vHigh, int vLow, float tolerance
-void AxisDriver::init(int dNear, int dTol, int vHigh, int vLow, float tolerance)
+void AxisDriver::init(int dTol, int vApproach, float tolerance, MovementControl& oMovementControl)
 {
     // valid params
-    if (dNear > 0 && dTol > 0 && vHigh > 0 && vLow > 0 && dNear > dTol && tolerance > 0.0)
+    if (dTol > 0 && vApproach > 0 && tolerance > 0.0)
     {
-        this->dNear = dNear;
         this->dTol = dTol;
-        this->vHigh = vHigh;
-        this->vLow = vLow;
-        this->speedTolerance = tolerance;
-        tolvHigh = tolerance * vHigh;    
-        tolvLow = tolerance * vLow;
+        this->tolerance = tolerance;
+        this->vApproach = vApproach;
+        vApproachTol = tolerance * vApproach;            
+        pMovementControl = &oMovementControl;            
         benabled = true;
         
         LOG4CXX_INFO(logger, modName << " initialized");                  
-        LOG4CXX_DEBUG(logger, "dNear=" << dNear << ", dTol=" << dTol << ", vHigh=" << vHigh << ", vLow=" << vLow << ", speed tolerance=" << tolerance);      
+        LOG4CXX_DEBUG(logger, "dTol=" << dTol << ", vApproach=" << vApproach << ", speed tolerance=" << tolerance);      
     }
     // invalid params
     else
@@ -67,6 +64,7 @@ void AxisDriver::connect(ArmBus& oBus)
 void AxisDriver::first()
 {
     // start at done
+    bnewRequest = false;
     setState(eSTATE_DONE);
     setNextState(eSTATE_DONE);
     
@@ -78,6 +76,19 @@ void AxisDriver::loop()
 {
     senseBus();
 
+    // measure arm distance to target
+    float dist = targetPos - istPos;
+    float absDist = fabs(dist);
+
+    if (bnewRequest)
+    {
+        newMove(absDist);
+        bnewRequest = false;        
+    }
+
+    if (blockedTime > 5)
+        setNextState(eSTATE_DONE);
+    
     if (updateState())
         showState();
         
@@ -85,17 +96,26 @@ void AxisDriver::loop()
     if (getState() == eSTATE_DONE)
         return;
 
-    // otherwise, control arm
-    float dist = targetPos - istPos;
-    float absDist = fabs(dist);
+    // compute brake distance needed at present speed (dbrake = v²/2a)
+    int dBrake = istSpeed*istSpeed/(2*pMovementControl->getAccel());
     
     switch (getState())
     {
         case eSTATE_DRIVE:
             
-            // not in target -> drive joint
-            if (absDist > dTol && blockedTime<5)
-                doDrive(dist, absDist);
+            // far from target -> drive
+            if (absDist > dBrake)
+            {
+                setDriveSpeed(dist);
+                controlSpeed();
+            }
+            // near to target -> approach
+            else if (absDist > dTol)
+            {
+                setApproachSpeed(dist);
+                controlSpeed();
+                setNextState(eSTATE_APPROACH);                
+            }
             // in target -> arrived
             else 
             {
@@ -104,6 +124,22 @@ void AxisDriver::loop()
             }
             break;
                         
+        case eSTATE_APPROACH:
+            
+            // near to target -> approach
+            if (absDist > dTol)
+            {
+                setApproachSpeed(dist);
+                controlSpeed();
+            }
+            // in target -> arrived
+            else 
+            {
+                doArrived();
+                setNextState(eSTATE_ARRIVED);
+            }
+            break;
+
         case eSTATE_ARRIVED:
        
             // in target -> done
@@ -119,13 +155,17 @@ void AxisDriver::loop()
 
 
 // starts new move
-void AxisDriver::newMove()
+void AxisDriver::newMove(float absdist)
 {
-    // reset blocked time and drive 
+    // reset blocked time 
     blockedTime = 0;
-    setNextState(eSTATE_DRIVE);   
+    // get speed needed to execute movement in required time
+    vDrive = absdist / pMovementControl->getTime4Move();
+    vDriveTol = tolerance * vDrive;
+    setNextState(eSTATE_DRIVE);        
     LOG4CXX_INFO(logger, "target = " << targetPos);  
     LOG4CXX_INFO(logger, "ist = " << istPos);
+    LOG4CXX_INFO(logger, "v = " << vDrive);  
 }
 
 // increase blocked time
@@ -134,31 +174,26 @@ void AxisDriver::blockedMove()
     blockedTime++;
 }
 
-// move joint to target position at proper speed (with a tolerance)
-void AxisDriver::doDrive(float dist, float absDist)
+void AxisDriver::setDriveSpeed(int dist)
+{
+    targetSpeed =  (dist > 0.0) ? vDrive : -vDrive;
+    speedTol = vDriveTol;
+}
+
+void AxisDriver::setApproachSpeed(int dist)
+{
+    targetSpeed =  (dist > 0.0) ? vApproach : -vApproach;
+    speedTol = vApproachTol;
+}
+
+// gets the proper actions to reach the target speed
+void AxisDriver::controlSpeed()
 {    
-    int vCruise, tolvCruise;
-        
-    // far target -> high speed
-    if (absDist > dNear)
-    {
-        vCruise = vHigh;
-        tolvCruise = tolvHigh;
-    }
-    // near target -> low speed
-    else if (absDist > dTol)
-    {
-        vCruise = vLow;
-        tolvCruise = tolvLow;
-    }
-    
-    // deduce target speed (implies direction)
-    int targetSpeed = (dist > 0.0) ? vCruise : -vCruise;
     // compare target and real speeds
-    int difSpeed = targetSpeed - (int)istSpeed;    
+    float difSpeed = targetSpeed - istSpeed;    
     
     // push joint to reach target speed
-    if (fabs(difSpeed) > tolvCruise)
+    if (fabs(difSpeed) > speedTol)
     {
         if (difSpeed > 0)
             outAction = JointMover::eMOV_PUSH_FRONT;
@@ -186,6 +221,10 @@ void AxisDriver::showState()
                         
         case eSTATE_ARRIVED:
             LOG4CXX_INFO(logger, ">> arrived");
+            break;
+
+        case eSTATE_APPROACH:
+            LOG4CXX_INFO(logger, ">> approach");
             break;
 
         case eSTATE_DRIVE:

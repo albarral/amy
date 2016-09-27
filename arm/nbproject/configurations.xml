@@ -19,6 +19,8 @@
             <itemPath>src/amy/arm/bus/ArmBus.h</itemPath>
             <itemPath>src/amy/arm/bus/JointBus.cpp</itemPath>
             <itemPath>src/amy/arm/bus/JointBus.h</itemPath>
+            <itemPath>src/amy/arm/bus/MovementControl.cpp</itemPath>
+            <itemPath>src/amy/arm/bus/MovementControl.h</itemPath>
           </logicalFolder>
           <logicalFolder name="coms" displayName="coms" projectFiles="true">
             <itemPath>src/amy/arm/coms/ArmCommand.cpp</itemPath>
@@ -44,8 +46,6 @@
             <itemPath>src/amy/arm/config/ArmVersion.h</itemPath>
             <itemPath>src/amy/arm/config/ParamsJoint.cpp</itemPath>
             <itemPath>src/amy/arm/config/ParamsJoint.h</itemPath>
-            <itemPath>src/amy/arm/config/ParamsJointMover.cpp</itemPath>
-            <itemPath>src/amy/arm/config/ParamsJointMover.h</itemPath>
           </logicalFolder>
           <logicalFolder name="data" displayName="data" projectFiles="true">
             <itemPath>src/amy/arm/data/Arm.cpp</itemPath>
@@ -159,6 +159,13 @@
       </item>
       <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/bus/MovementControl.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/MovementControl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/coms/ArmCommand.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/coms/ArmCommand.h" ex="false" tool="3" flavor2="0">
@@ -188,16 +195,6 @@
       <item path="src/amy/arm/config/ParamsJoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ParamsJoint.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ParamsJointMover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ParamsJointMover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/arm/config/versions/ArmUR5.cpp"
             ex="false"
@@ -315,6 +312,13 @@
       </item>
       <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/bus/MovementControl.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/MovementControl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/coms/ArmCommand.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/coms/ArmCommand.h" ex="false" tool="3" flavor2="0">
@@ -344,16 +348,6 @@
       <item path="src/amy/arm/config/ParamsJoint.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ParamsJoint.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ParamsJointMover.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ParamsJointMover.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/arm/config/versions/ArmUR5.cpp"
             ex="false"
