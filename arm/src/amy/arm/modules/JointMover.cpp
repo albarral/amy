@@ -219,4 +219,38 @@ void JointMover::showState()
             
     }   // end switch    
 }
+
+std::string JointMover::getSymbol4Action(int action)
+{
+    std::string symbol;
+    
+    switch (action)
+    {
+        case eMOV_STOP:
+            symbol = "0";
+            break;
+            
+        case eMOV_BRAKE:
+            symbol = "b";
+            break;
+
+        case eMOV_KEEP:
+            symbol = "=";
+            break;
+
+        case eMOV_PUSH_FRONT:
+            symbol = "+";
+            break;
+
+        case eMOV_PUSH_BACK:
+            symbol = "-";
+            break;
+            
+        default:
+            symbol = "?";
+    }
+            
+    return symbol;
+}
+
 }

@@ -83,7 +83,10 @@ public:
         void setBrakeAccel(int value) {brakeAccel = value;};
         int getAccel() {return accel;};
         int getBrakeAccel() {return brakeAccel;};                
-                
+        
+        // returns a symbol for each JointMover action (useful for logs)
+        static std::string getSymbol4Action(int action);        
+        
 private:       
         // first actions when the thread begins 
         virtual void first();

@@ -69,7 +69,6 @@ void AxisDriver::first()
     // start at done
     bnewRequest = false;
     setState(eSTATE_DONE);
-    setNextState(eSTATE_DONE);
     
     log4cxx::NDC::push(modName);   	
 }
@@ -77,56 +76,62 @@ void AxisDriver::first()
 // performs a cyclic wave movement of the elbow
 void AxisDriver::loop()
 {
+    float dBrake, resolution, dApproach;
+    
     senseBus();
 
     // measure arm distance to target
     float dist = targetPos - istPos;
     float absDist = fabs(dist);
 
+    // check new move requests
     if (bnewRequest)
     {
-        newMove(absDist);
+        newMove(absDist);    
+        // reset blocked time 
+        blockedTime = 0;
         bnewRequest = false;        
     }
+    // if much time blocked -> done
+    else if (blockedTime > 5)
+        setState(eSTATE_DONE);
     
-    if (updateState())
-        showState();
-
-    // if done -> do nothing 
+    // skip if done state
     if (getState() == eSTATE_DONE)
         return;
-
-    // compute brake distance needed at present speed 
-    int dBrake = ArmMath::computeBrakeDistance(sollSpeed, accel0);
-    float resolution = ArmMath::getMovementResolution(fabs(sollSpeed), getFrequency());
-
+    
+    // TRANSITIONS ...
     switch (getState())
     {
         case eSTATE_DRIVE:
 
+            // to react with enough anticipation (even in worst case) 
+            // approach distance considers brake distance and movement resolution
+            dBrake = ArmMath::computeBrakeDistance(sollSpeed, accel0);
+            resolution = ArmMath::getMovementResolution(fabs(sollSpeed), getFrequency());
+            dApproach = dBrake + resolution;
+            // limit it on tolerance
+            if (dApproach < dTol) 
+                dApproach = dTol;
+            
             // near to target -> approach
-            // react with enough anticipation (even in worst case) 
-            if (absDist < dBrake + resolution)
-                setNextState(eSTATE_APPROACH);         
-                
+            if (absDist < dApproach)
+                setState(eSTATE_APPROACH);                         
             break;
                         
         case eSTATE_APPROACH:
 
             // in target -> arrived
             if (absDist < dTol)
-                setNextState(eSTATE_ARRIVED);
-
+                setState(eSTATE_ARRIVED);
             break;
     }   // end switch        
-
             
-    if (blockedTime > 5)
-        setNextState(eSTATE_DONE);
     
-    if (updateState())
+    if (isStateChanged())
         showState();
             
+    // ACTIONS
     switch (getState())
     {
         case eSTATE_DRIVE:
@@ -146,28 +151,26 @@ void AxisDriver::loop()
        
             // in target -> done
             doArrived();
-            setNextState(eSTATE_DONE);                                
+            setState(eSTATE_DONE);                                
             break;
     }   // end switch        
     
     // executed whenever state not DONE
     writeBus();
-    LOG4CXX_INFO(logger, "out: " << outAction << " - ist = " << istPos);
-    //LOG4CXX_INFO(logger, "out: " << outAction << " - ist = " << istPos << " - accel = " << accel);
+    LOG4CXX_INFO(logger, "out " << JointMover::getSymbol4Action(outAction) << " , ist = " << istPos);
+    //LOG4CXX_INFO(logger, " \t \t \t dBrake = " << dBrake << " - resolution = " << resolution << " - accel = " << accel);
 }
 
 
 // starts new move
 void AxisDriver::newMove(float absdist)
 {
-    // reset blocked time 
-    blockedTime = 0;
     // set speed according to central movement time
     vDrive = absdist / pMovementControl->getTime4Move();
     vDriveTol = vDrive * vTol;
     // use central acceleration
     accel0 = pMovementControl->getAccel();
-    setNextState(eSTATE_DRIVE);        
+    setState(eSTATE_DRIVE);        
     LOG4CXX_INFO(logger, "target = " << targetPos);  
     LOG4CXX_INFO(logger, "ist = " << istPos);
     LOG4CXX_INFO(logger, "v = " << vDrive);  
@@ -180,16 +183,28 @@ void AxisDriver::blockedMove()
     blockedTime++;
 }
 
-void AxisDriver::setDriveSpeed(int dist)
+void AxisDriver::setDriveSpeed(float dist)
 {
     targetSpeed =  (dist > 0.0) ? vDrive : -vDrive;
     speedTol = vDriveTol;
 }
 
-void AxisDriver::setApproachSpeed(int dist)
+void AxisDriver::setApproachSpeed(float dist)
 {
-    targetSpeed =  (dist > 0.0) ? vApproach : -vApproach;
-    speedTol = vApproachTol;
+    int vCruise;
+    // use lowest speed    
+    if (vDrive > vApproach)
+    {
+        vCruise = vApproach;
+        speedTol = vApproachTol;
+    }
+    else
+    {
+        vCruise = vDrive;
+        speedTol = vDriveTol;        
+    }
+    
+    targetSpeed =  (dist > 0.0) ? vCruise : -vCruise;    
 }
 
 // gets the proper actions to reach the target speed

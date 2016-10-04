@@ -40,7 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/utils/brooks/control.o \
 	${OBJECTDIR}/src/amy/utils/brooks/inhibition.o \
 	${OBJECTDIR}/src/amy/utils/module.o \
-	${OBJECTDIR}/src/amy/utils/module2.o
+	${OBJECTDIR}/src/amy/utils/module2.o \
+	${OBJECTDIR}/src/amy/utils/module3.o
 
 
 # C Compiler Flags
@@ -96,6 +97,11 @@ ${OBJECTDIR}/src/amy/utils/module2.o: src/amy/utils/module2.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module2.o src/amy/utils/module2.cpp
+
+${OBJECTDIR}/src/amy/utils/module3.o: src/amy/utils/module3.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module3.o src/amy/utils/module3.cpp
 
 # Subprojects
 .build-subprojects:

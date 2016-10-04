@@ -11,7 +11,7 @@
 
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/MovementControl.h"
-#include "amy/utils/module2.h"
+#include "amy/utils/module3.h"
 
 namespace amy
 {
@@ -23,7 +23,7 @@ namespace amy
 // ARRIVED:        brake - target reached           (d < tolerance)  
 // - Outputs:
 // actions and acceleration for JointMover modules
-class AxisDriver: public Module2
+class AxisDriver: public Module3
 {
 public:
     // states of AxisDriver module
@@ -107,9 +107,9 @@ protected:
         
 private:
         // gets target speed for drive stage
-        void setDriveSpeed(int dist);
+        void setDriveSpeed(float dist);
         // gets target speed for approach stage
-        void setApproachSpeed(int dist);
+        void setApproachSpeed(float dist);
         // gets the proper actions to reach the target speed
         void controlSpeed();
 };
