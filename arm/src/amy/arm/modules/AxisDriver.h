@@ -15,22 +15,14 @@
 
 namespace amy
 {
-// Behaviour used to move an arm to a target position in a single direction (pan, tilt or radial.
-// BASE class to be extended ...   
-// Movements done in 2 stages: 
-// DRIVE:           high speed when far from target - low speed when near to target
-// ARRIVED:        stop when target reached (with a tolerance)  
-// - params:
-// dNear: distance limit between near & far
-// dTol: tolerance distance for target reached
-// vHigh:       high speed used on DRIVE state
-// vLow:        low speed used on DRIVE state
-// speedTolerance:   tolerance for speed control    
+// Behaviour used to move an arm to a target position in a single direction (pan, tilt or radial)
+// It's a base class that needs to be extended (senseBus & writeBus to be implemented)
+// Movements done in 3 stages: 
+// DRIVE:           high speed - far from target   (d > dbrake)
+// APPROACH:    low speed  - near to target     (d < dbrake)
+// ARRIVED:        brake - target reached           (d < tolerance)  
 // - Outputs:
-// DRIVE:             PUSH_FRONT, PUSH_BAC, KEEP
-// APPROACH:      PUSH_FRONT, PUSH_BAC, KEEP
-// ARRIVED:          STOP
-// DONE:             nothing
+// actions and acceleration for JointMover modules
 class AxisDriver: public Module2
 {
 public:
@@ -49,22 +41,26 @@ protected:
     std::string modName;   // module name
     // params
     int dTol;     // arrived threshold distance
-    float tolerance;    // tolerance in speed control
+    float vTol;    // tolerance in speed control
+    float Kaccel;       // acceleration sensitivity
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
     JointBus* pJointBus;   // bus connection to a joint
-     // shared control
     MovementControl* pMovementControl;  // shared movement control
+    // control input
+    int targetPos;          // requested axis position
+    // control output
+    int accel;              // commanded acceleration - JMover
+    int outAction;          // commanded action - JMover
     // logic
     bool bnewRequest;    // flag indicating new move requested
     int vDrive;             // drive speed 
     int vApproach;     // approach speed
-    int targetPos;          // desired axis position
-    float istPos;            // real axis position
+    int accel0;      // default acceleration
     float targetSpeed;    // desired arm speed
-    float istSpeed;         // real arm speed
-    int outAction;          // commanded action to JMover modules
+    float sollSpeed;         // real arm speed
+    float istPos;            // real axis position
     int blockedTime;     // time that movement has been blocked (ie for limit reasons)
     // tolerances
     int vDriveTol;         // tolerance over drive speed (deg/s)

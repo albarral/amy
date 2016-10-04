@@ -44,11 +44,13 @@ void ArmPanner::senseBus()
     else    
         istPos = pBus->getSO_ARM_PAN().getValue();  
     
-    // get real joint speed
-    istSpeed = pJointBus->getSO_REAL_SPEED().getValue();     
+    // get commanded joint speed
+    sollSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();
     // check if movement blocked (due to reached joint limit)
     if (pJointBus->getSO_LIMIT_REACHED().getValue() != 0)
         blockedMove();
+    
+    accel0 = pMovementControl->getAccel();
 }
 
 
@@ -56,6 +58,7 @@ void ArmPanner::writeBus()
 {  
     // send HS action
     pJointBus->getCO_JMOVER_ACTION().request(outAction);
+    pJointBus->getCO_JMOVER_ACCELERATION().request(accel);
 }
 
 }

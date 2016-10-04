@@ -17,6 +17,7 @@ LoggerPtr JointMover::logger(Logger::getLogger("amy.arm"));
 JointMover::JointMover()
 {
     benabled = false;
+    accel = accel_ms = 0;
     targetDirection = 0;
     sollSpeed = 0;
     
@@ -28,7 +29,7 @@ JointMover::JointMover()
 //{
 //}
 
-void JointMover::init(std::string jointName, int brakeAccel, MovementControl& oMovementControl)
+void JointMover::init(std::string jointName, int brakeAccel)
 {
     // all params must be positive
     if (brakeAccel <= 0)
@@ -37,10 +38,6 @@ void JointMover::init(std::string jointName, int brakeAccel, MovementControl& oM
     modName = "jmover-" + jointName;
     this->brakeAccel = brakeAccel;
     brakeAccel_ms = (float)this->brakeAccel/1000;
-    // sense movement control
-    pMovementControl = &oMovementControl;
-    accel = pMovementControl->getAccel();
-    accel_ms = (float)this->accel/1000;
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
@@ -67,13 +64,6 @@ void JointMover::loop()
 {
     senseBus();
     
-    // sense movement control
-     if (accel != pMovementControl->getAccel())
-     {         
-        accel = pMovementControl->getAccel();
-        accel_ms = (float)this->accel/1000;
-     }
-
     if (updateState())
         showState();
     
@@ -82,6 +72,11 @@ void JointMover::loop()
       
     switch (getState())
     {
+        case eSTATE_STOP:
+            if (sollSpeed != 0.0)
+                sollSpeed = 0;
+            break;
+
         case eSTATE_BRAKE:            
             
             if (sollSpeed != 0.0)
@@ -106,16 +101,22 @@ void JointMover::loop()
 // sense bus requests
 void JointMover::senseBus()
 {
-    // always work with last commanded speed to JControl
-    // CO_JCONTROL_SPEED
+    // get soll speed (always work with last commanded speed to JControl))
     sollSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();
     
-    // CO_JMOVER_ACTION
+    // get requested action 
     if (pJointBus->getCO_JMOVER_ACTION().checkRequested())
         processRequest(pJointBus->getCO_JMOVER_ACTION().getValue());
     // if no requests -> auto brake
     else
         setNextState(eSTATE_BRAKE);
+            
+     // get requested acceleration (always positive)
+     if (pJointBus->getCO_JMOVER_ACCELERATION().checkRequested())
+     {         
+        accel = pJointBus->getCO_JMOVER_ACCELERATION().getValue();
+        accel_ms = (float)this->accel/1000;
+     }
 }
 
 
@@ -158,9 +159,14 @@ void JointMover::processRequest(int reqCommand)
             setNextState(eSTATE_KEEP);
             break;
             
-        // stop -> autobrake
-        case eMOV_STOP:
+        // brake -> brake
+        case eMOV_BRAKE:
             setNextState(eSTATE_BRAKE);
+            break;
+
+            // stop -> stop
+        case eMOV_STOP:
+            setNextState(eSTATE_STOP);
             break;
 
         default:
@@ -195,6 +201,10 @@ void JointMover::showState()
 {
     switch (getState())
     {
+        case eSTATE_STOP:
+            LOG4CXX_INFO(logger, ">> stop");
+            break;
+
         case eSTATE_BRAKE:
             LOG4CXX_INFO(logger, ">> autobrake");
             break;

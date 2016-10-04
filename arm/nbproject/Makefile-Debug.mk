@@ -61,7 +61,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
-	${OBJECTDIR}/src/amy/arm/modules/JointMover.o
+	${OBJECTDIR}/src/amy/arm/modules/JointMover.o \
+	${OBJECTDIR}/src/amy/arm/util/ArmMath.o
 
 
 # C Compiler Flags
@@ -226,6 +227,11 @@ ${OBJECTDIR}/src/amy/arm/modules/JointMover.o: src/amy/arm/modules/JointMover.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointMover.o src/amy/arm/modules/JointMover.cpp
+
+${OBJECTDIR}/src/amy/arm/util/ArmMath.o: src/amy/arm/util/ArmMath.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmMath.o src/amy/arm/util/ArmMath.cpp
 
 # Subprojects
 .build-subprojects:

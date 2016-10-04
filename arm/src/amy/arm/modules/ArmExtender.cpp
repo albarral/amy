@@ -33,7 +33,7 @@ void ArmExtender::senseBus()
     // get real arm radius
     istPos = pBus->getSO_ARM_RADIUS().getValue();  
     // get real elbow speed
-    istSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();     
+    sollSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();     
 }
 
 void ArmExtender::writeBus()

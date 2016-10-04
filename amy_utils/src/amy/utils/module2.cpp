@@ -14,7 +14,7 @@ namespace amy
 Module2::Module2 ()
 {    
     state = Module2::state_OFF;
-    period = 0;
+    setFrequency(0.1);  // low default frequency
 }
 
 void Module2::on()
@@ -35,20 +35,20 @@ void Module2::wait()
     t.join();
 }
 
-void Module2::setFrequency(float fps)
+void Module2::setFrequency(float cps)
 {
     std::lock_guard<std::mutex> locker(mutex);
-    if (fps > 0.0)
-        period = 1000000/fps;    // in microseconds
+    if (cps > 0.0)
+    {
+        period = 1000000/cps;    // in microseconds
+        frequency = cps;
+    }
 }
 
 float Module2::getFrequency()
 {
     std::lock_guard<std::mutex> locker(mutex);
-    if (period > 0)
-        return (1000000/period);
-    else
-        return (0);        
+    return frequency;        
 }
 
 void Module2::run ()

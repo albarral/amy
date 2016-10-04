@@ -25,6 +25,7 @@ private:
         std::thread t;        // module's thread       
         int state;             // module's present state
         int nextState;       // module's next state
+        float frequency;    // 
         int period;           // time (microseconds) to be slept between loop executions
         static const int state_OFF = 99;
         static const int state_UNKNOWN = 100;
@@ -41,7 +42,7 @@ public:
         void wait();
         
         // sets the desired loop frequency 
-        void setFrequency(float fps);
+        void setFrequency(float cps);
         // gets the loop frequency 
         float getFrequency();
 

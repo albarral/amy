@@ -12,7 +12,6 @@
 #include "amy/utils/module2.h"
 #include "amy/utils/Click.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/arm/bus/MovementControl.h"
 
 namespace amy
 {
@@ -22,7 +21,8 @@ namespace amy
 // On control requests (push, push_back and keep) it accelerates or keeps the speed of the joint.
 // On absence of request, it brakes the joint (limited deceleration) till speed is 0.    
 // States: 
-// AUTOBRAKE (default): if speed != 0 -> |speed|--
+// STOP: if speed != 0 -> speed = 0
+// BRAKE (default): if speed != 0 -> |speed|--
 // KEEP: speed =
 // ACCEL: speed ++ or speed --    
 class JointMover : public Module2
@@ -32,6 +32,7 @@ public:
     enum eCommands
     {
         eMOV_STOP,
+        eMOV_BRAKE,
         eMOV_KEEP,
         eMOV_PUSH_FRONT,
         eMOV_PUSH_BACK,
@@ -40,6 +41,7 @@ public:
     // states of JointMover module
     enum eState
     {
+         eSTATE_STOP,              // emergency stop
          eSTATE_BRAKE,              // brakes joint softly
          eSTATE_KEEP,               // keeps present joint speed 
          eSTATE_ACCEL             // alters joint speed 
@@ -55,12 +57,10 @@ private:
     // bus
     bool bconnected;        // connected to bus
     JointBus* pJointBus;    // the bus connections corresponding to a given joint
-    // shared control
-    MovementControl* pMovementControl;  // shared movement control
-    int accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
-    float accel_ms;             // used version of accel (degres/s)/ms
     // control
     int targetDirection;     // direction of desired movement (positive or negative)
+    int accel;                  // abs acceleration/deacceleration of joint movements (degrees/s2)
+    float accel_ms;             // used version of accel (degres/s)/ms
     // logic
     float sollSpeed;      // final speed commanded to output (degrees/s) (is always continuous)
     amy::Click oClick;   
@@ -72,7 +72,7 @@ public:
         //~JointMover();
                 
        // module params
-       void init (std::string jointName, int brakeAccel, MovementControl& oMovementControl);       
+       void init (std::string jointName, int brakeAccel);       
        bool isEnabled() {return benabled;};
 
        // bus connection 

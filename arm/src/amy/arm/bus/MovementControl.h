@@ -22,7 +22,12 @@ class MovementControl
         const int maxElectricity = 10;
         const float minTime4move = 0.5;
         const float maxTime4move = 5.0;
-        int accel;  
+        int accel; 
+//        // PD control for AxisDriver speed
+//        float Kvp;
+//        float Kvd;
+//        // P control for AxisDriver acceleration
+//        float Kap;
         
     public:
         MovementControl();
@@ -34,6 +39,12 @@ class MovementControl
         float getTime4Move();
 
         int getAccel();
+        
+//        void setSpeedPD(float Kp, float Kd);
+//        void setAccelP(float Kp);
+//        float getSpeedKp();
+//        float getSpeedKd();
+//        float getAccelKp();
         
 private:
     void computeAcceleration();

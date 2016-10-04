@@ -187,7 +187,7 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
                 // bus connections for this joint
                 JointBus& oJointBus = oArmBus.getJointBus(jointName);
 
-                oJointMover[i].init(jointName, oArmConfig.getBrakeAccel(), oMovementControl);  
+                oJointMover[i].init(jointName, oArmConfig.getBrakeAccel());  
                 oJointMover[i].connect(oJointBus);
                 oJointMover[i].setFrequency(freq);
             }
