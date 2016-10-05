@@ -243,7 +243,7 @@ std::string JointMover::getSymbol4Action(int action)
             break;
 
         case eMOV_PUSH_BACK:
-            symbol = "-";
+            symbol = "--";
             break;
             
         default:

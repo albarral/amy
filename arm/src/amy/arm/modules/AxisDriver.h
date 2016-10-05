@@ -40,8 +40,9 @@ protected:
     bool benabled;
     std::string modName;   // module name
     // params
-    int dTol;     // arrived threshold distance
-    float vTol;    // tolerance in speed control
+    float tolPos;       // tolerance in distance control (fraction)
+    float tolSpeed;    // tolerance in speed control (fraction))
+    int resolution;   // minimum distance resolution
     float Kaccel;       // acceleration sensitivity
     // bus
     bool bconnected;        // connected to bus
@@ -50,29 +51,29 @@ protected:
     MovementControl* pMovementControl;  // shared movement control
     // control input
     int targetPos;          // requested axis position
+    float time4move;    // requested time for move
+    int accel0;              // central acceleration
     // control output
     int accel;              // commanded acceleration - JMover
     int outAction;          // commanded action - JMover
     // logic
     bool bnewRequest;    // flag indicating new move requested
-    int vDrive;             // drive speed 
-    int vApproach;     // approach speed
-    int accel0;      // default acceleration
+    float vDrive;             // drive speed 
+    float vApproach;       // approach speed
     float targetSpeed;    // desired arm speed
     float sollSpeed;         // real arm speed
     float istPos;            // real axis position
     int blockedTime;     // time that movement has been blocked (ie for limit reasons)
     // tolerances
-    int vDriveTol;         // tolerance over drive speed (deg/s)
-    int vApproachTol;     // tolerance over approach speed (deg/s)            
-    float speedTol;         // tolerance over target speed 
+    float speedTol;         // tolerance allowed around target speed 
+    float posTol;            // tolerance allowed around final position
 
 public:
         AxisDriver();
         //~AxisDriver();
                 
        // module params
-       void init(int dTol, int vApproach, float speedTolerance, MovementControl& oMovementControl);
+       void init(float tolPos, float tolSpeed, int vApproach, MovementControl& oMovementControl);
        bool isEnabled() {return benabled;};
 
        // bus connection 
@@ -112,6 +113,10 @@ private:
         void setApproachSpeed(float dist);
         // gets the proper actions to reach the target speed
         void controlSpeed();
+        // computes the position tolerance
+        void updatePosTolerance(float dist);
+        // computes the target speed tolerance
+        void updateSpeedTolerance();
 };
 }
 #endif

@@ -17,34 +17,19 @@ class MovementControl
     private:     
         std::mutex mutex;
         int electricity;        // electricity of movements (affects acceleration)
-        float time4move;    // time allowed for all movements
         const int minElectricity = 1;
         const int maxElectricity = 10;
-        const float minTime4move = 0.5;
-        const float maxTime4move = 5.0;
         int accel; 
-//        // PD control for AxisDriver speed
-//        float Kvp;
-//        float Kvd;
-//        // P control for AxisDriver acceleration
-//        float Kap;
         
     public:
         MovementControl();
                 
         void setElectricity(int value);        
-        void setTime4Move(float value);        
 
         int getElectricity();
-        float getTime4Move();
 
         int getAccel();
         
-//        void setSpeedPD(float Kp, float Kd);
-//        void setAccelP(float Kp);
-//        float getSpeedKp();
-//        float getSpeedKd();
-//        float getAccelKp();
         
 private:
     void computeAcceleration();

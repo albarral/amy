@@ -27,29 +27,35 @@ void ArmPanner::selectBusJoint()
 
 void ArmPanner::senseBus()
 {
-    // on pan request -> new move
+    // get requested pan
     if (pBus->getCO_ARM_PAN().checkRequested())
     {
         targetPos = (int)pBus->getCO_ARM_PAN().getValue();    
         bnewRequest = true;
     }
+
+    // get requested time for move
+    if (pBus->getCO_ARM_T4MOVE().checkRequested())
+        time4move = pBus->getCO_ARM_T4MOVE().getValue();
     
-    // get real arm pan
-    // TEMP: ArmPosition module not created yet.
+    // sense arm pan
     if (!ArmConfig::isArmPositionModuleWorking())
     {
+        // TEMP: ArmPosition module not created yet.
         // Till then, arm pan read from HS angle
         istPos = pJointBus->getSO_IST_ANGLE().getValue();        
     }
     else    
         istPos = pBus->getSO_ARM_PAN().getValue();  
     
-    // get commanded joint speed
+    // sense joint speed (soll value used)
     sollSpeed = pJointBus->getCO_JCONTROL_SPEED().getValue();
-    // check if movement blocked (due to reached joint limit)
+
+    // sense blocked moves (reached joint limit)
     if (pJointBus->getSO_LIMIT_REACHED().getValue() != 0)
         blockedMove();
-    
+
+    // use central acceleration    
     accel0 = pMovementControl->getAccel();
 }
 

@@ -201,10 +201,10 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
             oArmMover.setFrequency(freq);
             // arm panner module
             {
-                int dTol = 5;
+                float tolPos = 0.05;   // 5%
+                float tolSpeed = 0.2;   // 20%
                 int vApproach = 10;
-                float tolerance = 0.2;
-                oArmPanner.init(dTol, vApproach, tolerance, oMovementControl);
+                oArmPanner.init(tolPos, tolSpeed, vApproach, oMovementControl);
                 oArmPanner.connect(oArmBus);
                 oArmPanner.setFrequency(freq);
             }
