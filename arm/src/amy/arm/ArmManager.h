@@ -17,8 +17,8 @@
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/data/Arm.h"
 #include "amy/arm/modules/ArmMover.h"
-#include "amy/arm/modules/ArmPanner.h"
-#include "amy/arm/modules/JointMover.h"
+#include "amy/arm/modules/test/ArmPanner2.h"
+#include "amy/arm/modules/test/JointMover2.h"
 #include "amy/arm/modules/JointControl.h"
 #include "amy/arm/coms/ArmComs1.h"
 #include "amy/arm/coms/ArmComsOut.h"
@@ -41,8 +41,8 @@ class ArmManager
         int maxLevel; // allow activation of modules until this level
         // modules ...
         ArmMover oArmMover;
-        ArmPanner oArmPanner;
-        JointMover oJointMover[AMY_MAX_JOINTS];
+        ArmPanner2 oArmPanner;
+        JointMover2 oJointMover[AMY_MAX_JOINTS];
         JointControl oJointControl[AMY_MAX_JOINTS];
         ArmComs1 oArmComs;   // communications module for handling of arm control commands & sensor info
         ArmComsOut oArmComsOut;   // communications module for sending outputs to network

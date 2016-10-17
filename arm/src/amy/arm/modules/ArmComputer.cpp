@@ -11,6 +11,7 @@
 
 #define PI 3.14159265
 
+
 namespace amy
 {
 // computes all the move steps in a movement

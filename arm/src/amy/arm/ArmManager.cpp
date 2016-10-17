@@ -44,7 +44,6 @@ void ArmManager::init(std::string robotName)
     std::vector<std::string>& listJointNames = oArmConfig.getListJointNames();
 
     oMovementControl.setElectricity(7);
-    oMovementControl.setTime4Move(2.0);
     initArm(listJointNames);
     initBus(listJointNames);
     initModules(listJointNames);

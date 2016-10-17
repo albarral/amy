@@ -62,6 +62,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointMover.o \
+	${OBJECTDIR}/src/amy/arm/modules/test/ArmPanner2.o \
+	${OBJECTDIR}/src/amy/arm/modules/test/AxisDriver2.o \
+	${OBJECTDIR}/src/amy/arm/modules/test/JointMover2.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmMath.o
 
 
@@ -223,6 +226,21 @@ ${OBJECTDIR}/src/amy/arm/modules/JointMover.o: src/amy/arm/modules/JointMover.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointMover.o src/amy/arm/modules/JointMover.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/test/ArmPanner2.o: src/amy/arm/modules/test/ArmPanner2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/test/ArmPanner2.o src/amy/arm/modules/test/ArmPanner2.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/test/AxisDriver2.o: src/amy/arm/modules/test/AxisDriver2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/test/AxisDriver2.o src/amy/arm/modules/test/AxisDriver2.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/test/JointMover2.o: src/amy/arm/modules/test/JointMover2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/test/JointMover2.o src/amy/arm/modules/test/JointMover2.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/ArmMath.o: src/amy/arm/util/ArmMath.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
