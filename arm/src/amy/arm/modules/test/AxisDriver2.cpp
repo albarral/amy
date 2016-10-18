@@ -25,8 +25,10 @@ AxisDriver2::AxisDriver2()
     pJointBus = 0;
     targetPos = 0;  // TEMPORAL
     accel = 0;
+    movementDir = 0;
     // params default    
     Kaccel = 4.0;
+    Kspeed = 2.0;
     resolution = 1;
     time4move = 2.0;
 }
@@ -42,7 +44,7 @@ void AxisDriver2::init(float tolPos, float tolSpeed, int vApproach, MovementCont
     {
         this->tolPos = tolPos;
         this->tolSpeed = tolSpeed;
-        this->vApproach = vApproach;
+//        this->vApproach = vApproach;
         pMovementControl = &oMovementControl;            
         benabled = true;
         
@@ -81,21 +83,20 @@ void AxisDriver2::loop()
     
     senseBus();
 
-    // measure arm distance to target
-    float dist = targetPos - istPos;
+    // measure position error
+    dist = targetPos - istPos;
     float absDist = fabs(dist);
 
-    // check new move requests
+    // if new request -> go to DRIVE
     if (bnewRequest)
     {
         bnewRequest = false;        
-        newMove(absDist);    
-        // reset blocked time 
         blockedTime = 0;        
+        jumpTo(eSTATE_DRIVE);
     }
     // if much time blocked -> done
     else if (blockedTime > 5)
-        setState(eSTATE_DONE);
+        jumpTo(eSTATE_DONE);
     
     // skip if done state
     if (getState() == eSTATE_DONE)
@@ -110,27 +111,27 @@ void AxisDriver2::loop()
             // the approach distance must also account for the movement's resolution at present speed
             resolution = ArmMath::getMovementResolution(fabs(sollSpeed), getFrequency());
             dApproach = dBrake + resolution;
-            // never allow it go under the position tolerance
+            // protection against rare case where approach distance is smaller than position tolerance
             if (dApproach < posTol) 
                 dApproach = posTol;
             
             // near to target -> approach
             if (absDist < dApproach)
-                setState(eSTATE_APPROACH);                         
+                jumpTo(eSTATE_APPROACH);                         
             break;
                         
         case eSTATE_APPROACH:
 
             // in target -> arrived
             if (absDist < posTol)
-                setState(eSTATE_ARRIVED);
+                jumpTo(eSTATE_ARRIVED);
             break;
 
         case eSTATE_ARRIVED:
        
             // in target -> done
             if ((int)sollSpeed == 0)
-                setState(eSTATE_DONE);                                
+                jumpTo(eSTATE_DONE);                                
             break;
     }   // end switch        
             
@@ -142,58 +143,71 @@ void AxisDriver2::loop()
     switch (getState())
     {
         case eSTATE_DRIVE:
-
-            // drive at high speed
-            updateTargetSpeed(vDrive, dist);
+            
+            // drive at high constant speed
+            controlAccel();
             break;
                         
         case eSTATE_APPROACH:
 
-            // (normal case) approach at lower speed
-            if (vDrive > vApproach) 
-               updateTargetSpeed(vApproach, dist);
-            // (special case) if drive speed already lower, use it for approach
-            else
-                updateTargetSpeed(vDrive, dist);
+            // approach at proportional speed
+            controlSpeed();
+            controlAccel();
             break;
 
         case eSTATE_ARRIVED:
        
             // stop joint 
-            updateTargetSpeed(0.0, dist);
+            controlAccel();
             break;
     }   // end switch        
     
-    // compute proper acceleration 
-    controlSpeed();                
-    // and send it to bus
+    // send commands
     writeBus();
-    LOG4CXX_INFO(logger, "out accel = " << accel << " \t ist = " << istPos);
+    LOG4CXX_INFO(logger, "accel = " << accel << " \t ist = " << istPos);
     //LOG4CXX_INFO(logger, " \t \t \t dBrake = " << dBrake << " - resolution = " << resolution << " - accel = " << accel);
 }
 
 
-// starts new move
-void AxisDriver2::newMove(float absdist)
+// jump to given state
+// and prepare movement
+void AxisDriver2::jumpTo(int state)
 {
-    // compute next things for the move ...
+    float vDrive;
+         
+    switch (state)
+    {
+        case eSTATE_DRIVE:
+
+            // set movement direction (will be kept till end of movement)
+            movementDir = (dist > 0 ? 1: -1);
+
+            // set target speed for drive stage (depends on required time)
+            if (time4move > 0.0)
+                vDrive = dist / time4move;            
+            updateTargetSpeed(vDrive);
+
+            // compute brake distance (given the drive speed and the maximum acceleration)
+            dBrake = ArmMath::computeBrakeDistance(fabs(vDrive), maxAccel);
+
+            // set position tolerance for the move
+            updatePosTolerance(fabs(dist));
     
-    // the speed needed to do it in the required time
-    if (time4move > 0.0)
-        vDrive = absdist / time4move;
+            // show data
+            showMovementData();            
+            break;
+                        
+        // case eSTATE_APPROACH: nothing computed
 
-    // the distance needed to brake from maximum speed using the maximum acceleration
-    dBrake = ArmMath::computeBrakeDistance(vDrive, maxAccel);
-
-    // the position tolerance allowed for the move
-    updatePosTolerance(absdist);
-
-    setState(eSTATE_DRIVE);        
-    LOG4CXX_INFO(logger, "target = " << targetPos);  
-    LOG4CXX_INFO(logger, "ist = " << istPos);
-    LOG4CXX_INFO(logger, "v = " << vDrive);  
-    LOG4CXX_INFO(logger, "a = " << maxAccel);  
-    LOG4CXX_INFO(logger, "dBrake = " << dBrake);  
+        case eSTATE_ARRIVED:
+       
+            // null target speed
+            updateTargetSpeed(0.0);
+            break;
+    }   
+       
+    // set state 
+    setState(state);     
 }
 
 // increase blocked time
@@ -202,22 +216,32 @@ void AxisDriver2::blockedMove()
     blockedTime++;
 }
 
-void AxisDriver2::updateTargetSpeed(float speed, float dist)
+void AxisDriver2::updateTargetSpeed(float speed)
 {
-    float absSpeed = fabs(speed);
-    targetSpeed =  (dist > 0.0) ? absSpeed : -absSpeed;
-    speedTol = tolSpeed * absSpeed;  
+    targetSpeed =  speed;
+    // compute speed tolerance
+    speedTol = tolSpeed * fabs(speed);  
 }
 
 // gets the proper acceleration to reach the target speed
 void AxisDriver2::controlSpeed()
 {    
-    // compute speed error
+    // approach speed proportional to position error
+    float vApproach = Kspeed*dist;
+        
+    // approach speed can only be reduced
+    if (fabs(vApproach) < fabs(targetSpeed))        
+        targetSpeed = vApproach;
+}
+       
+// gets a proper acceleration given the target speed
+void AxisDriver2::controlAccel()
+{    
+    // acceleration is proportional to speed error
     float difSpeed = targetSpeed - sollSpeed;        
-    // compute acceleration to reach target speed 
     accel = Kaccel*difSpeed;
         
-    // keep accel under limits
+    // always kept under limits
     if (fabs(accel) > maxAccel)        
         accel = (accel > 0 ? maxAccel : -maxAccel);
 }
@@ -252,5 +276,13 @@ void AxisDriver2::showState()
     }   // end switch    
 }
 
+void AxisDriver2::showMovementData()
+{
+    LOG4CXX_INFO(logger, "target = " << targetPos);  
+    LOG4CXX_INFO(logger, "ist = " << istPos);
+    LOG4CXX_INFO(logger, "v = " << targetSpeed);  
+    LOG4CXX_INFO(logger, "a = " << maxAccel);  
+    LOG4CXX_INFO(logger, "dBrake = " << dBrake);      
+}
 
 }

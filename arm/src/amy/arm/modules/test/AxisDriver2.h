@@ -15,14 +15,17 @@
 
 namespace amy
 {
-// Behaviour used to move an arm to a target position in a single direction (pan, tilt or radial)
-// It's a base class that needs to be extended (senseBus & writeBus to be implemented)
-// Movements done in 3 stages: 
-// DRIVE:           high speed - far from target   (d > dbrake)
-// APPROACH:    low speed  - near to target     (d < dbrake)
-// ARRIVED:        brake - target reached           (d < tolerance)  
+// Behaviour used to move an arm to a target position along a single polar axis (pan, tilt or radial).
+// The movement is controlled through acceleration commands.
+// Movements are performed in a single direction. No oscillations are allowed. 
+//
+// Base class that needs to be extended (senseBus, writeBus)
+// - States: 
+// DRIVE:           high constant speed - when far from target   
+// APPROACH:    low variable speed  - when near to target  
+// ARRIVED:        null speed - when at target (tolerance)
 // - Outputs:
-// actions and acceleration for JointMover modules
+// acceleration commands
 class AxisDriver2: public Module3
 {
 public:
@@ -44,6 +47,7 @@ protected:
     float tolSpeed;    // tolerance in speed control (fraction))
     int resolution;   // minimum distance resolution
     float Kaccel;       // acceleration sensitivity
+    float Kspeed;     // speed sensitivity
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
@@ -54,19 +58,19 @@ protected:
     float time4move;    // requested time for move
     // output
     int accel;              // commanded acceleration - JMover
-    // logic
-    float targetSpeed;    // desired arm speed
-    float sollSpeed;         // real arm speed
+    // measures
     float istPos;            // real axis position
-    int maxAccel;          // central max acceleration
-    bool bnewRequest;    // flag indicating new move requested
-    float vDrive;             // drive speed 
-    float vApproach;       // approach speed
-    float dBrake;           // distance needed to brake at maximum acceleration
-    int blockedTime;     // time that movement has been blocked (ie for limit reasons)
-    // tolerances
-    float speedTol;         // tolerance allowed around target speed 
+    float dist;                 // position error
+    float sollSpeed;         // real arm speed
+    int blockedTime;     // time that movement has been blocked (ie for limit reasons)    
+    // logic
     float posTol;            // tolerance allowed around final position
+    int movementDir;     // direction of movement (1, -1) kept constant  
+    float targetSpeed;    // desired arm speed
+    float speedTol;         // tolerance allowed around target speed 
+    int maxAccel;          // central max acceleration
+    float dBrake;           // distance needed to brake at maximum acceleration
+    bool bnewRequest;    // flag indicating new move requested
 
 public:
         AxisDriver2();
@@ -99,15 +103,19 @@ private:
         // loop inside the module thread 
         virtual void loop();            
 
-        // prepares for new move
-        void newMove(float dist);
+        // jump to given state
+        void jumpTo(int state);
         // updates the target speed
-        void updateTargetSpeed(float speed, float dist);
+        void updateTargetSpeed(float speed);
         // computes the position tolerance
         void updatePosTolerance(float dist);
 
-        // gets the proper actions to reach the target speed
+        // gets a proper speed given the position error
         void controlSpeed();
+        // gets a proper acceleration given the target speed
+        void controlAccel();
+        
+        void showMovementData();
 };
 }
 #endif
