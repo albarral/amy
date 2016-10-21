@@ -8,6 +8,7 @@
 
 #include "amy/arm/modules/test/AxisDriver2.h"
 #include "amy/arm/util/ArmMath.h"
+#include "amy/show/Plot.h"  //  tmp for analysis
 
 using namespace log4cxx;
 
@@ -93,6 +94,8 @@ void AxisDriver2::loop()
         bnewRequest = false;        
         blockedTime = 0;        
         jumpTo(eSTATE_DRIVE);
+        // record output for analysis
+        oRecord.reset();
     }
     // if much time blocked -> done
     else if (blockedTime > 5)
@@ -162,8 +165,11 @@ void AxisDriver2::loop()
             break;
     }   // end switch        
     
+    // record output for analysis
+    oRecord.addElement(sollSpeed, accel);
+    
     // send commands
-    writeBus();
+    writeBus();    
     LOG4CXX_INFO(logger, "accel = " << accel << " \t ist = " << istPos);
     //LOG4CXX_INFO(logger, " \t \t \t dBrake = " << dBrake << " - resolution = " << resolution << " - accel = " << accel);
 }
@@ -204,6 +210,11 @@ void AxisDriver2::jumpTo(int state)
             // null target speed
             updateTargetSpeed(0.0);
             break;
+            
+        case eSTATE_DONE:
+       
+            Plot::plotRecord(oRecord);
+            break;            
     }   
        
     // set state 

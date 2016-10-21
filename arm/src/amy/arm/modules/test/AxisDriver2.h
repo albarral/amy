@@ -12,6 +12,7 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/MovementControl.h"
 #include "amy/utils/module3.h"
+#include "amy/utils/Record.h"   // tmp for analysis
 
 namespace amy
 {
@@ -71,6 +72,8 @@ protected:
     int maxAccel;          // central max acceleration
     float dBrake;           // distance needed to brake at maximum acceleration
     bool bnewRequest;    // flag indicating new move requested
+    // aux
+    Record oRecord; // record to store the speed evolution in movement  (for analysis purpose)
 
 public:
         AxisDriver2();
@@ -83,6 +86,9 @@ public:
        // bus connection 
        void connect(ArmBus& oBus);
        bool isConnected() {return bconnected;};
+
+       // record output for analysis
+       Record& getRecord() {return oRecord;};
                       
 protected:               
         // select bus connections to a joint

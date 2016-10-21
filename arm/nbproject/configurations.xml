@@ -126,12 +126,11 @@
             <pElem>src</pElem>
             <pElem>../amy_utils/src</pElem>
             <pElem>../amy_network/src</pElem>
+            <pElem>../amy_show/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibLibItem>log4cxx</linkerLibLibItem>
-            <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../amy_utils"
                             CT="2"
@@ -156,6 +155,22 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_network.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_show"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_show"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>log4cxx</linkerLibLibItem>
+            <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>opencv_core</linkerLibLibItem>
+            <linkerLibLibItem>opencv_highgui</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

@@ -63,7 +63,7 @@ private:
     float accel_ms;             // used version of accel (degres/s)/ms
     // logic
     float sollSpeed;      // final speed commanded to output (degrees/s) (is always continuous)
-    amy::Click oClick;   
+    Click oClick;   
     // aux
     float lastOutput;
 

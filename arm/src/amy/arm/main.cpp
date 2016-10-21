@@ -21,10 +21,13 @@
 #include "amy/arm/modules/ArmComputer.h"
 #include "amy/arm/data/MoveStep.h"
 
+#include "amy/utils/Record.h"   // tmp for analysis
+#include "amy/show/Plot.h"   // tmp for analysis
 
 void launchArmManager(amy::ArmManager& oArmManager);
 void endArmManager(amy::ArmManager& oArmManager);
 
+void testPlot();
 void testArmPlanner();
 void testAmyNetwork2();
 void writePos(amy::ArmNetwork& oArmNetwork, int value);
@@ -38,10 +41,12 @@ int main(int argc, char** argv)
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
 
     amy::ArmManager oArmManager; 
-
     launchArmManager(oArmManager);
+    
     //testAmyNetwork2();
     //testArmPlanner();
+    //testPlot();
+    
     endArmManager(oArmManager);
       
     return 0;
@@ -86,6 +91,27 @@ void endArmManager(amy::ArmManager& oArmManager)
 
     return;
 }
+
+void testPlot()
+{
+    int wait = 100000; // 100 ms
+    
+    amy::Record oRecord;
+    oRecord.reset();    
+    
+    float y = 100;
+    float step = 20;
+    for (int i=0; i<10; i++)
+    {
+        usleep(wait);    
+        y += step;
+        oRecord.addElement(y, 0);
+    }
+    
+    //LOG4CXX_INFO(logger, oRecord.toString());
+    amy::Plot::plotRecord(oRecord);
+}
+
 
 void testArmPlanner()
 {
