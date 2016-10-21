@@ -10,34 +10,37 @@
 
 namespace amy 
 {
-void Plot::plotRecord(Record& oRecord)
+void Plot::plotRecord(Record& oRecord, int maxRange)
 {  
-    const int MARGIN = 40;  // size of plot margin (pixels)
-    cv::Size size;
-    
-    // create image with size according to the record values that need to be plotted
-    oRecord.findRecordLimits();
-    // width depends on time
-    size.width = oRecord.getMaxTime() + MARGIN;    
-    // height depends on value range (bottom is 0 or negative)
-    int bottom = (oRecord.getMinValue1() < 0 ? (int)oRecord.getMinValue1() : 0);
-    size.height = (int)oRecord.getMaxValue1() - bottom + MARGIN;    
     // create clean RGB image
-    cv::Mat image = cv::Mat::zeros(size.height, size.width, CV_8UC3); 
-            
-    cv::Scalar color = cv::Scalar(255, 255, 255);  // white
-    cv::Scalar colorOrig = cv::Scalar(0, 0, 255);  // red
-    // offset the y=0 position to allow showing negative values
-    int zeroPos = abs(bottom) + 0.5*MARGIN;
+    cv::Mat image = cv::Mat::zeros(PLOT_H, PLOT_W, CV_8UC3); 
+
+    // get limits of magnitude
+    oRecord.findRecordLimits();
     
-    // draw origin
-    cv::circle(image, cv::Point(0, zeroPos), 3, colorOrig);
+    // get x factor to fill timeline in plot
+    float xfactor = (float)(PLOT_W - LEFT_MARGIN - MARGIN) / oRecord.getMaxTime();
+    // get y factor to fill max range in plot
+    float yfactor = (float)(PLOT_H/2 - MARGIN) / maxRange;
+
+    const int POS_XAXIS = PLOT_H/2;            
+    cv::Scalar color = cv::Scalar(255, 255, 255);  // white
+    
+    // draw axis
+    drawAxes(image, POS_XAXIS, yfactor);
     
     // plot records  in image  
     std::vector<recordElement>& listRecords = oRecord.getRecords();         
     for (recordElement& element : listRecords)
     {        
-        cv::circle(image, cv::Point(element.time, (int)element.val1 + zeroPos), 3, color);
+        int x = LEFT_MARGIN + xfactor * element.time;
+        // draw upside-down
+        int y = POS_XAXIS - yfactor * element.val1;
+        // ignore points that fall out of plot
+        if (y >= 0 && y<PLOT_H)
+        {
+            cv::circle(image, cv::Point(x, y), 3, color);           
+        }
     }
     
     // show plot
@@ -45,6 +48,29 @@ void Plot::plotRecord(Record& oRecord)
     cv::imshow("plot", image);
     cv::waitKey(0);
     cv::destroyWindow("plot");
+}
+
+void Plot::drawAxes(cv::Mat image, int POS_XAXIS, float yfactor)
+{
+    cv::Scalar colorAxis = cv::Scalar(0, 0, 255);  // red
+    // axes
+    cv::Point x0 = cv::Point(LEFT_MARGIN, POS_XAXIS);
+    cv::Point x1 = cv::Point(PLOT_W-1, POS_XAXIS);
+    cv::Point y0 = cv::Point(LEFT_MARGIN, 0);
+    cv::Point y1 = cv::Point(LEFT_MARGIN, PLOT_H-1);    
+    cv::line(image, x0, x1, colorAxis);
+    cv::line(image, y0, y1, colorAxis);   
+    // scale line 50
+    cv::Scalar colorScale = cv::Scalar(255, 255, 255);  // white
+    int y50 = POS_XAXIS - (yfactor * 50);    
+    x0 = cv::Point(LEFT_MARGIN, y50);
+    x1 = cv::Point(PLOT_W-1, y50);
+    cv::line(image, x0, x1, colorScale);
+    // scale line -50
+    int ym50 = POS_XAXIS - (yfactor * -50);
+    x0 = cv::Point(LEFT_MARGIN, ym50);
+    x1 = cv::Point(PLOT_W-1, ym50);    
+    cv::line(image, x0, x1, colorScale);
 }
 
 }

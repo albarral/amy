@@ -213,7 +213,7 @@ void AxisDriver2::jumpTo(int state)
             
         case eSTATE_DONE:
        
-            Plot::plotRecord(oRecord);
+            Plot::plotRecord(oRecord, 60);
             break;            
     }   
        
