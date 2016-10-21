@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include <mutex>
-#include "control.h"
+#include "amy/utils/brooks/control.h"
 
 namespace amy 
 {

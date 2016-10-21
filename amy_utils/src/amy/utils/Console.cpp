@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "Console.h"
+#include "amy/utils/Console.h"
 
 namespace amy 
 {

@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "Click.h"
+#include "amy/utils/Click.h"
 
 namespace amy 
 {

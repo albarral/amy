@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "inhibition.h"
+#include "amy/utils/brooks/inhibition.h"
 
 namespace amy 
 {
