@@ -3,29 +3,29 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/modules/ArmPanner.h"
+#include "amy/arm/modules/ArmPanner2.h"
 #include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-ArmPanner::ArmPanner()
+ArmPanner2::ArmPanner2()
 {
-    modName = "ArmPanner";
+    modName = "ArmPanner2";
 }
 
-//ArmPanner::~ArmPanner()
+//ArmPanner2::~ArmPanner2()
 //{
 //}
 
-void ArmPanner::selectBusJoint()
+void ArmPanner2::selectBusJoint()
 {
     // connect to horizontal shoulder
     pJointBus = &pBus->getBusHS();
 }
 
-void ArmPanner::senseBus()
+void ArmPanner2::senseBus()
 {
     // get requested pan
     if (pBus->getCO_ARM_PAN().checkRequested())
@@ -56,14 +56,13 @@ void ArmPanner::senseBus()
         blockedMove();
 
     // use central acceleration    
-    accel0 = pMovementControl->getAccel();
+    maxAccel = pMovementControl->getAccel();
 }
 
 
-void ArmPanner::writeBus()
+void ArmPanner2::writeBus()
 {  
-    // send HS action
-    pJointBus->getCO_JMOVER_ACTION().request(outAction);
+    // send HS acceleration
     pJointBus->getCO_JMOVER_ACCELERATION().request(accel);
 }
 

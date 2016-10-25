@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "amy/arm/modules/ArmComputer.h"
-#include "amy/arm/modules/JointMover.h"
+#include "amy/arm/modules/JointMover2.h"
 
 #define PI 3.14159265
 
@@ -85,8 +85,8 @@ void ArmComputer::computeMoveStep(MoveStep& oMoveStep)
     }
     
     // transform speed to JointMover commands
-    oMoveStep.setXmove(fromSpeed2JointCommand(vx));
-    oMoveStep.setYmove(fromSpeed2JointCommand(vy));
+//    oMoveStep.setXmove(fromSpeed2JointCommand(vx));
+//    oMoveStep.setYmove(fromSpeed2JointCommand(vy));
     oMoveStep.setXspeed(vx);
     oMoveStep.setYspeed(vy);
     oMoveStep.setComputed(true);
@@ -95,15 +95,15 @@ void ArmComputer::computeMoveStep(MoveStep& oMoveStep)
 
 // get the proper joint command to reach the specified joint speed
 // used int to avoid triggering movements for |speeds| < 1.0
-int ArmComputer::fromSpeed2JointCommand(int v)
-{
-    if (v > 0) 
-        return JointMover::eMOV_PUSH_FRONT;
-    else if (v < 0)
-        return JointMover::eMOV_PUSH_BACK;
-    else
-        return 99; //JointMover::eMOV_STOP;
-};
+//int ArmComputer::fromSpeed2JointCommand(int v)
+//{
+//    if (v > 0) 
+//        return JointMover::eMOV_PUSH_FRONT;
+//    else if (v < 0)
+//        return JointMover::eMOV_PUSH_BACK;
+//    else
+//        return 99; //JointMover::eMOV_STOP;
+//};
 
 
 }

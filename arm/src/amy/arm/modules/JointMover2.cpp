@@ -6,7 +6,7 @@
 #include <cmath>
 #include "log4cxx/ndc.h"
 
-#include "amy/arm/modules/test/JointMover2.h"
+#include "amy/arm/modules/JointMover2.h"
 
 using namespace log4cxx;
 

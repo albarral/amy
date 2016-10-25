@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/data/MoveStep3D.h"
-#include "amy/arm/modules/JointMover.h"
+#include "amy/arm/modules/JointMover2.h"
 
 namespace amy
 {

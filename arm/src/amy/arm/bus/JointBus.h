@@ -42,7 +42,6 @@ class JointBus
         std::string& getJointName() {return jointName;};
 
         // controls
-        ControlT<int>& getCO_JMOVER_ACTION() {return CO_JMOVER_ACTION;};        
         ControlT<int>& getCO_JMOVER_ACCELERATION() {return CO_JMOVER_ACCEL;};        
         ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                

@@ -6,7 +6,7 @@
 #include <cmath>
 #include "log4cxx/ndc.h"
 
-#include "amy/arm/modules/test/AxisDriver2.h"
+#include "amy/arm/modules/AxisDriver2.h"
 #include "amy/arm/util/ArmMath.h"
 #include "amy/show/Plot.h"  //  tmp for analysis
 

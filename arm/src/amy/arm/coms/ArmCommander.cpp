@@ -125,7 +125,7 @@ void ArmCommander::send2JointMover(ArmBus* pBus, ArmCommand& oArmCommand)
     
     // access joint's bus
     JointBus& pJointBus = pBus->getJointBus(oArmCommand.getTargetJoint());   
-    pJointBus.getCO_JMOVER_ACTION().request(busAction);   
+    //pJointBus.getCO_JMOVER_ACTION().request(busAction);   
 }
 
 /*! sends command to JointControl modules */    

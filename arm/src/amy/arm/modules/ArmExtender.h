@@ -7,14 +7,14 @@
  ***************************************************************************/
 
 
-#include "amy/arm/modules/AxisDriver.h"
+#include "amy/arm/modules/AxisDriver2.h"
 
 namespace amy
 {
 // Behaviour used to extend the arm.
 // It controls the ELBOW angle to reach a radial target position.
 // It's an AxisDriver module.
-class ArmExtender: public AxisDriver
+class ArmExtender: public AxisDriver2
 {
 public:
         ArmExtender();

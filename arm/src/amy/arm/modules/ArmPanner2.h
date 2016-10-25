@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/modules/test/AxisDriver2.h"
+#include "amy/arm/modules/AxisDriver2.h"
 
 namespace amy
 {

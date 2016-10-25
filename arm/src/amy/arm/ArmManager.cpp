@@ -43,7 +43,12 @@ void ArmManager::init(std::string robotName)
     // obtain (from config file) the list of joints to be controlled 
     std::vector<std::string>& listJointNames = oArmConfig.getListJointNames();
 
+    // set params for movement
     oMovementControl.setElectricity(7);
+    oMovementControl.setKaccelDriver(4.0);
+    oMovementControl.setKspeedDriver(2.0);
+    oMovementControl.setApproachFractionDriver(0.20);
+    oMovementControl.setArrivedFractionDriver(0.05);
     initArm(listJointNames);
     initBus(listJointNames);
     initModules(listJointNames);

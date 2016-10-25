@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/ArmPlanner.h"
-#include "amy/arm/modules/JointMover.h"
+//#include "amy/arm/modules/JointMover.h"
 #include "amy/arm/data/MoveStep.h"
 
 

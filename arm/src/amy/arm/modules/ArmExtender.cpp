@@ -39,7 +39,7 @@ void ArmExtender::senseBus()
 void ArmExtender::writeBus()
 {  
     // send EL action
-    pJointBus->getCO_JMOVER_ACTION().request(outAction);
+    pJointBus->getCO_JMOVER_ACCELERATION().request(accel);
 }
 
 }

@@ -9,7 +9,7 @@
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPlanner.h"
 #include "amy/arm/modules/ArmComputer.h"
-#include "amy/arm/modules/JointMover.h"
+#include "amy/arm/modules/JointMover2.h"
 #include "amy/arm/bus/JointBus.h"
 
 
@@ -135,8 +135,8 @@ void ArmMover::writeBus()
 //        oBusEL.getCO_JMOVER_SPEED().request(vy);
     }
     // command actions
-    oBusHS.getCO_JMOVER_ACTION().request(xaction);
-    oBusEL.getCO_JMOVER_ACTION().request(yaction);
+//    oBusHS.getCO_JMOVER_ACTION().request(xaction);
+//    oBusEL.getCO_JMOVER_ACTION().request(yaction);
 }
 
 void ArmMover::fetchMovement()

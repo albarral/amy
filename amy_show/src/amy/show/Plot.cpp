@@ -46,7 +46,7 @@ void Plot::plotRecord(Record& oRecord, int maxRange)
     // show plot
     cv::namedWindow("plot");         
     cv::imshow("plot", image);
-    cv::waitKey(0);
+    cv::waitKey(-1);
     cv::destroyWindow("plot");
 }
 
