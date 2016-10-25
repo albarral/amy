@@ -44,7 +44,7 @@ void ArmManager::init(std::string robotName)
     std::vector<std::string>& listJointNames = oArmConfig.getListJointNames();
 
     // set params for movement
-    oMovementControl.setElectricity(7);
+    //oMovementControl.setElectricity(7);
     oMovementControl.setKaccelDriver(4.0);
     oMovementControl.setKspeedDriver(2.0);
     oMovementControl.setDriverTolerance(0.05);
@@ -204,11 +204,14 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
             oArmMover.connect(oArmBus);
             oArmMover.setFrequency(freq);
             // arm panner module
-            {
-                oArmPanner.init(oMovementControl);
-                oArmPanner.connect(oArmBus);
-                oArmPanner.setFrequency(freq);
-            }
+            oArmPanner.init(oMovementControl);
+            oArmPanner.connect(oArmBus);
+            oArmPanner.setFrequency(freq);
+            // arm extender            
+            oArmExtender.init(oMovementControl);
+            oArmExtender.connect(oArmBus);
+            oArmExtender.setFrequency(freq);
+            oArmExtender.tune2Arm(oArmConfig.getLenHumerus(), oArmConfig.getLenRadius());            
             break;
 
         default:
@@ -257,10 +260,16 @@ void ArmManager::startLevel(int num)
             
             // arm mover module
             if (oArmMover.isEnabled() && oArmMover.isConnected())
-            oArmMover.on();
+                oArmMover.on();
             // arm panner module
             if (oArmPanner.isEnabled() && oArmPanner.isConnected())
-            oArmPanner.on();          
+                oArmPanner.on();                      
+            // arm extender module
+            if (oArmExtender.isEnabled() && oArmExtender.isConnected())
+            {
+                oArmExtender.on();          
+                oArmExtender.senseInitialPosition();
+            }
             break;
 
         default:
@@ -315,6 +324,9 @@ void ArmManager::stopLevel(int num)
 
         case 3: // ARM MOVER, ARM DRIVERs
             
+            // arm extender module
+            oArmExtender.off();
+            oArmExtender.wait();
             // arm panner module
             oArmPanner.off();
             oArmPanner.wait();

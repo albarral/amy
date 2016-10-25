@@ -17,17 +17,15 @@ class ParamsJoint
         std::string jointName;
         int limit1; // lower limit (degrees)
         int limit2; // upper limit (degrees)
-        int len; // length of arm section (cm)        
         
     public:
         ParamsJoint();
 
-        void set(std::string jointName, int limit1, int limit2, int length) {this->jointName = jointName; this->limit1 = limit1; this->limit2 = limit2; len = length;}
+        void set(std::string jointName, int limit1, int limit2) {this->jointName = jointName; this->limit1 = limit1; this->limit2 = limit2;};
 
         std::string& getJointName() {return jointName;};
         int getLimit1() {return limit1;};
         int getLimit2() {return limit2;};
-        int getLen() {return len;};        
 };
 
 }    

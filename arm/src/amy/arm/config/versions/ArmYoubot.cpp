@@ -32,7 +32,8 @@ ArmYoubot::ArmYoubot ()
         lowerVW = 0;  
         upperVW = 180;
         
-        len = 20;
+        lenHumerus = 20;
+        lenRadius = 20;
 }
 }
 

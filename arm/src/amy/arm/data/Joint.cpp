@@ -20,12 +20,10 @@ void Joint::init(ParamsJoint& oParamsJoint)
 {
     // control proper argument values
 //    if (type < 0 || type >= eJOINT_INVALID ||        
-    if (oParamsJoint.getLen() < 0 ||
-        oParamsJoint.getLimit1() >= oParamsJoint.getLimit2())
+    if (oParamsJoint.getLimit1() >= oParamsJoint.getLimit2())
         return;
 
     name = oParamsJoint.getJointName();
-    length = oParamsJoint.getLen();
     limit1 = oParamsJoint.getLimit1();
     limit2 = oParamsJoint.getLimit2();
     rest = 0; // default

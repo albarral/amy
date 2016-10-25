@@ -20,7 +20,6 @@ private:
     // configuration data
     std::string name;
     int rest;    // angle at which the joint rests (the effort is minimum)
-    int length;     // joint's length (cm)
     int limit1;      // lower allowed angle (degrees)
     int limit2;      // upper allowed angle (degrees)
 

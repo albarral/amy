@@ -78,7 +78,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     if (oArmVersion.hasHS())
     {
         jointName = ArmConfig::horizontal_shoulder;
-        oJointParams[i].set(jointName, oArmVersion.getHSlower(), oArmVersion.getHSupper(), oArmVersion.getLen());
+        oJointParams[i].set(jointName, oArmVersion.getHSlower(), oArmVersion.getHSupper());
         listJointNames.push_back(jointName);
     }
 
@@ -86,7 +86,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     {
         i++;
         jointName = ArmConfig::vertical_shoulder;
-        oJointParams[i].set(jointName, oArmVersion.getVSlower(), oArmVersion.getVSupper(), oArmVersion.getLen());
+        oJointParams[i].set(jointName, oArmVersion.getVSlower(), oArmVersion.getVSupper());
         listJointNames.push_back(jointName);
     }
 
@@ -95,7 +95,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     {
         i++;
         jointName = ArmConfig::elbow;
-        oJointParams[i].set(jointName, oArmVersion.getELlower(), oArmVersion.getELupper(), oArmVersion.getLen());
+        oJointParams[i].set(jointName, oArmVersion.getELlower(), oArmVersion.getELupper());
         listJointNames.push_back(jointName);
     }
 
@@ -103,7 +103,7 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     {
         i++;
         jointName = ArmConfig::horizontal_wrist;
-        oJointParams[i].set(jointName, oArmVersion.getHWlower(), oArmVersion.getHWupper(), oArmVersion.getLen());
+        oJointParams[i].set(jointName, oArmVersion.getHWlower(), oArmVersion.getHWupper());
         listJointNames.push_back(jointName);
     }
         
@@ -111,10 +111,13 @@ void ArmConfig::loadArmVersion(ArmVersion& oArmVersion)
     {
         i++;
         jointName = ArmConfig::vertical_wrist;
-        oJointParams[i].set(jointName, oArmVersion.getVWlower(), oArmVersion.getVWupper(), oArmVersion.getLen());
+        oJointParams[i].set(jointName, oArmVersion.getVWlower(), oArmVersion.getVWupper());
         listJointNames.push_back(jointName);
     }
 
+    lenHumerus = oArmVersion.getLenHumerus();
+    lenRadius = oArmVersion.getLenRadius();
+    
     numJoints = listJointNames.size();
 }
 

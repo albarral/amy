@@ -32,7 +32,8 @@ ArmUR5::ArmUR5 ()
         lowerVW = 180;  
         upperVW = 360;
         
-        len = 20;
+        lenHumerus = 40;   // cm
+        lenRadius = 40;  // cm
 }
 }
 

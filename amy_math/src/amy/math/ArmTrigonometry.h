@@ -15,8 +15,8 @@ namespace amy
 class ArmTrigonometry
 {
 private:
-    int len1;   // length of 1st segment: shoulder-elbow (cm)
-    int len2;   // length of 2nd segment: elbow-wrist (cm)
+    int lenHumerus;   // length of Humerus segment: shoulder-elbow (cm)
+    int lenRadius;      // length of Radius segment: elbow-wrist (cm)
     float tilt;         // arm tilt at wrist (degrees))
     float radius;   // arm radius at wrist (cm)
     
@@ -24,10 +24,10 @@ public:
     ArmTrigonometry();
     //~ArmTrigonometry();
 
-    void setLengths(int len1, int len2);
+    void setLengths(int lenHum, int lenRad);
     
    // computes the wrist position at given vertical shoulder & elbow angles
-   void compute(float angleVS, float angleELB);
+   void computeWristPosition(float angleVS, float angleELB);
 
    // returns the computed arm's tilt
    float getArmTilt() {return tilt;};

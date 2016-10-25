@@ -32,6 +32,9 @@ public:
         float modulesFreq;  // execution frequency for all modules (loops/sec)
         // joints
         ParamsJoint oJointParams[AMY_MAX_JOINTS];
+        // segments
+        int lenHumerus; // length of arm's humerus (cm)        
+        int lenRadius; // length of arm's radius (cm)        
         // joint movers
         int brakeAccel;      // degrees/s2
         
@@ -54,6 +57,9 @@ public:
         // gets the Joint module paramaters for the given joint name
         ParamsJoint& getParamsJoint(std::string jointName);
         
+        int getLenHumerus() {return lenHumerus;};        
+        int getLenRadius() {return lenRadius;};        
+
         // TEMPORAL configurations (to be removed)
         // real position not read yet. When done, return true here
         static bool isRealArmPositionRead() {return false;};

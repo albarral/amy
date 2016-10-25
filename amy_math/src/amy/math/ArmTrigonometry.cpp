@@ -17,28 +17,28 @@ namespace amy
 // computes all the move steps in a movement
 ArmTrigonometry::ArmTrigonometry()
 {
-    len1 = 20;      // 20 cm default 
-    len2 = 20;
+    lenHumerus = 20;      // 20 cm default 
+    lenRadius = 20;
     tilt = 0;
     radius = 0;
 }
 
-void ArmTrigonometry::setLengths(int len1, int len2)
+void ArmTrigonometry::setLengths(int lenHum, int lenRad)
 {
-    if (len1>0)
-        this->len1 = len1;
-    if (len2>0)
-        this->len2 = len2;
+    if (lenHum>0)
+        this->lenHumerus = lenHum;
+    if (lenRad>0)
+        this->lenRadius = lenRad;
 }
 
-void ArmTrigonometry::compute(float angleVS, float angleELB)
+void ArmTrigonometry::computeWristPosition(float angleVS, float angleELB)
 {
     float radians1 = angleVS * KPI_DIV_180;
     float radians2 = angleELB * KPI_DIV_180;
     // get base
-    float b = len1 * cos(radians1) + len2 * cos(radians2);
+    float b = lenHumerus * cos(radians1) + lenRadius * cos(radians2);
     // get height
-    float h = len1 * sin(radians1) + len2 * sin(radians2);
+    float h = lenHumerus * sin(radians1) + lenRadius * sin(radians2);
     
     // beta = arctg(h/b)
     tilt = atan2(h, b) * K180_DIV_PI;

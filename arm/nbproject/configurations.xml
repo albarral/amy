@@ -62,6 +62,8 @@
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
             <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
+            <itemPath>src/amy/arm/modules/ArmExtender.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmExtender.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmPanner2.cpp</itemPath>
@@ -115,6 +117,7 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../amy_utils/src</pElem>
+            <pElem>../amy_math/src</pElem>
             <pElem>../amy_network/src</pElem>
             <pElem>../amy_show/src</pElem>
           </incDir>
@@ -131,6 +134,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_math"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_math"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_math.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -261,6 +276,13 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -417,6 +439,13 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
       </item>

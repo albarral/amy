@@ -8,6 +8,8 @@
 
 
 #include "amy/arm/modules/AxisDriver3.h"
+#include "amy/arm/bus/JointBus.h"
+#include "amy/math/ArmTrigonometry.h"
 
 namespace amy
 {
@@ -16,18 +18,34 @@ namespace amy
 // It's an AxisDriver module.
 class ArmExtender: public AxisDriver3
 {
+private:
+        JointBus* pBusVS;   // bus connection to vertical shoulder
+        JointBus* pBusEL;   // bus connection to elbow
+        float istVS;    // present VS position
+        float istEL;    // present EL position
+        ArmTrigonometry oArmTrigonometry;
+        float istPosPrev;      // previous axis position
+
+    
 public:
-        ArmExtender();
-        //~ArmExtender();
-                                      
+    ArmExtender();
+    //~ArmExtender();
+    
+    // tunes the module to the real arm sizes (in cm)
+    void tune2Arm(int humerusLen, int radiusLen);        
+    // senses the initial position
+    void senseInitialPosition();                          
+    
 private:       
-        virtual void selectBusJoint();
+    virtual void selectBusJoints();        
+    // read bus data
+    virtual void senseBus();
+    // write action commands to bus
+    virtual void writeBus();
+    // computes distance to target
+    virtual float computeDistance();       
         
-        // read bus data
-        virtual void senseBus();
-        // write action commands to bus
-        virtual void writeBus();
-        
+
 };
 }
 #endif

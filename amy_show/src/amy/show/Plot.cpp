@@ -46,8 +46,9 @@ void Plot::plotRecord(Record& oRecord, int maxRange)
     // show plot
     cv::namedWindow("plot");         
     cv::imshow("plot", image);
-    cv::waitKey(-1);
-    cv::destroyWindow("plot");
+    cv::waitKey(5000);
+    //cv::destroyWindow("plot");
+    cv::destroyAllWindows();
 }
 
 void Plot::drawAxes(cv::Mat image, int POS_XAXIS, float yfactor)

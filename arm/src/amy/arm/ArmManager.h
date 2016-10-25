@@ -18,6 +18,7 @@
 #include "amy/arm/data/Arm.h"
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPanner2.h"
+#include "amy/arm/modules/ArmExtender.h"
 #include "amy/arm/modules/JointMover2.h"
 #include "amy/arm/modules/JointControl.h"
 #include "amy/arm/coms/ArmComs1.h"
@@ -41,6 +42,7 @@ class ArmManager
         int maxLevel; // allow activation of modules until this level
         // modules ...
         ArmMover oArmMover;
+        ArmExtender oArmExtender;
         ArmPanner2 oArmPanner;
         JointMover2 oJointMover[AMY_MAX_JOINTS];
         JointControl oJointControl[AMY_MAX_JOINTS];

@@ -36,7 +36,9 @@ class ArmVersion
         bool bVW;   // presence 
         int lowerVW;  // lower limit (degrees) 
         int upperVW; //  upper limit (degrees)
-        int len; // length of arm section (cm)        
+        // segments
+        int lenHumerus; // length of arm's humerus (cm)        
+        int lenRadius; // length of arm's radius (cm)        
         
     public:
         ArmVersion();
@@ -61,7 +63,8 @@ class ArmVersion
         int getVWlower() {return lowerVW;};
         int getVWupper() {return upperVW;};
 
-        int getLen() {return len;};        
+        int getLenHumerus() {return lenHumerus;};        
+        int getLenRadius() {return lenRadius;};        
 };
 
 }
