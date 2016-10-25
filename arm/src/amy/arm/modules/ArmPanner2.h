@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/AxisDriver3.h"
+#include "amy/arm/bus/JointBus.h"
 
 namespace amy
 {
@@ -15,12 +16,15 @@ namespace amy
 // It's an AxisDriver module.
 class ArmPanner2: public AxisDriver3
 {
+private:
+        JointBus* pBusHS;   // bus connection to HS joint
+
 public:
         ArmPanner2();
         //~ArmPanner2();
                                       
 private:       
-        virtual void selectBusJoint();        
+        virtual void selectBusJoints();        
         // read bus data
         virtual void senseBus();
         // write action commands to bus

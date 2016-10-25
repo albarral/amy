@@ -21,7 +21,7 @@ namespace amy
 // Movements are done in a single direction. No oscillations are done.  
 // For each move, the movement is finished when an arrival point is crossed.
 //    
-// Base class that needs to be extended (senseBus, writeBus)
+// Base class that needs to be extended 
 // - States: 
 // DRIVE:           adaptive speed (max limited) - when far from target   
 // ARRIVED:        null speed - when at target (tolerance)
@@ -50,7 +50,6 @@ protected:
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
-    JointBus* pJointBus;   // bus connection to a joint
     MovementControl* pMovementControl;  // shared movement control
     // control 
     int targetPos;          // requested axis position
@@ -85,8 +84,8 @@ public:
        Record& getRecord() {return oRecord;};
                       
 protected:               
-        // select bus connections to a joint
-        virtual void selectBusJoint() = 0;
+        // select bus connections to affected joints
+        virtual void selectBusJoints() = 0;
         // read bus data
         virtual void senseBus() = 0;
         // write action commands to bus

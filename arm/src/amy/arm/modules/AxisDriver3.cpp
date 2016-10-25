@@ -23,7 +23,6 @@ AxisDriver3::AxisDriver3()
     
     bconnected = false;
     pBus = 0;
-    pJointBus = 0;
     pMovementControl = 0;
     sollAccel = 0;
     moveSign = 0;
@@ -46,7 +45,7 @@ void AxisDriver3::connect(ArmBus& oBus)
 {
     pBus = &oBus;
     bconnected = true;
-    selectBusJoint();
+    selectBusJoints();
     
     LOG4CXX_DEBUG(logger, modName << " connected to bus");      
 }
