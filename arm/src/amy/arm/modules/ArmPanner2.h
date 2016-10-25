@@ -6,14 +6,14 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/modules/AxisDriver2.h"
+#include "amy/arm/modules/AxisDriver3.h"
 
 namespace amy
 {
 // Behavior used to move the arm horizontally.
 // It controls the HORIZONTAL SHOULDER angle to reach a pan target position.
 // It's an AxisDriver module.
-class ArmPanner2: public AxisDriver2
+class ArmPanner2: public AxisDriver3
 {
 public:
         ArmPanner2();
@@ -25,7 +25,9 @@ private:
         virtual void senseBus();
         // write action commands to bus
         virtual void writeBus();
-        
+        // computes distance to target
+        virtual float computeDistance();                
+     
 };
 }
 #endif

@@ -26,8 +26,8 @@ class ArmBus
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
-        // AxisDriver's
-        ControlT<float> CO_ARM_T4MOVE;  // time for move (secs)
+        // AxisDrivers
+        //ControlT<float> CO_ARM_T4MOVE;  // time for move (secs)
         ControlT<int> CO_ARM_PAN;       // arm's target pan
         ControlT<int> CO_ARM_TILT;       // arm's target tilt
         ControlT<int> CO_ARM_RADIUS;   // arm's target radius
@@ -58,7 +58,7 @@ class ArmBus
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
 
-        ControlT<float>& getCO_ARM_T4MOVE() {return CO_ARM_T4MOVE;};        
+        //ControlT<float>& getCO_ARM_T4MOVE() {return CO_ARM_T4MOVE;};        
         ControlT<int>& getCO_ARM_PAN() {return CO_ARM_PAN;};        
         ControlT<int>& getCO_ARM_TILT() {return CO_ARM_TILT;};        
         ControlT<int>& getCO_ARM_RADIUS() {return CO_ARM_RADIUS;};        

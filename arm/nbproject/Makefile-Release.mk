@@ -55,11 +55,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/data/Movement.o \
 	${OBJECTDIR}/src/amy/arm/main.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
-	${OBJECTDIR}/src/amy/arm/modules/AxisDriver2.o \
+	${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointMover2.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmMath.o
@@ -189,11 +188,6 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o: src/amy/arm/modules/ArmComputer.
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o src/amy/arm/modules/ArmComputer.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o: src/amy/arm/modules/ArmExtender.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o src/amy/arm/modules/ArmExtender.cpp
-
 ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -209,10 +203,10 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/AxisDriver2.o: src/amy/arm/modules/AxisDriver2.cpp 
+${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o: src/amy/arm/modules/AxisDriver3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisDriver2.o src/amy/arm/modules/AxisDriver2.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o src/amy/arm/modules/AxisDriver3.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl.o: src/amy/arm/modules/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

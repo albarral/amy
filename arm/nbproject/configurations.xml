@@ -62,16 +62,14 @@
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
             <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
-            <itemPath>src/amy/arm/modules/ArmExtender.cpp</itemPath>
-            <itemPath>src/amy/arm/modules/ArmExtender.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmPanner2.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmPanner2.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
-            <itemPath>src/amy/arm/modules/AxisDriver2.cpp</itemPath>
-            <itemPath>src/amy/arm/modules/AxisDriver2.h</itemPath>
+            <itemPath>src/amy/arm/modules/AxisDriver3.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/AxisDriver3.h</itemPath>
             <itemPath>src/amy/arm/modules/JointControl.cpp</itemPath>
             <itemPath>src/amy/arm/modules/JointControl.h</itemPath>
             <itemPath>src/amy/arm/modules/JointMover2.cpp</itemPath>
@@ -264,13 +262,6 @@
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmExtender.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
@@ -283,12 +274,12 @@
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/AxisDriver2.cpp"
+      <item path="src/amy/arm/modules/AxisDriver3.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/AxisDriver2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/modules/AxisDriver3.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointControl.cpp"
             ex="false"
@@ -427,13 +418,6 @@
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmExtender.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
@@ -446,12 +430,12 @@
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/AxisDriver2.cpp"
+      <item path="src/amy/arm/modules/AxisDriver3.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/AxisDriver2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/modules/AxisDriver3.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointControl.cpp"
             ex="false"

@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <mutex>
+#include <string>
 
 namespace amy
 {
@@ -19,7 +20,13 @@ class MovementControl
         int electricity;        // electricity of movements (affects acceleration)
         const int minElectricity = 1;
         const int maxElectricity = 10;
-        int accel; 
+        //int accel; 
+        // axis driver params
+        float Kaccel;                // acceleration sensitivity
+        float Kspeed;              // speed sensitivity
+        float approachFraction;     // fraction of movement to be done in approach stage
+        float driverTolerance;      // position tolerance for driver movements
+        float driverSpeed;      // speed used for driver movements
         
     public:
         MovementControl();
@@ -28,11 +35,25 @@ class MovementControl
 
         int getElectricity();
 
-        int getAccel();
+        //int getAccel();
+
+        // AxisDriver params
+        void setKaccelDriver(float value);
+        float getKaccelDriver();
+        void setKspeedDriver(float value);
+        float getKspeedDriver();
+        void setApproachFractionDriver(float value);
+        float getApproachFractionDriver();
+        void setDriverTolerance(float value);
+        float getDriverTolerance();
+        void setDriverSpeed(float value);
+        float getDriverSpeed();
         
+        // returns class description
+        std::string toString();
         
 private:
-    void computeAcceleration();
+    //void computeAcceleration();
 };
 
 }    

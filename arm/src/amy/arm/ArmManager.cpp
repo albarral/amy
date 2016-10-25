@@ -48,7 +48,8 @@ void ArmManager::init(std::string robotName)
     oMovementControl.setKaccelDriver(4.0);
     oMovementControl.setKspeedDriver(2.0);
     oMovementControl.setApproachFractionDriver(0.20);
-    oMovementControl.setArrivedFractionDriver(0.05);
+    oMovementControl.setDriverTolerance(0.05);
+    oMovementControl.setDriverSpeed(60.0);
     initArm(listJointNames);
     initBus(listJointNames);
     initModules(listJointNames);
@@ -205,10 +206,7 @@ void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
             oArmMover.setFrequency(freq);
             // arm panner module
             {
-                float tolPos = 0.05;   // 5%
-                float tolSpeed = 0.2;   // 20%
-                int vApproach = 10;
-                oArmPanner.init(tolPos, tolSpeed, vApproach, oMovementControl);
+                oArmPanner.init(oMovementControl);
                 oArmPanner.connect(oArmBus);
                 oArmPanner.setFrequency(freq);
             }

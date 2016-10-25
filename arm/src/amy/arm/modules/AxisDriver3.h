@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_AXISDRIVER2_H
-#define __AMY_ARM_AXISDRIVER2_H
+#ifndef __AMY_ARM_AXISDRIVER3_H
+#define __AMY_ARM_AXISDRIVER3_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -16,10 +16,11 @@
 
 namespace amy
 {
-// Behaviour used to move an arm to a target position along a single polar axis (pan, tilt or radial).
+// Behaviour used to move an arm to a target position along a given axis (pan, tilt or radial).
 // The movement is controlled through acceleration commands.
-// Movements are performed in a single direction. No oscillations are allowed. 
-//
+// Movements are done in a single direction. No oscillations are done.  
+// For each move, approach and arrival points are defined to handle state transitions.
+//    
 // Base class that needs to be extended (senseBus, writeBus)
 // - States: 
 // DRIVE:           high constant speed - when far from target   
@@ -27,10 +28,10 @@ namespace amy
 // ARRIVED:        null speed - when at target (tolerance)
 // - Outputs:
 // acceleration commands
-class AxisDriver2: public Module3
+class AxisDriver3: public Module3
 {
 public:
-    // states of AxisDriver2 module
+    // states of AxisDriver3 module
     enum eType
     {
          eSTATE_DONE,
@@ -44,11 +45,11 @@ protected:
     bool benabled;
     std::string modName;   // module name
     // params
-    float tolPos;       // tolerance in distance control (fraction)
-    float tolSpeed;    // tolerance in speed control (fraction))
-    int resolution;   // minimum distance resolution
     float Kaccel;       // acceleration sensitivity
     float Kspeed;     // speed sensitivity
+    float approachFraction; // fraction of movement to be done in approach stage
+    float driverTolerance;      // position tolerance for driver movements
+    float driverSpeed;        // speed used for drive stage (positive value)
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
@@ -56,31 +57,28 @@ protected:
     MovementControl* pMovementControl;  // shared movement control
     // control 
     int targetPos;          // requested axis position
-    float time4move;    // requested time for move
     // output
-    int accel;              // commanded acceleration - JMover
+    int sollAccel;              // commanded acceleration - JMover
     // measures
-    float istPos;            // real axis position
-    float dist;                 // position error
-    float sollSpeed;         // real arm speed
-    int blockedTime;     // time that movement has been blocked (ie for limit reasons)    
+    float istPos;            // present axis position
+    float istSpeed;         // present arm speed
+    float dist;               // present distance to target position
+    int blockedTime;     // time that movement has been blocked (due to soll position out of range)    
     // logic
-    float posTol;            // tolerance allowed around final position
-    int movementDir;     // direction of movement (1, -1) kept constant  
-    float targetSpeed;    // desired arm speed
-    float speedTol;         // tolerance allowed around target speed 
-    int maxAccel;          // central max acceleration
-    float dBrake;           // distance needed to brake at maximum acceleration
-    bool bnewRequest;    // flag indicating new move requested
+    int moveSign;     // direction of movement (1, -1) 
+    float approachDist;  // distance at which the movement begins the approach
+    float arrivalDist;     // distance at which the movement is considered done
+    float targetSpeed;    // desired joint speed (with sign)
+    bool bnewMove;    // flag indicating new move requested
     // aux
     Record oRecord; // record to store the speed evolution in movement  (for analysis purpose)
 
 public:
-        AxisDriver2();
-        //~AxisDriver2();
+        AxisDriver3();
+        //~AxisDriver3();
                 
        // module params
-       void init(float tolPos, float tolSpeed, int vApproach, MovementControl& oMovementControl);
+       void init(MovementControl& oMovementControl);
        bool isEnabled() {return benabled;};
 
        // bus connection 
@@ -97,31 +95,35 @@ protected:
         virtual void senseBus() = 0;
         // write action commands to bus
         virtual void writeBus() = 0;
-                
-        // movement is blocked
+        // computes distance to target
+        virtual float computeDistance() = 0;                
+        // inform that movement is blocked
         void blockedMove();
-        // shows the present state name
-        void showState();
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-
+        
         // jump to given state
         void jumpTo(int state);
         // updates the target speed
-        void updateTargetSpeed(float speed);
-        // computes the position tolerance
-        void updatePosTolerance(float dist);
+        void setTargetSpeed(float speed);
 
         // gets a proper speed given the position error
         void controlSpeed();
         // gets a proper acceleration given the target speed
         void controlAccel();
         
+        // read params for the movement
+        void readParams();
+                
         void showMovementData();
+        
+        // shows the present state name
+        void showState();
+
 };
 }
 #endif
