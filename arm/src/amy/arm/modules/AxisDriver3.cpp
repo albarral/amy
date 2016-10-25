@@ -95,15 +95,7 @@ void AxisDriver3::loop()
     {
         case eSTATE_DRIVE:
             
-            // when the drive crosses the approach point -> approach
-            if ((moveSign > 0 && dist < approachDist) || 
-                (moveSign < 0 && dist > approachDist))
-                jumpTo(eSTATE_APPROACH);                         
-            break;
-                        
-        case eSTATE_APPROACH:
-
-            // when the approach crosses the arrival point -> arrived
+            // when the drive crosses the arrival point -> arrived
             if ((moveSign > 0 && dist < arrivalDist) || 
                 (moveSign < 0 && dist > arrivalDist))
                 jumpTo(eSTATE_ARRIVED);
@@ -131,13 +123,7 @@ void AxisDriver3::loop()
     {
         case eSTATE_DRIVE:
             
-            // drive at high constant speed
-            controlAccel();
-            break;
-                        
-        case eSTATE_APPROACH:
-
-            // approach at proportional speed
+            // drive at proportional speed (centrally limited)
             controlSpeed();
             controlAccel();
             break;
@@ -173,15 +159,10 @@ void AxisDriver3::jumpTo(int state)
             moveSign = (dist > 0 ? 1: -1);
             setTargetSpeed(driverSpeed * moveSign);
 
-            // the approach & arrival points are also computed (both with same sign as initial distance)
-            approachDist = dist*approachFraction;
+            // the arrival point is also computed (with same sign as initial distance)
             arrivalDist = dist*driverTolerance;
             blockedTime = 0;        
             
-            // approach protection: the approach point must never be located after the arrival point
-            if (fabs(approachDist) < fabs(arrivalDist)) 
-                approachDist = arrivalDist;
-
             // record output for analysis
             oRecord.reset();
 
@@ -189,8 +170,7 @@ void AxisDriver3::jumpTo(int state)
             showMovementData();            
             break;
                         
-        // case eSTATE_APPROACH: nothing computed
-
+        // 
         case eSTATE_ARRIVED:
        
             // null target speed
@@ -218,17 +198,17 @@ void AxisDriver3::setTargetSpeed(float speed)
     targetSpeed = speed;
 }
 
-// updates the target speed in the approach stage
+// computes the target speed of the movement
 void AxisDriver3::controlSpeed()
-{    
-    // approach speed proportional to position error
-    float approachSpeed = Kspeed*dist;
+{        
+    // speed is proportional to distance from target
+    float speed = Kspeed*dist;
         
-    // the approach speed can never exceed the drive speed
-    if (fabs(approachSpeed) > fabs(driverSpeed))        
-        approachSpeed = driverSpeed * moveSign;
+    // speed is maximally limited by a centrally defined value
+    if (fabs(speed) > fabs(driverSpeed))        
+        speed = driverSpeed * moveSign;
        
-    setTargetSpeed(approachSpeed);
+    setTargetSpeed(speed);
 }
        
 // gets the proper acceleration to reach the target speed
@@ -246,7 +226,6 @@ void AxisDriver3::readParams()
     {
         Kaccel = pMovementControl->getKaccelDriver(); 
         Kspeed = pMovementControl->getKspeedDriver(); 
-        approachFraction = pMovementControl->getApproachFractionDriver();
         driverTolerance = pMovementControl->getDriverTolerance();
         driverSpeed = pMovementControl->getDriverSpeed();    
     }
@@ -264,10 +243,6 @@ void AxisDriver3::showState()
             LOG4CXX_INFO(logger, ">> arrived");
             break;
 
-        case eSTATE_APPROACH:
-            LOG4CXX_INFO(logger, ">> approach");
-            break;
-
         case eSTATE_DRIVE:
             LOG4CXX_INFO(logger, ">> drive");
             break;
@@ -279,7 +254,6 @@ void AxisDriver3::showMovementData()
     LOG4CXX_INFO(logger, "target = " << targetPos);  
     LOG4CXX_INFO(logger, "ist = " << istPos);
     LOG4CXX_INFO(logger, "v = " << targetSpeed);  
-    LOG4CXX_INFO(logger, "approachDist = " << approachDist);      
     LOG4CXX_INFO(logger, "arrivedDist = " << arrivalDist);      
 }
 

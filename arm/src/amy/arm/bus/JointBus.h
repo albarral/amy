@@ -22,8 +22,7 @@ class JointBus
         std::string jointName;
 
         // CONTROLS 
-        ControlT<int> CO_JMOVER_ACTION;         // >> JointMover: action requests (move, brake, keep, stop)
-        ControlT<int> CO_JMOVER_ACCEL;         // >> JointMover: required acceleration
+        ControlT<float> CO_JMOVER_ACCEL;         // >> JointMover: required acceleration
         ControlT<float> CO_JCONTROL_SPEED;    // >> JointControl: desired joint speed (degrees/s)
         ControlT<float> CO_JOINT_ANGLE;         // >> real arm: desired joint angle (degrees)
 
@@ -42,7 +41,7 @@ class JointBus
         std::string& getJointName() {return jointName;};
 
         // controls
-        ControlT<int>& getCO_JMOVER_ACCELERATION() {return CO_JMOVER_ACCEL;};        
+        ControlT<float>& getCO_JMOVER_ACCELERATION() {return CO_JMOVER_ACCEL;};        
         ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         

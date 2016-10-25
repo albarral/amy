@@ -24,7 +24,7 @@ std::string JointBus::toString()
     if (benabled)
     {
         std::string text = "JointBus[" + jointName +  "]\n" +
-             "CO_JMOVER_ACTION: " + std::to_string(CO_JMOVER_ACTION.getRequested()) + " - " + std::to_string(CO_JMOVER_ACTION.getValue()) + "\n" +
+             "CO_JMOVER_ACCEL: " + std::to_string(CO_JMOVER_ACCEL.getRequested()) + " - " + std::to_string(CO_JMOVER_ACCEL.getValue()) + "\n" +
              "CO_JCONTROL_SPEED: " + std::to_string(CO_JCONTROL_SPEED.getRequested()) + " - " + std::to_string(CO_JCONTROL_SPEED.getValue()) + "\n" +
              "CO_JOINT_ANGLE: " + std::to_string(CO_JOINT_ANGLE.getRequested()) + " - " + std::to_string(CO_JOINT_ANGLE.getValue()) + "\n" +
              "SO_IST_ANGLE: " + std::to_string(SO_IST_ANGLE.getValue()) + "\n" +

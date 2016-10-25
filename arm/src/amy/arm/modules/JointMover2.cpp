@@ -98,7 +98,7 @@ void JointMover2::senseBus()
      if (pJointBus->getCO_JMOVER_ACCELERATION().checkRequested())
      {                  
         accel = pJointBus->getCO_JMOVER_ACCELERATION().getValue();
-        accel_ms = (float)accel/1000;
+        accel_ms = accel/1000;
         setNextState(eSTATE_ACCEL);
      }
      // if no requests -> auto brake

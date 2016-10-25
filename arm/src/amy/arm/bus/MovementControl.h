@@ -24,7 +24,6 @@ class MovementControl
         // axis driver params
         float Kaccel;                // acceleration sensitivity
         float Kspeed;              // speed sensitivity
-        float approachFraction;     // fraction of movement to be done in approach stage
         float driverTolerance;      // position tolerance for driver movements
         float driverSpeed;      // speed used for driver movements
         
@@ -42,8 +41,6 @@ class MovementControl
         float getKaccelDriver();
         void setKspeedDriver(float value);
         float getKspeedDriver();
-        void setApproachFractionDriver(float value);
-        float getApproachFractionDriver();
         void setDriverTolerance(float value);
         float getDriverTolerance();
         void setDriverSpeed(float value);

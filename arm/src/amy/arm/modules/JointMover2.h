@@ -42,7 +42,7 @@ private:
     bool bconnected;        // connected to bus
     JointBus* pJointBus;    // the bus connections corresponding to a given joint
     // control
-    int accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
+    float accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
     float accel_ms;         // used version of accel (degres/s)/ms
     // output
     float sollSpeed;      // final speed commanded to output (degrees/s) 

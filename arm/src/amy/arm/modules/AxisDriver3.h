@@ -19,12 +19,11 @@ namespace amy
 // Behaviour used to move an arm to a target position along a given axis (pan, tilt or radial).
 // The movement is controlled through acceleration commands.
 // Movements are done in a single direction. No oscillations are done.  
-// For each move, approach and arrival points are defined to handle state transitions.
+// For each move, the movement is finished when an arrival point is crossed.
 //    
 // Base class that needs to be extended (senseBus, writeBus)
 // - States: 
-// DRIVE:           high constant speed - when far from target   
-// APPROACH:    low variable speed  - when near to target  
+// DRIVE:           adaptive speed (max limited) - when far from target   
 // ARRIVED:        null speed - when at target (tolerance)
 // - Outputs:
 // acceleration commands
@@ -36,7 +35,6 @@ public:
     {
          eSTATE_DONE,
          eSTATE_ARRIVED,
-         eSTATE_APPROACH,
          eSTATE_DRIVE
     };
 
@@ -47,7 +45,6 @@ protected:
     // params
     float Kaccel;       // acceleration sensitivity
     float Kspeed;     // speed sensitivity
-    float approachFraction; // fraction of movement to be done in approach stage
     float driverTolerance;      // position tolerance for driver movements
     float driverSpeed;        // speed used for drive stage (positive value)
     // bus
@@ -58,7 +55,7 @@ protected:
     // control 
     int targetPos;          // requested axis position
     // output
-    int sollAccel;              // commanded acceleration - JMover
+    float sollAccel;              // commanded acceleration - JMover
     // measures
     float istPos;            // present axis position
     float istSpeed;         // present arm speed
@@ -66,7 +63,6 @@ protected:
     int blockedTime;     // time that movement has been blocked (due to soll position out of range)    
     // logic
     int moveSign;     // direction of movement (1, -1) 
-    float approachDist;  // distance at which the movement begins the approach
     float arrivalDist;     // distance at which the movement is considered done
     float targetSpeed;    // desired joint speed (with sign)
     bool bnewMove;    // flag indicating new move requested

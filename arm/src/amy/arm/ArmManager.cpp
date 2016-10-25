@@ -47,7 +47,6 @@ void ArmManager::init(std::string robotName)
     oMovementControl.setElectricity(7);
     oMovementControl.setKaccelDriver(4.0);
     oMovementControl.setKspeedDriver(2.0);
-    oMovementControl.setApproachFractionDriver(0.20);
     oMovementControl.setDriverTolerance(0.05);
     oMovementControl.setDriverSpeed(60.0);
     initArm(listJointNames);
