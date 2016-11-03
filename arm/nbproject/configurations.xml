@@ -117,7 +117,7 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../amy_utils/src</pElem>
-            <pElem>../amy_math/src</pElem>
+            <pElem>../amy_move/src</pElem>
             <pElem>../amy_network/src</pElem>
             <pElem>../amy_show/src</pElem>
           </incDir>
@@ -137,15 +137,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../amy_math"
+              <makeArtifact PL="../amy_move"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../amy_math"
+                            WD="../amy_move"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_math.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

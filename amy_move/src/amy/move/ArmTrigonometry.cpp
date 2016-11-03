@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-#include "amy/math/ArmTrigonometry.h"
+#include "amy/move/ArmTrigonometry.h"
 
 #define PI 3.1416
 #define KPI_DIV_180 0.0174
@@ -34,7 +34,7 @@ void ArmTrigonometry::setLengths(int lenHum, int lenRad)
 void ArmTrigonometry::computeWristPosition(float angleVS, float angleELB)
 {
     float radians1 = angleVS * KPI_DIV_180;
-    float radians2 = angleELB * KPI_DIV_180;
+    float radians2 = (angleVS + angleELB) * KPI_DIV_180;
     // get base
     float b = lenHumerus * cos(radians1) + lenRadius * cos(radians2);
     // get height

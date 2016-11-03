@@ -16,7 +16,8 @@ Click::Click()
 void Click::start()
 {
     t1 = std::chrono::steady_clock::now();
-    bstarted = true;
+    if (!bstarted)
+        bstarted = true;
 }
 
 void Click::read()

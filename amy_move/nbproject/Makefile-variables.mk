@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=libamy_math.so
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/libamy_math.so
+CND_ARTIFACT_NAME_Debug=libamy_move.so
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/libamy_move.so
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=libamymath.so.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/libamymath.so.tar
+CND_PACKAGE_NAME_Debug=libamymove.so.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/libamymove.so.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=libamy_math.so
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/libamy_math.so
+CND_ARTIFACT_NAME_Release=libamy_move.so
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/libamy_move.so
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=libamymath.so.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/libamymath.so.tar
+CND_PACKAGE_NAME_Release=libamymove.so.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/libamymove.so.tar
 #
 # include compiler specific variables
 #

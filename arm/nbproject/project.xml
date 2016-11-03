@@ -12,7 +12,7 @@
                 <make-dep-project>../amy_show</make-dep-project>
                 <make-dep-project>../amy_utils</make-dep-project>
                 <make-dep-project>../amy_network</make-dep-project>
-                <make-dep-project>../amy_math</make-dep-project>
+                <make-dep-project>../amy_move</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>
