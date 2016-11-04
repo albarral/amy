@@ -10,7 +10,9 @@ namespace amy
 
 JointMover::JointMover()
 {
-    accel = accel_ms = speed = angle = 0.0;
+    accel = 0.0;
+    speed = avgSpeed = 0.0;
+    angle = 0.0;
     blimitReached = false;
     lowLimit = highLimit = 0;
 }
@@ -27,49 +29,47 @@ void JointMover::init(int lowPos, int highPos)
 void JointMover::setAccel(float value)
 {
     accel = value;
-    accel_ms = value/1000;
 }
 
 void JointMover::setSpeed(float value)
 {
     // ignore previous accel
-    accel = accel_ms = 0.0;
+    accel = 0.0;
     speed = value;
-    speed_ms = value/1000;
+    avgSpeed = value;
 }
                     
 void JointMover::setAngle(float value)
 {
     // ignore previous accel & speed
-    accel = accel_ms = 0.0;
+    accel = 0.0;
     speed = 0.0;
+    avgSpeed = 0.0;
     limitAngle(value);
 }
 
 void JointMover::go()
 {
-    // compute ellapsed time
+    // compute ellapsed time (secs))
     oClick.read();
-    oClick.start();
-
-    // if no speed, no position change
-    if (speed_ms == 0.0)
-        return;
-
-    int millis = oClick.getMillis();
+    oClick.start();    
+    float time = (float)oClick.getMillis()/1000;    
     
-    // update speed 
-    if (accel_ms != 0.0)
+    // if some accel, update final & average speeds
+    if (accel != 0.0)
     {
-        speed += (float)(accel_ms*millis);
-        speed_ms = speed/1000;
+        float speedChange = accel*time;
+        avgSpeed = speed + 0.5*speedChange;
+        speed += speedChange;
     }
 
-    // update angle
-    angle += (float)(speed_ms*millis);      
-    
-    // limit angle to joint's range
-    limitAngle(angle);
+    // if some speed, update position
+    if (avgSpeed != 0.0)
+    {
+        angle += avgSpeed*time;      
+        // limit angle to joint's range
+        limitAngle(angle);
+    }
 }
 
 
@@ -90,5 +90,10 @@ void JointMover::limitAngle(float value)
         angle = value;        
         blimitReached = false;
     }    
+}
+
+std::string JointMover::toString()
+{
+    return "JointMover: [accel=" + std::to_string(accel) + ", speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) + ", limit reached=" + std::to_string(blimitReached) + "]";
 }
 }

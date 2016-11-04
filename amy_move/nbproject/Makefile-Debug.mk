@@ -35,7 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/math/ArmTrigonometry.o \
+	${OBJECTDIR}/src/amy/move/ArmTrigonometry.o \
 	${OBJECTDIR}/src/amy/move/JointMover.o
 
 
@@ -65,10 +65,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/math/ArmTrigonometry.o: src/amy/math/ArmTrigonometry.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+${OBJECTDIR}/src/amy/move/ArmTrigonometry.o: src/amy/move/ArmTrigonometry.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/ArmTrigonometry.o src/amy/math/ArmTrigonometry.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/ArmTrigonometry.o src/amy/move/ArmTrigonometry.cpp
 
 ${OBJECTDIR}/src/amy/move/JointMover.o: src/amy/move/JointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move

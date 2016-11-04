@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-//#include <string>
+#include <string>
 
 #include "amy/utils/Click.h"
 
@@ -19,10 +19,9 @@ namespace amy
 class JointMover
 {
 private:
-    float accel;                // required acceleration/deacceleration (degrees/s2)
-    float accel_ms;         // used accel ((degres/s)/ms)
-    float speed;             // resulting joint speed (degrees/s) 
-    float speed_ms;       // used speed (degrees/ms) 
+    float accel;               // commanded acceleration (degrees/s2)
+    float speed;             // final joint speed in last control period (degrees/s) 
+    float avgSpeed;        // average joint speed in last control period, used for position update (degrees/s) 
     float angle;              // resulting joint angle (degrees)
     int lowLimit;
     int highLimit;
@@ -46,6 +45,8 @@ public:
     float getAngle() {return angle;};                
 
     void go();
+    
+    std::string toString();
        
 private:
     void limitAngle(float value);
