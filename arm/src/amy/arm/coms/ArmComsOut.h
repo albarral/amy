@@ -10,7 +10,7 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/utils/module2.h"
+#include "amy/arm/util/ArmModule.h"
 #include "amy/network/ArmNetwork.h"
 #include "amy/network/ArmData.h"
 #include "amy/arm/bus/ArmBus.h"
@@ -20,14 +20,10 @@
 namespace amy
 {
 // This module is in charge of putting the obtained arm control outputs (commanded joint angles) in the amy's network.
-class ArmComsOut : public Module2
+class ArmComsOut : public ArmModule
 {
 private:
     static log4cxx::LoggerPtr logger;
-    bool benabled;
-    // bus
-    bool bconnected;        // connected to bus
-    ArmBus* pBus;
     // logic
     ArmNetwork oArmNetwork;
     ArmData oArmData;
@@ -44,12 +40,10 @@ public:
     ~ArmComsOut();
 
     // module params
-    void init (int numJoints);       
-    bool isEnabled() {return benabled;};
+    virtual void init(Arm& oArm);
 
     // bus connection 
-    void connect(ArmBus& oBus);
-    bool isConnected() {return bconnected;};
+    virtual void connect(ArmBus& oBus);
         
     // ask the module to stop
     void stop();

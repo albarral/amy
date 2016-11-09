@@ -12,7 +12,7 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/data/Movement.h"
 #include "amy/arm/data/MoveStep.h"
-#include "amy/utils/module2.h"
+#include "amy/arm/util/ArmModule.h"
 #include "amy/utils/Click.h"
 
 namespace amy
@@ -22,7 +22,7 @@ namespace amy
 // WAIT
 // MOVE
 // STOP
-class ArmMover : public Module2
+class ArmMover : public ArmModule
 {
 public:
     // states of ArmMover module
@@ -35,12 +35,6 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    bool benabled;
-    // params
-    std::string modName;   // module name
-    // bus
-    bool bconnected;        // connected to bus
-    ArmBus* pBus;
     // logic
     Movement oMovement;    // present movement (set of steps) to be done
     MoveStep oMoveStep;    // present movement (set of steps) to be done    
@@ -52,13 +46,7 @@ public:
         //~ArmMover();
                 
        // module params
-       void init (int timeChange);
-       bool isEnabled() {return benabled;};
-
-       // bus connection 
-       void connect(ArmBus& oConnections);
-       bool isConnected() {return bconnected;};
-       
+       virtual void init(Arm& oArm);
                
 private:       
         // first actions when the thread begins 

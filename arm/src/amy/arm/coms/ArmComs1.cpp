@@ -9,7 +9,7 @@
 
 #include "amy/arm/coms/ArmComs1.h"
 #include "amy/arm/coms/ArmCommand.h"
-#include "amy/arm/config/ArmConfig.h"
+#include "amy/robot/Arm.h"
 
 using namespace log4cxx;
 
@@ -18,9 +18,9 @@ namespace amy
 LoggerPtr ArmComs1::logger(Logger::getLogger("amy.arm"));
 
 // Constructor 
-ArmComs1::ArmComs1 ()
+ArmComs1::ArmComs1()
 {    
-    benabled = false;
+    modName = "ArmComs1";
     bExpectingNumber = false;   // text is initially expected
     
     commandType = eCOM_EMPTY;    
@@ -39,15 +39,15 @@ ArmComs1::~ArmComs1 ()
     listCommands.clear();
 }
 
-void ArmComs1::init ()
+void ArmComs1::init(Arm& oArm)
 {
     // list of normal movement commands
     listCommands = {
-        ArmConfig::horizontal_shoulder,
-        ArmConfig::vertical_shoulder, 
-        ArmConfig::elbow, 
-        ArmConfig::horizontal_wrist,
-        ArmConfig::vertical_wrist,
+        Arm::horizontal_shoulder,
+        Arm::vertical_shoulder, 
+        Arm::elbow, 
+        Arm::horizontal_wrist,
+        Arm::vertical_wrist,
         comsPan,
         comsTilt,
         comsExtend,
@@ -69,20 +69,12 @@ void ArmComs1::init ()
         "stop arm control"};
     
     benabled = true;    
-    LOG4CXX_INFO(logger, "ArmComs1 initialized");          
+    LOG4CXX_INFO(logger, modName << " initialized");      
 };
-
-void ArmComs1::connect(ArmBus& oBus)
-{
-    pBus = &oBus;    
-    bconnected = true;
-
-    LOG4CXX_DEBUG(logger, "ArmComs1 connected to bus");      
-}
 
 void ArmComs1::first()
 {    
-    log4cxx::NDC::push("ArmComs1");   	
+    log4cxx::NDC::push(modName);   	
     showCommandsList();
 }
 
@@ -321,7 +313,7 @@ bool ArmComs1::buildPositionCommand()
 // send command through the bus
 void ArmComs1::sendCommand()
 {
-    if (oArmCommander.sendCommand(pBus, oArmCommand))
+    if (oArmCommander.sendCommand(pArmBus, oArmCommand))
     {
         LOG4CXX_INFO(logger, "command sent");      
         //LOG4CXX_INFO(logger, pBus->toString());

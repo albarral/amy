@@ -23,9 +23,9 @@ private:
     float speed;             // final joint speed in last control period (degrees/s) 
     float avgSpeed;        // average joint speed in last control period, used for position update (degrees/s) 
     float angle;              // resulting joint angle (degrees)
-    int lowLimit;
-    int highLimit;
-    bool blimitReached;
+    int lowLimit;             // lower joint angle  
+    int highLimit;            // higher joint angle  
+    bool blimitReached;     // flag raised when the output angle reaches the joint limits
     // aux
     amy::Click oClick;   
 
@@ -33,18 +33,21 @@ public:
     JointMover();
     //~JointMover();
 
+    // set range of movement
     void init (int lowPos, int highPos);       
 
+    // control inputs
     void setAccel(float value);
     float getAccel() {return accel;};                
-
     void setSpeed(float value);
     float getSpeed() {return speed;};                
-
     void setAngle(float value);
     float getAngle() {return angle;};                
 
+    // do the control
     void go();
+    
+    bool isLimitReached() {return blimitReached;};
     
     std::string toString();
        

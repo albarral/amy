@@ -9,7 +9,7 @@
 
 #include "amy/arm/modules/AxisDriver3.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/math/ArmTrigonometry.h"
+#include "amy/move/ArmTrigonometry.h"
 
 namespace amy
 {

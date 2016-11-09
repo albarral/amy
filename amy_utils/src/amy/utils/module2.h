@@ -6,8 +6,9 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <thread>
 #include <mutex>
+#include <string>
+#include <thread>
 
 namespace amy
 {
@@ -33,7 +34,7 @@ private:
 public:
         Module2();
         //~Module2();
-                
+    
         // starts the thread
         void on();                
         // asks the thread to stop
@@ -50,7 +51,7 @@ public:
         int getState();
         // gets the next state
         int getNextState();
-        
+                
 protected:
         // method running inside the thread 
         void run();

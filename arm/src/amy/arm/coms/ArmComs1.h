@@ -10,9 +10,8 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/coms/ArmCommander.h"
-#include <amy/utils/module2.h>
+#include "amy/arm/util/ArmModule.h"
 
 namespace amy
 {
@@ -20,7 +19,7 @@ namespace amy
 // A set of commands are available that involve the 3 modules of the arm control (ArmMover, JointMover's and JointControl's)
 // The module continuously listens to the command line interpreting user entered commands.
 // Then produces the corresponding movements by sending proper signals through the arm's bus.
-class ArmComs1 : public Module2
+class ArmComs1 : public ArmModule
 {
 private:
     /*! command type */
@@ -35,10 +34,6 @@ private:
     };
 
     static log4cxx::LoggerPtr logger;
-    bool benabled;
-    // bus
-    bool bconnected;        // connected to bus
-    ArmBus* pBus;
     // logic
     std::string entry;            // command read from console
     bool bExpectingNumber;      // waiting for numeric commands
@@ -62,16 +57,11 @@ private:
     std::string comsEnd;            // command for stopping all arm control modules
 
 public:
-    ArmComs1 ();
+    ArmComs1();
     ~ArmComs1();
 
     // module params
-    void init ();       
-    bool isEnabled() {return benabled;};
-
-    // bus connection 
-    void connect(ArmBus& oBus);
-    bool isConnected() {return bconnected;};
+    virtual void init(Arm& oArm);
         
     // ask the module to stop
     void stop();

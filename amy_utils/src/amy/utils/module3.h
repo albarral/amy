@@ -6,8 +6,9 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <thread>
 #include <mutex>
+#include <string>
+#include <thread>
 
 namespace amy
 {
@@ -30,11 +31,16 @@ private:
         bool boffRequested;    // indicates off has been requested
         static const int state_OFF = 99;
         static const int state_UNKNOWN = 100;
+        int level;              // module's level (hierarchy level in the control architecture)
+protected:
+        std::string modName;   // module name
 
 public:
         Module3();
         //~Module3();
                 
+        std::string getModuleName() {return modName;};
+
         // starts the thread
         void on();                
         // asks the thread to stop
@@ -51,6 +57,9 @@ public:
         int getState();
         // checks the module previous state
         int getPrevState();
+        
+        void setLevel(int value) {level = value;};
+        int getLevel() {return level;};
         
 protected:
         // method running inside the thread 

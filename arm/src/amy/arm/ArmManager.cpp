@@ -10,7 +10,8 @@
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/config/ArmDefines.h"
 #include "amy/arm/bus/ArmBus.h"
-
+#include "amy/robot/SupportedRobots.h"
+#include "amy/robot/Robot.h"
 
 using namespace log4cxx;
 
@@ -31,27 +32,60 @@ ArmManager::~ArmManager ()
 {
 }
 
-void ArmManager::init(std::string robotName)
+
+bool ArmManager::launch(Robot& oRobot, int targetArm) 
+{  
+    bool bok = false;
+    log4cxx::NDC::push("ArmManager-" + std::to_string(targetArm));   	
+    
+    // get target arm to control
+    Arm* pArm = oRobot.getArmByType(targetArm);
+    // target arm not found
+    if (pArm != 0)
+    {
+        LOG4CXX_INFO(logger, "Launching for arm type " << targetArm);
+        oArm = *pArm;
+        // init modules & start them
+        init();
+        if (benabled)
+        {
+            startModules();
+            bok = true;
+        }
+    }
+    // target arm not found
+    else
+    {
+        LOG4CXX_WARN(logger, "No arm type " << targetArm << " found for robot. Launch failed.");
+        return false;
+    }
+    
+    return bok;
+}
+
+bool ArmManager::end()
 {
-    log4cxx::NDC::push("Arm Manager");   	
-    
+    stopModules();
+}
+
+void ArmManager::init()
+{        
     LOG4CXX_INFO(logger, "INITIALIZING ... (max level " << maxLevel << ")");
-    
-    if (oArmConfig.loadRobot(robotName) == false)
-        LOG4CXX_ERROR(logger, "Not enabled !!! Robot not supported: " + robotName);
+
+    // organize control architecture in levels
+    initArchitecture();
+    showArchitecture();
     
     // obtain (from config file) the list of joints to be controlled 
-    std::vector<std::string>& listJointNames = oArmConfig.getListJointNames();
+    std::vector<std::string>& listControlledJoints = oArmConfig.getListControlledJoints();
 
     // set params for movement
-    //oMovementControl.setElectricity(7);
     oMovementControl.setKaccelDriver(4.0);
     oMovementControl.setKspeedDriver(2.0);
     oMovementControl.setDriverTolerance(0.05);
     oMovementControl.setDriverSpeed(60.0);
-    initArm(listJointNames);
-    initBus(listJointNames);
-    initModules(listJointNames);
+    initBus(listControlledJoints);
+    initModules();
 
     // TEMP: first soll angles are 0 (should be the ist)
     for (int i=0; i<AMY_MAX_JOINTS; i++ )
@@ -60,26 +94,65 @@ void ArmManager::init(std::string robotName)
     benabled = true;    
 }
 
-
-void ArmManager::initArm(std::vector<std::string>& listJointNames)
+void ArmManager::initArchitecture()
 {
-    LOG4CXX_INFO(logger, ">> INIT Arm ...");
-    
-    // build arm with joints
-    int numJoints = listJointNames.size();
-    for (int i=0; i<numJoints; i++)
+    std::vector<std::string>& listControlledJoints = oArmConfig.getListControlledJoints();
+    int nivel, i;
+
+    // LEVEL 0
+    nivel = 0;
+    // coms in module
+    oArmComs.setLevel(nivel);
+    listModules.push_back(&oArmComs);
+    // coms out module
+    oArmComsOut.setLevel(nivel);
+    listModules.push_back(&oArmComsOut);
+
+    // LEVEL 1    
+    nivel = 1;
+    // joint control modules
+    i=0;
+    for (std::string& jointName : listControlledJoints)
     {        
-        std::string jointName = listJointNames.at(i);        
-        LOG4CXX_INFO(logger, jointName);
-        
-        // arm's joint
-        ParamsJoint& mParamsJoint = oArmConfig.getParamsJoint(jointName);                        
-        Joint oJoint; 
-        oJoint.init(mParamsJoint);    
-        oArm.addJoint(oJoint);                
+        oJointControl[i].setTargetJoint(jointName);        
+        oJointControl[i].setLevel(nivel);
+        listModules.push_back(&oJointControl[i]);
+        i++;
     }
+    
+    // LEVEL 2    
+    nivel = 2;
+    // joint mover modules
+    i=0;
+    for (std::string& jointName : listControlledJoints)
+    {        
+        oJointMover[i].setTargetJoint(jointName);
+        oJointMover[i].setLevel(nivel);
+        listModules.push_back(&oJointMover[i]);
+        i++;
+    }
+
+    // LEVEL 3    
+    nivel = 3;        
+    // arm mover module
+    oArmMover.setLevel(nivel);     
+    listModules.push_back(&oArmMover);
+    // arm panner module
+    oArmPanner.setLevel(nivel);
+    //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
+    // arm extender            
+    oArmExtender.setLevel(nivel);
+    //listModules.push_back(&oArmExtender); // it's a module3, not a module2
 }
 
+void ArmManager::showArchitecture()
+{
+    LOG4CXX_INFO(logger, ">> control architecture ...");
+    for (ArmModule* pModule : listModules)
+    {
+        LOG4CXX_INFO(logger, "level " << std::to_string(pModule->getLevel()) << ": module " << pModule->getModuleName());        
+    }        
+}
 
 void ArmManager::initBus(std::vector<std::string>& listJointNames)
 {
@@ -102,14 +175,14 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
     LOG4CXX_INFO(logger, oArmBus.toString());
 }
 
-void ArmManager::initModules(std::vector<std::string>& listJointNames)
+void ArmManager::initModules()
 {    
     LOG4CXX_INFO(logger, "INIT MODULES ...");
 
     level = -1;
     for (int i=0; i<=maxLevel; i++)
     {
-        initLevel(i, listJointNames);
+        initLevel(i);
         level = i;        
     }
 }
@@ -145,78 +218,37 @@ void ArmManager::stopModules()
     }
 }
 
-void ArmManager::initLevel(int num, std::vector<std::string>& listJointNames)
+void ArmManager::initLevel(int num)
 {    
     LOG4CXX_INFO(logger, ">> INIT level " << num);       
 
     float freq = oArmConfig.getModulesFreq();
-    int numJoints = listJointNames.size();
-    
-    switch (num)
+
+    for (ArmModule* pModule : listModules)
     {
-        case 0: // COMS
-            
-            // coms in module
-            oArmComs.init();
-            oArmComs.connect(oArmBus);
-            oArmComs.setFrequency(freq);  
-            // coms out module
-            oArmComsOut.init(numJoints);
-            oArmComsOut.connect(oArmBus);
-            oArmComsOut.setFrequency(freq);  // set to slower 3Hz because it uses a DB network  
-            break;
-            
-        case 1: // JCONTROL
-                       
-            // joint control modules
-            for (int i=0; i<numJoints; i++)
-            {        
-                std::string jointName = listJointNames.at(i);        
-                // bus connections for this joint
-                JointBus& oJointBus = oArmBus.getJointBus(jointName);
+        if (pModule->getLevel() == num)
+        {                        
+            pModule->init(oArm);
+            pModule->connect(oArmBus);
+            pModule->setFrequency(freq);  
+        }
+    }
 
-                Joint& mJoint = oArm.getJointByName(jointName);
-                oJointControl[i].init(jointName, mJoint);  
-                oJointControl[i].connect(oJointBus);
-                oJointControl[i].setFrequency(freq);           
-            }
-            break;
-
-        case 2: // JMOVER
-                       
-            // joint mover modules
-            for (int i=0; i<numJoints; i++)
-            {        
-                std::string jointName = listJointNames.at(i);        
-                // bus connections for this joint
-                JointBus& oJointBus = oArmBus.getJointBus(jointName);
-
-                oJointMover[i].init(jointName, oArmConfig.getBrakeAccel());  
-                oJointMover[i].connect(oJointBus);
-                oJointMover[i].setFrequency(freq);
-            }
-            break;
-
-        case 3: // ARM MOVER, ARM DRIVERs
-            
-            // arm mover module
-            oArmMover.init(3000);
-            oArmMover.connect(oArmBus);
-            oArmMover.setFrequency(freq);
-            // arm panner module
-            oArmPanner.init(oMovementControl);
-            oArmPanner.connect(oArmBus);
-            oArmPanner.setFrequency(freq);
-            // arm extender            
-            oArmExtender.init(oMovementControl);
-            oArmExtender.connect(oArmBus);
-            oArmExtender.setFrequency(freq);
-            oArmExtender.tune2Arm(oArmConfig.getLenHumerus(), oArmConfig.getLenRadius());            
-            break;
-
-        default:
-            LOG4CXX_ERROR(logger, ">> Error: no such level!");            
-            break;
+    if (oArmPanner.getLevel() == num)
+    {    
+        // arm panner module
+        oArmPanner.init(oMovementControl);
+        oArmPanner.connect(oArmBus);
+        oArmPanner.setFrequency(freq);
+    }
+    
+    if (oArmExtender.getLevel() == num)
+    {
+        // arm extender module
+        oArmExtender.init(oMovementControl);
+        oArmExtender.connect(oArmBus);
+        oArmExtender.setFrequency(freq);
+        oArmExtender.tune2Arm(oArm.getLenHumerus(), oArm.getLenRadius());            
     }    
 }
 
@@ -224,120 +256,59 @@ void ArmManager::startLevel(int num)
 {
     LOG4CXX_INFO(logger, ">> START level " << num);
 
-    switch (num)
+    for (ArmModule* pModule : listModules)
     {
-        case 0: // COMS
-            
-            // coms in module
-            if (oArmComs.isEnabled() && oArmComs.isConnected())
-                oArmComs.on();
-            // coms out module
-            if (oArmComsOut.isEnabled() && oArmComsOut.isConnected())
-                oArmComsOut.on();
-            break;
-            
-        case 1: // JCONTROL
-                       
-            // joint control modules           
-            for (int i=0; i<oArmConfig.getNumJoints(); i++)
-            {
-                if (oJointControl[i].isEnabled() && oJointControl[i].isConnected())
-                    oJointControl[i].on();
-            }
-            break;
+        if (pModule->getLevel() == num)
+        {
+            if (pModule->isEnabled() && pModule->isConnected())
+                pModule->on();
+        }
+    }
 
-        case 2: // JMOVER
-                       
-            // joint mover modules           
-            for (int i=0; i<oArmConfig.getNumJoints(); i++)
-            {
-                if (oJointMover[i].isEnabled() && oJointMover[i].isConnected())
-                    oJointMover[i].on();
-            }
-            break;
-
-        case 3: // ARM MOVER, ARM DRIVERs
-            
-            // arm mover module
-            if (oArmMover.isEnabled() && oArmMover.isConnected())
-                oArmMover.on();
-            // arm panner module
-            if (oArmPanner.isEnabled() && oArmPanner.isConnected())
-                oArmPanner.on();                      
-            // arm extender module
-            if (oArmExtender.isEnabled() && oArmExtender.isConnected())
-            {
-                oArmExtender.on();          
-                oArmExtender.senseInitialPosition();
-            }
-            break;
-
-        default:
-            LOG4CXX_ERROR(logger, ">> Error: no such level!");            
-            break;
+    if (oArmPanner.getLevel() == num)
+    {    
+        if (oArmPanner.isEnabled() && oArmPanner.isConnected())      
+            oArmPanner.on();                      
+    }
+    
+    if (oArmExtender.getLevel() == num)
+    {
+        // arm extender module
+        if (oArmExtender.isEnabled() && oArmExtender.isConnected())
+        {
+            oArmExtender.on();          
+            oArmExtender.senseInitialPosition();
+        }
     }
 }
 
 void ArmManager::stopLevel(int num)
 {
     LOG4CXX_INFO(logger, ">> STOP level " << num);
-
-    switch (num)
+       
+    for (ArmModule* pModule : listModules)
     {
-        case 0: // COMS
-            
-            // coms out module
-            oArmComsOut.off();
-            oArmComsOut.wait();
-            // coms in module
-            oArmComs.off();
-            oArmComs.wait();
-            break;
-            
-        case 1: // JCONTROL
-                       
-            // joint control modules
-            for (int i=0; i<oArmConfig.getNumJoints(); i++)
+        if (pModule->getLevel() == num)
+        {
+            if (pModule->isEnabled())
             {
-                // stop & wait for modules 
-                if (oJointControl[i].isEnabled()) 
-                {
-                    oJointControl[i].off();
-                    oJointControl[i].wait();
-                }
-            }       
-            break;
-
-        case 2: // JMOVER
-                       
-            // joint mover modules
-            for (int i=0; i<oArmConfig.getNumJoints(); i++)
-            {
-                // stop & wait for modules 
-                if (oJointMover[i].isEnabled())
-                {
-                    oJointMover[i].off();
-                    oJointMover[i].wait();
-                }
+                pModule->off();
+                pModule->wait();
             }
-            break;
+        }
+    }
 
-        case 3: // ARM MOVER, ARM DRIVERs
-            
-            // arm extender module
-            oArmExtender.off();
-            oArmExtender.wait();
-            // arm panner module
-            oArmPanner.off();
-            oArmPanner.wait();
-            // arm mover module
-            oArmMover.off();
-            oArmMover.wait();
-            break;
-
-        default:
-            LOG4CXX_ERROR(logger, ">> Error: no such level!");            
-            break;
+    if (oArmPanner.getLevel() == num)
+    {    
+        oArmPanner.off();
+        oArmPanner.wait();
+    }
+    
+    if (oArmExtender.getLevel() == num)
+    {
+        // arm extender module
+        oArmExtender.off();
+        oArmExtender.wait();
     }
 }
 
@@ -358,7 +329,7 @@ void ArmManager::setIstAngles(std::vector<float>& listAngles)
 // Reads from bus
 void ArmManager::readSollAngles()
 {        
-    int numJoints = oArmConfig.getNumJoints();       
+    int numJoints = oArmConfig.getNumControlledJoints();       
     
     // for each joint, check if the commanded angle has changed & insert it into the soll list
     for (int i=0; i<numJoints; i++)

@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/config/ArmConfig.h"
+#include "amy/robot/Arm.h"
 
 namespace amy
 {
@@ -20,23 +20,23 @@ bool ArmBus::addJointBus(std::string jointName)
 {  
     JointBus* pBusJoint = 0;
     
-    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
+    if (jointName.compare(Arm::horizontal_shoulder) == 0)
     {
         pBusJoint = &oBusHS;
     }
-    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
+    else if (jointName.compare(Arm::vertical_shoulder) == 0)
     {
         pBusJoint = &oBusVS;
     }
-    else if (jointName.compare(ArmConfig::elbow) == 0)
+    else if (jointName.compare(Arm::elbow) == 0)
     {
         pBusJoint = &oBusEL;
     }
-    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
+    else if (jointName.compare(Arm::vertical_wrist) == 0)
     {
         pBusJoint = &oBusVW;
     }
-    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
+    else if (jointName.compare(Arm::horizontal_wrist) == 0)
     {
         pBusJoint = &oBusHW;
     }
@@ -60,23 +60,23 @@ bool ArmBus::addJointBus(std::string jointName)
 
 JointBus& ArmBus::getJointBus(std::string jointName)
 {
-    if (jointName.compare(ArmConfig::horizontal_shoulder) == 0)
+    if (jointName.compare(Arm::horizontal_shoulder) == 0)
     {
         return oBusHS;
     }
-    else if (jointName.compare(ArmConfig::vertical_shoulder) == 0)
+    else if (jointName.compare(Arm::vertical_shoulder) == 0)
     {
         return oBusVS;
     }
-    else if (jointName.compare(ArmConfig::elbow) == 0)
+    else if (jointName.compare(Arm::elbow) == 0)
     {
         return oBusEL;
     }
-    else if (jointName.compare(ArmConfig::vertical_wrist) == 0)
+    else if (jointName.compare(Arm::vertical_wrist) == 0)
     {
         return oBusVW;
     }
-    else if (jointName.compare(ArmConfig::horizontal_wrist) == 0)
+    else if (jointName.compare(Arm::horizontal_wrist) == 0)
     {
         return oBusHW;
     }

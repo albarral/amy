@@ -13,8 +13,10 @@ namespace amy
 // Constructor
 Module3::Module3 ()
 {    
+    modName = "module3";
     prevState = state = Module3::state_OFF;
     boffRequested = false;
+    level = -1;
     setFrequency(0.1);  // low default frequency
 }
 

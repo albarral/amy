@@ -16,9 +16,7 @@ LoggerPtr JointControl::logger(Logger::getLogger("amy.arm"));
 
 JointControl::JointControl()
 {
-    benabled = false;
-    bconnected = false;
-    pJointBus = 0;
+    modName = "jcontrol";
     sollAngle = 0;
     limitReached = 0;
 }
@@ -27,23 +25,15 @@ JointControl::JointControl()
 //{
 //}
 
-void JointControl::init(std::string jointName, Joint& oJoint)
+void JointControl::init(Arm& oArm)
 {
-    modName = "jcontrol-" + jointName;
-    mJoint = &oJoint;
+    pJoint = oArm.getJointByName(jointName);
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
-    LOG4CXX_DEBUG(logger, "joint range= " << mJoint->getLowerLimit() << ", " << mJoint->getUpperLimit());
-};
-
-void JointControl::connect(JointBus& oConnectionsJoint)
-{
-    pJointBus = &oConnectionsJoint;
-    bconnected = true;
-
-    LOG4CXX_DEBUG(logger, modName << " connected to bus");      
+    LOG4CXX_DEBUG(logger, "joint range= " << pJoint->getLowerLimit() << ", " << pJoint->getUpperLimit());
 }
+
 
 void JointControl::first()
 {
@@ -123,16 +113,16 @@ void JointControl::doSpeed2Angle()
     sollAngle += (float)(sollSpeed_ms*oClick.getMillis());      
     
     // limit angle to joint's range
-    if (sollAngle > mJoint->getUpperLimit())
+    if (sollAngle > pJoint->getUpperLimit())
     {
         LOG4CXX_WARN(logger, "upper limit!");
-        sollAngle = mJoint->getUpperLimit();
+        sollAngle = pJoint->getUpperLimit();
         limitReached = 1;
     }
-    else if (sollAngle < mJoint->getLowerLimit())
+    else if (sollAngle < pJoint->getLowerLimit())
     {
         LOG4CXX_WARN(logger, "lower limit!");
-        sollAngle = mJoint->getLowerLimit();
+        sollAngle = pJoint->getLowerLimit();
         limitReached = -1;
     }
     else

@@ -15,14 +15,17 @@
 #include "amy/arm/bus/JointBus.h"
 #include "amy/arm/bus/MovementControl.h"
 #include "amy/arm/config/ArmConfig.h"
-#include "amy/arm/data/Arm.h"
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPanner2.h"
 #include "amy/arm/modules/ArmExtender.h"
 #include "amy/arm/modules/JointMover2.h"
 #include "amy/arm/modules/JointControl.h"
+#include "amy/arm/modules/JointControl2.h"
 #include "amy/arm/coms/ArmComs1.h"
 #include "amy/arm/coms/ArmComsOut.h"
+#include "amy/robot/Robot.h"
+#include "amy/robot/Arm.h"
+#include "amy/arm/util/ArmModule.h"
 
 namespace amy
 {
@@ -36,7 +39,7 @@ class ArmManager
         bool benabled;
         ArmBus oArmBus;
         ArmConfig oArmConfig;
-        Arm oArm;
+        Arm oArm;       // controlled arm
         MovementControl oMovementControl;   // shared movement control
         int level;      // highest level activated 
         int maxLevel; // allow activation of modules until this level
@@ -46,8 +49,10 @@ class ArmManager
         ArmPanner2 oArmPanner;
         JointMover2 oJointMover[AMY_MAX_JOINTS];
         JointControl oJointControl[AMY_MAX_JOINTS];
+        //JointControl2 oJointControl2[AMY_MAX_JOINTS];
         ArmComs1 oArmComs;   // communications module for handling of arm control commands & sensor info
         ArmComsOut oArmComsOut;   // communications module for sending outputs to network
+        std::vector<ArmModule*> listModules;      // list of modules (pointers)
         // system's IO
         //std::vector<float> listIstAngles;     // ist (sensed) joint angles
         std::vector<float> listSollAngles;  // soll (commanded) joint angles
@@ -56,15 +61,13 @@ class ArmManager
         ArmManager();
         ~ArmManager();
 
-        // initializes everything (arm, bus & modules). 
-       void init(std::string robotName);        
-       bool isEnabled() {return benabled;};
+       // launches the arm manager to handle the specified robot arm (returns false if something fails)
+       bool launch(Robot& oRobot, int targetArm);
+       // ends the arm manager
+       bool end();
 
-       // starts the task's modules 
-        void startModules();        
-        // stops the tasks' modules
-        void stopModules();        
-        
+       bool isEnabled() {return benabled;};
+                
         // writes sensed joints positions to bus
         void setIstAngles (std::vector<float>& listAngles);
         // reads commanded joints positions from bus
@@ -77,11 +80,23 @@ class ArmManager
         bool checkEndRequested();
         
 private:
-    void initArm(std::vector<std::string>& listJointNames);
+    // initialize control architecture (organize in levels)
+    void initArchitecture();
+    // show description of control architecture
+    void showArchitecture();
+
+    // initializes bus and modules
+    void init();        
+    // starts the task's modules 
+    void startModules();        
+    // stops the tasks' modules
+    void stopModules();        
+    
     void initBus(std::vector<std::string>& listJointNames);
-    void initModules(std::vector<std::string>& listJointNames);
+    void initModules();
+    
    // init the modules of a level
-    void initLevel(int level, std::vector<std::string>& listJointNames);        
+    void initLevel(int level);        
    // start the modules of a level
     void startLevel(int level);        
    // stop the modules of a level

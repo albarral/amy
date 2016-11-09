@@ -41,7 +41,6 @@ public:
 protected:
     static log4cxx::LoggerPtr logger;
     bool benabled;
-    std::string modName;   // module name
     // params
     float Kaccel;       // acceleration sensitivity
     float Kspeed;     // speed sensitivity

@@ -9,9 +9,8 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/utils/module2.h"
+#include "amy/arm/util/JointModule.h"
 #include "amy/utils/Click.h"
-#include "amy/arm/bus/JointBus.h"
 
 namespace amy
 {
@@ -21,7 +20,7 @@ namespace amy
 // States: 
 // BRAKE: if speed != 0 -> |speed|--
 // ACCEL: speed ++ or speed --    
-class JointMover2 : public Module2
+class JointMover2 : public JointModule
 {
 public:
     // states of JointMover2 module
@@ -33,14 +32,9 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    bool benabled;
     // params
-    std::string modName;   // module name
     int brakeAccel;          // deacceleration of brake movements (degrees/s2)
     float brakeAccel_ms;     // used version of brakeAccel (degres/s)/ms
-    // bus
-    bool bconnected;        // connected to bus
-    JointBus* pJointBus;    // the bus connections corresponding to a given joint
     // control
     float accel;                  // acceleration/deacceleration of joint movements (degrees/s2)
     float accel_ms;         // used version of accel (degres/s)/ms
@@ -55,12 +49,8 @@ public:
         //~JointMover2();
                 
        // module params
-       void init (std::string jointName, int brakeAccel);       
-       bool isEnabled() {return benabled;};
+       virtual void init(Arm& oArm);
 
-       // bus connection 
-       void connect(JointBus& oConnectionsJoint);
-       bool isConnected() {return bconnected;};
        // params
         void setBrakeAccel(int value) {brakeAccel = value;};
         int getBrakeAccel() {return brakeAccel;};                

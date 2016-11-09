@@ -9,15 +9,14 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/utils/module2.h"
+#include "amy/arm/util/JointModule.h"
 #include "amy/utils/Click.h"
-#include "amy/arm/bus/JointBus.h"
-#include "amy/arm/data/Joint.h"
+#include "amy/robot/Joint.h"
 
 namespace amy
 {
 // Last module in the arm's control chain. It transforms the desired joint speed into proper joint positions.
-class JointControl : public Module2
+class JointControl : public JointModule
 {
 public:
     // states of JointControl module
@@ -28,13 +27,8 @@ public:
 
 private:
     static log4cxx::LoggerPtr logger;
-    bool benabled;
     // params
-    std::string modName;   // module name
-    Joint* mJoint;        // controlled joint  
-    // bus
-    bool bconnected;        // connected to bus
-    JointBus* pJointBus;    // the bus connections corresponding to a given joint
+    Joint* pJoint;        // controlled joint  
     // logic
     float sollSpeed;        // speed requested by higher modules (deg/s)
     float sollSpeed_ms;  // speed requested by higher modules (deg/ms))
@@ -48,14 +42,9 @@ public:
         //~JointControl();
                 
        // module params
-       void init (std::string jointName, Joint& oJoint);       
-       bool isEnabled() {return benabled;};
+        virtual void init(Arm& oArm);
 
-       // bus connection               
-       void connect(JointBus& oConnectionsJoint);              
-       bool isConnected() {return bconnected;};
-
-        Joint* getJoint() {return mJoint;};
+        Joint* getJoint() {return pJoint;};
         float getAngle() {return sollAngle;};
         
 private:       

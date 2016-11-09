@@ -18,9 +18,7 @@ LoggerPtr ArmComsOut::logger(Logger::getLogger("amy.arm"));
 // Constructor 
 ArmComsOut::ArmComsOut ()
 {    
-    benabled = false;
-    bconnected = false;
-    pBus = 0;
+    modName = "ArmComsOut";
     pBusHShoulder = 0;
     pBusVShoulder = 0;
     pBusElbow = 0;
@@ -34,34 +32,32 @@ ArmComsOut::~ArmComsOut ()
 {
 }
 
-void ArmComsOut::init (int numJoints)
+void ArmComsOut::init(Arm& oArm)
 {
-    this->numJoints = numJoints;
+    numJoints = oArm.getNumJoints();
     // initialize network access
     if (oArmNetwork.init(ArmNetwork::eNETWORK_DB))
     {
         benabled = true;    
-        LOG4CXX_INFO(logger, "ArmComsOut initialized (network type is DB)");          
+        LOG4CXX_INFO(logger, modName << " initialized (network type is DB)");          
     }
     else    
-        LOG4CXX_ERROR(logger, "ArmComsOut init failed");          
+        LOG4CXX_ERROR(logger, modName << " init failed");          
 };
 
 void ArmComsOut::connect(ArmBus& oBus)
 {
-    pBus = &oBus;
-    pBusHShoulder = &pBus->getBusHS();
-    pBusVShoulder = &pBus->getBusVS();
-    pBusElbow = &pBus->getBusEL();
-    pBusVWrist = &pBus->getBusVW();
-    bconnected = true;
-
-    LOG4CXX_DEBUG(logger, "ArmComsOut connected to bus");      
+    pBusHShoulder = &oBus.getBusHS();
+    pBusVShoulder = &oBus.getBusVS();
+    pBusElbow = &oBus.getBusEL();
+    pBusVWrist = &oBus.getBusVW();
+    
+    ArmModule::connect(oBus);
 }
 
 void ArmComsOut::first()
 {    
-    log4cxx::NDC::push("ArmComsOut");   	
+    log4cxx::NDC::push(modName);   	
 }
 
 void ArmComsOut::loop()

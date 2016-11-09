@@ -7,6 +7,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/JointMover2.h"
+#include "amy/arm/config/ArmConfig.h"
 
 using namespace log4cxx;
 
@@ -16,26 +17,24 @@ LoggerPtr JointMover2::logger(Logger::getLogger("amy.arm"));
 
 JointMover2::JointMover2()
 {
-    benabled = false;
+    modName = "jmover2";
     brakeAccel = brakeAccel_ms = 0;
     accel = accel_ms = 0;
     sollSpeed = 0;
-    
-    bconnected = false;
-    pJointBus = 0;
 }
 
 //JointMover2::~JointMover2()
 //{
 //}
 
-void JointMover2::init(std::string jointName, int brakeAccel)
+void JointMover2::init(Arm& oArm)
 {
+    ArmConfig oArmConfig;
+    int brakeAccel = oArmConfig.getBrakeAccel();  
     // all params must be positive
     if (brakeAccel <= 0)
         return;
 
-    modName = "jmover-" + jointName;
     this->brakeAccel = brakeAccel;
     brakeAccel_ms = (float)this->brakeAccel/1000;
     benabled = true;
@@ -44,13 +43,6 @@ void JointMover2::init(std::string jointName, int brakeAccel)
     LOG4CXX_DEBUG(logger, "brakeAccel=" << brakeAccel);      
 };
 
-void JointMover2::connect(JointBus& oConnectionsJoint)
-{
-    pJointBus = &oConnectionsJoint;
-    bconnected = true;
-
-    LOG4CXX_DEBUG(logger, modName << " connected to bus");      
-}
 
 void JointMover2::first()
 {

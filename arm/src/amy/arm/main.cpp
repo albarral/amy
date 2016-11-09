@@ -12,26 +12,13 @@
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "amy/arm/ArmManager.h"
+#include "amy/robot/SupportedRobots.h"
+#include "amy/robot/Robot.h"
+#include "amy/robot/Arm.h"
 
-// test amy network
-//#include "amy/network/ArmNetwork.h"
-//#include "amy/network/ArmData.h"
+using namespace amy;
 
-// test arm planner
-#include "amy/arm/modules/ArmComputer.h"
-#include "amy/arm/data/MoveStep.h"
-
-#include "amy/utils/Record.h"   // tmp for analysis
-#include "amy/show/Plot.h"   // tmp for analysis
-
-void launchArmManager(amy::ArmManager& oArmManager);
-void endArmManager(amy::ArmManager& oArmManager);
-
-void testPlot();
-void testArmPlanner();
-void testAmyNetwork2();
-void writePos(amy::ArmNetwork& oArmNetwork, int value);
-void readPos(amy::ArmNetwork& oArmNetwork);
+void waitArmManager2End(ArmManager& oArmManager);
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 
@@ -39,33 +26,53 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.arm"));
 int main(int argc, char** argv) 
 {
     log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
+        
+    // use UR5 (should be specified by argument)
+    std::string targetRobot = SupportedRobots::UR5;
 
-    amy::ArmManager oArmManager; 
-    launchArmManager(oArmManager);
+    LOG4CXX_INFO(logger, "\n\nLAUNCH amy MANIPULATION ...\n");
+    LOG4CXX_INFO(logger, "target robot: " << targetRobot);
+
+    SupportedRobots oSupportedRobots;
+    Robot oRobot;
     
-    //testAmyNetwork2();
-    //testArmPlanner();
-    //testPlot();
+    // if robot not supported, skip initialization
+    if (!oSupportedRobots.isRobotSupported(targetRobot))
+    {
+        LOG4CXX_ERROR(logger, "FAILURE!!! Robot not supported by amy.");
+        return -1;        
+    }
     
-    endArmManager(oArmManager);
+    // load specified robot
+    if (!oSupportedRobots.loadRobotVersion(oRobot, targetRobot))
+    {
+        LOG4CXX_ERROR(logger, "FAILURE!!! Robot configuration could not be loaded. ");
+        return -1;
+    }
+
+    int numArms = oRobot.getNumArms();
+    LOG4CXX_INFO(logger, "LOADED OK, robot has " << numArms << " arm.");
+        
+    // amy not yet ready for multiple arms (needs multiple arm buses)
+    if (numArms > 0)
+    {
+        if (numArms > 1)
+            LOG4CXX_WARN(logger, "amy not ready for multi-arm control. Only 1 will be controlled");
+            
+        ArmManager oArmManager; 
+        if (oArmManager.launch(oRobot, Arm::eSINGLE_ARM))
+            waitArmManager2End(oArmManager);
+    }
+    else 
+    {
+        LOG4CXX_WARN(logger, "No arms. Nothing to do");
+    }
       
     return 0;
 }
 
-void launchArmManager(amy::ArmManager& oArmManager)
-{
-    LOG4CXX_INFO(logger, "\n\nLAUNCH amy MANIPULATION ...\n");
-    
-    oArmManager.init("UR5");
-    if (!oArmManager.isEnabled())
-        return;
-    
-    oArmManager.startModules();
-
-    return;
-}
-
-void endArmManager(amy::ArmManager& oArmManager)
+// waits till ArmManager is asked to end
+void waitArmManager2End(ArmManager& oArmManager)
 {    
     std::vector<float> listPrevAngles;
     
@@ -87,114 +94,7 @@ void endArmManager(amy::ArmManager& oArmManager)
     }    
 
     LOG4CXX_INFO(logger, "\nend amy MANIPULATION ...\n");
-    oArmManager.stopModules();
-
+    oArmManager.end();
     return;
 }
 
-void testPlot()
-{
-    int wait = 100000; // 100 ms
-    
-    amy::Record oRecord;
-    oRecord.reset();    
-    
-    float y = 100;
-    float step = 20;
-    for (int i=0; i<10; i++)
-    {
-        usleep(wait);    
-        y += step;
-        oRecord.addElement(y, 0);
-    }
-    
-    //LOG4CXX_INFO(logger, oRecord.toString());
-    amy::Plot::plotRecord(oRecord);
-}
-
-
-void testArmPlanner()
-{
-    amy::Movement oMovement;
-    int maxSpeed = 40;    
-    
-    amy::MoveStep oStep1(30, 5000, maxSpeed);
-    amy::MoveStep oStep2(45, 5000, maxSpeed);
-    amy::MoveStep oStep3(60, 5000, maxSpeed);
-    amy::MoveStep oStep4(89, 5000, maxSpeed);
-    
-    amy::ArmComputer::computeMoveStep(oStep1);
-    amy::ArmComputer::computeMoveStep(oStep2);
-    amy::ArmComputer::computeMoveStep(oStep3);
-    amy::ArmComputer::computeMoveStep(oStep4);
-    
-    LOG4CXX_INFO(logger, "step1: " << oStep1.getDescription());
-    LOG4CXX_INFO(logger, "step2: " << oStep2.getDescription());
-    LOG4CXX_INFO(logger, "step3: " << oStep3.getDescription());
-    LOG4CXX_INFO(logger, "step4: " << oStep4.getDescription());
-}
-    
-
-void testAmyNetwork2()
-{
-    LOG4CXX_INFO(logger, "\n\n<<<<<<<<<<<<<<<< TEST AMY NETWORK 2>>>>>>>>>>>>>>");      
-    
-    // initialize arm network
-    amy::ArmNetwork oArmNetwork;
-    bool bok = oArmNetwork.init(amy::ArmNetwork::eNETWORK_DB);
-    amy::ArmNetwork oArmNetwork2;
-    bool bok2 = oArmNetwork2.init(amy::ArmNetwork::eNETWORK_DB);
-    
-    if (!bok || !bok2)
-    {
-        LOG4CXX_ERROR(logger, "TEST FAILED");      
-        return;
-    }
-    
-    int i=0, iters=12;
-    
-    while (i<iters) 
-    {
-        writePos(oArmNetwork, i*10);
-
-        readPos(oArmNetwork2);
-
-        sleep(1);  
-        i++;
-    }    
-    
-    LOG4CXX_INFO(logger, "TEST FINISHED");      
-}
-
-void writePos(amy::ArmNetwork& oArmNetwork, int value)
-{
-    amy::ArmData oArmData;
-    oArmData.reset();
-
-    oArmData.setSoll1((float)value);
-    oArmData.setSoll2(10.0);
-    oArmData.setSoll3(10.0);
-    oArmData.setSoll4(10.0);
-    oArmData.setSoll5(10.0);
-//    oArmData.setIst1(21.5);
-//    oArmData.setIst2(22.5);
-//    oArmData.setIst3(23.5);
-//    oArmData.setIst4(24.5);
-//    oArmData.setIst5(25.5);    
-
-    // write 
-    oArmNetwork.setArmSoll(0, oArmData);
-    //oArmNetwork.setArmIst(0, oArmData);
-}
-
-
-void readPos(amy::ArmNetwork& oArmNetwork)
-{
-    amy::ArmData oArmData;
-    oArmData.reset();
-
-    // read     
-    oArmNetwork.getArmSoll(0, oArmData);
-    //oArmNetwork.getArmIst(0, oArmData);    
-    LOG4CXX_INFO(logger, "read:" << oArmData.toString());
-}

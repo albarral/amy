@@ -139,7 +139,7 @@ void AxisDriver3::loop()
     
     // send commands
     writeBus();    
-    LOG4CXX_INFO(logger, "\taccel = " << sollAccel << " \t ist = " << istPos);
+    LOG4CXX_INFO(logger, "\t ist = " << istPos << "\t targetSpeed = " << targetSpeed << "\t istSpeed = " << istSpeed << " \taccel = " << sollAccel);
 }
 
 

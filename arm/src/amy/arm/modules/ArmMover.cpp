@@ -21,35 +21,20 @@ LoggerPtr ArmMover::logger(Logger::getLogger("amy.arm"));
 
 ArmMover::ArmMover()
 {
-    benabled = false;
-    
-    bconnected = false;
-    pBus = 0;
+    modName = "ArmMover";
 }
 
 //ArmMover::~ArmMover()
 //{
 //}
 
-void ArmMover::init(int timeChange)
+void ArmMover::init(Arm& oArm)
 {
-    // all params must be positive
-    if (timeChange <= 0)
-        return;
-
-    modName = "ArmMover";
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");      
 };
 
-void ArmMover::connect(ArmBus& oBus)
-{
-    pBus = &oBus;
-    bconnected = true;
-
-    LOG4CXX_DEBUG(logger, modName << " connected to bus");      
-}
 
 void ArmMover::first()
 {
@@ -104,13 +89,13 @@ void ArmMover::loop()
 
 void ArmMover::senseBus()
 {
-    if (pBus->getCO_ARMMOVER_START().checkRequested())
+    if (pArmBus->getCO_ARMMOVER_START().checkRequested())
     {
         fetchMovement();
         startMovement();        
     }
     
-    if (pBus->getCO_ARMMOVER_STOP().checkRequested())
+    if (pArmBus->getCO_ARMMOVER_STOP().checkRequested())
         stopMovement();    
 }
 
@@ -124,8 +109,8 @@ void ArmMover::writeBus()
     float vx = fabs(oMoveStep.getXspeed());
     float vy = fabs(oMoveStep.getYspeed());
     
-    JointBus& oBusHS = pBus->getBusHS();
-    JointBus& oBusEL = pBus->getBusEL();
+    JointBus& oBusHS = pArmBus->getBusHS();
+    JointBus& oBusEL = pArmBus->getBusEL();
 
     // if not step ending, send cruise speeds
     if (!oMoveStep.isStepEnding())

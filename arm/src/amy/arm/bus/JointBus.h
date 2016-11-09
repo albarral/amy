@@ -23,7 +23,10 @@ class JointBus
 
         // CONTROLS 
         ControlT<float> CO_JMOVER_ACCEL;         // >> JointMover: required acceleration
+        
+        ControlT<float> CO_JCONTROL_ACCEL;    // >> JointControl: desired joint speed (degrees/s)
         ControlT<float> CO_JCONTROL_SPEED;    // >> JointControl: desired joint speed (degrees/s)
+        ControlT<float> CO_JCONTROL_ANGLE;    // >> JointControl: desired joint speed (degrees/s)
         ControlT<float> CO_JOINT_ANGLE;         // >> real arm: desired joint angle (degrees)
 
         // SENSORS 
@@ -42,7 +45,12 @@ class JointBus
 
         // controls
         ControlT<float>& getCO_JMOVER_ACCELERATION() {return CO_JMOVER_ACCEL;};        
+        
+        // JointControl modules
+        ControlT<float>& getCO_JCONTROL_ACCEL() {return CO_JCONTROL_ACCEL;};                
         ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
+        ControlT<float>& getCO_JCONTROL_ANGLE() {return CO_JCONTROL_ANGLE;};    
+        
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
         // sensors
