@@ -28,8 +28,8 @@ std::string JointBus::toString()
              "CO_JCONTROL_SPEED: " + std::to_string(CO_JCONTROL_SPEED.getRequested()) + " - " + std::to_string(CO_JCONTROL_SPEED.getValue()) + "\n" +
              "CO_JOINT_ANGLE: " + std::to_string(CO_JOINT_ANGLE.getRequested()) + " - " + std::to_string(CO_JOINT_ANGLE.getValue()) + "\n" +
              "SO_IST_ANGLE: " + std::to_string(SO_IST_ANGLE.getValue()) + "\n" +
-             "SO_REAL_SPEED: " + std::to_string(SO_REAL_SPEED.getValue()) + "\n" +
-             "SO_LIMIT_REACHED: " + std::to_string(SO_LIMIT_REACHED.getValue()) + "\n";
+             "SO_REAL_SPEED: " + std::to_string(SO_JCONTROL_SPEED.getValue()) + "\n" +
+             "SO_LIMIT_REACHED: " + std::to_string(SO_JCONTROL_LIMIT_REACHED.getValue()) + "\n";
 
         return text;
     }

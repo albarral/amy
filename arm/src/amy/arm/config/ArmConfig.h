@@ -34,7 +34,7 @@ class ArmConfig
                 
         // TEMPORAL configurations (to be removed)
         // real position not read yet. When done, return true here
-        static bool isRealArmPositionRead() {return false;};
+        static bool isArmPositionRead() {return false;};
         // ArmPosition module not created yet. When created, return true here
         static bool isArmPositionModuleWorking() {return false;};    
 };

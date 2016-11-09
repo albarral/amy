@@ -44,6 +44,8 @@ public:
     void setAngle(float value);
     float getAngle() {return angle;};                
 
+    // update ellapsed time
+    void click();
     // do the control
     void go();
     

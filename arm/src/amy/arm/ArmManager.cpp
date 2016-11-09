@@ -114,9 +114,9 @@ void ArmManager::initArchitecture()
     i=0;
     for (std::string& jointName : listControlledJoints)
     {        
-        oJointControl[i].setTargetJoint(jointName);        
-        oJointControl[i].setLevel(nivel);
-        listModules.push_back(&oJointControl[i]);
+        oJointControl2[i].setTargetJoint(jointName);        
+        oJointControl2[i].setLevel(nivel);
+        listModules.push_back(&oJointControl2[i]);
         i++;
     }
     
@@ -126,9 +126,7 @@ void ArmManager::initArchitecture()
     i=0;
     for (std::string& jointName : listControlledJoints)
     {        
-        oJointMover[i].setTargetJoint(jointName);
-        oJointMover[i].setLevel(nivel);
-        listModules.push_back(&oJointMover[i]);
+        // removed JointMover modules
         i++;
     }
 

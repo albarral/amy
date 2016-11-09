@@ -37,18 +37,43 @@ void JointControl2::init(Arm& oArm)
 
 void JointControl2::first()
 {
-    setState(JointControl2::STATE_ON);
-    setNextState(JointControl2::STATE_ON);
+    setState(JointControl2::eSTATE_FREE);
+    setNextState(JointControl2::eSTATE_FREE);
         
     log4cxx::NDC::push(modName);   	
 }
                     
 void JointControl2::loop()
-{
+{    
     senseBus();
-              
-    // do the control
-    oJointMover.go();
+
+    if (updateState())   
+        showState();
+         
+    // update elapsed times
+    oJointMover.click();
+    oJointBrake.click();
+     
+    switch (getState())
+    {
+        case eSTATE_FREE:            
+
+            // auto brake
+            if (istSpeed != 0.0)
+            {
+                oJointBrake.go(istSpeed);
+                oJointMover.setSpeed(oJointBrake.getSpeed());
+                // do the control
+                oJointMover.go();            
+            }
+            break;
+
+        case eSTATE_MOVE:
+            
+            // do the control
+            oJointMover.go();            
+            break;            
+    }   // end switch    
     
     // always command angle 
     writeBus();
@@ -56,17 +81,40 @@ void JointControl2::loop()
 
 void JointControl2::senseBus()
 {
-    // if angle requested, set it
+    bool bmove = false;
+
+    // get requests & pass them to the controller
+    
+    // angle requests
     if (pJointBus->getCO_JCONTROL_ANGLE().checkRequested())
+    {
         oJointMover.setAngle(pJointBus->getCO_JCONTROL_ANGLE().getValue());
+        bmove = true;
+    }
     
-    // if speed requested, set it
+    // speed requests
     if (pJointBus->getCO_JCONTROL_SPEED().checkRequested())
+    {
         oJointMover.setSpeed(pJointBus->getCO_JCONTROL_SPEED().getValue());
+        bmove = true;
+    }
     
-    // if acceleration requested, set it
+    // if acceleration requests
     if (pJointBus->getCO_JCONTROL_ACCEL().checkRequested())
+    {
         oJointMover.setAccel(pJointBus->getCO_JCONTROL_ACCEL().getValue());
+        bmove = true;
+    }
+    
+    // sensed speed (TMP we use sollSpeed)
+    istSpeed = pJointBus->getSO_JCONTROL_SPEED().getValue();
+
+    // if move requested -> MOVE
+    if (bmove)
+        setNextState(eSTATE_MOVE);
+    // otherwise -> FREE
+    else
+        setNextState(eSTATE_FREE);
 }
 
 void JointControl2::writeBus()
@@ -75,24 +123,40 @@ void JointControl2::writeBus()
     int limitReached = oJointMover.isLimitReached() ? 1:0;    // commanded angle out of joint's range  
     float sollSpeed = oJointMover.getSpeed();        
     
-    // command soll angle
+    // command angle
     pJointBus->getCO_JOINT_ANGLE().request(sollAngle);
     
-    // inform limit reached
-    pJointBus->getSO_LIMIT_REACHED().setValue(limitReached);
+    // inform of control speed
+    pJointBus->getSO_JCONTROL_SPEED().setValue(sollSpeed);
+
+    // inform of limit reached
+    pJointBus->getSO_JCONTROL_LIMIT_REACHED().setValue(limitReached);
 
     if (limitReached)            
         LOG4CXX_WARN(logger, "joint limit!");
             
     // inform real speed 
     // TEMP: real position not read yet. 
-    if (!ArmConfig::isRealArmPositionRead())
+    if (!ArmConfig::isArmPositionRead())
     {
-        // Till then, SOLL speed informed here
-        pJointBus->getSO_REAL_SPEED().setValue(sollSpeed);
         // Till then, SOLL angles informed here
         pJointBus->getSO_IST_ANGLE().setValue(sollAngle);
     }
+}
+
+void JointControl2::showState()
+{
+    switch (getState())
+    {
+        case eSTATE_FREE:
+            LOG4CXX_INFO(logger, ">> free");
+            break;
+                    
+        case eSTATE_MOVE:
+            LOG4CXX_INFO(logger, ">> move");
+            break;
+            
+    }   // end switch    
 }
 
 }

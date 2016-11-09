@@ -38,10 +38,10 @@ void ArmPanner2::senseBus()
     istPos = pBusHS->getCO_JOINT_ANGLE().getValue();
     
     // sense joint speed (soll value used here)
-    istSpeed = pBusHS->getCO_JCONTROL_SPEED().getValue();
+    istSpeed = pBusHS->getSO_JCONTROL_SPEED().getValue();
 
     // check if movement is blocked (due to reached joint limit)
-    if (pBusHS->getSO_LIMIT_REACHED().getValue() != 0)
+    if (pBusHS->getSO_JCONTROL_LIMIT_REACHED().getValue() != 0)
         blockedMove();
 }
 
@@ -49,7 +49,8 @@ void ArmPanner2::senseBus()
 void ArmPanner2::writeBus()
 {  
     // send HS acceleration
-    pBusHS->getCO_JMOVER_ACCELERATION().request(sollAccel);
+    //pBusHS->getCO_JMOVER_ACCELERATION().request(sollAccel);
+    pBusHS->getCO_JCONTROL_ACCEL().request(sollAccel);
 }
 
 float ArmPanner2::computeDistance()

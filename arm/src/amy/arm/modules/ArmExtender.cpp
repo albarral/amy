@@ -48,7 +48,7 @@ void ArmExtender::senseBus()
     istEL = pBusEL->getCO_JOINT_ANGLE().getValue();     
     
     // check if movement is blocked (due to reached joint limit)
-    if (pBusEL->getSO_LIMIT_REACHED().getValue() != 0)
+    if (pBusEL->getSO_JCONTROL_LIMIT_REACHED().getValue() != 0)
         blockedMove();
 
 }

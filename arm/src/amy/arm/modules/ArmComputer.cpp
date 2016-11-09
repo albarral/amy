@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "amy/arm/modules/ArmComputer.h"
-#include "amy/arm/modules/JointMover2.h"
 
 #define PI 3.14159265
 

@@ -5,7 +5,7 @@
 
 
 #include "amy/arm/coms/ArmCommand.h"
-#include "amy/arm/modules/JointMover2.h"
+
 
 namespace amy
 {

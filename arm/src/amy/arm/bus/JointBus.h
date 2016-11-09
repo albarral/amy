@@ -22,17 +22,19 @@ class JointBus
         std::string jointName;
 
         // CONTROLS 
-        ControlT<float> CO_JMOVER_ACCEL;         // >> JointMover: required acceleration
-        
-        ControlT<float> CO_JCONTROL_ACCEL;    // >> JointControl: desired joint speed (degrees/s)
-        ControlT<float> CO_JCONTROL_SPEED;    // >> JointControl: desired joint speed (degrees/s)
-        ControlT<float> CO_JCONTROL_ANGLE;    // >> JointControl: desired joint speed (degrees/s)
-        ControlT<float> CO_JOINT_ANGLE;         // >> real arm: desired joint angle (degrees)
+        ControlT<float> CO_JMOVER_ACCEL;         // >> JointMover: commanded acceleration
+        //
+        ControlT<float> CO_JCONTROL_ACCEL;    // >> JointControl: commanded acceleration (degrees/s2)
+        ControlT<float> CO_JCONTROL_SPEED;    // >> JointControl: commanded speed (degrees/s)
+        ControlT<float> CO_JCONTROL_ANGLE;    // >> JointControl: commanded angle (degrees)
+        //
+        ControlT<float> CO_JOINT_ANGLE;         // >> arm: commanded joint angle (degrees)
 
         // SENSORS 
+        SensorT<float> SO_JCONTROL_SPEED;               //  JointControl >> internally commanded speed (degrees/s)
+        SensorT<int> SO_JCONTROL_LIMIT_REACHED;     //  JointControl >> range limit reached: 0, 1 (top limit), -1 (bottom limit)
+        //
         SensorT<float> SO_IST_ANGLE;            // real arm >> real joint angle (degrees)
-        SensorT<float> SO_REAL_SPEED;        //  JointControl >> real joint speed (degrees/s)
-        SensorT<int> SO_LIMIT_REACHED;      //  JointControl >> range limit reached: 0, 1 (top limit), -1 (bottom limit)
         
     public:
         JointBus();
@@ -43,20 +45,20 @@ class JointBus
         bool isEnabled() {return benabled;};
         std::string& getJointName() {return jointName;};
 
-        // controls
+        // CONTROLS 
         ControlT<float>& getCO_JMOVER_ACCELERATION() {return CO_JMOVER_ACCEL;};        
-        
-        // JointControl modules
+        //
         ControlT<float>& getCO_JCONTROL_ACCEL() {return CO_JCONTROL_ACCEL;};                
         ControlT<float>& getCO_JCONTROL_SPEED() {return CO_JCONTROL_SPEED;};                
         ControlT<float>& getCO_JCONTROL_ANGLE() {return CO_JCONTROL_ANGLE;};    
-        
+        //
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
-        // sensors
+        // SENSORS 
+        SensorT<float>& getSO_JCONTROL_SPEED() {return SO_JCONTROL_SPEED;}; 
+        SensorT<int>& getSO_JCONTROL_LIMIT_REACHED() {return SO_JCONTROL_LIMIT_REACHED;}; 
+        //
         SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
-        SensorT<float>& getSO_REAL_SPEED() {return SO_REAL_SPEED;}; 
-        SensorT<int>& getSO_LIMIT_REACHED() {return SO_LIMIT_REACHED;}; 
         
         std::string toString();
 };

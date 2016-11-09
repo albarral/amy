@@ -18,8 +18,6 @@
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPanner2.h"
 #include "amy/arm/modules/ArmExtender.h"
-#include "amy/arm/modules/JointMover2.h"
-#include "amy/arm/modules/JointControl.h"
 #include "amy/arm/modules/JointControl2.h"
 #include "amy/arm/coms/ArmComs1.h"
 #include "amy/arm/coms/ArmComsOut.h"
@@ -47,9 +45,7 @@ class ArmManager
         ArmMover oArmMover;
         ArmExtender oArmExtender;
         ArmPanner2 oArmPanner;
-        JointMover2 oJointMover[AMY_MAX_JOINTS];
-        JointControl oJointControl[AMY_MAX_JOINTS];
-        //JointControl2 oJointControl2[AMY_MAX_JOINTS];
+        JointControl2 oJointControl2[AMY_MAX_JOINTS];
         ArmComs1 oArmComs;   // communications module for handling of arm control commands & sensor info
         ArmComsOut oArmComsOut;   // communications module for sending outputs to network
         std::vector<ArmModule*> listModules;      // list of modules (pointers)

@@ -48,11 +48,15 @@ void JointMover::setAngle(float value)
     limitAngle(value);
 }
 
+void JointMover::click()
+{
+    // compute ellapsed time 
+    oClick.read();
+    oClick.start();        
+}
+
 void JointMover::go()
 {
-    // compute ellapsed time (secs))
-    oClick.read();
-    oClick.start();    
     float time = (float)oClick.getMillis()/1000;    
     
     // if some accel, update final & average speeds

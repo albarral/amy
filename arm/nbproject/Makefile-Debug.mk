@@ -55,9 +55,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o \
-	${OBJECTDIR}/src/amy/arm/modules/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl2.o \
-	${OBJECTDIR}/src/amy/arm/modules/JointMover2.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmMath.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
 	${OBJECTDIR}/src/amy/arm/util/JointModule.o
@@ -197,20 +195,10 @@ ${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o: src/amy/arm/modules/AxisDriver3.
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o src/amy/arm/modules/AxisDriver3.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/JointControl.o: src/amy/arm/modules/JointControl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl.o src/amy/arm/modules/JointControl.cpp
-
 ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o: src/amy/arm/modules/JointControl2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o src/amy/arm/modules/JointControl2.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/JointMover2.o: src/amy/arm/modules/JointMover2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointMover2.o src/amy/arm/modules/JointMover2.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/ArmMath.o: src/amy/arm/util/ArmMath.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util

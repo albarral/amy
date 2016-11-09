@@ -58,12 +58,8 @@
             <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
             <itemPath>src/amy/arm/modules/AxisDriver3.cpp</itemPath>
             <itemPath>src/amy/arm/modules/AxisDriver3.h</itemPath>
-            <itemPath>src/amy/arm/modules/JointControl.cpp</itemPath>
-            <itemPath>src/amy/arm/modules/JointControl.h</itemPath>
             <itemPath>src/amy/arm/modules/JointControl2.cpp</itemPath>
             <itemPath>src/amy/arm/modules/JointControl2.h</itemPath>
-            <itemPath>src/amy/arm/modules/JointMover2.cpp</itemPath>
-            <itemPath>src/amy/arm/modules/JointMover2.h</itemPath>
           </logicalFolder>
           <logicalFolder name="util" displayName="util" projectFiles="true">
             <itemPath>src/amy/arm/util/ArmMath.cpp</itemPath>
@@ -278,13 +274,6 @@
       </item>
       <item path="src/amy/arm/modules/AxisDriver3.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/JointControl.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/JointControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/JointControl2.cpp"
             ex="false"
             tool="1"
@@ -294,13 +283,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/JointMover2.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/JointMover2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/util/ArmMath.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -427,13 +409,6 @@
       </item>
       <item path="src/amy/arm/modules/AxisDriver3.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/JointControl.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/JointControl.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/JointControl2.cpp"
             ex="false"
             tool="1"
@@ -443,13 +418,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/JointMover2.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/JointMover2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/util/ArmMath.cpp" ex="false" tool="1" flavor2="0">
       </item>
