@@ -3,6 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <cmath>
+
 #include "amy/move/JointMover.h"
 
 namespace amy
@@ -13,91 +15,80 @@ JointMover::JointMover()
     accel = 0.0;
     speed = avgSpeed = 0.0;
     angle = 0.0;
-    blimitReached = false;
-    lowLimit = highLimit = 0;
 }
        
-void JointMover::init(int lowPos, int highPos)
+void JointMover::iddle()
 {
-    if (lowPos < highPos)
-    {
-        lowLimit = lowPos;
-        highLimit = highPos;        
-    }
+    oClick.reset();   
+    if (speed != 0.0)
+        speed = 0.0;
 }
 
-void JointMover::setAccel(float value)
-{
-    accel = value;
-}
-
-void JointMover::setSpeed(float value)
-{
-    // ignore previous accel
-    accel = 0.0;
-    speed = value;
-    avgSpeed = value;
-}
-                    
-void JointMover::setAngle(float value)
-{
-    // ignore previous accel & speed
-    accel = 0.0;
-    speed = 0.0;
-    avgSpeed = 0.0;
-    limitAngle(value);
-}
-
-void JointMover::click()
+float JointMover::move(float acceleration, float istAngle)
 {
     // compute ellapsed time 
     oClick.read();
     oClick.start();        
-}
 
-void JointMover::go()
-{
     float time = (float)oClick.getMillis()/1000;    
     
-    // if some accel, update final & average speeds
+    accel = acceleration;
+    angle = istAngle;
+    
+    // if some accel, update speed
     if (accel != 0.0)
     {
         float speedChange = accel*time;
-        avgSpeed = speed + 0.5*speedChange;
         speed += speedChange;
+        // use average speed for position computation
+        avgSpeed = speed - 0.5*speedChange;
     }
 
     // if some speed, update position
     if (avgSpeed != 0.0)
-    {
         angle += avgSpeed*time;      
-        // limit angle to joint's range
-        limitAngle(angle);
-    }
+    
+    return angle;
 }
 
 
-void JointMover::limitAngle(float value)
+float JointMover::brake(float deceleration, float istAngle)
 {
-    if (value < lowLimit) 
+    // compute ellapsed time 
+    oClick.read();
+    oClick.start();        
+
+    float time = (float)oClick.getMillis()/1000;    
+
+    // brake in the opposite direction of the present speed
+    int brakeDirection = (speed > 0.0) ? -1 : 1;
+    
+    accel = fabs(deceleration)*brakeDirection;
+    angle = istAngle;
+    
+    // if some accel, update speed
+    if (accel != 0.0)
     {
-        angle = lowLimit;
-        blimitReached = true;
+        float speedChange = accel*time;
+        // update speed 
+        if (fabs(speedChange) < fabs(speed))
+            speed += speedChange;
+        // or vanish it if near enough
+        else
+            speed = 0;
+        // use average speed for position computation        
+        avgSpeed = speed - 0.5*speedChange;
     }
-    else if (value > highLimit)
-    {
-        angle = highLimit;
-        blimitReached = true;
-    }
-    else 
-    {
-        angle = value;        
-        blimitReached = false;
-    }    
+
+    // if some speed, update position
+    if (avgSpeed != 0.0)
+        angle += avgSpeed*time;      
+    
+    return angle;
 }
 
 std::string JointMover::toString()
 {
-    return "JointMover: [accel=" + std::to_string(accel) + ", speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) + ", limit reached=" + std::to_string(blimitReached) + "]";
+    return "JointMover: [accel=" + std::to_string(accel) + ", speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) +  "]";
 }
 }

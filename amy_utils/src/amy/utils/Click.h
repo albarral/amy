@@ -26,6 +26,8 @@ private:
 public:
 
     Click();
+    
+    void reset();
     // stores initial time point t1
     void start();
     // measures the ellapsed time since the last start (t - t1), and stores it in millis & micros

@@ -30,19 +30,13 @@ void Tests::testJMover()
   
     LOG4CXX_INFO(logger, "\nNew test JointMover ...\n");
     
-    oMover.init(-180, 180);
-    
     float accel = 10.0;
-    float speed = 20.0;
-    float pos = -170.0;
-    oMover.setAngle(pos);
-    oMover.setSpeed(speed);
-    oMover.setAccel(accel);
+    float angle = oMover.getAngle();
     for (int i=0; i<5; i++)
     {
+        angle = oMover.getAngle();
         accel += 10;
-        oMover.setAccel(accel);
-        oMover.go();        
+        oMover.move(accel, angle);
         LOG4CXX_INFO(logger, oMover.toString() << "\n");
         sleep(1);
     }

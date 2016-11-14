@@ -16,7 +16,7 @@
 namespace amy
 {
 // Lower control module for a joint. Transforms the desired joint acceleration into proper joint positions.
-// Speed and position can also be commanded.    
+// The movement is limited to the predefined joint's range. A flag is raised when limits are reached.
 // It provides auto brake behaviour: on absence of requests it makes the joint brake softly.
 class JointControl2 : public JointModule
 {
@@ -31,9 +31,15 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // logic
+    float angle;
+    float accel;
     JointMover oJointMover;     // class where movement is computed
-    JointBrake oJointBrake;     // class where autobrake is computed
-    float istSpeed;                // sensed joint speed
+    //JointBrake oJointBrake;     // class where autobrake is computed
+    //float istSpeed;                // sensed joint speed
+    int lowLimit;             // lower joint angle  
+    int highLimit;            // higher joint angle  
+    bool blimitReached;     // flag raised when the output angle reaches the joint limits
+    float brakeAccel;
 
 public:
         JointControl2();
@@ -53,6 +59,9 @@ private:
         // write data to bus (speed)
         void writeBus();
         
+        bool isLimitReached() {return blimitReached;};
+        float limitAngle(float value);
+
         // shows the present state name
         void showState();        
 };

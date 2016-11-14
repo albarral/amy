@@ -10,7 +10,16 @@ namespace amy
 Click::Click()
 {
     bstarted = false;
-    millis = micros = 0;
+    millis = micros = 0;    
+}
+
+void Click::reset()
+{
+    if (bstarted)
+    {
+        bstarted = false;
+        millis = micros = 0;    
+    }
 }
 
 void Click::start()

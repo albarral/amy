@@ -12,10 +12,11 @@
 
 namespace amy
 {
-// This class controls the position and speed of a joint in response to acceleration commands.
-// The movement is limited to the predefined joint's range. A flag is raised when limits are reached.
-// The angle is computed on every go() call. 
-// If needed, control can be done through speed or position commands (in these cases, previous acceleration or speeds are ignored)
+// This class transforms joint acceleration commands into the corresponding joint movement (position and speed).
+// The move() function must be called periodically to get the updated joint position.
+// A brake mode is also available, which reduces the speed until 0 is reached.
+// The brake mode works by periodically calling the brake() function instead of move().
+// The elapsed time between calls is measured and used for the movement computation.
 class JointMover
 {
 private:
@@ -23,38 +24,27 @@ private:
     float speed;             // final joint speed in last control period (degrees/s) 
     float avgSpeed;        // average joint speed in last control period, used for position update (degrees/s) 
     float angle;              // resulting joint angle (degrees)
-    int lowLimit;             // lower joint angle  
-    int highLimit;            // higher joint angle  
-    bool blimitReached;     // flag raised when the output angle reaches the joint limits
-    // aux
     amy::Click oClick;   
 
 public:
     JointMover();
     //~JointMover();
 
-    // set range of movement
-    void init (int lowPos, int highPos);       
-
     // control inputs
-    void setAccel(float value);
     float getAccel() {return accel;};                
-    void setSpeed(float value);
     float getSpeed() {return speed;};                
-    void setAngle(float value);
     float getAngle() {return angle;};                
 
-    // update ellapsed time
-    void click();
-    // do the control
-    void go();
-    
-    bool isLimitReached() {return blimitReached;};
-    
+    // move the joint with the given acceleration, the joint angle is returned
+    float move(float acceleration, float istAngle);
+    // brake the joint with the given deceleration, the joint angle is returned
+    float brake(float deceleration, float istAngle);
+    // do nothing
+    void iddle();
+        
     std::string toString();
        
 private:
-    void limitAngle(float value);
 };
 }
 #endif

@@ -18,6 +18,9 @@ LoggerPtr JointControl2::logger(Logger::getLogger("amy.arm"));
 JointControl2::JointControl2()
 {
     modName = "jcontrol2";
+    lowLimit = highLimit = 0;
+    blimitReached = false;
+    brakeAccel = 0.0;
 }
 
 //JointControl2::~JointControl2()
@@ -27,9 +30,11 @@ JointControl2::JointControl2()
 void JointControl2::init(Arm& oArm)
 {
     Joint* pJoint = oArm.getJointByName(jointName);
-    oJointMover.init(pJoint->getLowerLimit(), pJoint->getUpperLimit());
+    lowLimit = pJoint->getLowerLimit();
+    highLimit = pJoint->getUpperLimit();
+    ArmConfig oArmConfig;
+    brakeAccel = oArmConfig.getBrakeAccel();
     benabled = true;
-
     LOG4CXX_INFO(logger, modName << " initialized");      
     LOG4CXX_DEBUG(logger, "joint range= " << pJoint->getLowerLimit() << ", " << pJoint->getUpperLimit());
 };
@@ -49,29 +54,29 @@ void JointControl2::loop()
 
     if (updateState())   
         showState();
-         
-    // update elapsed times
-    oJointMover.click();
-    oJointBrake.click();
-     
+              
     switch (getState())
     {
         case eSTATE_FREE:            
 
-            // auto brake
-            if (istSpeed != 0.0)
+            // if joint is moving, brake it
+            if (oJointMover.getSpeed() != 0.0)
             {
-                oJointBrake.go(istSpeed);
-                oJointMover.setSpeed(oJointBrake.getSpeed());
                 // do the control
-                oJointMover.go();            
+                angle = oJointMover.brake(brakeAccel, angle);
+                angle = limitAngle(angle);
             }
+            // otherwise keep joint iddle
+            else
+                oJointMover.iddle();
+                
             break;
 
         case eSTATE_MOVE:
             
             // do the control
-            oJointMover.go();            
+            angle = oJointMover.move(accel, angle);            
+            angle = limitAngle(angle);
             break;            
     }   // end switch    
     
@@ -83,32 +88,16 @@ void JointControl2::senseBus()
 {
     bool bmove = false;
 
-    // get requests & pass them to the controller
-    
-    // angle requests
-    if (pJointBus->getCO_JCONTROL_ANGLE().checkRequested())
-    {
-        oJointMover.setAngle(pJointBus->getCO_JCONTROL_ANGLE().getValue());
-        bmove = true;
-    }
-    
-    // speed requests
-    if (pJointBus->getCO_JCONTROL_SPEED().checkRequested())
-    {
-        oJointMover.setSpeed(pJointBus->getCO_JCONTROL_SPEED().getValue());
-        bmove = true;
-    }
-    
+    // sense angle
+    angle = pJointBus->getCO_JOINT_ANGLE().getValue();
+        
     // if acceleration requests
     if (pJointBus->getCO_JCONTROL_ACCEL().checkRequested())
     {
-        oJointMover.setAccel(pJointBus->getCO_JCONTROL_ACCEL().getValue());
+        accel = pJointBus->getCO_JCONTROL_ACCEL().getValue();
         bmove = true;
     }
-    
-    // sensed speed (TMP we use sollSpeed)
-    istSpeed = pJointBus->getSO_JCONTROL_SPEED().getValue();
-
+          
     // if move requested -> MOVE
     if (bmove)
         setNextState(eSTATE_MOVE);
@@ -119,12 +108,11 @@ void JointControl2::senseBus()
 
 void JointControl2::writeBus()
 {
-    float sollAngle = oJointMover.getAngle();        // angle requested by this module (float to grant continuity)
-    int limitReached = oJointMover.isLimitReached() ? 1:0;    // commanded angle out of joint's range  
+    int limitReached = blimitReached ? 1:0;    // commanded angle out of joint's range  
     float sollSpeed = oJointMover.getSpeed();        
     
     // command angle
-    pJointBus->getCO_JOINT_ANGLE().request(sollAngle);
+    pJointBus->getCO_JOINT_ANGLE().request(angle);
     
     // inform of control speed
     pJointBus->getSO_JCONTROL_SPEED().setValue(sollSpeed);
@@ -140,9 +128,31 @@ void JointControl2::writeBus()
     if (!ArmConfig::isArmPositionRead())
     {
         // Till then, SOLL angles informed here
-        pJointBus->getSO_IST_ANGLE().setValue(sollAngle);
+        pJointBus->getSO_IST_ANGLE().setValue(angle);
     }
 }
+
+float JointControl2::limitAngle(float value)
+{
+    float angle;
+    if (value < lowLimit) 
+    {
+        angle = lowLimit;
+        blimitReached = true;
+    }
+    else if (value > highLimit)
+    {
+        angle = highLimit;
+        blimitReached = true;
+    }
+    else 
+    {
+        angle = value;        
+        blimitReached = false;
+    }    
+    return angle;
+}
+
 
 void JointControl2::showState()
 {
