@@ -9,6 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
+#include "amy/move/JointDriver.h"
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/MovementControl.h"
 #include "amy/utils/module3.h"
@@ -34,36 +35,26 @@ public:
     enum eType
     {
          eSTATE_DONE,
-         eSTATE_ARRIVED,
          eSTATE_DRIVE
     };
 
 protected:
     static log4cxx::LoggerPtr logger;
     bool benabled;
-    // params
-    float Kaccel;       // acceleration sensitivity
-    float Kspeed;     // speed sensitivity
-    float driverTolerance;      // position tolerance for driver movements
-    float driverSpeed;        // speed used for drive stage (positive value)
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;
     MovementControl* pMovementControl;  // shared movement control
+    // request
+    float targetPos;          // requested joint position
     // control 
-    int targetPos;          // requested axis position
-    // output
-    float sollAccel;              // commanded acceleration - JMover
-    // measures
-    float istPos;            // present axis position
-    float istSpeed;         // present arm speed
-    float dist;               // present distance to target position
+    float istPos;                // measured joint position
+    JointDriver oJointDriver;      // utility class used to drive the joint
     int blockedTime;     // time that movement has been blocked (due to soll position out of range)    
-    // logic
-    int moveSign;     // direction of movement (1, -1) 
-    float arrivalDist;     // distance at which the movement is considered done
-    float targetSpeed;    // desired joint speed (with sign)
     bool bnewMove;    // flag indicating new move requested
+    int limitReached;     // value indicating the movement is blocked (due to joint limits reached)    
+    // output
+    float sollAccel;              // commanded acceleration 
     // aux
     Record oRecord; // record to store the speed evolution in movement  (for analysis purpose)
 
@@ -89,29 +80,19 @@ protected:
         virtual void senseBus() = 0;
         // write action commands to bus
         virtual void writeBus() = 0;
-        // computes distance to target
-        virtual float computeDistance() = 0;                
-        // inform that movement is blocked
-        void blockedMove();
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-        
-        // jump to given state
-        void jumpTo(int state);
-        // updates the target speed
-        void setTargetSpeed(float speed);
-
-        // gets a proper speed given the position error
-        void controlSpeed();
-        // gets a proper acceleration given the target speed
-        void controlAccel();
-        
-        // read params for the movement
-        void readParams();
+                
+        // prepare for new movement
+        void newMove();
+        // movement finished
+        void done();
+        // check if movement is blocked
+        bool isMovementBlocked();
                 
         void showMovementData();
         

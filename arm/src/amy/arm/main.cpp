@@ -16,6 +16,8 @@
 #include "amy/robot/Robot.h"
 #include "amy/robot/Arm.h"
 
+//#include "amy/arm/Tests.h"
+
 using namespace amy;
 
 void waitArmManager2End(ArmManager& oArmManager);
@@ -33,6 +35,10 @@ int main(int argc, char** argv)
     LOG4CXX_INFO(logger, "\n\nLAUNCH amy MANIPULATION ...\n");
     LOG4CXX_INFO(logger, "target robot: " << targetRobot);
 
+//    Tests oTests;
+//    oTests.testJointDriver();
+//    return 0;
+    
     SupportedRobots oSupportedRobots;
     Robot oRobot;
     

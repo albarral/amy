@@ -10,7 +10,6 @@
 #include <log4cxx/logger.h>
 
 #include "amy/move/JointMover.h"
-#include "amy/move/JointBrake.h"
 #include "amy/arm/util/JointModule.h"
 
 namespace amy
@@ -31,14 +30,12 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // logic
+    JointMover oJointMover;     // utility class used to compute the joint movement 
     float angle;
     float accel;
-    JointMover oJointMover;     // class where movement is computed
-    //JointBrake oJointBrake;     // class where autobrake is computed
-    //float istSpeed;                // sensed joint speed
     int lowLimit;             // lower joint angle  
     int highLimit;            // higher joint angle  
-    bool blimitReached;     // flag raised when the output angle reaches the joint limits
+    int limitReached;     // value indicating that the output angle has reached the joint limits
     float brakeAccel;
 
 public:
@@ -59,7 +56,6 @@ private:
         // write data to bus (speed)
         void writeBus();
         
-        bool isLimitReached() {return blimitReached;};
         float limitAngle(float value);
 
         // shows the present state name

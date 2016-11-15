@@ -47,16 +47,14 @@ void ArmExtender::senseBus()
     // sense EL pos (soll value used here)
     istEL = pBusEL->getCO_JOINT_ANGLE().getValue();     
     
-    // check if movement is blocked (due to reached joint limit)
-    if (pBusEL->getSO_JCONTROL_LIMIT_REACHED().getValue() != 0)
-        blockedMove();
-
+    // sense reached joint limits
+    limitReached = pBusEL->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
 void ArmExtender::writeBus()
 {  
     // send EL action
-    pBusEL->getCO_JMOVER_ACCELERATION().request(sollAccel);
+    pBusEL->getCO_JCONTROL_ACCEL().request(sollAccel);
 }
 
 
@@ -69,7 +67,7 @@ float ArmExtender::computeDistance()
     oArmTrigonometry.computeWristPosition(istVS, istEL);    
     istPos = oArmTrigonometry.getArmRadius();
     
-    istSpeed = (istPos - istPosPrev)/0.2;   // (tmp) in 5Hz executions
+//    istSpeed = (istPos - istPosPrev)/0.2;   // (tmp) in 5Hz executions
     
     return (targetPos - istPos);
 }

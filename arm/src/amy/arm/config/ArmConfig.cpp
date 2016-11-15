@@ -12,7 +12,7 @@ namespace amy
 ArmConfig::ArmConfig ()
 {    
     // TEMPORAL: all params should be read from a file    
-    modulesFreq = 5;  // 5 Hz
+    modulesFreq = 10;  // 5 Hz
     brakeAccel = 30;
     
     listControlledJoints.push_back(Arm::horizontal_shoulder);

@@ -8,6 +8,7 @@
 
 #include "amy/arm/modules/AxisDriver3.h"
 #include "amy/arm/util/ArmMath.h"
+
 //#include "amy/show/Plot.h"  //  tmp for analysis
 
 using namespace log4cxx;
@@ -25,7 +26,6 @@ AxisDriver3::AxisDriver3()
     pBus = 0;
     pMovementControl = 0;
     sollAccel = 0;
-    moveSign = 0;
 }
 
 //AxisDriver32::~AxisDriver32()
@@ -63,171 +63,78 @@ void AxisDriver3::first()
 void AxisDriver3::loop()
 {
     senseBus();
-
-    // in absence or requests
-    if (!bnewMove)
-    {
-        // skip if DONE  
-        if (getState() == eSTATE_DONE)
-            return;
-        // or movement blocked
-        else if (blockedTime > 5)
-        {
-            jumpTo(eSTATE_DONE);
-            return;
-        }    
-    }
-        
-    // compute distance to target
-    dist = computeDistance();
-
-    // HANDLE TRANSITIONS ...
     
-    // if new request -> go to DRIVE
+    // if new move requested -> go to MOVE
     if (bnewMove)
     {
-        bnewMove = false;        
-        jumpTo(eSTATE_DRIVE);
+        bnewMove = false;    
+        newMove();
     }
-    
-    switch (getState())
-    {
-        case eSTATE_DRIVE:
-            
-            // when the drive crosses the arrival point -> arrived
-            if ((moveSign > 0 && dist < arrivalDist) || 
-                (moveSign < 0 && dist > arrivalDist))
-                jumpTo(eSTATE_ARRIVED);
-            break;
-
-        case eSTATE_ARRIVED:
-       
-            // in target -> done
-            if ((int)istSpeed == 0)
-                jumpTo(eSTATE_DONE);                                
-            break;
-    }   // end switch        
-            
-    
-    if (isStateChanged())
-        showState();
 
     // skip if DONE  
     if (getState() == eSTATE_DONE)
         return;
-    
-    // PERFORM ACTIONS ...
-    
-    switch (getState())
-    {
-        case eSTATE_DRIVE:
-            
-            // drive at proportional speed (centrally limited)
-            controlSpeed();
-            controlAccel();
-            break;
+        
+    if (isStateChanged())
+        showState();
+      
+    // otherwise, drive joint
+    if (getState() == eSTATE_DRIVE)
+    {            
+        sollAccel = oJointDriver.drive(istPos);
+        
+        LOG4CXX_INFO(logger, oJointDriver.toString());
 
-        case eSTATE_ARRIVED:
-       
-            // stop joint 
-            controlAccel();
-            break;
-    }   // end switch        
-    
+        // if movement blocked or finished -> DONE
+        if (isMovementBlocked() || oJointDriver.isMovementDone())
+        {
+            sollAccel = 0.0;
+            done();
+        }
+    }
+                    
     // record output for analysis
-    oRecord.addElement(istSpeed, sollAccel);
+    //oRecord.addElement(istSpeed, sollAccel);
     
     // send commands
-    writeBus();    
-    LOG4CXX_INFO(logger, "\t ist = " << istPos << "\t targetSpeed = " << targetSpeed << "\t istSpeed = " << istSpeed << " \taccel = " << sollAccel);
+    writeBus();        
 }
 
-
-// jump to given state
-// and prepare movement
-void AxisDriver3::jumpTo(int state)
-{         
-    switch (state)
-    {
-        // prepare for new movement
-        case eSTATE_DRIVE:
-
-            readParams();
-            
-            // compute movement direction & speed 
-            moveSign = (dist > 0 ? 1: -1);
-            setTargetSpeed(driverSpeed * moveSign);
-
-            // the arrival point is also computed (with same sign as initial distance)
-            arrivalDist = dist*driverTolerance;
-            blockedTime = 0;        
-            
-            // record output for analysis
-            oRecord.reset();
-
-            // show data
-            showMovementData();            
-            break;
-                        
-        // 
-        case eSTATE_ARRIVED:
-       
-            // null target speed
-            setTargetSpeed(0.0);
-            break;
-            
-        case eSTATE_DONE:
-       
-            //Plot::plotRecord(oRecord, 60);
-            break;            
-    }   
-       
-    // set state 
-    setState(state);     
-}
-
-// increase blocked time
-void AxisDriver3::blockedMove()
+// check if movement is blocked (if pushing beyond the joint's limit)
+bool AxisDriver3::isMovementBlocked()
 {
-    blockedTime++;
+    
+    return ((limitReached > 0 && oJointDriver.getMoveSign() > 0) || (limitReached < 0 && oJointDriver.getMoveSign() < 0));
 }
 
-void AxisDriver3::setTargetSpeed(float speed)
+void AxisDriver3::newMove()
 {
-    targetSpeed = speed;
-}
-
-// computes the target speed of the movement
-void AxisDriver3::controlSpeed()
-{        
-    // speed is proportional to distance from target
-    float speed = Kspeed*dist;
-        
-    // speed is maximally limited by a centrally defined value
-    if (fabs(speed) > fabs(driverSpeed))        
-        speed = driverSpeed * moveSign;
-       
-    setTargetSpeed(speed);
-}
-       
-// gets the proper acceleration to reach the target speed
-void AxisDriver3::controlAccel()
-{    
-    // acceleration is proportional to speed error
-    float difSpeed = targetSpeed - istSpeed;        
-    sollAccel = Kaccel*difSpeed;
-}
-
-
-void AxisDriver3::readParams()
-{
+    // update movement params
     if (pMovementControl != 0)
     {
-        Kaccel = pMovementControl->getKaccelDriver(); 
-        Kspeed = pMovementControl->getKspeedDriver(); 
-        driverTolerance = pMovementControl->getDriverTolerance();
-        driverSpeed = pMovementControl->getDriverSpeed();    
+        oJointDriver.init(pMovementControl->getKaccelDriver(),
+                               pMovementControl->getKspeedDriver(),
+                               pMovementControl->getDriverTolerance(),
+                               pMovementControl->getDriverSpeed());        
     }
+        
+    // set new target
+    oJointDriver.setTarget(targetPos);
+    // and go to MOVE
+    setState(eSTATE_DRIVE);
+
+    // record output for analysis
+    oRecord.reset();
+    // show data
+    showMovementData();                    
+}
+
+
+void AxisDriver3::done()
+{         
+    setState(eSTATE_DONE);   
+    showState();
+    //Plot::plotRecord(oRecord, 60);
 }
 
 void AxisDriver3::showState()
@@ -238,10 +145,6 @@ void AxisDriver3::showState()
             LOG4CXX_INFO(logger, ">> done");
             break;
                         
-        case eSTATE_ARRIVED:
-            LOG4CXX_INFO(logger, ">> arrived");
-            break;
-
         case eSTATE_DRIVE:
             LOG4CXX_INFO(logger, ">> drive");
             break;
@@ -252,8 +155,7 @@ void AxisDriver3::showMovementData()
 {
     LOG4CXX_INFO(logger, "target = " << targetPos);  
     LOG4CXX_INFO(logger, "ist = " << istPos);
-    LOG4CXX_INFO(logger, "v = " << targetSpeed);  
-    LOG4CXX_INFO(logger, "arrivedDist = " << arrivalDist);      
+    LOG4CXX_INFO(logger, oJointDriver.paramsToString());      
 }
 
 }

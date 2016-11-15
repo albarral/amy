@@ -1,5 +1,5 @@
-#ifndef __AMY_JOINT_MOVER_H
-#define __AMY_JOINT_MOVER_H
+#ifndef __AMY_MOVE_JOINTMOVER_H
+#define __AMY_MOVE_JOINTMOVER_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -21,10 +21,10 @@ class JointMover
 {
 private:
     float accel;               // commanded acceleration (degrees/s2)
-    float speed;             // final joint speed in last control period (degrees/s) 
-    float avgSpeed;        // average joint speed in last control period, used for position update (degrees/s) 
+    float finalSpeed;       // final speed in last control period (degrees/s) 
+    float speed;             // average speed in last control period, used for the position update (degrees/s) 
     float angle;              // resulting joint angle (degrees)
-    amy::Click oClick;   
+    amy::Click oClick;      // clock utility
 
 public:
     JointMover();

@@ -36,7 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/move/ArmTrigonometry.o \
-	${OBJECTDIR}/src/amy/move/JointBrake.o \
+	${OBJECTDIR}/src/amy/move/JointDriver.o \
 	${OBJECTDIR}/src/amy/move/JointMover.o
 
 
@@ -69,10 +69,10 @@ ${OBJECTDIR}/src/amy/move/ArmTrigonometry.o: src/amy/move/ArmTrigonometry.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/ArmTrigonometry.o src/amy/move/ArmTrigonometry.cpp
 
-${OBJECTDIR}/src/amy/move/JointBrake.o: src/amy/move/JointBrake.cpp 
+${OBJECTDIR}/src/amy/move/JointDriver.o: src/amy/move/JointDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/JointBrake.o src/amy/move/JointBrake.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/JointDriver.o src/amy/move/JointDriver.cpp
 
 ${OBJECTDIR}/src/amy/move/JointMover.o: src/amy/move/JointMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move

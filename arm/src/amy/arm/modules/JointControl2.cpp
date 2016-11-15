@@ -19,7 +19,7 @@ JointControl2::JointControl2()
 {
     modName = "jcontrol2";
     lowLimit = highLimit = 0;
-    blimitReached = false;
+    limitReached = false;
     brakeAccel = 0.0;
 }
 
@@ -65,6 +65,7 @@ void JointControl2::loop()
                 // do the control
                 angle = oJointMover.brake(brakeAccel, angle);
                 angle = limitAngle(angle);
+                LOG4CXX_INFO(logger, oJointMover.toString());
             }
             // otherwise keep joint iddle
             else
@@ -77,11 +78,13 @@ void JointControl2::loop()
             // do the control
             angle = oJointMover.move(accel, angle);            
             angle = limitAngle(angle);
+            LOG4CXX_INFO(logger, oJointMover.toString());
             break;            
     }   // end switch    
     
     // always command angle 
     writeBus();
+    
 }
 
 void JointControl2::senseBus()
@@ -108,7 +111,6 @@ void JointControl2::senseBus()
 
 void JointControl2::writeBus()
 {
-    int limitReached = blimitReached ? 1:0;    // commanded angle out of joint's range  
     float sollSpeed = oJointMover.getSpeed();        
     
     // command angle
@@ -120,7 +122,7 @@ void JointControl2::writeBus()
     // inform of limit reached
     pJointBus->getSO_JCONTROL_LIMIT_REACHED().setValue(limitReached);
 
-    if (limitReached)            
+    if (limitReached != 0)            
         LOG4CXX_WARN(logger, "joint limit!");
             
     // inform real speed 
@@ -138,17 +140,17 @@ float JointControl2::limitAngle(float value)
     if (value < lowLimit) 
     {
         angle = lowLimit;
-        blimitReached = true;
+        limitReached = -1;
     }
     else if (value > highLimit)
     {
         angle = highLimit;
-        blimitReached = true;
+        limitReached = 1;
     }
     else 
     {
         angle = value;        
-        blimitReached = false;
+        limitReached = 0;
     }    
     return angle;
 }

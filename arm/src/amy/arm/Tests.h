@@ -21,10 +21,11 @@ class Tests
      static log4cxx::LoggerPtr logger;
 
 public:
-    Tests();
-    ~Tests();
+//    Tests();
+//    ~Tests();
 
-    void testJMover();
+    void testJointMover();
+    void testJointDriver();
     void testArmPlanner();
     void testAmyNetwork2();
 

@@ -17,6 +17,7 @@
 #include "amy/arm/modules/ArmComputer.h"
 #include "amy/arm/data/MoveStep.h"
 #include "amy/move/JointMover.h"
+#include "amy/move/JointDriver.h"
 
 using namespace log4cxx;
 
@@ -24,7 +25,7 @@ namespace amy
 {
 LoggerPtr Tests::logger(Logger::getLogger("amy.arm"));    
 
-void Tests::testJMover()
+void Tests::testJointMover()
 {
     JointMover oMover;
   
@@ -43,6 +44,27 @@ void Tests::testJMover()
     
 }
 
+void Tests::testJointDriver()
+{
+    JointMover oMover;
+    JointDriver oDriver;
+    float angle, accel;
+  
+    LOG4CXX_INFO(logger, "\nNew test JointDriver ...\n");
+    
+    oDriver.init(4.0, 2.0, 0.05, 60.0);
+    
+    oDriver.setTarget(180.0);    
+    while (oDriver.getState() != JointDriver::eSTATE_DONE)
+    {
+        angle = oMover.getAngle();
+        accel = oDriver.drive(angle);
+        oMover.move(accel, angle);
+        LOG4CXX_INFO(logger, oDriver.toString() << "\n");
+        LOG4CXX_INFO(logger, oMover.toString() << "\n");
+        usleep(100000);
+    }    
+}
 
 void Tests::testArmPlanner()
 {

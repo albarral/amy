@@ -13,15 +13,15 @@ namespace amy
 JointMover::JointMover()
 {
     accel = 0.0;
-    speed = avgSpeed = 0.0;
+    finalSpeed = speed = 0.0;
     angle = 0.0;
 }
        
 void JointMover::iddle()
 {
     oClick.reset();   
-    if (speed != 0.0)
-        speed = 0.0;
+    if (finalSpeed != 0.0)
+        finalSpeed = 0.0;
 }
 
 float JointMover::move(float acceleration, float istAngle)
@@ -39,14 +39,14 @@ float JointMover::move(float acceleration, float istAngle)
     if (accel != 0.0)
     {
         float speedChange = accel*time;
-        speed += speedChange;
+        finalSpeed += speedChange;
         // use average speed for position computation
-        avgSpeed = speed - 0.5*speedChange;
+        speed = finalSpeed - 0.5*speedChange;
     }
 
     // if some speed, update position
-    if (avgSpeed != 0.0)
-        angle += avgSpeed*time;      
+    if (speed != 0.0)
+        angle += speed*time;      
     
     return angle;
 }
@@ -70,19 +70,20 @@ float JointMover::brake(float deceleration, float istAngle)
     if (accel != 0.0)
     {
         float speedChange = accel*time;
-        // update speed 
-        if (fabs(speedChange) < fabs(speed))
-            speed += speedChange;
-        // or vanish it if near enough
-        else
-            speed = 0;
+
+        // change can never be higher than speed
+        if (fabs(speedChange) > fabs(finalSpeed))
+            speedChange = -finalSpeed;
+
+        // update speed             
+        finalSpeed += speedChange;
         // use average speed for position computation        
-        avgSpeed = speed - 0.5*speedChange;
+        speed = finalSpeed - 0.5*speedChange;
     }
 
     // if some speed, update position
-    if (avgSpeed != 0.0)
-        angle += avgSpeed*time;      
+    if (speed != 0.0)
+        angle += speed*time;      
     
     return angle;
 }

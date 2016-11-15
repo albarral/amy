@@ -29,8 +29,6 @@ private:
         virtual void senseBus();
         // write action commands to bus
         virtual void writeBus();
-        // computes distance to target
-        virtual float computeDistance();                
      
 };
 }
