@@ -65,7 +65,7 @@ void JointControl2::loop()
                 // do the control
                 angle = oJointMover.brake(brakeAccel, angle);
                 angle = limitAngle(angle);
-                LOG4CXX_INFO(logger, oJointMover.toString());
+                //LOG4CXX_INFO(logger, oJointMover.toString());
             }
             // otherwise keep joint iddle
             else
@@ -78,7 +78,7 @@ void JointControl2::loop()
             // do the control
             angle = oJointMover.move(accel, angle);            
             angle = limitAngle(angle);
-            LOG4CXX_INFO(logger, oJointMover.toString());
+            //LOG4CXX_INFO(logger, oJointMover.toString());
             break;            
     }   // end switch    
     

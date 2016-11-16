@@ -18,6 +18,7 @@
 #include "amy/arm/data/MoveStep.h"
 #include "amy/move/JointMover.h"
 #include "amy/move/JointDriver.h"
+#include "amy/move/ArmMath.h"
 
 using namespace log4cxx;
 
@@ -40,8 +41,7 @@ void Tests::testJointMover()
         oMover.move(accel, angle);
         LOG4CXX_INFO(logger, oMover.toString() << "\n");
         sleep(1);
-    }
-    
+    }    
 }
 
 void Tests::testJointDriver()
@@ -64,6 +64,41 @@ void Tests::testJointDriver()
         LOG4CXX_INFO(logger, oMover.toString() << "\n");
         usleep(100000);
     }    
+}
+
+
+void Tests::testArmMath()
+{
+    ArmMath oArmMath;
+    oArmMath.setLengths(40,40);
+    
+    float angle, radius;
+    
+    radius = 0;
+    angle = oArmMath.calcELAngle(radius);
+    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
+    radius = 20;
+    angle = oArmMath.calcELAngle(radius);
+    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
+    radius = 40;
+    angle = oArmMath.calcELAngle(radius);
+    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
+    radius = 60;
+    angle = oArmMath.calcELAngle(radius);
+    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");        
+    radius = 80;
+    angle = oArmMath.calcELAngle(radius);
+    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");        
+
+    angle = 151;
+    radius = oArmMath.calcRadius(angle);
+    LOG4CXX_INFO(logger, "angle: " << angle << ", radius: " << radius << "\n");        
+    angle = 120;
+    radius = oArmMath.calcRadius(angle);
+    LOG4CXX_INFO(logger, "angle: " << angle << ", radius: " << radius << "\n");        
+    angle = 83;
+    radius = oArmMath.calcRadius(angle);
+    LOG4CXX_INFO(logger, "angle: " << angle << ", radius: " << radius << "\n");        
 }
 
 void Tests::testArmPlanner()

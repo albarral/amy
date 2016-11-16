@@ -13,8 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="math" displayName="move" projectFiles="true">
-        <itemPath>src/amy/move/ArmTrigonometry.cpp</itemPath>
-        <itemPath>src/amy/move/ArmTrigonometry.h</itemPath>
+        <itemPath>src/amy/move/ArmMath.cpp</itemPath>
+        <itemPath>src/amy/move/ArmMath.h</itemPath>
         <itemPath>src/amy/move/JointDriver.cpp</itemPath>
         <itemPath>src/amy/move/JointDriver.h</itemPath>
         <itemPath>src/amy/move/JointMover.cpp</itemPath>
@@ -69,9 +69,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/move/ArmTrigonometry.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/move/ArmTrigonometry.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/move/ArmMath.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/move/JointDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -102,9 +102,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/move/ArmTrigonometry.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/move/ArmTrigonometry.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/move/ArmMath.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/move/JointDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>

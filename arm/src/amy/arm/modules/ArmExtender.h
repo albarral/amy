@@ -9,7 +9,7 @@
 
 #include "amy/arm/modules/AxisDriver3.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/move/ArmTrigonometry.h"
+#include "amy/move/ArmMath.h"
 
 namespace amy
 {
@@ -23,7 +23,7 @@ private:
         JointBus* pBusEL;   // bus connection to elbow
         float istVS;    // present VS position
         float istEL;    // present EL position
-        ArmTrigonometry oArmTrigonometry;
+        ArmMath oArmMath;
         float istPosPrev;      // previous axis position
 
     

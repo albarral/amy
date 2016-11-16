@@ -26,6 +26,7 @@ public:
 
     void testJointMover();
     void testJointDriver();
+    void testArmMath();
     void testArmPlanner();
     void testAmyNetwork2();
 

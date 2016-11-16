@@ -26,7 +26,7 @@ ArmUR5::ArmUR5 ()
 
     // elbow -  straight arm = 0
     oJoint.setName(Arm::elbow);
-    oJoint.setLimits(-90, 90);
+    oJoint.setLimits(-150, 150);
     addJoint(oJoint);
 
     // NO horizontal wrist

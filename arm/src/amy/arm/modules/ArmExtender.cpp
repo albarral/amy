@@ -21,7 +21,7 @@ ArmExtender::ArmExtender()
 
 void ArmExtender::tune2Arm(int humerusLen, int radiusLen)
 {
-    oArmTrigonometry.setLengths(humerusLen, radiusLen);    
+    oArmMath.setLengths(humerusLen, radiusLen);    
 }
 
 void ArmExtender::selectBusJoints()
@@ -63,9 +63,9 @@ float ArmExtender::computeDistance()
     // store previous position
     istPosPrev = istPos;
     
-    // compute wrist polar position
-    oArmTrigonometry.computeWristPosition(istVS, istEL);    
-    istPos = oArmTrigonometry.getArmRadius();
+    // compute arm radius
+    float radius = oArmMath.calcRadius(istEL);    
+    istPos = radius;
     
 //    istSpeed = (istPos - istPosPrev)/0.2;   // (tmp) in 5Hz executions
     
@@ -81,8 +81,7 @@ void ArmExtender::senseInitialPosition()
     // sense EL pos (soll value used here)
     istEL = pBusEL->getCO_JOINT_ANGLE().getValue();     
     
-    oArmTrigonometry.computeWristPosition(istVS, istEL);
-    
-    istPos = oArmTrigonometry.getArmRadius();
+    float radius = oArmMath.calcRadius(istEL);    
+    istPos = radius;
 }
 }
