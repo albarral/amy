@@ -37,7 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/move/ArmMath.o \
 	${OBJECTDIR}/src/amy/move/JointDriver.o \
-	${OBJECTDIR}/src/amy/move/JointMover.o
+	${OBJECTDIR}/src/amy/move/JointMover.o \
+	${OBJECTDIR}/src/amy/move/RadialDriver.o
 
 
 # C Compiler Flags
@@ -78,6 +79,11 @@ ${OBJECTDIR}/src/amy/move/JointMover.o: src/amy/move/JointMover.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/JointMover.o src/amy/move/JointMover.cpp
+
+${OBJECTDIR}/src/amy/move/RadialDriver.o: src/amy/move/RadialDriver.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/move
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/RadialDriver.o src/amy/move/RadialDriver.cpp
 
 # Subprojects
 .build-subprojects:

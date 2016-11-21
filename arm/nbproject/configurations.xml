@@ -48,6 +48,10 @@
           <logicalFolder name="modules" displayName="modules" projectFiles="true">
             <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
+            <itemPath>src/amy/arm/modules/ArmDriver.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmDriver.h</itemPath>
+            <itemPath>src/amy/arm/modules/ArmElbow.cpp</itemPath>
+            <itemPath>src/amy/arm/modules/ArmElbow.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmExtender.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmExtender.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
@@ -248,6 +252,14 @@
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/ArmExtender.cpp"
             ex="false"
             tool="1"
@@ -382,6 +394,14 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmExtender.cpp"
             ex="false"

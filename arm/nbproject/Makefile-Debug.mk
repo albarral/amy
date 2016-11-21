@@ -50,6 +50,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/data/Movement.o \
 	${OBJECTDIR}/src/amy/arm/main.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmDriver.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmElbow.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o \
@@ -169,6 +171,16 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o: src/amy/arm/modules/ArmComputer.
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o src/amy/arm/modules/ArmComputer.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmDriver.o: src/amy/arm/modules/ArmDriver.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmDriver.o src/amy/arm/modules/ArmDriver.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmElbow.o: src/amy/arm/modules/ArmElbow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmElbow.o src/amy/arm/modules/ArmElbow.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o: src/amy/arm/modules/ArmExtender.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

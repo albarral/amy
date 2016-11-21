@@ -138,6 +138,9 @@ void ArmManager::initArchitecture()
     // arm panner module
     oArmPanner.setLevel(nivel);
     //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
+    // arm elbow module
+    oArmElbow.setLevel(nivel);
+    //listModules.push_back(&oArmElbow);   // it's a module3, not a module2
     // arm extender            
     oArmExtender.setLevel(nivel);
     //listModules.push_back(&oArmExtender); // it's a module3, not a module2
@@ -235,11 +238,19 @@ void ArmManager::initLevel(int num)
     if (oArmPanner.getLevel() == num)
     {    
         // arm panner module
-        oArmPanner.init(oMovementControl);
+        oArmPanner.init(oArm, oMovementControl);
         oArmPanner.connect(oArmBus);
         oArmPanner.setFrequency(freq);
     }
     
+    if (oArmElbow.getLevel() == num)
+    {    
+        // arm panner module
+        oArmElbow.init(oArm, oMovementControl);
+        oArmElbow.connect(oArmBus);
+        oArmElbow.setFrequency(freq);
+    }
+
     if (oArmExtender.getLevel() == num)
     {
         // arm extender module
@@ -269,6 +280,12 @@ void ArmManager::startLevel(int num)
             oArmPanner.on();                      
     }
     
+    if (oArmElbow.getLevel() == num)
+    {    
+        if (oArmElbow.isEnabled() && oArmElbow.isConnected())      
+            oArmElbow.on();                      
+    }
+
     if (oArmExtender.getLevel() == num)
     {
         // arm extender module
@@ -302,6 +319,12 @@ void ArmManager::stopLevel(int num)
         oArmPanner.wait();
     }
     
+    if (oArmElbow.getLevel() == num)
+    {    
+        oArmElbow.off();
+        oArmElbow.wait();
+    }
+
     if (oArmExtender.getLevel() == num)
     {
         // arm extender module

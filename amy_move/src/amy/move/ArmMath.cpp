@@ -45,7 +45,7 @@ float ArmMath::calcRadius(float angleEL)
     return (sqrt(sumSquares + doubleProduct*cos(radiansEL)));
 }
 
-void ArmMath::calcPolar(float angleVS, float angleELB, float& radius, float& tilt) 
+void ArmMath::calcPolarPosition(float angleVS, float angleELB, float& radius, float& tilt) 
 {
     float radians1 = angleVS * KPI_DIV_180;
     float radians2 = (angleVS + angleELB) * KPI_DIV_180;
@@ -61,7 +61,7 @@ void ArmMath::calcPolar(float angleVS, float angleELB, float& radius, float& til
     radius = sqrt(h*h + b*b);
 };
 
-float ArmMath::calcELAngle(float radius)
+float ArmMath::calcElbowAngle(float radius)
 {
     // to avoid limit radius to the valid range
     if (radius > maxRadius)

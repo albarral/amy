@@ -68,8 +68,8 @@ public:
 
         int getMoveSign() {return moveSign;};
                       
-        std::string toString();
-        std::string paramsToString();
+        virtual std::string toString();
+        virtual std::string paramsToString();
 
 private:        
         // gets a proper speed given the position error

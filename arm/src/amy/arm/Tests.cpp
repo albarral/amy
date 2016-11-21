@@ -18,6 +18,7 @@
 #include "amy/arm/data/MoveStep.h"
 #include "amy/move/JointMover.h"
 #include "amy/move/JointDriver.h"
+#include "amy/move/RadialDriver.h"
 #include "amy/move/ArmMath.h"
 
 using namespace log4cxx;
@@ -66,6 +67,28 @@ void Tests::testJointDriver()
     }    
 }
 
+void Tests::testRadialDriver()
+{
+    JointMover oMover;
+    RadialDriver oDriver;
+    float angle, accel;
+  
+    LOG4CXX_INFO(logger, "\nNew test RadialDriver ...\n");
+    
+    oDriver.init(4.0, 2.0, 0.05, 60.0);
+    oDriver.setArmSize(40, 40);
+    
+    oDriver.setTargetRadius(40);
+    while (oDriver.getState() != JointDriver::eSTATE_DONE)
+    {
+        angle = oMover.getAngle();
+        accel = oDriver.drive(angle);
+        oMover.move(accel, angle);
+        LOG4CXX_INFO(logger, oDriver.toString() << "\n");
+        LOG4CXX_INFO(logger, oMover.toString() << "\n");
+        usleep(100000);
+    }    
+}
 
 void Tests::testArmMath()
 {
@@ -75,30 +98,14 @@ void Tests::testArmMath()
     float angle, radius;
     
     radius = 0;
-    angle = oArmMath.calcELAngle(radius);
+    angle = oArmMath.calcElbowAngle(radius);
     LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
     radius = 20;
-    angle = oArmMath.calcELAngle(radius);
+    angle = oArmMath.calcElbowAngle(radius);
     LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
     radius = 40;
-    angle = oArmMath.calcELAngle(radius);
+    angle = oArmMath.calcElbowAngle(radius);
     LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
-    radius = 60;
-    angle = oArmMath.calcELAngle(radius);
-    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");        
-    radius = 80;
-    angle = oArmMath.calcELAngle(radius);
-    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");        
-
-    angle = 151;
-    radius = oArmMath.calcRadius(angle);
-    LOG4CXX_INFO(logger, "angle: " << angle << ", radius: " << radius << "\n");        
-    angle = 120;
-    radius = oArmMath.calcRadius(angle);
-    LOG4CXX_INFO(logger, "angle: " << angle << ", radius: " << radius << "\n");        
-    angle = 83;
-    radius = oArmMath.calcRadius(angle);
-    LOG4CXX_INFO(logger, "angle: " << angle << ", radius: " << radius << "\n");        
 }
 
 void Tests::testArmPlanner()

@@ -3,56 +3,58 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/modules/ArmPanner2.h"
+#include "amy/arm/modules/ArmElbow.h"
 
 
 using namespace log4cxx;
 
 namespace amy
 {
-ArmPanner2::ArmPanner2()
+ArmElbow::ArmElbow()
 {
-    modName = "ArmPanner2";
+    modName = "ArmElbow";
     
-    pBusHS = 0;        
-    panAccel = 0;
+    pBusElbow = 0;        
+    elbowAccel = 0;
 }
 
-//ArmPanner2::~ArmPanner2()
+//ArmElbow::~ArmElbow()
 //{
 //}
 
-void ArmPanner2::prepareDriver()
+void ArmElbow::prepareDriver()
 {
     // update movement params
     if (pMovementControl != 0)
     {
-        oJointDriver.init(pMovementControl->getKaccelDriver(),
+        oRadialDriver.init(pMovementControl->getKaccelDriver(),
                                pMovementControl->getKspeedDriver(),
                                pMovementControl->getDriverTolerance(),
                                pMovementControl->getDriverSpeed());        
     }        
+    
+    oRadialDriver.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
 }
 
-void ArmPanner2::connectDriver()
+void ArmElbow::connectDriver()
 {
-    // connect to HS joint (horizontal shoulder)
-    pBusHS = &pBus->getBusHS();
+    // connect to ELBOW joint 
+    pBusElbow = &pBus->getBusEL();
 }
        
-void ArmPanner2::prepareMove()
+void ArmElbow::prepareMove()
 {
     // update movement params
     if (pMovementControl != 0)
     {
-        oJointDriver.init(pMovementControl->getKaccelDriver(),
+        oRadialDriver.init(pMovementControl->getKaccelDriver(),
                                pMovementControl->getKspeedDriver(),
                                pMovementControl->getDriverTolerance(),
                                pMovementControl->getDriverSpeed());        
     }
         
     // set new target
-    oJointDriver.setTarget(targetPan);
+    oRadialDriver.setTargetRadius(armRadius);
 
     // record output for analysis
     //oRecord.reset();
@@ -61,52 +63,52 @@ void ArmPanner2::prepareMove()
     showMovementData();                    
 }
 
-void ArmPanner2::doMove()
+void ArmElbow::doMove()
 {
-    panAccel = oJointDriver.drive(istPan);
-    LOG4CXX_INFO(logger, oJointDriver.toString());
+    elbowAccel = oRadialDriver.drive(istElbow);
+    LOG4CXX_INFO(logger, oRadialDriver.toString());
     
     // check if movement is blocked (pushing beyond the joint's limit)    
-    if ((panLimitReached > 0 && oJointDriver.getMoveSign() > 0) || (panLimitReached < 0 && oJointDriver.getMoveSign() < 0))
+    if ((elbowLimitReached > 0 && oRadialDriver.getMoveSign() > 0) || (elbowLimitReached < 0 && oRadialDriver.getMoveSign() < 0))
         moveBlocked();
     
     // check if movement finished 
-    if (oJointDriver.isMovementDone())
+    if (oRadialDriver.isMovementDone())
         moveDone();  
 }
 
-void ArmPanner2::senseBus()
+void ArmElbow::senseBus()
 {
     // get requested pan
-    if (pBus->getCO_ARM_PAN().checkRequested())
+    if (pBus->getCO_ARM_RADIUS().checkRequested())
     {
-        targetPan = (int)pBus->getCO_ARM_PAN().getValue();    
+        armRadius = pBus->getCO_ARM_RADIUS().getValue();    
         moveRequested();
     }
 
     // sense arm pan (soll value used here)
-    istPan = pBusHS->getCO_JOINT_ANGLE().getValue();
+    istElbow = pBusElbow->getCO_JOINT_ANGLE().getValue();
     
     // sense joint speed (soll value used here)
     //istSpeed = pBusHS->getSO_JCONTROL_SPEED().getValue();
 
     // sense reached joint limits
-    panLimitReached = pBusHS->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    elbowLimitReached = pBusElbow->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
 
-void ArmPanner2::writeBus()
+void ArmElbow::writeBus()
 {  
     // send HS acceleration
-    pBusHS->getCO_JCONTROL_ACCEL().request(panAccel);
+    pBusElbow->getCO_JCONTROL_ACCEL().request(elbowAccel);
 }
 
 
-void ArmPanner2::showMovementData()
+void ArmElbow::showMovementData()
 {
-    LOG4CXX_INFO(logger, "target = " << targetPan);  
-    LOG4CXX_INFO(logger, "ist = " << istPan);
-    LOG4CXX_INFO(logger, oJointDriver.paramsToString());      
+    LOG4CXX_INFO(logger, "target radius = " << armRadius);  
+    LOG4CXX_INFO(logger, "ist = " << istElbow);
+    LOG4CXX_INFO(logger, oRadialDriver.paramsToString());      
 }
 
 }

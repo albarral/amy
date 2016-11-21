@@ -35,11 +35,11 @@ void ArmExtender::selectBusJoints()
 void ArmExtender::senseBus()
 {
     // get requested arm radius
-    if (pBus->getCO_ARM_RADIUS().checkRequested())
-    {
-        targetPos = (int)pBus->getCO_ARM_RADIUS().getValue();    
-        bnewMove = true;
-    }
+//    if (pBus->getCO_ARM_RADIUS().checkRequested())
+//    {
+//        targetPos = (int)pBus->getCO_ARM_RADIUS().getValue();    
+//        bnewMove = true;
+//    }
     
     // sense VS pos (soll value used here)
     istVS = pBusVS->getCO_JOINT_ANGLE().getValue();  
