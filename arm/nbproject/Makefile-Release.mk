@@ -56,7 +56,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
-	${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointControl2.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmMath.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
@@ -191,11 +190,6 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o: src/amy/arm/modules/AxisDriver3.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisDriver3.o src/amy/arm/modules/AxisDriver3.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o: src/amy/arm/modules/JointControl2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

@@ -45,8 +45,8 @@ public:
        // sets the target position
         void setTargetRadius(float radius);
                       
-//        virtual std::string toString();
-//        virtual std::string paramsToString();
+        virtual std::string toString();
+        virtual std::string paramsToString();
         
 };
 }

@@ -59,6 +59,8 @@ public:
 
        // sets the target position
         void setTarget(float angle);
+        float getTargetAngle() {return targetAngle;}
+        
         // drive the joint with a proper acceleration, the acceleration is returned
         float drive(float istAngle);
         

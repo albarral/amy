@@ -30,24 +30,13 @@ public:
     void setLengths(int lenHum, int lenRad);
 
    // computes the arm radius (cm) for the given the elbow angle (deg)
-   float calcRadius(float angleEL);
+   float convJoints2ArmRadius(float angleEL);
 
-   // computes the arm tilt given the vertical shoulder & elbow angles
-   //float computeTilt(float angleVS, float angleEL);
-
-   // computes the arm tilt given the arm radius and the vertical shoulder angle
-   //float computeTilt2(float radius, float angleVS);
-
-   // computes the arm polar position given the vertical shoulder & elbow angles (deg)
-   void calcPolarPosition(float angleVS, float angleEL, float& radius, float& tilt);
+   // computes the arm tilt position given the vertical shoulder & elbow angles (deg)
+   float convJoints2ArmTilt(float angleVS, float angleEL);
 
    // computes the elbow angle (deg) for a given arm radius (cm)
-   float calcElbowAngle(float radius);
-
-   // returns the computed arm's tilt
-//   float getArmTilt() {return tilt;};
-   // returns the computed arm's radius
-//   float getArmRadius() {return radius;};
+   float convArmRadius2Elbow(float radius);
 };
 }
 #endif

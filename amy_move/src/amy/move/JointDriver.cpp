@@ -142,7 +142,7 @@ void JointDriver::controlAccel()
 
 std::string JointDriver::toString()
 {
-    return "JointDriver:: [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
+    return "JointDriver [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
             + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }

@@ -58,7 +58,10 @@ void ArmPanner2::prepareMove()
     //oRecord.reset();
     
     // show data
-    showMovementData();                    
+    LOG4CXX_INFO(logger, ">> new request");  
+    LOG4CXX_INFO(logger, "target pan = " << targetPan);  
+    LOG4CXX_INFO(logger, "ist HS = " << istPan);
+    LOG4CXX_INFO(logger, oJointDriver.paramsToString());      
 }
 
 void ArmPanner2::doMove()
@@ -87,10 +90,7 @@ void ArmPanner2::senseBus()
     // sense arm pan (soll value used here)
     istPan = pBusHS->getCO_JOINT_ANGLE().getValue();
     
-    // sense joint speed (soll value used here)
-    //istSpeed = pBusHS->getSO_JCONTROL_SPEED().getValue();
-
-    // sense reached joint limits
+    // sense reached HS limits
     panLimitReached = pBusHS->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
@@ -99,14 +99,6 @@ void ArmPanner2::writeBus()
 {  
     // send HS acceleration
     pBusHS->getCO_JCONTROL_ACCEL().request(panAccel);
-}
-
-
-void ArmPanner2::showMovementData()
-{
-    LOG4CXX_INFO(logger, "target = " << targetPan);  
-    LOG4CXX_INFO(logger, "ist = " << istPan);
-    LOG4CXX_INFO(logger, oJointDriver.paramsToString());      
 }
 
 }

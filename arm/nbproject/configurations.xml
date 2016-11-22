@@ -60,8 +60,6 @@
             <itemPath>src/amy/arm/modules/ArmPanner2.h</itemPath>
             <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
             <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
-            <itemPath>src/amy/arm/modules/AxisDriver3.cpp</itemPath>
-            <itemPath>src/amy/arm/modules/AxisDriver3.h</itemPath>
             <itemPath>src/amy/arm/modules/JointControl2.cpp</itemPath>
             <itemPath>src/amy/arm/modules/JointControl2.h</itemPath>
           </logicalFolder>
@@ -279,13 +277,6 @@
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/AxisDriver3.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/AxisDriver3.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/JointControl2.cpp"
             ex="false"
             tool="1"
@@ -421,13 +412,6 @@
       <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/AxisDriver3.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/AxisDriver3.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointControl2.cpp"
             ex="false"

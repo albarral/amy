@@ -93,19 +93,25 @@ void Tests::testRadialDriver()
 void Tests::testArmMath()
 {
     ArmMath oArmMath;
-    oArmMath.setLengths(40,40);
+    oArmMath.setLengths(20,80);
     
-    float angle, radius;
+    float tilt, radius;
+    float angleVS, angleEL;
+
+    angleVS = 90; 
+    angleEL = -160;
     
-    radius = 0;
-    angle = oArmMath.calcElbowAngle(radius);
-    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
-    radius = 20;
-    angle = oArmMath.calcElbowAngle(radius);
-    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
-    radius = 40;
-    angle = oArmMath.calcElbowAngle(radius);
-    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
+    for (int i=0; i<4; i++)
+    {
+        tilt = oArmMath.convJoints2ArmTilt(angleVS, angleEL);
+        radius = oArmMath.convJoints2ArmRadius(angleEL);
+        LOG4CXX_INFO(logger, "angleVS: " << angleVS << ", angleEL: " << angleEL << ", radius= " << radius << ", tilt= " << tilt << "\n");
+        angleVS -= 30;
+    }
+
+//    radius = 40;
+//    float angle = oArmMath.calcElbowAngle(radius);
+//    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
 }
 
 void Tests::testArmPlanner()

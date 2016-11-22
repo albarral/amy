@@ -54,13 +54,16 @@ void ArmElbow::prepareMove()
     }
         
     // set new target
-    oRadialDriver.setTargetRadius(armRadius);
+    oRadialDriver.setTargetRadius(targetRadius);
 
     // record output for analysis
     //oRecord.reset();
     
     // show data
-    showMovementData();                    
+    LOG4CXX_INFO(logger, ">> new request");  
+    LOG4CXX_INFO(logger, "target radius = " << targetRadius);  
+    LOG4CXX_INFO(logger, "ist elbow = " << istElbow);
+    LOG4CXX_INFO(logger, oRadialDriver.paramsToString());      
 }
 
 void ArmElbow::doMove()
@@ -79,20 +82,17 @@ void ArmElbow::doMove()
 
 void ArmElbow::senseBus()
 {
-    // get requested pan
+    // get requested radius
     if (pBus->getCO_ARM_RADIUS().checkRequested())
     {
-        armRadius = pBus->getCO_ARM_RADIUS().getValue();    
+        targetRadius = pBus->getCO_ARM_RADIUS().getValue();    
         moveRequested();
     }
 
     // sense arm pan (soll value used here)
     istElbow = pBusElbow->getCO_JOINT_ANGLE().getValue();
     
-    // sense joint speed (soll value used here)
-    //istSpeed = pBusHS->getSO_JCONTROL_SPEED().getValue();
-
-    // sense reached joint limits
+    // sense reached elbow limits
     elbowLimitReached = pBusElbow->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
@@ -101,14 +101,6 @@ void ArmElbow::writeBus()
 {  
     // send HS acceleration
     pBusElbow->getCO_JCONTROL_ACCEL().request(elbowAccel);
-}
-
-
-void ArmElbow::showMovementData()
-{
-    LOG4CXX_INFO(logger, "target radius = " << armRadius);  
-    LOG4CXX_INFO(logger, "ist = " << istElbow);
-    LOG4CXX_INFO(logger, oRadialDriver.paramsToString());      
 }
 
 }

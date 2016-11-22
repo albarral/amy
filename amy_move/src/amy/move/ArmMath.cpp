@@ -37,44 +37,47 @@ void ArmMath::setLengths(int lenHum, int lenRad)
         minRadius = 0.0;
 }
 
-float ArmMath::calcRadius(float angleEL)
+float ArmMath::convJoints2ArmRadius(float angleEL)
 {
+    // R² = lenH² + lenR² + 2*lenH*lenR*cos(EL)
+    
+    // convert to radians
     float radiansEL = angleEL * KPI_DIV_180;
     
     // radius computation
     return (sqrt(sumSquares + doubleProduct*cos(radiansEL)));
 }
 
-void ArmMath::calcPolarPosition(float angleVS, float angleELB, float& radius, float& tilt) 
+float ArmMath::convJoints2ArmTilt(float angleVS, float angleEL) 
 {
-    float radians1 = angleVS * KPI_DIV_180;
-    float radians2 = (angleVS + angleELB) * KPI_DIV_180;
+    // b = lenH*cos(VS) + lenR*cos(VS+EL)
+    // h = lenH*sin(VS)  + lenR*sin(VS+EL)
+    // tan(tilt) = h/b
+    
+    // convert to radians
+    float radiansVS = angleVS * KPI_DIV_180;
+    float radians2 = (angleVS + angleEL) * KPI_DIV_180;
     // get base
-    float b = lenHumerus * cos(radians1) + lenRadius * cos(radians2);
+    float b = lenHumerus * cos(radiansVS) + lenRadius * cos(radians2);
     // get height
-    float h = lenHumerus * sin(radians1) + lenRadius * sin(radians2);
+    float h = lenHumerus * sin(radiansVS) + lenRadius * sin(radians2);
     
-    // beta = arctg(h/b)
-    tilt = atan2(h, b) * K180_DIV_PI;
-    
-    // radius = sqrt(h² + b²)
-    radius = sqrt(h*h + b*b);
+    // compute tilt angle & convert to degrees
+    return (atan2(h, b) * K180_DIV_PI);
 };
 
-float ArmMath::calcElbowAngle(float radius)
+float ArmMath::convArmRadius2Elbow(float radius)
 {
+    // cos(EL) = (R² - lenH² - lenR²) / 2*lenH*lenR  
+
     // to avoid limit radius to the valid range
     if (radius > maxRadius)
         radius = maxRadius;
     else if (radius < minRadius)
         radius = minRadius;
     
-    float cosinus = (radius*radius - sumSquares)/doubleProduct;
-    
-    // angle computation
-    float radiansEL = acos((radius*radius - sumSquares)/doubleProduct);    
-    
-    return radiansEL * K180_DIV_PI;
+    // compute elbow angle & convert to degrees
+    return (acos((radius*radius - sumSquares)/doubleProduct) * K180_DIV_PI);
 }
 
 }

@@ -97,12 +97,11 @@ float MovementControl::getDriverSpeed()
 
 std::string MovementControl::toString()
 {
-    std::string desc = "MovementControl: [\n";
-    desc += "Kaccel=" + std::to_string(Kaccel) + "\n"; 
-    desc += "Kspeed=" + std::to_string(Kspeed) + "\n"; 
-    desc += "driverTolerance=" + std::to_string(driverTolerance) + "\n"; 
-    desc += "driverSpeed=" + std::to_string(driverSpeed) + "\n"; 
-    desc += "]\n";
+    std::string desc = "MovementControl: [";
+    desc += "Kaccel=" + std::to_string(Kaccel); 
+    desc += ", Kspeed=" + std::to_string(Kspeed); 
+    desc += ", driverTolerance=" + std::to_string(driverTolerance);
+    desc += ", driverSpeed=" + std::to_string(driverSpeed) + "]";
     
     return desc;
 }

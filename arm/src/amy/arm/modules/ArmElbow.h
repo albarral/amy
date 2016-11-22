@@ -13,22 +13,24 @@
 
 namespace amy
 {
-// Behavior used to move the arm horizontally.
-// It controls the HORIZONTAL SHOULDER angle to reach a pan target position.
-// It derives from ArmDriver module.
+// Behavior used to move the arm's elbow.
+// It senses for arm radius requests (from bus) and controls the elbow angle to reach those radius.
+// Derived from ArmDriver.
+// Controlled joints:
+// ELBOW (EL)        
 class ArmElbow: public ArmDriver
 {
 private:
     // bus
     JointBus* pBusElbow;   // bus connection to EL joint
     // request
-    float armRadius;          // requested joint position
+    float targetRadius;          // requested arm radius
     // control 
-    float istElbow;                // measured joint position
-    RadialDriver oRadialDriver;    // utility class used to drive the joint
-    int elbowLimitReached;     // value indicating the movement is blocked (due to joint limits reached)    
+    float istElbow;                // measured elbow position
+    RadialDriver oRadialDriver;    // utility class used to drive the elbow
+    int elbowLimitReached;     // value indicating the elbow movement is blocked (due to reached joint limit)   
     // output
-    float elbowAccel;              // commanded acceleration 
+    float elbowAccel;              // commanded elbow acceleration 
     // aux
 //    Record oRecord; // record to store the speed evolution in movement  (for analysis purpose)
 
@@ -52,9 +54,6 @@ private:
         virtual void senseBus();
         // write action commands to bus
         virtual void writeBus();
-
-        void showMovementData();
-
 };
 }
 #endif

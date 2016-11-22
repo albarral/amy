@@ -139,7 +139,7 @@ void ArmManager::initArchitecture()
     oArmPanner.setLevel(nivel);
     //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
     // arm elbow module
-    oArmElbow.setLevel(nivel);
+    oArmElbow.setLevel(999); // disabled, as it collides with ArmExtender
     //listModules.push_back(&oArmElbow);   // it's a module3, not a module2
     // arm extender            
     oArmExtender.setLevel(nivel);
@@ -173,7 +173,7 @@ void ArmManager::initBus(std::vector<std::string>& listJointNames)
         }
     }
     
-    LOG4CXX_INFO(logger, oArmBus.toString());
+    //LOG4CXX_INFO(logger, oArmBus.toString());
 }
 
 void ArmManager::initModules()
@@ -254,10 +254,9 @@ void ArmManager::initLevel(int num)
     if (oArmExtender.getLevel() == num)
     {
         // arm extender module
-        oArmExtender.init(oMovementControl);
+        oArmExtender.init(oArm, oMovementControl);
         oArmExtender.connect(oArmBus);
         oArmExtender.setFrequency(freq);
-        oArmExtender.tune2Arm(oArm.getLenHumerus(), oArm.getLenRadius());            
     }    
 }
 
@@ -292,7 +291,6 @@ void ArmManager::startLevel(int num)
         if (oArmExtender.isEnabled() && oArmExtender.isConnected())
         {
             oArmExtender.on();          
-            oArmExtender.senseInitialPosition();
         }
     }
 }

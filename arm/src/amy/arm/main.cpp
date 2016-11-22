@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     LOG4CXX_INFO(logger, "target robot: " << targetRobot);
 
 //    Tests oTests;
-//    oTests.testRadialDriver();
+//    oTests.testArmMath();
 //    return 0;
     
     SupportedRobots oSupportedRobots;

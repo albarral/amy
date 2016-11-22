@@ -37,7 +37,7 @@ void RadialDriver::workDown()
 
 void RadialDriver::setTargetRadius(float radius)
 {    
-    float elbowAngle = oArmMath.calcElbowAngle(radius);
+    float elbowAngle = oArmMath.convArmRadius2Elbow(radius);
     
     // set target in proper work plane
     elbowAngle = fabs(elbowAngle) * workSign;
@@ -45,16 +45,16 @@ void RadialDriver::setTargetRadius(float radius)
     JointDriver::setTarget(elbowAngle);
 }
 
-//std::string RadialDriver::toString()
-//{
-//    return "RadialDriver:: [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
-//            + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
-//            + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
-//}
-//
-//std::string RadialDriver::paramsToString()
-//{
-//    return "RadialDriver params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
-//            + " posTolerance=" + std::to_string(posTolerance) + " maxSpeed=" + std::to_string(maxSpeed) + "]";
-//}
+std::string RadialDriver::toString()
+{
+    return "RadialDriver [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
+            + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
+            + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
+}
+
+std::string RadialDriver::paramsToString()
+{
+    return "RadialDriver params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
+            + " posTolerance=" + std::to_string(posTolerance) + " maxSpeed=" + std::to_string(maxSpeed) + "]";
+}
 }

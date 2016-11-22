@@ -14,21 +14,23 @@
 namespace amy
 {
 // Behavior used to move the arm horizontally.
-// It controls the HORIZONTAL SHOULDER angle to reach a pan target position.
-// It derives from ArmDriver module.
+// It senses for arm pan requests (from bus) and controls the horizonal shoulder angle to reach those pans.
+// Derived from ArmDriver.
+// Controlled joints:
+// HORIZONTAL SHOULDER (HS)    
 class ArmPanner2: public ArmDriver
 {
 private:
     // bus
     JointBus* pBusHS;   // bus connection to HS joint
     // request
-    float targetPan;          // requested joint position
+    float targetPan;          // requested arm pan 
     // control 
-    float istPan;                // measured joint position
-    JointDriver oJointDriver;      // utility class used to drive the joint
-    int panLimitReached;     // value indicating the movement is blocked (due to joint limits reached)    
+    float istPan;                // measured pan position
+    JointDriver oJointDriver;      // utility class to drive the horizontal shoulder
+    int panLimitReached;     // value indicating the horizontal shoulder movement is blocked (due to reached joint limit)
     // output
-    float panAccel;              // commanded acceleration 
+    float panAccel;              // commanded horizontal shoulder acceleration 
     // aux
 //    Record oRecord; // record to store the speed evolution in movement  (for analysis purpose)
 
