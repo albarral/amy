@@ -60,6 +60,9 @@ float JointDriver::drive(float istAngle)
 
         // compute arrival distance (same sign as initial distance)
         arrivalDist = posTolerance*dist;
+        // lower limit arrival distance to minimum resolution
+        if (fabs(arrivalDist) < minResolution)
+            arrivalDist = (arrivalDist > 0 ? minResolution : -minResolution);      
         
         // speed can't be measured on first step
         istSpeed = 0.0;

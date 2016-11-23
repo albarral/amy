@@ -22,7 +22,7 @@ namespace amy
 // Movement is finished the the state is DONE.
 class JointDriver
 {
-public:
+public:    
     // movement states
     enum eType
     {
@@ -30,6 +30,9 @@ public:
          eSTATE_ARRIVED,     // near to target position (arrived stage)  
          eSTATE_DRIVE          // far from target position (cruise stage)
     };
+
+private:
+    const float minResolution = 0.10;   // set minimum resolution (0.1 degrees)
 
 protected:
     // params
