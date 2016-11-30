@@ -30,6 +30,8 @@ public:
     void testArmMath();
     void testArmPlanner();
     void testAmyNetwork2();
+    void testFileReader(std::string name);
+    void testFileWriter();
 
 private:        
     void writePos(ArmNetwork& oArmNetwork, int value);

@@ -37,6 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/utils/Click.o \
 	${OBJECTDIR}/src/amy/utils/Console.o \
+	${OBJECTDIR}/src/amy/utils/File.o \
+	${OBJECTDIR}/src/amy/utils/FileReader.o \
+	${OBJECTDIR}/src/amy/utils/FileWriter.o \
 	${OBJECTDIR}/src/amy/utils/Record.o \
 	${OBJECTDIR}/src/amy/utils/brooks/control.o \
 	${OBJECTDIR}/src/amy/utils/brooks/inhibition.o \
@@ -78,6 +81,21 @@ ${OBJECTDIR}/src/amy/utils/Console.o: src/amy/utils/Console.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Console.o src/amy/utils/Console.cpp
+
+${OBJECTDIR}/src/amy/utils/File.o: src/amy/utils/File.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/File.o src/amy/utils/File.cpp
+
+${OBJECTDIR}/src/amy/utils/FileReader.o: src/amy/utils/FileReader.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileReader.o src/amy/utils/FileReader.cpp
+
+${OBJECTDIR}/src/amy/utils/FileWriter.o: src/amy/utils/FileWriter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileWriter.o src/amy/utils/FileWriter.cpp
 
 ${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils

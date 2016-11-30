@@ -34,9 +34,9 @@ int main(int argc, char** argv)
     LOG4CXX_INFO(logger, "\n\nLAUNCH amy MANIPULATION ...\n");
     LOG4CXX_INFO(logger, "target robot: " << targetRobot);
 
-//    Tests oTests;
-//    oTests.testArmMath();
-//    return 0;
+    Tests oTests;
+    oTests.testFileWriter();
+    return 0;
     
     SupportedRobots oSupportedRobots;
     Robot oRobot;

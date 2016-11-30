@@ -28,6 +28,12 @@
             <itemPath>src/amy/utils/Click.h</itemPath>
             <itemPath>src/amy/utils/Console.cpp</itemPath>
             <itemPath>src/amy/utils/Console.h</itemPath>
+            <itemPath>src/amy/utils/File.cpp</itemPath>
+            <itemPath>src/amy/utils/File.h</itemPath>
+            <itemPath>src/amy/utils/FileReader.cpp</itemPath>
+            <itemPath>src/amy/utils/FileReader.h</itemPath>
+            <itemPath>src/amy/utils/FileWriter.cpp</itemPath>
+            <itemPath>src/amy/utils/FileWriter.h</itemPath>
             <itemPath>src/amy/utils/Record.cpp</itemPath>
             <itemPath>src/amy/utils/Record.h</itemPath>
             <itemPath>src/amy/utils/module.cpp</itemPath>
@@ -78,6 +84,18 @@
       <item path="src/amy/utils/Console.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Console.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/File.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -140,6 +158,18 @@
       <item path="src/amy/utils/Console.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Console.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/File.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>

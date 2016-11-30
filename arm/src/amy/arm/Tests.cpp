@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 #include <unistd.h> // for sleep() 
+#include <cstdlib>  // for getenv
+#include <fstream>
 
 #include <log4cxx/logger.h>
 
@@ -20,6 +22,8 @@
 #include "amy/move/JointDriver.h"
 #include "amy/move/RadialDriver.h"
 #include "amy/move/ArmMath.h"
+#include "amy/utils/FileReader.h"
+#include "amy/utils/FileWriter.h"
 
 using namespace log4cxx;
 
@@ -112,6 +116,64 @@ void Tests::testArmMath()
 //    radius = 40;
 //    float angle = oArmMath.calcElbowAngle(radius);
 //    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
+}
+
+void Tests::testFileReader(std::string name)
+{
+    FileReader oFile;
+    
+    if (oFile.open(name))        
+    {
+         LOG4CXX_INFO(logger, "Read start");
+         std::string line;
+         do 
+         {
+             line = oFile.readLine();
+             LOG4CXX_INFO(logger, line);             
+         }
+         while (!line.empty());         
+
+         oFile.close();
+         LOG4CXX_INFO(logger, "Read end");
+    }
+    else
+     LOG4CXX_ERROR(logger, "Can't open file " << name);
+}
+
+void Tests::testFileWriter()
+{       
+//    char* pVar = getenv("HOME");
+//    
+//    if (pVar==NULL)
+//     LOG4CXX_ERROR(logger, "Test failed: HOME var not found");
+//        
+//    std::string name(pVar);
+//    name = name + "/TESTS/testFile.txt";
+    
+    FileWriter oFile;
+    oFile.setAppendMode(true);
+    std::string name = "test.txt";
+    testFileReader(name);
+    if (oFile.open(name))        
+    {
+         LOG4CXX_INFO(logger, "write start")                 
+        std::string line = " frase de prueba\n";
+        oFile.writeFlush(line);
+        testFileReader(name);
+
+        //oFile.goTop();
+        std::string line2 = " frase de prueba2\n";
+        oFile.writeFlush(line2);
+        testFileReader(name);
+
+        std::string line3 = " frase de prueba3\n";
+        oFile.writeFlush(line3);
+        testFileReader(name);
+        LOG4CXX_INFO(logger, "write end");
+        oFile.close();
+    }
+    else
+     LOG4CXX_ERROR(logger, "Test failed: unable to open file " << name);
 }
 
 void Tests::testArmPlanner()
