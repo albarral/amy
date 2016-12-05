@@ -32,6 +32,7 @@ public:
     void testAmyNetwork2();
     void testFileReader(std::string name);
     void testFileWriter();
+    void testAmyComs();
 
 private:        
     void writePos(ArmNetwork& oArmNetwork, int value);

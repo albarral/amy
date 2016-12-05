@@ -76,7 +76,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_robots/dist/Debug/GNU-Linux -L../amy_robots/dist/Debug/GNU-Linux -lamy_robots -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_move/dist/Debug/GNU-Linux -L../amy_move/dist/Debug/GNU-Linux -lamy_move -Wl,-rpath,../amy_network/dist/Debug/GNU-Linux -L../amy_network/dist/Debug/GNU-Linux -lamy_network -Wl,-rpath,../amy_show/dist/Debug/GNU-Linux -L../amy_show/dist/Debug/GNU-Linux -lamy_show -llog4cxx -lmysqlcppconn -lopencv_core -lopencv_highgui
+LDLIBSOPTIONS=-Wl,-rpath,../amy_robots/dist/Debug/GNU-Linux -L../amy_robots/dist/Debug/GNU-Linux -lamy_robots -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_move/dist/Debug/GNU-Linux -L../amy_move/dist/Debug/GNU-Linux -lamy_move -Wl,-rpath,../amy_network/dist/Debug/GNU-Linux -L../amy_network/dist/Debug/GNU-Linux -lamy_network -Wl,-rpath,../amy_show/dist/Debug/GNU-Linux -L../amy_show/dist/Debug/GNU-Linux -lamy_show -Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -llog4cxx -lmysqlcppconn -lopencv_core -lopencv_highgui
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -92,6 +92,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ../amy_network/dist/Debug/GNU-Li
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ../amy_show/dist/Debug/GNU-Linux/libamy_show.so
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ../amy_coms/dist/Debug/GNU-Linux/libamy_coms.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm ${OBJECTFILES} ${LDLIBSOPTIONS}
@@ -99,127 +101,127 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/arm: ${OBJECTFILES}
 ${OBJECTDIR}/src/amy/arm/ArmManager.o: src/amy/arm/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmManager.o src/amy/arm/ArmManager.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmManager.o src/amy/arm/ArmManager.cpp
 
 ${OBJECTDIR}/src/amy/arm/Tests.o: src/amy/arm/Tests.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/Tests.o src/amy/arm/Tests.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/Tests.o src/amy/arm/Tests.cpp
 
 ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o: src/amy/arm/bus/ArmBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o src/amy/arm/bus/ArmBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o src/amy/arm/bus/ArmBus.cpp
 
 ${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
 
 ${OBJECTDIR}/src/amy/arm/bus/MovementControl.o: src/amy/arm/bus/MovementControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/MovementControl.o src/amy/arm/bus/MovementControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/MovementControl.o src/amy/arm/bus/MovementControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o: src/amy/arm/coms/ArmCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o src/amy/arm/coms/ArmCommand.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommand.o src/amy/arm/coms/ArmCommand.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o: src/amy/arm/coms/ArmCommander.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o src/amy/arm/coms/ArmCommander.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmCommander.o src/amy/arm/coms/ArmCommander.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o: src/amy/arm/coms/ArmComs1.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o src/amy/arm/coms/ArmComs1.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComs1.o src/amy/arm/coms/ArmComs1.cpp
 
 ${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o: src/amy/arm/coms/ArmComsOut.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o src/amy/arm/coms/ArmComsOut.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/coms/ArmComsOut.o src/amy/arm/coms/ArmComsOut.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/MoveStep.o: src/amy/arm/data/MoveStep.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep.o src/amy/arm/data/MoveStep.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep.o src/amy/arm/data/MoveStep.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o: src/amy/arm/data/MoveStep3D.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o src/amy/arm/data/MoveStep3D.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o src/amy/arm/data/MoveStep3D.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/Movement.o: src/amy/arm/data/Movement.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Movement.o src/amy/arm/data/Movement.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Movement.o src/amy/arm/data/Movement.cpp
 
 ${OBJECTDIR}/src/amy/arm/main.o: src/amy/arm/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/main.o src/amy/arm/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/main.o src/amy/arm/main.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o: src/amy/arm/modules/ArmComputer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o src/amy/arm/modules/ArmComputer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o src/amy/arm/modules/ArmComputer.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmDriver.o: src/amy/arm/modules/ArmDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmDriver.o src/amy/arm/modules/ArmDriver.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmDriver.o src/amy/arm/modules/ArmDriver.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmElbow.o: src/amy/arm/modules/ArmElbow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmElbow.o src/amy/arm/modules/ArmElbow.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmElbow.o src/amy/arm/modules/ArmElbow.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o: src/amy/arm/modules/ArmExtender.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o src/amy/arm/modules/ArmExtender.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o src/amy/arm/modules/ArmExtender.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o: src/amy/arm/modules/ArmPanner2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o src/amy/arm/modules/ArmPanner2.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o src/amy/arm/modules/ArmPanner2.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o: src/amy/arm/modules/JointControl2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o src/amy/arm/modules/JointControl2.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o src/amy/arm/modules/JointControl2.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/ArmMath.o: src/amy/arm/util/ArmMath.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmMath.o src/amy/arm/util/ArmMath.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmMath.o src/amy/arm/util/ArmMath.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/ArmModule.o: src/amy/arm/util/ArmModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmModule.o src/amy/arm/util/ArmModule.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmModule.o src/amy/arm/util/ArmModule.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/JointModule.o: src/amy/arm/util/JointModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/JointModule.o src/amy/arm/util/JointModule.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_robots/src -I../amy_utils/src -I../amy_move/src -I../amy_network/src -I../amy_show/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/JointModule.o src/amy/arm/util/JointModule.cpp
 
 # Subprojects
 .build-subprojects:
@@ -228,6 +230,7 @@ ${OBJECTDIR}/src/amy/arm/util/JointModule.o: src/amy/arm/util/JointModule.cpp
 	cd ../amy_move && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_network && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_show && ${MAKE}  -f Makefile CONF=Debug
+	cd ../amy_coms && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -241,6 +244,7 @@ ${OBJECTDIR}/src/amy/arm/util/JointModule.o: src/amy/arm/util/JointModule.cpp
 	cd ../amy_move && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_network && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_show && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../amy_coms && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

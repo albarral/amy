@@ -113,6 +113,7 @@
             <pElem>../amy_move/src</pElem>
             <pElem>../amy_network/src</pElem>
             <pElem>../amy_show/src</pElem>
+            <pElem>../amy_coms/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -175,6 +176,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_coms"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_coms"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>

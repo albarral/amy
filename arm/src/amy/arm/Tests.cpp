@@ -24,6 +24,7 @@
 #include "amy/move/ArmMath.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
+#include "amy/coms/AmyCommand.h"
 
 using namespace log4cxx;
 
@@ -175,6 +176,30 @@ void Tests::testFileWriter()
     else
      LOG4CXX_ERROR(logger, "Test failed: unable to open file " << name);
 }
+
+
+void Tests::testAmyComs()
+{
+    AmyCommand oCommand;
+    
+    int action = AmyCommand::eACT_MOVE_ARM;
+    int target = AmyCommand::eTAR_PAN;
+    float value = 60.0;
+    
+    if (oCommand.buildCommand(action, target, value))
+        LOG4CXX_INFO(logger, "testAmyComs(): " << oCommand.getText());
+    
+    std::string text = "3*4*-50.0";
+    if (oCommand.interpret(text))
+    {
+        LOG4CXX_INFO(logger, "testAmyComs(): action = " << oCommand.getAction());
+        LOG4CXX_INFO(logger, "testAmyComs(): target = " << oCommand.getTarget());
+        LOG4CXX_INFO(logger, "testAmyComs(): value = " << oCommand.getValue());
+    }
+    
+    
+}
+
 
 void Tests::testArmPlanner()
 {
