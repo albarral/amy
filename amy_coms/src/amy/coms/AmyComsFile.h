@@ -12,7 +12,7 @@
 
 namespace amy
 {
-class AmyComs
+class AmyComsFile
 {    
 private:
     std::string filename;
@@ -20,15 +20,20 @@ private:
     FileWriter oFile;
     
 public:
-    AmyComs();
+    AmyComsFile();
 
+    std::string getFilename() {return filename;};
+    AmyCommand& getAmyCommand() {return oAmyCommand;};
+    
     void movePan(float value);
-//    void moveTilt(float value);
-//    void moveRadius(float value);
+    void moveTilt(float value);
+    void moveRadius(float value);
+    
+    void endAmy();
     
 private:
     // send textual command
-    void sendCommand(std::string text);
+    void sendCommand();
 };
 }
 #endif

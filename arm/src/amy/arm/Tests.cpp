@@ -24,7 +24,7 @@
 #include "amy/move/ArmMath.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
-#include "amy/coms/AmyCommand.h"
+#include "amy/coms/AmyComsFile.h"
 
 using namespace log4cxx;
 
@@ -180,24 +180,14 @@ void Tests::testFileWriter()
 
 void Tests::testAmyComs()
 {
-    AmyCommand oCommand;
+    AmyComsFile oAmyComsFile;
     
-    int action = AmyCommand::eACT_MOVE_ARM;
-    int target = AmyCommand::eTAR_PAN;
-    float value = 60.0;
+    oAmyComsFile.movePan(50.0);    
+    oAmyComsFile.moveTilt(60.0);    
+    oAmyComsFile.moveRadius(40.0);    
+    LOG4CXX_INFO(logger, "send command ... " << oAmyComsFile.getAmyCommand().getDescription());                     
     
-    if (oCommand.buildCommand(action, target, value))
-        LOG4CXX_INFO(logger, "testAmyComs(): " << oCommand.getText());
-    
-    std::string text = "3*4*-50.0";
-    if (oCommand.interpret(text))
-    {
-        LOG4CXX_INFO(logger, "testAmyComs(): action = " << oCommand.getAction());
-        LOG4CXX_INFO(logger, "testAmyComs(): target = " << oCommand.getTarget());
-        LOG4CXX_INFO(logger, "testAmyComs(): value = " << oCommand.getValue());
-    }
-    
-    
+    testFileReader(oAmyComsFile.getFilename());    
 }
 
 

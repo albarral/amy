@@ -133,6 +133,15 @@ bool AmyCommand::isAmyCommand()
     return bfound;
 }
 
+std::string AmyCommand::getDescription()
+{
+    std::string desc = describeAction(action) + 
+            " " + describeTarget(target) + 
+            " " + std::to_string(value);
+    
+    return desc;    
+}
+
 std::string AmyCommand::describeAction(int value)
 {
     std::string desc;
@@ -166,7 +175,7 @@ std::string AmyCommand::describeTarget(int value)
             desc = "tilt";
             break;
         case eTAR_RADIUS:
-            desc = "end";
+            desc = "radius";
             break;
         case eTAR_JOINT_HSHOULDER:
             desc = "HS";
@@ -179,6 +188,9 @@ std::string AmyCommand::describeTarget(int value)
             break;
         case eTAR_JOINT_VWRIST:
             desc = "WRIST";
+            break;
+        case eTAR_PROGRAM:
+            desc = "program";
             break;
         default:
             desc = "unknown";           

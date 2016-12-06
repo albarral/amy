@@ -33,13 +33,17 @@ public:
     enum eTarget
     {
          eTAR_UNDEFINED,        /*! undefined target */
+         // MOVE ARM options
          eTAR_PAN,                  /*! arm's pan */
          eTAR_TILT,                  /*! arm's tilt */
          eTAR_RADIUS,             /*! arm's radius */
+         // MOVE JOINT options
          eTAR_JOINT_HSHOULDER,          /*! horizontal shoulder */
          eTAR_JOINT_VSHOULDER,          /*! vertical shoulder */
          eTAR_JOINT_ELBOW,                 /*! elbow */
          eTAR_JOINT_VWRIST,                 /*! vertical wrist */
+         // END AMY options
+         eTAR_PROGRAM,
          eTAR_DIM
     };
 
@@ -76,8 +80,9 @@ public:
     bool isJointCommand();
     // checks if it's an amy command
     bool isAmyCommand();
-
-private:
+    
+    // describe command
+    std::string getDescription();    
     // describe action 
     std::string describeAction(int value);
     // describe target

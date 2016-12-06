@@ -36,7 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyCommand.o \
-	${OBJECTDIR}/src/amy/coms/AmyComs.o
+	${OBJECTDIR}/src/amy/coms/AmyComsFile.o
 
 
 # C Compiler Flags
@@ -68,10 +68,10 @@ ${OBJECTDIR}/src/amy/coms/AmyCommand.o: src/amy/coms/AmyCommand.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyCommand.o src/amy/coms/AmyCommand.cpp
 
-${OBJECTDIR}/src/amy/coms/AmyComs.o: src/amy/coms/AmyComs.cpp 
+${OBJECTDIR}/src/amy/coms/AmyComsFile.o: src/amy/coms/AmyComsFile.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsFile.o src/amy/coms/AmyComsFile.cpp
 
 # Subprojects
 .build-subprojects:

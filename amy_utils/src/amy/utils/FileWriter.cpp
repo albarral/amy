@@ -29,6 +29,8 @@ bool FileWriter::open(std::string name)
             bok = true;
         }
     }
+    else 
+        bok = true;
 
     return bok;
 }
