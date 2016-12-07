@@ -35,8 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/test/ArmCommander.o \
-	${OBJECTDIR}/src/amy/test/ArmComs1.o \
+	${OBJECTDIR}/src/amy/test/Interpreter.o \
 	${OBJECTDIR}/src/amy/test/main.o
 
 
@@ -64,15 +63,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/test/ArmCommander.o: src/amy/test/ArmCommander.cpp 
+${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/ArmCommander.o src/amy/test/ArmCommander.cpp
-
-${OBJECTDIR}/src/amy/test/ArmComs1.o: src/amy/test/ArmComs1.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/test
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/ArmComs1.o src/amy/test/ArmComs1.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/Interpreter.o src/amy/test/Interpreter.cpp
 
 ${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test

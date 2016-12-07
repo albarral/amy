@@ -13,10 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="test" displayName="test" projectFiles="true">
-        <itemPath>src/amy/test/ArmCommander.cpp</itemPath>
-        <itemPath>src/amy/test/ArmCommander.h</itemPath>
-        <itemPath>src/amy/test/ArmComs1.cpp</itemPath>
-        <itemPath>src/amy/test/ArmComs1.h</itemPath>
+        <itemPath>src/amy/test/Interpreter.cpp</itemPath>
+        <itemPath>src/amy/test/Interpreter.h</itemPath>
         <itemPath>src/amy/test/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -45,6 +43,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>../amy_utils/src</pElem>
@@ -80,13 +79,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/test/ArmCommander.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/test/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/test/ArmCommander.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/test/ArmComs1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/test/ArmComs1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/test/Interpreter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/test/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -111,13 +106,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/test/ArmCommander.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/test/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/test/ArmCommander.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/test/ArmComs1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/test/ArmComs1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/test/Interpreter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/test/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
