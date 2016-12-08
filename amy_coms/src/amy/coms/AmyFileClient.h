@@ -12,7 +12,7 @@
 
 namespace amy
 {
-class AmyComsFile
+class AmyFileClient
 {    
 private:
     std::string filename;
@@ -20,7 +20,7 @@ private:
     FileWriter oFile;
     
 public:
-    AmyComsFile();
+    AmyFileClient();
 
     std::string getFilename() {return filename;};
     AmyCommand& getAmyCommand() {return oAmyCommand;};

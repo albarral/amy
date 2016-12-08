@@ -9,8 +9,8 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=amytesting
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/amytesting
+CND_ARTIFACT_NAME_Debug=amytest
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/amytest
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
 CND_PACKAGE_NAME_Debug=amytesting.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/amytesting.tar

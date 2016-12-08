@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/test/ConsoleCommander.o \
 	${OBJECTDIR}/src/amy/test/Interpreter.o \
 	${OBJECTDIR}/src/amy/test/main.o
 
@@ -62,6 +63,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/src/amy/test/ConsoleCommander.o: src/amy/test/ConsoleCommander.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/ConsoleCommander.o src/amy/test/ConsoleCommander.cpp
 
 ${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test

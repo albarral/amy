@@ -63,10 +63,10 @@ public:
     
     // analyzes the textual input
     void checkCommand(std::string input);
-    // checks if given text is a number
-    bool isNumeric(std::string input, int& val);    
+    // checks if this command is valid
+    bool isCommandValid() {return (action != eACT_INVALID);} ;    
     // checks if command is complete
-    bool isComplete() {return bcomplete;};
+    bool isCommandComplete() {return bcomplete;};
 
     int getAction() {return action;};
     float getValue() {return value;};
@@ -79,6 +79,9 @@ public:
     std::vector<std::string> getAmyCommands();
 
 private:    
+    // checks if given text is a number
+    bool isNumeric(std::string input, int& val);    
+
     // checks if entered command is an arm movement
     bool checkArmCommand(std::string input);
     // checks if entered command is a joint movement one 

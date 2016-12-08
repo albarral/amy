@@ -3,43 +3,43 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/AmyComsFile.h"
+#include "amy/coms/AmyFileClient.h"
 
 namespace amy
 {
 
-AmyComsFile::AmyComsFile()
+AmyFileClient::AmyFileClient()
 {    
     filename = "test.txt";
     oFile.open(filename);   // no append mode
 }
 
 
-void AmyComsFile::movePan(float value)
+void AmyFileClient::movePan(float value)
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_PAN, value))
         sendCommand();    
 }
 
-void AmyComsFile::moveTilt(float value)
+void AmyFileClient::moveTilt(float value)
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_TILT, value))
         sendCommand();    
 }
 
-void AmyComsFile::moveRadius(float value)
+void AmyFileClient::moveRadius(float value)
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_RADIUS, value))
         sendCommand();    
 }
 
-void AmyComsFile::endAmy()
+void AmyFileClient::endAmy()
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_END_AMY, AmyCommand::eTAR_PROGRAM))
         sendCommand();        
 }
 
-void AmyComsFile::sendCommand()
+void AmyFileClient::sendCommand()
 {
     if (oFile.open(filename))        
     {

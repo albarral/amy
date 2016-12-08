@@ -13,6 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="test" displayName="test" projectFiles="true">
+        <itemPath>src/amy/test/ConsoleCommander.cpp</itemPath>
+        <itemPath>src/amy/test/ConsoleCommander.h</itemPath>
         <itemPath>src/amy/test/Interpreter.cpp</itemPath>
         <itemPath>src/amy/test/Interpreter.h</itemPath>
         <itemPath>src/amy/test/main.cpp</itemPath>
@@ -28,6 +30,7 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
+      <itemPath>log4cxx_config.xml</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -51,6 +54,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytest</output>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../amy_utils"
@@ -76,9 +80,14 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>log4cxx</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/amy/test/ConsoleCommander.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/test/ConsoleCommander.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/test/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/test/Interpreter.h" ex="false" tool="3" flavor2="0">
@@ -106,6 +115,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/test/ConsoleCommander.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/test/ConsoleCommander.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/test/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/test/Interpreter.h" ex="false" tool="3" flavor2="0">

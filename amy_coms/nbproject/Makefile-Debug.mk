@@ -36,7 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyCommand.o \
-	${OBJECTDIR}/src/amy/coms/AmyComsFile.o
+	${OBJECTDIR}/src/amy/coms/AmyFileClient.o
 
 
 # C Compiler Flags
@@ -70,10 +70,10 @@ ${OBJECTDIR}/src/amy/coms/AmyCommand.o: src/amy/coms/AmyCommand.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyCommand.o src/amy/coms/AmyCommand.cpp
 
-${OBJECTDIR}/src/amy/coms/AmyComsFile.o: src/amy/coms/AmyComsFile.cpp 
+${OBJECTDIR}/src/amy/coms/AmyFileClient.o: src/amy/coms/AmyFileClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsFile.o src/amy/coms/AmyComsFile.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyFileClient.o src/amy/coms/AmyFileClient.cpp
 
 # Subprojects
 .build-subprojects:

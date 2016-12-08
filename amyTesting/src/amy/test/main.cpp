@@ -1,25 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************************
+ *   Copyright (C) 2015 by Migtron Robotics   *
+ *   albarral@migtron.com   *
+ ***************************************************************************/
 
-/* 
- * File:   main.cpp
- * Author: albarral
- *
- * Created on December 6, 2016, 1:16 PM
- */
 
-#include <cstdlib>
+#include <vector>
+#include <string>
+#include <unistd.h> // for sleep() 
 
-using namespace std;
+#include <log4cxx/logger.h>
+#include <log4cxx/xml/domconfigurator.h>
 
-/*
- * 
- */
-int main(int argc, char** argv) {
+#include "amy/test/ConsoleCommander.h"
 
+using namespace amy;
+
+
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.test"));
+
+// main program
+int main(int argc, char** argv) 
+{
+    log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
+        
+    LOG4CXX_INFO(logger, "\n\nLAUNCH amy testing ...\n");    
+        
+    ConsoleCommander oConsoleCommander;
+    oConsoleCommander.on();
+    
+    while (1)
+    {
+        sleep(1);
+    }
+          
     return 0;
 }
-

@@ -24,7 +24,7 @@
 #include "amy/move/ArmMath.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
-#include "amy/coms/AmyComsFile.h"
+#include "amy/coms/AmyFileClient.h"
 
 using namespace log4cxx;
 
@@ -180,7 +180,7 @@ void Tests::testFileWriter()
 
 void Tests::testAmyComs()
 {
-    AmyComsFile oAmyComsFile;
+    AmyFileClient oAmyComsFile;
     
     oAmyComsFile.movePan(50.0);    
     oAmyComsFile.moveTilt(60.0);    
