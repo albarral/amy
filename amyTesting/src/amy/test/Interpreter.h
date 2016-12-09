@@ -34,12 +34,13 @@ public:
     };
 
 private:
+    /*! entry mode */
     enum eMode
     {
          eMODE_TEXTUAL,     // waits for text input
          eMODE_NUMERIC      // waits for numeric input
     };        
-    int mode;               // textual or numeric (eMode)
+    int mode;               // entry mode can be textual or numeric (eMode)
     int action; 
     float value;
     bool bcomplete;       // indicates the command is complete (has action & value)
@@ -89,6 +90,8 @@ private:
     // checks if entered command is an amy process command
     bool checkAmyCommand(std::string input);    
 
+    // changes to the opposite entry mode
+    void toggleMode();
 
 };
 }		

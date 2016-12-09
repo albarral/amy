@@ -20,7 +20,7 @@ Interpreter::Interpreter()
     // arm input commands
     movePan = "pan";
     moveTilt = "tilt";
-    moveRadius ="rad";
+    moveRadius ="radius";
     armStop = "sto";
     // joint input commands
     moveHS = "hs";
@@ -40,21 +40,21 @@ void Interpreter::checkCommand(std::string input)
     if (mode == eMODE_NUMERIC)
     {
         int x;
-        // if numeric input, command complete
+        // if numeric, command is complete
         if (isNumeric(input, x))
         {
             value = (float)x;
             bcomplete = true;            
         }
-        // otherwise, textual command incomplete
+        // if not numeric, toggle mode
         else
         {
-            mode = eMODE_TEXTUAL;
+            toggleMode();
             bcomplete = false;
         }        
     }
     
-    // if textual mode
+    // if textual mode, check command and toggle mode
     if (mode == eMODE_TEXTUAL)
     {
         bool bfound = checkArmCommand(input);
@@ -65,6 +65,8 @@ void Interpreter::checkCommand(std::string input)
         if (!bfound)
             bfound = checkAmyCommand(input);    
 
+        toggleMode();
+        
         // if command not found, invalid
         if (!bfound)
         {
@@ -168,6 +170,13 @@ bool Interpreter::checkAmyCommand(std::string input)
     return bfound;
 }
 
+void Interpreter::toggleMode()
+{
+    if (mode == eMODE_TEXTUAL)
+        mode = eMODE_NUMERIC;
+    else
+        mode = eMODE_TEXTUAL;
+}
     
 std::vector<std::string> Interpreter::getArmCommands()
 {

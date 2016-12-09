@@ -26,6 +26,7 @@ int main(int argc, char** argv)
     LOG4CXX_INFO(logger, "\n\nLAUNCH amy testing ...\n");    
         
     ConsoleCommander oConsoleCommander;
+    oConsoleCommander.setFrequency(5.0);
     oConsoleCommander.on();
     
     while (1)

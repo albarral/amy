@@ -78,16 +78,12 @@ bool ConsoleCommander::listen()
 // send command through the bus
 void ConsoleCommander::sendCommand(int action, float value)
 {
-//  x  eACT_MOVE_PAN,                 /*! move arm pan */    
-//  x  eACT_MOVE_TILT,                /*! move arm tilt */
-//  x  eACT_MOVE_RADIUS,            /*! move arm radius */  
 //    eACT_ARM_STOP,                 /*! stop arm */
 //    eACT_POS_HS,                      /*! move horizontal shoulder */
 //    eACT_POS_VS,                      /*! move vertical shoulder */
 //    eACT_POS_ELB,                      /*! move elbow */
 //    eACT_POS_VWRI,                      /*! move vertical wrist */
 //    eACT_POS_HWRI,                     /*! move horizontal wrist */
-//  x  eACT_AMY_END                       /*! end amy */                    
 
     switch (action)
     {

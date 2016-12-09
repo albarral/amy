@@ -3,6 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <iostream>
 #include "amy/coms/AmyFileClient.h"
 
 namespace amy
@@ -41,6 +42,7 @@ void AmyFileClient::endAmy()
 
 void AmyFileClient::sendCommand()
 {
+    std::cout << "command: " << oAmyCommand.getText() << std::endl;
     if (oFile.open(filename))        
     {
         oFile.goTop();
