@@ -1,5 +1,5 @@
-#ifndef __AMY_COMS_CLIENT_H
-#define __AMY_COMS_CLIENT_H
+#ifndef __AMY_COMS_FILECLIENT_H
+#define __AMY_COMS_FILECLIENT_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *

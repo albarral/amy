@@ -6,12 +6,12 @@
 #include <cstdlib>  // for getenv
 #include <iostream>
 
-#include "amy/coms/AmyFileClient.h"
+#include "amy/server/AmyFileServer.h"
 
 namespace amy
 {
 
-AmyFileClient::AmyFileClient()
+AmyFileServer::AmyFileServer()
 {    
     char* pVar = getenv("HOME");
     
@@ -24,31 +24,31 @@ AmyFileClient::AmyFileClient()
 }
 
 
-void AmyFileClient::movePan(float value)
+void AmyFileServer::movePan(float value)
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_PAN, value))
         sendCommand();    
 }
 
-void AmyFileClient::moveTilt(float value)
+void AmyFileServer::moveTilt(float value)
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_TILT, value))
         sendCommand();    
 }
 
-void AmyFileClient::moveRadius(float value)
+void AmyFileServer::moveRadius(float value)
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_RADIUS, value))
         sendCommand();    
 }
 
-void AmyFileClient::endAmy()
+void AmyFileServer::endAmy()
 {
     if (oAmyCommand.buildCommand(AmyCommand::eACT_END_AMY, AmyCommand::eTAR_PROGRAM))
         sendCommand();        
 }
 
-void AmyFileClient::sendCommand()
+void AmyFileServer::sendCommand()
 {
     std::cout << "command: " << oAmyCommand.getText() << std::endl;
     if (oFile.open(filename))        
