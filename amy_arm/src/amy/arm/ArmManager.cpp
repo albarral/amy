@@ -28,33 +28,22 @@ ArmManager::~ArmManager ()
 }
 
 
-bool ArmManager::launch(ArmBus& oArmBus, Robot& oRobot, int targetArm) 
+bool ArmManager::launch(ArmBus& oArmBus, Arm& oTargetArm) 
 {  
     bool bok = false;
-    log4cxx::NDC::push("ArmManager-" + std::to_string(targetArm));   	
+    log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
+    LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
     
     // get access to arm bus
     pArmBus = &oArmBus;
-    // get target arm to control
-    Arm* pArm = oRobot.getArmByType(targetArm);
-    // target arm not found
-    if (pArm != 0)
+    oArm = oTargetArm;
+    
+    // init modules & start them
+    init();    
+    if (benabled)
     {
-        LOG4CXX_INFO(logger, "Launching for arm type " << targetArm);
-        oArm = *pArm;
-        // init modules & start them
-        init();
-        if (benabled)
-        {
-            startModules();
-            bok = true;
-        }
-    }
-    // target arm not found
-    else
-    {
-        LOG4CXX_WARN(logger, "No arm type " << targetArm << " found for robot. Launch failed.");
-        return false;
+        startModules();
+        bok = true;
     }
     
     return bok;
@@ -83,10 +72,6 @@ void ArmManager::init()
     oMovementControl.setDriverSpeed(60.0);
     initBus(listControlledJoints);
     initModules();
-
-    // TEMP: first soll angles are 0 (should be the ist)
-    for (int i=0; i<AMY_MAX_JOINTS; i++ )
-        listSollAngles.push_back(0);    
    
     benabled = true;    
 }
@@ -321,68 +306,6 @@ void ArmManager::stopLevel(int num)
         oArmExtender.off();
         oArmExtender.wait();
     }
-}
-
-// Writes to bus
-void ArmManager::setIstAngles(std::vector<float>& listAngles)
-{
-    int size = listAngles.size();
-    
-    for (int i=0; i<size; i++)
-    {
-        // write angle in SI_ANGLE
-        JointBus& oJointBus = mapBus2SystemIO(i);
-        oJointBus.getSO_IST_ANGLE().setValue(listAngles.at(i));
-    }            
-}
-
-
-// Reads from bus
-void ArmManager::readSollAngles()
-{        
-    int numJoints = oArmConfig.getNumControlledJoints();       
-    
-    // for each joint, check if the commanded angle has changed & insert it into the soll list
-    for (int i=0; i<numJoints; i++)
-    {      
-        JointBus& oJointBus = mapBus2SystemIO(i);
-        if (oJointBus.getCO_JOINT_ANGLE().checkRequested())
-        {
-            listSollAngles[i] = oJointBus.getCO_JOINT_ANGLE().getValue();
-        }
-    }
-}
-
-JointBus& ArmManager::mapBus2SystemIO(int i)
-{
-    switch (i)
-    {
-        case 0:
-            return pArmBus->getBusHS();
-            break;
-        case 1:
-            return pArmBus->getBusVS();
-            break;
-        case 2:
-            return pArmBus->getBusEL();
-            break;
-        case 3:
-            return pArmBus->getBusVW();
-            break;
-        case 4:
-            return pArmBus->getBusHW();
-            break;
-        // for invalid indexes return the HS           
-        default:
-            return pArmBus->getBusHS();
-            break;
-    }
-    
-}
-
-bool ArmManager::checkEndRequested()
-{
-    return pArmBus->getCO_FINISH_MANAGER().checkRequested();
 }
 
 }

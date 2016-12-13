@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_TESTS_H
-#define __AMY_ARM_TESTS_H
+#ifndef __AMY_MAIN_TESTS_H
+#define __AMY_MAIN_TESTS_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -10,11 +10,12 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
+#include "amy/network/ArmNetwork.h"
 
 namespace amy
 {
 // class used to conduct tests
-class ArmTest
+class Tests
 {
  private:
      static log4cxx::LoggerPtr logger;
@@ -23,11 +24,13 @@ public:
 //    Tests();
 //    ~Tests();
 
-    void testJointMover();
-    void testJointDriver();
-    void testRadialDriver();
-    void testArmMath();
-    void testArmPlanner();
+    void testAmyNetwork2();
+    void testFileReader(std::string name);
+    void testFileWriter();    
+
+private:        
+    void writePos(ArmNetwork& oArmNetwork, int value);
+    void readPos(ArmNetwork& oArmNetwork);
 };
 
 }    

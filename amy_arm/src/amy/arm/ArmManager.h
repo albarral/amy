@@ -19,9 +19,7 @@
 #include "amy/arm/modules/JointControl2.h"
 #include "amy/arm/util/ArmModule.h"
 #include "amy/core/bus/ArmBus.h"
-#include "amy/core/bus/JointBus.h"
 #include "amy/core/bus/MovementControl.h"
-#include "amy/core/robot/Robot.h"
 #include "amy/core/robot/Arm.h"
 
 namespace amy
@@ -47,31 +45,17 @@ class ArmManager
         ArmPanner2 oArmPanner;
         JointControl2 oJointControl2[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
-        // system's IO
-        //std::vector<float> listIstAngles;     // ist (sensed) joint angles
-        std::vector<float> listSollAngles;  // soll (commanded) joint angles
 
     public:
         ArmManager();
         ~ArmManager();
 
        // launches the arm manager to handle the specified robot arm (returns false if something fails)
-       bool launch(ArmBus& oArmBus, Robot& oRobot, int targetArm);
+       bool launch(ArmBus& oArmBus, Arm& oArm);
        // ends the arm manager
        bool end();
 
-       bool isEnabled() {return benabled;};
-                
-        // writes sensed joints positions to bus
-        void setIstAngles (std::vector<float>& listAngles);
-        // reads commanded joints positions from bus
-        void readSollAngles();
-
-        // returns the last read commanded angles for all arm joints (in degrees)
-        std::vector<float>& getSollAngles() {return listSollAngles;};
-        
-        // checks if finish command has been requested from console
-        bool checkEndRequested();
+       bool isEnabled() {return benabled;};                
         
 private:
     // initialize control architecture (organize in levels)
@@ -95,8 +79,6 @@ private:
     void startLevel(int level);        
    // stop the modules of a level
     void stopLevel(int level);        
-    // maps joint buses to IO outputs
-    JointBus& mapBus2SystemIO(int i);
 };
 
 }    
