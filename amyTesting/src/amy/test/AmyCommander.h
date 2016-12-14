@@ -11,14 +11,14 @@
 
 #include "amy/test/Interpreter.h"
 #include <amy/utils/module2.h>
-#include "amy/coms/AmyFileClient.h"
+#include "amy/coms/file/AmyFileClient.h"
 
 namespace amy
 {
 // This module allows direct control of the arm from the command line.
 // The module continuously listens to the command line interpreting user entered commands.
 // Then sends requests to the amy process through a proper amy coms client.
-class ConsoleCommander : public Module2
+class AmyCommander : public Module2
 {
 private:
     static log4cxx::LoggerPtr logger;
@@ -26,10 +26,10 @@ private:
     // logic
     std::string entry;                  // command read from console
     Interpreter oInterpreter;       // interpreter of console commands
-    AmyFileClient oAmyClient;     // amy client   
+    AmyFileClient oAmyFileClient;     // amy client   
 
 public:
-    ConsoleCommander();
+    AmyCommander();
     //~ConsoleCommander();
 
     // module params

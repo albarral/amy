@@ -35,7 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/test/ConsoleCommander.o \
+	${OBJECTDIR}/src/amy/test/AmyCommander.o \
 	${OBJECTDIR}/src/amy/test/Interpreter.o \
 	${OBJECTDIR}/src/amy/test/main.o
 
@@ -68,10 +68,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytest: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytest ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/test/ConsoleCommander.o: src/amy/test/ConsoleCommander.cpp 
+${OBJECTDIR}/src/amy/test/AmyCommander.o: src/amy/test/AmyCommander.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/ConsoleCommander.o src/amy/test/ConsoleCommander.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/AmyCommander.o src/amy/test/AmyCommander.cpp
 
 ${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test

@@ -187,8 +187,11 @@ std::string AmyCommand::describeTarget(int value)
         case eTAR_JOINT_ELBOW:
             desc = "ELB";
             break;
+        case eTAR_JOINT_HWRIST:
+            desc = "HWRIST";
+            break;
         case eTAR_JOINT_VWRIST:
-            desc = "WRIST";
+            desc = "VWRIST";
             break;
         case eTAR_PROGRAM:
             desc = "program";

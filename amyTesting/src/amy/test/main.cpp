@@ -11,7 +11,7 @@
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
-#include "amy/test/ConsoleCommander.h"
+#include "amy/test/AmyCommander.h"
 
 using namespace amy;
 
@@ -25,14 +25,15 @@ int main(int argc, char** argv)
         
     LOG4CXX_INFO(logger, "\n\nLAUNCH amy testing ...\n");    
         
-    ConsoleCommander oConsoleCommander;
-    oConsoleCommander.setFrequency(5.0);
-    oConsoleCommander.on();
+    AmyCommander oAmyCommander;
+    oAmyCommander.setFrequency(5.0);
+    oAmyCommander.on();
     
-    while (1)
+    while (oAmyCommander.isOn())
     {
         sleep(1);
     }
           
+    oAmyCommander.wait();
     return 0;
 }

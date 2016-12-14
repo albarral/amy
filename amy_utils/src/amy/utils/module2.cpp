@@ -20,7 +20,8 @@ Module2::Module2 ()
 void Module2::on()
 {
     if (getState() == Module2::state_OFF)
-    {
+    {      
+      setState(Module2::state_ON);
       t = std::thread(&Module2::run, this);              
     }           
 }
@@ -33,6 +34,11 @@ void Module2::off()
 void Module2::wait()
 {
     t.join();
+}
+
+bool Module2::isOn()
+{
+    return (getState() != Module2::state_OFF);        
 }
 
 void Module2::setFrequency(float cps)

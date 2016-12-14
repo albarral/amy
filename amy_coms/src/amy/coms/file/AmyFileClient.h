@@ -7,33 +7,25 @@
  ***************************************************************************/
 
 #include <string>
-#include "amy/coms/AmyCommand.h"
+#include "amy/coms/AmyClient.h"
 #include "amy/utils/FileWriter.h"
 
 namespace amy
 {
-class AmyFileClient
+class AmyFileClient : public AmyClient
 {    
 private:
     std::string filename;
-    AmyCommand oAmyCommand;
     FileWriter oFile;
     
 public:
     AmyFileClient();
 
     std::string getFilename() {return filename;};
-    AmyCommand& getAmyCommand() {return oAmyCommand;};
-    
-    void movePan(float value);
-    void moveTilt(float value);
-    void moveRadius(float value);
-    
-    void endAmy();
-    
+        
 private:
     // send textual command
-    void sendCommand();
+    virtual void sendCommand();
 };
 }
 #endif

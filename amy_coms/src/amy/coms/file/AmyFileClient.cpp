@@ -6,7 +6,7 @@
 #include <cstdlib>  // for getenv
 #include <iostream>
 
-#include "amy/coms/AmyFileClient.h"
+#include "amy/coms/file/AmyFileClient.h"
 
 namespace amy
 {
@@ -21,31 +21,6 @@ AmyFileClient::AmyFileClient()
         filename = home + "/coms/amy_in.txt";
         oFile.open(filename);   // no append mode
     }
-}
-
-
-void AmyFileClient::movePan(float value)
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_PAN, value))
-        sendCommand();    
-}
-
-void AmyFileClient::moveTilt(float value)
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_TILT, value))
-        sendCommand();    
-}
-
-void AmyFileClient::moveRadius(float value)
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_RADIUS, value))
-        sendCommand();    
-}
-
-void AmyFileClient::endAmy()
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_END_AMY, AmyCommand::eTAR_PROGRAM))
-        sendCommand();        
 }
 
 void AmyFileClient::sendCommand()

@@ -41,6 +41,7 @@ public:
          eTAR_JOINT_HSHOULDER,          /*! horizontal shoulder */
          eTAR_JOINT_VSHOULDER,          /*! vertical shoulder */
          eTAR_JOINT_ELBOW,                 /*! elbow */
+         eTAR_JOINT_HWRIST,                 /*! horizontal wrist */
          eTAR_JOINT_VWRIST,                 /*! vertical wrist */
          // END AMY options
          eTAR_PROGRAM,
