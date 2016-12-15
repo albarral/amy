@@ -19,17 +19,22 @@ AmyFileClient::AmyFileClient()
     {
         std::string home(pVar);
         filename = home + "/coms/amy_in.txt";
-        oFile.open(filename);   // no append mode
+        oFileWriter.open(filename);   // no append mode
     }
+}
+
+AmyFileClient::~AmyFileClient()
+{
+    oFileWriter.close();    
 }
 
 void AmyFileClient::sendCommand()
 {
     std::cout << "command: " << oAmyCommand.getText() << std::endl;
-    if (oFile.open(filename))        
+    if (oFileWriter.isOpen())        
     {
-        oFile.goTop();
-        oFile.writeFlush(oAmyCommand.getText());
+        oFileWriter.goTop();
+        oFileWriter.writeFlush(oAmyCommand.getText());
     }
 }
 

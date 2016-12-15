@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/server/AmyFileServer.o
+	${OBJECTDIR}/src/amy/server/AmyServer.o \
+	${OBJECTDIR}/src/amy/server/file/AmyFileServer.o
 
 
 # C Compiler Flags
@@ -68,10 +69,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_server.${CND_DLIB_EXT}: ${OBJE
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_server.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/server/AmyFileServer.o: src/amy/server/AmyFileServer.cpp 
+${OBJECTDIR}/src/amy/server/AmyServer.o: src/amy/server/AmyServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/server
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_core/src -I../amy_coms/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/server/AmyFileServer.o src/amy/server/AmyFileServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_core/src -I../amy_coms/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/server/AmyServer.o src/amy/server/AmyServer.cpp
+
+${OBJECTDIR}/src/amy/server/file/AmyFileServer.o: src/amy/server/file/AmyFileServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/server/file
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_core/src -I../amy_coms/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/server/file/AmyFileServer.o src/amy/server/file/AmyFileServer.cpp
 
 # Subprojects
 .build-subprojects:

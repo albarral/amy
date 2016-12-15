@@ -25,6 +25,7 @@ ArmManager::ArmManager ()
 // Destructor
 ArmManager::~ArmManager ()
 {
+    listModules.clear();
 }
 
 

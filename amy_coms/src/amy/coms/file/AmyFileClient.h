@@ -16,10 +16,11 @@ class AmyFileClient : public AmyClient
 {    
 private:
     std::string filename;
-    FileWriter oFile;
+    FileWriter oFileWriter;
     
 public:
     AmyFileClient();
+    ~AmyFileClient();
 
     std::string getFilename() {return filename;};
         
