@@ -35,6 +35,9 @@ bool AmyControl::launch(Robot& oRobot)
     {
         Arm& oArm = oRobot.getListArms().at(0);
         
+        // init bus
+        oArmBus.init(oArm);
+        
         // launch arm manager
         bok = oArmManager.launch(oArmBus, oArm);
     }

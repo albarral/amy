@@ -34,9 +34,9 @@ public:
    bool isConnected() {return bconnected;};
    
 protected:
-    void movePan(float value);
-    void moveTilt(float value);
-    void moveRadius(float value);    
+    void movePan(int value);
+    void moveTilt(int value);
+    void moveRadius(int value);    
     
     void setPosHS(float value);
     void setPosVS(float value);

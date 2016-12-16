@@ -17,7 +17,7 @@ LoggerPtr ArmManager::logger(Logger::getLogger("amy.arm"));
 // Constructor
 ArmManager::ArmManager ()
 {    
-    benabled = false;
+    blaunched = false;
     level = -1;
     maxLevel = 3;
 }
@@ -31,50 +31,48 @@ ArmManager::~ArmManager ()
 
 bool ArmManager::launch(ArmBus& oArmBus, Arm& oTargetArm) 
 {  
-    bool bok = false;
-    log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
-    LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
-    
-    // get access to arm bus
-    pArmBus = &oArmBus;
-    oArm = oTargetArm;
-    
-    // init modules & start them
-    init();    
-    if (benabled)
+    // launch it if not launched yet and bus enabled
+    if (!blaunched && oArmBus.isEnabled())
     {
+        log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
+        LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
+
+        // get access to arm bus
+        pArmBus = &oArmBus;
+        oArm = oTargetArm;
+
+        // init modules & start them
+        LOG4CXX_INFO(logger, "max level: " << maxLevel);
+        // organize control architecture in levels
+        initArchitecture();
+        showArchitecture();
+
+        // set params for movement
+        oMovementControl.setKaccelDriver(4.0);
+        oMovementControl.setKspeedDriver(2.0);
+        oMovementControl.setDriverTolerance(0.05);
+        oMovementControl.setDriverSpeed(60.0);
+        initModules();
         startModules();
-        bok = true;
+
+        blaunched = true;    
+    }
+    // report problems
+    else
+    {
+        if (blaunched)
+            LOG4CXX_ERROR(logger, "Can't launch ArmManager: already launched!");
+        
+        if (!oArmBus.isEnabled())
+            LOG4CXX_ERROR(logger, "Can't launch ArmManager: arm bus not enabled!");                    
     }
     
-    return bok;
+    return blaunched;
 }
 
 bool ArmManager::end()
 {
     stopModules();
-}
-
-void ArmManager::init()
-{        
-    LOG4CXX_INFO(logger, "INITIALIZING ... (max level " << maxLevel << ")");
-
-    // organize control architecture in levels
-    initArchitecture();
-    showArchitecture();
-    
-    // obtain (from config file) the list of joints to be controlled 
-    std::vector<std::string>& listControlledJoints = oArmConfig.getListControlledJoints();
-
-    // set params for movement
-    oMovementControl.setKaccelDriver(4.0);
-    oMovementControl.setKspeedDriver(2.0);
-    oMovementControl.setDriverTolerance(0.05);
-    oMovementControl.setDriverSpeed(60.0);
-    initBus(listControlledJoints);
-    initModules();
-   
-    benabled = true;    
 }
 
 void ArmManager::initArchitecture()
@@ -133,27 +131,6 @@ void ArmManager::showArchitecture()
     }        
 }
 
-void ArmManager::initBus(std::vector<std::string>& listJointNames)
-{
-    LOG4CXX_INFO(logger, ">> INIT Bus ...");
-    
-    // setup connections for each joint
-    int numJoints = listJointNames.size();
-    for (int i=0; i<numJoints; i++)
-    {        
-        std::string jointName = listJointNames.at(i);        
-        LOG4CXX_INFO(logger, jointName);
-        
-        if (pArmBus->addJointBus(jointName) == false)
-        {
-            LOG4CXX_ERROR(logger, "Error adding bus connection for joint " << jointName);
-            return;
-        }
-    }
-    
-    //LOG4CXX_INFO(logger, pArmBus->toString());
-}
-
 void ArmManager::initModules()
 {    
     LOG4CXX_INFO(logger, "INIT MODULES ...");
@@ -170,7 +147,7 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "STARTING MODULES ...");
 
-    if (!benabled)
+    if (!blaunched)
         return;
     
     level = -1;
@@ -187,7 +164,7 @@ void ArmManager::stopModules()
 {    
     LOG4CXX_INFO(logger, "STOPPING MODULES ...");
 
-    if (!benabled)
+    if (!blaunched)
         return;
 
     for (int i=level; i>=0; i--)

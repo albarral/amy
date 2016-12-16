@@ -31,7 +31,7 @@ class ArmManager
 {
     private:
         static log4cxx::LoggerPtr logger;
-        bool benabled;
+        bool blaunched;     // indicates when the manager has been launched
         ArmConfig oArmConfig;
         Arm oArm;       // controlled arm
         ArmBus* pArmBus;        // access to arm bus
@@ -54,8 +54,7 @@ class ArmManager
        bool launch(ArmBus& oArmBus, Arm& oArm);
        // ends the arm manager
        bool end();
-
-       bool isEnabled() {return benabled;};                
+       bool isLaunched() {return blaunched;};                
         
 private:
     // initialize control architecture (organize in levels)
@@ -63,15 +62,13 @@ private:
     // show description of control architecture
     void showArchitecture();
 
-    // initializes bus and modules
-    void init();        
+    // initialize modules
+    void initModules();
     // starts the task's modules 
     void startModules();        
     // stops the tasks' modules
     void stopModules();        
     
-    void initBus(std::vector<std::string>& listJointNames);
-    void initModules();
     
    // init the modules of a level
     void initLevel(int level);        

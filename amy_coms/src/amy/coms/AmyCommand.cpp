@@ -33,8 +33,9 @@ bool AmyCommand::buildCommand(int action, int target, float value)
         this->action = action;
         this->target = target;
         this->value = value;
-//        text = std::to_string(action) + separator + std::to_string(target) + separator + std::to_string(value);
-        text = describeAction(action) + separator + describeTarget(target) + separator + std::to_string(value);
+        // the command is composed by 3 numbers separated by the "*" character
+        text = std::to_string(action) + separator + std::to_string(target) + separator + std::to_string(value);
+//        text = describeAction(action) + separator + describeTarget(target) + separator + std::to_string(value);
     }
     
     return bvalid;

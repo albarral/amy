@@ -22,15 +22,12 @@ class JointBus
         std::string jointName;
 
         // CONTROLS 
-        //
         ControlT<float> CO_JCONTROL_ACCEL;    // >> JointControl: commanded acceleration (degrees/s2)
-        //
         ControlT<float> CO_JOINT_ANGLE;         // >> arm: commanded joint angle (degrees)
 
         // SENSORS 
         SensorT<float> SO_JCONTROL_SPEED;               //  JointControl >> internally commanded speed (degrees/s)
         SensorT<int> SO_JCONTROL_LIMIT_REACHED;     //  JointControl >> range limit reached: 0, 1 (top limit), -1 (bottom limit)
-        //
         SensorT<float> SO_IST_ANGLE;            // real arm >> real joint angle (degrees)
         
     public:

@@ -10,6 +10,7 @@
 
 #include "amy/core/bus/JointBus.h"
 #include "amy/core/brooks/control.h"
+#include "amy/core/robot/Arm.h"
 
 namespace amy
 {
@@ -45,10 +46,10 @@ class ArmBus
         
     public:
         ArmBus();
-        //~Connections();
-
-        // initializes a JointBus object for the given joint name. Returns true if ok, false otherwise.
-        bool addJointBus(std::string jointName);
+        //~ArmBus();
+        
+        void init(Arm& oArm);
+        
         int getNumJoints() {return numJoints;};
         bool isEnabled() {return benabled;};
         
@@ -76,6 +77,10 @@ class ArmBus
         JointBus& getJointBus(std::string jointName);    
         
         std::string toString();
+
+private:
+        // initializes a JointBus object for the given joint name. Returns true if ok, false otherwise.
+        bool addJointBus(std::string jointName);
 };
 
 }    

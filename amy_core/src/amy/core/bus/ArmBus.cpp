@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/core/robot/Arm.h"
+#include "amy/core/robot/Joint.h"
 
 namespace amy
 {
@@ -13,47 +13,59 @@ ArmBus::ArmBus ()
 {    
     benabled = false;
     numJoints = 0;
-    armName = "arm1";
+    armName = "none";
+}
+
+void ArmBus::init(Arm& oArm)
+{
+    numJoints = 0;
+    armName = oArm.getName();
+         
+    // setup connections for each arm's joint
+    std::vector<Joint>& listJoints = oArm.getListJoints();
+    for (Joint& oJoint : listJoints)
+    {        
+        if (addJointBus(oJoint.getName()))
+            numJoints++;
+    }    
+    
+    // arm enabled if joints added
+    if (numJoints>0)
+        benabled = true;
 }
 
 bool ArmBus::addJointBus(std::string jointName)
 {  
-    JointBus* pBusJoint = 0;
+    JointBus* pJointBus = 0;
     
     if (jointName.compare(Arm::horizontal_shoulder) == 0)
     {
-        pBusJoint = &oBusHS;
+        pJointBus = &oBusHS;
     }
     else if (jointName.compare(Arm::vertical_shoulder) == 0)
     {
-        pBusJoint = &oBusVS;
+        pJointBus = &oBusVS;
     }
     else if (jointName.compare(Arm::elbow) == 0)
     {
-        pBusJoint = &oBusEL;
+        pJointBus = &oBusEL;
     }
     else if (jointName.compare(Arm::vertical_wrist) == 0)
     {
-        pBusJoint = &oBusVW;
+        pJointBus = &oBusVW;
     }
     else if (jointName.compare(Arm::horizontal_wrist) == 0)
     {
-        pBusJoint = &oBusHW;
+        pJointBus = &oBusHW;
     }
 
-    if (pBusJoint != 0)
+    // if valid joint, init joint bus
+    if (pJointBus != 0)
     {
-        // ignore if joint already used
-        if (pBusJoint->isEnabled())
-            return false;
-        
-        pBusJoint->init(jointName);
-        numJoints++;     
-        // arm enabled
-        benabled = true;    
+        pJointBus->init(jointName);
         return true;                
     }
-    // inexistent joint
+    // else skip
     else
         return false;
 }

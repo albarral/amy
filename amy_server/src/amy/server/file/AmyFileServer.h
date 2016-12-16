@@ -41,6 +41,12 @@ public:
     // transforms requests into transferred control signals to amy bus
     void processCommand();
     
+private:
+    // process command target to the arm
+    void processArmCommand();
+    // process command target to the arm
+    void processJointCommand();
+    
 };
 }
 #endif
