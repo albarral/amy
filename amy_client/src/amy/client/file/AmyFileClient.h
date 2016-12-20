@@ -1,5 +1,5 @@
-#ifndef __AMY_COMS_FILECLIENT_H
-#define __AMY_COMS_FILECLIENT_H
+#ifndef __AMY_CLIENT_FILECLIENT_H
+#define __AMY_CLIENT_FILECLIENT_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -7,7 +7,9 @@
  ***************************************************************************/
 
 #include <string>
-#include "amy/coms/AmyClient.h"
+#include <log4cxx/logger.h>
+
+#include "amy/client/AmyClient.h"
 #include "amy/utils/FileWriter.h"
 
 namespace amy
@@ -15,6 +17,7 @@ namespace amy
 class AmyFileClient : public AmyClient
 {    
 private:
+    static log4cxx::LoggerPtr logger;    
     std::string filename;
     FileWriter oFileWriter;
     

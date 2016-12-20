@@ -4,11 +4,10 @@
  ***************************************************************************/
 
 #include <string>
-#include <cstdlib>  // for getenv
 #include <iostream>
 
 #include "amy/server/file/AmyFileServer.h"
-
+#include "amy/coms/AmyComsConfig.h"
 
 namespace amy
 {
@@ -16,37 +15,45 @@ log4cxx::LoggerPtr AmyFileServer::logger(log4cxx::Logger::getLogger("amy.server"
 
 AmyFileServer::AmyFileServer()
 {    
-    char* pVar = getenv("HOME");
-    
-    if (pVar!=NULL)
+    // get coms file name
+    AmyComsConfig oAmyComsConfig;    
+    filename = oAmyComsConfig.getComsFilename();
+    // open coms file for reading & writing
+    if (!filename.empty())
     {
-        std::string home(pVar);
-        filename = home + "/coms/amy_in.txt";
         oFileReader.open(filename);   
+        oFileWriter.open(filename);   
     }
 }
 
 AmyFileServer::~AmyFileServer()
 {
-    oFileReader.close();    
+    oFileReader.close();
+    oFileWriter.close();    
 }
 
 bool AmyFileServer::readCommand()
 {
     bool brequest = false;  // default no request received
-    
+
     if (oFileReader.isOpen())        
     {
-        // read file
+        // read file from top
+        oFileReader.readFromTop();
+        //LOG4CXX_INFO(logger, "AmyFileServer: read pos " << oFileReader.getPos());
         std::string text = oFileReader.readLine();
+        
+        // and clear it
+        oFileWriter.writeFromTop();
+        oFileWriter.writeFlush("\n");
 
         // if request received, interpret it
         if (!text.empty())
         {
             brequest = true;
             bvalid = oAmyCommand.interpret(text);
-            LOG4CXX_INFO(logger, "AmyFileServer: received command " << oAmyCommand.getDescription());
-        }
+            LOG4CXX_INFO(logger, "AmyFileServer: command = " << oAmyCommand.getDescription());
+        }        
     }
     else
     {

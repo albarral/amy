@@ -11,11 +11,12 @@
 
 namespace amy 
 {
+// Base class used for file handling
 class File
 {
 protected:
-    std::fstream file;     
     std::string filename;
+    std::fstream file;     
 
 public:
     File();

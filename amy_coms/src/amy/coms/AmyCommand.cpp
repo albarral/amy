@@ -3,7 +3,9 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <stdexcept>      // std::invalid_argument
 #include <vector>
+
 #include "amy/coms/AmyCommand.h"
 
 namespace amy
@@ -60,36 +62,44 @@ bool AmyCommand::interpret(std::string text)
          // if found, get token
         if (pos != std::string::npos)
             listTokens.push_back(text.substr(orig, pos-orig));
-        // otherwise, get last token
+        // otherwise, get the last token
         else
         {
-            listTokens.push_back(text.substr(orig, pos-orig));
+            listTokens.push_back(text.substr(orig));
             bdone = true; 
         }
         
         orig = pos+1;
     }
+      
+    try
+    {
+        // first token has the action
+        action = std::stoi(listTokens.at(0));
+        if (action <= eACT_UNDEFINED || action >= eACT_DIM)
+        {
+            action = eACT_UNDEFINED;
+            bvalid = false;
+        }
 
-    // fist token has the action
-    action = std::stoi(listTokens.at(0));
-    if (action <= eACT_UNDEFINED || action >= eACT_DIM)
-    {
-        action = eACT_UNDEFINED;
-        bvalid = false;
+        // second token has the target
+        target = std::stoi(listTokens.at(1));
+        if (target <= eTAR_UNDEFINED || target >= eTAR_DIM)
+        {
+            target = eTAR_UNDEFINED;
+            bvalid = false;
+        }
+
+        // third token has the value
+        if (listTokens.size() > 2)
+        {
+            value = std::stof(listTokens.at(2));
+        }
     }
-    
-    // second token has the target
-    target = std::stoi(listTokens.at(1));
-    if (target <= eTAR_UNDEFINED || target >= eTAR_DIM)
+    catch (std::invalid_argument) 
     {
-        target = eTAR_UNDEFINED;
-        bvalid = false;
-    }
-    
-    // third token has the value
-    if (listTokens.size() > 2)
-    {
-        value = std::stof(listTokens.at(2));
+        // if any token is not numeric the command is invalid
+        bvalid = false;        
     }
                 
     return bvalid;

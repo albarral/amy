@@ -6,14 +6,16 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/coms/iAmyComs.h"
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/bus/JointBus.h"
 
 namespace amy
 {
 // Base class used to serve requests from external processes to the amy control.
+// Implements the iAmyComs interface.
 // Attended requests are transformed into proper control signals transmitted through the amy's bus.    
-class AmyServer
+class AmyServer : public iAmyComs
 {    
 protected:
     // bus
@@ -33,18 +35,17 @@ public:
    void connect(ArmBus* pArmBus);
    bool isConnected() {return bconnected;};
    
-protected:
-    void movePan(int value);
-    void moveTilt(int value);
-    void moveRadius(int value);    
+    virtual void movePan(float value);
+    virtual void moveTilt(float value);
+    virtual void moveRadius(float value);
     
-    void setPosHS(float value);
-    void setPosVS(float value);
-    void setPosELB(float value);
-    void setPosHW(float value);
-    void setPosVW(float value);
+    virtual void setPosHS(float value);
+    virtual void setPosVS(float value);
+    virtual void setPosELB(float value);
+    virtual void setPosHW(float value);
+    virtual void setPosVW(float value);
     
-    void endAmy();
+    virtual void endAmy();
 };
 }
 #endif

@@ -51,7 +51,6 @@ void Tests::testAmyServer()
             if (oAmyFileServer.isValid())
             {
                 oAmyFileServer.processCommand();
-                LOG4CXX_WARN(logger, "no command");                                      
             }
             else
                 LOG4CXX_WARN(logger, "invalid command");                                      

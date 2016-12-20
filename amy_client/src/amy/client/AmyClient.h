@@ -1,5 +1,5 @@
-#ifndef __AMY_COMS_AMYCLIENT_H
-#define __AMY_COMS_AMYCLIENT_H
+#ifndef __AMY_CLIENT_AMYCLIENT_H
+#define __AMY_CLIENT_AMYCLIENT_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -7,14 +7,16 @@
  ***************************************************************************/
 
 #include <string>
+#include "amy/coms/iAmyComs.h"
 #include "amy/coms/AmyCommand.h"
 
 namespace amy
 {
 // Base class used to transmit requests to the amy control process.
+// Implements the iAmyComs interface. 
 // Method to implement by derived classes:
 // - sendCommand()    
-class AmyClient
+class AmyClient : public iAmyComs
 {    
 protected:
     AmyCommand oAmyCommand; // command structure to be sent
@@ -24,17 +26,17 @@ public:
 
     AmyCommand& getAmyCommand() {return oAmyCommand;};
     
-    void movePan(float value);
-    void moveTilt(float value);
-    void moveRadius(float value);
+    virtual void movePan(float value);
+    virtual void moveTilt(float value);
+    virtual void moveRadius(float value);
 
-    void setPosHS(float value);
-    void setPosVS(float value);
-    void setPosELB(float value);
-    void setPosHW(float value);
-    void setPosVW(float value);
+    virtual void setPosHS(float value);
+    virtual void setPosVS(float value);
+    virtual void setPosELB(float value);
+    virtual void setPosHW(float value);
+    virtual void setPosVW(float value);
     
-    void endAmy();
+    virtual void endAmy();
     
 protected:
     // send command

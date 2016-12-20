@@ -11,7 +11,7 @@
 
 #include "amy/test/Interpreter.h"
 #include <amy/utils/module2.h>
-#include "amy/coms/file/AmyFileClient.h"
+#include "amy/client/file/AmyFileClient.h"
 
 namespace amy
 {

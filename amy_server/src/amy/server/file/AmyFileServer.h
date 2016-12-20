@@ -11,6 +11,7 @@
 #include "amy/server/AmyServer.h"
 #include "amy/coms/AmyCommand.h"
 #include "amy/utils/FileReader.h"
+#include "amy/utils/FileWriter.h"
 
 namespace amy
 {
@@ -21,7 +22,8 @@ class AmyFileServer : public AmyServer
 private:
     static log4cxx::LoggerPtr logger;
     std::string filename;       // name of file used for coms
-    FileReader oFileReader;           // file reader
+    FileReader oFileReader;     // file reader
+    FileWriter oFileWriter;        // file writer
     AmyCommand oAmyCommand;     // class used to interpret the request
     bool bvalid;        // indication of valid request
     //int result;         // response sent back to client

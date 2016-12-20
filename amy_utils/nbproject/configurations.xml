@@ -15,15 +15,6 @@
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="amy" displayName="amy" projectFiles="true">
           <logicalFolder name="utils" displayName="utils" projectFiles="true">
-            <logicalFolder name="brooks" displayName="brooks" projectFiles="true">
-              <itemPath>src/amy/utils/brooks/control.cpp</itemPath>
-              <itemPath>src/amy/utils/brooks/control.h</itemPath>
-              <itemPath>src/amy/utils/brooks/controlT.h</itemPath>
-              <itemPath>src/amy/utils/brooks/inhibition.cpp</itemPath>
-              <itemPath>src/amy/utils/brooks/inhibition.h</itemPath>
-              <itemPath>src/amy/utils/brooks/sensor.h</itemPath>
-              <itemPath>src/amy/utils/brooks/sensorT.h</itemPath>
-            </logicalFolder>
             <itemPath>src/amy/utils/Click.cpp</itemPath>
             <itemPath>src/amy/utils/Click.h</itemPath>
             <itemPath>src/amy/utils/Console.cpp</itemPath>
@@ -101,23 +92,6 @@
       </item>
       <item path="src/amy/utils/Record.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/utils/brooks/control.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/control.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/controlT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/inhibition.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/inhibition.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/sensor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/utils/module.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/module.h" ex="false" tool="3" flavor2="0">
@@ -174,23 +148,6 @@
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/control.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/control.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/controlT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/inhibition.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/inhibition.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/sensor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/module.cpp" ex="false" tool="1" flavor2="0">
       </item>

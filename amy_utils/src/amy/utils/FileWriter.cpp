@@ -11,7 +11,7 @@ FileWriter::FileWriter()
 {
     bappend = false;    // not append by default
 }
-        
+
 bool FileWriter::open(std::string name)
 {
     bool bok = false;
@@ -20,8 +20,8 @@ bool FileWriter::open(std::string name)
     {        
         if (bappend)
             file.open(name, std::fstream::out | std::fstream::app);
-        else 
-            file.open(name, std::fstream::out);            
+        else
+            file.open(name, std::fstream::out);
         
         if (file.is_open())
         {
@@ -34,7 +34,7 @@ bool FileWriter::open(std::string name)
 
     return bok;
 }
-    
+
 void FileWriter::writeLine(std::string line)
 {
     file << line;
@@ -46,7 +46,7 @@ void FileWriter::writeFlush(std::string line)
     file.flush();
 }
 
-void FileWriter::goTop()
+void FileWriter::writeFromTop()
 {
     file.seekp(0, std::fstream::beg);
 }

@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/AmyClient.h"
+#include "amy/client/AmyClient.h"
 
 namespace amy
 {

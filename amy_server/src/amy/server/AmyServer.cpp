@@ -36,22 +36,25 @@ void AmyServer::connect(ArmBus* pArmBus)
 //    LOG4CXX_DEBUG(logger, "AmyServer connected to bus");      
 }
 
-void AmyServer::movePan(int value)
+void AmyServer::movePan(float value)
 {    
+    int val = value; // transform to int
     if (bconnected)
-        pArmBus->getCO_ARM_PAN().request(value);            
+        pArmBus->getCO_ARM_PAN().request(val);            
 }
 
-void AmyServer::moveTilt(int value)
+void AmyServer::moveTilt(float value)
 {
+    int val = value; // transform to int
     if (bconnected)
-        pArmBus->getCO_ARM_TILT().request(value);            
+        pArmBus->getCO_ARM_TILT().request(val);            
 }
 
-void AmyServer::moveRadius(int value)
+void AmyServer::moveRadius(float value)
 {
+    int val = value; // transform to int
     if (bconnected)
-        pArmBus->getCO_ARM_RADIUS().request(value);            
+        pArmBus->getCO_ARM_RADIUS().request(val);            
 }
 
 void AmyServer::setPosHS(float value)

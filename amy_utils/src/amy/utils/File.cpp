@@ -11,7 +11,7 @@ File::File()
 {
     filename = "";    
 }
-    
+
 bool File::isOpen()
 {
     return (file.is_open());
