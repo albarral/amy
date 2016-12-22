@@ -40,6 +40,8 @@ bool AmyControl::launch(Robot& oRobot)
         
         // launch arm manager
         bok = oArmManager.launch(oArmBus, oArm);
+        oAmyListener.connect(&oArmBus);
+        oAmyListener.on();
     }
     else
     {
@@ -53,6 +55,8 @@ bool AmyControl::launch(Robot& oRobot)
 bool AmyControl::end()
 {
     oArmManager.end();
+    oAmyListener.off();
+    oAmyListener.wait();    
 }
 
 bool AmyControl::checkEndRequested()

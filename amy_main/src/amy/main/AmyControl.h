@@ -11,7 +11,7 @@
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/ArmManager.h"
-//#include "amy/arm/ArmTest.h"
+#include "amy/main/AmyListener.h"
 //#include "amy/main/ArmComsOut.h"
 
 namespace amy
@@ -24,8 +24,8 @@ class AmyControl
         static log4cxx::LoggerPtr logger;
         ArmBus oArmBus;
         ArmManager oArmManager;
+        AmyListener oAmyListener;
         //ArmComsOut oArmComsOut;   // communications module for sending outputs to network
-        //AmyServer oAmyServer;
 
     public:
         AmyControl();

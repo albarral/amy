@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/main/AmyControl.o \
+	${OBJECTDIR}/src/amy/main/AmyListener.o \
 	${OBJECTDIR}/src/amy/main/Tests.o \
 	${OBJECTDIR}/src/amy/main/main.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmUR5.o \
@@ -83,6 +84,11 @@ ${OBJECTDIR}/src/amy/main/AmyControl.o: src/amy/main/AmyControl.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_server/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyControl.o src/amy/main/AmyControl.cpp
+
+${OBJECTDIR}/src/amy/main/AmyListener.o: src/amy/main/AmyListener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/main
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_server/src -I../amy_network/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyListener.o src/amy/main/AmyListener.cpp
 
 ${OBJECTDIR}/src/amy/main/Tests.o: src/amy/main/Tests.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
