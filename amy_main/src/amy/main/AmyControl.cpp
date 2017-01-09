@@ -39,7 +39,7 @@ bool AmyControl::launch(Robot& oRobot)
         oArmBus.init(oArm);
         
         // launch arm manager
-        bok = oArmManager.launch(oArmBus, oArm);
+        bok = oArmManager.launch(oAmyConfig, oArmBus, oArm);
         oAmyListener.connect(&oArmBus);
         oAmyListener.on();
     }

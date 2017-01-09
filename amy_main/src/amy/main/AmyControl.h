@@ -8,6 +8,7 @@
 
 #include <log4cxx/logger.h>
 
+#include "amy/core/config/AmyConfig.h"
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/ArmManager.h"
@@ -22,6 +23,7 @@ class AmyControl
 {
     private:
         static log4cxx::LoggerPtr logger;
+        AmyConfig oAmyConfig;
         ArmBus oArmBus;
         ArmManager oArmManager;
         AmyListener oAmyListener;

@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/ArmManager.o \
 	${OBJECTDIR}/src/amy/arm/ArmTest.o \
-	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/data/MoveStep.o \
 	${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o \
 	${OBJECTDIR}/src/amy/arm/data/Movement.o \
@@ -91,11 +90,6 @@ ${OBJECTDIR}/src/amy/arm/ArmTest.o: src/amy/arm/ArmTest.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmTest.o src/amy/arm/ArmTest.cpp
-
-${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/MoveStep.o: src/amy/arm/data/MoveStep.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data

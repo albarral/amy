@@ -25,12 +25,12 @@ ArmPanner2::ArmPanner2()
 void ArmPanner2::prepareDriver()
 {
     // update movement params
-    if (pMovementControl != 0)
+    if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());        
+        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());        
     }        
 }
 
@@ -43,12 +43,12 @@ void ArmPanner2::connectDriver()
 void ArmPanner2::prepareMove()
 {
     // update movement params
-    if (pMovementControl != 0)
+    if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());        
+        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());        
     }
         
     // set new target

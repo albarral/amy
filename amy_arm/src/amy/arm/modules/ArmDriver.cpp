@@ -21,7 +21,7 @@ ArmDriver::ArmDriver()
     
     bconnected = false;
     pBus = 0;
-    pMovementControl = 0;
+    pJointControlConfig = 0;
     pArm = 0;        
 }
 
@@ -29,16 +29,16 @@ ArmDriver::ArmDriver()
 //{
 //}
 
-void ArmDriver::init(Arm& oArm, MovementControl& oMovementControl)
+void ArmDriver::init(Arm& oArm, JointControlConfig& oJointControlConfig)
 {
-    pMovementControl = &oMovementControl;      
+    pJointControlConfig = &oJointControlConfig;      
     pArm = &oArm;
     // set specific preparation (in derived class)
     prepareDriver();
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");                  
-    LOG4CXX_INFO(logger, oMovementControl.toString());      
+    LOG4CXX_INFO(logger, oJointControlConfig.toString());      
 };
 
 void ArmDriver::connect(ArmBus* pArmBus)

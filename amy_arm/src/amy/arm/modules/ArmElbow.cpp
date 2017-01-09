@@ -25,12 +25,12 @@ ArmElbow::ArmElbow()
 void ArmElbow::prepareDriver()
 {
     // update movement params
-    if (pMovementControl != 0)
+    if (pJointControlConfig != 0)
     {
-        oRadialDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());        
+        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());        
     }        
     
     oRadialDriver.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
@@ -45,12 +45,12 @@ void ArmElbow::connectDriver()
 void ArmElbow::prepareMove()
 {
     // update movement params
-    if (pMovementControl != 0)
+    if (pJointControlConfig != 0)
     {
-        oRadialDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());        
+        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());        
     }
         
     // set new target

@@ -27,17 +27,17 @@ ArmExtender::ArmExtender()
 void ArmExtender::prepareDriver()
 {
     // update movement params
-    if (pMovementControl != 0)
+    if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());   
+        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());   
 
-        oRadialDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());                   
+        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());                   
     }        
     
     oRadialDriver.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
@@ -56,17 +56,17 @@ void ArmExtender::connectDriver()
 void ArmExtender::prepareMove()
 {
     // update movement params
-    if (pMovementControl != 0)
+    if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pMovementControl->getKaccelDriver(),
-                       pMovementControl->getKspeedDriver(),
-                       pMovementControl->getDriverTolerance(),
-                       pMovementControl->getDriverSpeed());   
+        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+                       pJointControlConfig->getKspeedDriver(),
+                       pJointControlConfig->getDriverTolerance(),
+                       pJointControlConfig->getDriverSpeed());   
 
-        oRadialDriver.init(pMovementControl->getKaccelDriver(),
-                               pMovementControl->getKspeedDriver(),
-                               pMovementControl->getDriverTolerance(),
-                               pMovementControl->getDriverSpeed());        
+        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+                               pJointControlConfig->getKspeedDriver(),
+                               pJointControlConfig->getDriverTolerance(),
+                               pJointControlConfig->getDriverSpeed());        
     }
         
     // set radius target

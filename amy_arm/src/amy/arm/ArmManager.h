@@ -10,17 +10,17 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/config/ArmDefines.h"
-#include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPanner2.h"
 #include "amy/arm/modules/ArmElbow.h"
 #include "amy/arm/modules/ArmExtender.h"
 #include "amy/arm/modules/JointControl2.h"
 #include "amy/arm/util/ArmModule.h"
+#include "amy/core/config/AmyConfig.h"
 #include "amy/core/bus/ArmBus.h"
-#include "amy/core/bus/MovementControl.h"
 #include "amy/core/robot/Arm.h"
+
+#define AMY_MAX_JOINTS 5
 
 namespace amy
 {
@@ -32,10 +32,9 @@ class ArmManager
     private:
         static log4cxx::LoggerPtr logger;
         bool blaunched;     // indicates when the manager has been launched
-        ArmConfig oArmConfig;
-        Arm oArm;       // controlled arm
+        AmyConfig* pAmyConfig;  // acces to amy config
         ArmBus* pArmBus;        // access to arm bus
-        MovementControl oMovementControl;   // shared movement control
+        Arm oArm;       // controlled arm
         int level;      // highest level activated 
         int maxLevel; // allow activation of modules until this level
         // modules ...
@@ -51,7 +50,7 @@ class ArmManager
         ~ArmManager();
 
        // launches the arm manager to handle the specified robot arm (returns false if something fails)
-       bool launch(ArmBus& oArmBus, Arm& oArm);
+       bool launch(AmyConfig& oAmyConfig, ArmBus& oArmBus, Arm& oArm);
        // ends the arm manager
        bool end();
        bool isLaunched() {return blaunched;};                

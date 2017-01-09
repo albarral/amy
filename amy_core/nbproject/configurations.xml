@@ -27,8 +27,12 @@
           <itemPath>src/amy/core/bus/ArmBus.h</itemPath>
           <itemPath>src/amy/core/bus/JointBus.cpp</itemPath>
           <itemPath>src/amy/core/bus/JointBus.h</itemPath>
-          <itemPath>src/amy/core/bus/MovementControl.cpp</itemPath>
-          <itemPath>src/amy/core/bus/MovementControl.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="config" displayName="config" projectFiles="true">
+          <itemPath>src/amy/core/config/AmyConfig.cpp</itemPath>
+          <itemPath>src/amy/core/config/AmyConfig.h</itemPath>
+          <itemPath>src/amy/core/config/JointControlConfig.cpp</itemPath>
+          <itemPath>src/amy/core/config/JointControlConfig.h</itemPath>
         </logicalFolder>
         <logicalFolder name="robot" displayName="robot" projectFiles="true">
           <itemPath>src/amy/core/robot/Arm.cpp</itemPath>
@@ -93,12 +97,19 @@
       </item>
       <item path="src/amy/core/bus/JointBus.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/core/bus/MovementControl.cpp"
+      <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/config/JointControlConfig.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/core/bus/MovementControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/core/config/JointControlConfig.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/core/robot/Arm.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -155,12 +166,19 @@
       </item>
       <item path="src/amy/core/bus/JointBus.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/core/bus/MovementControl.cpp"
+      <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/config/JointControlConfig.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/core/bus/MovementControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/core/config/JointControlConfig.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/core/robot/Arm.cpp" ex="false" tool="1" flavor2="0">
       </item>

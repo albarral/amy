@@ -13,11 +13,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="arm" displayName="arm" projectFiles="true">
-        <logicalFolder name="config" displayName="config" projectFiles="true">
-          <itemPath>src/amy/arm/config/ArmConfig.cpp</itemPath>
-          <itemPath>src/amy/arm/config/ArmConfig.h</itemPath>
-          <itemPath>src/amy/arm/config/ArmDefines.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="data" displayName="data" projectFiles="true">
           <itemPath>src/amy/arm/data/MoveStep.cpp</itemPath>
           <itemPath>src/amy/arm/data/MoveStep.h</itemPath>
@@ -137,12 +132,6 @@
       </item>
       <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ArmDefines.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
@@ -255,12 +244,6 @@
       <item path="src/amy/arm/ArmTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/config/ArmDefines.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
       </item>

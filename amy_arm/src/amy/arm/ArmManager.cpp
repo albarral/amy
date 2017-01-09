@@ -20,6 +20,8 @@ ArmManager::ArmManager ()
     blaunched = false;
     level = -1;
     maxLevel = 3;
+    pAmyConfig = 0;
+    pArmBus = 0;
 }
 
 // Destructor
@@ -29,7 +31,7 @@ ArmManager::~ArmManager ()
 }
 
 
-bool ArmManager::launch(ArmBus& oArmBus, Arm& oTargetArm) 
+bool ArmManager::launch(AmyConfig& oAmyConfig, ArmBus& oArmBus, Arm& oTargetArm) 
 {  
     // launch it if not launched yet and bus enabled
     if (!blaunched && oArmBus.isEnabled())
@@ -37,7 +39,9 @@ bool ArmManager::launch(ArmBus& oArmBus, Arm& oTargetArm)
         log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
         LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
 
-        // get access to arm bus
+        // acces to amy config
+        pAmyConfig = &oAmyConfig;
+        // access arm bus 
         pArmBus = &oArmBus;
         oArm = oTargetArm;
 
@@ -47,11 +51,6 @@ bool ArmManager::launch(ArmBus& oArmBus, Arm& oTargetArm)
         initArchitecture();
         showArchitecture();
 
-        // set params for movement
-        oMovementControl.setKaccelDriver(4.0);
-        oMovementControl.setKspeedDriver(2.0);
-        oMovementControl.setDriverTolerance(0.05);
-        oMovementControl.setDriverSpeed(60.0);
         initModules();
         startModules();
 
@@ -77,7 +76,7 @@ bool ArmManager::end()
 
 void ArmManager::initArchitecture()
 {
-    std::vector<std::string>& listControlledJoints = oArmConfig.getListControlledJoints();
+    std::vector<std::string>& listControlledJoints = pAmyConfig->getListControlledJoints();
     int nivel, i;
 
     // LEVEL 0
@@ -115,7 +114,7 @@ void ArmManager::initArchitecture()
     oArmPanner.setLevel(nivel);
     //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
     // arm elbow module
-    oArmElbow.setLevel(999); // disabled, as it collides with ArmExtender
+    oArmElbow.setLevel(1000); // disabled, as it collides with ArmExtender
     //listModules.push_back(&oArmElbow);   // it's a module3, not a module2
     // arm extender            
     oArmExtender.setLevel(nivel);
@@ -178,13 +177,13 @@ void ArmManager::initLevel(int num)
 {    
     LOG4CXX_INFO(logger, ">> INIT level " << num);       
 
-    float freq = oArmConfig.getModulesFreq();
+    float freq = pAmyConfig->getModulesFreq();
 
     for (ArmModule* pModule : listModules)
     {
         if (pModule->getLevel() == num)
         {                        
-            pModule->init(oArm);
+            pModule->init(oArm, pAmyConfig->getJointControlConfig());
             pModule->connect(pArmBus);
             pModule->setFrequency(freq);  
         }
@@ -193,7 +192,7 @@ void ArmManager::initLevel(int num)
     if (oArmPanner.getLevel() == num)
     {    
         // arm panner module
-        oArmPanner.init(oArm, oMovementControl);
+        oArmPanner.init(oArm, pAmyConfig->getJointControlConfig());
         oArmPanner.connect(pArmBus);
         oArmPanner.setFrequency(freq);
     }
@@ -201,7 +200,7 @@ void ArmManager::initLevel(int num)
     if (oArmElbow.getLevel() == num)
     {    
         // arm panner module
-        oArmElbow.init(oArm, oMovementControl);
+        oArmElbow.init(oArm, pAmyConfig->getJointControlConfig());
         oArmElbow.connect(pArmBus);
         oArmElbow.setFrequency(freq);
     }
@@ -209,7 +208,7 @@ void ArmManager::initLevel(int num)
     if (oArmExtender.getLevel() == num)
     {
         // arm extender module
-        oArmExtender.init(oArm, oMovementControl);
+        oArmExtender.init(oArm, pAmyConfig->getJointControlConfig());
         oArmExtender.connect(pArmBus);
         oArmExtender.setFrequency(freq);
     }    

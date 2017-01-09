@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/core/bus/MovementControl.h"
+#include "amy/core/config/JointControlConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
 
@@ -41,7 +41,7 @@ protected:
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pBus;          // arm bus
-    MovementControl* pMovementControl;  // shared movement control
+    JointControlConfig* pJointControlConfig;  // control config
     // config
     Arm* pArm;              // arm physical data
 private:    
@@ -55,7 +55,7 @@ public:
         //~ArmDriver();
                 
        // module params
-       void init(Arm& oArm, MovementControl& oMovementControl);
+       void init(Arm& oArm, JointControlConfig& oJointControlConfig);
        bool isEnabled() {return benabled;};
 
        // bus connection 

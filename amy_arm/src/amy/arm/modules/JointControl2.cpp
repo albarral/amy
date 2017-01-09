@@ -6,7 +6,6 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/JointControl2.h"
-#include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Joint.h"
 
 using namespace log4cxx;
@@ -27,13 +26,12 @@ JointControl2::JointControl2()
 //{
 //}
 
-void JointControl2::init(Arm& oArm)
+void JointControl2::init(Arm& oArm, JointControlConfig& oJointControlConfig)
 {
     Joint* pJoint = oArm.getJointByName(jointName);
     lowLimit = pJoint->getLowerLimit();
     highLimit = pJoint->getUpperLimit();
-    ArmConfig oArmConfig;
-    brakeAccel = oArmConfig.getBrakeAccel();
+    brakeAccel = oJointControlConfig.getBrakeAccel();
     benabled = true;
     LOG4CXX_INFO(logger, modName << " initialized");      
     LOG4CXX_DEBUG(logger, "joint range= " << pJoint->getLowerLimit() << ", " << pJoint->getUpperLimit());
@@ -127,11 +125,8 @@ void JointControl2::writeBus()
             
     // inform real speed 
     // TEMP: real position not read yet. 
-    if (!ArmConfig::isArmPositionRead())
-    {
-        // Till then, SOLL angles informed here
-        pJointBus->getSO_IST_ANGLE().setValue(angle);
-    }
+    // Till then, SOLL angles informed here
+    pJointBus->getSO_IST_ANGLE().setValue(angle);
 }
 
 float JointControl2::limitAngle(float value)

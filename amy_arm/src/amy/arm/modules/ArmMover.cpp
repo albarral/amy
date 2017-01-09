@@ -27,7 +27,7 @@ ArmMover::ArmMover()
 //{
 //}
 
-void ArmMover::init(Arm& oArm)
+void ArmMover::init(Arm& oArm, JointControlConfig& oJointControlConfig)
 {
     benabled = true;
 

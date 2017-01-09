@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include "amy/core/bus/ArmBus.h"
+#include "amy/core/config/JointControlConfig.h"
 #include "amy/core/robot/Arm.h"
 #include <amy/utils/module2.h>
 
@@ -33,7 +34,7 @@ public:
     void setLevel(int value) {level = value;};
     int getLevel() {return level;};
 
-    virtual void init(Arm& oArm) = 0;       
+    virtual void init(Arm& oArm, JointControlConfig& oJointControlConfig) = 0;       // abstract method
     bool isEnabled() {return benabled;};
 
     // bus connection 
