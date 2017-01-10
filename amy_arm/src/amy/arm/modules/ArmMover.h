@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/core/bus/ArmBus.h"
+#include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/data/Movement.h"
 #include "amy/arm/data/MoveStep.h"
 #include "amy/arm/util/ArmModule.h"

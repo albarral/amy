@@ -39,7 +39,7 @@ void ArmElbow::prepareDriver()
 void ArmElbow::connectDriver()
 {
     // connect to ELBOW joint 
-    pBusElbow = &pBus->getBusEL();
+    pBusElbow = &pArmBus->getBusEL();
 }
        
 void ArmElbow::prepareMove()
@@ -83,9 +83,9 @@ void ArmElbow::doMove()
 void ArmElbow::senseBus()
 {
     // get requested radius
-    if (pBus->getCO_ARM_RADIUS().checkRequested())
+    if (pArmBus->getCO_ARM_RADIUS().checkRequested())
     {
-        targetRadius = pBus->getCO_ARM_RADIUS().getValue();    
+        targetRadius = pArmBus->getCO_ARM_RADIUS().getValue();    
         moveRequested();
     }
 

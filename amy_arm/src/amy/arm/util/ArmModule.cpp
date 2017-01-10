@@ -17,9 +17,9 @@ ArmModule::ArmModule()
     pArmBus = 0;
  }
 
-void ArmModule::connect(ArmBus* pBus)
+void ArmModule::connect(ArmBus& oArmBus)
 {
-    pArmBus = pBus;    
+    pArmBus = &oArmBus;    
     bconnected = true;
 }
 

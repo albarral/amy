@@ -15,7 +15,8 @@
 
 #include "amy/main/robots/SupportedRobots.h"
 #include "amy/core/robot/Robot.h"
-#include "amy/core/bus/ArmBus.h"
+#include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/ArmInterface.h"
 #include "amy/server/file/AmyFileServer.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
@@ -38,9 +39,12 @@ void Tests::testAmyServer()
     ArmBus oArmBus;
     Arm& oArm = oRobot.getListArms().at(0);        
     oArmBus.init(oArm);
+    // prepare interface
+    ArmInterface oArmInterface;
+    oArmInterface.connect(oArmBus);
     // prepare server
     AmyFileServer oAmyFileServer;
-    oAmyFileServer.connect(&oArmBus);
+    oAmyFileServer.connect2Arm(oArmInterface);
     
     int i=0;    
     while (i<10) 

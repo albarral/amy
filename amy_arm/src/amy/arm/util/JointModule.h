@@ -9,7 +9,7 @@
 #include <string>
 
 #include "amy/arm/util/ArmModule.h"
-#include "amy/core/bus/JointBus.h"
+#include "amy/arm/bus/JointBus.h"
 
 namespace amy
 {
@@ -30,7 +30,7 @@ public:
         void setTargetJoint(std::string name); 
         
        // bus connection               
-       virtual void connect(ArmBus* pBus);              
+       virtual void connect(ArmBus& oArmBus);              
 };
 }
 #endif

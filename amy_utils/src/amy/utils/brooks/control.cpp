@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/core/brooks/control.h"
+#include "amy/utils/brooks/control.h"
 
 namespace amy 
 {

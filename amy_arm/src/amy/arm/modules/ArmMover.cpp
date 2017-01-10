@@ -9,7 +9,7 @@
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPlanner.h"
 #include "amy/arm/modules/ArmComputer.h"
-#include "amy/core/bus/JointBus.h"
+#include "amy/arm/bus/JointBus.h"
 
 
 using namespace log4cxx;

@@ -47,6 +47,8 @@ public:
         void off();        
         // waits till the thread is finished
         void wait();
+        // checks if module is on
+        bool isOn();
         
         // sets the desired loop frequency 
         void setFrequency(float cps);

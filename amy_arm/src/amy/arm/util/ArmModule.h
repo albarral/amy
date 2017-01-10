@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/core/bus/ArmBus.h"
+#include "amy/arm/bus/ArmBus.h"
 #include "amy/core/config/JointControlConfig.h"
 #include "amy/core/robot/Arm.h"
 #include <amy/utils/module2.h>
@@ -38,7 +38,7 @@ public:
     bool isEnabled() {return benabled;};
 
     // bus connection 
-    virtual void connect(ArmBus* pBus);
+    virtual void connect(ArmBus& oArmBus);
     bool isConnected() {return bconnected;};
 
     std::string getModuleName() {return modName;};

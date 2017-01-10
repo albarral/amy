@@ -37,7 +37,7 @@ void ArmPanner2::prepareDriver()
 void ArmPanner2::connectDriver()
 {
     // connect to HS joint (horizontal shoulder)
-    pBusHS = &pBus->getBusHS();
+    pBusHS = &pArmBus->getBusHS();
 }
        
 void ArmPanner2::prepareMove()
@@ -81,9 +81,9 @@ void ArmPanner2::doMove()
 void ArmPanner2::senseBus()
 {
     // get requested pan
-    if (pBus->getCO_ARM_PAN().checkRequested())
+    if (pArmBus->getCO_ARM_PAN().checkRequested())
     {
-        targetPan = (int)pBus->getCO_ARM_PAN().getValue();    
+        targetPan = (int)pArmBus->getCO_ARM_PAN().getValue();    
         moveRequested();
     }
 

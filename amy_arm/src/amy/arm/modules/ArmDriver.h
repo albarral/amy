@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/core/bus/ArmBus.h"
+#include "amy/arm/bus/ArmBus.h"
 #include "amy/core/config/JointControlConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
@@ -40,7 +40,7 @@ protected:
     bool benabled;
     // bus
     bool bconnected;        // connected to bus
-    ArmBus* pBus;          // arm bus
+    ArmBus* pArmBus;     // access to arm bus
     JointControlConfig* pJointControlConfig;  // control config
     // config
     Arm* pArm;              // arm physical data
@@ -59,7 +59,7 @@ public:
        bool isEnabled() {return benabled;};
 
        // bus connection 
-       void connect(ArmBus* pArmBus);
+       void connect(ArmBus& oArmBus);
        bool isConnected() {return bconnected;};
 
                       

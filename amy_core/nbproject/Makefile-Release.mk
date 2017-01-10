@@ -35,10 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/core/brooks/control.o \
-	${OBJECTDIR}/src/amy/core/brooks/inhibition.o \
-	${OBJECTDIR}/src/amy/core/bus/ArmBus.o \
-	${OBJECTDIR}/src/amy/core/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/core/config/AmyConfig.o \
 	${OBJECTDIR}/src/amy/core/config/JointControlConfig.o \
 	${OBJECTDIR}/src/amy/core/robot/Arm.o \
@@ -69,26 +65,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
-
-${OBJECTDIR}/src/amy/core/brooks/control.o: src/amy/core/brooks/control.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core/brooks
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/brooks/control.o src/amy/core/brooks/control.cpp
-
-${OBJECTDIR}/src/amy/core/brooks/inhibition.o: src/amy/core/brooks/inhibition.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core/brooks
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/brooks/inhibition.o src/amy/core/brooks/inhibition.cpp
-
-${OBJECTDIR}/src/amy/core/bus/ArmBus.o: src/amy/core/bus/ArmBus.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/ArmBus.o src/amy/core/bus/ArmBus.cpp
-
-${OBJECTDIR}/src/amy/core/bus/JointBus.o: src/amy/core/bus/JointBus.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/JointBus.o src/amy/core/bus/JointBus.cpp
 
 ${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config

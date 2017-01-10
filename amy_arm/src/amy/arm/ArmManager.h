@@ -10,15 +10,17 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
+#include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/ArmPanner2.h"
 #include "amy/arm/modules/ArmElbow.h"
 #include "amy/arm/modules/ArmExtender.h"
 #include "amy/arm/modules/JointControl2.h"
+#include "amy/arm/ArmInterface.h"
 #include "amy/arm/util/ArmModule.h"
 #include "amy/core/config/AmyConfig.h"
-#include "amy/core/bus/ArmBus.h"
 #include "amy/core/robot/Arm.h"
+
 
 #define AMY_MAX_JOINTS 5
 
@@ -33,8 +35,9 @@ class ArmManager
         static log4cxx::LoggerPtr logger;
         bool blaunched;     // indicates when the manager has been launched
         AmyConfig* pAmyConfig;  // acces to amy config
-        ArmBus* pArmBus;        // access to arm bus
+        ArmBus oArmBus;        // arm bus
         Arm oArm;       // controlled arm
+        ArmInterface oArmInterface;     // interface for external arm control
         int level;      // highest level activated 
         int maxLevel; // allow activation of modules until this level
         // modules ...
@@ -50,11 +53,14 @@ class ArmManager
         ~ArmManager();
 
        // launches the arm manager to handle the specified robot arm (returns false if something fails)
-       bool launch(AmyConfig& oAmyConfig, ArmBus& oArmBus, Arm& oArm);
+       bool launch(AmyConfig& oAmyConfig, Arm& oArm);
        // ends the arm manager
        bool end();
        bool isLaunched() {return blaunched;};                
-        
+       
+       // give access to the arm's control interface
+       ArmInterface& getArmInterface() {return oArmInterface;}
+       
 private:
     // initialize control architecture (organize in levels)
     void initArchitecture();

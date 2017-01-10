@@ -21,14 +21,14 @@ void JointModule::setTargetJoint(std::string name)
     modName = modName + "-" + jointName;
 }
 
-void JointModule::connect(ArmBus* pBus)
+void JointModule::connect(ArmBus& oArmBus)
 {
     // get the specific bus connection for the target joint
     if (!jointName.empty())
     {
-        pJointBus = &(pBus->getJointBus(jointName));
+        pJointBus = &(oArmBus.getJointBus(jointName));
         // and the general bus connection
-        ArmModule::connect(pBus);
+        ArmModule::connect(oArmBus);
     }    
 }
 

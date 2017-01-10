@@ -52,7 +52,7 @@ bool AmyFileServer::readCommand()
         {
             brequest = true;
             bvalid = oAmyCommand.interpret(text);
-            LOG4CXX_INFO(logger, "AmyFileServer: command = " << oAmyCommand.getDescription());
+            LOG4CXX_DEBUG(logger, "AmyFileServer: command = " << oAmyCommand.getDescription());
         }        
     }
     else

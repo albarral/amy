@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/ArmDriver.h"
-#include "amy/core/bus/JointBus.h"
+#include "amy/arm/bus/JointBus.h"
 #include "amy/arm/move/JointDriver.h"
 //#include "amy/utils/Record.h"   // tmp for analysis
 

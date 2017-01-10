@@ -35,12 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/utils/Beat.o \
 	${OBJECTDIR}/src/amy/utils/Click.o \
 	${OBJECTDIR}/src/amy/utils/Console.o \
 	${OBJECTDIR}/src/amy/utils/File.o \
 	${OBJECTDIR}/src/amy/utils/FileReader.o \
 	${OBJECTDIR}/src/amy/utils/FileWriter.o \
 	${OBJECTDIR}/src/amy/utils/Record.o \
+	${OBJECTDIR}/src/amy/utils/brooks/control.o \
+	${OBJECTDIR}/src/amy/utils/brooks/inhibition.o \
 	${OBJECTDIR}/src/amy/utils/module.o \
 	${OBJECTDIR}/src/amy/utils/module2.o \
 	${OBJECTDIR}/src/amy/utils/module3.o
@@ -69,6 +72,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/src/amy/utils/Beat.o: src/amy/utils/Beat.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Beat.o src/amy/utils/Beat.cpp
 
 ${OBJECTDIR}/src/amy/utils/Click.o: src/amy/utils/Click.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
@@ -99,6 +107,16 @@ ${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Record.o src/amy/utils/Record.cpp
+
+${OBJECTDIR}/src/amy/utils/brooks/control.o: src/amy/utils/brooks/control.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils/brooks
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/brooks/control.o src/amy/utils/brooks/control.cpp
+
+${OBJECTDIR}/src/amy/utils/brooks/inhibition.o: src/amy/utils/brooks/inhibition.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils/brooks
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/brooks/inhibition.o src/amy/utils/brooks/inhibition.cpp
 
 ${OBJECTDIR}/src/amy/utils/module.o: src/amy/utils/module.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils

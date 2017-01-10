@@ -12,86 +12,66 @@ namespace amy
 AmyServer::AmyServer()
 {    
     bconnected = false;
-    pArmBus = 0;
-    pBusHS = 0;
-    pBusVS = 0;
-    pBusEL = 0;
-    pBusHW = 0;
-    pBusVW = 0;
+    pArmInterface = 0;
+    bamyEndRequested = false;
 }
 
-void AmyServer::connect(ArmBus* pArmBus)
+void AmyServer::connect2Arm(iArmInterface& oArmInterface)
 {
-    if (pArmBus != 0)
-    {
-        this->pArmBus = pArmBus;
-        pBusHS = &pArmBus->getBusHS();
-        pBusVS = &pArmBus->getBusVS();
-        pBusEL = &pArmBus->getBusEL();
-        pBusHW = &pArmBus->getBusHW();
-        pBusVW = &pArmBus->getBusVW();
-        bconnected = true;
-    }
-    
-//    LOG4CXX_DEBUG(logger, "AmyServer connected to bus");      
+    pArmInterface = &oArmInterface;
+    bconnected = true;
 }
 
 void AmyServer::movePan(float value)
 {    
-    int val = value; // transform to int
     if (bconnected)
-        pArmBus->getCO_ARM_PAN().request(val);            
+        pArmInterface->movePan(value);
 }
 
 void AmyServer::moveTilt(float value)
 {
-    int val = value; // transform to int
     if (bconnected)
-        pArmBus->getCO_ARM_TILT().request(val);            
+        pArmInterface->moveTilt(value);
 }
 
 void AmyServer::moveRadius(float value)
 {
-    int val = value; // transform to int
     if (bconnected)
-        pArmBus->getCO_ARM_RADIUS().request(val);            
+        pArmInterface->extend(value);
 }
 
 void AmyServer::setPosHS(float value)
 {
     if (bconnected)
-         pBusHS->getCO_JOINT_ANGLE().request(value);    
+        pArmInterface->moveHS(value);    
 }
 
 void AmyServer::setPosVS(float value)
 {
     if (bconnected)
-         pBusVS->getCO_JOINT_ANGLE().request(value);        
+        pArmInterface->moveVS(value);    
 }
 
 void AmyServer::setPosELB(float value)
 {
     if (bconnected)
-         pBusEL->getCO_JOINT_ANGLE().request(value);        
+        pArmInterface->moveEL(value);    
 }
 
 void AmyServer::setPosHW(float value)
 {
     if (bconnected)
-         pBusHW->getCO_JOINT_ANGLE().request(value);            
+        pArmInterface->moveHW(value);    
 }
 
 void AmyServer::setPosVW(float value)
 {
     if (bconnected)
-         pBusVW->getCO_JOINT_ANGLE().request(value);            
+        pArmInterface->moveVW(value);    
 }
 
 void AmyServer::endAmy()
 {
-    if (bconnected)
-        pArmBus->getCO_FINISH_MANAGER().request();            
+    bamyEndRequested = true;    
 }
-
-
 }

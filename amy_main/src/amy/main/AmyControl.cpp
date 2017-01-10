@@ -24,7 +24,6 @@ AmyControl::~AmyControl ()
 {
 }
 
-
 bool AmyControl::launch(Robot& oRobot) 
 {      
     bool bok = false;
@@ -33,14 +32,12 @@ bool AmyControl::launch(Robot& oRobot)
     // for now, just single arm robots supported
     if (oRobot.getNumArms() == 1)
     {
-        Arm& oArm = oRobot.getListArms().at(0);
-        
-        // init bus
-        oArmBus.init(oArm);
+        Arm& oArm = oRobot.getListArms().at(0);        
         
         // launch arm manager
-        bok = oArmManager.launch(oAmyConfig, oArmBus, oArm);
-        oAmyListener.connect(&oArmBus);
+        bok = oArmManager.launch(oAmyConfig, oArm);
+        oAmyListener.init(oArmManager.getArmInterface());
+        oAmyListener.setFrequency(10.0);
         oAmyListener.on();
     }
     else
@@ -61,7 +58,7 @@ bool AmyControl::end()
 
 bool AmyControl::checkEndRequested()
 {
-    return oArmBus.getCO_FINISH_MANAGER().checkRequested();
+    return oAmyListener.checkAmyEndRequested();
 }
 
 }

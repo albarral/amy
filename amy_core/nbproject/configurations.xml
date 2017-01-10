@@ -13,26 +13,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="core" displayName="core" projectFiles="true">
-        <logicalFolder name="brooks" displayName="brooks" projectFiles="true">
-          <itemPath>src/amy/core/brooks/control.cpp</itemPath>
-          <itemPath>src/amy/core/brooks/control.h</itemPath>
-          <itemPath>src/amy/core/brooks/controlT.h</itemPath>
-          <itemPath>src/amy/core/brooks/inhibition.cpp</itemPath>
-          <itemPath>src/amy/core/brooks/inhibition.h</itemPath>
-          <itemPath>src/amy/core/brooks/sensor.h</itemPath>
-          <itemPath>src/amy/core/brooks/sensorT.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="bus" displayName="bus" projectFiles="true">
-          <itemPath>src/amy/core/bus/ArmBus.cpp</itemPath>
-          <itemPath>src/amy/core/bus/ArmBus.h</itemPath>
-          <itemPath>src/amy/core/bus/JointBus.cpp</itemPath>
-          <itemPath>src/amy/core/bus/JointBus.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="config" displayName="config" projectFiles="true">
           <itemPath>src/amy/core/config/AmyConfig.cpp</itemPath>
           <itemPath>src/amy/core/config/AmyConfig.h</itemPath>
           <itemPath>src/amy/core/config/JointControlConfig.cpp</itemPath>
           <itemPath>src/amy/core/config/JointControlConfig.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ifaces" displayName="ifaces" projectFiles="true">
+          <itemPath>src/amy/core/ifaces/iArmInterface.h</itemPath>
         </logicalFolder>
         <logicalFolder name="robot" displayName="robot" projectFiles="true">
           <itemPath>src/amy/core/robot/Arm.cpp</itemPath>
@@ -75,28 +63,6 @@
           </incDir>
         </ccTool>
       </compileType>
-      <item path="src/amy/core/brooks/control.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/control.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/controlT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/inhibition.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/inhibition.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/sensor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/JointBus.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
@@ -107,6 +73,11 @@
             flavor2="0">
       </item>
       <item path="src/amy/core/config/JointControlConfig.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/core/ifaces/iArmInterface.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -144,28 +115,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/core/brooks/control.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/control.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/controlT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/inhibition.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/inhibition.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/sensor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/brooks/sensorT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/bus/JointBus.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
@@ -176,6 +125,11 @@
             flavor2="0">
       </item>
       <item path="src/amy/core/config/JointControlConfig.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/core/ifaces/iArmInterface.h"
             ex="false"
             tool="3"
             flavor2="0">

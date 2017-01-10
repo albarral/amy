@@ -53,6 +53,11 @@ void Module3::wait()
     t.join();
 }
 
+bool Module3::isOn()
+{
+    return (getState() != Module3::state_OFF);        
+}
+
 void Module3::setFrequency(float cps)
 {
     std::lock_guard<std::mutex> locker(mutex);

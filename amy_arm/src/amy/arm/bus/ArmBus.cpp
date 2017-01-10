@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/core/bus/ArmBus.h"
+#include "amy/arm/bus/ArmBus.h"
 #include "amy/core/robot/Joint.h"
 
 namespace amy
@@ -108,11 +108,12 @@ std::string ArmBus::toString()
 //         "SO_ARM_PAN: " + std::to_string(SO_ARM_PAN.getValue()) + "\n" +
 //         "SO_ARM_TILT: " + std::to_string(SO_ARM_TILT.getValue()) + "\n" +
 //         "SO_ARM_RADIUS: " + std::to_string(SO_ARM_RADIUS.getValue()) + "\n" +
-          "\n" + oBusHS.toString() +   
-          "\n" + oBusVS.toString() +   
-          "\n" + oBusEL.toString() +   
-          "\n" + oBusHW.toString() +   
-          "\n" + oBusVW.toString();
+//          "\n" + oBusHS.toString() +   
+//          "\n" + oBusVS.toString() +   
+//          "\n" + oBusEL.toString() +   
+//          "\n" + oBusHW.toString() +   
+//          "\n" + oBusVW.toString() + 
+            "\n";
     
     return text;
 }

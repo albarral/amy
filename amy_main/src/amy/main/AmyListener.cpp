@@ -18,15 +18,12 @@ AmyListener::AmyListener()
 {    
     modName = "AmyListener";
     benabled = false;
-    bconnected = false;
-    pArmBus = 0;
  }
 
-void AmyListener::connect(ArmBus* pArmBus)
+void AmyListener::init(iArmInterface& oArmInterface)
 {
-    this->pArmBus = pArmBus;    
-    oAmyFileServer.connect(pArmBus);
-    bconnected = true;
+    oAmyFileServer.connect2Arm(oArmInterface);
+    benabled = true;
 };
 
 void AmyListener::first()
@@ -46,8 +43,10 @@ void AmyListener::loop()
         else
             LOG4CXX_WARN(logger, "invalid command");                                      
     }
-    else
-        LOG4CXX_WARN(logger, "no command");                                      
 }
 
+bool AmyListener::checkAmyEndRequested()
+{
+    return oAmyFileServer.isAmyEndRequested();    
+}
 }

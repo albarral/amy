@@ -11,40 +11,35 @@
 
 #include "amy/utils/module2.h"
 #include "amy/server/file/AmyFileServer.h"
-#include "amy/core/bus/ArmBus.h"
+#include "amy/core/ifaces/iArmInterface.h"
 
 namespace amy
 {
-// This module allows direct control of the arm from the command line.
-// The module continuously listens to the command line interpreting user entered commands.
-// Then sends requests to the amy process through a proper amy coms client.
+// This module listens to external control request for amy control and processes them.
+// It uses an AmyServer (file based one) connected to amy's control interfaces..
 class AmyListener : public Module2
 {
 private:
     static log4cxx::LoggerPtr logger;
     std::string modName;          // module name
     bool benabled;
-    // bus
-    bool bconnected;        // connected to bus
-    ArmBus* pArmBus;
    // logic
-    AmyFileServer oAmyFileServer;     // amy client   
+    AmyFileServer oAmyFileServer;     // amy server (using file coms)
 
 public:
     AmyListener();
     //~AmyListener();
 
-    void init();       
+    void init(iArmInterface& oArmInterface);       
     bool isEnabled() {return benabled;};
     
-    // bus connection 
-    virtual void connect(ArmBus* pArmBus);
-    bool isConnected() {return bconnected;};
-        
+    // checks if amy end has been requested
+    bool checkAmyEndRequested();   
+    
 private:
     virtual void first();
     // executes the behaviour
-    virtual void loop ();
+    virtual void loop();
 };
 }		
 #endif

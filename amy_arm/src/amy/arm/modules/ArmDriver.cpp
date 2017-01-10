@@ -20,7 +20,7 @@ ArmDriver::ArmDriver()
     modName = "ArmDriver";
     
     bconnected = false;
-    pBus = 0;
+    pArmBus = 0;
     pJointControlConfig = 0;
     pArm = 0;        
 }
@@ -41,9 +41,9 @@ void ArmDriver::init(Arm& oArm, JointControlConfig& oJointControlConfig)
     LOG4CXX_INFO(logger, oJointControlConfig.toString());      
 };
 
-void ArmDriver::connect(ArmBus* pArmBus)
+void ArmDriver::connect(ArmBus& oArmBus)
 {
-    pBus = pArmBus;
+    pArmBus = &oArmBus;
     // set specific connections (in derived class)
     connectDriver();
     bconnected = true;

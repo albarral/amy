@@ -8,8 +8,8 @@
 
 #include <string>
 
-#include "amy/core/bus/JointBus.h"
-#include "amy/core/brooks/control.h"
+#include "amy/arm/bus/JointBus.h"
+#include "amy/utils/brooks/control.h"
 #include "amy/core/robot/Arm.h"
 
 namespace amy
@@ -20,14 +20,11 @@ class ArmBus
         bool benabled;
         std::string armName;
         
-        // CONTROLS (receiver modules)
-        // ArmManager
-        amy::Control CO_FINISH_MANAGER;    // finish all modules 
+        // CONTROLS 
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
         // AxisDrivers
-        //ControlT<float> CO_ARM_T4MOVE;  // time for move (secs)
         ControlT<int> CO_ARM_PAN;       // arm's target pan
         ControlT<int> CO_ARM_TILT;       // arm's target tilt
         ControlT<int> CO_ARM_RADIUS;   // arm's target radius
@@ -54,7 +51,6 @@ class ArmBus
         bool isEnabled() {return benabled;};
         
         // controls
-        amy::Control& getCO_FINISH_MANAGER() {return CO_FINISH_MANAGER;};   
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
 

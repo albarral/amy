@@ -47,9 +47,9 @@ void ArmExtender::prepareDriver()
 void ArmExtender::connectDriver()
 {
     // connect to vertical shoulder
-    pBusVS = &pBus->getBusVS();
+    pBusVS = &pArmBus->getBusVS();
     // connect to elbow
-    pBusEL = &pBus->getBusEL();
+    pBusEL = &pArmBus->getBusEL();
 }
 
 
@@ -121,16 +121,16 @@ void ArmExtender::senseBus()
     bool bradiusRequested = false;
     
     // get requested tilt
-    if (pBus->getCO_ARM_TILT().checkRequested())
+    if (pArmBus->getCO_ARM_TILT().checkRequested())
     {
-        targetTilt = pBus->getCO_ARM_TILT().getValue();    
+        targetTilt = pArmBus->getCO_ARM_TILT().getValue();    
         btiltRequested = true;        
     }
 
     // get requested radius
-    if (pBus->getCO_ARM_RADIUS().checkRequested())
+    if (pArmBus->getCO_ARM_RADIUS().checkRequested())
     {
-        targetRadius = pBus->getCO_ARM_RADIUS().getValue();    
+        targetRadius = pArmBus->getCO_ARM_RADIUS().getValue();    
         bradiusRequested = true;        
     }
         

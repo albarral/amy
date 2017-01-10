@@ -19,9 +19,8 @@ ArmManager::ArmManager ()
 {    
     blaunched = false;
     level = -1;
-    maxLevel = 3;
+    maxLevel = 2;       
     pAmyConfig = 0;
-    pArmBus = 0;
 }
 
 // Destructor
@@ -31,20 +30,22 @@ ArmManager::~ArmManager ()
 }
 
 
-bool ArmManager::launch(AmyConfig& oAmyConfig, ArmBus& oArmBus, Arm& oTargetArm) 
+bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm) 
 {  
-    // launch it if not launched yet and bus enabled
-    if (!blaunched && oArmBus.isEnabled())
+    // launch it if not launched yet
+    if (!blaunched)
     {
         log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
         LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
 
         // acces to amy config
         pAmyConfig = &oAmyConfig;
-        // access arm bus 
-        pArmBus = &oArmBus;
         oArm = oTargetArm;
-
+        
+        // init bus & connect arm interface to it
+        oArmBus.init(oArm);
+        oArmInterface.connect(oArmBus);
+        
         // init modules & start them
         LOG4CXX_INFO(logger, "max level: " << maxLevel);
         // organize control architecture in levels
@@ -78,10 +79,6 @@ void ArmManager::initArchitecture()
 {
     std::vector<std::string>& listControlledJoints = pAmyConfig->getListControlledJoints();
     int nivel, i;
-
-    // LEVEL 0
-    nivel = 0;
-    // nothing
     
     // LEVEL 1    
     nivel = 1;
@@ -96,20 +93,10 @@ void ArmManager::initArchitecture()
     }
     
     // LEVEL 2    
-    nivel = 2;
-    // joint mover modules
-    i=0;
-    for (std::string& jointName : listControlledJoints)
-    {        
-        // removed JointMover modules
-        i++;
-    }
-
-    // LEVEL 3    
-    nivel = 3;        
+    nivel = 2;        
     // arm mover module
-    oArmMover.setLevel(nivel);     
-    listModules.push_back(&oArmMover);
+    //oArmMover.setLevel(nivel);     
+    //listModules.push_back(&oArmMover);
     // arm panner module
     oArmPanner.setLevel(nivel);
     //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
@@ -146,9 +133,6 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "STARTING MODULES ...");
 
-    if (!blaunched)
-        return;
-    
     level = -1;
     int microsWait = 100000;  // 100ms
     for (int i=0; i<=maxLevel; i++)
@@ -184,7 +168,7 @@ void ArmManager::initLevel(int num)
         if (pModule->getLevel() == num)
         {                        
             pModule->init(oArm, pAmyConfig->getJointControlConfig());
-            pModule->connect(pArmBus);
+            pModule->connect(oArmBus);
             pModule->setFrequency(freq);  
         }
     }
@@ -193,7 +177,7 @@ void ArmManager::initLevel(int num)
     {    
         // arm panner module
         oArmPanner.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmPanner.connect(pArmBus);
+        oArmPanner.connect(oArmBus);
         oArmPanner.setFrequency(freq);
     }
     
@@ -201,7 +185,7 @@ void ArmManager::initLevel(int num)
     {    
         // arm panner module
         oArmElbow.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmElbow.connect(pArmBus);
+        oArmElbow.connect(oArmBus);
         oArmElbow.setFrequency(freq);
     }
 
@@ -209,7 +193,7 @@ void ArmManager::initLevel(int num)
     {
         // arm extender module
         oArmExtender.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmExtender.connect(pArmBus);
+        oArmExtender.connect(oArmBus);
         oArmExtender.setFrequency(freq);
     }    
 }
@@ -257,7 +241,7 @@ void ArmManager::stopLevel(int num)
     {
         if (pModule->getLevel() == num)
         {
-            if (pModule->isEnabled())
+            if (pModule->isOn())
             {
                 pModule->off();
                 pModule->wait();
@@ -265,19 +249,19 @@ void ArmManager::stopLevel(int num)
         }
     }
 
-    if (oArmPanner.getLevel() == num)
+    if (oArmPanner.getLevel() == num && oArmPanner.isOn())
     {    
         oArmPanner.off();
         oArmPanner.wait();
     }
     
-    if (oArmElbow.getLevel() == num)
+    if (oArmElbow.getLevel() == num && oArmElbow.isOn())
     {    
         oArmElbow.off();
         oArmElbow.wait();
     }
 
-    if (oArmExtender.getLevel() == num)
+    if (oArmExtender.getLevel() == num && oArmExtender.isOn())
     {
         // arm extender module
         oArmExtender.off();
