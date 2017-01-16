@@ -35,8 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/coms/AmyClient.o \
 	${OBJECTDIR}/src/amy/coms/AmyCommand.o \
-	${OBJECTDIR}/src/amy/coms/AmyComsConfig.o
+	${OBJECTDIR}/src/amy/coms/AmyComsConfig.o \
+	${OBJECTDIR}/src/amy/coms/AmyServer.o \
+	${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o \
+	${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o
 
 
 # C Compiler Flags
@@ -53,28 +57,54 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_core/dist/Debug/GNU-Linux/libamy_core.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_utils/dist/Debug/GNU-Linux/libamy_utils.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
+${OBJECTDIR}/src/amy/coms/AmyClient.o: src/amy/coms/AmyClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyClient.o src/amy/coms/AmyClient.cpp
+
 ${OBJECTDIR}/src/amy/coms/AmyCommand.o: src/amy/coms/AmyCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyCommand.o src/amy/coms/AmyCommand.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyCommand.o src/amy/coms/AmyCommand.cpp
 
 ${OBJECTDIR}/src/amy/coms/AmyComsConfig.o: src/amy/coms/AmyComsConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsConfig.o src/amy/coms/AmyComsConfig.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsConfig.o src/amy/coms/AmyComsConfig.cpp
+
+${OBJECTDIR}/src/amy/coms/AmyServer.o: src/amy/coms/AmyServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyServer.o src/amy/coms/AmyServer.cpp
+
+${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o: src/amy/coms/file/AmyFileClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o src/amy/coms/file/AmyFileClient.cpp
+
+${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o: src/amy/coms/file/AmyFileServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o src/amy/coms/file/AmyFileServer.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug
+	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -83,6 +113,8 @@ ${OBJECTDIR}/src/amy/coms/AmyComsConfig.o: src/amy/coms/AmyComsConfig.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

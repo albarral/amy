@@ -8,7 +8,7 @@
 
 #include <log4cxx/logger.h>
 
-#include "amy/server/AmyServer.h"
+#include "amy/coms/AmyServer.h"
 #include "amy/coms/AmyCommand.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"

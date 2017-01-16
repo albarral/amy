@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/utils/module2.h"
-#include "amy/server/file/AmyFileServer.h"
+#include "amy/coms/file/AmyFileServer.h"
 #include "amy/core/ifaces/iArmInterface.h"
 
 namespace amy

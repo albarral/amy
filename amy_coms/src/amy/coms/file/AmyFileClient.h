@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/client/AmyClient.h"
+#include "amy/coms/AmyClient.h"
 #include "amy/utils/FileWriter.h"
 
 namespace amy

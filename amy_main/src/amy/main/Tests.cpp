@@ -17,7 +17,7 @@
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/ArmInterface.h"
-#include "amy/server/file/AmyFileServer.h"
+#include "amy/coms/file/AmyFileServer.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
 

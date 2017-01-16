@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-#include "amy/server/file/AmyFileServer.h"
+#include "amy/coms/file/AmyFileServer.h"
 #include "amy/coms/AmyComsConfig.h"
 
 namespace amy

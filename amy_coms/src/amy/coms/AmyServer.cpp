@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 
-#include "amy/server/AmyServer.h"
+#include "amy/coms/AmyServer.h"
 
 namespace amy
 {
