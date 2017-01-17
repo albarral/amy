@@ -246,7 +246,7 @@ void Tests::testAmyNetwork2()
 
 void Tests::writePos(ArmNetwork& oArmNetwork, int value)
 {
-    ArmData oArmData;
+    ArmDataN oArmData;
     oArmData.reset();
 
     oArmData.setSoll1((float)value);
@@ -268,7 +268,7 @@ void Tests::writePos(ArmNetwork& oArmNetwork, int value)
 
 void Tests::readPos(ArmNetwork& oArmNetwork)
 {
-    ArmData oArmData;
+    ArmDataN oArmData;
     oArmData.reset();
 
     // read     

@@ -36,11 +36,16 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyClient.o \
-	${OBJECTDIR}/src/amy/coms/AmyCommand.o \
 	${OBJECTDIR}/src/amy/coms/AmyComsConfig.o \
+	${OBJECTDIR}/src/amy/coms/AmyPublisher.o \
 	${OBJECTDIR}/src/amy/coms/AmyServer.o \
+	${OBJECTDIR}/src/amy/coms/AmySubscriber.o \
+	${OBJECTDIR}/src/amy/coms/data/AmyCommand.o \
+	${OBJECTDIR}/src/amy/coms/data/ArmData.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o \
-	${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o
+	${OBJECTDIR}/src/amy/coms/file/AmyFilePublisher.o \
+	${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o \
+	${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o
 
 
 # C Compiler Flags
@@ -72,30 +77,55 @@ ${OBJECTDIR}/src/amy/coms/AmyClient.o: src/amy/coms/AmyClient.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyClient.o src/amy/coms/AmyClient.cpp
 
-${OBJECTDIR}/src/amy/coms/AmyCommand.o: src/amy/coms/AmyCommand.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyCommand.o src/amy/coms/AmyCommand.cpp
-
 ${OBJECTDIR}/src/amy/coms/AmyComsConfig.o: src/amy/coms/AmyComsConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsConfig.o src/amy/coms/AmyComsConfig.cpp
+
+${OBJECTDIR}/src/amy/coms/AmyPublisher.o: src/amy/coms/AmyPublisher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyPublisher.o src/amy/coms/AmyPublisher.cpp
 
 ${OBJECTDIR}/src/amy/coms/AmyServer.o: src/amy/coms/AmyServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyServer.o src/amy/coms/AmyServer.cpp
 
+${OBJECTDIR}/src/amy/coms/AmySubscriber.o: src/amy/coms/AmySubscriber.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmySubscriber.o src/amy/coms/AmySubscriber.cpp
+
+${OBJECTDIR}/src/amy/coms/data/AmyCommand.o: src/amy/coms/data/AmyCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/AmyCommand.o src/amy/coms/data/AmyCommand.cpp
+
+${OBJECTDIR}/src/amy/coms/data/ArmData.o: src/amy/coms/data/ArmData.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/ArmData.o src/amy/coms/data/ArmData.cpp
+
 ${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o: src/amy/coms/file/AmyFileClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o src/amy/coms/file/AmyFileClient.cpp
 
+${OBJECTDIR}/src/amy/coms/file/AmyFilePublisher.o: src/amy/coms/file/AmyFilePublisher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFilePublisher.o src/amy/coms/file/AmyFilePublisher.cpp
+
 ${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o: src/amy/coms/file/AmyFileServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o src/amy/coms/file/AmyFileServer.cpp
+
+${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o: src/amy/coms/file/AmyFileSubscriber.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o src/amy/coms/file/AmyFileSubscriber.cpp
 
 # Subprojects
 .build-subprojects:

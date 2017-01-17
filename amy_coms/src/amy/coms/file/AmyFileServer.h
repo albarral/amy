@@ -1,5 +1,5 @@
-#ifndef __AMY_SERVER_FILESERVER_H
-#define __AMY_SERVER_FILESERVER_H
+#ifndef __AMY_COMS_FILESERVER_H
+#define __AMY_COMS_FILESERVER_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -9,7 +9,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/coms/AmyServer.h"
-#include "amy/coms/AmyCommand.h"
+#include "amy/coms/data/AmyCommand.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
 

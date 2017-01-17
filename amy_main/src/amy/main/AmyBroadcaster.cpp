@@ -1,24 +1,22 @@
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
 #include "log4cxx/ndc.h"
 
-#include "ArmComsOut.h"
-#include "amy/arm/coms/ArmCommand.h"
-#include "amy/arm/config/ArmConfig.h"
+#include "amy/main/AmyBroadcaster.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr ArmComsOut::logger(Logger::getLogger("amy.arm"));
+LoggerPtr AmyBroadcaster::logger(Logger::getLogger("amy.arm"));
 
 // Constructor 
-ArmComsOut::ArmComsOut ()
+AmyBroadcaster::AmyBroadcaster ()
 {    
-    modName = "ArmComsOut";
+    modName = "AmyBroadcaster";
     pBusHShoulder = 0;
     pBusVShoulder = 0;
     pBusElbow = 0;
@@ -28,11 +26,11 @@ ArmComsOut::ArmComsOut ()
  }
 
 // Destructor
-ArmComsOut::~ArmComsOut ()
+AmyBroadcaster::~AmyBroadcaster ()
 {
 }
 
-void ArmComsOut::init(Arm& oArm)
+void AmyBroadcaster::init(Arm& oArm)
 {
     numJoints = oArm.getNumJoints();
     // initialize network access
@@ -45,7 +43,7 @@ void ArmComsOut::init(Arm& oArm)
         LOG4CXX_ERROR(logger, modName << " init failed");          
 };
 
-void ArmComsOut::connect(ArmBus& oBus)
+void AmyBroadcaster::connect(ArmBus& oBus)
 {
     pBusHShoulder = &oBus.getBusHS();
     pBusVShoulder = &oBus.getBusVS();
@@ -55,12 +53,12 @@ void ArmComsOut::connect(ArmBus& oBus)
     ArmModule::connect(oBus);
 }
 
-void ArmComsOut::first()
+void AmyBroadcaster::first()
 {    
     log4cxx::NDC::push(modName);   	
 }
 
-void ArmComsOut::loop()
+void AmyBroadcaster::loop()
 {    
     bool bchanged = false;
     

@@ -13,21 +13,35 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="coms" displayName="coms" projectFiles="true">
+        <logicalFolder name="data" displayName="data" projectFiles="true">
+          <itemPath>src/amy/coms/data/AmyCommand.cpp</itemPath>
+          <itemPath>src/amy/coms/data/AmyCommand.h</itemPath>
+          <itemPath>src/amy/coms/data/ArmData.cpp</itemPath>
+          <itemPath>src/amy/coms/data/ArmData.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="file" displayName="file" projectFiles="true">
           <itemPath>src/amy/coms/file/AmyFileClient.cpp</itemPath>
           <itemPath>src/amy/coms/file/AmyFileClient.h</itemPath>
+          <itemPath>src/amy/coms/file/AmyFilePublisher.cpp</itemPath>
+          <itemPath>src/amy/coms/file/AmyFilePublisher.h</itemPath>
           <itemPath>src/amy/coms/file/AmyFileServer.cpp</itemPath>
           <itemPath>src/amy/coms/file/AmyFileServer.h</itemPath>
+          <itemPath>src/amy/coms/file/AmyFileSubscriber.cpp</itemPath>
+          <itemPath>src/amy/coms/file/AmyFileSubscriber.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/coms/AmyClient.cpp</itemPath>
         <itemPath>src/amy/coms/AmyClient.h</itemPath>
-        <itemPath>src/amy/coms/AmyCommand.cpp</itemPath>
-        <itemPath>src/amy/coms/AmyCommand.h</itemPath>
         <itemPath>src/amy/coms/AmyComsConfig.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComsConfig.h</itemPath>
+        <itemPath>src/amy/coms/AmyPublisher.cpp</itemPath>
+        <itemPath>src/amy/coms/AmyPublisher.h</itemPath>
         <itemPath>src/amy/coms/AmyServer.cpp</itemPath>
         <itemPath>src/amy/coms/AmyServer.h</itemPath>
+        <itemPath>src/amy/coms/AmySubscriber.cpp</itemPath>
+        <itemPath>src/amy/coms/AmySubscriber.h</itemPath>
         <itemPath>src/amy/coms/iAmyComs.h</itemPath>
+        <itemPath>src/amy/coms/iAmyPublisher.h</itemPath>
+        <itemPath>src/amy/coms/iAmySubscriber.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -96,17 +110,29 @@
       </item>
       <item path="src/amy/coms/AmyClient.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/coms/AmyComsConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/AmyComsConfig.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/AmyPublisher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmyPublisher.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/coms/AmyServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/AmyServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmySubscriber.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmySubscriber.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/AmyCommand.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/AmyCommand.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/ArmData.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/ArmData.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/file/AmyFileClient.cpp"
             ex="false"
@@ -115,6 +141,16 @@
       </item>
       <item path="src/amy/coms/file/AmyFileClient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/file/AmyFilePublisher.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/file/AmyFilePublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/file/AmyFileServer.cpp"
             ex="false"
             tool="1"
@@ -122,7 +158,21 @@
       </item>
       <item path="src/amy/coms/file/AmyFileServer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/file/AmyFileSubscriber.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/file/AmyFileSubscriber.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/iAmyComs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -149,17 +199,29 @@
       </item>
       <item path="src/amy/coms/AmyClient.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/coms/AmyComsConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/AmyComsConfig.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/AmyPublisher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmyPublisher.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/coms/AmyServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/AmyServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmySubscriber.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmySubscriber.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/AmyCommand.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/AmyCommand.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/ArmData.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/data/ArmData.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/file/AmyFileClient.cpp"
             ex="false"
@@ -168,6 +230,16 @@
       </item>
       <item path="src/amy/coms/file/AmyFileClient.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/file/AmyFilePublisher.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/file/AmyFilePublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/file/AmyFileServer.cpp"
             ex="false"
             tool="1"
@@ -175,7 +247,21 @@
       </item>
       <item path="src/amy/coms/file/AmyFileServer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/file/AmyFileSubscriber.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/file/AmyFileSubscriber.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/iAmyComs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

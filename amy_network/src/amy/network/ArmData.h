@@ -11,7 +11,7 @@
 namespace amy
 {
 // This class is used to transfer data of an arm's joints(control and measured values) through the amy's network
-class ArmData
+class ArmDataN
 {
     private:
         // (commanded) soll angles of joints 1 to 5
@@ -56,9 +56,9 @@ class ArmData
         float getIst5() {return ist5;};        
         
         // check if specified object has same soll values
-        bool sameSollValues(ArmData& oArmData);
+        bool sameSollValues(ArmDataN& oArmData);
         // check if specified object has same ist values        
-        bool sameIstValues(ArmData& oArmData);
+        bool sameIstValues(ArmDataN& oArmData);
         
         // returns a description of the object
         std::string toString();

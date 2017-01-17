@@ -31,6 +31,8 @@ void ArmInterface::connect(ArmBus& oArmBus)
     benabled = true;
 }
 
+// HIGH LEVEL CONTROL
+
 void ArmInterface::movePan(float angle)
 {    
     int val = angle; // transform to int
@@ -51,6 +53,8 @@ void ArmInterface::extend(float radius)
     if (benabled)
         pArmBus->getCO_ARM_RADIUS().request(val);            
 }
+
+// LOW LEVEL CONTROL
 
 void ArmInterface::moveHS(float angle)
 {
@@ -80,6 +84,53 @@ void ArmInterface::moveVW(float angle)
 {
     if (benabled)
          pBusVW->getCO_JOINT_ANGLE().request(angle);            
+}
+
+// LOW LEVEL OUTPUTS
+
+// get HS control angle
+float ArmInterface::getHSControl()
+{
+    if (benabled)
+        return pBusHS->getCO_JOINT_ANGLE().getValue();    
+    else
+        return 0.0;
+}
+
+// get VS control angle
+float ArmInterface::getVSControl()
+{
+    if (benabled)
+        return pBusVS->getCO_JOINT_ANGLE().getValue();    
+    else
+        return 0.0;
+}
+
+// get EL control angle
+float ArmInterface::getELControl()
+{
+    if (benabled)
+        return pBusEL->getCO_JOINT_ANGLE().getValue();    
+    else
+        return 0.0;
+}
+
+// get HW control angle
+float ArmInterface::getHWControl()
+{
+    if (benabled)
+        return pBusHW->getCO_JOINT_ANGLE().getValue();    
+    else
+        return 0.0;
+}
+
+// get VW control angle
+float ArmInterface::getVWControl()
+{
+    if (benabled)
+        return pBusVW->getCO_JOINT_ANGLE().getValue();    
+    else
+        return 0.0;
 }
 
 }

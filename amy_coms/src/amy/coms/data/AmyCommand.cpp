@@ -3,10 +3,10 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <stdexcept>      // std::invalid_argument
 #include <vector>
 
-#include "amy/coms/AmyCommand.h"
+#include "amy/coms/data/AmyCommand.h"
+#include "amy/utils/StringUtil.h"
 
 namespace amy
 {
@@ -48,30 +48,11 @@ bool AmyCommand::interpret(std::string text)
 {
     bool bvalid = true;
     this->text = text;    
-    std::vector<std::string> listTokens; 
-
+    
     // split text in tokens (separated by *)
-    std::string::size_type orig = 0;
-    std::string::size_type pos;
-    bool bdone = false;    
-    while (!bdone)
-    {
-        // search separator
-        pos = text.find_first_of(separator, orig);
-        
-         // if found, get token
-        if (pos != std::string::npos)
-            listTokens.push_back(text.substr(orig, pos-orig));
-        // otherwise, get the last token
-        else
-        {
-            listTokens.push_back(text.substr(orig));
-            bdone = true; 
-        }
-        
-        orig = pos+1;
-    }
-      
+    std::vector<std::string> listTokens = StringUtil::split(text, separator); 
+
+    /*
     try
     {
         // first token has the action
@@ -101,7 +82,38 @@ bool AmyCommand::interpret(std::string text)
         // if any token is not numeric the command is invalid
         bvalid = false;        
     }
-                
+     */ 
+
+    // first token has the action (int)
+    bvalid = StringUtil::convert2Integer(listTokens.at(0), action);
+    // if well converted, check its range
+    if (bvalid && (action <= eACT_UNDEFINED || action >= eACT_DIM))
+    {
+        action = eACT_UNDEFINED;
+        bvalid = false;
+    }
+
+    if (bvalid)
+    {
+        // second token has the target (int)
+        bvalid = StringUtil::convert2Integer(listTokens.at(1), target);
+        // if well converted, check its range
+        if (bvalid && (target <= eTAR_UNDEFINED || target >= eTAR_DIM))
+        {
+            target = eTAR_UNDEFINED;
+            bvalid = false;
+        }
+    }
+
+    if (bvalid)
+    {
+        // third token has the value (float)
+        if (listTokens.size() > 2)
+        {
+            bvalid = StringUtil::convert2Float(listTokens.at(2), value);
+        }
+    }
+    
     return bvalid;
 }
 

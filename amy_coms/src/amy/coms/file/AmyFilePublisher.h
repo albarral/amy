@@ -1,20 +1,20 @@
-#ifndef __AMY_COMS_FILECLIENT_H
-#define __AMY_COMS_FILECLIENT_H
+#ifndef __AMY_COMS_FILEPUBLISHER_H
+#define __AMY_COMS_FILEPUBLISHER_H
 
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/coms/AmyClient.h"
+#include "amy/coms/AmyPublisher.h"
 #include "amy/utils/FileWriter.h"
 
 namespace amy
 {
-class AmyFileClient : public AmyClient
+class AmyFilePublisher : public AmyPublisher
 {    
 private:
     static log4cxx::LoggerPtr logger;    
@@ -22,14 +22,14 @@ private:
     FileWriter oFileWriter;
     
 public:
-    AmyFileClient();
-    ~AmyFileClient();
+    AmyFilePublisher();
+    ~AmyFilePublisher();
 
     std::string getFilename() {return filename;};
         
 private:
-    // send textual command
-    virtual void sendCommand();
+   // info publishing method (writes data in file)
+    virtual void publishInfo();
 };
 }
 #endif

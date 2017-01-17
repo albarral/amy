@@ -37,13 +37,13 @@ public:
         bool init(int type);
         
         // sets joint soll (commanded) values for the given arm
-        bool setArmSoll(int arm, ArmData& oArmData);
+        bool setArmSoll(int arm, ArmDataN& oArmData);
         // sets joint ist (measured) values for the given arm
-        bool setArmIst(int arm, ArmData& oArmData);
+        bool setArmIst(int arm, ArmDataN& oArmData);
         // gets joint soll (commanded) values for the given arm
-        bool getArmSoll(int arm, ArmData& oArmData);        
+        bool getArmSoll(int arm, ArmDataN& oArmData);        
         // gets joint ist (measured) values for the given arm
-        bool getArmIst(int arm, ArmData& oArmData);      
+        bool getArmIst(int arm, ArmDataN& oArmData);      
     
 };
 

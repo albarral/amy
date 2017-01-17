@@ -17,7 +17,10 @@ AmyComsConfig::AmyComsConfig()
     if (pVar!=NULL)
     {
         std::string home(pVar);
-        comsFilename = home + "/coms/amy_in.txt";
+        // file for client server coms        
+        comsFilename1 = home + "/coms/amy_in.txt";
+        // file for publish subscribe coms
+        comsFilename2 = home + "/coms/amy_pub.txt";
     }
 }
 

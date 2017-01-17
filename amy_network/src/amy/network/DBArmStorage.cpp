@@ -30,7 +30,7 @@ DBArmStorage::~DBArmStorage ()
 
 
 // sets soll (commanded) values for all joints
-bool DBArmStorage::storeArmSoll(int arm, ArmData& oArmData)
+bool DBArmStorage::storeArmSoll(int arm, ArmDataN& oArmData)
 {
     LOG4CXX_DEBUG(logger, "DBArmStorage: store arm soll");
     
@@ -56,7 +56,7 @@ bool DBArmStorage::storeArmSoll(int arm, ArmData& oArmData)
 
 
 // sets ist (measured) values for all joints
-bool DBArmStorage::storeArmIst(int arm, ArmData& oArmData)
+bool DBArmStorage::storeArmIst(int arm, ArmDataN& oArmData)
 {
     LOG4CXX_DEBUG(logger, "DBArmStorage: store arm ist");
     
@@ -82,7 +82,7 @@ bool DBArmStorage::storeArmIst(int arm, ArmData& oArmData)
 
 
 // gets soll (commanded) values for all joints
-bool DBArmStorage::readArmSoll(int arm, ArmData& oArmData)
+bool DBArmStorage::readArmSoll(int arm, ArmDataN& oArmData)
 {
     bool bread = false;
     LOG4CXX_DEBUG(logger, "DBArmStorage: read arm soll");
@@ -118,7 +118,7 @@ bool DBArmStorage::readArmSoll(int arm, ArmData& oArmData)
 
 
 // gets ist (measured) values for all joints
-bool DBArmStorage::readArmIst(int arm, ArmData& oArmData)
+bool DBArmStorage::readArmIst(int arm, ArmDataN& oArmData)
 {
     LOG4CXX_DEBUG(logger, "DBArmStorage: read arm ist");
     
@@ -167,7 +167,7 @@ bool DBArmStorage::connectDB()
 }
 
 
- std::string DBArmStorage::updateQuery4Soll(int arm, ArmData& oArmData)
+ std::string DBArmStorage::updateQuery4Soll(int arm, ArmDataN& oArmData)
 {
     // update soll values
     std::string query = "UPDATE " +  tabJoints + " SET " + 
@@ -183,7 +183,7 @@ bool DBArmStorage::connectDB()
 }
 
 
- std::string DBArmStorage::updateQuery4Ist(int arm, ArmData& oArmData)
+ std::string DBArmStorage::updateQuery4Ist(int arm, ArmDataN& oArmData)
 {
     // update ist values
     std::string query = "UPDATE " +  tabJoints + " SET " + 

@@ -1,5 +1,5 @@
-#ifndef __AMY_CLIENT_AMYCLIENT_H
-#define __AMY_CLIENT_AMYCLIENT_H
+#ifndef __AMY_COMS_AMYCLIENT_H
+#define __AMY_COMS_AMYCLIENT_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -8,7 +8,7 @@
 
 #include <string>
 #include "amy/coms/iAmyComs.h"
-#include "amy/coms/AmyCommand.h"
+#include "amy/coms/data/AmyCommand.h"
 
 namespace amy
 {
@@ -39,7 +39,7 @@ public:
     virtual void endAmy();
     
 protected:
-    // send command
+    // command sending method specific for each AmyClient implementation
     virtual void sendCommand() = 0;
 };
 }

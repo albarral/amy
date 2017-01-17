@@ -8,7 +8,7 @@
 
 namespace amy
 {
-void ArmData::reset()
+void ArmDataN::reset()
 {
     soll1 = 0;
     soll2 = 0;
@@ -24,7 +24,7 @@ void ArmData::reset()
 }
 
 
-bool ArmData::sameSollValues(ArmData& oArmData)
+bool ArmDataN::sameSollValues(ArmDataN& oArmData)
 {
     return ((soll1 == oArmData.soll1) &&
                 (soll2 == oArmData.soll2) &&
@@ -34,7 +34,7 @@ bool ArmData::sameSollValues(ArmData& oArmData)
 }
 
 
-bool ArmData::sameIstValues(ArmData& oArmData)
+bool ArmDataN::sameIstValues(ArmDataN& oArmData)
 {
     return ((ist1 == oArmData.ist1) &&
                 (ist2 == oArmData.ist2) &&
@@ -44,7 +44,7 @@ bool ArmData::sameIstValues(ArmData& oArmData)
 }
 
 
-std::string ArmData::toString()
+std::string ArmDataN::toString()
 {
     std::string desc = "[ArmData]: \n soll1 = " + std::to_string(soll1) + 
                              "\n soll2 = " + std::to_string(soll2) +

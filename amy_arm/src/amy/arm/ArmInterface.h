@@ -31,10 +31,11 @@ protected:
 public:
     ArmInterface();
 
-   bool isEnabled() {return benabled;};
-   // bus connection 
-   void connect(ArmBus& oArmBus);
+    bool isEnabled() {return benabled;};
+    // bus connection 
+    void connect(ArmBus& oArmBus);
    
+    // HIGH LEVEL CONTROL
     // change arm pan
     virtual void movePan(float angle);
     // change arm tilt
@@ -42,6 +43,7 @@ public:
     // extend arm
     virtual void extend(float radius);
 
+    // LOW LEVEL CONTROL
     // set HS position
     virtual void moveHS(float angle);
     // set VS position
@@ -52,6 +54,19 @@ public:
     virtual void moveHW(float angle);
     // set VW position
     virtual void moveVW(float angle);
+
+    // LOW LEVEL OUTPUTS
+    // get HS control angle
+    virtual float getHSControl();
+    // get VS control angle
+    virtual float getVSControl();
+    // get EL control angle
+    virtual float getELControl();
+    // get HW control angle
+    virtual float getHWControl();
+    // get VW control angle
+    virtual float getVWControl();
+
 };
 }
 #endif

@@ -26,7 +26,7 @@ private:
     static log4cxx::LoggerPtr logger;
     // logic
     ArmNetwork oArmNetwork;
-    ArmData oArmData;
+    ArmDataN oArmData;
     JointBus* pBusHShoulder;    // access to horizonal shoulder bus
     JointBus* pBusVShoulder;    // access to vertical shoulder bus
     JointBus* pBusElbow;          // access to elbow bus  

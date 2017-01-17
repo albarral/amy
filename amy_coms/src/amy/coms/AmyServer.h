@@ -1,5 +1,5 @@
-#ifndef __AMY_SERVER_AMYSERVER_H
-#define __AMY_SERVER_AMYSERVER_H
+#ifndef __AMY_COMS_AMYSERVER_H
+#define __AMY_COMS_AMYSERVER_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *

@@ -15,13 +15,13 @@ class iArmStorage
 {
     public:
         // sets soll (commanded) values for all joints
-        virtual bool storeArmSoll(int arm, ArmData& oArmData) = 0;
+        virtual bool storeArmSoll(int arm, ArmDataN& oArmData) = 0;
         // gets soll (commanded) values for all joints
-        virtual bool readArmSoll(int arm, ArmData& oArmData) = 0;        
+        virtual bool readArmSoll(int arm, ArmDataN& oArmData) = 0;        
         // sets ist (measured) values for all joints
-        virtual bool storeArmIst(int arm, ArmData& oArmData) = 0;
+        virtual bool storeArmIst(int arm, ArmDataN& oArmData) = 0;
         // gets ist (measured) values for all joints
-        virtual bool readArmIst(int arm, ArmData& oArmData) = 0;      
+        virtual bool readArmIst(int arm, ArmDataN& oArmData) = 0;      
 };
 
 }    

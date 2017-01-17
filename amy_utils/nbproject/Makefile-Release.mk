@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/utils/FileReader.o \
 	${OBJECTDIR}/src/amy/utils/FileWriter.o \
 	${OBJECTDIR}/src/amy/utils/Record.o \
+	${OBJECTDIR}/src/amy/utils/StringUtil.o \
 	${OBJECTDIR}/src/amy/utils/brooks/control.o \
 	${OBJECTDIR}/src/amy/utils/brooks/inhibition.o \
 	${OBJECTDIR}/src/amy/utils/module.o \
@@ -107,6 +108,11 @@ ${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Record.o src/amy/utils/Record.cpp
+
+${OBJECTDIR}/src/amy/utils/StringUtil.o: src/amy/utils/StringUtil.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/StringUtil.o src/amy/utils/StringUtil.cpp
 
 ${OBJECTDIR}/src/amy/utils/brooks/control.o: src/amy/utils/brooks/control.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils/brooks

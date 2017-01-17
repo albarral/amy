@@ -17,7 +17,7 @@ AmyFileServer::AmyFileServer()
 {    
     // get coms file name
     AmyComsConfig oAmyComsConfig;    
-    filename = oAmyComsConfig.getComsFilename();
+    filename = oAmyComsConfig.getComsFilename1();
     // open coms file for reading & writing
     if (!filename.empty())
     {

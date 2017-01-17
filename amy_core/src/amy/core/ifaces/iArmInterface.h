@@ -15,7 +15,8 @@ class iArmInterface
 public:
     // check if it's enabled
     virtual bool isEnabled() = 0;
-        
+
+    // HIGH LEVEL CONTROL
     // change arm pan
     virtual void movePan(float angle) = 0;
     // change arm tilt
@@ -23,6 +24,7 @@ public:
     // extend arm
     virtual void extend(float value) = 0;
 
+    // LOW LEVEL CONTROL    
     // set HS position
     virtual void moveHS(float angle) = 0;
     // set VS position
@@ -46,6 +48,18 @@ public:
     // set VW acceleration (degrees/s²)
     virtual void accelVW(float accel) = 0;
      */ 
+    
+    // LOW LEVEL OUTPUTS    
+    // get HS control angle
+    virtual float getHSControl() = 0;
+    // get VS control angle
+    virtual float getVSControl() = 0;
+    // get EL control angle
+    virtual float getELControl() = 0;
+    // get HW control angle
+    virtual float getHWControl() = 0;
+    // get VW control angle
+    virtual float getVWControl() = 0;
 };
 
 }    

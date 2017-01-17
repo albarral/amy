@@ -28,6 +28,7 @@ public:
     void testFileReader(std::string name);
     void testFileWriter();    
     void testAmyServer();
+    void testAmyPublisher();
 
 private:        
     void writePos(ArmNetwork& oArmNetwork, int value);

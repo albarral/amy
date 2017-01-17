@@ -34,23 +34,23 @@ public:
         ~DBArmStorage();
     
         // sets soll (commanded) values for all joints
-        virtual bool storeArmSoll(int arm, ArmData& oArmData);
+        virtual bool storeArmSoll(int arm, ArmDataN& oArmData);
         // sets ist (measured) values for all joints
-        virtual bool storeArmIst(int arm, ArmData& oArmData);
+        virtual bool storeArmIst(int arm, ArmDataN& oArmData);
         // gets soll (commanded) values for all joints
-        virtual bool readArmSoll(int arm, ArmData& oArmData);        
+        virtual bool readArmSoll(int arm, ArmDataN& oArmData);        
         // gets ist (measured) values for all joints
-        virtual bool readArmIst(int arm, ArmData& oArmData);      
+        virtual bool readArmIst(int arm, ArmDataN& oArmData);      
         
 private:
     // connects to DB
     bool connectDB();    
     // creates the update query to change the joints soll values
-    std::string updateQuery4Soll(int arm, ArmData& oArmData);
+    std::string updateQuery4Soll(int arm, ArmDataN& oArmData);
     // creates the select query to read the joints soll values
     std::string selectQuery4Soll(int arm);
     // creates the update query to change the joints ist values
-    std::string updateQuery4Ist(int arm, ArmData& oArmData);
+    std::string updateQuery4Ist(int arm, ArmDataN& oArmData);
     // creates the select query to read the joints ist values
     std::string selectQuery4Ist(int arm);
     

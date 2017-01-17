@@ -43,7 +43,7 @@ bool ArmNetwork::init(int type)
 
 
 // sets soll (commanded) values for all joints
-bool ArmNetwork::setArmSoll(int arm, ArmData& oArmData)
+bool ArmNetwork::setArmSoll(int arm, ArmDataN& oArmData)
 {
     if (benabled)
         return pArmStorage->storeArmSoll(arm, oArmData);
@@ -53,7 +53,7 @@ bool ArmNetwork::setArmSoll(int arm, ArmData& oArmData)
 
 
 // sets ist (measured) values for all joints
-bool ArmNetwork::setArmIst(int arm, ArmData& oArmData)
+bool ArmNetwork::setArmIst(int arm, ArmDataN& oArmData)
 {
     if (benabled)
         return pArmStorage->storeArmIst(arm, oArmData);
@@ -62,7 +62,7 @@ bool ArmNetwork::setArmIst(int arm, ArmData& oArmData)
 }
 
 // gets soll (commanded) values for all joints
-bool ArmNetwork::getArmSoll(int arm, ArmData& oArmData)
+bool ArmNetwork::getArmSoll(int arm, ArmDataN& oArmData)
 {
     if (benabled)
         return pArmStorage->readArmSoll(arm, oArmData);
@@ -71,7 +71,7 @@ bool ArmNetwork::getArmSoll(int arm, ArmData& oArmData)
 }
 
 // gets ist (measured) values for all joints
-bool ArmNetwork::getArmIst(int arm, ArmData& oArmData)
+bool ArmNetwork::getArmIst(int arm, ArmDataN& oArmData)
 {
     if (benabled)
         return pArmStorage->readArmIst(arm, oArmData);

@@ -38,6 +38,8 @@
             <itemPath>src/amy/utils/FileWriter.h</itemPath>
             <itemPath>src/amy/utils/Record.cpp</itemPath>
             <itemPath>src/amy/utils/Record.h</itemPath>
+            <itemPath>src/amy/utils/StringUtil.cpp</itemPath>
+            <itemPath>src/amy/utils/StringUtil.h</itemPath>
             <itemPath>src/amy/utils/module.cpp</itemPath>
             <itemPath>src/amy/utils/module.h</itemPath>
             <itemPath>src/amy/utils/module2.cpp</itemPath>
@@ -106,6 +108,10 @@
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/brooks/control.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -184,6 +190,10 @@
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/brooks/control.cpp" ex="false" tool="1" flavor2="0">
       </item>

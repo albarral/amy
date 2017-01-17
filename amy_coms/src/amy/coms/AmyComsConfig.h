@@ -13,13 +13,15 @@ namespace amy
 class AmyComsConfig 
 {
     private:                
-        std::string comsFilename;     // name of file used for client-server communication
+        std::string comsFilename1;     // name of file used for client-server communications
+        std::string comsFilename2;     // name of file used for publish-subscribe communications
         
     public:
         AmyComsConfig();
         //~AmyComsConfig();
                 
-        std::string getComsFilename() {return comsFilename;}        
+        std::string getComsFilename1() {return comsFilename1;}        
+        std::string getComsFilename2() {return comsFilename2;}        
 };
 
 }
