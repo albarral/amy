@@ -6,33 +6,32 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 #include "amy/coms/iAmyPublisher.h"
 #include "amy/coms/data/ArmData.h"
-#include "amy/core/ifaces/iArmInterface.h"
+
 
 namespace amy
 {
-// Base class used to publish amy info to be consumed by external processes.
-// Info from amy control is obtained through the amy interface.
+// Base class used to publish amy info (to be consumed by external processes)
 class AmyPublisher : public iAmyPublisher
 {    
 protected:
-    bool bconnected;        // connected to amy interface
-    iArmInterface* pArmInterface;   // interface for arm control
-    ArmData oArmData;       // control data for an arm's joints
+    bool benabled;        // connected to amy interface
         
 public:
     AmyPublisher();
 
-   bool isConnected() {return bconnected;};
-   void connect2Arm(iArmInterface& oArmInterface);
+    virtual void init() = 0;
+    bool isEnabled() {return benabled;};
    
     // publish commanded joint control positions (angles)
-    virtual void publishArmControl();
+    virtual void publishArmControl(ArmData& oArmData);
     
 private:
    // info publishing method (specific for each AmyPublisher implementation)
-    virtual void publishInfo() = 0;
+    virtual void publishInfo(std::string sollMessage) = 0;
 };
 }
 #endif

@@ -15,11 +15,6 @@ AmyFilePublisher::AmyFilePublisher()
     // get coms file name
     AmyComsConfig oAmyComsConfig;    
     filename = oAmyComsConfig.getComsFilename2();
-    // open coms file for writing
-    if (!filename.empty())
-    {
-        oFileWriter.open(filename);  
-    }
 }
 
 AmyFilePublisher::~AmyFilePublisher()
@@ -27,16 +22,24 @@ AmyFilePublisher::~AmyFilePublisher()
     oFileWriter.close();    
 }
 
-void AmyFilePublisher::publishInfo()
+void AmyFilePublisher::init()
+{
+    // open coms file for writing
+    if (!filename.empty())
+    {
+        if (oFileWriter.open(filename))
+            benabled = true;        
+    }    
+}
+
+void AmyFilePublisher::publishInfo(std::string sollMessage)
 {
     if (oFileWriter.isOpen())        
     {
-        // write command in coms file (newline added)
-        std::string message = oArmData.createSollMessage();
-        // overwriting any previous command
+        // overwrite any previous info
         oFileWriter.writeFromTop();
-        oFileWriter.writeFlush(message);
-        //LOG4CXX_INFO(logger, "AmyFilePublisher: command > " << message);        
+        oFileWriter.writeFlush(sollMessage);
+        //LOG4CXX_INFO(logger, "AmyFilePublisher: > " << sollMessage);        
     }
     else
         LOG4CXX_ERROR(logger, "AmyFilePublisher: can't publish info, coms file not open");                

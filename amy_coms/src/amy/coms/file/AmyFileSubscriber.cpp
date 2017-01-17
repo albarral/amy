@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include <string>
-#include <iostream>
 
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/coms/AmyComsConfig.h"
@@ -43,11 +42,8 @@ std::string AmyFileSubscriber::readInfo()
     {
         // read file from top
         oFileReader.readFromTop();
-        // read all lines (5) of message
-        for (int i=0; i<ArmData::numJoints; i++)
-        {
-            message += oFileReader.readLine();            
-        }
+        // read message in file
+        message = oFileReader.readLine();            
     }
     else
     {

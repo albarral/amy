@@ -10,27 +10,18 @@ namespace amy
 
 AmyPublisher::AmyPublisher()
 {    
-    bconnected = false;
-    pArmInterface = 0;
+    benabled = false;
 }
 
-void AmyPublisher::connect2Arm(iArmInterface& oArmInterface)
-{
-    pArmInterface = &oArmInterface;
-    bconnected = true;
-}
 
-void AmyPublisher::publishArmControl()
+void AmyPublisher::publishArmControl(ArmData& oArmData)
 {    
-    if (bconnected)
+    if (benabled)
     {
-        oArmData.setSoll1(pArmInterface->getHSControl());
-        oArmData.setSoll2(pArmInterface->getVSControl());
-        oArmData.setSoll3(pArmInterface->getELControl());
-        oArmData.setSoll4(pArmInterface->getHWControl());
-        oArmData.setSoll5(pArmInterface->getVWControl());
-        
-        publishInfo();
+        // obtain the soll message
+        std::string sollMessage = oArmData.createSollMessage();
+        // and broadcast it
+        publishInfo(sollMessage);
     }
 }
 

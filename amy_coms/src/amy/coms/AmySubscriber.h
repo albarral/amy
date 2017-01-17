@@ -18,7 +18,6 @@ class AmySubscriber : public iAmySubscriber
 {    
 protected:
     bool benabled;        
-    ArmData oArmData;    // control data for an arm's joints
         
 public:
     AmySubscriber();

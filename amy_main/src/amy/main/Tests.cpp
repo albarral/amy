@@ -33,33 +33,20 @@ void Tests::testAmyPublisher()
 {
     LOG4CXX_INFO(logger, "> TEST AMY PUBLISHER");      
 
-    // load robot
-    SupportedRobots oSupportedRobots;
-    Robot oRobot;
-    oSupportedRobots.loadRobotVersion(oRobot, SupportedRobots::UR5);
-    // create arm bus
-    ArmBus oArmBus;
-    Arm& oArm = oRobot.getListArms().at(0);        
-    oArmBus.init(oArm);
-    // create arm interface (connect it to bus)
-    ArmInterface oArmInterface;
-    oArmInterface.connect(oArmBus);
-
-    // create publisher (connect it to interface)
+    // create publisher 
     AmyFilePublisher oAmyPublisher;
-    oAmyPublisher.connect2Arm(oArmInterface);
+    oAmyPublisher.init();
     // create subscriber
     AmyFileSubscriber oAmyFileSubscriber;
     oAmyFileSubscriber.init();
+    
     ArmData oArmData;
+    ArmData oArmData2;
+    oArmData.setSollHS(69);
 
-    // change bus
-    float angle = 30.0;
-    oArmBus.getBusHS().getCO_JOINT_ANGLE().request(angle);
+    oAmyPublisher.publishArmControl(oArmData);
     
-    oAmyPublisher.publishArmControl();
-    
-    oArmData = oAmyFileSubscriber.readArmControl();
+    oArmData2 = oAmyFileSubscriber.readArmControl();
 
     LOG4CXX_INFO(logger, "AmyFileSubscriber > " << oArmData.toString());          
     

@@ -9,11 +9,11 @@
 #include <log4cxx/logger.h>
 
 #include "amy/coms/AmySubscriber.h"
-#include "amy/coms/data/AmyCommand.h"
 #include "amy/utils/FileReader.h"
 
 namespace amy
 {
+// Implementation of the AmySubscriber class based in broadcasting messages through a shared file.
 class AmyFileSubscriber : public AmySubscriber
 {    
 private:

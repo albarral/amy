@@ -14,7 +14,7 @@ namespace amy
 class iAmySubscriber
 {    
 public:
-    // read published joint control positions (angles)
+    // read commanded joint angles (degrees)
     virtual ArmData readArmControl() = 0;
 };
 }

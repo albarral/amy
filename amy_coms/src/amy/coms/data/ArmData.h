@@ -34,29 +34,29 @@ public:
         // reset values for all joints
         void reset();        
         // set soll (commanded) values for each joint
-        void setSoll1(float value) {sollHS = value;}
-        void setSoll2(float value) {sollVS = value;}
-        void setSoll3(float value) {sollEL = value;}
-        void setSoll4(float value) {sollHW = value;}
-        void setSoll5(float value) {sollVW = value;}        
+        void setSollHS(float value) {sollHS = value;}
+        void setSollVS(float value) {sollVS = value;}
+        void setSollEL(float value) {sollEL = value;}
+        void setSollHW(float value) {sollHW = value;}
+        void setSollVW(float value) {sollVW = value;}        
         // gets soll (commanded) values for all joints
-        float getSoll1() {return sollHS;};        
-        float getSoll2() {return sollVS;};        
-        float getSoll3() {return sollEL;};        
-        float getSoll4() {return sollHW;};        
-        float getSoll5() {return sollVW;};                
+        float getSollHS() {return sollHS;};        
+        float getSollVS() {return sollVS;};        
+        float getSollEL() {return sollEL;};        
+        float getSollHW() {return sollHW;};        
+        float getSollVW() {return sollVW;};                
         // set ist (measured) values for each joint
-        void setIst1(float value) {istHS = value;}
-        void setIst2(float value) {istVS = value;}
-        void setIst3(float value) {istEL = value;}
-        void setIst4(float value) {istHW = value;}
-        void setIst5(float value) {istVW = value;}        
+        void setIstHS(float value) {istHS = value;}
+        void setIstVS(float value) {istVS = value;}
+        void setIstEL(float value) {istEL = value;}
+        void setIstHW(float value) {istHW = value;}
+        void setIstVW(float value) {istVW = value;}        
         // get ist (measured) values for each joint
-        float getIst1() {return istHS;};        
-        float getIst2() {return istVS;};        
-        float getIst3() {return istEL;};        
-        float getIst4() {return istHW;};        
-        float getIst5() {return istVW;};        
+        float getIstHS() {return istHS;};        
+        float getIstVS() {return istVS;};        
+        float getIstEL() {return istEL;};        
+        float getIstHW() {return istHW;};        
+        float getIstVW() {return istVW;};        
         
         // check if specified object has same soll values
         bool sameSollValues(ArmData& oArmData);

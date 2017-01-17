@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/coms/data/ArmData.h"
 
 namespace amy
 {
@@ -13,8 +14,8 @@ namespace amy
 class iAmyPublisher
 {    
 public:
-    // publish commanded joint control positions (angles)
-    virtual void publishArmControl() = 0;
+    // publish commanded joint angles (degrees)
+    virtual void publishArmControl(ArmData& oArmData) = 0;
 };
 }
 #endif

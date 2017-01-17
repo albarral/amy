@@ -13,18 +13,16 @@ AmySubscriber::AmySubscriber()
     benabled = false;
 }
 
-//void AmySubscriber::init()
-//{
-//    benabled = true;
-//}
-
 ArmData AmySubscriber::readArmControl()
 {    
+    ArmData oArmData;
+    
     if (benabled)
     {
-        std::string message = readInfo();
-        
-        oArmData.processSollMessage(message);
+        // read the soll message
+        std::string sollMessage = readInfo();
+        // and transform it into proper control data
+        oArmData.processSollMessage(sollMessage);
     }
     
     return oArmData;

@@ -14,22 +14,24 @@
 
 namespace amy
 {
+// Implementation of the AmyPublisher class based in broadcasting messages through a shared file.
 class AmyFilePublisher : public AmyPublisher
 {    
 private:
     static log4cxx::LoggerPtr logger;    
-    std::string filename;
+    std::string filename;       // file for broadcasting the info
     FileWriter oFileWriter;
     
 public:
     AmyFilePublisher();
     ~AmyFilePublisher();
 
+    virtual void init();
     std::string getFilename() {return filename;};
         
 private:
    // info publishing method (writes data in file)
-    virtual void publishInfo();
+    virtual void publishInfo(std::string sollMessage);
 };
 }
 #endif
