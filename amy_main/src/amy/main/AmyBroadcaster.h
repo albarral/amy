@@ -6,45 +6,42 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <string>
-#include <vector>
 #include <log4cxx/logger.h>
 
 #include "amy/utils/module2.h"
+#include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/coms/data/ArmData.h"
-//#include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/core/ifaces/iArmInterface.h"
 
 namespace amy
 {
 // This module is in charge of publishing the commanded joint angles to be applied to the arm.
+// It uses an AmyPublisher object to broadcast the data.
 class AmyBroadcaster : public Module2
 {
 private:
     static log4cxx::LoggerPtr logger;
+    std::string modName;          // module name
+    bool benabled;
     // logic
-    ArmData oArmData;
-//    float angles[AMY_MAX_JOINTS];
-//    float lastAngles[AMY_MAX_JOINTS];
-    int numJoints;
+    AmyFilePublisher oAmyPublisher;          // the info publisher (based in shared file)
+    ArmData oArmData;                             // data to be broadcasted
+    ArmData oArmData0;                           // data storage (for change detection)
+    iArmInterface* pArmInterface;               // interface to the arm's control
 
 public:
     AmyBroadcaster ();
-    ~AmyBroadcaster();
+    //~AmyBroadcaster();
 
-    // module params
-    virtual void init(Arm& oArm);
-
-    // bus connection 
-    virtual void connect(ArmBus& oBus);
-        
-    // ask the module to stop
-    void stop();
-        
+    void init(iArmInterface& oArmInterface);       
+    bool isEnabled() {return benabled;};
+                
 private:
     void first();
     // executes the behaviour
     void loop ();    
+    // fetch joints control info through the arm's interface
+    void fetchInfo();
 };
 }		
 #endif

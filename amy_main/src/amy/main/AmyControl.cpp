@@ -29,6 +29,8 @@ bool AmyControl::launch(Robot& oRobot)
     bool bok = false;
     LOG4CXX_INFO(logger, "Launch amy control for robot " << oRobot.getName());
     
+    float freq = oAmyConfig.getModulesFreq();
+    
     // for now, just single arm robots supported
     if (oRobot.getNumArms() == 1)
     {
@@ -36,9 +38,16 @@ bool AmyControl::launch(Robot& oRobot)
         
         // launch arm manager
         bok = oArmManager.launch(oAmyConfig, oArm);
+        
+        // launch listener module
         oAmyListener.init(oArmManager.getArmInterface());
-        oAmyListener.setFrequency(10.0);
+        oAmyListener.setFrequency(freq);
         oAmyListener.on();
+        
+        // launch broadcaster module
+        oAmyBroadcaster.init(oArmManager.getArmInterface());
+        oAmyBroadcaster.setFrequency(freq);
+        oAmyBroadcaster.on();
     }
     else
     {
@@ -51,10 +60,17 @@ bool AmyControl::launch(Robot& oRobot)
 
 bool AmyControl::end()
 {
+    // finish arm manager
     oArmManager.end();
+    
+    // finish listener module
     oAmyListener.off();
-    oAmyListener.wait();    
-}
+    oAmyListener.wait();      
+    
+    // finish broadcaster module
+    oAmyBroadcaster.off();
+    oAmyBroadcaster.wait();      
+  }
 
 bool AmyControl::checkEndRequested()
 {

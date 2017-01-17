@@ -12,7 +12,7 @@
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/ArmManager.h"
 #include "amy/main/AmyListener.h"
-//#include "amy/main/ArmComsOut.h"
+#include "amy/main/AmyBroadcaster.h"
 
 namespace amy
 {
@@ -24,8 +24,8 @@ class AmyControl
         static log4cxx::LoggerPtr logger;
         AmyConfig oAmyConfig;
         ArmManager oArmManager;
-        AmyListener oAmyListener;
-        //ArmComsOut oArmComsOut;   // communications module for sending outputs to network
+        AmyListener oAmyListener;               // communications module for responding to external requests
+        AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
 
     public:
         AmyControl();

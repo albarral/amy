@@ -21,6 +21,8 @@
           <itemPath>src/amy/main/robots/SupportedRobots.cpp</itemPath>
           <itemPath>src/amy/main/robots/SupportedRobots.h</itemPath>
         </logicalFolder>
+        <itemPath>src/amy/main/AmyBroadcaster.cpp</itemPath>
+        <itemPath>src/amy/main/AmyBroadcaster.h</itemPath>
         <itemPath>src/amy/main/AmyControl.cpp</itemPath>
         <itemPath>src/amy/main/AmyControl.h</itemPath>
         <itemPath>src/amy/main/AmyListener.cpp</itemPath>
@@ -132,6 +134,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/amy/main/AmyBroadcaster.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyBroadcaster.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
@@ -185,6 +191,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/main/AmyBroadcaster.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyBroadcaster.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">

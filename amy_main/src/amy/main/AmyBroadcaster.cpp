@@ -11,47 +11,30 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr AmyBroadcaster::logger(Logger::getLogger("amy.arm"));
+LoggerPtr AmyBroadcaster::logger(Logger::getLogger("amy.main"));
 
 // Constructor 
 AmyBroadcaster::AmyBroadcaster ()
 {    
     modName = "AmyBroadcaster";
-    pBusHShoulder = 0;
-    pBusVShoulder = 0;
-    pBusElbow = 0;
-    pBusVWrist = 0;    
-    for (int i=0; i<AMY_MAX_JOINTS; i++)
-      lastAngles[i] = 0.0;
+    benabled = false;
+    pArmInterface = 0;
  }
 
-// Destructor
-AmyBroadcaster::~AmyBroadcaster ()
+void AmyBroadcaster::init(iArmInterface& oArmInterface)
 {
-}
-
-void AmyBroadcaster::init(Arm& oArm)
-{
-    numJoints = oArm.getNumJoints();
-    // initialize network access
-    if (oArmNetwork.init(ArmNetwork::eNETWORK_DB))
+    // access arm interface
+    pArmInterface = &oArmInterface;
+    // and init the publisher
+    oAmyPublisher.init();
+    if (oAmyPublisher.isEnabled())
     {
-        benabled = true;    
-        LOG4CXX_INFO(logger, modName << " initialized (network type is DB)");          
+        benabled = true;
+        LOG4CXX_INFO(logger, modName << " initialized");          
     }
     else    
-        LOG4CXX_ERROR(logger, modName << " init failed");          
+        LOG4CXX_ERROR(logger, modName << " init failed");                  
 };
-
-void AmyBroadcaster::connect(ArmBus& oBus)
-{
-    pBusHShoulder = &oBus.getBusHS();
-    pBusVShoulder = &oBus.getBusVS();
-    pBusElbow = &oBus.getBusEL();
-    pBusVWrist = &oBus.getBusVW();
-    
-    ArmModule::connect(oBus);
-}
 
 void AmyBroadcaster::first()
 {    
@@ -59,39 +42,26 @@ void AmyBroadcaster::first()
 }
 
 void AmyBroadcaster::loop()
-{    
-    bool bchanged = false;
-    
-    // read joints control values ...    
-    
-    // h shoulder
-    angles[0] = pBusHShoulder->getCO_JOINT_ANGLE().getValue();
-    // v shoulder
-    angles[1] = pBusVShoulder->getCO_JOINT_ANGLE().getValue();
-    // elbow
-    angles[2] = pBusElbow->getCO_JOINT_ANGLE().getValue();
-    // wrist
-    angles[3] = pBusVWrist->getCO_JOINT_ANGLE().getValue();
+{        
+    fetchInfo();
 
-    // check if they have changed 
-    for (int i=0; i<numJoints; i++)
+    // if control values have changed, broadcast them 
+    if (!oArmData.sameSollValues(oArmData0))
     {
-        if (angles[i] != lastAngles[i])
-        {
-            lastAngles[i] = angles[i];
-            bchanged = true;
-        }
+        oAmyPublisher.publishArmControl(oArmData);
+        // and store them for next comparison
+        oArmData0 = oArmData;        
     }
-    
-    // if so send them to network
-    if (bchanged)
-    {
-        oArmData.setSoll1(angles[0]);
-        oArmData.setSoll2(angles[1]);
-        oArmData.setSoll3(angles[2]);
-        oArmData.setSoll4(angles[3]);
-        oArmNetwork.setArmSoll(0, oArmData);
-    }
+}
+
+void AmyBroadcaster::fetchInfo()
+{        
+    // read commanded control values of all joints
+    oArmData.setSollHS(pArmInterface->getHSControl());
+    oArmData.setSollVS(pArmInterface->getVSControl());
+    oArmData.setSollEL(pArmInterface->getELControl());
+    oArmData.setSollHW(pArmInterface->getHWControl());
+    oArmData.setSollVW(pArmInterface->getVWControl());   
 }
 
 }
