@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="main" displayName="main" projectFiles="true">
+        <logicalFolder name="robots" displayName="robots" projectFiles="true">
+          <itemPath>src/amy/main/robots/ArmUR5.cpp</itemPath>
+          <itemPath>src/amy/main/robots/ArmUR5.h</itemPath>
+          <itemPath>src/amy/main/robots/ArmYoubot.cpp</itemPath>
+          <itemPath>src/amy/main/robots/ArmYoubot.h</itemPath>
+          <itemPath>src/amy/main/robots/SupportedRobots.cpp</itemPath>
+          <itemPath>src/amy/main/robots/SupportedRobots.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/amy/main/AmyBroadcaster.cpp</itemPath>
+        <itemPath>src/amy/main/AmyBroadcaster.h</itemPath>
+        <itemPath>src/amy/main/AmyControl.cpp</itemPath>
+        <itemPath>src/amy/main/AmyControl.h</itemPath>
+        <itemPath>src/amy/main/AmyListener.cpp</itemPath>
+        <itemPath>src/amy/main/AmyListener.h</itemPath>
+        <itemPath>src/amy/main/Tests.cpp</itemPath>
+        <itemPath>src/amy/main/Tests.h</itemPath>
+        <itemPath>src/amy/main/main.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>src/amy/main</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>../amy_core/src</pElem>
+            <pElem>../amy_utils/src</pElem>
+            <pElem>../amy_arm/src</pElem>
+            <pElem>../amy_coms/src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy</output>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_core"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_core"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_utils"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_utils"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_arm"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_arm"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_arm.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_coms"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_coms"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>log4cxx</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="src/amy/main/AmyBroadcaster.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyBroadcaster.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyListener.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyListener.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/Tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/Tests.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmUR5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmUR5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmYoubot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmYoubot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/SupportedRobots.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/SupportedRobots.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="src/amy/main/AmyBroadcaster.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyBroadcaster.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyListener.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/AmyListener.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/Tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/Tests.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmUR5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmUR5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmYoubot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/ArmYoubot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/SupportedRobots.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/main/robots/SupportedRobots.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -35,9 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/utils/Beat.o \
 	${OBJECTDIR}/src/amy/utils/Click.o \
 	${OBJECTDIR}/src/amy/utils/Console.o \
+	${OBJECTDIR}/src/amy/utils/File.o \
+	${OBJECTDIR}/src/amy/utils/FileReader.o \
+	${OBJECTDIR}/src/amy/utils/FileWriter.o \
 	${OBJECTDIR}/src/amy/utils/Record.o \
+	${OBJECTDIR}/src/amy/utils/StringUtil.o \
 	${OBJECTDIR}/src/amy/utils/brooks/control.o \
 	${OBJECTDIR}/src/amy/utils/brooks/inhibition.o \
 	${OBJECTDIR}/src/amy/utils/module.o \
@@ -69,6 +74,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}: ${OBJEC
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
+${OBJECTDIR}/src/amy/utils/Beat.o: src/amy/utils/Beat.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Beat.o src/amy/utils/Beat.cpp
+
 ${OBJECTDIR}/src/amy/utils/Click.o: src/amy/utils/Click.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
@@ -79,10 +89,30 @@ ${OBJECTDIR}/src/amy/utils/Console.o: src/amy/utils/Console.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Console.o src/amy/utils/Console.cpp
 
+${OBJECTDIR}/src/amy/utils/File.o: src/amy/utils/File.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/File.o src/amy/utils/File.cpp
+
+${OBJECTDIR}/src/amy/utils/FileReader.o: src/amy/utils/FileReader.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileReader.o src/amy/utils/FileReader.cpp
+
+${OBJECTDIR}/src/amy/utils/FileWriter.o: src/amy/utils/FileWriter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileWriter.o src/amy/utils/FileWriter.cpp
+
 ${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Record.o src/amy/utils/Record.cpp
+
+${OBJECTDIR}/src/amy/utils/StringUtil.o: src/amy/utils/StringUtil.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/StringUtil.o src/amy/utils/StringUtil.cpp
 
 ${OBJECTDIR}/src/amy/utils/brooks/control.o: src/amy/utils/brooks/control.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils/brooks

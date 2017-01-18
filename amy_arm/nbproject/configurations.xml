@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="arm" displayName="arm" projectFiles="true">
+        <logicalFolder name="f1" displayName="bus" projectFiles="true">
+          <itemPath>src/amy/arm/bus/ArmBeat.cpp</itemPath>
+          <itemPath>src/amy/arm/bus/ArmBeat.h</itemPath>
+          <itemPath>src/amy/arm/bus/ArmBus.cpp</itemPath>
+          <itemPath>src/amy/arm/bus/ArmBus.h</itemPath>
+          <itemPath>src/amy/arm/bus/JointBus.cpp</itemPath>
+          <itemPath>src/amy/arm/bus/JointBus.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="data" displayName="data" projectFiles="true">
+          <itemPath>src/amy/arm/data/MoveStep.cpp</itemPath>
+          <itemPath>src/amy/arm/data/MoveStep.h</itemPath>
+          <itemPath>src/amy/arm/data/MoveStep3D.cpp</itemPath>
+          <itemPath>src/amy/arm/data/MoveStep3D.h</itemPath>
+          <itemPath>src/amy/arm/data/Movement.cpp</itemPath>
+          <itemPath>src/amy/arm/data/Movement.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="modules" displayName="modules" projectFiles="true">
+          <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmDriver.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmElbow.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmElbow.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmExtender.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmExtender.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmPanner2.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmPanner2.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
+          <itemPath>src/amy/arm/modules/JointControl2.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/JointControl2.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="move" displayName="move" projectFiles="true">
+          <itemPath>src/amy/arm/move/ArmMath.cpp</itemPath>
+          <itemPath>src/amy/arm/move/ArmMath.h</itemPath>
+          <itemPath>src/amy/arm/move/JointDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/move/JointDriver.h</itemPath>
+          <itemPath>src/amy/arm/move/JointMover.cpp</itemPath>
+          <itemPath>src/amy/arm/move/JointMover.h</itemPath>
+          <itemPath>src/amy/arm/move/RadialDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/move/RadialDriver.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="util" displayName="util" projectFiles="true">
+          <itemPath>src/amy/arm/util/ArmMath.cpp</itemPath>
+          <itemPath>src/amy/arm/util/ArmMath.h</itemPath>
+          <itemPath>src/amy/arm/util/ArmModule.cpp</itemPath>
+          <itemPath>src/amy/arm/util/ArmModule.h</itemPath>
+          <itemPath>src/amy/arm/util/JointModule.cpp</itemPath>
+          <itemPath>src/amy/arm/util/JointModule.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/amy/arm/ArmInterface.cpp</itemPath>
+        <itemPath>src/amy/arm/ArmInterface.h</itemPath>
+        <itemPath>src/amy/arm/ArmManager.cpp</itemPath>
+        <itemPath>src/amy/arm/ArmManager.h</itemPath>
+        <itemPath>src/amy/arm/ArmTest.cpp</itemPath>
+        <itemPath>src/amy/arm/ArmTest.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>src/amy/arm</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="2">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>src</pElem>
+            <pElem>../amy_core/src</pElem>
+            <pElem>../amy_utils/src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_core"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_core"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_utils"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_utils"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="src/amy/arm/ArmInterface.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBeat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBeat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/JointControl2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/JointControl2.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/ArmMath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointMover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/RadialDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/RadialDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmMath.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmMath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/JointModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/JointModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="2">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="src/amy/arm/ArmInterface.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBeat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBeat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/MoveStep3D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/data/Movement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmElbow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmExtender.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPanner2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/JointControl2.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/JointControl2.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/ArmMath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointMover.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/JointMover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/RadialDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/RadialDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmMath.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmMath.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/ArmModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/JointModule.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/util/JointModule.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

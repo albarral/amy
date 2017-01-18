@@ -24,12 +24,22 @@
               <itemPath>src/amy/utils/brooks/sensor.h</itemPath>
               <itemPath>src/amy/utils/brooks/sensorT.h</itemPath>
             </logicalFolder>
+            <itemPath>src/amy/utils/Beat.cpp</itemPath>
+            <itemPath>src/amy/utils/Beat.h</itemPath>
             <itemPath>src/amy/utils/Click.cpp</itemPath>
             <itemPath>src/amy/utils/Click.h</itemPath>
             <itemPath>src/amy/utils/Console.cpp</itemPath>
             <itemPath>src/amy/utils/Console.h</itemPath>
+            <itemPath>src/amy/utils/File.cpp</itemPath>
+            <itemPath>src/amy/utils/File.h</itemPath>
+            <itemPath>src/amy/utils/FileReader.cpp</itemPath>
+            <itemPath>src/amy/utils/FileReader.h</itemPath>
+            <itemPath>src/amy/utils/FileWriter.cpp</itemPath>
+            <itemPath>src/amy/utils/FileWriter.h</itemPath>
             <itemPath>src/amy/utils/Record.cpp</itemPath>
             <itemPath>src/amy/utils/Record.h</itemPath>
+            <itemPath>src/amy/utils/StringUtil.cpp</itemPath>
+            <itemPath>src/amy/utils/StringUtil.h</itemPath>
             <itemPath>src/amy/utils/module.cpp</itemPath>
             <itemPath>src/amy/utils/module.h</itemPath>
             <itemPath>src/amy/utils/module2.cpp</itemPath>
@@ -71,6 +81,10 @@
           </incDir>
         </ccTool>
       </compileType>
+      <item path="src/amy/utils/Beat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/Beat.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/utils/Click.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Click.h" ex="false" tool="3" flavor2="0">
@@ -79,9 +93,25 @@
       </item>
       <item path="src/amy/utils/Console.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/utils/File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/File.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/brooks/control.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -133,6 +163,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/utils/Beat.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/Beat.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/utils/Click.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Click.h" ex="false" tool="3" flavor2="0">
@@ -141,9 +175,25 @@
       </item>
       <item path="src/amy/utils/Console.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/utils/File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/File.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/FileWriter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/utils/Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/Record.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/utils/StringUtil.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/utils/brooks/control.cpp" ex="false" tool="1" flavor2="0">
       </item>

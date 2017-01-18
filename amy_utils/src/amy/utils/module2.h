@@ -29,7 +29,8 @@ private:
         float frequency;    // 
         int period;           // time (microseconds) to be slept between loop executions
         static const int state_OFF = 99;
-        static const int state_UNKNOWN = 100;
+        static const int state_ON = 100;
+        static const int state_UNKNOWN = 101;
 
 public:
         Module2();
@@ -41,7 +42,9 @@ public:
         void off();        
         // waits till the thread is finished
         void wait();
-        
+        // checks if module is on
+        bool isOn();
+
         // sets the desired loop frequency 
         void setFrequency(float cps);
         // gets the loop frequency 
