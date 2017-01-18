@@ -10,8 +10,6 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/network/ArmNetwork.h"
-
 namespace amy
 {
 // class used to conduct tests
@@ -24,15 +22,10 @@ public:
 //    Tests();
 //    ~Tests();
 
-    void testAmyNetwork2();
     void testFileReader(std::string name);
     void testFileWriter();    
     void testAmyServer();
     void testAmyPublisher();
-
-private:        
-    void writePos(ArmNetwork& oArmNetwork, int value);
-    void readPos(ArmNetwork& oArmNetwork);
 };
 
 }    

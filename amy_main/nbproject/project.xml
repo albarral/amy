@@ -11,7 +11,6 @@
             <make-dep-projects>
                 <make-dep-project>../amy_utils</make-dep-project>
                 <make-dep-project>../amy_coms</make-dep-project>
-                <make-dep-project>../amy_network</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
                 <make-dep-project>../amy_arm</make-dep-project>
             </make-dep-projects>
