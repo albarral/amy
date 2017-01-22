@@ -10,7 +10,8 @@
 #include <log4cxx/logger.h>
 
 #include "amy/utils/module2.h"
-#include "amy/coms/file/AmyFileServer.h"
+//#include "amy/coms/file/AmyFileServer.h"
+#include "amy/coms/zero/AmyZeroMQServer.h"
 #include "amy/core/ifaces/iArmInterface.h"
 
 namespace amy
@@ -24,8 +25,9 @@ private:
     std::string modName;          // module name
     bool benabled;
    // logic
-    AmyFileServer oAmyFileServer;     // amy server (using file coms)
-
+    //AmyFileServer oAmyFileServer;     // amy server (using file coms)
+    AmyZeroMQServer oAmyZeroMQServer;   //amy zeromq server
+    
 public:
     AmyListener();
     //~AmyListener();

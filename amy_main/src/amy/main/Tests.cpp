@@ -17,7 +17,8 @@
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/ArmInterface.h"
-#include "amy/coms/file/AmyFileServer.h"
+//#include "amy/coms/file/AmyFileServer.h"
+#include "amy/coms/zero/AmyZeroMQServer.h"
 #include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/utils/FileReader.h"
@@ -69,14 +70,16 @@ void Tests::testAmyServer()
     ArmInterface oArmInterface;
     oArmInterface.connect(oArmBus);
     // prepare server
-    AmyFileServer oAmyFileServer;
-    oAmyFileServer.connect2Arm(oArmInterface);
+    //AmyFileServer oAmyFileServer;
+    //oAmyFileServer.connect2Arm(oArmInterface);
+    AmyZeroMQServer oAmyZeroMQServer;
+    oAmyZeroMQServer.connect2Arm(oArmInterface);
     
     int i=0;    
     while (i<10) 
     {
         sleep(2);  
-        if (oAmyFileServer.readCommand())
+        /*if (oAmyFileServer.readCommand())
         {
             if (oAmyFileServer.isValid())
             {
@@ -87,7 +90,18 @@ void Tests::testAmyServer()
         }
         else
             LOG4CXX_WARN(logger, "no command");                                      
-
+         */
+        if (oAmyZeroMQServer.readCommand())
+        {
+            if (oAmyZeroMQServer.isValid())
+            {
+                oAmyZeroMQServer.processCommand();
+            }
+            else
+                LOG4CXX_WARN(logger, "invalid command");                                      
+        }
+        else
+            LOG4CXX_WARN(logger, "no command");
         i++;
     }    
     

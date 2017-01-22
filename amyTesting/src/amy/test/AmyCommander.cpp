@@ -53,7 +53,7 @@ void AmyCommander::loop()
             // and complete, send it
             if (oInterpreter.isCommandComplete())
             {
-                sendCommand(oInterpreter.getAction(), oInterpreter.getValue());                
+                sendCommand(oInterpreter.getAction(), oInterpreter.getValue());
             }
             else
                 LOG4CXX_WARN(logger, "command needs a value");                    
@@ -87,39 +87,48 @@ void AmyCommander::sendCommand(int action, float value)
     switch (action)
     {
         case Interpreter::eACT_MOVE_PAN:            
-            oAmyFileClient.movePan(value);
+            //oAmyFileClient.movePan(value);
+            oAmyZeroMQClient.movePan(value);
             break;
 
         case Interpreter::eACT_MOVE_TILT:
-            oAmyFileClient.moveTilt(value);
+            //oAmyFileClient.moveTilt(value);
+            oAmyZeroMQClient.moveTilt(value);
             break;
 
         case Interpreter::eACT_MOVE_RADIUS:
-            oAmyFileClient.moveRadius(value);
+            //oAmyFileClient.moveRadius(value);
+            oAmyZeroMQClient.moveRadius(value);
             break;
 
         case Interpreter::eACT_POS_HS:
-            oAmyFileClient.setPosHS(value);
+            //oAmyFileClient.setPosHS(value);
+            oAmyZeroMQClient.setPosHS(value);
             break;
 
         case Interpreter::eACT_POS_VS:
-            oAmyFileClient.setPosVS(value);
+            //oAmyFileClient.setPosVS(value);
+            oAmyZeroMQClient.setPosVS(value);
             break;
 
         case Interpreter::eACT_POS_ELB:
-            oAmyFileClient.setPosELB(value);
+            //oAmyFileClient.setPosELB(value);
+            oAmyZeroMQClient.setPosELB(value);
             break;
 
         case Interpreter::eACT_POS_HWRI:
-            oAmyFileClient.setPosHW(value);
+            //oAmyFileClient.setPosHW(value);
+            oAmyZeroMQClient.setPosHW(value);
             break;
 
         case Interpreter::eACT_POS_VWRI:
-            oAmyFileClient.setPosVW(value);
+            //oAmyFileClient.setPosVW(value);
+            oAmyZeroMQClient.setPosVW(value);
             break;
 
         case Interpreter::eACT_AMY_END:
-            oAmyFileClient.endAmy();
+            //oAmyFileClient.endAmy();
+            oAmyZeroMQClient.endAmy();
             break;
             
         default:

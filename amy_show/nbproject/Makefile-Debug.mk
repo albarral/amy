@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -lopencv_core -lopencv_highgui
+LDLIBSOPTIONS=-Wl,-rpath,'../amy_utils/dist/Debug/GNU-Linux' -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -lopencv_core -lopencv_highgui
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -64,7 +64,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp 
+${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I/usr/include/opencv2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
@@ -76,6 +76,7 @@ ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} -r ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.so
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}
 
 # Subprojects

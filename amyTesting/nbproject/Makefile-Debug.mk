@@ -54,7 +54,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,'../amy_utils/dist/Debug/GNU-Linux' -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,'../amy_coms/dist/Debug/GNU-Linux' -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -68,17 +68,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytest: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytest ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/test/AmyCommander.o: src/amy/test/AmyCommander.cpp 
+${OBJECTDIR}/src/amy/test/AmyCommander.o: src/amy/test/AmyCommander.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/AmyCommander.o src/amy/test/AmyCommander.cpp
 
-${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp 
+${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/Interpreter.o src/amy/test/Interpreter.cpp
 
-${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp 
+${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I../amy_coms/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/main.o src/amy/test/main.cpp
@@ -91,6 +91,7 @@ ${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} -r ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.so ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.so
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytest
 
 # Subprojects

@@ -66,27 +66,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp 
+${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/AmyConfig.o src/amy/core/config/AmyConfig.cpp
 
-${OBJECTDIR}/src/amy/core/config/JointControlConfig.o: src/amy/core/config/JointControlConfig.cpp 
+${OBJECTDIR}/src/amy/core/config/JointControlConfig.o: src/amy/core/config/JointControlConfig.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/JointControlConfig.o src/amy/core/config/JointControlConfig.cpp
 
-${OBJECTDIR}/src/amy/core/robot/Arm.o: src/amy/core/robot/Arm.cpp 
+${OBJECTDIR}/src/amy/core/robot/Arm.o: src/amy/core/robot/Arm.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Arm.o src/amy/core/robot/Arm.cpp
 
-${OBJECTDIR}/src/amy/core/robot/Joint.o: src/amy/core/robot/Joint.cpp 
+${OBJECTDIR}/src/amy/core/robot/Joint.o: src/amy/core/robot/Joint.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Joint.o src/amy/core/robot/Joint.cpp
 
-${OBJECTDIR}/src/amy/core/robot/Robot.o: src/amy/core/robot/Robot.cpp 
+${OBJECTDIR}/src/amy/core/robot/Robot.o: src/amy/core/robot/Robot.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Robot.o src/amy/core/robot/Robot.cpp
@@ -97,7 +97,6 @@ ${OBJECTDIR}/src/amy/core/robot/Robot.o: src/amy/core/robot/Robot.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:
