@@ -97,14 +97,17 @@ void ArmManager::initArchitecture()
     // arm mover module
     //oArmMover.setLevel(nivel);     
     //listModules.push_back(&oArmMover);
-    // arm panner module
-    oArmPanner.setLevel(nivel);
-    //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
+    // pan driver module
+    oPanDriver.setLevel(nivel);
+    //listModules.push_back(&oPanDriver);   // it's a module3, not a module2
+    // tilt driver module
+    oTiltDriver.setLevel(nivel);
+    //listModules.push_back(&oPanDriver);   // it's a module3, not a module2
     // arm elbow module
-    oArmElbow.setLevel(1000); // disabled, as it collides with ArmExtender
-    //listModules.push_back(&oArmElbow);   // it's a module3, not a module2
+    oRadiusDriver.setLevel(nivel); 
+    //listModules.push_back(&oRadiusDriver);   // it's a module3, not a module2
     // arm extender            
-    oArmExtender.setLevel(nivel);
+    oArmExtender.setLevel(1000);    // DISABLED!! as it collides with tilt & radius drivers
     //listModules.push_back(&oArmExtender); // it's a module3, not a module2
 }
 
@@ -173,20 +176,28 @@ void ArmManager::initLevel(int num)
         }
     }
 
-    if (oArmPanner.getLevel() == num)
+    if (oPanDriver.getLevel() == num)
     {    
-        // arm panner module
-        oArmPanner.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmPanner.connect(oArmBus);
-        oArmPanner.setFrequency(freq);
+        // pan driver module
+        oPanDriver.init(oArm, pAmyConfig->getJointControlConfig());
+        oPanDriver.connect(oArmBus);
+        oPanDriver.setFrequency(freq);
     }
     
-    if (oArmElbow.getLevel() == num)
+    if (oTiltDriver.getLevel() == num)
     {    
-        // arm panner module
-        oArmElbow.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmElbow.connect(oArmBus);
-        oArmElbow.setFrequency(freq);
+        // tilt driver module
+        oTiltDriver.init(oArm, pAmyConfig->getJointControlConfig());
+        oTiltDriver.connect(oArmBus);
+        oTiltDriver.setFrequency(freq);
+    }
+
+    if (oRadiusDriver.getLevel() == num)
+    {    
+        // pan driver module
+        oRadiusDriver.init(oArm, pAmyConfig->getJointControlConfig());
+        oRadiusDriver.connect(oArmBus);
+        oRadiusDriver.setFrequency(freq);
     }
 
     if (oArmExtender.getLevel() == num)
@@ -211,16 +222,22 @@ void ArmManager::startLevel(int num)
         }
     }
 
-    if (oArmPanner.getLevel() == num)
+    if (oPanDriver.getLevel() == num)
     {    
-        if (oArmPanner.isEnabled() && oArmPanner.isConnected())      
-            oArmPanner.on();                      
+        if (oPanDriver.isEnabled() && oPanDriver.isConnected())      
+            oPanDriver.on();                      
+    }
+
+    if (oTiltDriver.getLevel() == num)
+    {    
+        if (oTiltDriver.isEnabled() && oTiltDriver.isConnected())      
+            oTiltDriver.on();                      
     }
     
-    if (oArmElbow.getLevel() == num)
+    if (oRadiusDriver.getLevel() == num)
     {    
-        if (oArmElbow.isEnabled() && oArmElbow.isConnected())      
-            oArmElbow.on();                      
+        if (oRadiusDriver.isEnabled() && oRadiusDriver.isConnected())      
+            oRadiusDriver.on();                      
     }
 
     if (oArmExtender.getLevel() == num)
@@ -249,16 +266,22 @@ void ArmManager::stopLevel(int num)
         }
     }
 
-    if (oArmPanner.getLevel() == num && oArmPanner.isOn())
+    if (oPanDriver.getLevel() == num && oPanDriver.isOn())
     {    
-        oArmPanner.off();
-        oArmPanner.wait();
+        oPanDriver.off();
+        oPanDriver.wait();
     }
     
-    if (oArmElbow.getLevel() == num && oArmElbow.isOn())
+    if (oTiltDriver.getLevel() == num && oTiltDriver.isOn())
     {    
-        oArmElbow.off();
-        oArmElbow.wait();
+        oTiltDriver.off();
+        oTiltDriver.wait();
+    }
+
+    if (oRadiusDriver.getLevel() == num && oRadiusDriver.isOn())
+    {    
+        oRadiusDriver.off();
+        oRadiusDriver.wait();
     }
 
     if (oArmExtender.getLevel() == num && oArmExtender.isOn())

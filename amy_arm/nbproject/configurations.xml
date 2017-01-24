@@ -34,18 +34,22 @@
           <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmDriver.h</itemPath>
-          <itemPath>src/amy/arm/modules/ArmElbow.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmElbow.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmExtender.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmExtender.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
-          <itemPath>src/amy/arm/modules/ArmPanner2.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmPanner2.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
+          <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/AxisDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.h</itemPath>
+          <itemPath>src/amy/arm/modules/PanDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/PanDriver.h</itemPath>
+          <itemPath>src/amy/arm/modules/RadiusDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/RadiusDriver.h</itemPath>
+          <itemPath>src/amy/arm/modules/TiltDriver.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/TiltDriver.h</itemPath>
         </logicalFolder>
         <logicalFolder name="move" displayName="move" projectFiles="true">
           <itemPath>src/amy/arm/move/ArmMath.cpp</itemPath>
@@ -181,10 +185,6 @@
       </item>
       <item path="src/amy/arm/modules/ArmDriver.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmElbow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmElbow.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmExtender.cpp"
             ex="false"
             tool="1"
@@ -196,13 +196,13 @@
       </item>
       <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmPanner2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPanner2.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/AxisDriver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.cpp"
             ex="false"
@@ -210,6 +210,21 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/RadiusDriver.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/RadiusDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltDriver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -307,10 +322,6 @@
       </item>
       <item path="src/amy/arm/modules/ArmDriver.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmElbow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmElbow.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmExtender.cpp"
             ex="false"
             tool="1"
@@ -322,13 +333,13 @@
       </item>
       <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmPanner2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPanner2.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/AxisDriver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.cpp"
             ex="false"
@@ -336,6 +347,21 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/RadiusDriver.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/RadiusDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltDriver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltDriver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
       </item>

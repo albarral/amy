@@ -11,9 +11,10 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/modules/ArmMover.h"
-#include "amy/arm/modules/ArmPanner2.h"
-#include "amy/arm/modules/ArmElbow.h"
+//#include "amy/arm/modules/ArmMover.h"
+#include "amy/arm/modules/PanDriver.h"
+#include "amy/arm/modules/TiltDriver.h"
+#include "amy/arm/modules/RadiusDriver.h"
 #include "amy/arm/modules/ArmExtender.h"
 #include "amy/arm/modules/JointDriver.h"
 #include "amy/arm/ArmInterface.h"
@@ -41,10 +42,11 @@ class ArmManager
         int level;      // highest level activated 
         int maxLevel; // allow activation of modules until this level
         // modules ...
-        ArmMover oArmMover;
+        //ArmMover oArmMover;
         ArmExtender oArmExtender;
-        ArmElbow oArmElbow;
-        ArmPanner2 oArmPanner;
+        PanDriver oPanDriver;
+        TiltDriver oTiltDriver;
+        RadiusDriver oRadiusDriver;
         JointDriver oJointDriver[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
 

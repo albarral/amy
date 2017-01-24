@@ -22,7 +22,7 @@ std::string JointControlConfig::toString()
 {
     std::string desc = "JointControlSection: [";
     desc += "brakeAccel=" + std::to_string(brakeAccel); 
-    desc += "Kaccel=" + std::to_string(Kaccel); 
+    desc += ", Kaccel=" + std::to_string(Kaccel); 
     desc += ", Kspeed=" + std::to_string(Kspeed); 
     desc += ", driverTolerance=" + std::to_string(driverTolerance);
     desc += ", driverSpeed=" + std::to_string(driverSpeed) + "]";
