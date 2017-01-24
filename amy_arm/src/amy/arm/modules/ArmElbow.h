@@ -8,7 +8,7 @@
 
 #include "amy/arm/modules/ArmDriver.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/arm/move/RadialDriver.h"
+#include "amy/arm/move/RadialControl.h"
 //#include "amy/utils/Record.h"   // tmp for analysis
 
 namespace amy
@@ -27,7 +27,7 @@ private:
     float targetRadius;          // requested arm radius
     // control 
     float istElbow;                // measured elbow position
-    RadialDriver oRadialDriver;    // utility class used to drive the elbow
+    RadialControl oRadialControl;    // utility class used to drive the elbow
     int elbowLimitReached;     // value indicating the elbow movement is blocked (due to reached joint limit)   
     // output
     float elbowAccel;              // commanded elbow acceleration 

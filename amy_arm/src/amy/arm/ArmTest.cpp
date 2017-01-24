@@ -16,9 +16,9 @@
 // test arm planner
 #include "amy/arm/modules/ArmComputer.h"
 #include "amy/arm/data/MoveStep.h"
-#include "amy/arm/move/JointMover.h"
-#include "amy/arm/move/JointDriver.h"
-#include "amy/arm/move/RadialDriver.h"
+#include "amy/arm/move/JointMove.h"
+#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/RadialControl.h"
 #include "amy/arm/move/ArmMath.h"
 
 using namespace log4cxx;
@@ -27,11 +27,11 @@ namespace amy
 {
 LoggerPtr ArmTest::logger(Logger::getLogger("amy.arm"));    
 
-void ArmTest::testJointMover()
+void ArmTest::testJointMove()
 {
-    JointMover oMover;
+    JointMove oMover;
   
-    LOG4CXX_INFO(logger, "\nNew test JointMover ...\n");
+    LOG4CXX_INFO(logger, "\nNew test JointMove ...\n");
     
     float accel = 10.0;
     float angle = oMover.getAngle();
@@ -45,18 +45,18 @@ void ArmTest::testJointMover()
     }    
 }
 
-void ArmTest::testJointDriver()
+void ArmTest::testJointControl()
 {
-    JointMover oMover;
-    JointDriver oDriver;
+    JointMove oMover;
+    JointControl oDriver;
     float angle, accel;
   
-    LOG4CXX_INFO(logger, "\nNew test JointDriver ...\n");
+    LOG4CXX_INFO(logger, "\nNew test JointControl ...\n");
     
     oDriver.init(4.0, 2.0, 0.05, 60.0);
     
     oDriver.setTarget(180.0);    
-    while (oDriver.getState() != JointDriver::eSTATE_DONE)
+    while (oDriver.getState() != JointControl::eSTATE_DONE)
     {
         angle = oMover.getAngle();
         accel = oDriver.drive(angle);
@@ -67,19 +67,19 @@ void ArmTest::testJointDriver()
     }    
 }
 
-void ArmTest::testRadialDriver()
+void ArmTest::testRadialControl()
 {
-    JointMover oMover;
-    RadialDriver oDriver;
+    JointMove oMover;
+    RadialControl oDriver;
     float angle, accel;
   
-    LOG4CXX_INFO(logger, "\nNew test RadialDriver ...\n");
+    LOG4CXX_INFO(logger, "\nNew test RadialControl ...\n");
     
     oDriver.init(4.0, 2.0, 0.05, 60.0);
     oDriver.setArmSize(40, 40);
     
     oDriver.setTargetRadius(40);
-    while (oDriver.getState() != JointDriver::eSTATE_DONE)
+    while (oDriver.getState() != JointControl::eSTATE_DONE)
     {
         angle = oMover.getAngle();
         accel = oDriver.drive(angle);

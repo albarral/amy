@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/ArmPlanner.h"
-//#include "amy/arm/modules/JointMover.h"
+//#include "amy/arm/modules/JointMove.h"
 #include "amy/arm/data/MoveStep.h"
 
 
@@ -17,7 +17,7 @@ void ArmPlanner::buildPajaritaMovement(Movement& oMovement)
     
     int angle = 45;
     int tics = 2000;
-    int endings = 99; //JointMover::eMOV_STOP;
+    int endings = 99; //JointMove::eMOV_STOP;
 
     oMovement.reset();
     oMovement.setMaxSpeed(maxSpeed);

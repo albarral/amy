@@ -51,11 +51,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPanner2.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
-	${OBJECTDIR}/src/amy/arm/modules/JointControl2.o \
+	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/move/ArmMath.o \
-	${OBJECTDIR}/src/amy/arm/move/JointDriver.o \
-	${OBJECTDIR}/src/amy/arm/move/JointMover.o \
-	${OBJECTDIR}/src/amy/arm/move/RadialDriver.o \
+	${OBJECTDIR}/src/amy/arm/move/JointControl.o \
+	${OBJECTDIR}/src/amy/arm/move/JointMove.o \
+	${OBJECTDIR}/src/amy/arm/move/RadialControl.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmMath.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
 	${OBJECTDIR}/src/amy/arm/util/JointModule.o
@@ -169,30 +169,30 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/JointControl2.o: src/amy/arm/modules/JointControl2.cpp 
+${OBJECTDIR}/src/amy/arm/modules/JointDriver.o: src/amy/arm/modules/JointDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointControl2.o src/amy/arm/modules/JointControl2.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o src/amy/arm/modules/JointDriver.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/ArmMath.o: src/amy/arm/move/ArmMath.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/ArmMath.o src/amy/arm/move/ArmMath.cpp
 
-${OBJECTDIR}/src/amy/arm/move/JointDriver.o: src/amy/arm/move/JointDriver.cpp 
+${OBJECTDIR}/src/amy/arm/move/JointControl.o: src/amy/arm/move/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointDriver.o src/amy/arm/move/JointDriver.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointControl.o src/amy/arm/move/JointControl.cpp
 
-${OBJECTDIR}/src/amy/arm/move/JointMover.o: src/amy/arm/move/JointMover.cpp 
+${OBJECTDIR}/src/amy/arm/move/JointMove.o: src/amy/arm/move/JointMove.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointMover.o src/amy/arm/move/JointMover.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointMove.o src/amy/arm/move/JointMove.cpp
 
-${OBJECTDIR}/src/amy/arm/move/RadialDriver.o: src/amy/arm/move/RadialDriver.cpp 
+${OBJECTDIR}/src/amy/arm/move/RadialControl.o: src/amy/arm/move/RadialControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialDriver.o src/amy/arm/move/RadialDriver.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialControl.o src/amy/arm/move/RadialControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/ArmMath.o: src/amy/arm/util/ArmMath.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util

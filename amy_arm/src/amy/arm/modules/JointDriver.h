@@ -1,5 +1,5 @@
-#ifndef __AMY_JOINT_CONTROL2_H
-#define __AMY_JOINT_CONTROL2_H
+#ifndef __AMY_JOINT_DRIVER_H
+#define __AMY_JOINT_DRIVER_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/move/JointMover.h"
+#include "amy/arm/move/JointMove.h"
 #include "amy/arm/util/JointModule.h"
 
 namespace amy
@@ -17,7 +17,7 @@ namespace amy
 // Lower control module for a joint. Transforms the desired joint acceleration into proper joint positions.
 // The movement is limited to the predefined joint's range. A flag is raised when limits are reached.
 // It provides auto brake behaviour: on absence of requests it makes the joint brake softly.
-class JointControl2 : public JointModule
+class JointDriver : public JointModule
 {
 public:    
     // module states
@@ -30,7 +30,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // logic
-    JointMover oJointMover;     // utility class used to compute the joint movement 
+    JointMove oJointMove;     // utility class used to compute the joint movement 
     float angle;
     float accel;
     int lowLimit;             // lower joint angle  
@@ -39,8 +39,8 @@ private:
     float brakeAccel;
 
 public:
-        JointControl2();
-        //~JointControl2();
+        JointDriver();
+        //~JointDriver();
                 
        // module params
        virtual void init(Arm& oArm, JointControlConfig& oJointControlConfig);

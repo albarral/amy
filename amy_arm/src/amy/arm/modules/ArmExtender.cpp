@@ -29,18 +29,18 @@ void ArmExtender::prepareDriver()
     // update movement params
     if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+        oJointControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());   
 
-        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+        oRadialControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());                   
     }        
     
-    oRadialDriver.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
+    oRadialControl.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
     oArmMath.setLengths(pArm->getLenHumerus(), pArm->getLenRadius());    
 }
 
@@ -58,28 +58,28 @@ void ArmExtender::prepareMove()
     // update movement params
     if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+        oJointControl.init(pJointControlConfig->getKaccelDriver(),
                        pJointControlConfig->getKspeedDriver(),
                        pJointControlConfig->getDriverTolerance(),
                        pJointControlConfig->getDriverSpeed());   
 
-        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+        oRadialControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());        
     }
         
     // set radius target
-    oRadialDriver.setTargetRadius(targetRadius);
+    oRadialControl.setTargetRadius(targetRadius);
         
     // a temporal tilt position will be reached after the elbow movement (arm extension/retraction produces a tilt change)
-    float finalEL = oRadialDriver.getTargetAngle();           
+    float finalEL = oRadialControl.getTargetAngle();           
     float finalTilt = oArmMath.convJoints2ArmTilt(istVS, finalEL);  
     
     // the right final tilt will then be reached after a VS corrective movement (with a VS displacement equal to the tilt deviation)
     float tiltDeviation = targetTilt - finalTilt;
     // set VS target
-    oJointDriver.setTarget(istVS + tiltDeviation);
+    oJointControl.setTarget(istVS + tiltDeviation);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
@@ -88,8 +88,8 @@ void ArmExtender::prepareMove()
     LOG4CXX_INFO(logger, "ist VS = " << istVS);
     LOG4CXX_INFO(logger, "ist elbow = " << istElbow);
     LOG4CXX_INFO(logger, "finalEL = " << finalEL << "finalTilt = " << finalTilt << ", tilt deviation = " << tiltDeviation);
-    LOG4CXX_INFO(logger, oJointDriver.paramsToString());      
-    LOG4CXX_INFO(logger, oRadialDriver.paramsToString());      
+    LOG4CXX_INFO(logger, oJointControl.paramsToString());      
+    LOG4CXX_INFO(logger, oRadialControl.paramsToString());      
 
 }
 
@@ -97,21 +97,21 @@ void ArmExtender::prepareMove()
 void ArmExtender::doMove()
 {
     // control the acceleration of both joints
-    vsAccel = oJointDriver.drive(istVS);
-    elbowAccel = oRadialDriver.drive(istElbow);
-    LOG4CXX_INFO(logger, oJointDriver.toString());
-    LOG4CXX_INFO(logger, oRadialDriver.toString());
+    vsAccel = oJointControl.drive(istVS);
+    elbowAccel = oRadialControl.drive(istElbow);
+    LOG4CXX_INFO(logger, oJointControl.toString());
+    LOG4CXX_INFO(logger, oRadialControl.toString());
     
     // check if any movement (VS or EL) is blocked (pushing beyond the joint's limit)    
-    bool bmoveBlockedVS = ((vsLimitReached > 0 && oJointDriver.getMoveSign() > 0) || (vsLimitReached < 0 && oJointDriver.getMoveSign() < 0));
-    bool bmoveBlockedEL = ((elbowLimitReached > 0 && oRadialDriver.getMoveSign() > 0) || (elbowLimitReached < 0 && oRadialDriver.getMoveSign() < 0));
+    bool bmoveBlockedVS = ((vsLimitReached > 0 && oJointControl.getMoveSign() > 0) || (vsLimitReached < 0 && oJointControl.getMoveSign() < 0));
+    bool bmoveBlockedEL = ((elbowLimitReached > 0 && oRadialControl.getMoveSign() > 0) || (elbowLimitReached < 0 && oRadialControl.getMoveSign() < 0));
     
     // movement is blocked when both joints are blocked
     if (bmoveBlockedVS && bmoveBlockedEL)
         moveBlocked();
     
     // movement is finished when both single movements are 
-    if (oJointDriver.isMovementDone() && oRadialDriver.isMovementDone())
+    if (oJointControl.isMovementDone() && oRadialControl.isMovementDone())
         moveDone();  
 }
 

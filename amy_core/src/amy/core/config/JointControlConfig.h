@@ -16,7 +16,7 @@ class JointControlConfig
 {
     private:     
         int brakeAccel;      // degrees/s2
-        // JointDriver params
+        // JointControl params
         float Kaccel;                // acceleration sensitivity
         float Kspeed;              // speed sensitivity
         float driverTolerance;      // position tolerance for driver movements

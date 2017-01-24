@@ -9,8 +9,8 @@
 
 #include "amy/arm/modules/ArmDriver.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/arm/move/JointDriver.h"
-#include "amy/arm/move/RadialDriver.h"
+#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/RadialControl.h"
 
 namespace amy
 {
@@ -39,8 +39,8 @@ private:
     float vsAccel;                  // commanded vertical shoulder acceleration 
     float elbowAccel;             // commanded elbow acceleration 
     // logic
-    JointDriver oJointDriver;         // utility class to drive the vertical shoulder (VS)
-    RadialDriver oRadialDriver;    // utility class to drive the elbow (EL)
+    JointControl oJointControl;         // utility class to drive the vertical shoulder (VS)
+    RadialControl oRadialControl;    // utility class to drive the elbow (EL)
     ArmMath oArmMath;
     
 public:

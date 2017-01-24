@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_JOINTMOVER_H
-#define __AMY_MOVE_JOINTMOVER_H
+#ifndef __AMY_MOVE_JOINTMOVE_H
+#define __AMY_MOVE_JOINTMOVE_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -17,7 +17,7 @@ namespace amy
 // A brake mode is also available, which reduces the speed until 0 is reached.
 // The brake mode works by periodically calling the brake() function instead of move().
 // The elapsed time between calls is measured and used for the movement computation.
-class JointMover
+class JointMove
 {
 private:
     float accel;               // commanded acceleration (degrees/s2)
@@ -27,8 +27,8 @@ private:
     amy::Click oClick;      // clock utility
 
 public:
-    JointMover();
-    //~JointMover();
+    JointMove();
+    //~JointMove();
 
     // control inputs
     float getAccel() {return accel;};                

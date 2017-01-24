@@ -27,13 +27,13 @@ void ArmElbow::prepareDriver()
     // update movement params
     if (pJointControlConfig != 0)
     {
-        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+        oRadialControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());        
     }        
     
-    oRadialDriver.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
+    oRadialControl.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
 }
 
 void ArmElbow::connectDriver()
@@ -47,14 +47,14 @@ void ArmElbow::prepareMove()
     // update movement params
     if (pJointControlConfig != 0)
     {
-        oRadialDriver.init(pJointControlConfig->getKaccelDriver(),
+        oRadialControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());        
     }
         
     // set new target
-    oRadialDriver.setTargetRadius(targetRadius);
+    oRadialControl.setTargetRadius(targetRadius);
 
     // record output for analysis
     //oRecord.reset();
@@ -63,20 +63,20 @@ void ArmElbow::prepareMove()
     LOG4CXX_INFO(logger, ">> new request");  
     LOG4CXX_INFO(logger, "target radius = " << targetRadius);  
     LOG4CXX_INFO(logger, "ist elbow = " << istElbow);
-    LOG4CXX_INFO(logger, oRadialDriver.paramsToString());      
+    LOG4CXX_INFO(logger, oRadialControl.paramsToString());      
 }
 
 void ArmElbow::doMove()
 {
-    elbowAccel = oRadialDriver.drive(istElbow);
-    LOG4CXX_INFO(logger, oRadialDriver.toString());
+    elbowAccel = oRadialControl.drive(istElbow);
+    LOG4CXX_INFO(logger, oRadialControl.toString());
     
     // check if movement is blocked (pushing beyond the joint's limit)    
-    if ((elbowLimitReached > 0 && oRadialDriver.getMoveSign() > 0) || (elbowLimitReached < 0 && oRadialDriver.getMoveSign() < 0))
+    if ((elbowLimitReached > 0 && oRadialControl.getMoveSign() > 0) || (elbowLimitReached < 0 && oRadialControl.getMoveSign() < 0))
         moveBlocked();
     
     // check if movement finished 
-    if (oRadialDriver.isMovementDone())
+    if (oRadialControl.isMovementDone())
         moveDone();  
 }
 

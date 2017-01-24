@@ -5,11 +5,11 @@
 
 #include <cmath>
 
-#include "amy/arm/move/JointDriver.h"
+#include "amy/arm/move/JointControl.h"
 
 namespace amy
 {
-JointDriver::JointDriver()
+JointControl::JointControl()
 {
     // params default
     Kaccel = 1.0; 
@@ -19,14 +19,14 @@ JointDriver::JointDriver()
     // controls default
     outAccel = 0;
     moveSign = 0;
-    state = JointDriver::eSTATE_DONE;
+    state = JointControl::eSTATE_DONE;
 }
 
-//JointDriver2::~JointDriver2()
+//JointControl2::~JointControl2()
 //{
 //}
 
-void JointDriver::init(float kaccel, float kspeed, float posTolerance, float maxSpeed)
+void JointControl::init(float kaccel, float kspeed, float posTolerance, float maxSpeed)
 {
     Kaccel = kaccel; 
     Kspeed = kspeed;                 
@@ -34,7 +34,7 @@ void JointDriver::init(float kaccel, float kspeed, float posTolerance, float max
     this->maxSpeed = fabs(maxSpeed);    // assure absolute value
 };
 
-void JointDriver::setTarget(float angle)
+void JointControl::setTarget(float angle)
 {
     targetAngle = angle;
     // new move requested
@@ -43,7 +43,7 @@ void JointDriver::setTarget(float angle)
     steps = 0;
 }
 
-float JointDriver::drive(float istAngle)
+float JointControl::drive(float istAngle)
 {    
     // compute ellapsed time 
     oClick.read();
@@ -126,7 +126,7 @@ float JointDriver::drive(float istAngle)
 
 
 // computes the target speed of the movement
-void JointDriver::controlSpeed(float dist)
+void JointControl::controlSpeed(float dist)
 {        
     // speed is proportional to distance from target
     targetSpeed = Kspeed*dist;
@@ -137,22 +137,22 @@ void JointDriver::controlSpeed(float dist)
 }
        
 // gets the proper acceleration to reach the target speed
-void JointDriver::controlAccel()
+void JointControl::controlAccel()
 {    
     // acceleration is proportional to speed error
     outAccel = Kaccel*(targetSpeed - istSpeed);
 }
 
-std::string JointDriver::toString()
+std::string JointControl::toString()
 {
-    return "JointDriver [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
+    return "JointControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
             + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }
 
-std::string JointDriver::paramsToString()
+std::string JointControl::paramsToString()
 {
-    return "JointDriver params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
+    return "JointControl params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
             + " posTolerance=" + std::to_string(posTolerance) + " maxSpeed=" + std::to_string(maxSpeed) + "]";
 }
 }

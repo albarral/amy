@@ -77,8 +77,8 @@ void ArmMover::loop()
                         
         case eSTATE_STOP:
        
-//            oMoveStep.setXmove(JointMover::eMOV_STOP);
-//            oMoveStep.setYmove(JointMover::eMOV_STOP);
+//            oMoveStep.setXmove(JointMove::eMOV_STOP);
+//            oMoveStep.setYmove(JointMove::eMOV_STOP);
 //            writeBus();                    
             // after stopping, new wait stage
             setNextState(eSTATE_WAIT);

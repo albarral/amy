@@ -86,9 +86,9 @@ void ArmManager::initArchitecture()
     i=0;
     for (std::string& jointName : listControlledJoints)
     {        
-        oJointControl2[i].setTargetJoint(jointName);        
-        oJointControl2[i].setLevel(nivel);
-        listModules.push_back(&oJointControl2[i]);
+        oJointDriver[i].setTargetJoint(jointName);        
+        oJointDriver[i].setLevel(nivel);
+        listModules.push_back(&oJointDriver[i]);
         i++;
     }
     

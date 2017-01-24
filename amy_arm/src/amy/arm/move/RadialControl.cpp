@@ -5,56 +5,56 @@
 
 #include <cmath>
 
-#include "amy/arm/move/RadialDriver.h"
-#include "JointDriver.h"
+#include "amy/arm/move/RadialControl.h"
+#include "JointControl.h"
 
 namespace amy
 {
-RadialDriver::RadialDriver()
+RadialControl::RadialControl()
 {
     // params default
     workSign = -1; // default downside work plane
 }
 
-//RadialDriver2::~RadialDriver2()
+//RadialControl2::~RadialControl2()
 //{
 //}
 
-void RadialDriver::setArmSize(int lenHumerus, int lenRadius)
+void RadialControl::setArmSize(int lenHumerus, int lenRadius)
 {
     oArmMath.setLengths(lenHumerus, lenRadius);
 };
 
-void RadialDriver::workUp()
+void RadialControl::workUp()
 {
     workSign = 1;
 }
 
-void RadialDriver::workDown()
+void RadialControl::workDown()
 {
     workSign = -1;
 }
 
-void RadialDriver::setTargetRadius(float radius)
+void RadialControl::setTargetRadius(float radius)
 {    
     float elbowAngle = oArmMath.convArmRadius2Elbow(radius);
     
     // set target in proper work plane
     elbowAngle = fabs(elbowAngle) * workSign;
     
-    JointDriver::setTarget(elbowAngle);
+    JointControl::setTarget(elbowAngle);
 }
 
-std::string RadialDriver::toString()
+std::string RadialControl::toString()
 {
-    return "RadialDriver [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
+    return "RadialControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
             + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }
 
-std::string RadialDriver::paramsToString()
+std::string RadialControl::paramsToString()
 {
-    return "RadialDriver params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
+    return "RadialControl params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
             + " posTolerance=" + std::to_string(posTolerance) + " maxSpeed=" + std::to_string(maxSpeed) + "]";
 }
 }

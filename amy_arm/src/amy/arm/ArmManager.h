@@ -15,7 +15,7 @@
 #include "amy/arm/modules/ArmPanner2.h"
 #include "amy/arm/modules/ArmElbow.h"
 #include "amy/arm/modules/ArmExtender.h"
-#include "amy/arm/modules/JointControl2.h"
+#include "amy/arm/modules/JointDriver.h"
 #include "amy/arm/ArmInterface.h"
 #include "amy/arm/util/ArmModule.h"
 #include "amy/core/config/AmyConfig.h"
@@ -45,7 +45,7 @@ class ArmManager
         ArmExtender oArmExtender;
         ArmElbow oArmElbow;
         ArmPanner2 oArmPanner;
-        JointControl2 oJointControl2[AMY_MAX_JOINTS];
+        JointDriver oJointDriver[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
 
     public:

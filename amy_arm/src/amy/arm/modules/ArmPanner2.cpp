@@ -27,7 +27,7 @@ void ArmPanner2::prepareDriver()
     // update movement params
     if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+        oJointControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());        
@@ -45,14 +45,14 @@ void ArmPanner2::prepareMove()
     // update movement params
     if (pJointControlConfig != 0)
     {
-        oJointDriver.init(pJointControlConfig->getKaccelDriver(),
+        oJointControl.init(pJointControlConfig->getKaccelDriver(),
                                pJointControlConfig->getKspeedDriver(),
                                pJointControlConfig->getDriverTolerance(),
                                pJointControlConfig->getDriverSpeed());        
     }
         
     // set new target
-    oJointDriver.setTarget(targetPan);
+    oJointControl.setTarget(targetPan);
 
     // record output for analysis
     //oRecord.reset();
@@ -61,20 +61,20 @@ void ArmPanner2::prepareMove()
     LOG4CXX_INFO(logger, ">> new request");  
     LOG4CXX_INFO(logger, "target pan = " << targetPan);  
     LOG4CXX_INFO(logger, "ist HS = " << istPan);
-    LOG4CXX_INFO(logger, oJointDriver.paramsToString());      
+    LOG4CXX_INFO(logger, oJointControl.paramsToString());      
 }
 
 void ArmPanner2::doMove()
 {
-    panAccel = oJointDriver.drive(istPan);
-    LOG4CXX_INFO(logger, oJointDriver.toString());
+    panAccel = oJointControl.drive(istPan);
+    LOG4CXX_INFO(logger, oJointControl.toString());
     
     // check if movement is blocked (pushing beyond the joint's limit)    
-    if ((panLimitReached > 0 && oJointDriver.getMoveSign() > 0) || (panLimitReached < 0 && oJointDriver.getMoveSign() < 0))
+    if ((panLimitReached > 0 && oJointControl.getMoveSign() > 0) || (panLimitReached < 0 && oJointControl.getMoveSign() < 0))
         moveBlocked();
     
     // check if movement finished 
-    if (oJointDriver.isMovementDone())
+    if (oJointControl.isMovementDone())
         moveDone();  
 }
 

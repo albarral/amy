@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_JOINTDRIVER_H
-#define __AMY_MOVE_JOINTDRIVER_H
+#ifndef __AMY_MOVE_JOINTCONTROL_H
+#define __AMY_MOVE_JOINTCONTROL_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -20,7 +20,7 @@ namespace amy
 // To request a movement, the setTarget() function must be called.
 // Then, the drive() function must be called periodically. This internally computes the joint speed and updates the acceleration control.
 // Movement is finished the the state is DONE.
-class JointDriver
+class JointControl
 {
 public:    
     // movement states
@@ -55,8 +55,8 @@ protected:
     amy::Click oClick;      // clock utility
 
 public:
-        JointDriver();
-        //~JointDriver();
+        JointControl();
+        //~JointControl();
                 
        void init(float kaccel, float kspeed, float posTolerance, float maxSpeed);
 

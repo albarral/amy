@@ -8,7 +8,7 @@
 
 #include "amy/arm/modules/ArmDriver.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/arm/move/JointDriver.h"
+#include "amy/arm/move/JointControl.h"
 //#include "amy/utils/Record.h"   // tmp for analysis
 
 namespace amy
@@ -27,7 +27,7 @@ private:
     float targetPan;          // requested arm pan 
     // control 
     float istPan;                // measured pan position
-    JointDriver oJointDriver;      // utility class to drive the horizontal shoulder
+    JointControl oJointControl;      // utility class to drive the horizontal shoulder
     int panLimitReached;     // value indicating the horizontal shoulder movement is blocked (due to reached joint limit)
     // output
     float panAccel;              // commanded horizontal shoulder acceleration 
