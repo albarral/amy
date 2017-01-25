@@ -23,11 +23,11 @@ AxisDriver::AxisDriver()
         
     bconnected = false;
     pArmBus = 0;
-    pJointBus = 0;        
+    pOutBus = 0;        
     outAccel = 0;
 }
 
-//AxisDriver2::~AxisDriver2()
+//AxisDriver::~AxisDriver()
 //{
 //}
 
@@ -47,8 +47,8 @@ void AxisDriver::connect(ArmBus& oArmBus)
 {
     pArmBus = &oArmBus;
     // set output connection (in derived class)
-    connectOutput();
-    if (pJointBus != 0)
+    connectJoints();
+    if (pOutBus != 0)
     {
         bconnected = true;   
         LOG4CXX_DEBUG(logger, modName << " connected to bus");      
@@ -59,7 +59,7 @@ void AxisDriver::connect(ArmBus& oArmBus)
 
 void AxisDriver::prepareDriver()
 {
-    // update movement params
+    // set movement params
     if (pJointControlConfig != 0)
     {
         // get used joint controller and initialize it
@@ -74,29 +74,12 @@ void AxisDriver::prepareDriver()
 void AxisDriver::first()
 {
     // start at done
-    bnewMove = false;    
-    bmoveDone = true;
-    bmoveBlocked = false;
+    oMoveState.moveDone();
     setState(eSTATE_DONE);
     
     log4cxx::NDC::push(modName);   	
 }
                     
-void AxisDriver::moveRequested()
-{
-    bnewMove = true;  
-}
-
-void AxisDriver::moveDone()
-{
-    bmoveDone = true;    
-}
-
-void AxisDriver::moveBlocked()
-{
-    bmoveBlocked = true;
-}
-
 
 // performs a cyclic wave movement of the elbow
 void AxisDriver::loop()
@@ -104,16 +87,11 @@ void AxisDriver::loop()
     senseBus();
     
     // if new move requested -> go to DRIVE
-    if (bnewMove)
+    if (oMoveState.isNew())
     {
-        bnewMove = false;    
-        bmoveBlocked = false;
-        bmoveDone = false;      
+        oMoveState.moveDoing();
         // update movement's target (in derived class)
         updateTarget();        
-
-        // record output for analysis
-        // oRecord.reset();
         setState(eSTATE_DRIVE);
     }
 
@@ -127,20 +105,17 @@ void AxisDriver::loop()
     // otherwise,drive joint
     if (getState() == eSTATE_DRIVE)
     {
-        // perform specific movement (in derived class)
+        // perform a move step
         doMove();
         
         // if movement blocked or finished -> DONE
-        if (bmoveBlocked || bmoveDone)
+        if (oMoveState.isBlocked() || oMoveState.isDone())
         {       
             setState(eSTATE_DONE);   
             showState();
         }
     }
-                    
-    // record output for analysis
-    //oRecord.addElement(istSpeed, sollAccel);
-    
+                        
     // send commands
     writeBus();        
 }
@@ -148,32 +123,29 @@ void AxisDriver::loop()
 
 void AxisDriver::doMove()
 {
+    computeAxisPosition();
+    
     // perform the control (compute the proper joint accel)
     JointControl& oJointControl = getController();        
-    outAccel = oJointControl.drive(istJoint);
+    outAccel = oJointControl.drive(istAxis);
     
     LOG4CXX_INFO(logger, oJointControl.toString());
     
     // check if movement is blocked (pushing beyond the joint's limit)    
     if ((jointLimit > 0 && oJointControl.getMoveSign() > 0) || (jointLimit < 0 && oJointControl.getMoveSign() < 0))
-        moveBlocked();
+        oMoveState.moveBlocked();
     
     // check if movement finished 
     if (oJointControl.isMovementDone())
-        moveDone();  
+        oMoveState.moveDone();  
 }
 
 void AxisDriver::writeBus()
 {  
     // send command to joint (the computed acceleration)
-    if (pJointBus != 0)
-        pJointBus->getCO_JCONTROL_ACCEL().request(outAccel);
+    if (pOutBus != 0)
+        pOutBus->getCO_JCONTROL_ACCEL().request(outAccel);
 }
-
-//void AxisDriver::done()
-//{         
-//    //Plot::plotRecord(oRecord, 60);
-//}
 
 void AxisDriver::showState()
 {

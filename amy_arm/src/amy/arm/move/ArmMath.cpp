@@ -37,7 +37,7 @@ void ArmMath::setLengths(int lenHum, int lenRad)
         minRadius = 0.0;
 }
 
-float ArmMath::convJoints2ArmRadius(float angleEL)
+float ArmMath::computeRadius4ElbowAngle(float angleEL)
 {
     // R² = lenH² + lenR² + 2*lenH*lenR*cos(EL)
     
@@ -48,7 +48,7 @@ float ArmMath::convJoints2ArmRadius(float angleEL)
     return (sqrt(sumSquares + doubleProduct*cos(radiansEL)));
 }
 
-float ArmMath::convJoints2ArmTilt(float angleVS, float angleEL) 
+float ArmMath::computeTilt4JointAngles(float angleVS, float angleEL) 
 {
     // b = lenH*cos(VS) + lenR*cos(VS+EL)
     // h = lenH*sin(VS)  + lenR*sin(VS+EL)
@@ -66,7 +66,7 @@ float ArmMath::convJoints2ArmTilt(float angleVS, float angleEL)
     return (atan2(h, b) * K180_DIV_PI);
 };
 
-float ArmMath::convArmRadius2Elbow(float radius)
+float ArmMath::computeElbowAngle4Radius(float radius)
 {
     // cos(EL) = (R² - lenH² - lenR²) / 2*lenH*lenR  
 

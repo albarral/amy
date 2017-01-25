@@ -11,14 +11,16 @@
 
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/move/JointControl.h"
+#include "amy/core/MoveState.h"
 #include "amy/core/config/JointControlConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
 
 namespace amy
 {
-// Base module for driving a given arm axis (pan, tilt, radius) in response to position commands. 
-// The module outputs controls to a single joint.    
+// Base module for driving a given axis (pan, tilt, radius) to a requested position.
+// The module can sense various joints, but only controls one (sends commands to one).
+// KEEP MODE: When keep mode active, the module works to keep the last achieved position, even compensating any external axis change.
 // The module's loop works as follows:
 // - senses the bus
 // - responds to new move requests
@@ -33,8 +35,8 @@ public:
     // states of AxisDriver module
     enum eType
     {
-         eSTATE_DONE,
-         eSTATE_DRIVE
+         eSTATE_DONE,     // nothing done
+         eSTATE_DRIVE     // moves the arm
     };
 
 protected:
@@ -42,26 +44,23 @@ protected:
     bool benabled;
     // config
     JointControlConfig* pJointControlConfig;  // control config
-    Arm* pArm;              // arm physical data
-    
+    Arm* pArm;              // arm physical data    
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // access to arm bus
-    JointBus* pJointBus;   // bus connection to output joint
-    // request
-    float targetValue;           // requested axis position
+    JointBus* pOutBus;   // bus connection to controlled joint
     // control 
-    float istJoint;                  // measured joint position
-    int jointLimit;     // value indicating the axis movement is blocked (due to reached joint limit)   
+    float targetAxis;           // requested axis position
+    float istAxis;                 // measured axis position
+    //float istJoint;                  // measured joint position
+    int jointLimit;                 // value indicating the controlled joint is blocked (due to a reached joint limit)   
     // output
     float outAccel;              // commanded joint acceleration 
-
-private:    
     // logic
-    bool bnewMove;          // flag indicating new move requested
-    bool bmoveBlocked;    // flag indicating the move is blocked
-    bool bmoveDone;        // flag indicating the move is done
+    MoveState oMoveState;   // holds the present move state
 
+private:
+    
 public:
         AxisDriver();
         //~AxisDriver();
@@ -78,37 +77,28 @@ public:
 protected:
         // return reference to the used joint controller
         virtual JointControl& getController() = 0;
-        // connect driver to specific joint
-        virtual void connectOutput() = 0;
+        // connect driver to specific joints
+        virtual void connectJoints() = 0;
         // prepare axis driver
         virtual void prepareDriver();
-        // perform movement
-        void doMove();
         // read bus data
         virtual void senseBus() = 0;
         // prepare movement
         virtual void updateTarget() = 0;
-        // write action commands to out joint bus
-        void writeBus();
-        
-        // raises flag for new move
-        void moveRequested();
-        // raises flag for blocked move 
-        void moveBlocked();
-        // raises flag for done move
-        void moveDone();
+        // computes the axis position
+        virtual void computeAxisPosition() = 0;
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-                
-        // prepare for new movement
-        void newMove();
-        // movement finished
-        void done();
-                        
+
+        // perform movement
+        void doMove();        
+        // write action commands to out joint bus
+        void writeBus();
+                                        
         // shows the present state name
         void showState();
 };

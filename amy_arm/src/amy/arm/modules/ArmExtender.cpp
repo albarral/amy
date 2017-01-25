@@ -74,7 +74,7 @@ void ArmExtender::prepareMove()
         
     // a temporal tilt position will be reached after the elbow movement (arm extension/retraction produces a tilt change)
     float finalEL = oRadialControl.getTargetAngle();           
-    float finalTilt = oArmMath.convJoints2ArmTilt(istVS, finalEL);  
+    float finalTilt = oArmMath.computeTilt4JointAngles(istVS, finalEL);  
     
     // the right final tilt will then be reached after a VS corrective movement (with a VS displacement equal to the tilt deviation)
     float tiltDeviation = targetTilt - finalTilt;
@@ -149,11 +149,11 @@ void ArmExtender::senseBus()
         
         // if only radius requested, keep the present tilt 
         if (!btiltRequested)
-            targetTilt = oArmMath.convJoints2ArmTilt(istVS, istElbow);  
+            targetTilt = oArmMath.computeTilt4JointAngles(istVS, istElbow);  
         
         // if only tilt requested, keep the present radius
         if (!bradiusRequested)
-            targetRadius = oArmMath.convJoints2ArmRadius(istElbow);            
+            targetRadius = oArmMath.computeRadius4ElbowAngle(istElbow);            
     }
 }
 

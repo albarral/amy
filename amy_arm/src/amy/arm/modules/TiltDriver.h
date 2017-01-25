@@ -8,18 +8,24 @@
 
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/ArmMath.h"
 
 namespace amy
 {
 // Behavior used to move the arm's tilt.
 // It responds to arm tilt requests (from bus) and controls the vertical shoulder angle to reach those tilts.
 // Derived from AxisDriver.
-// Controlled joints:
+// Controlled joint:
 // VERTICAL SHOULDER (VS)    
 class TiltDriver: public AxisDriver
 {
 private:
     JointControl oJointControl;      // utility class to drive the VS
+    ArmMath oArmMath;       // utility class for arm computations
+    JointBus* pVSBus;       // bus connection to VS
+    float istVS;               // measured VS angle
+    JointBus* pELBus;       // bus connection to EL
+    float istEL;               // measured EL angle
 
 public:
         TiltDriver();
@@ -28,12 +34,16 @@ public:
 private:       
         // return reference to the used joint controller
         virtual JointControl& getController() {return oJointControl;};
+        // prepare axis driver
+        virtual void prepareDriver();
         // connect driver to specific joint
-        virtual void connectOutput();
+        virtual void connectJoints();
         // read bus data
         virtual void senseBus();
         // prepare movement
         virtual void updateTarget();
+        // computes the axis position
+        virtual void computeAxisPosition();
 
         void showMovementData();
 

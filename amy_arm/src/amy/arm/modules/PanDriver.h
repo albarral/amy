@@ -8,21 +8,20 @@
 
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/JointControl.h"
-//#include "amy/utils/Record.h"   // tmp for analysis
 
 namespace amy
 {
 // Behavior used to move the arm's pan.
 // It responds to arm pan requests (from bus) and controls the horizonal shoulder angle to reach those pans.
 // Derived from AxisDriver.
-// Controlled joints:
+// Controlled joint:
 // HORIZONTAL SHOULDER (HS)    
 class PanDriver: public AxisDriver
 {
 private:
     JointControl oJointControl;      // utility class to drive the horizontal shoulder
-    // aux
-//    Record oRecord; // record to store the speed evolution in movement  (for analysis purpose)
+    JointBus* pHSBus;   // bus connection to HS
+    float istHS;               // measured HS angle
 
 public:
         PanDriver();
@@ -35,11 +34,13 @@ private:
         // return reference to the used joint controller
         virtual JointControl& getController() {return oJointControl;};
         // connect driver to specific joint
-        virtual void connectOutput();
+        virtual void connectJoints();
         // read bus data
         virtual void senseBus();
         // prepare movement
         virtual void updateTarget();
+        // computes the axis position
+        virtual void computeAxisPosition();
 
         void showMovementData();
 

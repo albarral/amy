@@ -12,16 +12,30 @@ namespace amy
 TiltDriver::TiltDriver()
 {
     modName = "TiltDriver";    
+    pVSBus = 0;
+    pELBus = 0;
 }
 
 //TiltDriver::~TiltDriver()
 //{
 //}
 
-void TiltDriver::connectOutput()
+void TiltDriver::prepareDriver()
 {
-    // connect to VS joint 
-    pJointBus = &pArmBus->getBusVS();
+    // set movement params
+    AxisDriver::prepareDriver();
+    // tune arm math
+    oArmMath.setLengths(pArm->getLenHumerus(), pArm->getLenRadius());
+}
+
+void TiltDriver::connectJoints()
+{
+    // connect output to VS joint 
+    pOutBus = &pArmBus->getBusVS();
+    // connect input 1 to VS joint 
+    pVSBus = &pArmBus->getBusVS();
+    // connect input 2 to EL joint 
+    pELBus = &pArmBus->getBusEL();
 }
        
 void TiltDriver::updateTarget()
@@ -36,12 +50,13 @@ void TiltDriver::updateTarget()
     }
         
     // set new target
-    oJointControl.setTarget(targetValue);
+    oJointControl.setTarget(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
-    LOG4CXX_INFO(logger, "target tilt = " << targetValue);  
-    LOG4CXX_INFO(logger, "ist VS = " << istJoint);
+    LOG4CXX_INFO(logger, "target tilt = " << targetAxis);  
+    LOG4CXX_INFO(logger, "ist VS = " << istVS);
+    LOG4CXX_INFO(logger, "ist EL = " << istEL);
     LOG4CXX_INFO(logger, oJointControl.paramsToString());      
 }
 
@@ -50,15 +65,22 @@ void TiltDriver::senseBus()
     // get requested tilt
     if (pArmBus->getCO_ARM_TILT().checkRequested())
     {
-        targetValue = (int)pArmBus->getCO_ARM_TILT().getValue();    
-        moveRequested();
+        targetAxis = pArmBus->getCO_ARM_TILT().getValue();    
+        oMoveState.moveRequested();
     }
 
-    // sense VS angle (soll value used here)
-    istJoint = pJointBus->getCO_JOINT_ANGLE().getValue();
-    
+    // sense VS and EL angles (soll value used here)
+    istVS = pVSBus->getCO_JOINT_ANGLE().getValue();
+    istEL = pELBus->getCO_JOINT_ANGLE().getValue();
+
     // sense reached VS limits
-    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pOutBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+}
+
+void TiltDriver::computeAxisPosition()
+{
+    // compute present tilt axis angle
+    istAxis = oArmMath.computeTilt4JointAngles(istVS, istEL);
 }
 
 }

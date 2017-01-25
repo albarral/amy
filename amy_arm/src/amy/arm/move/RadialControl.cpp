@@ -37,7 +37,7 @@ void RadialControl::workDown()
 
 void RadialControl::setTargetRadius(float radius)
 {    
-    float elbowAngle = oArmMath.convArmRadius2Elbow(radius);
+    float elbowAngle = oArmMath.computeElbowAngle4Radius(radius);
     
     // set target in proper work plane
     elbowAngle = fabs(elbowAngle) * workSign;

@@ -12,6 +12,7 @@ namespace amy
 RadiusDriver::RadiusDriver()
 {
     modName = "RadiusDriver";    
+    pELBus = 0;    
 }
 
 //RadiusDriver::~RadiusDriver()
@@ -20,16 +21,18 @@ RadiusDriver::RadiusDriver()
 
 void RadiusDriver::prepareDriver()
 {
-    // update movement params
+    // set movement params
     AxisDriver::prepareDriver();
     
     oRadialControl.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
 }
 
-void RadiusDriver::connectOutput()
+void RadiusDriver::connectJoints()
 {
-    // connect to ELB
-    pJointBus = &pArmBus->getBusEL();
+    // connect output to EL joint
+    pOutBus = &pArmBus->getBusEL();
+    // connect input to EL joint 
+    pELBus = &pArmBus->getBusEL();
 }
        
 void RadiusDriver::updateTarget()
@@ -44,12 +47,12 @@ void RadiusDriver::updateTarget()
     }
         
     // set new target
-    oRadialControl.setTargetRadius(targetValue);
+    oRadialControl.setTargetRadius(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
-    LOG4CXX_INFO(logger, "target radius = " << targetValue);  
-    LOG4CXX_INFO(logger, "ist ELB = " << istJoint);
+    LOG4CXX_INFO(logger, "target radius = " << targetAxis);  
+    LOG4CXX_INFO(logger, "ist ELB = " << istEL);
     LOG4CXX_INFO(logger, oRadialControl.paramsToString());      
 }
 
@@ -58,15 +61,21 @@ void RadiusDriver::senseBus()
     // get requested radius
     if (pArmBus->getCO_ARM_RADIUS().checkRequested())
     {
-        targetValue = (int)pArmBus->getCO_ARM_RADIUS().getValue();    
-        moveRequested();
+        targetAxis = pArmBus->getCO_ARM_RADIUS().getValue();    
+        oMoveState.moveRequested();
     }
 
-    // sense ELB angle (soll value used here)
-    istJoint = pJointBus->getCO_JOINT_ANGLE().getValue();
+    // sense EL angle (soll value used here)
+    istEL = pELBus->getCO_JOINT_ANGLE().getValue();
     
-    // sense reached ELB limits
-    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    // sense reached EL limits
+    jointLimit = pOutBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+}
+
+void RadiusDriver::computeAxisPosition()
+{
+    // used angle instead of axis (radial distance) needed for the RadialControl
+    istAxis = istEL;
 }
 
 }

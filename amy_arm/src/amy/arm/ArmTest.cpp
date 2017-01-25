@@ -103,8 +103,8 @@ void ArmTest::testArmMath()
     
     for (int i=0; i<4; i++)
     {
-        tilt = oArmMath.convJoints2ArmTilt(angleVS, angleEL);
-        radius = oArmMath.convJoints2ArmRadius(angleEL);
+        tilt = oArmMath.computeTilt4JointAngles(angleVS, angleEL);
+        radius = oArmMath.computeRadius4ElbowAngle(angleEL);
         LOG4CXX_INFO(logger, "angleVS: " << angleVS << ", angleEL: " << angleEL << ", radius= " << radius << ", tilt= " << tilt << "\n");
         angleVS -= 30;
     }
