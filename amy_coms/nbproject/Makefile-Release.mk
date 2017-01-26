@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o \
 	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQClient.o \
+	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQPublisher.o \
 	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQServer.o
 
 
@@ -133,6 +134,11 @@ ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQClient.o: src/amy/coms/zero/AmyZeroMQCli
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/zero
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQClient.o src/amy/coms/zero/AmyZeroMQClient.cpp
+
+${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQPublisher.o: src/amy/coms/zero/AmyZeroMQPublisher.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/zero
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQPublisher.o src/amy/coms/zero/AmyZeroMQPublisher.cpp
 
 ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQServer.o: src/amy/coms/zero/AmyZeroMQServer.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/zero

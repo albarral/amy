@@ -19,6 +19,7 @@ AmyCommander::AmyCommander()
 {    
     modName = "ConsoleCommander";
     entry = "";
+    oAmyZeroMQClient.setPort(5555);
  }
 
 void AmyCommander::init()

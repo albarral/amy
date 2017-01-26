@@ -18,11 +18,11 @@ AmyListener::AmyListener()
 {    
     modName = "AmyListener";
     benabled = false;
+    oAmyZeroMQServer.setPort(5555);
  }
 
 void AmyListener::init(iArmInterface& oArmInterface)
 {
-    //oAmyFileServer.connect2Arm(oArmInterface);
     oAmyZeroMQServer.connect2Arm(oArmInterface);
     benabled = true;
 };
@@ -34,17 +34,7 @@ void AmyListener::first()
 
 void AmyListener::loop()
 {
-    // listen to user commands
-    /*if (oAmyFileServer.readCommand())
-    {
-        if (oAmyFileServer.isValid())
-        {
-            oAmyFileServer.processCommand();
-        }
-        else
-            LOG4CXX_WARN(logger, "invalid command");                                      
-    }*/
-        if (oAmyZeroMQServer.readCommand())
+    if (oAmyZeroMQServer.readCommand())
     {
         if (oAmyZeroMQServer.isValid())
         {
@@ -56,8 +46,7 @@ void AmyListener::loop()
 }
 
 bool AmyListener::checkAmyEndRequested()
-{
-    //return oAmyFileServer.isAmyEndRequested();   
+{ 
     return oAmyZeroMQServer.isAmyEndRequested(); 
 }
 }

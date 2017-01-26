@@ -79,18 +79,6 @@ void Tests::testAmyServer()
     while (i<10) 
     {
         sleep(2);  
-        /*if (oAmyFileServer.readCommand())
-        {
-            if (oAmyFileServer.isValid())
-            {
-                oAmyFileServer.processCommand();
-            }
-            else
-                LOG4CXX_WARN(logger, "invalid command");                                      
-        }
-        else
-            LOG4CXX_WARN(logger, "no command");                                      
-         */
         if (oAmyZeroMQServer.readCommand())
         {
             if (oAmyZeroMQServer.isValid())

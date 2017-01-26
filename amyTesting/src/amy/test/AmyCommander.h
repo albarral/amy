@@ -28,7 +28,7 @@ private:
     std::string entry;                  // command read from console
     Interpreter oInterpreter;       // interpreter of console commands
     //AmyFileClient oAmyFileClient;     // amy client   
-    AmyZeroMQClient oAmyZeroMQClient; //amy zeromq client
+    AmyZeroMQClient oAmyZeroMQClient;
 
 public:
     AmyCommander();

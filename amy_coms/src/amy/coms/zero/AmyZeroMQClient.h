@@ -19,10 +19,12 @@ namespace amy
     {       
         private:
             static log4cxx::LoggerPtr logger;
+            std::string clientPort;
         public:
-
-            AmyZeroMQClient();
+            AmyZeroMQClient();    
             ~AmyZeroMQClient();
+            
+            void setPort(const int port);
 
         private:
             // send textual command

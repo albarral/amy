@@ -29,6 +29,7 @@ namespace amy
             static log4cxx::LoggerPtr logger;
             AmyCommand oAmyCommand;     // class used to interpret the request
             bool bvalid;        // indication of valid request
+            std::string serverPort;
         public:
 
             Responses response;    
@@ -36,6 +37,7 @@ namespace amy
             AmyZeroMQServer();
             ~AmyZeroMQServer();
 
+            void setPort(const int port);
             AmyCommand& getAmyCommand() {return oAmyCommand;};
 
             // checks for received requests in the coms file and interprets them

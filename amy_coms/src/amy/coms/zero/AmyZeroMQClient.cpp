@@ -16,14 +16,18 @@ namespace amy
     
     AmyZeroMQClient::AmyZeroMQClient()
     {        
-        socketClient.connect ("tcp://localhost:5555");
-        std::cout << "ZERO: Client connecting..." << std::endl;
+        
     }
 
     AmyZeroMQClient::~AmyZeroMQClient()
     {
         socketClient.close();
         std::cout << "Client closing..." << std::endl;
+    }
+    void AmyZeroMQClient::setPort(const int port){
+        clientPort = std::to_string(port);
+        socketClient.connect ("tcp://localhost:"+clientPort);
+        std::cout << "ZERO: Client connecting..." << std::endl;
     }
 
     void AmyZeroMQClient::sendCommand()

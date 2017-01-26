@@ -32,6 +32,8 @@
         <logicalFolder name="zero" displayName="zero" projectFiles="true">
           <itemPath>src/amy/coms/zero/AmyZeroMQClient.cpp</itemPath>
           <itemPath>src/amy/coms/zero/AmyZeroMQClient.h</itemPath>
+          <itemPath>src/amy/coms/zero/AmyZeroMQPublisher.cpp</itemPath>
+          <itemPath>src/amy/coms/zero/AmyZeroMQPublisher.h</itemPath>
           <itemPath>src/amy/coms/zero/AmyZeroMQServer.cpp</itemPath>
           <itemPath>src/amy/coms/zero/AmyZeroMQServer.h</itemPath>
         </logicalFolder>
@@ -191,6 +193,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/amy/coms/zero/AmyZeroMQPublisher.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQPublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/zero/AmyZeroMQServer.cpp"
             ex="false"
             tool="1"
@@ -296,6 +308,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/zero/AmyZeroMQClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQPublisher.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQPublisher.h"
             ex="false"
             tool="3"
             flavor2="0">

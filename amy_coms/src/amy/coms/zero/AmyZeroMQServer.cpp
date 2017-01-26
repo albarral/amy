@@ -14,14 +14,19 @@ zmq::socket_t socketServer (contextServer, ZMQ_REP); //creates the socket
 
 AmyZeroMQServer::AmyZeroMQServer()
 {    
-    socketServer.bind ("tcp://*:5555"); //and binds it
-    std::cout << "Server connecting..." << std::endl;
+
 }
 
 AmyZeroMQServer::~AmyZeroMQServer()
 {
     socketServer.close();
     std::cout << "Server closing..." << std::endl;
+}
+
+void AmyZeroMQServer::setPort(const int port){
+    serverPort = std::to_string(port);
+    socketServer.bind ("tcp://*:"+serverPort); //and binds it
+    std::cout << "Server connecting..." << std::endl;
 }
 
 bool AmyZeroMQServer::readCommand()
