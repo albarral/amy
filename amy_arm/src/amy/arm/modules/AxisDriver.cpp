@@ -3,6 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <cmath>
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/AxisDriver.h"
@@ -25,6 +26,8 @@ AxisDriver::AxisDriver()
     pArmBus = 0;
     pOutBus = 0;        
     outAccel = 0;
+    setKeepMode(false);
+    tolAxis = 2;   // temp: to be defined externally
 }
 
 //AxisDriver::~AxisDriver()
@@ -89,9 +92,9 @@ void AxisDriver::loop()
     // if new move requested -> go to DRIVE
     if (oMoveState.isNew())
     {
-        oMoveState.moveDoing();
         // update movement's target (in derived class)
-        updateTarget();        
+        newMove();        
+        oMoveState.moveDoing();
         setState(eSTATE_DRIVE);
     }
 
@@ -102,22 +105,39 @@ void AxisDriver::loop()
     if (isStateChanged())
         showState();
       
-    // otherwise,drive joint
-    if (getState() == eSTATE_DRIVE)
+    switch (getState())
     {
-        // perform a move step
-        doMove();
+        // drive joint
+        case eSTATE_DRIVE:
+
+            // perform a move step
+            doMove();        
+            // if movement blocked or finished -> DONE
+            if (oMoveState.isBlocked() || oMoveState.isDone())
+            {       
+                int nextState = (bKeepMode ? eSTATE_WATCH : eSTATE_DONE);
+                setState(nextState);   
+            }
+            break;
         
-        // if movement blocked or finished -> DONE
-        if (oMoveState.isBlocked() || oMoveState.isDone())
-        {       
-            setState(eSTATE_DONE);   
-            showState();
-        }
+        // watch out
+        case eSTATE_WATCH:
+
+            computeAxisPosition();
+            // if high deviation -> DRIVE
+            if (fabs(targetAxis - istAxis) > tolAxis)
+            {
+                oMoveState.moveRequested();
+            }
+            break;
     }
-                        
-    // send commands
-    writeBus();        
+ 
+    if (isStateChanged())
+        showState();
+
+    // send commands, only if 
+    if (getState() == eSTATE_DRIVE)
+        writeBus();        
 }
 
 
@@ -140,12 +160,14 @@ void AxisDriver::doMove()
         oMoveState.moveDone();  
 }
 
+
 void AxisDriver::writeBus()
 {  
     // send command to joint (the computed acceleration)
     if (pOutBus != 0)
         pOutBus->getCO_JCONTROL_ACCEL().request(outAccel);
 }
+
 
 void AxisDriver::showState()
 {
@@ -157,6 +179,10 @@ void AxisDriver::showState()
                         
         case eSTATE_DRIVE:
             LOG4CXX_INFO(logger, ">> drive");
+            break;
+
+        case eSTATE_WATCH:
+            LOG4CXX_INFO(logger, ">> watch");
             break;
     }   // end switch    
 }

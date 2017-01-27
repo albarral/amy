@@ -60,8 +60,8 @@ public:
                 
        void init(float kaccel, float kspeed, float posTolerance, float maxSpeed);
 
-       // sets the target position
-        void setTarget(float angle);
+       // new move requested (to target angle)
+        void newMove(float angle);
         float getTargetAngle() {return targetAngle;}
         
         // drive the joint with a proper acceleration, the acceleration is returned

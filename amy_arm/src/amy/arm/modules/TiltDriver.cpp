@@ -38,7 +38,7 @@ void TiltDriver::connectJoints()
     pELBus = &pArmBus->getBusEL();
 }
        
-void TiltDriver::updateTarget()
+void TiltDriver::newMove()
 {
     // update movement params
     if (pJointControlConfig != 0)
@@ -49,8 +49,8 @@ void TiltDriver::updateTarget()
                                pJointControlConfig->getDriverSpeed());        
     }
         
-    // set new target
-    oJointControl.setTarget(targetAxis);
+    // prepare for new move
+    oJointControl.newMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
@@ -66,7 +66,9 @@ void TiltDriver::senseBus()
     if (pArmBus->getCO_ARM_TILT().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_TILT().getValue();    
-        oMoveState.moveRequested();
+        oMoveState.moveRequested();        
+        // temp: to be set by bus request
+        setKeepMode(true);
     }
 
     // sense VS and EL angles (soll value used here)

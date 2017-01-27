@@ -42,8 +42,8 @@ public:
        // sets elbow to work downside (with negative elbow angles)
        void workDown();
 
-       // sets the target position
-        void setTargetRadius(float radius);
+       // new radial move requested (to target radius)
+        void newRadialMove(float radius);
                       
         virtual std::string toString();
         virtual std::string paramsToString();

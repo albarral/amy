@@ -35,7 +35,7 @@ void RadiusDriver::connectJoints()
     pELBus = &pArmBus->getBusEL();
 }
        
-void RadiusDriver::updateTarget()
+void RadiusDriver::newMove()
 {
     // update movement params
     if (pJointControlConfig != 0)
@@ -46,8 +46,8 @@ void RadiusDriver::updateTarget()
                                pJointControlConfig->getDriverSpeed());        
     }
         
-    // set new target
-    oRadialControl.setTargetRadius(targetAxis);
+    // prepare for new move
+    oRadialControl.newRadialMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  

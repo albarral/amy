@@ -35,14 +35,14 @@ void RadialControl::workDown()
     workSign = -1;
 }
 
-void RadialControl::setTargetRadius(float radius)
+void RadialControl::newRadialMove(float radius)
 {    
-    float elbowAngle = oArmMath.computeElbowAngle4Radius(radius);
-    
-    // set target in proper work plane
+    // compute target elbow angle
+    float elbowAngle = oArmMath.computeElbowAngle4Radius(radius);    
+    // set proper work plane
     elbowAngle = fabs(elbowAngle) * workSign;
-    
-    JointControl::setTarget(elbowAngle);
+    // and prepare for new move
+    JointControl::newMove(elbowAngle);
 }
 
 std::string RadialControl::toString()

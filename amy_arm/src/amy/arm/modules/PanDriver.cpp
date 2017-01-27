@@ -28,7 +28,7 @@ void PanDriver::connectJoints()
     pHSBus = &pArmBus->getBusHS();
 }
        
-void PanDriver::updateTarget()
+void PanDriver::newMove()
 {
     // update movement params
     if (pJointControlConfig != 0)
@@ -39,11 +39,8 @@ void PanDriver::updateTarget()
                                pJointControlConfig->getDriverSpeed());        
     }
         
-    // set new target
-    oJointControl.setTarget(targetAxis);
-
-    // record output for analysis
-    //oRecord.reset();
+    // prepare for new move
+    oJointControl.newMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  

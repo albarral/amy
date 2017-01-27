@@ -38,7 +38,7 @@ private:
         // read bus data
         virtual void senseBus();
         // prepare movement
-        virtual void updateTarget();
+        virtual void newMove();
         // computes the axis position
         virtual void computeAxisPosition();
 

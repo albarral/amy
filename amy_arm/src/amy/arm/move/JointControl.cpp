@@ -34,7 +34,7 @@ void JointControl::init(float kaccel, float kspeed, float posTolerance, float ma
     this->maxSpeed = fabs(maxSpeed);    // assure absolute value
 };
 
-void JointControl::setTarget(float angle)
+void JointControl::newMove(float angle)
 {
     targetAngle = angle;
     // new move requested

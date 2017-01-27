@@ -55,7 +55,7 @@ void ArmTest::testJointControl()
     
     oDriver.init(4.0, 2.0, 0.05, 60.0);
     
-    oDriver.setTarget(180.0);    
+    oDriver.newMove(180.0);    
     while (oDriver.getState() != JointControl::eSTATE_DONE)
     {
         angle = oMover.getAngle();
@@ -78,7 +78,7 @@ void ArmTest::testRadialControl()
     oDriver.init(4.0, 2.0, 0.05, 60.0);
     oDriver.setArmSize(40, 40);
     
-    oDriver.setTargetRadius(40);
+    oDriver.newRadialMove(40);
     while (oDriver.getState() != JointControl::eSTATE_DONE)
     {
         angle = oMover.getAngle();

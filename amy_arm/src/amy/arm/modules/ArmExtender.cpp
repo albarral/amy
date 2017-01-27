@@ -70,7 +70,7 @@ void ArmExtender::prepareMove()
     }
         
     // set radius target
-    oRadialControl.setTargetRadius(targetRadius);
+    oRadialControl.newRadialMove(targetRadius);
         
     // a temporal tilt position will be reached after the elbow movement (arm extension/retraction produces a tilt change)
     float finalEL = oRadialControl.getTargetAngle();           
@@ -79,7 +79,7 @@ void ArmExtender::prepareMove()
     // the right final tilt will then be reached after a VS corrective movement (with a VS displacement equal to the tilt deviation)
     float tiltDeviation = targetTilt - finalTilt;
     // set VS target
-    oJointControl.setTarget(istVS + tiltDeviation);
+    oJointControl.newMove(istVS + tiltDeviation);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
