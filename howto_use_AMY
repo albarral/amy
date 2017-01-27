@@ -1,0 +1,90 @@
+
+*** HOW TO USE AMY
+
+This document explains how to use amy to control a simulated UR5 arm.
+For installation instructions refer to the "howto_install_AMY" document.
+
+Environment requirements:
+- two open terminals
+- an open instance of Netbeans IDE
+
+Components to be used:
+- ur_gazebo  	(ROS package for UR5 simulator)
+- amy package 	(amy libraries for arm control)
+- amyTesting  	(amy user interface)
+- ros_amy  	 	(ROS package for amy to arm communication)
+
+
+* PREPARING THE ENVIRONMENT ...
+
+
+> Launch gazebo & UR5 simulator (graphical simulation): 
+
+(from terminal 1)
+ws_amy>
+source devel/setup.bash
+roslaunch ur_gazebo ur5.launch
+
+
+> Launch ros_amyarm (communication node between amy and the arm):
+
+(from terminal 2)
+ws_amy>
+source devel/setup.bash
+rosrun ros_amy ros_amyarm
+
+
+> Launch amy (process that controls the arm):
+
+(from Netbeans)
+run amy_main project
+
+
+> Launch amyTesting (user interface to control amy): 
+
+(from Netbeans)
+run amyTesting project 
+
+
+
+
+* CONTROLLING THE ARM ...
+
+A user can control the arm by means of amy. 
+Commands are entered at the amyTesting's output tab (which acts as user console while running).
+
+> Available commands:
+
+hs		(move horizontal shoulder)
+vs		(move vertical shoulder)
+elb		(move elbow)
+hwri	(move horizontal wrist)
+vwri	(move vertical wrist)
+pan		(change the arm's pan)
+tilt	(change the arm's tilt)
+radius	(change the arm's radius)
+end		(end the amy process)
+quit 	(end the interface process)
+
+These text commands just set the movement type (except end & quit).
+For each movement action a numeric command must be entered.
+
+
+> Example:
+
+pan		
+60 		(moves arm horizontally to +60 degrees)
+-60 	(moves arm horizontally to -60 degrees)
+tilt
+90		(raises arm to +90 degrees)
+50		(lowers arm to +50 degrees)
+elb
+60		(moves elbow to achieve an arm radius of 60 cm)
+80 		(moves elbow to achieve an arm radius of 80 cm)
+...
+end		
+quit
+
+
+(last update: albarral 27/1/2017)
+

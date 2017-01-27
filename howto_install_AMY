@@ -1,0 +1,50 @@
+
+*** HOW TO INSTALL AMY
+
+This document explains how to install amy to control a simulated UR5 arm.
+
+Software requirements:
+- Linux environment
+- ROS indigo with gazebo 
+- Netbeans 8.1 for C++
+- git
+
+Components to be installed:
+- ur_gazebo  	(ROS package for UR5 simulator)
+- amy package 	(amy libraries for arm control)
+- amyTesting  	(amy user interface)
+- ros_amy  	 	(ROS package for amy to arm communication)
+
+
+* INSTALLATION ...
+
+> Download ur_gazebo: 
+
+(from terminal) 
+sudo apt-get install ros-indigo-ur-gazebo
+
+
+> Download amy, amyTesting & ros_amy (and dependencies):
+
+(from terminal) 
+git clone https://github.com/albarral/amy.git
+sudo apt-get install liblog4cxx10-dev
+
+
+> Build amy & amyTesting:
+
+(from Netbeans)
+build amy_main project
+build amyTesting project
+
+
+> Build ros_amy:
+
+(from terminal)
+- set proper path as AMY_HOME value in amy/ws_amy/src/cmake/Modules/Findamy.cmake
+cd ws_amy
+source devel/setup.bash
+catkin_make
+
+
+(last update: albarral 27/1/2017)
