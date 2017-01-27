@@ -22,12 +22,13 @@ namespace amy
     AmyZeroMQClient::~AmyZeroMQClient()
     {
         socketClient.close();
-        std::cout << "Client closing..." << std::endl;
+        LOG4CXX_INFO(logger, "Client ZMQ closing...");
     }
+    
     void AmyZeroMQClient::setPort(const int port){
         clientPort = std::to_string(port);
         socketClient.connect ("tcp://localhost:"+clientPort);
-        std::cout << "ZERO: Client connecting..." << std::endl;
+        LOG4CXX_INFO(logger, "Client ZMQ connecting...");
     }
 
     void AmyZeroMQClient::sendCommand()

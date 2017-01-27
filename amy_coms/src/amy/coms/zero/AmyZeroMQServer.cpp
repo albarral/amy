@@ -20,13 +20,13 @@ AmyZeroMQServer::AmyZeroMQServer()
 AmyZeroMQServer::~AmyZeroMQServer()
 {
     socketServer.close();
-    std::cout << "Server closing..." << std::endl;
+        LOG4CXX_INFO(logger, "Server ZMQ closing...");
 }
 
 void AmyZeroMQServer::setPort(const int port){
     serverPort = std::to_string(port);
     socketServer.bind ("tcp://*:"+serverPort); //and binds it
-    std::cout << "Server connecting..." << std::endl;
+    LOG4CXX_INFO(logger, "Server ZMQ connecting...");
 }
 
 bool AmyZeroMQServer::readCommand()

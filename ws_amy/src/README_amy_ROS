@@ -1,0 +1,25 @@
+
+*** ROS package: amy_ros ***
+
+amy_ros (ROS package) allows controlling a robot arm through the amy library.
+
+To use/compile it, you need to:
+- clone the amy.git repo.
+- create a catkin workspace just here (in ws_amy).
+
+To create the workspace (from terminal):
+- move to ws_amy/src
+- execute "catkin_init_workspace"
+
+To compile the package (from terminal):
+- move back to ws_amy
+- execute "catkin_make"
+
+
+> Nodes in amy_ros package:
+
+amy_ros_arm
+
+
+
+

@@ -48,7 +48,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o \
 	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQClient.o \
 	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQPublisher.o \
-	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQServer.o
+	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQServer.o \
+	${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQSubscriber.o
 
 
 # C Compiler Flags
@@ -144,6 +145,11 @@ ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQServer.o: src/amy/coms/zero/AmyZeroMQSer
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/zero
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQServer.o src/amy/coms/zero/AmyZeroMQServer.cpp
+
+${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQSubscriber.o: src/amy/coms/zero/AmyZeroMQSubscriber.cpp
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/zero
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/zero/AmyZeroMQSubscriber.o src/amy/coms/zero/AmyZeroMQSubscriber.cpp
 
 # Subprojects
 .build-subprojects:

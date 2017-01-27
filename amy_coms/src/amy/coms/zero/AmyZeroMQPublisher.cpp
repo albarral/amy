@@ -19,20 +19,22 @@ AmyZeroMQPublisher::AmyZeroMQPublisher()
 
 AmyZeroMQPublisher::~AmyZeroMQPublisher()
 {
-    
+    socketPublisher.close();
+    LOG4CXX_INFO(logger, "Publisher ZMQ closing... ");
+}
+
+void AmyZeroMQPublisher::setPort(const int port){
+    publisherPort = std::to_string(port);
+    socketPublisher.bind ("tcp://*:"+publisherPort); //and binds it
+    LOG4CXX_INFO(logger, "Publisher ZMQ connecting...");
 }
 
 void AmyZeroMQPublisher::init()
 {
     if(socketPublisher.connected())
         benabled = true;        
-    
-}
-
-void AmyZeroMQPublisher::setPort(const int port){
-    publisherPort = std::to_string(port);
-    socketPublisher.bind ("tcp://*:"+publisherPort); //and binds it
-    std::cout << "Publisher connecting..." << std::endl;
+    else
+        LOG4CXX_ERROR(logger, "AmyZeroMQPublisher: cannot connect"); 
 }
 
 void AmyZeroMQPublisher::publishInfo(std::string sollMessage)
@@ -46,8 +48,8 @@ void AmyZeroMQPublisher::publishInfo(std::string sollMessage)
     //  Get the reply.
     zmq::message_t reply;
     socketPublisher.recv (&reply);
-    std::string rpl = std::string(static_cast<char*>(reply.data()), reply.size());
-    std::cout << "Received-> " << rpl << std::endl;
+    std::string replyString = std::string(static_cast<char*>(reply.data()), reply.size());
+    std::cout << "Received-> " << replyString << std::endl;
 }
 
 }

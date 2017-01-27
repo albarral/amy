@@ -27,7 +27,6 @@
           <itemPath>src/amy/coms/file/AmyFileServer.cpp</itemPath>
           <itemPath>src/amy/coms/file/AmyFileServer.h</itemPath>
           <itemPath>src/amy/coms/file/AmyFileSubscriber.cpp</itemPath>
-          <itemPath>src/amy/coms/file/AmyFileSubscriber.h</itemPath>
         </logicalFolder>
         <logicalFolder name="zero" displayName="zero" projectFiles="true">
           <itemPath>src/amy/coms/zero/AmyZeroMQClient.cpp</itemPath>
@@ -36,6 +35,8 @@
           <itemPath>src/amy/coms/zero/AmyZeroMQPublisher.h</itemPath>
           <itemPath>src/amy/coms/zero/AmyZeroMQServer.cpp</itemPath>
           <itemPath>src/amy/coms/zero/AmyZeroMQServer.h</itemPath>
+          <itemPath>src/amy/coms/zero/AmyZeroMQSubscriber.cpp</itemPath>
+          <itemPath>src/amy/coms/zero/AmyZeroMQSubscriber.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/coms/AmyClient.cpp</itemPath>
         <itemPath>src/amy/coms/AmyClient.h</itemPath>
@@ -172,11 +173,6 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/file/AmyFileSubscriber.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/coms/iAmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
@@ -209,6 +205,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/zero/AmyZeroMQServer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQSubscriber.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQSubscriber.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -291,11 +297,6 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/file/AmyFileSubscriber.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/coms/iAmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
@@ -328,6 +329,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/zero/AmyZeroMQServer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQSubscriber.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/zero/AmyZeroMQSubscriber.h"
             ex="false"
             tool="3"
             flavor2="0">
