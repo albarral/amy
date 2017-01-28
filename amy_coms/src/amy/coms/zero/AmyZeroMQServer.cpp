@@ -14,7 +14,8 @@ zmq::socket_t socketServer (contextServer, ZMQ_REP); //creates the socket
 
 AmyZeroMQServer::AmyZeroMQServer()
 {    
-
+    //socketServer.setsockopt(ZMQ_RCVTIMEO, 500);
+    //socketServer.setsockopt(ZMQ_SNDTIMEO,500);
 }
 
 AmyZeroMQServer::~AmyZeroMQServer()
@@ -32,26 +33,27 @@ void AmyZeroMQServer::setPort(const int port){
 bool AmyZeroMQServer::readCommand()
 {
     bool brequest = false;  // default no request received
-    
-    zmq::message_t request;
-    
-    //  Wait for next request from client
-    brequest = socketServer.recv (&request);
-    std::string stringRequest = std::string(static_cast<char*>(request.data()), request.size());
-    std::cout << "Received-> "<< stringRequest << std::endl;
-    bvalid = oAmyCommand.interpret(stringRequest);
-    
-    //Send reply
-    std::string buffer;
-    if(bvalid) buffer = response.valid;
-    else buffer = response.invalid;
-            
-    zmq::message_t reply (buffer.length());
-    memcpy (reply.data (), buffer.c_str(), buffer.length());
-    std::cout << "Sending reply..." << std::endl;
-    socketServer.send (reply);
-    
-    return brequest;
+    try{
+        zmq::message_t request;
+
+        //  Wait for next request from client
+        brequest = socketServer.recv (&request);
+        std::string stringRequest = std::string(static_cast<char*>(request.data()), request.size());
+        std::cout << "Received-> "<< stringRequest << std::endl;
+        bvalid = oAmyCommand.interpret(stringRequest);
+
+        //Send reply
+        std::string buffer="OK";
+
+        zmq::message_t reply (buffer.length());
+        memcpy (reply.data (), buffer.c_str(), buffer.length());
+        std::cout << "Sending reply..." << std::endl;
+        socketServer.send (reply);
+
+        return brequest;
+    }catch(zmq::error_t& e) {
+            std::cout << "ERROR: Client -> Sending before receiving a request." << std::endl;
+    }
 }
 
 void AmyZeroMQServer::processCommand()

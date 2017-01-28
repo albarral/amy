@@ -10,11 +10,12 @@ namespace amy
 log4cxx::LoggerPtr AmyZeroMQPublisher::logger(log4cxx::Logger::getLogger("amy.publisher"));
 
 zmq::context_t contextPublisher (1); //creates the context 
-zmq::socket_t socketPublisher (contextPublisher, ZMQ_REQ); //creates the socket
+zmq::socket_t socketPublisher (contextPublisher, ZMQ_REP); //creates the socket
 
 AmyZeroMQPublisher::AmyZeroMQPublisher()
 {    
-   
+    //socketPublisher.setsockopt(ZMQ_RCVTIMEO, 500);
+    //socketPublisher.setsockopt(ZMQ_SNDTIMEO,500);
 }
 
 AmyZeroMQPublisher::~AmyZeroMQPublisher()
@@ -39,17 +40,23 @@ void AmyZeroMQPublisher::init()
 
 void AmyZeroMQPublisher::publishInfo(std::string sollMessage)
 {
-    //Send Command
-    zmq::message_t armMessage (sollMessage.length());
-    memcpy (armMessage.data (), sollMessage.c_str(), sollMessage.length());
-    std::cout << "Sending Arm message..." << std::endl;
-    socketPublisher.send(armMessage);
-    
-    //  Get the reply.
-    zmq::message_t reply;
-    socketPublisher.recv (&reply);
-    std::string replyString = std::string(static_cast<char*>(reply.data()), reply.size());
-    std::cout << "Received-> " << replyString << std::endl;
+    try{
+        //  Get the reply.
+        zmq::message_t request;
+        socketPublisher.recv (&request);
+        std::string requestString = std::string(static_cast<char*>(request.data()), request.size());
+        std::cout << "Received-> " << requestString << std::endl;
+        
+        //Send Command
+        zmq::message_t armMessage (sollMessage.length());
+        memcpy (armMessage.data (), sollMessage.c_str(), sollMessage.length());
+        std::cout << "Sending Arm message..." << std::endl;
+        socketPublisher.send(armMessage);
+
+
+    }catch(zmq::error_t& e) {
+            std::cout << "ERROR: Publisher -> Sending before receiving a request." << std::endl;
+    }
 }
 
 }

@@ -10,7 +10,7 @@
 #include "RosAmyArm.h"
 #include "YoubotArm.h"
 #include "UR5Arm.h"
-#include "amy/coms/file/AmyZeroMQSubscriber.h"
+#include "amy/coms/zero/AmyZeroMQSubscriber.h"
 
 
 
@@ -53,6 +53,7 @@ RosAmyArm::RosAmyArm()
     
     // create subscriber
     amy::AmyZeroMQSubscriber oAmyZeroMQSubscriber;
+    oAmyZeroMQSubscriber.setPort(5557);
     oAmyZeroMQSubscriber.init();
 
     bool bok = oAmyZeroMQSubscriber.isEnabled();
@@ -71,7 +72,6 @@ RosAmyArm::RosAmyArm()
     {
         // process callbacks
         ros::spinOnce();
-
         oArmData = oAmyZeroMQSubscriber.readArmControl();
         //oArmNetwork.getArmSoll(0, oArmData);
         showAngles(oArmData);
