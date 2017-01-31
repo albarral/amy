@@ -20,7 +20,6 @@ namespace amy
 {
 // Base module for driving a given axis (pan, tilt, radius) to a requested position.
 // The module can sense various joints, but only controls one (sends commands to one).
-// KEEP MODE: In this mode the module stays watching out for any external change to the axis. If it changes a movement is triggered to recover the last target position.
 // The module's loop works as follows:
 // - senses the bus
 // - responds to new move requests
@@ -30,11 +29,10 @@ class AxisDriver: public Module3
 {
 public:
     // states of AxisDriver module
-    enum eType
+    enum eState
     {
          eSTATE_DONE,     // nothing done
-         eSTATE_DRIVE,     // moves the arm
-         eSTATE_WATCH     // watches out for external axis changes
+         eSTATE_DRIVE     // moves the arm
     };
 
 protected:
@@ -50,9 +48,7 @@ protected:
     // control 
     float targetAxis;           // requested axis position
     float istAxis;                 // measured axis position
-    float tolAxis;                  // allowed axis tolerance in keep mode
     int jointLimit;                 // value indicating the controlled joint is blocked (due to a reached joint limit)   
-    bool bKeepMode;        // keep mode activation
     // output
     float outAccel;              // commanded joint acceleration 
     // logic
@@ -86,9 +82,6 @@ protected:
         virtual void newMove() = 0;
         // computes the axis position
         virtual void computeAxisPosition() = 0;
-        // set keep mode
-        void setKeepMode(bool value) {bKeepMode = value;};
-        //bool isKeepMode() {return bKeepMode;};
         
 private:
         // first actions when the thread begins 

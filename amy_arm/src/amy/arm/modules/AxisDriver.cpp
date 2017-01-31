@@ -26,8 +26,6 @@ AxisDriver::AxisDriver()
     pArmBus = 0;
     pOutBus = 0;        
     outAccel = 0;
-    setKeepMode(false);
-    tolAxis = 2;   // temp: to be defined externally
 }
 
 //AxisDriver::~AxisDriver()
@@ -76,15 +74,15 @@ void AxisDriver::prepareDriver()
 
 void AxisDriver::first()
 {
+    setState(eSTATE_DONE);
     // start at done
     oMoveState.moveDone();
-    setState(eSTATE_DONE);
     
     log4cxx::NDC::push(modName);   	
 }
                     
 
-// performs a cyclic wave movement of the elbow
+// drives the axis towards the target position
 void AxisDriver::loop()
 {
     senseBus();
@@ -105,39 +103,19 @@ void AxisDriver::loop()
     if (isStateChanged())
         showState();
       
-    switch (getState())
-    {
-        // drive joint
-        case eSTATE_DRIVE:
-
-            // perform a move step
-            doMove();        
-            // if movement blocked or finished -> DONE
-            if (oMoveState.isBlocked() || oMoveState.isDone())
-            {       
-                int nextState = (bKeepMode ? eSTATE_WATCH : eSTATE_DONE);
-                setState(nextState);   
-            }
-            break;
-        
-        // watch out
-        case eSTATE_WATCH:
-
-            computeAxisPosition();
-            // if high deviation -> DRIVE
-            if (fabs(targetAxis - istAxis) > tolAxis)
-            {
-                oMoveState.moveRequested();
-            }
-            break;
-    }
- 
-    if (isStateChanged())
-        showState();
-
-    // send commands, only if 
+    // drive joint
     if (getState() == eSTATE_DRIVE)
+    {
+        // perform a move step
+        doMove();        
         writeBus();        
+        // if movement blocked or finished -> DONE
+        if (oMoveState.isBlocked() || oMoveState.isDone())            
+        {
+            setState(eSTATE_DONE);   
+            showState();
+        }
+    }
 }
 
 
@@ -179,10 +157,6 @@ void AxisDriver::showState()
                         
         case eSTATE_DRIVE:
             LOG4CXX_INFO(logger, ">> drive");
-            break;
-
-        case eSTATE_WATCH:
-            LOG4CXX_INFO(logger, ">> watch");
             break;
     }   // end switch    
 }

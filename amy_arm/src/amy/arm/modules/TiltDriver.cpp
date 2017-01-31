@@ -67,8 +67,6 @@ void TiltDriver::senseBus()
     {
         targetAxis = pArmBus->getCO_ARM_TILT().getValue();    
         oMoveState.moveRequested();        
-        // temp: to be set by bus request
-        setKeepMode(true);
     }
 
     // sense VS and EL angles (soll value used here)

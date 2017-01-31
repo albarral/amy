@@ -27,9 +27,6 @@ public:
         PanDriver();
         //~PanDriver();
                        
-        // record output for analysis
-//       Record& getRecord() {return oRecord;};
-
 private:       
         // return reference to the used joint controller
         virtual JointControl& getController() {return oJointControl;};

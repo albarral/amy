@@ -23,8 +23,8 @@ private:
     JointControl oJointControl;      // utility class to drive the VS
     ArmMath oArmMath;       // utility class for arm computations
     JointBus* pVSBus;       // bus connection to VS
-    float istVS;               // measured VS angle
     JointBus* pELBus;       // bus connection to EL
+    float istVS;               // measured VS angle
     float istEL;               // measured EL angle
 
 public:
