@@ -13,7 +13,7 @@
 namespace amy
 {
 // Base class designed to run a module inside its own thread.
-// The loop() method must be implemented in the derived class: .    
+// The first() and loop() methods must be implemented in the derived class: .    
 // Methods to start & stop the module:
 // - on() -> starts the module.
 // - off()  -> asks the module to stop.
@@ -26,7 +26,7 @@ private:
         std::thread t;        // module's thread       
         int state;             // module's present state
         int prevState;       // module's next state
-        float frequency;    // 
+        float frequency;    // required execution frequency
         int period;           // time (microseconds) to be slept between loop executions
         bool boffRequested;    // indicates off has been requested
         static const int state_OFF = 99;

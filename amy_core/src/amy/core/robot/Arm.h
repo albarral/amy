@@ -67,6 +67,9 @@ public:
     int getLenHumerus() {return lenHumerus;};            
     int getLenRadius() {return lenRadius;};                
 
+    // return arm description
+    std::string toString();
+    
 protected:
     // add a new joint
     void addJoint(Joint& oJoint);

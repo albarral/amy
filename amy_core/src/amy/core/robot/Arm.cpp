@@ -79,4 +79,15 @@ Joint* Arm::getJointByName(std::string jointName)
     return pJoint;
 }
 
+std::string Arm::toString()
+{
+    std::string desc = "Arm [name=" + name + ", type=" + std::to_string(type) + ", lenHum=" + std::to_string(lenHumerus) + " lenRadius=" + std::to_string(lenRadius) + "\n";
+    // describe joints
+    for (Joint& oJoint: listJoints)
+    {
+        desc += oJoint.toString() + "\n";
+    }    
+    return desc;
+}
+
 }

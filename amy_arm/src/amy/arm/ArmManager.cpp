@@ -36,7 +36,7 @@ bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm)
     if (!blaunched)
     {
         log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
-        LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
+        LOG4CXX_INFO(logger, "Launching for arm ...\n" << oTargetArm.toString());
 
         // acces to amy config
         pAmyConfig = &oAmyConfig;
@@ -97,6 +97,9 @@ void ArmManager::initArchitecture()
     // arm mover module
     //oArmMover.setLevel(nivel);     
     //listModules.push_back(&oArmMover);
+    
+    oArmPosition.setLevel(nivel);
+    //listModules.push_back(&oArmPosition);   // it's an ArmModule3
     // pan driver module
     oPanDriver.setLevel(nivel);
     //listModules.push_back(&oPanDriver);   // it's a module3, not a module2
@@ -106,9 +109,6 @@ void ArmManager::initArchitecture()
     // arm elbow module
     oRadiusDriver.setLevel(nivel); 
     //listModules.push_back(&oRadiusDriver);   // it's a module3, not a module2
-    // arm extender            
-    oArmExtender.setLevel(1000);    // DISABLED!! as it collides with tilt & radius drivers
-    //listModules.push_back(&oArmExtender); // it's a module3, not a module2
 }
 
 void ArmManager::showArchitecture()
@@ -176,6 +176,14 @@ void ArmManager::initLevel(int num)
         }
     }
 
+    if (oArmPosition.getLevel() == num)
+    {
+        // arm position module (x2 speed)
+        oArmPosition.init(oArm, *pAmyConfig);
+        oArmPosition.connect(oArmBus);
+        oArmPosition.setFrequency(2*freq);
+    }    
+
     if (oPanDriver.getLevel() == num)
     {    
         // pan driver module
@@ -200,13 +208,13 @@ void ArmManager::initLevel(int num)
         oRadiusDriver.setFrequency(freq);
     }
 
-    if (oArmExtender.getLevel() == num)
-    {
-        // arm extender module
-        oArmExtender.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmExtender.connect(oArmBus);
-        oArmExtender.setFrequency(freq);
-    }    
+//    if (oArmExtender.getLevel() == num)
+//    {
+//        // arm extender module
+//        oArmExtender.init(oArm, pAmyConfig->getJointControlConfig());
+//        oArmExtender.connect(oArmBus);
+//        oArmExtender.setFrequency(freq);
+//    }    
 }
 
 void ArmManager::startLevel(int num)
@@ -219,6 +227,14 @@ void ArmManager::startLevel(int num)
         {
             if (pModule->isEnabled() && pModule->isConnected())
                 pModule->on();
+        }
+    }
+
+    if (oArmPosition.getLevel() == num)
+    {
+        if (oArmPosition.isEnabled() && oArmPosition.isConnected())
+        {
+            oArmPosition.on();          
         }
     }
 
@@ -240,14 +256,14 @@ void ArmManager::startLevel(int num)
             oRadiusDriver.on();                      
     }
 
-    if (oArmExtender.getLevel() == num)
-    {
-        // arm extender module
-        if (oArmExtender.isEnabled() && oArmExtender.isConnected())
-        {
-            oArmExtender.on();          
-        }
-    }
+//    if (oArmExtender.getLevel() == num)
+//    {
+//        // arm extender module
+//        if (oArmExtender.isEnabled() && oArmExtender.isConnected())
+//        {
+//            oArmExtender.on();          
+//        }
+//    }
 }
 
 void ArmManager::stopLevel(int num)
@@ -264,6 +280,12 @@ void ArmManager::stopLevel(int num)
                 pModule->wait();
             }
         }
+    }
+
+    if (oArmPosition.getLevel() == num && oArmPosition.isOn())
+    {
+        oArmPosition.off();
+        oArmPosition.wait();
     }
 
     if (oPanDriver.getLevel() == num && oPanDriver.isOn())
@@ -284,12 +306,12 @@ void ArmManager::stopLevel(int num)
         oRadiusDriver.wait();
     }
 
-    if (oArmExtender.getLevel() == num && oArmExtender.isOn())
-    {
-        // arm extender module
-        oArmExtender.off();
-        oArmExtender.wait();
-    }
+//    if (oArmExtender.getLevel() == num && oArmExtender.isOn())
+//    {
+//        // arm extender module
+//        oArmExtender.off();
+//        oArmExtender.wait();
+//    }
 }
 
 }

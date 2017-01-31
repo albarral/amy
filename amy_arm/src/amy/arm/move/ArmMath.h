@@ -28,6 +28,8 @@ public:
 
     // store segment lengths (cm))
     void setLengths(int lenHum, int lenRad);
+    int getLenHumerus() {return lenHumerus;};
+    int getLenRadius() {return lenRadius;};
 
    // computes the arm radius (cm) for the given the elbow angle (deg)
    float computeRadius4ElbowAngle(float angleEL);

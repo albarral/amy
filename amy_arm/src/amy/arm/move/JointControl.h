@@ -17,9 +17,9 @@ namespace amy
 // For each move, the movement is finished when an arrival point is crossed.
 // Usage:    
 // First initialize the class with sensitivity and tolerance parameters.
-// To request a movement, the setTarget() function must be called.
+// To request a movement, call newMove() with the target angle.
 // Then, the drive() function must be called periodically. This internally computes the joint speed and updates the acceleration control.
-// Movement is finished the the state is DONE.
+// Movement is finished when the state is DONE.
 class JointControl
 {
 public:    
@@ -43,8 +43,8 @@ protected:
     // request
     float targetAngle;          // requested joint position
     // control 
-    float istAngle;            // present joint position
-    float targetSpeed;    // desired joint speed
+    float prevAngle;            // previous ist position
+    float sollSpeed;    // desired joint speed
     float istSpeed;         // measured joint speed
     int moveSign;           // direction of movement (1, -1) 
     float arrivalDist;     // distance at which the movement is considered done

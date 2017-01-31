@@ -72,10 +72,11 @@ float JointControl::drive(float istAngle)
     {
         // compute joint speed
         float time = (float)oClick.getMillis()/1000;
-        istSpeed = (istAngle - this->istAngle)/time;
+        istSpeed = (istAngle - prevAngle)/time;
     }
     
-    this->istAngle = istAngle;
+    //store ist angle for iteration
+    prevAngle = istAngle;
     
     // handle transitions
     switch (state)
@@ -108,7 +109,7 @@ float JointControl::drive(float istAngle)
         case eSTATE_ARRIVED:
        
             // stop joint 
-            targetSpeed = 0.0;
+            sollSpeed = 0.0;
             controlAccel();
             break;
             
@@ -129,24 +130,24 @@ float JointControl::drive(float istAngle)
 void JointControl::controlSpeed(float dist)
 {        
     // speed is proportional to distance from target
-    targetSpeed = Kspeed*dist;
+    sollSpeed = Kspeed*dist;
         
     // but limited 
-    if (fabs(targetSpeed) > maxSpeed)        
-        targetSpeed = (targetSpeed > 0 ? maxSpeed : -maxSpeed);
+    if (fabs(sollSpeed) > maxSpeed)        
+        sollSpeed = (sollSpeed > 0 ? maxSpeed : -maxSpeed);
 }
        
 // gets the proper acceleration to reach the target speed
 void JointControl::controlAccel()
 {    
     // acceleration is proportional to speed error
-    outAccel = Kaccel*(targetSpeed - istSpeed);
+    outAccel = Kaccel*(sollSpeed - istSpeed);
 }
 
 std::string JointControl::toString()
 {
-    return "JointControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
-            + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
+    return "JointControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(prevAngle) 
+            + " sollSpeed=" + std::to_string(sollSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }
 

@@ -49,17 +49,20 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmExtender.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmPosition.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltDriver.o \
 	${OBJECTDIR}/src/amy/arm/move/ArmMath.o \
+	${OBJECTDIR}/src/amy/arm/move/AxesSensor.o \
 	${OBJECTDIR}/src/amy/arm/move/JointControl.o \
 	${OBJECTDIR}/src/amy/arm/move/JointMove.o \
 	${OBJECTDIR}/src/amy/arm/move/RadialControl.o \
-	${OBJECTDIR}/src/amy/arm/util/ArmMath.o \
+	${OBJECTDIR}/src/amy/arm/move/SpeedControl.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
+	${OBJECTDIR}/src/amy/arm/util/ArmModule3.o \
 	${OBJECTDIR}/src/amy/arm/util/JointModule.o
 
 
@@ -157,6 +160,11 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
+${OBJECTDIR}/src/amy/arm/modules/ArmPosition.o: src/amy/arm/modules/ArmPosition.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPosition.o src/amy/arm/modules/ArmPosition.cpp
+
 ${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o: src/amy/arm/modules/AxisDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -187,6 +195,11 @@ ${OBJECTDIR}/src/amy/arm/move/ArmMath.o: src/amy/arm/move/ArmMath.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/ArmMath.o src/amy/arm/move/ArmMath.cpp
 
+${OBJECTDIR}/src/amy/arm/move/AxesSensor.o: src/amy/arm/move/AxesSensor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/AxesSensor.o src/amy/arm/move/AxesSensor.cpp
+
 ${OBJECTDIR}/src/amy/arm/move/JointControl.o: src/amy/arm/move/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
@@ -202,15 +215,20 @@ ${OBJECTDIR}/src/amy/arm/move/RadialControl.o: src/amy/arm/move/RadialControl.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialControl.o src/amy/arm/move/RadialControl.cpp
 
-${OBJECTDIR}/src/amy/arm/util/ArmMath.o: src/amy/arm/util/ArmMath.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
+${OBJECTDIR}/src/amy/arm/move/SpeedControl.o: src/amy/arm/move/SpeedControl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmMath.o src/amy/arm/util/ArmMath.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/SpeedControl.o src/amy/arm/move/SpeedControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/ArmModule.o: src/amy/arm/util/ArmModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmModule.o src/amy/arm/util/ArmModule.cpp
+
+${OBJECTDIR}/src/amy/arm/util/ArmModule3.o: src/amy/arm/util/ArmModule3.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/util/ArmModule3.o src/amy/arm/util/ArmModule3.cpp
 
 ${OBJECTDIR}/src/amy/arm/util/JointModule.o: src/amy/arm/util/JointModule.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/util

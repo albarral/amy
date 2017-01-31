@@ -47,8 +47,8 @@ void RadialControl::newRadialMove(float radius)
 
 std::string RadialControl::toString()
 {
-    return "RadialControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(istAngle) 
-            + " targetSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(istSpeed) 
+    return "RadialControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(prevAngle) 
+            + " sollSpeed=" + std::to_string(sollSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }
 

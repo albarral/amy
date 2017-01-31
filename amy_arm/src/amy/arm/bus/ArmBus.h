@@ -28,10 +28,14 @@ class ArmBus
         ControlT<int> CO_ARM_PAN;       // arm's target pan
         ControlT<int> CO_ARM_TILT;       // arm's target tilt
         ControlT<int> CO_ARM_RADIUS;   // arm's target radius
+        // SpeedDrivers
+        ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
+        
+        // SENSORS
         // ArmPosition
-//        SensorT<int> SO_ARM_PAN;      // arm's real pan
-//        SensorT<int> SO_ARM_TILT;      // arm's real tilt
-//        SensorT<int> SO_ARM_RADIUS;      // arm's real radius
+        SensorT<float> SO_ARM_PAN;      // arm's real pan
+        SensorT<float> SO_ARM_TILT;      // arm's real tilt
+        SensorT<float> SO_ARM_RADIUS;  // arm's real radius
         
         // connections for individual joints 
         JointBus oBusHS;    // HS: horiz shoulder 
@@ -50,17 +54,20 @@ class ArmBus
         int getNumJoints() {return numJoints;};
         bool isEnabled() {return benabled;};
         
-        // controls
+        // CONTROLS
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
 
         ControlT<int>& getCO_ARM_PAN() {return CO_ARM_PAN;};        
         ControlT<int>& getCO_ARM_TILT() {return CO_ARM_TILT;};        
         ControlT<int>& getCO_ARM_RADIUS() {return CO_ARM_RADIUS;};        
-        // sensors
-//        SensorT<int>& getSO_ARM_PAN() {return SO_ARM_PAN;};        
-//        SensorT<int>& getSO_ARM_TILT() {return SO_ARM_TILT;};        
-//        SensorT<int>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
+
+        ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
+        
+        // SENSORS
+        SensorT<float>& getSO_ARM_PAN() {return SO_ARM_PAN;};        
+        SensorT<float>& getSO_ARM_TILT() {return SO_ARM_TILT;};        
+        SensorT<float>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
         
         // joints
         JointBus& getBusHS() {return oBusHS;};

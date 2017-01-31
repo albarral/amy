@@ -22,7 +22,7 @@ AmyConfig::AmyConfig ()
     oJointControlConfig.setKaccelDriver(4.0);
     oJointControlConfig.setKspeedDriver(2.0);
     oJointControlConfig.setDriverTolerance(0.05);
-    oJointControlConfig.setDriverSpeed(60.0);
+    oJointControlConfig.setDriverSpeed(120.0);
 }
 
 AmyConfig::~AmyConfig()
