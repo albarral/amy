@@ -98,17 +98,18 @@ void ArmManager::initArchitecture()
     //oArmMover.setLevel(nivel);     
     //listModules.push_back(&oArmMover);
     
-    oArmPosition.setLevel(nivel);
-    //listModules.push_back(&oArmPosition);   // it's an ArmModule3
+    // arm polar sensing module
+    oArmPolarSensing.setLevel(nivel);
     // pan driver module
     oPanDriver.setLevel(nivel);
-    //listModules.push_back(&oPanDriver);   // it's a module3, not a module2
     // tilt driver module
     oTiltDriver.setLevel(nivel);
-    //listModules.push_back(&oPanDriver);   // it's a module3, not a module2
     // arm elbow module
     oRadiusDriver.setLevel(nivel); 
-    //listModules.push_back(&oRadiusDriver);   // it's a module3, not a module2
+    // tilt keeper module
+    oTiltKeeper.setLevel(nivel);
+    //listModules.push_back(&oArmPolarSensing);   // it's an ArmModule3
+
 }
 
 void ArmManager::showArchitecture()
@@ -176,12 +177,12 @@ void ArmManager::initLevel(int num)
         }
     }
 
-    if (oArmPosition.getLevel() == num)
+    if (oArmPolarSensing.getLevel() == num)
     {
         // arm position module (x2 speed)
-        oArmPosition.init(oArm, *pAmyConfig);
-        oArmPosition.connect(oArmBus);
-        oArmPosition.setFrequency(2*freq);
+        oArmPolarSensing.init(oArm, *pAmyConfig);
+        oArmPolarSensing.connect(oArmBus);
+        oArmPolarSensing.setFrequency(2*freq);
     }    
 
     if (oPanDriver.getLevel() == num)
@@ -208,13 +209,13 @@ void ArmManager::initLevel(int num)
         oRadiusDriver.setFrequency(freq);
     }
 
-//    if (oArmExtender.getLevel() == num)
-//    {
-//        // arm extender module
-//        oArmExtender.init(oArm, pAmyConfig->getJointControlConfig());
-//        oArmExtender.connect(oArmBus);
-//        oArmExtender.setFrequency(freq);
-//    }    
+    if (oTiltKeeper.getLevel() == num)
+    {
+        // arm extender module
+        oTiltKeeper.init(oArm, *pAmyConfig);
+        oTiltKeeper.connect(oArmBus);
+        oTiltKeeper.setFrequency(freq);
+    }    
 }
 
 void ArmManager::startLevel(int num)
@@ -230,11 +231,11 @@ void ArmManager::startLevel(int num)
         }
     }
 
-    if (oArmPosition.getLevel() == num)
+    if (oArmPolarSensing.getLevel() == num)
     {
-        if (oArmPosition.isEnabled() && oArmPosition.isConnected())
+        if (oArmPolarSensing.isEnabled() && oArmPolarSensing.isConnected())
         {
-            oArmPosition.on();          
+            oArmPolarSensing.on();          
         }
     }
 
@@ -256,14 +257,11 @@ void ArmManager::startLevel(int num)
             oRadiusDriver.on();                      
     }
 
-//    if (oArmExtender.getLevel() == num)
-//    {
-//        // arm extender module
-//        if (oArmExtender.isEnabled() && oArmExtender.isConnected())
-//        {
-//            oArmExtender.on();          
-//        }
-//    }
+    if (oTiltKeeper.getLevel() == num)
+    {
+        if (oTiltKeeper.isEnabled() && oTiltKeeper.isConnected())
+            oTiltKeeper.on();          
+    }
 }
 
 void ArmManager::stopLevel(int num)
@@ -282,10 +280,10 @@ void ArmManager::stopLevel(int num)
         }
     }
 
-    if (oArmPosition.getLevel() == num && oArmPosition.isOn())
+    if (oArmPolarSensing.getLevel() == num && oArmPolarSensing.isOn())
     {
-        oArmPosition.off();
-        oArmPosition.wait();
+        oArmPolarSensing.off();
+        oArmPolarSensing.wait();
     }
 
     if (oPanDriver.getLevel() == num && oPanDriver.isOn())
@@ -306,12 +304,11 @@ void ArmManager::stopLevel(int num)
         oRadiusDriver.wait();
     }
 
-//    if (oArmExtender.getLevel() == num && oArmExtender.isOn())
-//    {
-//        // arm extender module
-//        oArmExtender.off();
-//        oArmExtender.wait();
-//    }
+    if (oTiltKeeper.getLevel() == num && oTiltKeeper.isOn())
+    {
+        oTiltKeeper.off();
+        oTiltKeeper.wait();
+    }
 }
 
 }

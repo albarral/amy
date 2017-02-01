@@ -14,12 +14,12 @@ MoveState::MoveState ()
 
 void MoveState::moveRequested()
 {
-    state = eMOVE_NEW;
+    state = eMOVE_REQUESTED;
 }
 
-void MoveState::moveDoing()
+void MoveState::moveGoing()
 {
-    state = eMOVE_DOING;
+    state = eMOVE_GOING;
 }
 
 void MoveState::moveBlocked()

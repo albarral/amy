@@ -3,31 +3,29 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <cmath>
-
-#include "amy/arm/move/AxesSensor.h"
+#include "amy/arm/move/ArmPolarSensor.h"
 
 namespace amy
 {
-AxesSensor::AxesSensor()
+ArmPolarSensor::ArmPolarSensor()
 {
     istPan = 0.0;         
     istTilt = 0.0;    
     istRadius = 0.0;
 }
 
-void AxesSensor::tune(Arm& oArm)
+void ArmPolarSensor::tune(Arm& oArm)
 {
     oArmMath.setLengths(oArm.getLenHumerus(), oArm.getLenRadius());
 }
 
-void AxesSensor::getTuning(int& lenHumerus, int& lenRadius)
+void ArmPolarSensor::getTuning(int& lenHumerus, int& lenRadius)
 {
     lenHumerus = oArmMath.getLenHumerus();
     lenRadius = oArmMath.getLenRadius();    
 }
 
-void AxesSensor::computeAxes(float angleHS, float angleVS, float angleELB)
+void ArmPolarSensor::sense(float angleHS, float angleVS, float angleELB)
 {
     istPan = angleHS;
     istTilt = oArmMath.computeTilt4JointAngles(angleVS, angleELB);      

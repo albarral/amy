@@ -32,10 +32,13 @@ class ArmBus
         ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
         
         // SENSORS
-        // ArmPosition
+        // ArmPolarSensing
         SensorT<float> SO_ARM_PAN;      // arm's real pan
         SensorT<float> SO_ARM_TILT;      // arm's real tilt
         SensorT<float> SO_ARM_RADIUS;  // arm's real radius
+        SensorT<float> SO_PAN_SPEED;         // pan speed (deg/s)
+        SensorT<float> SO_TILT_SPEED;         // tilt speed (deg/s)
+        SensorT<float> SO_RADIUS_SPEED;     // radius speed (deg/s)
         
         // connections for individual joints 
         JointBus oBusHS;    // HS: horiz shoulder 
@@ -68,6 +71,9 @@ class ArmBus
         SensorT<float>& getSO_ARM_PAN() {return SO_ARM_PAN;};        
         SensorT<float>& getSO_ARM_TILT() {return SO_ARM_TILT;};        
         SensorT<float>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
+        SensorT<float>& getSO_PAN_SPEED() {return SO_PAN_SPEED;};
+        SensorT<float>& getSO_TILT_SPEED() {return SO_TILT_SPEED;};            
+        SensorT<float>& getSO_RADIUS_SPEED() {return SO_RADIUS_SPEED;};
         
         // joints
         JointBus& getBusHS() {return oBusHS;};

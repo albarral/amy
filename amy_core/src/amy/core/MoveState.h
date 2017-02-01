@@ -16,10 +16,10 @@ private:
     // move state
     enum eType
     {
-         eMOVE_DONE,        // the move is done
-         eMOVE_NEW,          // new move requested   
-         eMOVE_DOING,       // the move is being done
-         eMOVE_BLOCKED    // the move is blocked
+         eMOVE_DONE,                // the move is done
+         eMOVE_REQUESTED,       // new move requested   
+         eMOVE_GOING,               // the move is being done
+         eMOVE_BLOCKED            // the move is blocked
     };
     bool bnewMove;          
     bool bmoveBlocked;    
@@ -32,12 +32,12 @@ public:
     //~MoveState();
 
     void moveRequested();
-    void moveDoing();
+    void moveGoing();
     void moveBlocked();
     void moveDone();
     
-    bool isNew() {return (state == eMOVE_NEW);}
-    bool isDoing() {return (state == eMOVE_DOING);}
+    bool isRequested() {return (state == eMOVE_REQUESTED);}
+    bool isGoing() {return (state == eMOVE_GOING);}
     bool isBlocked() {return (state == eMOVE_BLOCKED);}
     bool isDone() {return (state == eMOVE_DONE);}        
 };

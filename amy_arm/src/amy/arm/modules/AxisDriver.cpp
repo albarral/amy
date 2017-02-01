@@ -25,6 +25,7 @@ AxisDriver::AxisDriver()
     bconnected = false;
     pArmBus = 0;
     pOutBus = 0;        
+    priority = 2;
     outAccel = 0;
 }
 
@@ -88,11 +89,11 @@ void AxisDriver::loop()
     senseBus();
     
     // if new move requested -> go to DRIVE
-    if (oMoveState.isNew())
+    if (oMoveState.isRequested())
     {
         // update movement's target (in derived class)
         newMove();        
-        oMoveState.moveDoing();
+        oMoveState.moveGoing();
         setState(eSTATE_DRIVE);
     }
 
@@ -143,7 +144,7 @@ void AxisDriver::writeBus()
 {  
     // send command to joint (the computed acceleration)
     if (pOutBus != 0)
-        pOutBus->getCO_JCONTROL_ACCEL().request(outAccel);
+        pOutBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
 }
 
 

@@ -51,6 +51,7 @@ protected:
     int jointLimit;                 // value indicating the controlled joint is blocked (due to a reached joint limit)   
     // output
     float outAccel;              // commanded joint acceleration 
+    int priority;                   // module's priority in control commands
     // logic
     MoveState oMoveState;   // holds the present move state
 

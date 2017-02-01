@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_AXESSENSOR_H
-#define __AMY_MOVE_AXESSENSOR_H
+#ifndef __AMY_MOVE_ARMPOLARSENSOR_H
+#define __AMY_MOVE_ARMPOLARSENSOR_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
@@ -8,31 +8,29 @@
 
 #include "amy/arm/move/ArmMath.h"
 #include "amy/core/robot/Arm.h"
-//#include "amy/utils/Click.h"
 
 namespace amy
 {
-// Class used to compute the axes positions and speeds of an arm (pan, tilt and radius).
+// Class used to compute an arm's polar positions (pan, tilt and radius).
 // It must be tuned to the arm before using it.
-class AxesSensor
+class ArmPolarSensor
 {
 private:
     float istPan;           // computed pan value (degrees)
     float istTilt;           // computed tilt value (degrees)
     float istRadius;      // computed radius value (cm)
-    //amy::Click oClick;       // utility class for time measurements
     ArmMath oArmMath;   // utility class for arm computations
 
 public:
-        AxesSensor();
-        //~AxesSensor();
+        ArmPolarSensor();
+        //~ArmPolarSensor();
                 
        // tune sensor to arm sizes
        void tune(Arm& oArm);
        void getTuning(int& lenHumerus, int& lenRadius);               
 
-       // computes axes positions
-        void computeAxes(float angleHS, float angleVS, float angleELB);
+       // compute polar positions
+        void sense(float angleHS, float angleVS, float angleELB);
 
         float getPanAngle() {return istPan;}
         float getTiltAngle() {return istTilt;}
