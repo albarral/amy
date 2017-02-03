@@ -33,7 +33,6 @@ void ArmPolarSensing::first()
     log4cxx::NDC::push(modName);   	
 }
                     
-
 // computes the axes positions
 void ArmPolarSensing::loop()
 {
@@ -61,10 +60,12 @@ void ArmPolarSensing::loop()
     speedTilt = oSpeedSensor3.getSpeed2();
     speedRadius = oSpeedSensor3.getSpeed3();
 
-    if (barmMoved)
-    {
-        LOG4CXX_INFO(logger, "pan = " << istPan << ", tilt = " << istTilt << ", radius = " << istRadius << "vpan = " << speedPan << ", vtilt = " << speedTilt << ", vradius = " << speedRadius);
-    }
+//    if (barmMoved)
+//    {
+//        LOG4CXX_INFO(logger, "(pan, tilt, radius) = (" << istPan << ", " << istTilt << ", " << istRadius << ") - (vpan, vtilt, vradius) = (" << speedPan << ", " << speedTilt << ", " << speedRadius << ")");
+//    }
+//    else
+//        LOG4CXX_INFO(logger, "(pan, tilt, radius) = (" << istPan << ", " << istTilt << ", " << istRadius << ")");
 
     // update bus values
     writeBus();        

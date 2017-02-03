@@ -16,7 +16,7 @@ LoggerPtr TiltKeeper::logger(Logger::getLogger("amy.arm"));
 TiltKeeper::TiltKeeper()
 {
     modName = "TiltKeeper";
-    bKeepMode = false;
+    bActive = false;
     priority = 1;
     pVSBus = 0;
 }
@@ -38,41 +38,66 @@ void TiltKeeper::first()
 void TiltKeeper::loop()
 {    
     senseBus();
-        
-    switch (getState())
-    {
-        case eSTATE_DRIVE:
-            
-            if (!bKeepMode)
-                setState(eSTATE_DONE);
-            else
-            {
-                float speedDeviation = -tiltSpeed;
-                outAccel = oPIDControl.control(speedDeviation);      
-                //if (outAccel != 0)
-                {
-                    LOG4CXX_INFO(logger, "outAccel = " << outAccel << ", tiltSpeed = " << tiltSpeed);
-                    writeBus();
-                }
-            }
-            break;  
-            
-        case eSTATE_DONE:
 
-            if (bKeepMode)
+    if (!bActive)
+    {
+        // if module deactivated now -> DONE
+        if (getState() != eSTATE_DONE)
+        {
+            setState(eSTATE_DONE);                   
+            showState();
+        }
+        // if deactivated skip anyway 
+        return;
+    }
+
+    // TRANSITIONS (activated module)
+    switch (getState())
+    {        
+        case eSTATE_WATCH:     
+
+            // if tilt changing -> DRIVE
+            if (tiltSpeed != 0.0)
                 setState(eSTATE_DRIVE);
+            break;  
+
+        case eSTATE_DRIVE:
+
+            // if tilt stable -> WATCH
+            if (tiltSpeed == 0.0)
+                setState(eSTATE_WATCH);                            
+            break;              
+
+        case eSTATE_DONE:            
+
+            // if DONE (activated) -> WATCH
+            setState(eSTATE_WATCH);                            
             break;
+    }
+    
+    if (isStateChanged())
+        showState();
+
+    // ACTIONS
+    // if DRIVE: move VS
+    if (getState() == eSTATE_DRIVE)
+    {
+        // PID control with error = 0 - tiltSpeed
+        outAccel = oPIDControl.control(-tiltSpeed);              
+        writeBus();
+        LOG4CXX_INFO(logger, "outAccel = " << outAccel << ", tiltSpeed = " << tiltSpeed);
     }
 }
 
+
 void TiltKeeper::senseBus()
 {
-//    if (pArmBus->getCO_KEEP_TILT().checkRequested())
-//    {
-//        bKeepMode = pArmBus->getCO_KEEP_TILT().getValue();
-//    }
+    if (pArmBus->getCO_KEEP_TILT().checkRequested())
+    {
+        bActive = pArmBus->getCO_KEEP_TILT().getValue();
+    }
     // TEMP for test
-    bKeepMode = true;
+    bActive = true;
 
     tiltSpeed = pArmBus->getSO_TILT_SPEED().getValue();
 }
@@ -81,6 +106,25 @@ void TiltKeeper::senseBus()
 void TiltKeeper::writeBus()
 {  
     pVSBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+}
+
+
+void TiltKeeper::showState()
+{
+    switch (getState())
+    {
+        case eSTATE_DONE:
+            LOG4CXX_INFO(logger, ">> done");
+            break;
+                        
+        case eSTATE_WATCH:
+            LOG4CXX_INFO(logger, ">> watch");
+            break;
+
+        case eSTATE_DRIVE:
+            LOG4CXX_INFO(logger, ">> drive");
+            break;
+    }   // end switch    
 }
 
 }

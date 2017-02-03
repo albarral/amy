@@ -15,29 +15,31 @@
 
 namespace amy
 {
-// Module for keeping an axis position. 
-// It's made to compensate the arm's tilt when changed due to arm extensions/contractions (radius changes).
+// Module for keeping a constant tilt position. 
+// When it's active it compensates any change to the arm's tilt, except those produced by the tilt driver.
+// The module activity is controlled by the CO_KEEP_TILT bus connection.
 class TiltKeeper: public ArmModule3
-{
+{    
 public:
     // states of TiltKeeper module
     enum eState
     {
          eSTATE_DONE,     // nothing done
-         eSTATE_DRIVE     // moves the arm
+         eSTATE_WATCH,   // watches for tilt changes
+         eSTATE_DRIVE     // moves VS to keep tilt
     };
 
 private:
     static log4cxx::LoggerPtr logger;
     // logic
     PIDControl oPIDControl;      // utility class to achieve the target speed (0)
-    bool bKeepMode;         // indicates the module must work
-    float tiltSpeed;
-    float outAccel;
-    int priority;                   // module's priority in control commands
+    bool bActive;                       // indicates the module must work
+    float tiltSpeed;                // measured tilt speed
+    float outAccel;                 // control VS accel
+    int priority;                   // priority of control outputs
     // VS control
-    JointBus* pVSBus;       // bus connection to VS
-    MoveState oMoveState;   // holds the present move state
+    JointBus* pVSBus;            // bus connection to VS
+    MoveState oMoveState;     // present move state
     
 private:
     
@@ -54,6 +56,9 @@ private:
         virtual void senseBus();
         // write action commands to out joint bus
         void writeBus();
+        
+        // shows the present state name
+        void showState();
 };
 }
 #endif

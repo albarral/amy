@@ -166,6 +166,7 @@ void ArmManager::initLevel(int num)
     LOG4CXX_INFO(logger, ">> INIT level " << num);       
 
     float freq = pAmyConfig->getModulesFreq();
+    float fasterFreq = 2*freq;
 
     for (ArmModule* pModule : listModules)
     {
@@ -182,7 +183,7 @@ void ArmManager::initLevel(int num)
         // arm position module (x2 speed)
         oArmPolarSensing.init(oArm, *pAmyConfig);
         oArmPolarSensing.connect(oArmBus);
-        oArmPolarSensing.setFrequency(2*freq);
+        oArmPolarSensing.setFrequency(freq);
     }    
 
     if (oPanDriver.getLevel() == num)
