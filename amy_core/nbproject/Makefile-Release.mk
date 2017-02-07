@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/core/MoveState.o \
 	${OBJECTDIR}/src/amy/core/config/AmyConfig.o \
 	${OBJECTDIR}/src/amy/core/config/JointControlConfig.o \
 	${OBJECTDIR}/src/amy/core/robot/Arm.o \
@@ -66,11 +65,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
-
-${OBJECTDIR}/src/amy/core/MoveState.o: src/amy/core/MoveState.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/MoveState.o src/amy/core/MoveState.cpp
 
 ${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config

@@ -62,7 +62,7 @@ void RadiusDriver::senseBus()
     if (pArmBus->getCO_ARM_RADIUS().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_RADIUS().getValue();    
-        oMoveState.moveRequested();
+        setState(eSTATE_NEWMOVE);   
     }
 
     // sense EL angle (soll value used here)

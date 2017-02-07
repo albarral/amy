@@ -24,12 +24,12 @@ class ArmBus
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
+        // TiltKeeper
+        ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
         // AxisDrivers
         ControlT<int> CO_ARM_PAN;       // arm's target pan
         ControlT<int> CO_ARM_TILT;       // arm's target tilt
         ControlT<int> CO_ARM_RADIUS;   // arm's target radius
-        // SpeedDrivers
-        ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
         
         // SENSORS
         // ArmPolarSensing
@@ -58,16 +58,19 @@ class ArmBus
         bool isEnabled() {return benabled;};
         
         // CONTROLS
+        // ArmMover 
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
-
+        // TiltKeeper
+        ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
+        // AxisDrivers
         ControlT<int>& getCO_ARM_PAN() {return CO_ARM_PAN;};        
         ControlT<int>& getCO_ARM_TILT() {return CO_ARM_TILT;};        
         ControlT<int>& getCO_ARM_RADIUS() {return CO_ARM_RADIUS;};        
 
-        ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
         
         // SENSORS
+        // ArmPolarSensing
         SensorT<float>& getSO_ARM_PAN() {return SO_ARM_PAN;};        
         SensorT<float>& getSO_ARM_TILT() {return SO_ARM_TILT;};        
         SensorT<float>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
@@ -75,7 +78,7 @@ class ArmBus
         SensorT<float>& getSO_TILT_SPEED() {return SO_TILT_SPEED;};            
         SensorT<float>& getSO_RADIUS_SPEED() {return SO_RADIUS_SPEED;};
         
-        // joints
+        // JointDriver's CONTROLS & SENSORS
         JointBus& getBusHS() {return oBusHS;};
         JointBus& getBusVS() {return oBusVS;};
         JointBus& getBusEL() {return oBusEL;};

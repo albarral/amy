@@ -75,10 +75,8 @@ void AxisDriver::prepareDriver()
 
 void AxisDriver::first()
 {
-    setState(eSTATE_DONE);
     // start at done
-    oMoveState.moveDone();
-    
+    setState(eSTATE_DONE);
     log4cxx::NDC::push(modName);   	
 }
                     
@@ -87,40 +85,43 @@ void AxisDriver::first()
 void AxisDriver::loop()
 {
     senseBus();
-    
-    // if new move requested -> go to DRIVE
-    if (oMoveState.isRequested())
-    {
-        // update movement's target (in derived class)
-        newMove();        
-        oMoveState.moveGoing();
-        setState(eSTATE_DRIVE);
-    }
 
-    // skip if DONE  
-    if (getState() == eSTATE_DONE)
+    int state = getState();
+    // skip if DONE or BLOCKED
+    if (state == eSTATE_DONE ||state == eSTATE_BLOCKED)            
         return;
-        
+            
+    switch (state)
+    {
+        case eSTATE_NEWMOVE:
+            // new move requested -> update target & go to DRIVE
+            newMove();        
+            setState(eSTATE_DRIVE);
+            break;
+
+        case eSTATE_DRIVE:
+            // drive joint
+            // perform a move step
+            if (doMove())
+            {
+                // if movement blocked -> BLOCKED
+                if (checkBlocked())
+                    setState(eSTATE_BLOCKED);   
+            }
+            // if movement finished -> DONE
+            else 
+                setState(eSTATE_DONE);   
+            break;
+    }   // end switch    
+
     if (isStateChanged())
         showState();
-      
-    // drive joint
-    if (getState() == eSTATE_DRIVE)
-    {
-        // perform a move step
-        doMove();        
-        writeBus();        
-        // if movement blocked or finished -> DONE
-        if (oMoveState.isBlocked() || oMoveState.isDone())            
-        {
-            setState(eSTATE_DONE);   
-            showState();
-        }
-    }
+
+    writeBus();        
 }
 
 
-void AxisDriver::doMove()
+bool AxisDriver::doMove()
 {
     computeAxisPosition();
     
@@ -130,15 +131,20 @@ void AxisDriver::doMove()
     
     LOG4CXX_INFO(logger, oJointControl.toString());
     
-    // check if movement is blocked (pushing beyond the joint's limit)    
-    if ((jointLimit > 0 && oJointControl.getMoveSign() > 0) || (jointLimit < 0 && oJointControl.getMoveSign() < 0))
-        oMoveState.moveBlocked();
-    
     // check if movement finished 
     if (oJointControl.isMovementDone())
-        oMoveState.moveDone();  
+        return false;
+    else
+        return true;
 }
 
+bool AxisDriver::checkBlocked()
+{
+    int moveSign = getController().getMoveSign();
+
+    // check if movement is blocked (pushing beyond the joint's limit)    
+    return ((jointLimit > 0 && moveSign > 0) || (jointLimit < 0 && moveSign < 0));
+}
 
 void AxisDriver::writeBus()
 {  
@@ -156,8 +162,16 @@ void AxisDriver::showState()
             LOG4CXX_INFO(logger, ">> done");
             break;
                         
+        case eSTATE_NEWMOVE:
+            LOG4CXX_INFO(logger, ">> new move");
+            break;
+
         case eSTATE_DRIVE:
             LOG4CXX_INFO(logger, ">> drive");
+            break;
+
+        case eSTATE_BLOCKED:
+            LOG4CXX_INFO(logger, ">> blocked");
             break;
     }   // end switch    
 }

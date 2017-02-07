@@ -11,7 +11,6 @@
 
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/move/JointControl.h"
-#include "amy/core/MoveState.h"
 #include "amy/core/config/JointControlConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
@@ -31,8 +30,10 @@ public:
     // states of AxisDriver module
     enum eState
     {
-         eSTATE_DONE,     // nothing done
-         eSTATE_DRIVE     // moves the arm
+         eSTATE_DONE,           // movement finished (nothing done)
+         eSTATE_NEWMOVE,     // prepares new move
+         eSTATE_DRIVE,           // moves the arm
+         eSTATE_BLOCKED,      // movement blocked
     };
 
 protected:
@@ -52,8 +53,6 @@ protected:
     // output
     float outAccel;              // commanded joint acceleration 
     int priority;                   // module's priority in control commands
-    // logic
-    MoveState oMoveState;   // holds the present move state
 
 private:
     
@@ -83,18 +82,18 @@ protected:
         virtual void newMove() = 0;
         // computes the axis position
         virtual void computeAxisPosition() = 0;
+        // write info (control & sensory) to bus
+        virtual void writeBus();
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-
-        // perform movement
-        void doMove();        
-        // write action commands to out joint bus
-        void writeBus();
-                                        
+        // perform movement. Return false if movement done
+        bool doMove();                                                
+        // check if controlled joint is blocked (due to reached range limit)
+        bool checkBlocked();                                                
         // shows the present state name
         void showState();
 };

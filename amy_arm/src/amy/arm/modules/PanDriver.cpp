@@ -55,7 +55,7 @@ void PanDriver::senseBus()
     if (pArmBus->getCO_ARM_PAN().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_PAN().getValue();  
-        oMoveState.moveRequested();
+        setState(eSTATE_NEWMOVE);   
     }
 
     // sense HS angle (soll value used here)

@@ -16,6 +16,7 @@ private:
     float Ki;                   // I sensitivity
     float Kd;                   // D sensitivity
     // logic
+    float error0;               // previous stored error
     float output; 
 
 public:
@@ -23,7 +24,9 @@ public:
                 
        void init(float kp, float ki, float kd);
 
-       // perfprm PID control, output returnes
+       // resets the controller
+       void reset();
+       // perfprm PID control, output returned
         float control(float error);
         float getOutput() {return output;}
         

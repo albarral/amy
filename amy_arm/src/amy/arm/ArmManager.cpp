@@ -36,7 +36,7 @@ bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm)
     if (!blaunched)
     {
         log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
-        LOG4CXX_INFO(logger, "Launching for arm ...\n" << oTargetArm.toString());
+        LOG4CXX_INFO(logger, "Launching for arm " << oTargetArm.toString());
 
         // acces to amy config
         pAmyConfig = &oAmyConfig;

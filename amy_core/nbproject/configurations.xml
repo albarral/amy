@@ -30,8 +30,6 @@
           <itemPath>src/amy/core/robot/Robot.cpp</itemPath>
           <itemPath>src/amy/core/robot/Robot.h</itemPath>
         </logicalFolder>
-        <itemPath>src/amy/core/MoveState.cpp</itemPath>
-        <itemPath>src/amy/core/MoveState.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -65,10 +63,6 @@
           </incDir>
         </ccTool>
       </compileType>
-      <item path="src/amy/core/MoveState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/MoveState.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
@@ -121,10 +115,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/core/MoveState.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/core/MoveState.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
