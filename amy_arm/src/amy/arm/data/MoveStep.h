@@ -16,7 +16,7 @@ namespace amy
 // - a 2D speed (reached after acceleration) 
 // - a given duration (in tics)
 // Creation: only the angle, duration and maxSpeed need to be specified.
-// Computation (required): the proper cruise speeds and JointMover commands for each joint need to be calculated (see ArmComputer class).
+// Computation (required): the proper cruise speeds and JointMove commands for each joint need to be calculated (see ArmComputer class).
     
 class MoveStep
 {
@@ -28,8 +28,8 @@ private:
     int tics;      // movement duration (in tics)
     int vmax;   // max speed allowed for all joint
     // logic
-    int xmove;     // JointMover commands for horizontal movement 
-    int ymove;     // JointMover commands for vertical movement
+    int xmove;     // JointMove commands for horizontal movement 
+    int ymove;     // JointMove commands for vertical movement
     float vx;  // cruise speed for horizontal movement 
     float vy;  // cruise speed for vertical movement 
 

@@ -23,9 +23,9 @@ public:
 //    Tests();
 //    ~Tests();
 
-    void testJointMover();
-    void testJointDriver();
-    void testRadialDriver();
+    void testJointMove();
+    void testJointControl();
+    void testRadialControl();
     void testArmMath();
     void testArmPlanner();
 };

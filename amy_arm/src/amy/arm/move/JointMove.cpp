@@ -5,26 +5,26 @@
 
 #include <cmath>
 
-#include "amy/arm/move/JointMover.h"
+#include "amy/arm/move/JointMove.h"
 
 namespace amy
 {
 
-JointMover::JointMover()
+JointMove::JointMove()
 {
     accel = 0.0;
     finalSpeed = speed = 0.0;
     angle = 0.0;
 }
        
-void JointMover::iddle()
+void JointMove::iddle()
 {
     oClick.reset();   
     if (finalSpeed != 0.0)
         finalSpeed = 0.0;
 }
 
-float JointMover::move(float acceleration, float istAngle)
+float JointMove::move(float acceleration, float istAngle)
 {
     // compute ellapsed time 
     oClick.read();
@@ -52,7 +52,7 @@ float JointMover::move(float acceleration, float istAngle)
 }
 
 
-float JointMover::brake(float deceleration, float istAngle)
+float JointMove::brake(float deceleration, float istAngle)
 {
     // compute ellapsed time 
     oClick.read();
@@ -88,8 +88,8 @@ float JointMover::brake(float deceleration, float istAngle)
     return angle;
 }
 
-std::string JointMover::toString()
+std::string JointMove::toString()
 {
-    return "JointMover: [accel=" + std::to_string(accel) + ", speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) +  "]";
+    return "JointMove: [accel=" + std::to_string(accel) + ", speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) +  "]";
 }
 }

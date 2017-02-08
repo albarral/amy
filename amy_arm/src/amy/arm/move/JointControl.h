@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_JOINTDRIVER_H
-#define __AMY_MOVE_JOINTDRIVER_H
+#ifndef __AMY_MOVE_JOINTCONTROL_H
+#define __AMY_MOVE_JOINTCONTROL_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -17,10 +17,10 @@ namespace amy
 // For each move, the movement is finished when an arrival point is crossed.
 // Usage:    
 // First initialize the class with sensitivity and tolerance parameters.
-// To request a movement, the setTarget() function must be called.
+// To request a movement, call newMove() with the target angle.
 // Then, the drive() function must be called periodically. This internally computes the joint speed and updates the acceleration control.
-// Movement is finished the the state is DONE.
-class JointDriver
+// Movement is finished when the state is DONE.
+class JointControl
 {
 public:    
     // movement states
@@ -43,8 +43,8 @@ protected:
     // request
     float targetAngle;          // requested joint position
     // control 
-    float istAngle;            // present joint position
-    float targetSpeed;    // desired joint speed
+    float prevAngle;            // previous ist position
+    float sollSpeed;    // desired joint speed
     float istSpeed;         // measured joint speed
     int moveSign;           // direction of movement (1, -1) 
     float arrivalDist;     // distance at which the movement is considered done
@@ -55,13 +55,13 @@ protected:
     amy::Click oClick;      // clock utility
 
 public:
-        JointDriver();
-        //~JointDriver();
+        JointControl();
+        //~JointControl();
                 
        void init(float kaccel, float kspeed, float posTolerance, float maxSpeed);
 
-       // sets the target position
-        void setTarget(float angle);
+       // new move requested (to target angle)
+        void newMove(float angle);
         float getTargetAngle() {return targetAngle;}
         
         // drive the joint with a proper acceleration, the acceleration is returned

@@ -83,7 +83,7 @@ void ArmComputer::computeMoveStep(MoveStep& oMoveStep)
         }                        
     }
     
-    // transform speed to JointMover commands
+    // transform speed to JointMove commands
 //    oMoveStep.setXmove(fromSpeed2JointCommand(vx));
 //    oMoveStep.setYmove(fromSpeed2JointCommand(vy));
     oMoveStep.setXspeed(vx);
@@ -97,11 +97,11 @@ void ArmComputer::computeMoveStep(MoveStep& oMoveStep)
 //int ArmComputer::fromSpeed2JointCommand(int v)
 //{
 //    if (v > 0) 
-//        return JointMover::eMOV_PUSH_FRONT;
+//        return JointMove::eMOV_PUSH_FRONT;
 //    else if (v < 0)
-//        return JointMover::eMOV_PUSH_BACK;
+//        return JointMove::eMOV_PUSH_BACK;
 //    else
-//        return 99; //JointMover::eMOV_STOP;
+//        return 99; //JointMove::eMOV_STOP;
 //};
 
 

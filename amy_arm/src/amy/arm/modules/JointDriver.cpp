@@ -5,28 +5,28 @@
 
 #include "log4cxx/ndc.h"
 
-#include "amy/arm/modules/JointControl2.h"
+#include "amy/arm/modules/JointDriver.h"
 #include "amy/core/robot/Joint.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr JointControl2::logger(Logger::getLogger("amy.arm"));
+LoggerPtr JointDriver::logger(Logger::getLogger("amy.arm"));
 
-JointControl2::JointControl2()
+JointDriver::JointDriver()
 {
-    modName = "jcontrol2";
+    modName = "jdriver";
     lowLimit = highLimit = 0;
     limitReached = false;
     brakeAccel = 0.0;
 }
 
-//JointControl2::~JointControl2()
+//JointDriver::~JointDriver()
 //{
 //}
 
-void JointControl2::init(Arm& oArm, JointControlConfig& oJointControlConfig)
+void JointDriver::init(Arm& oArm, JointControlConfig& oJointControlConfig)
 {
     Joint* pJoint = oArm.getJointByName(jointName);
     lowLimit = pJoint->getLowerLimit();
@@ -38,15 +38,15 @@ void JointControl2::init(Arm& oArm, JointControlConfig& oJointControlConfig)
 };
 
 
-void JointControl2::first()
+void JointDriver::first()
 {
-    setState(JointControl2::eSTATE_FREE);
-    setNextState(JointControl2::eSTATE_FREE);
+    setState(JointDriver::eSTATE_FREE);
+    setNextState(JointDriver::eSTATE_FREE);
         
     log4cxx::NDC::push(modName);   	
 }
                     
-void JointControl2::loop()
+void JointDriver::loop()
 {    
     senseBus();
 
@@ -58,25 +58,25 @@ void JointControl2::loop()
         case eSTATE_FREE:            
 
             // if joint is moving, brake it
-            if (oJointMover.getSpeed() != 0.0)
+            if (oJointMove.getSpeed() != 0.0)
             {
                 // do the control
-                angle = oJointMover.brake(brakeAccel, angle);
+                angle = oJointMove.brake(brakeAccel, angle);
                 angle = limitAngle(angle);
-                //LOG4CXX_INFO(logger, oJointMover.toString());
+                //LOG4CXX_INFO(logger, oJointMove.toString());
             }
             // otherwise keep joint iddle
             else
-                oJointMover.iddle();
+                oJointMove.iddle();
                 
             break;
 
         case eSTATE_MOVE:
             
             // do the control
-            angle = oJointMover.move(accel, angle);            
+            angle = oJointMove.move(accel, angle);            
             angle = limitAngle(angle);
-            //LOG4CXX_INFO(logger, oJointMover.toString());
+            //LOG4CXX_INFO(logger, oJointMove.toString());
             break;            
     }   // end switch    
     
@@ -85,7 +85,7 @@ void JointControl2::loop()
     
 }
 
-void JointControl2::senseBus()
+void JointDriver::senseBus()
 {
     bool bmove = false;
 
@@ -107,9 +107,9 @@ void JointControl2::senseBus()
         setNextState(eSTATE_FREE);
 }
 
-void JointControl2::writeBus()
+void JointDriver::writeBus()
 {
-    float sollSpeed = oJointMover.getSpeed();        
+    float sollSpeed = oJointMove.getSpeed();        
     
     // command angle
     pJointBus->getCO_JOINT_ANGLE().request(angle);
@@ -129,7 +129,7 @@ void JointControl2::writeBus()
     pJointBus->getSO_IST_ANGLE().setValue(angle);
 }
 
-float JointControl2::limitAngle(float value)
+float JointDriver::limitAngle(float value)
 {
     float angle;
     if (value < lowLimit) 
@@ -151,7 +151,7 @@ float JointControl2::limitAngle(float value)
 }
 
 
-void JointControl2::showState()
+void JointDriver::showState()
 {
     switch (getState())
     {

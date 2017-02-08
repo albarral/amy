@@ -19,7 +19,7 @@ class MoveStep3D : public MoveStep
 private:
     int zangle;    // movement direction along z axis (degrees)
     // logic
-    int zmove;     // JointMover commands for depth movement 
+    int zmove;     // JointMove commands for depth movement 
     float vz;  // cruise speed for depth movement 
 
 public:    
@@ -33,7 +33,7 @@ public:
     int getZmove() {return zmove;}
     int getZspeed() {return vz;}
 
-    // computation of JointMover commands & cruise speeds
+    // computation of JointMove commands & cruise speeds
     //virtual void compute();   
     virtual bool is3D() {return true;};
 };

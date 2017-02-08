@@ -28,15 +28,17 @@ public:
 
     // store segment lengths (cm))
     void setLengths(int lenHum, int lenRad);
+    int getLenHumerus() {return lenHumerus;};
+    int getLenRadius() {return lenRadius;};
 
    // computes the arm radius (cm) for the given the elbow angle (deg)
-   float convJoints2ArmRadius(float angleEL);
+   float computeRadius4ElbowAngle(float angleEL);
 
    // computes the arm tilt position given the vertical shoulder & elbow angles (deg)
-   float convJoints2ArmTilt(float angleVS, float angleEL);
+   float computeTilt4JointAngles(float angleVS, float angleEL);
 
    // computes the elbow angle (deg) for a given arm radius (cm)
-   float convArmRadius2Elbow(float radius);
+   float computeElbowAngle4Radius(float radius);
 };
 }
 #endif

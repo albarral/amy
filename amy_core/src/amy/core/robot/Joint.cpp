@@ -25,6 +25,11 @@ void Joint::setLimits(int lowLimit, int highLimit)
 
     limit1 = lowLimit;
     limit2 = highLimit;
-};
+}
+
+std::string Joint::toString()
+{
+    return "Joint: " + name + ", limits=(" + std::to_string(limit1) + ", " + std::to_string(limit2) + ")";
+}
 
 }
