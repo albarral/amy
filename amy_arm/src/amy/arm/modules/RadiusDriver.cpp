@@ -38,12 +38,12 @@ void RadiusDriver::connectJoints()
 void RadiusDriver::newMove()
 {
     // update movement params
-    if (pJointControlConfig != 0)
+    if (pAmyArmConfig != 0)
     {
-        oRadialControl.init(pJointControlConfig->getKaccelDriver(),
-                               pJointControlConfig->getKspeedDriver(),
-                               pJointControlConfig->getDriverTolerance(),
-                               pJointControlConfig->getDriverSpeed());        
+        oRadialControl.init(pAmyArmConfig->getDriverKaccel(),
+                               pAmyArmConfig->getDriverKspeed(),
+                               pAmyArmConfig->getDriverTolerance(),
+                               pAmyArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move

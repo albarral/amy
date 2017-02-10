@@ -54,6 +54,10 @@ bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm)
 
         initModules();
         startModules();
+        
+        // for test, activate TiltKeeper module
+        bool keepMode = true;
+        oArmBus.getCO_KEEP_TILT().request(keepMode);
 
         blaunched = true;    
     }
@@ -166,13 +170,12 @@ void ArmManager::initLevel(int num)
     LOG4CXX_INFO(logger, ">> INIT level " << num);       
 
     float freq = pAmyConfig->getModulesFreq();
-    float fasterFreq = 2*freq;
 
     for (ArmModule* pModule : listModules)
     {
         if (pModule->getLevel() == num)
         {                        
-            pModule->init(oArm, pAmyConfig->getJointControlConfig());
+            pModule->init(oArm, oAmyArmConfig);
             pModule->connect(oArmBus);
             pModule->setFrequency(freq);  
         }
@@ -180,8 +183,8 @@ void ArmManager::initLevel(int num)
 
     if (oArmPolarSensing.getLevel() == num)
     {
-        // arm position module (x2 speed)
-        oArmPolarSensing.init(oArm, *pAmyConfig);
+        // arm position module 
+        oArmPolarSensing.init(oArm, oAmyArmConfig);
         oArmPolarSensing.connect(oArmBus);
         oArmPolarSensing.setFrequency(freq);
     }    
@@ -189,7 +192,7 @@ void ArmManager::initLevel(int num)
     if (oPanDriver.getLevel() == num)
     {    
         // pan driver module
-        oPanDriver.init(oArm, pAmyConfig->getJointControlConfig());
+        oPanDriver.init(oArm, oAmyArmConfig);
         oPanDriver.connect(oArmBus);
         oPanDriver.setFrequency(freq);
     }
@@ -197,7 +200,7 @@ void ArmManager::initLevel(int num)
     if (oTiltDriver.getLevel() == num)
     {    
         // tilt driver module
-        oTiltDriver.init(oArm, pAmyConfig->getJointControlConfig());
+        oTiltDriver.init(oArm, oAmyArmConfig);
         oTiltDriver.connect(oArmBus);
         oTiltDriver.setFrequency(freq);
     }
@@ -205,7 +208,7 @@ void ArmManager::initLevel(int num)
     if (oRadiusDriver.getLevel() == num)
     {    
         // pan driver module
-        oRadiusDriver.init(oArm, pAmyConfig->getJointControlConfig());
+        oRadiusDriver.init(oArm, oAmyArmConfig);
         oRadiusDriver.connect(oArmBus);
         oRadiusDriver.setFrequency(freq);
     }
@@ -213,7 +216,7 @@ void ArmManager::initLevel(int num)
     if (oTiltKeeper.getLevel() == num)
     {
         // arm extender module
-        oTiltKeeper.init(oArm, *pAmyConfig);
+        oTiltKeeper.init(oArm, oAmyArmConfig);
         oTiltKeeper.connect(oArmBus);
         oTiltKeeper.setFrequency(freq);
     }    

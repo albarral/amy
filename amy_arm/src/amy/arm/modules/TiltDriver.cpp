@@ -41,12 +41,12 @@ void TiltDriver::connectJoints()
 void TiltDriver::newMove()
 {
     // update movement params
-    if (pJointControlConfig != 0)
+    if (pAmyArmConfig != 0)
     {
-        oJointControl.init(pJointControlConfig->getKaccelDriver(),
-                               pJointControlConfig->getKspeedDriver(),
-                               pJointControlConfig->getDriverTolerance(),
-                               pJointControlConfig->getDriverSpeed());        
+        oJointControl.init(pAmyArmConfig->getDriverKaccel(),
+                               pAmyArmConfig->getDriverKspeed(),
+                               pAmyArmConfig->getDriverTolerance(),
+                               pAmyArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move

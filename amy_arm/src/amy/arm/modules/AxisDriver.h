@@ -11,7 +11,7 @@
 
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/move/JointControl.h"
-#include "amy/core/config/JointControlConfig.h"
+#include "amy/arm/config/AmyArmConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
 
@@ -40,7 +40,7 @@ protected:
     static log4cxx::LoggerPtr logger;
     bool benabled;
     // config
-    JointControlConfig* pJointControlConfig;  // control config
+    AmyArmConfig* pAmyArmConfig;  // control config
     Arm* pArm;              // arm physical data    
     // bus
     bool bconnected;        // connected to bus
@@ -61,7 +61,7 @@ public:
         //~AxisDriver();
                 
        // module params
-       void init(Arm& oArm, JointControlConfig& oJointControlConfig);
+       void init(Arm& oArm, AmyArmConfig& oAmyArmConfig);
        bool isEnabled() {return benabled;};
 
        // bus connection 

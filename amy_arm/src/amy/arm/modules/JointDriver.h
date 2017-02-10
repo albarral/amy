@@ -43,7 +43,7 @@ public:
         //~JointDriver();
                 
        // module params
-       virtual void init(Arm& oArm, JointControlConfig& oJointControlConfig);
+       virtual void init(Arm& oArm, AmyArmConfig& oAmyArmConfig);
         
 private:       
         // first actions when the thread begins 

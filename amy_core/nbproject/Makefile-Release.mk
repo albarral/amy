@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/core/config/AmyConfig.o \
-	${OBJECTDIR}/src/amy/core/config/JointControlConfig.o \
 	${OBJECTDIR}/src/amy/core/robot/Arm.o \
 	${OBJECTDIR}/src/amy/core/robot/Joint.o \
 	${OBJECTDIR}/src/amy/core/robot/Robot.o
@@ -70,11 +69,6 @@ ${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/AmyConfig.o src/amy/core/config/AmyConfig.cpp
-
-${OBJECTDIR}/src/amy/core/config/JointControlConfig.o: src/amy/core/config/JointControlConfig.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/JointControlConfig.o src/amy/core/config/JointControlConfig.cpp
 
 ${OBJECTDIR}/src/amy/core/robot/Arm.o: src/amy/core/robot/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot

@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBeat.o \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
+	${OBJECTDIR}/src/amy/arm/config/AmyArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/data/MoveStep.o \
 	${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o \
 	${OBJECTDIR}/src/amy/arm/data/Movement.o \
@@ -123,6 +124,11 @@ ${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
+
+${OBJECTDIR}/src/amy/arm/config/AmyArmConfig.o: src/amy/arm/config/AmyArmConfig.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/AmyArmConfig.o src/amy/arm/config/AmyArmConfig.cpp
 
 ${OBJECTDIR}/src/amy/arm/data/MoveStep.o: src/amy/arm/data/MoveStep.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data

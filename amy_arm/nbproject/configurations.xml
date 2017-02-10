@@ -21,6 +21,10 @@
           <itemPath>src/amy/arm/bus/JointBus.cpp</itemPath>
           <itemPath>src/amy/arm/bus/JointBus.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="config" displayName="config" projectFiles="true">
+          <itemPath>src/amy/arm/config/AmyArmConfig.cpp</itemPath>
+          <itemPath>src/amy/arm/config/AmyArmConfig.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="data" displayName="data" projectFiles="true">
           <itemPath>src/amy/arm/data/MoveStep.cpp</itemPath>
           <itemPath>src/amy/arm/data/MoveStep.h</itemPath>
@@ -167,6 +171,13 @@
       <item path="src/amy/arm/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/config/AmyArmConfig.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/config/AmyArmConfig.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -322,6 +333,13 @@
       <item path="src/amy/arm/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/config/AmyArmConfig.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/arm/config/AmyArmConfig.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -24,15 +24,13 @@ TiltKeeper::TiltKeeper()
 
 void TiltKeeper::first()
 {
-    //setState(eSTATE_DONE);
-    // for test -> start at WATCH
-    setState(eSTATE_WATCH);   
+    setState(eSTATE_DONE);
     
     pVSBus = &pArmBus->getBusVS();
     pELBus = &pArmBus->getBusEL();
-    float Ka = 4.0; // SHOULD BE OBTAINED FROM config file
-    float Kd = 2.0;
-    oPIDControl.init(Ka, 0.0, Kd);
+    // tune PID controller
+    float* pPID = oAmyArmConfig.getTiltKeeperPID();
+    oPIDControl.init(pPID[0], pPID[1], pPID[2]);
     
     log4cxx::NDC::push(modName);   	
 }
@@ -47,7 +45,7 @@ void TiltKeeper::loop()
     if (getState() == eSTATE_DONE)
         return;
 
-    // TRANSITIONS (activated module)
+    // activated module
     switch (getState())
     {        
         case eSTATE_WATCH:     
@@ -75,21 +73,10 @@ void TiltKeeper::loop()
                 LOG4CXX_INFO(logger, "outAccel = " << outAccel << ", tiltSpeed = " << tiltSpeed);                
             }
             break;              
-
     }
     
     if (isStateChanged())
         showState();
-
-//    // ACTIONS
-//    // if DRIVE: move VS
-//    if (getState() == eSTATE_DRIVE)
-//    {
-//        // PID control with error = 0 - tiltSpeed
-//        outAccel = oPIDControl.control(-tiltSpeed);              
-//        writeBus();
-//        LOG4CXX_INFO(logger, "outAccel = " << outAccel << ", tiltSpeed = " << tiltSpeed);
-//    }
 }
 
 
