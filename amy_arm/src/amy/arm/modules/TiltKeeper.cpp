@@ -25,7 +25,7 @@ TiltKeeper::TiltKeeper()
 void TiltKeeper::first()
 {
     setState(eSTATE_DONE);
-    
+    // connect to specific joints
     pVSBus = &pArmBus->getBusVS();
     pELBus = &pArmBus->getBusEL();
     // tune PID controller

@@ -50,8 +50,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
+	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
+	${OBJECTDIR}/src/amy/arm/modules/PanRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o \
@@ -166,6 +168,11 @@ ${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o: src/amy/arm/modules/AxisDriver.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o src/amy/arm/modules/AxisDriver.cpp
 
+${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o: src/amy/arm/modules/AxisRacer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o src/amy/arm/modules/AxisRacer.cpp
+
 ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o: src/amy/arm/modules/JointDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -175,6 +182,11 @@ ${OBJECTDIR}/src/amy/arm/modules/PanDriver.o: src/amy/arm/modules/PanDriver.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/PanDriver.o src/amy/arm/modules/PanDriver.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/PanRacer.o: src/amy/arm/modules/PanRacer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/PanRacer.o src/amy/arm/modules/PanRacer.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o: src/amy/arm/modules/RadiusDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

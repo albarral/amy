@@ -24,8 +24,8 @@ class ArmModule3 : public Module3
 {
 protected:
     bool benabled;
-    Arm oArm;
-    AmyArmConfig oAmyArmConfig;
+    Arm oArm;                                   // copy of used arm structure
+    AmyArmConfig oAmyArmConfig;     // copy of used arm configuration
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // pointer to bus
