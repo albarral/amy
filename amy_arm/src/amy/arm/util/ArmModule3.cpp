@@ -20,7 +20,8 @@ void ArmModule3::init(Arm& oArm, ArmConfig& oArmConfig)
 {
     this->oArm = oArm;
     this->oArmConfig = oArmConfig;
-    benabled = true;
+    benabled = true;    
+    showInitialized();
 }
 
 void ArmModule3::connect(ArmBus& oArmBus)

@@ -47,7 +47,8 @@ protected:
     virtual void senseBus() = 0;
     // write action commands or sensor info to bus    
     virtual void writeBus() = 0;
-
+    // show module initialization in logs
+    virtual void showInitialized() = 0;
 
 };
 }		

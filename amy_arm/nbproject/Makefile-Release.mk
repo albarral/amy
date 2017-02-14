@@ -49,6 +49,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
@@ -61,6 +62,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/move/JointMove.o \
 	${OBJECTDIR}/src/amy/arm/move/PIDControl.o \
 	${OBJECTDIR}/src/amy/arm/move/RadialControl.o \
+	${OBJECTDIR}/src/amy/arm/move/SpeedControl.o \
 	${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule3.o \
@@ -161,6 +163,11 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o: src/amy/arm/modules/ArmPolar
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o src/amy/arm/modules/ArmPolarSensing.cpp
 
+${OBJECTDIR}/src/amy/arm/modules/ArmRacer.o: src/amy/arm/modules/ArmRacer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmRacer.o src/amy/arm/modules/ArmRacer.cpp
+
 ${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o: src/amy/arm/modules/AxisDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -220,6 +227,11 @@ ${OBJECTDIR}/src/amy/arm/move/RadialControl.o: src/amy/arm/move/RadialControl.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialControl.o src/amy/arm/move/RadialControl.cpp
+
+${OBJECTDIR}/src/amy/arm/move/SpeedControl.o: src/amy/arm/move/SpeedControl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/SpeedControl.o src/amy/arm/move/SpeedControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o: src/amy/arm/move/SpeedSensor3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move

@@ -12,6 +12,7 @@
 
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
+#include "amy/arm/modules/ArmRacer.h"
 #include "amy/arm/modules/TiltKeeper.h"
 #include "amy/arm/modules/PanDriver.h"
 #include "amy/arm/modules/TiltDriver.h"
@@ -20,6 +21,7 @@
 #include "amy/arm/modules/JointDriver.h"
 #include "amy/arm/ArmInterface.h"
 #include "amy/arm/util/ArmModule.h"
+#include "amy/arm/util/ArmModule3.h"
 #include "amy/core/config/AmyConfig.h"
 #include "amy/core/robot/Arm.h"
 
@@ -41,10 +43,10 @@ class ArmManager
         ArmBus oArmBus;        // arm bus
         Arm oArm;                   // controlled arm
         ArmInterface oArmInterface;     // interface for external arm control
-        int level;      // highest level activated 
-        int maxLevel; // allow activation of modules until this level
+        int topLevel; // allow activation of modules until this level
         // modules ...
         //ArmMover oArmMover;
+        ArmRacer oArmRacer;
         TiltKeeper oTiltKeeper;
         PanDriver oPanDriver;
         TiltDriver oTiltDriver;
@@ -52,6 +54,7 @@ class ArmManager
         ArmPolarSensing oArmPolarSensing;
         JointDriver oJointDriver[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
+        std::vector<ArmModule3*> listModules3;   // list of modules (pointers)
 
     public:
         ArmManager();
@@ -65,6 +68,8 @@ class ArmManager
        
        // give access to the arm's control interface
        ArmInterface& getArmInterface() {return oArmInterface;}
+
+       friend class ArmTest;
        
 private:
     // initialize control architecture (organize in levels)
@@ -85,7 +90,7 @@ private:
    // start the modules of a level
     void startLevel(int level);        
    // stop the modules of a level
-    void stopLevel(int level);        
+    void stopLevel(int level);            
 };
 
 }    

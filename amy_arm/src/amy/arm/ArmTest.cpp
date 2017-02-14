@@ -8,6 +8,7 @@
 #include <unistd.h> // for sleep() 
 #include <cstdlib>  // for getenv
 #include <fstream>
+#include <cmath>
 
 #include <log4cxx/logger.h>
 
@@ -26,6 +27,106 @@ using namespace log4cxx;
 namespace amy
 {
 LoggerPtr ArmTest::logger(Logger::getLogger("amy.arm"));    
+
+ArmTest::ArmTest()
+{
+    pArmBus = 0;
+    reset();
+}
+
+void ArmTest::connect2Bus(ArmManager& oArmManager)
+{
+    pArmBus = &oArmManager.oArmBus;
+}
+
+void ArmTest::reset()
+{
+    step = 0; 
+    direction = 1;    
+}
+
+void ArmTest::newStep()
+{
+    step++;
+
+    LOG4CXX_INFO(logger, "step " << step);    
+    
+     if (step <= 5)
+         initialPosition();
+     else
+         testRacer();            
+}
+
+void ArmTest::initialPosition()
+{
+    int value;
+
+     if (!isConnected())
+         return;
+     
+    switch (step)
+    {
+        case 1: 
+            value = 60;
+            pArmBus->getCO_ARM_PAN().request(value);            
+            LOG4CXX_INFO(logger, "initialPosition: pan");
+            break;
+            
+        case 3: 
+            value = 80;
+            pArmBus->getCO_ARM_TILT().request(value);
+            LOG4CXX_INFO(logger, "initialPosition: tilt");
+            break;
+
+        case 5: 
+            value = 60;
+            pArmBus->getCO_ARM_RADIUS().request(value);            
+            LOG4CXX_INFO(logger, "initialPosition: radius");
+            break;
+    }    
+}
+
+
+void ArmTest::testRacer()
+{
+    if (!isConnected())    
+        return;
+    
+  if (step == 7)
+  {
+      float speed = -40.0;
+      bool bwork = true;
+      pArmBus->getCO_PAN_SPEED().request(speed);
+      pArmBus->getCO_RACER_ACTION().request(bwork);      
+      LOG4CXX_INFO(logger, "testRacer: pan speed");
+   }
+  else if (step == 15)
+  {
+      bool bwork = false;
+      pArmBus->getCO_RACER_ACTION().request(bwork);      
+      LOG4CXX_INFO(logger, "testRacer: pan speed stop");      
+  }
+    
+    // change pan direction every 2 steps
+//    bool beven = (fmod(step, 2) == 0.0);
+//    if (beven)
+//    {
+//        direction = -direction;
+//        float speed = direction*80.0;
+//        oArmManager.oArmBus.getCO_PAN_SPEED(speed);
+//    }
+}
+
+void ArmTest::testKeepTilt()
+{
+    LOG4CXX_INFO(logger, "testKeepTilt");
+
+    if (!isConnected())    
+        return;
+
+    bool keep = true;
+    pArmBus->getCO_KEEP_TILT().request(keep);
+}
 
 void ArmTest::testJointMove()
 {

@@ -42,6 +42,8 @@
           <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmPolarSensing.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmPolarSensing.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmRacer.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmRacer.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.cpp</itemPath>
@@ -68,6 +70,8 @@
           <itemPath>src/amy/arm/move/PIDControl.h</itemPath>
           <itemPath>src/amy/arm/move/RadialControl.cpp</itemPath>
           <itemPath>src/amy/arm/move/RadialControl.h</itemPath>
+          <itemPath>src/amy/arm/move/SpeedControl.cpp</itemPath>
+          <itemPath>src/amy/arm/move/SpeedControl.h</itemPath>
           <itemPath>src/amy/arm/move/SpeedSensor3.cpp</itemPath>
           <itemPath>src/amy/arm/move/SpeedSensor3.h</itemPath>
         </logicalFolder>
@@ -213,6 +217,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmRacer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmRacer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisDriver.h" ex="false" tool="3" flavor2="0">
@@ -269,6 +277,10 @@
       <item path="src/amy/arm/move/RadialControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/SpeedControl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/SpeedControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/SpeedSensor3.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -372,6 +384,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmRacer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmRacer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisDriver.h" ex="false" tool="3" flavor2="0">
@@ -428,6 +444,10 @@
       <item path="src/amy/arm/move/RadialControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/SpeedControl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/SpeedControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/SpeedSensor3.cpp" ex="false" tool="1" flavor2="0">
       </item>

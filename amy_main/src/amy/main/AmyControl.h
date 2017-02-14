@@ -41,6 +41,9 @@ class AmyControl
         
         // shows the present values of all bus elements
         void showBusState();
+        
+        // access arm manager
+        ArmManager& getArmManager() {return oArmManager;};
 };
 
 }    

@@ -21,6 +21,11 @@ ArmPolarSensing::ArmPolarSensing()
     pELBus = 0;
 }
 
+void ArmPolarSensing::showInitialized()
+{
+    LOG4CXX_INFO(logger, modName << " initialized");          
+}
+
 void ArmPolarSensing::first()
 {
     setState(eSTATE_GO);

@@ -21,6 +21,10 @@ TiltKeeper::TiltKeeper()
     pELBus = 0;
 }
  
+void TiltKeeper::showInitialized()
+{
+    LOG4CXX_INFO(logger, modName << " initialized");          
+}
 
 void TiltKeeper::first()
 {
