@@ -8,7 +8,7 @@
 
 #include <amy/utils/module3.h>
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/config/AmyArmConfig.h"
+#include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
 
 namespace amy
@@ -25,7 +25,7 @@ class ArmModule3 : public Module3
 protected:
     bool benabled;
     Arm oArm;                                   // copy of used arm structure
-    AmyArmConfig oAmyArmConfig;     // copy of used arm configuration
+    ArmConfig oArmConfig;     // copy of used arm configuration
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // pointer to bus
@@ -35,7 +35,7 @@ public:
     //~ArmModule3();
 
     // initialize module
-    void init(Arm& oArm, AmyArmConfig& oAmyArmConfig);
+    void init(Arm& oArm, ArmConfig& oArmConfig);
     bool isEnabled() {return benabled;};
 
     // bus connection 

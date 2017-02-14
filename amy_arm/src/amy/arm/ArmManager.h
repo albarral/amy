@@ -11,7 +11,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/config/AmyArmConfig.h"
+#include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/modules/TiltKeeper.h"
 #include "amy/arm/modules/PanDriver.h"
 #include "amy/arm/modules/TiltDriver.h"
@@ -37,7 +37,7 @@ class ArmManager
         static log4cxx::LoggerPtr logger;
         bool blaunched;     // indicates when the manager has been launched
         AmyConfig* pAmyConfig;  // acces to amy config
-        AmyArmConfig oAmyArmConfig;     // arm configuration
+        ArmConfig oArmConfig;     // arm configuration
         ArmBus oArmBus;        // arm bus
         Arm oArm;                   // controlled arm
         ArmInterface oArmInterface;     // interface for external arm control

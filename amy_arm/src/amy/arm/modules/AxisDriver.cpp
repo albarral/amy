@@ -19,7 +19,7 @@ AxisDriver::AxisDriver()
     benabled = false;
     modName = "AxisDriver";
     
-    pAmyArmConfig = 0;
+    pArmConfig = 0;
     pArm = 0;        
         
     bconnected = false;
@@ -33,16 +33,16 @@ AxisDriver::AxisDriver()
 //{
 //}
 
-void AxisDriver::init(Arm& oArm, AmyArmConfig& oAmyArmConfig)
+void AxisDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
-    pAmyArmConfig = &oAmyArmConfig;      
+    pArmConfig = &oArmConfig;      
     pArm = &oArm;
     // set specific preparation (in derived class)
     prepareDriver();
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");                  
-    LOG4CXX_INFO(logger, oAmyArmConfig.toString());      
+    LOG4CXX_INFO(logger, oArmConfig.toString());      
 };
 
 void AxisDriver::connect(ArmBus& oArmBus)
@@ -62,14 +62,14 @@ void AxisDriver::connect(ArmBus& oArmBus)
 void AxisDriver::prepareDriver()
 {
     // set movement params
-    if (pAmyArmConfig != 0)
+    if (pArmConfig != 0)
     {
         // get used joint controller and initialize it
         JointControl& oJointControl = getController();        
-        oJointControl.init(pAmyArmConfig->getDriverKaccel(),
-                               pAmyArmConfig->getDriverKspeed(),
-                               pAmyArmConfig->getDriverTolerance(),
-                               pAmyArmConfig->getDriverSpeed());        
+        oJointControl.init(pArmConfig->getDriverKaccel(),
+                               pArmConfig->getDriverKspeed(),
+                               pArmConfig->getDriverTolerance(),
+                               pArmConfig->getDriverSpeed());        
     }        
 }
 

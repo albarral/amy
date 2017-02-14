@@ -3,12 +3,12 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/config/AmyArmConfig.h"
+#include "amy/arm/config/ArmConfig.h"
 
 namespace amy
 {
 // Constructor
-AmyArmConfig::AmyArmConfig ()
+ArmConfig::ArmConfig ()
 {    
     // JointDriver modules
     brakeAccel = 30;
@@ -23,9 +23,9 @@ AmyArmConfig::AmyArmConfig ()
     tiltKeeperPID[2] = 2.0; // D            
 }
 
-std::string AmyArmConfig::toString()
+std::string ArmConfig::toString()
 {
-    std::string desc = "AmyArmConfig: [";
+    std::string desc = "ArmConfig: [";
     desc += "brakeAccel=" + std::to_string(brakeAccel); 
     desc += ", driverKaccel=" + std::to_string(driverKaccel); 
     desc += ", driverKspeed=" + std::to_string(driverKspeed); 

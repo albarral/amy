@@ -26,12 +26,12 @@ JointDriver::JointDriver()
 //{
 //}
 
-void JointDriver::init(Arm& oArm, AmyArmConfig& oAmyArmConfig)
+void JointDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
     Joint* pJoint = oArm.getJointByName(jointName);
     lowLimit = pJoint->getLowerLimit();
     highLimit = pJoint->getUpperLimit();
-    brakeAccel = oAmyArmConfig.getBrakeAccel();
+    brakeAccel = oArmConfig.getBrakeAccel();
     benabled = true;
     LOG4CXX_INFO(logger, modName << " initialized");      
     LOG4CXX_DEBUG(logger, "joint range= " << pJoint->getLowerLimit() << ", " << pJoint->getUpperLimit());

@@ -175,7 +175,7 @@ void ArmManager::initLevel(int num)
     {
         if (pModule->getLevel() == num)
         {                        
-            pModule->init(oArm, oAmyArmConfig);
+            pModule->init(oArm, oArmConfig);
             pModule->connect(oArmBus);
             pModule->setFrequency(freq);  
         }
@@ -184,7 +184,7 @@ void ArmManager::initLevel(int num)
     if (oArmPolarSensing.getLevel() == num)
     {
         // arm position module 
-        oArmPolarSensing.init(oArm, oAmyArmConfig);
+        oArmPolarSensing.init(oArm, oArmConfig);
         oArmPolarSensing.connect(oArmBus);
         oArmPolarSensing.setFrequency(freq);
     }    
@@ -192,7 +192,7 @@ void ArmManager::initLevel(int num)
     if (oPanDriver.getLevel() == num)
     {    
         // pan driver module
-        oPanDriver.init(oArm, oAmyArmConfig);
+        oPanDriver.init(oArm, oArmConfig);
         oPanDriver.connect(oArmBus);
         oPanDriver.setFrequency(freq);
     }
@@ -200,7 +200,7 @@ void ArmManager::initLevel(int num)
     if (oTiltDriver.getLevel() == num)
     {    
         // tilt driver module
-        oTiltDriver.init(oArm, oAmyArmConfig);
+        oTiltDriver.init(oArm, oArmConfig);
         oTiltDriver.connect(oArmBus);
         oTiltDriver.setFrequency(freq);
     }
@@ -208,7 +208,7 @@ void ArmManager::initLevel(int num)
     if (oRadiusDriver.getLevel() == num)
     {    
         // pan driver module
-        oRadiusDriver.init(oArm, oAmyArmConfig);
+        oRadiusDriver.init(oArm, oArmConfig);
         oRadiusDriver.connect(oArmBus);
         oRadiusDriver.setFrequency(freq);
     }
@@ -216,7 +216,7 @@ void ArmManager::initLevel(int num)
     if (oTiltKeeper.getLevel() == num)
     {
         // arm extender module
-        oTiltKeeper.init(oArm, oAmyArmConfig);
+        oTiltKeeper.init(oArm, oArmConfig);
         oTiltKeeper.connect(oArmBus);
         oTiltKeeper.setFrequency(freq);
     }    

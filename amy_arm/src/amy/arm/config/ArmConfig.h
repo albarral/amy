@@ -11,7 +11,7 @@
 namespace amy
 {
 // Parameters for amy_arm project.
-class AmyArmConfig
+class ArmConfig
 {
     private:     
         // JointDriver modules
@@ -26,7 +26,7 @@ class AmyArmConfig
         
         
     public:
-        AmyArmConfig();
+        ArmConfig();
                 
         void setBrakeAccel(int value) {brakeAccel = value;};
         int getBrakeAccel() {return brakeAccel;}

@@ -24,8 +24,11 @@ class ArmBus
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
-        // AxisRacer's
+        // ArmRacer
         ControlT<float> CO_PAN_SPEED;       // arm's pan speed
+        ControlT<float> CO_TILT_SPEED;       // arm's tilt speed
+        ControlT<float> CO_RADIAL_SPEED;   // arm's radial speed
+        ControlT<bool> CO_RACER_GO;         // arm's racer activation
         // TiltKeeper
         ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
         // AxisDrivers
@@ -63,8 +66,10 @@ class ArmBus
         // ArmMover 
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
-        // AxisRacer's
+        // ArmRacer
         ControlT<float>& getCO_PAN_SPEED() {return CO_PAN_SPEED;};        
+        ControlT<float>& getCO_TILT_SPEED() {return CO_TILT_SPEED;};        
+        ControlT<float>& getCO_RADIAL_SPEED() {return CO_RADIAL_SPEED;};        
         // TiltKeeper
         ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
         // AxisDrivers

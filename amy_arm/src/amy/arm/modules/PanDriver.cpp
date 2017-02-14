@@ -31,12 +31,12 @@ void PanDriver::connectJoints()
 void PanDriver::newMove()
 {
     // update movement params
-    if (pAmyArmConfig != 0)
+    if (pArmConfig != 0)
     {
-        oJointControl.init(pAmyArmConfig->getDriverKaccel(),
-                               pAmyArmConfig->getDriverKspeed(),
-                               pAmyArmConfig->getDriverTolerance(),
-                               pAmyArmConfig->getDriverSpeed());        
+        oJointControl.init(pArmConfig->getDriverKaccel(),
+                               pArmConfig->getDriverKspeed(),
+                               pArmConfig->getDriverTolerance(),
+                               pArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move
