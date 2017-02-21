@@ -5,12 +5,12 @@
 
 #include <cmath>
 
-#include "amy/arm/move/RadialControl.h"
-#include "JointControl.h"
+#include "amy/arm/move/RadialPositioner.h"
+#include "JointPositioner.h"
 
 namespace amy
 {
-RadialControl::RadialControl()
+RadialPositioner::RadialPositioner()
 {
     // params default
     workSign = -1; // default downside work plane
@@ -20,39 +20,39 @@ RadialControl::RadialControl()
 //{
 //}
 
-void RadialControl::setArmSize(int lenHumerus, int lenRadius)
+void RadialPositioner::setArmSize(int lenHumerus, int lenRadius)
 {
     oArmMath.setLengths(lenHumerus, lenRadius);
 };
 
-void RadialControl::workUp()
+void RadialPositioner::workUp()
 {
     workSign = 1;
 }
 
-void RadialControl::workDown()
+void RadialPositioner::workDown()
 {
     workSign = -1;
 }
 
-void RadialControl::newRadialMove(float radius)
+void RadialPositioner::newRadialMove(float radius)
 {    
     // compute target elbow angle
     float elbowAngle = oArmMath.computeElbowAngle4Radius(radius);    
     // set proper work plane
     elbowAngle = fabs(elbowAngle) * workSign;
     // and prepare for new move
-    JointControl::newMove(elbowAngle);
+    JointPositioner::newMove(elbowAngle);
 }
 
-std::string RadialControl::toString()
+std::string RadialPositioner::toString()
 {
     return "RadialControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(prevAngle) 
             + " sollSpeed=" + std::to_string(sollSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }
 
-std::string RadialControl::paramsToString()
+std::string RadialPositioner::paramsToString()
 {
     return "RadialControl params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
             + " posTolerance=" + std::to_string(posTolerance) + " maxSpeed=" + std::to_string(maxSpeed) + "]";

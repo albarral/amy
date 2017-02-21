@@ -58,10 +58,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o \
 	${OBJECTDIR}/src/amy/arm/move/ArmMath.o \
 	${OBJECTDIR}/src/amy/arm/move/ArmPolarSensor.o \
-	${OBJECTDIR}/src/amy/arm/move/JointControl.o \
-	${OBJECTDIR}/src/amy/arm/move/JointMove.o \
+	${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o \
+	${OBJECTDIR}/src/amy/arm/move/JointPositioner.o \
 	${OBJECTDIR}/src/amy/arm/move/PIDControl.o \
-	${OBJECTDIR}/src/amy/arm/move/RadialControl.o \
+	${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o \
 	${OBJECTDIR}/src/amy/arm/move/SpeedControl.o \
 	${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
@@ -212,25 +212,25 @@ ${OBJECTDIR}/src/amy/arm/move/ArmPolarSensor.o: src/amy/arm/move/ArmPolarSensor.
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/ArmPolarSensor.o src/amy/arm/move/ArmPolarSensor.cpp
 
-${OBJECTDIR}/src/amy/arm/move/JointControl.o: src/amy/arm/move/JointControl.cpp 
+${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o: src/amy/arm/move/JointAccelerator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointControl.o src/amy/arm/move/JointControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o src/amy/arm/move/JointAccelerator.cpp
 
-${OBJECTDIR}/src/amy/arm/move/JointMove.o: src/amy/arm/move/JointMove.cpp 
+${OBJECTDIR}/src/amy/arm/move/JointPositioner.o: src/amy/arm/move/JointPositioner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointMove.o src/amy/arm/move/JointMove.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointPositioner.o src/amy/arm/move/JointPositioner.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/PIDControl.o: src/amy/arm/move/PIDControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/PIDControl.o src/amy/arm/move/PIDControl.cpp
 
-${OBJECTDIR}/src/amy/arm/move/RadialControl.o: src/amy/arm/move/RadialControl.cpp 
+${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o: src/amy/arm/move/RadialPositioner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialControl.o src/amy/arm/move/RadialControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o src/amy/arm/move/RadialPositioner.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/SpeedControl.o: src/amy/arm/move/SpeedControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move

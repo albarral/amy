@@ -62,14 +62,14 @@
           <itemPath>src/amy/arm/move/ArmMath.h</itemPath>
           <itemPath>src/amy/arm/move/ArmPolarSensor.cpp</itemPath>
           <itemPath>src/amy/arm/move/ArmPolarSensor.h</itemPath>
-          <itemPath>src/amy/arm/move/JointControl.cpp</itemPath>
-          <itemPath>src/amy/arm/move/JointControl.h</itemPath>
-          <itemPath>src/amy/arm/move/JointMove.cpp</itemPath>
-          <itemPath>src/amy/arm/move/JointMove.h</itemPath>
+          <itemPath>src/amy/arm/move/JointAccelerator.cpp</itemPath>
+          <itemPath>src/amy/arm/move/JointAccelerator.h</itemPath>
+          <itemPath>src/amy/arm/move/JointPositioner.cpp</itemPath>
+          <itemPath>src/amy/arm/move/JointPositioner.h</itemPath>
           <itemPath>src/amy/arm/move/PIDControl.cpp</itemPath>
           <itemPath>src/amy/arm/move/PIDControl.h</itemPath>
-          <itemPath>src/amy/arm/move/RadialControl.cpp</itemPath>
-          <itemPath>src/amy/arm/move/RadialControl.h</itemPath>
+          <itemPath>src/amy/arm/move/RadialPositioner.cpp</itemPath>
+          <itemPath>src/amy/arm/move/RadialPositioner.h</itemPath>
           <itemPath>src/amy/arm/move/SpeedControl.cpp</itemPath>
           <itemPath>src/amy/arm/move/SpeedControl.h</itemPath>
           <itemPath>src/amy/arm/move/SpeedSensor3.cpp</itemPath>
@@ -262,21 +262,36 @@
       </item>
       <item path="src/amy/arm/move/ArmPolarSensor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointControl.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/arm/move/JointAccelerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/move/JointAccelerator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointMove.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/arm/move/JointPositioner.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointMove.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/PIDControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/move/PIDControl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/move/RadialControl.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/arm/move/RadialPositioner.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/RadialControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/move/RadialPositioner.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/arm/move/SpeedControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -429,21 +444,36 @@
       </item>
       <item path="src/amy/arm/move/ArmPolarSensor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointControl.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/arm/move/JointAccelerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/move/JointAccelerator.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointMove.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/arm/move/JointPositioner.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/JointMove.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/PIDControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/move/PIDControl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/move/RadialControl.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/arm/move/RadialPositioner.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
-      <item path="src/amy/arm/move/RadialControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/arm/move/RadialPositioner.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/arm/move/SpeedControl.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -65,7 +65,7 @@ void AxisDriver::prepareDriver()
     if (pArmConfig != 0)
     {
         // get used joint controller and initialize it
-        JointControl& oJointControl = getController();        
+        JointPositioner& oJointControl = getController();        
         oJointControl.init(pArmConfig->getDriverKaccel(),
                                pArmConfig->getDriverKspeed(),
                                pArmConfig->getDriverTolerance(),
@@ -126,7 +126,7 @@ bool AxisDriver::doMove()
     computeAxisPosition();
     
     // perform the control (compute the proper joint accel)
-    JointControl& oJointControl = getController();        
+    JointPositioner& oJointControl = getController();        
     outAccel = oJointControl.drive(istAxis);
     
     LOG4CXX_INFO(logger, oJointControl.toString());

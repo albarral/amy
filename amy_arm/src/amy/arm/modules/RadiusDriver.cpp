@@ -24,7 +24,7 @@ void RadiusDriver::prepareDriver()
     // set movement params
     AxisDriver::prepareDriver();
     
-    oRadialControl.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
+    oRadialPositioner.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
 }
 
 void RadiusDriver::connectJoints()
@@ -40,20 +40,20 @@ void RadiusDriver::newMove()
     // update movement params
     if (pArmConfig != 0)
     {
-        oRadialControl.init(pArmConfig->getDriverKaccel(),
+        oRadialPositioner.init(pArmConfig->getDriverKaccel(),
                                pArmConfig->getDriverKspeed(),
                                pArmConfig->getDriverTolerance(),
                                pArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move
-    oRadialControl.newRadialMove(targetAxis);
+    oRadialPositioner.newRadialMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
     LOG4CXX_INFO(logger, "target radius = " << targetAxis);  
     LOG4CXX_INFO(logger, "ist ELB = " << istEL);
-    LOG4CXX_INFO(logger, oRadialControl.paramsToString());      
+    LOG4CXX_INFO(logger, oRadialPositioner.paramsToString());      
 }
 
 void RadiusDriver::senseBus()

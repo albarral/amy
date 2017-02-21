@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/move/JointMove.h"
+#include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/util/JointModule.h"
 
 namespace amy
@@ -23,14 +23,16 @@ public:
     // module states
     enum eState
     {
-         eSTATE_FREE,             // brakes joint softly
-         eSTATE_MOVE            // responds to control inputs
+         eSTATE_DONE,            // nothing done
+         eSTATE_MOVE,            // moves joint at given acceleration
+         eSTATE_BRAKE             // brakes joint softly
     };
     
 private:
     static log4cxx::LoggerPtr logger;
     // logic
-    JointMove oJointMove;     // utility class used to compute the joint movement 
+    bool bfree;         // indicates no input received
+    JointAccelerator oJointAccelerator;     // utility class used to compute the joint movement 
     float angle;
     float accel;
     int lowLimit;             // lower joint angle  

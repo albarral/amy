@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/AxisDriver.h"
-#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/ArmMath.h"
 
 namespace amy
@@ -20,7 +20,7 @@ namespace amy
 class TiltDriver: public AxisDriver
 {
 private:
-    JointControl oJointControl;      // utility class to drive the VS
+    JointPositioner oJointPositioner;      // utility class to drive the VS
     ArmMath oArmMath;       // utility class for arm computations
     JointBus* pVSBus;       // bus connection to VS
     JointBus* pELBus;       // bus connection to EL
@@ -33,7 +33,7 @@ public:
 
 private:       
         // return reference to the used joint controller
-        virtual JointControl& getController() {return oJointControl;};
+        virtual JointPositioner& getController() {return oJointPositioner;};
         // prepare axis driver
         virtual void prepareDriver();
         // connect driver to specific joint

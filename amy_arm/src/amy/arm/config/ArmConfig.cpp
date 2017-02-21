@@ -14,7 +14,7 @@ ArmConfig::ArmConfig ()
     brakeAccel = 30;
     // AxisDriver modules
     driverKaccel = 4.0;
-    driverKspeed = 3.0;
+    driverKspeed = 2.0;
     driverTolerance = 0.05;    
     driverSpeed = 120.0;
     // TiltKeeper module

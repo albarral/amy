@@ -17,9 +17,9 @@
 // test arm planner
 #include "amy/arm/modules/ArmComputer.h"
 #include "amy/arm/data/MoveStep.h"
-#include "amy/arm/move/JointMove.h"
-#include "amy/arm/move/JointControl.h"
-#include "amy/arm/move/RadialControl.h"
+#include "amy/arm/move/JointAccelerator.h"
+#include "amy/arm/move/JointPositioner.h"
+#include "amy/arm/move/RadialPositioner.h"
 #include "amy/arm/move/ArmMath.h"
 
 using namespace log4cxx;
@@ -130,7 +130,7 @@ void ArmTest::testKeepTilt()
 
 void ArmTest::testJointMove()
 {
-    JointMove oMover;
+    JointAccelerator oMover;
   
     LOG4CXX_INFO(logger, "\nNew test JointMove ...\n");
     
@@ -148,8 +148,8 @@ void ArmTest::testJointMove()
 
 void ArmTest::testJointControl()
 {
-    JointMove oMover;
-    JointControl oDriver;
+    JointAccelerator oMover;
+    JointPositioner oDriver;
     float angle, accel;
   
     LOG4CXX_INFO(logger, "\nNew test JointControl ...\n");
@@ -157,7 +157,7 @@ void ArmTest::testJointControl()
     oDriver.init(4.0, 2.0, 0.05, 60.0);
     
     oDriver.newMove(180.0);    
-    while (oDriver.getState() != JointControl::eSTATE_DONE)
+    while (oDriver.getState() != JointPositioner::eSTATE_DONE)
     {
         angle = oMover.getAngle();
         accel = oDriver.drive(angle);
@@ -170,8 +170,8 @@ void ArmTest::testJointControl()
 
 void ArmTest::testRadialControl()
 {
-    JointMove oMover;
-    RadialControl oDriver;
+    JointAccelerator oMover;
+    RadialPositioner oDriver;
     float angle, accel;
   
     LOG4CXX_INFO(logger, "\nNew test RadialControl ...\n");
@@ -180,7 +180,7 @@ void ArmTest::testRadialControl()
     oDriver.setArmSize(40, 40);
     
     oDriver.newRadialMove(40);
-    while (oDriver.getState() != JointControl::eSTATE_DONE)
+    while (oDriver.getState() != JointPositioner::eSTATE_DONE)
     {
         angle = oMover.getAngle();
         accel = oDriver.drive(angle);

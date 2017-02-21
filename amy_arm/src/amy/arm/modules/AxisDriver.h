@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
@@ -71,7 +71,7 @@ public:
                       
 protected:
         // return reference to the used joint controller
-        virtual JointControl& getController() = 0;
+        virtual JointPositioner& getController() = 0;
         // connect driver to specific joints
         virtual void connectJoints() = 0;
         // prepare axis driver

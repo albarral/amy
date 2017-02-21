@@ -33,20 +33,20 @@ void PanDriver::newMove()
     // update movement params
     if (pArmConfig != 0)
     {
-        oJointControl.init(pArmConfig->getDriverKaccel(),
+        oJointPositioner.init(pArmConfig->getDriverKaccel(),
                                pArmConfig->getDriverKspeed(),
                                pArmConfig->getDriverTolerance(),
                                pArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move
-    oJointControl.newMove(targetAxis);
+    oJointPositioner.newMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
     LOG4CXX_INFO(logger, "target pan = " << targetAxis);  
     LOG4CXX_INFO(logger, "ist HS = " << istHS);
-    LOG4CXX_INFO(logger, oJointControl.paramsToString());      
+    LOG4CXX_INFO(logger, oJointPositioner.paramsToString());      
 }
 
 void PanDriver::senseBus()

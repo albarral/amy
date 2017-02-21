@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/AxisDriver.h"
-#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/JointPositioner.h"
 
 namespace amy
 {
@@ -19,7 +19,7 @@ namespace amy
 class PanDriver: public AxisDriver
 {
 private:
-    JointControl oJointControl;      // utility class to drive the horizontal shoulder
+    JointPositioner oJointPositioner;      // utility class to drive the horizontal shoulder
     JointBus* pHSBus;   // bus connection to HS
     float istHS;               // measured HS angle
 
@@ -29,7 +29,7 @@ public:
                        
 private:       
         // return reference to the used joint controller
-        virtual JointControl& getController() {return oJointControl;};
+        virtual JointPositioner& getController() {return oJointPositioner;};
         // connect driver to specific joint
         virtual void connectJoints();
         // read bus data

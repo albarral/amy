@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_JOINTMOVE_H
-#define __AMY_MOVE_JOINTMOVE_H
+#ifndef __AMY_MOVE_JOINTACCELERATOR_H
+#define __AMY_MOVE_JOINTACCELERATOR_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -17,30 +17,32 @@ namespace amy
 // A brake mode is also available, which reduces the speed until 0 is reached.
 // The brake mode works by periodically calling the brake() function instead of move().
 // The elapsed time between calls is measured and used for the movement computation.
-class JointMove
+class JointAccelerator
 {
 private:
-    float accel;               // commanded acceleration (degrees/s2)
-    float finalSpeed;       // final speed in last control period (degrees/s) 
+    float accel;                // average speed in last control period, used for the position update (degrees/s) 
     float speed;             // average speed in last control period, used for the position update (degrees/s) 
-    float angle;              // resulting joint angle (degrees)
+    float angle;              // obtained joint angle (degrees)
+    float prevAngle;        // last measured joint angle (degrees)
+    float time;                //elapsed time (secs)
     amy::Click oClick;      // clock utility
 
 public:
-    JointMove();
+    JointAccelerator();
     //~JointMove();
 
     // control inputs
-    float getAccel() {return accel;};                
     float getSpeed() {return speed;};                
     float getAngle() {return angle;};                
 
     // move the joint with the given acceleration, the joint angle is returned
-    float move(float acceleration, float istAngle);
+    float move(float istAngle, float acceleration);
     // brake the joint with the given deceleration, the joint angle is returned
-    float brake(float deceleration, float istAngle);
-    // do nothing
-    void iddle();
+    float brake(float istAngle, float deceleration);
+    // just update the accelertor with the measured joint angle
+    void touch(float istAngle);
+    // reset
+    void reset();
         
     std::string toString();
        
