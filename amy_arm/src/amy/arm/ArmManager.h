@@ -68,6 +68,8 @@ class ArmManager
        
        // give access to the arm's control interface
        ArmInterface& getArmInterface() {return oArmInterface;}
+       // give access to arm bus (only for debug purpose)
+       ArmBus& getArmBus4Debug() {return oArmBus;}
 
        friend class ArmTest;
        

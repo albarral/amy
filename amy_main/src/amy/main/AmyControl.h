@@ -13,6 +13,7 @@
 #include "amy/arm/ArmManager.h"
 #include "amy/main/AmyListener.h"
 #include "amy/main/AmyBroadcaster.h"
+#include "amy/show/ArmPlotter.h"
 
 namespace amy
 {
@@ -26,6 +27,7 @@ class AmyControl
         ArmManager oArmManager;
         AmyListener oAmyListener;               // communications module for responding to external requests
         AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
+        ArmPlotter oArmPlotter;
 
     public:
         AmyControl();

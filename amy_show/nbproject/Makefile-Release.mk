@@ -35,6 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/show/ArmPlot.o \
+	${OBJECTDIR}/src/amy/show/ArmPlotter.o \
 	${OBJECTDIR}/src/amy/show/Plot.o
 
 
@@ -61,6 +63,16 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/src/amy/show/ArmPlot.o: src/amy/show/ArmPlot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlot.o src/amy/show/ArmPlot.cpp
+
+${OBJECTDIR}/src/amy/show/ArmPlotter.o: src/amy/show/ArmPlotter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlotter.o src/amy/show/ArmPlotter.cpp
 
 ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show

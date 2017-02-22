@@ -35,6 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/show/ArmPlot.o \
+	${OBJECTDIR}/src/amy/show/ArmPlotter.o \
 	${OBJECTDIR}/src/amy/show/Plot.o
 
 
@@ -52,26 +54,42 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -lopencv_core -lopencv_highgui
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -lopencv_core -lopencv_highgui
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_core/dist/Debug/GNU-Linux/libamy_core.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_utils/dist/Debug/GNU-Linux/libamy_utils.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_arm/dist/Debug/GNU-Linux/libamy_arm.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
+${OBJECTDIR}/src/amy/show/ArmPlot.o: src/amy/show/ArmPlot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlot.o src/amy/show/ArmPlot.cpp
+
+${OBJECTDIR}/src/amy/show/ArmPlotter.o: src/amy/show/ArmPlotter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlotter.o src/amy/show/ArmPlotter.cpp
+
 ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_utils/src -I/usr/include/opencv2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -80,7 +98,9 @@ ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

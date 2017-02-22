@@ -67,7 +67,7 @@ void ArmTest::initialPosition()
     switch (step)
     {
         case 1: 
-            value = 60;
+            value = -60;
             pArmBus->getCO_ARM_PAN().request(value);            
             LOG4CXX_INFO(logger, "initialPosition: pan");
             break;
@@ -94,7 +94,7 @@ void ArmTest::testRacer()
     
   if (step == 7)
   {
-      float speed = -40.0;
+      float speed = 40.0;
       bool bwork = true;
       pArmBus->getCO_PAN_SPEED().request(speed);
       pArmBus->getCO_RACER_ACTION().request(bwork);      

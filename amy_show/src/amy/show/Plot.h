@@ -2,33 +2,41 @@
 #define __AMY_SHOW_PLOT_H
 
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "opencv2/core/core.hpp"
-#include "amy/utils/Record.h"
+#include <string>
+#include "opencv2/core/core.hpp"    // for mat
 
 namespace amy 
 {
-// This class plots a record in a window (fixed size) and shows it.
+// Base class used to plot something in a fixed size image and show it in a window.
 class Plot
 {
-private:    
-    static const int PLOT_W = 800;   // plot width (pixels)
-    static const int PLOT_H = 400;   // plot width (pixels)
-    static const int LEFT_MARGIN = 10;   // position of y axis (pixels)
-    static const int MARGIN = 10;     // margin used in both limits (pixels)  
+protected:    
+    // image
+    cv::Mat image;
+    int W;   // plot width (pixels)
+    int H;   // plot height (pixels)
+    int xaxis;     // position of x axis
+    int yaxis;     // position of y axis
+    std::string plotName;
 
 public:
-    //Plot();       
+    Plot();
+     //~Plot();
 
-    // plots the given record in a window
-    static void plotRecord(Record& oRecord, int maxRange = 100);
+    // set plot sizes and name
+    void setPlot(int w, int h, int posXaxis, int posYaxis, std::string name);
+    // show the drawn image
+    void show();
+    // hides the drawn image
+    void hide();
     
-private:    
+protected:        
     // draws the axes in the plot
-    static void drawAxes(cv::Mat image, int POS_XAXIS, float yfactor);
+    void drawAxes();
 };
 }    
 #endif

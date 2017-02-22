@@ -22,6 +22,7 @@
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
+#include "amy/show/ArmPlot.h"
 
 using namespace log4cxx;
 
@@ -152,6 +153,17 @@ void Tests::testFileWriter()
      LOG4CXX_ERROR(logger, "Test failed: unable to open file " << name);
 }
 
+void Tests::testArmPlot()
+{       
+    ArmPlot oArmPlot;
+    
+    oArmPlot.setPlot(200, 100, 20, 100, "prueba");
+    
+    oArmPlot.drawArmPosition(10, 20, 0);
+    oArmPlot.show();    
+    sleep(2);    
+    oArmPlot.hide();    
+}
 
 
 }
