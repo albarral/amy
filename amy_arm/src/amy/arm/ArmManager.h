@@ -17,7 +17,7 @@
 #include "amy/arm/modules/PanDriver.h"
 #include "amy/arm/modules/TiltDriver.h"
 #include "amy/arm/modules/RadiusDriver.h"
-#include "amy/arm/modules/ArmPolarSensing.h"
+#include "amy/arm/modules/ArmSense.h"
 #include "amy/arm/modules/JointDriver.h"
 #include "amy/arm/ArmInterface.h"
 #include "amy/arm/util/ArmModule.h"
@@ -51,7 +51,7 @@ class ArmManager
         PanDriver oPanDriver;
         TiltDriver oTiltDriver;
         RadiusDriver oRadiusDriver;
-        ArmPolarSensing oArmPolarSensing;
+        ArmSense oArmSense;
         JointDriver oJointDriver[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
         std::vector<ArmModule3*> listModules3;   // list of modules (pointers)

@@ -40,10 +40,10 @@
           <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
-          <itemPath>src/amy/arm/modules/ArmPolarSensing.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmPolarSensing.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmRacer.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmRacer.h</itemPath>
+          <itemPath>src/amy/arm/modules/ArmSense.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmSense.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.cpp</itemPath>
@@ -207,19 +207,13 @@
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmPolarSensing.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPolarSensing.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmRacer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmRacer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmSense.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -389,19 +383,13 @@
       </item>
       <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/ArmPolarSensing.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPolarSensing.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/ArmRacer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmRacer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmSense.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>

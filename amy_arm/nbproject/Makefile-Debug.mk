@@ -48,8 +48,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmRacer.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
@@ -162,15 +162,15 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o: src/amy/arm/modules/ArmPolarSensing.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPolarSensing.o src/amy/arm/modules/ArmPolarSensing.cpp
-
 ${OBJECTDIR}/src/amy/arm/modules/ArmRacer.o: src/amy/arm/modules/ArmRacer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmRacer.o src/amy/arm/modules/ArmRacer.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmSense.o: src/amy/arm/modules/ArmSense.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmSense.o src/amy/arm/modules/ArmSense.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o: src/amy/arm/modules/AxisDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

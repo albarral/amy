@@ -96,8 +96,8 @@ void ArmManager::initArchitecture()
     //oArmMover.setLevel(nivel);     
     //listModules.push_back(&oArmMover);    
     // arm polar sensing module
-    oArmPolarSensing.setLevel(nivel);
-    listModules3.push_back(&oArmPolarSensing);
+    oArmSense.setLevel(nivel);
+    listModules3.push_back(&oArmSense);
     // tilt keeper module
     oTiltKeeper.setLevel(nivel);
     listModules3.push_back(&oTiltKeeper);

@@ -16,7 +16,7 @@
 namespace amy
 {
 // Module that senses the axis positions of the arm.
-class ArmPolarSensing: public ArmModule3
+class ArmSense: public ArmModule3
 {
 public:
     // states of module
@@ -49,7 +49,7 @@ protected:
 private:
     
 public:
-        ArmPolarSensing();
+        ArmSense();
         //~ArmPolarSensing();
                 
 private:
