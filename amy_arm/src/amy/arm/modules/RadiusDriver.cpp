@@ -55,7 +55,7 @@ void RadiusDriver::setNewTarget()
 
 void RadiusDriver::senseBus()
 {
-    // get requested radius
+    // if radius requested, new move
     if (pArmBus->getCO_ARM_RADIUS().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_RADIUS().getValue();    

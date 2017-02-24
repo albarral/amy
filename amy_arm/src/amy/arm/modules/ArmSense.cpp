@@ -94,7 +94,7 @@ void ArmSense::writeBus()
     // inform speeds
     pArmBus->getSO_PAN_SPEED().setValue(speedPan);
     pArmBus->getSO_TILT_SPEED().setValue(speedTilt);
-    pArmBus->getSO_RADIUS_SPEED().setValue(speedRadius);
+    pArmBus->getSO_RADIAL_SPEED().setValue(speedRadius);
 }
 
 }

@@ -36,7 +36,7 @@ public:
     void testKeepTilt();    
 
 private:    
-    void initialPosition();
+    void setPos();
     void testRacer();
     
     void testJointMove();

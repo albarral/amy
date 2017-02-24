@@ -92,27 +92,30 @@ void ArmManager::initArchitecture()
     
     // LEVEL 2    
     nivel = 2;        
-    // arm mover module
-    //oArmMover.setLevel(nivel);     
-    //listModules.push_back(&oArmMover);    
-    // arm polar sensing module
+    
+    // arm sense module
     oArmSense.setLevel(nivel);
     listModules3.push_back(&oArmSense);
+
+    // pan / tilt / radius driver modules
+    oPanDriver.setLevel(nivel);
+    oTiltDriver.setLevel(nivel);
+    oRadiusDriver.setLevel(nivel); 
+
     // tilt keeper module
     oTiltKeeper.setLevel(nivel);
     listModules3.push_back(&oTiltKeeper);
-    // pan driver module
-    oPanDriver.setLevel(nivel);
-    // tilt driver module
-    oTiltDriver.setLevel(nivel);
-    // arm elbow module
-    oRadiusDriver.setLevel(nivel); 
 
     // LEVEL 3    
     nivel = 3;        
 
-    oArmRacer.setLevel(nivel);
-    listModules3.push_back(&oArmRacer);
+    // pan / tilt / radial racer modules
+    oPanRacer.setLevel(nivel);
+    listModules3.push_back(&oPanRacer);
+    oTiltRacer.setLevel(nivel);
+    listModules3.push_back(&oTiltRacer);
+    oRadialRacer.setLevel(nivel);
+    listModules3.push_back(&oRadialRacer);
 }
 
 void ArmManager::showArchitecture()

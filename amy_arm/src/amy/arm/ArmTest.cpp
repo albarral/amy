@@ -52,12 +52,12 @@ void ArmTest::newStep()
     LOG4CXX_INFO(logger, "step " << step);    
     
      if (step <= 5)
-         initialPosition();
+         setPos();
      else
          testRacer();            
 }
 
-void ArmTest::initialPosition()
+void ArmTest::setPos()
 {
     int value;
 
@@ -91,21 +91,23 @@ void ArmTest::testRacer()
 {
     if (!isConnected())    
         return;
+
+    float speed = 40.0;
+    switch (step)
+    {
+        case 7: 
+              pArmBus->getCO_PAN_SPEED().request(speed);
+            break;
+            
+        case 11: 
+              pArmBus->getCO_PAN_SPEED().request(-speed);
+            break;
+
+        case 15: 
+              pArmBus->getCO_PAN_SPEED().request(0);
+            break;
+    }    
     
-  if (step == 7)
-  {
-      float speed = 40.0;
-      bool bwork = true;
-      pArmBus->getCO_PAN_SPEED().request(speed);
-      pArmBus->getCO_RACER_ACTION().request(bwork);      
-      LOG4CXX_INFO(logger, "testRacer: pan speed");
-   }
-  else if (step == 15)
-  {
-      bool bwork = false;
-      pArmBus->getCO_RACER_ACTION().request(bwork);      
-      LOG4CXX_INFO(logger, "testRacer: pan speed stop");      
-  }
     
     // change pan direction every 2 steps
 //    bool beven = (fmod(step, 2) == 0.0);
@@ -156,7 +158,7 @@ void ArmTest::testJointControl()
     
     oDriver.init(4.0, 2.0, 0.05, 60.0);
     
-    oDriver.newMove(180.0);    
+    oDriver.setNewMove(180.0);    
     while (oDriver.getState() != JointPositioner::eSTATE_DONE)
     {
         angle = oMover.getAngle();

@@ -21,11 +21,11 @@ class ArmBus
         std::string armName;
         
         // CONTROLS 
+        ControlT<bool> CO_ARM_STOP;       // arm stop
         // ArmMover 
         amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
         amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
-        // ArmRacer
-        ControlT<bool> CO_RACER_ACTION;   // arm's racer activation/deactivation
+        // ArmRacers
         ControlT<float> CO_PAN_SPEED;       // arm's pan speed
         ControlT<float> CO_TILT_SPEED;       // arm's tilt speed
         ControlT<float> CO_RADIAL_SPEED;   // arm's radial speed
@@ -43,7 +43,7 @@ class ArmBus
         SensorT<float> SO_ARM_RADIUS;  // arm's real radius
         SensorT<float> SO_PAN_SPEED;         // pan speed (deg/s)
         SensorT<float> SO_TILT_SPEED;         // tilt speed (deg/s)
-        SensorT<float> SO_RADIUS_SPEED;     // radius speed (deg/s)
+        SensorT<float> SO_RADIAL_SPEED;     // radius speed (deg/s)
         
         // connections for individual joints 
         JointBus oBusHS;    // HS: horiz shoulder 
@@ -63,11 +63,11 @@ class ArmBus
         bool isEnabled() {return benabled;};
         
         // CONTROLS
+        ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};
         // ArmMover 
         amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
         amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
-        // ArmRacer
-        ControlT<bool>& getCO_RACER_ACTION() {return CO_RACER_ACTION;};
+        // ArmRacers
         ControlT<float>& getCO_PAN_SPEED() {return CO_PAN_SPEED;};        
         ControlT<float>& getCO_TILT_SPEED() {return CO_TILT_SPEED;};        
         ControlT<float>& getCO_RADIAL_SPEED() {return CO_RADIAL_SPEED;};        
@@ -77,7 +77,6 @@ class ArmBus
         ControlT<int>& getCO_ARM_PAN() {return CO_ARM_PAN;};        
         ControlT<int>& getCO_ARM_TILT() {return CO_ARM_TILT;};        
         ControlT<int>& getCO_ARM_RADIUS() {return CO_ARM_RADIUS;};        
-
         
         // SENSORS
         // ArmPolarSensing
@@ -86,7 +85,7 @@ class ArmBus
         SensorT<float>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
         SensorT<float>& getSO_PAN_SPEED() {return SO_PAN_SPEED;};
         SensorT<float>& getSO_TILT_SPEED() {return SO_TILT_SPEED;};            
-        SensorT<float>& getSO_RADIUS_SPEED() {return SO_RADIUS_SPEED;};
+        SensorT<float>& getSO_RADIAL_SPEED() {return SO_RADIAL_SPEED;};
         
         // JointDriver's CONTROLS & SENSORS
         JointBus& getBusHS() {return oBusHS;};

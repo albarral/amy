@@ -89,7 +89,7 @@ void runAmy(Robot& oRobot)
     {
         while (!oAmyControl.checkEndRequested()) 
         {
-            //oArmTest.newStep();
+            oArmTest.newStep();
             sleep(1);
         }    
 

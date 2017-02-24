@@ -71,8 +71,13 @@ float JointPositioner::drive(float istAngle)
     else
     {
         // compute joint speed
-        float time = (float)oClick.getMillis()/1000;
-        istSpeed = (istAngle - prevAngle)/time;
+        if (oClick.getMillis() != 0)
+        {
+            float time = (float)oClick.getMillis()/1000;
+            istSpeed = (istAngle - prevAngle)/time;
+        }
+        else
+            istSpeed = 0.0;
     }
     
     //store ist angle for iteration

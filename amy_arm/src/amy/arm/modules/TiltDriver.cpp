@@ -59,7 +59,7 @@ void TiltDriver::setNewTarget()
 
 void TiltDriver::senseBus()
 {
-    // get requested tilt
+    // if tilt requested, new move
     if (pArmBus->getCO_ARM_TILT().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_TILT().getValue();    

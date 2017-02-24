@@ -33,7 +33,7 @@ void TiltKeeper::first()
     pVSBus = &pArmBus->getBusVS();
     pELBus = &pArmBus->getBusEL();
     // tune PID controller
-    float* pPID = oArmConfig.getTiltKeeperPID();
+    float* pPID = oArmConfig.getPIDTiltKeeper();
     oPIDControl.init(pPID[0], pPID[1], pPID[2]);
     
     log4cxx::NDC::push(modName);   	

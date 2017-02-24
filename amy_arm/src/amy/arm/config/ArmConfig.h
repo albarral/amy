@@ -22,7 +22,9 @@ class ArmConfig
         float driverTolerance;      // position tolerance for driver movements
         float driverSpeed;      // speed used for driver movements
         // TiltKeeper module
-        float tiltKeeperPID[3];         // PID params for TiltKeeper module
+        float PIDTiltKeeper[3];         // PID params for TiltKeeper module
+        // AxisRacer modules
+        float PIDRacer[3];           // PID params for AxisRacer modules
         
         
     public:
@@ -40,7 +42,8 @@ class ArmConfig
         void setDriverSpeed(float value) {driverSpeed = value;};
         float getDriverSpeed() {return driverSpeed;};
         
-        float* getTiltKeeperPID() {return tiltKeeperPID;};
+        float* getPIDTiltKeeper() {return PIDTiltKeeper;};
+        float* getPIDRacer() {return PIDRacer;};
         
         // returns class description
         std::string toString();

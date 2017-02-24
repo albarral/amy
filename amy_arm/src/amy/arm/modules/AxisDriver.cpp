@@ -26,7 +26,6 @@ AxisDriver::AxisDriver()
     pArmBus = 0;
     pJointBus = 0;        
     priority = 2;
-    outAccel = 0;
 }
 
 //AxisDriver::~AxisDriver()
@@ -47,11 +46,9 @@ void AxisDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 
 void AxisDriver::connect(ArmBus& oArmBus)
 {
-    pArmBus = &oArmBus;
-    
-    // set connection to controlled joint (to be defined in derived modules)
-    setControlledJoint();
-    
+    pArmBus = &oArmBus;    
+    // connect to controlled joint (defined in derived modules)
+    setControlledJoint();    
     if (pJointBus != 0)
     {
         bconnected = true;   
@@ -98,6 +95,7 @@ void AxisDriver::loop()
         case eSTATE_NEWMOVE:
             // new move requested -> update target & go to DRIVE
             setNewTarget();        
+            outAccel = 0.0;
             setState(eSTATE_DRIVE);
             break;
 

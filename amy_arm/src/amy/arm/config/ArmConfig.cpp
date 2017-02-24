@@ -17,10 +17,14 @@ ArmConfig::ArmConfig ()
     driverKspeed = 2.0;
     driverTolerance = 0.05;    
     driverSpeed = 120.0;
-    // TiltKeeper module
-    tiltKeeperPID[0] = 4.0; // P
-    tiltKeeperPID[1] = 0.0; // I   
-    tiltKeeperPID[2] = 2.0; // D            
+    // PID constants for TiltKeeper module
+    PIDTiltKeeper[0] = 4.0; // P
+    PIDTiltKeeper[1] = 0.0; // I   
+    PIDTiltKeeper[2] = 2.0; // D        
+    // PID constants for Racer module
+    PIDRacer[0] = 4.0; // P
+    PIDRacer[1] = 0.0; // I   
+    PIDRacer[2] = 2.0; // D        
 }
 
 std::string ArmConfig::toString()

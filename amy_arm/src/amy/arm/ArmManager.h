@@ -12,7 +12,9 @@
 
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
-#include "amy/arm/modules/ArmRacer.h"
+#include "amy/arm/modules/PanRacer.h"
+#include "amy/arm/modules/TiltRacer.h"
+#include "amy/arm/modules/RadialRacer.h"
 #include "amy/arm/modules/TiltKeeper.h"
 #include "amy/arm/modules/PanDriver.h"
 #include "amy/arm/modules/TiltDriver.h"
@@ -45,13 +47,17 @@ class ArmManager
         ArmInterface oArmInterface;     // interface for external arm control
         int topLevel; // allow activation of modules until this level
         // modules ...
-        //ArmMover oArmMover;
-        ArmRacer oArmRacer;
+        // level 3
+        PanRacer oPanRacer;
+        TiltRacer oTiltRacer;
+        RadialRacer oRadialRacer;
+        // level 2
         TiltKeeper oTiltKeeper;
         PanDriver oPanDriver;
         TiltDriver oTiltDriver;
         RadiusDriver oRadiusDriver;
         ArmSense oArmSense;
+        // level 1
         JointDriver oJointDriver[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
         std::vector<ArmModule3*> listModules3;   // list of modules (pointers)

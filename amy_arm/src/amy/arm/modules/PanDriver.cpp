@@ -48,7 +48,7 @@ void PanDriver::setNewTarget()
 
 void PanDriver::senseBus()
 {
-    // get requested pan
+    // if pan requested, new move
     if (pArmBus->getCO_ARM_PAN().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_PAN().getValue();  

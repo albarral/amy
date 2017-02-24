@@ -49,7 +49,7 @@ protected:
     // control 
     float targetAxis;           // requested axis position
     float istAxis;                 // measured axis position
-    int jointLimit;                 // value indicating the controlled joint is blocked (due to a reached joint limit)   
+    int jointLimit;                 // value indicating the controlled joint is blocked (due to reached limit)   
     // output
     float outAccel;              // commanded joint acceleration 
     int priority;                   // module's priority in control commands
@@ -80,14 +80,14 @@ protected:
         virtual void setNewTarget() = 0;
         // computes the axis position
         virtual void computeAxisPosition() = 0;
-        // write info (control & sensory) to bus
-        virtual void writeBus();
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
+        // write info (control & sensory) to bus
+        virtual void writeBus();
         // perform movement. Return false if movement done
         bool doMove();                                                
         // check if controlled joint is blocked (due to reached range limit)
