@@ -34,7 +34,7 @@ void JointPositioner::init(float kaccel, float kspeed, float posTolerance, float
     this->maxSpeed = fabs(maxSpeed);    // assure absolute value
 };
 
-void JointPositioner::newMove(float angle)
+void JointPositioner::setNewMove(float angle)
 {
     targetAngle = angle;
     // new move requested

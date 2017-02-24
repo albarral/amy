@@ -32,7 +32,7 @@ void RadiusDriver::setControlledJoint()
     pJointBus = &pArmBus->getBusEL();
 }
        
-void RadiusDriver::newMove()
+void RadiusDriver::setNewTarget()
 {
     // update movement params
     if (pArmConfig != 0)

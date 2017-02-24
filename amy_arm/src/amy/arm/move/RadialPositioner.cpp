@@ -42,7 +42,7 @@ void RadialPositioner::newRadialMove(float radius)
     // set proper work plane
     elbowAngle = fabs(elbowAngle) * workSign;
     // and prepare for new move
-    JointPositioner::newMove(elbowAngle);
+    JointPositioner::setNewMove(elbowAngle);
 }
 
 std::string RadialPositioner::toString()

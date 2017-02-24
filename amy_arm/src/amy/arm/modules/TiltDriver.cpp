@@ -35,7 +35,7 @@ void TiltDriver::setControlledJoint()
     pELBus = &pArmBus->getBusEL();
 }
        
-void TiltDriver::newMove()
+void TiltDriver::setNewTarget()
 {
     // update movement params
     if (pArmConfig != 0)
@@ -47,7 +47,7 @@ void TiltDriver::newMove()
     }
         
     // prepare for new move
-    oJointPositioner.newMove(targetAxis);
+    oJointPositioner.setNewMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  

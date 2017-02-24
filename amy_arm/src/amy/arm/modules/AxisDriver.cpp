@@ -97,7 +97,7 @@ void AxisDriver::loop()
     {
         case eSTATE_NEWMOVE:
             // new move requested -> update target & go to DRIVE
-            newMove();        
+            setNewTarget();        
             setState(eSTATE_DRIVE);
             break;
 
@@ -128,13 +128,13 @@ bool AxisDriver::doMove()
     computeAxisPosition();
     
     // perform the control (compute the proper joint accel)
-    JointPositioner& oJointControl = getController();        
-    outAccel = oJointControl.drive(istAxis);
+    JointPositioner& oJointPositioner = getController();        
+    outAccel = oJointPositioner.drive(istAxis);
     
-    LOG4CXX_INFO(logger, oJointControl.toString());
+    LOG4CXX_INFO(logger, oJointPositioner.toString());
     
     // check if movement finished 
-    if (oJointControl.isMovementDone())
+    if (oJointPositioner.isMovementDone())
         return false;
     else
         return true;

@@ -53,8 +53,6 @@ protected:
     // output
     float outAccel;              // commanded joint acceleration 
     int priority;                   // module's priority in control commands
-
-private:
     
 public:
         AxisDriver();
@@ -78,8 +76,8 @@ protected:
         virtual void prepareDriver();
         // read bus data
         virtual void senseBus() = 0;
-        // prepare movement
-        virtual void newMove() = 0;
+        // set target for new movement
+        virtual void setNewTarget() = 0;
         // computes the axis position
         virtual void computeAxisPosition() = 0;
         // write info (control & sensory) to bus

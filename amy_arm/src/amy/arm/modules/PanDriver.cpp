@@ -25,7 +25,7 @@ void PanDriver::setControlledJoint()
     pJointBus = &pArmBus->getBusHS();
 }
        
-void PanDriver::newMove()
+void PanDriver::setNewTarget()
 {
     // update movement params
     if (pArmConfig != 0)
@@ -37,7 +37,7 @@ void PanDriver::newMove()
     }
         
     // prepare for new move
-    oJointPositioner.newMove(targetAxis);
+    oJointPositioner.setNewMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
