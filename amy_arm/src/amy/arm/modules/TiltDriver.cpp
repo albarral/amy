@@ -12,7 +12,6 @@ namespace amy
 TiltDriver::TiltDriver()
 {
     modName = "TiltDriver";    
-    pVSBus = 0;
     pELBus = 0;
 }
 
@@ -28,13 +27,11 @@ void TiltDriver::prepareDriver()
     oArmMath.setLengths(pArm->getLenHumerus(), pArm->getLenRadius());
 }
 
-void TiltDriver::connectJoints()
+void TiltDriver::setControlledJoint()
 {
-    // connect output to VS joint 
-    pOutBus = &pArmBus->getBusVS();
-    // connect input 1 to VS joint 
-    pVSBus = &pArmBus->getBusVS();
-    // connect input 2 to EL joint 
+     // controlled joint is VS
+    pJointBus = &pArmBus->getBusVS();
+    // use EL joint for axis position computation
     pELBus = &pArmBus->getBusEL();
 }
        
@@ -69,17 +66,17 @@ void TiltDriver::senseBus()
         setState(eSTATE_NEWMOVE);    
     }
 
-    // sense VS and EL angles (soll value used here)
-    istVS = pVSBus->getCO_JOINT_ANGLE().getValue();
-    istEL = pELBus->getCO_JOINT_ANGLE().getValue();
-
+    // sense VS angle (soll value used here)
+    istVS = pJointBus->getCO_JOINT_ANGLE().getValue();
     // sense reached VS limits
-    jointLimit = pOutBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    // sense EL angle for axis pos computation (soll value used here)
+    istEL = pELBus->getCO_JOINT_ANGLE().getValue();
 }
 
 void TiltDriver::computeAxisPosition()
 {
-    // compute present tilt axis angle
+    // tilt position = function of VS and EL positions
     istAxis = oArmMath.computeTilt4JointAngles(istVS, istEL);
 }
 

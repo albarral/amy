@@ -20,7 +20,6 @@ class RadiusDriver: public AxisDriver
 {
 private:
     RadialPositioner oRadialPositioner;      // utility class to drive the ELB
-    JointBus* pELBus;       // bus connection to EL
     float istEL;               // measured EL angle
 
 public:
@@ -34,7 +33,7 @@ private:
         // prepare axis driver
         virtual void prepareDriver();
         // connect driver to specific joint
-        virtual void connectJoints();
+        virtual void setControlledJoint();
         // read bus data
         virtual void senseBus();
         // prepare movement

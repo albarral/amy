@@ -20,7 +20,6 @@ class PanDriver: public AxisDriver
 {
 private:
     JointPositioner oJointPositioner;      // utility class to drive the horizontal shoulder
-    JointBus* pHSBus;   // bus connection to HS
     float istHS;               // measured HS angle
 
 public:
@@ -31,7 +30,7 @@ private:
         // return reference to the used joint controller
         virtual JointPositioner& getController() {return oJointPositioner;};
         // connect driver to specific joint
-        virtual void connectJoints();
+        virtual void setControlledJoint();
         // read bus data
         virtual void senseBus();
         // prepare movement

@@ -22,8 +22,7 @@ class TiltDriver: public AxisDriver
 private:
     JointPositioner oJointPositioner;      // utility class to drive the VS
     ArmMath oArmMath;       // utility class for arm computations
-    JointBus* pVSBus;       // bus connection to VS
-    JointBus* pELBus;       // bus connection to EL
+    JointBus* pELBus;       // additional bus connection to EL (for axis position computation)
     float istVS;               // measured VS angle
     float istEL;               // measured EL angle
 
@@ -37,7 +36,7 @@ private:
         // prepare axis driver
         virtual void prepareDriver();
         // connect driver to specific joint
-        virtual void connectJoints();
+        virtual void setControlledJoint();
         // read bus data
         virtual void senseBus();
         // prepare movement

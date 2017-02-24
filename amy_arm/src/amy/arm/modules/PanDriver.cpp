@@ -12,7 +12,6 @@ namespace amy
 PanDriver::PanDriver()
 {
     modName = "PanDriver";   
-    pHSBus = 0;
 }
 
 //PanDriver::~PanDriver()
@@ -20,12 +19,10 @@ PanDriver::PanDriver()
 //}
 
 
-void PanDriver::connectJoints()
+void PanDriver::setControlledJoint()
 {
-    // connect output to HS joint 
-    pOutBus = &pArmBus->getBusHS();
-    // connect input to HS joint 
-    pHSBus = &pArmBus->getBusHS();
+    // controlled joint is HS
+    pJointBus = &pArmBus->getBusHS();
 }
        
 void PanDriver::newMove()
@@ -59,14 +56,13 @@ void PanDriver::senseBus()
     }
 
     // sense HS angle (soll value used here)
-    istHS = pHSBus->getCO_JOINT_ANGLE().getValue();
-    
+    istHS = pJointBus->getCO_JOINT_ANGLE().getValue();    
     // sense reached HS limits
-    jointLimit = pOutBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
 void PanDriver::computeAxisPosition()
 {
-    istAxis = istHS;    // the axis is directly the joint
+    istAxis = istHS;    // pan position = HS position
 }
 }

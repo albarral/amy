@@ -45,7 +45,7 @@ protected:
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // access to arm bus
-    JointBus* pOutBus;   // bus connection to controlled joint
+    JointBus* pJointBus;   // bus connection to controlled joint
     // control 
     float targetAxis;           // requested axis position
     float istAxis;                 // measured axis position
@@ -73,7 +73,7 @@ protected:
         // return reference to the used joint controller
         virtual JointPositioner& getController() = 0;
         // connect driver to specific joints
-        virtual void connectJoints() = 0;
+        virtual void setControlledJoint() = 0;
         // prepare axis driver
         virtual void prepareDriver();
         // read bus data
