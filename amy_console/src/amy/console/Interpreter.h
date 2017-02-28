@@ -16,22 +16,10 @@ namespace amy
 // This class interprets user entered commands and converts them into proper client commands for amy.
 class Interpreter 
 {
-private:
-    /*! interpreter states */        
-    enum eStates
-    {
-         eSTATE_CHECK_FIRST,              /*! checking: first part (action) */
-         eSTATE_CHECK_SECOND,          /*! checking: second part (value) */
-         eSTATE_KO_UNKNOWN,              /*! check ko: unknown command */
-         eSTATE_KO_INCOMPLETE,          /*! check ko: incomplete command */
-         eSTATE_KO_INVALID,                 /*! check ko: invalid command */
-         eSTATE_OK_VALID,                    /*! check ok: valid command */
-    };
-
+public:
     /*! command identifiers */
     enum eCommands
     {
-         eCMD_INVALID,                      /*! invalid command */
          // joint positions 
          eCMD_MOVE_HS,                      /*! move horizontal shoulder */
          eCMD_MOVE_VS,                      /*! move vertical shoulder */
@@ -51,6 +39,19 @@ private:
          eCMD_ARM_STOP,                 /*! stop arm */
          eCMD_AMY_END                     /*! end amy */                    
     };
+    
+private:
+    /*! interpreter states */        
+    enum eStates
+    {
+         eSTATE_CHECK_FIRST,              /*! checking: first part (action) */
+         eSTATE_CHECK_SECOND,          /*! checking: second part (value) */
+         eSTATE_KO_UNKNOWN,              /*! check ko: unknown command */
+         eSTATE_KO_INCOMPLETE,          /*! check ko: incomplete command */
+         eSTATE_KO_INVALID,                 /*! check ko: invalid command */
+         eSTATE_OK_VALID,                    /*! check ok: valid command */
+    };
+
     int state;           // interpreter state (one of eStates)
     int action;         // command code
     float value;        // command value (mandatory for complex commands)

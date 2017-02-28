@@ -3,22 +3,29 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include<iostream>
+#include <cstdlib>  // for getenv
 #include <string>
 
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
 #include "amy/console/Interpreter.h"
+#include "amy/console/AmyConnector.h"
 
+// shows usage of amy2
 void showUsage();
+// obtains user's home path
+std::string getHomePath();
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.console"));
 
-// main program
+// main program of amy2
 int main(int argc, char** argv) 
 {       
-    log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
+    std::string home = getHomePath();
+    std::string configFile = home + "/.amy/log4cxx_config_console.xml";
+    log4cxx::xml::DOMConfigurator::configure(configFile);
+    //log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
     
     // command with wrong number of params, show usage
     if (argc == 1 || argc > 3)
@@ -34,14 +41,22 @@ int main(int argc, char** argv)
         if (argc == 3)
            param2 = argv[2];
            
-        // interpret command
         amy::Interpreter oInterpreter;
-        oInterpreter.checkCommand(param1, param2);
+        amy::AmyConnector oConnector;
         
+        // interpret command
+        oInterpreter.checkCommand(param1, param2);
+        // if valid, send it to amy
         if (oInterpreter.isValidCommand())
         {
-            LOG4CXX_INFO(logger, "ok: " << oInterpreter.getAction());            
+            oConnector.connect2Amy();
+            bool bsent = oConnector.sendCommand(oInterpreter.getAction(), oInterpreter.getValue());
+            if (!bsent)
+            {
+                LOG4CXX_WARN(logger, "send failed");
+            }
         }
+        // otherwise show why command is invalid
         else
         {
             std::string result = oInterpreter.getResult();
@@ -61,3 +76,16 @@ void showUsage()
     LOG4CXX_INFO(logger, "\nThe available actions are:\n" << description);
 }
 
+std::string getHomePath()
+{    
+    // obtain value of HOME environment variable
+    char* pVar = getenv("HOME");    
+    if (pVar!=NULL)
+    {
+        // transform it in a string
+        std::string home(pVar);
+        return home;
+    }
+    else
+        return "";
+}

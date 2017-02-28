@@ -9,8 +9,8 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=amyc
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/amyc
+CND_ARTIFACT_NAME_Debug=amy2
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/amy2
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
 CND_PACKAGE_NAME_Debug=amyconsole.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/amyconsole.tar

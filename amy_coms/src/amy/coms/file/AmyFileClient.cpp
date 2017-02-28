@@ -36,10 +36,10 @@ void AmyFileClient::sendCommand()
         // overwriting any previous command
         oFileWriter.writeFromTop();
         oFileWriter.writeFlush(output);
-        LOG4CXX_INFO(logger, "AmyFileClient: command > " << output);        
+        LOG4CXX_INFO(logger, "AmyFileClient: command sent");        
     }
     else
-        LOG4CXX_ERROR(logger, "AmyFileClient: send command failed, coms file not open");                
+        LOG4CXX_ERROR(logger, "AmyFileClient: send failed! coms file not open");                
 }
 
 

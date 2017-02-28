@@ -13,6 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="console" displayName="console" projectFiles="true">
+        <itemPath>src/amy/console/AmyConnector.cpp</itemPath>
+        <itemPath>src/amy/console/AmyConnector.h</itemPath>
         <itemPath>src/amy/console/Interpreter.cpp</itemPath>
         <itemPath>src/amy/console/Interpreter.h</itemPath>
         <itemPath>src/amy/console/UserCommand.cpp</itemPath>
@@ -48,15 +50,45 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
+            <pElem>../amy_coms/src</pElem>
+            <pElem>../amy_utils/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amyc</output>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2</output>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_coms"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_coms"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_utils"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_utils"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/amy/console/AmyConnector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/console/AmyConnector.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/console/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/console/Interpreter.h" ex="false" tool="3" flavor2="0">
@@ -88,6 +120,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/console/AmyConnector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/console/AmyConnector.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/console/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/console/Interpreter.h" ex="false" tool="3" flavor2="0">

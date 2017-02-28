@@ -66,5 +66,9 @@ void AmyClient::endAmy()
         sendCommand();        
 }
 
-
+void AmyClient::undefinedCommand()
+{
+    // nothing done
+    // dummy method for to do commands
+}
 }
