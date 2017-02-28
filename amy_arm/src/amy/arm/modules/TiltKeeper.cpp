@@ -16,7 +16,8 @@ LoggerPtr TiltKeeper::logger(Logger::getLogger("amy.arm"));
 TiltKeeper::TiltKeeper()
 {
     modName = "TiltKeeper";
-    priority = 1;
+    // control priority
+    priority = oArmConfig.getPriority4TiltKeeper();
     pVSBus = 0;
     pELBus = 0;
 }

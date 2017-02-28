@@ -16,7 +16,8 @@ LoggerPtr AxisRacer::logger(Logger::getLogger("amy.arm"));
 AxisRacer::AxisRacer()
 {
     modName = "AxisRacer";
-    priority = 3;
+    // control priority
+    priority = oArmConfig.getPriority4AxisRacers();
 }
 
 void AxisRacer::showInitialized()

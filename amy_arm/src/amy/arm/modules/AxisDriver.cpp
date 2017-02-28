@@ -25,7 +25,6 @@ AxisDriver::AxisDriver()
     bconnected = false;
     pArmBus = 0;
     pJointBus = 0;        
-    priority = 2;
 }
 
 //AxisDriver::~AxisDriver()
@@ -36,6 +35,8 @@ void AxisDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
     pArmConfig = &oArmConfig;      
     pArm = &oArm;
+    // control priority
+    priority = pArmConfig->getPriority4AxisDrivers();
     // set specific preparation (in derived class)
     prepareDriver();
     benabled = true;

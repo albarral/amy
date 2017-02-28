@@ -25,6 +25,11 @@ ArmConfig::ArmConfig ()
     PIDRacer[0] = 4.0; // P
     PIDRacer[1] = 0.0; // I   
     PIDRacer[2] = 2.0; // D        
+    
+    // control priorities
+    priority4TiltKeeper = 1;
+    priority4AxisDrivers = 2;
+    priority4AxisRacers = 3;
 }
 
 std::string ArmConfig::toString()
