@@ -12,16 +12,24 @@ namespace amy
 class iAmyComs
 {    
 public:
-    // arm control
+    // axis speeds
+    virtual void panSpeed(float value) = 0;
+    virtual void tiltSpeed(float value) = 0;
+    virtual void radialSpeed(float value) = 0;
+    virtual void keepTilt(int value) = 0;    
+        
+    // axis positions   
     virtual void movePan(float value) = 0;
     virtual void moveTilt(float value) = 0;
     virtual void moveRadius(float value) = 0;
-    // joint control
+
+    // joint positions
     virtual void setPosHS(float value) = 0;
     virtual void setPosVS(float value) = 0;
     virtual void setPosELB(float value) = 0;
     virtual void setPosHW(float value) = 0;
     virtual void setPosVW(float value) = 0;
+    
     // process control
     virtual void endAmy() = 0;
 };

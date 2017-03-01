@@ -26,6 +26,12 @@ public:
 
     AmyCommand& getAmyCommand() {return oAmyCommand;};
 
+    // axis speeds        
+    virtual void panSpeed(float value);
+    virtual void tiltSpeed(float value);
+    virtual void radialSpeed(float value);
+    virtual void keepTilt(int value);    
+
     // axis positions   
     virtual void movePan(float value);
     virtual void moveTilt(float value);
@@ -38,7 +44,7 @@ public:
     virtual void setPosHW(float value);
     virtual void setPosVW(float value);
     
-    // arm commands   
+    // amy commands   
     virtual void endAmy();
     
     // dummy method for to do commands

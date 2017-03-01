@@ -16,7 +16,17 @@ public:
     // check if it's enabled
     virtual bool isEnabled() = 0;
 
-    // HIGH LEVEL CONTROL
+    // AXIS SPEEDS
+    // change pan speed
+    virtual void panSpeed(float value) = 0;
+    // change tilt speed
+    virtual void tiltSpeed(float value) = 0;
+    // change radial speed
+    virtual void radialSpeed(float value) = 0;
+    // keep arm tilt
+    virtual void keepTilt(int value) = 0;
+    
+    // AXIS POSITIONS
     // change arm pan
     virtual void movePan(float angle) = 0;
     // change arm tilt
@@ -24,7 +34,7 @@ public:
     // extend arm
     virtual void extend(float value) = 0;
 
-    // LOW LEVEL CONTROL    
+    // JOINT POSITIONS
     // set HS position
     virtual void moveHS(float angle) = 0;
     // set VS position
@@ -37,6 +47,7 @@ public:
     virtual void moveVW(float angle) = 0;
 
     /*
+    // JOINT ACCELERATIONS
     // set HS acceleration (degrees/s²)
     virtual void accelHS(float accel) = 0;
     // set VS acceleration (degrees/s²)
@@ -49,7 +60,7 @@ public:
     virtual void accelVW(float accel) = 0;
      */ 
     
-    // LOW LEVEL OUTPUTS    
+    // JOINT OUTPUTS    
     // get HS control angle
     virtual float getHSControl() = 0;
     // get VS control angle

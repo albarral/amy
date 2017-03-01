@@ -23,54 +23,73 @@ void AmyServer::connect2Arm(iArmInterface& oArmInterface)
     bconnected = true;
 }
 
+    // AXIS SPEEDS
+void AmyServer::panSpeed(float value)
+{
+    if (bconnected)
+        pArmInterface->panSpeed(value);
+}
+void AmyServer::tiltSpeed(float value)
+{
+    if (bconnected)
+        pArmInterface->tiltSpeed(value);
+}
+void AmyServer::radialSpeed(float value)
+{
+    if (bconnected)
+        pArmInterface->radialSpeed(value);
+}
+void AmyServer::keepTilt(int value)
+{
+    if (bconnected)
+        pArmInterface->keepTilt(value);
+}
+
+    // AXIS POSITIONS    
 void AmyServer::movePan(float value)
 {    
     if (bconnected)
         pArmInterface->movePan(value);
 }
-
 void AmyServer::moveTilt(float value)
 {
     if (bconnected)
         pArmInterface->moveTilt(value);
 }
-
 void AmyServer::moveRadius(float value)
 {
     if (bconnected)
         pArmInterface->extend(value);
 }
 
+    // JOINT POSITIONS
 void AmyServer::setPosHS(float value)
 {
     if (bconnected)
         pArmInterface->moveHS(value);    
 }
-
 void AmyServer::setPosVS(float value)
 {
     if (bconnected)
         pArmInterface->moveVS(value);    
 }
-
 void AmyServer::setPosELB(float value)
 {
     if (bconnected)
         pArmInterface->moveEL(value);    
 }
-
 void AmyServer::setPosHW(float value)
 {
     if (bconnected)
         pArmInterface->moveHW(value);    
 }
-
 void AmyServer::setPosVW(float value)
 {
     if (bconnected)
         pArmInterface->moveVW(value);    
 }
 
+// AMY COMMANDS
 void AmyServer::endAmy()
 {
     bamyEndRequested = true;    
@@ -80,7 +99,7 @@ void AmyServer::toDoCommand(float value)
 {
     // nothing done
     // dummy method for to do commands
-    LOG4CXX_INFO(logger, "> to do command ");                        
+    LOG4CXX_INFO(logger, "> to do");                        
 }
  
 bool AmyServer::checkCommand(std::string text)
@@ -181,17 +200,17 @@ bool AmyServer::processAxisCommand()
 
         case AmyCommand::eAXIS_PAN_SPEED:
             LOG4CXX_INFO(logger, "> pan speed " << value);                        
-            toDoCommand(value);
+            panSpeed(value);
             break;
             
         case AmyCommand::eAXIS_TILT_SPEED:
             LOG4CXX_INFO(logger, "> tilt speed " << value);                        
-            toDoCommand(value);
+            tiltSpeed(value);
             break;
 
         case AmyCommand::eAXIS_RAD_SPEED:
             LOG4CXX_INFO(logger, "> rad speed " << value);                        
-            toDoCommand(value);
+            radialSpeed(value);
             break;
             
         default:
@@ -216,7 +235,7 @@ bool AmyServer::processArmCommand()
             
         case AmyCommand::eARM_KEEP_TILT:
             LOG4CXX_INFO(logger, "> keep tilt " << value);                        
-            toDoCommand(value);
+            keepTilt((int)value);
             break;
             
         default:
