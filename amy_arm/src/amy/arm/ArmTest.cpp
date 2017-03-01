@@ -99,12 +99,13 @@ void ArmTest::testRacer()
               pArmBus->getCO_PAN_SPEED().request(speed);
             break;
             
-        case 11: 
-              pArmBus->getCO_PAN_SPEED().request(-speed);
+        case 9: 
+              pArmBus->getCO_TILT_SPEED().request(-speed);
             break;
 
-        case 15: 
+        case 1: 
               pArmBus->getCO_PAN_SPEED().request(0);
+              pArmBus->getCO_TILT_SPEED().request(0);
             break;
     }    
     

@@ -6,7 +6,11 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+#include <log4cxx/logger.h>
+
 #include "amy/coms/iAmyComs.h"
+#include "amy/coms/data/AmyCommand.h"
 #include "amy/core/ifaces/iArmInterface.h"
 
 namespace amy
@@ -17,9 +21,12 @@ namespace amy
 class AmyServer : public iAmyComs
 {    
 protected:
+    static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
     iArmInterface* pArmInterface;   // interface for arm control
     bool bamyEndRequested;  // flag indicating amy has to end
+    AmyCommand oAmyCommand;     // class used to interpret the request      
+    bool bvalid;        // indication of valid request
         
 public:
     AmyServer();
@@ -38,7 +45,27 @@ public:
     virtual void setPosVW(float value);
     
     virtual void endAmy();
+    
+    // dummy method for to do commands
+    virtual void toDoCommand(float value);
+
     bool isAmyEndRequested() {return bamyEndRequested;};
+         
+    // interprets textual command. returns whether valid or not
+    bool checkCommand(std::string text);
+   // transforms command into proper call to arm interface
+    bool processCommand();
+ 
+private:
+    // process command of joint category
+    bool processJointCommand();
+    // process command of axis category
+    bool processAxisCommand();
+    // process command of arm category
+    bool processArmCommand();
+    // process command of amy category
+    bool processAmyCommand();
+
 };
 }
 #endif

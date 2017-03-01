@@ -42,7 +42,7 @@ public:
     virtual void endAmy();
     
     // dummy method for to do commands
-    virtual void undefinedCommand();
+    virtual void toDoCommand();
     
 protected:
     // command sending method specific for each AmyClient implementation

@@ -36,7 +36,9 @@ void AmyListener::loop()
     // listen to user commands
     if (oAmyFileServer.readCommand())
     {
-        if (oAmyFileServer.isValid())
+        // if something received, interpret it and process it
+        std::string text = oAmyFileServer.getText();
+        if (oAmyFileServer.checkCommand(text))
         {
             oAmyFileServer.processCommand();
         }

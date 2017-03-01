@@ -44,13 +44,13 @@ bool AmyConnector::sendCommand(int action, float value)
     {
         // axis speeds
         case Interpreter::eCMD_PAN_SPEED:
-            pAmyClient->undefinedCommand();
+            pAmyClient->toDoCommand();
             break;
         case Interpreter::eCMD_TILT_SPEED:
-            pAmyClient->undefinedCommand();
+            pAmyClient->toDoCommand();
             break;
         case Interpreter::eCMD_RADIAL_SPEED:
-            pAmyClient->undefinedCommand();
+            pAmyClient->toDoCommand();
             break;
         
         // axis positions
@@ -64,7 +64,7 @@ bool AmyConnector::sendCommand(int action, float value)
             pAmyClient->moveRadius(value);
             break;
         case Interpreter::eCMD_KEEP_TILT:
-            pAmyClient->undefinedCommand();
+            pAmyClient->toDoCommand();
             break;
 
         // joint positions
@@ -89,7 +89,7 @@ bool AmyConnector::sendCommand(int action, float value)
             pAmyClient->endAmy();
             break;
         case Interpreter::eCMD_ARM_STOP:
-            pAmyClient->undefinedCommand();
+            pAmyClient->toDoCommand();
             break;
             
         default:

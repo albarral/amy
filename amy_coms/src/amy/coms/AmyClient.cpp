@@ -11,62 +11,79 @@ namespace amy
 AmyClient::AmyClient()
 {    
 }
-
 void AmyClient::movePan(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_PAN, value))
+    int category = AmyCommand::eCAT_AXIS_CMD;
+    int action = AmyCommand::eAXIS_PAN_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();    
 }
 
 void AmyClient::moveTilt(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_TILT, value))
+    int category = AmyCommand::eCAT_AXIS_CMD;
+    int action = AmyCommand::eAXIS_TILT_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();    
 }
 
 void AmyClient::moveRadius(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_RADIUS, value))
+    int category = AmyCommand::eCAT_AXIS_CMD;
+    int action = AmyCommand::eAXIS_RAD_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();    
 }
 
 void AmyClient::setPosHS(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_HSHOULDER, value))
+    int category = AmyCommand::eCAT_JOINT_CMD;
+    int action = AmyCommand::eJOINT_HS_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();        
 }
 
 void AmyClient::setPosVS(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_VSHOULDER, value))
+    int category = AmyCommand::eCAT_JOINT_CMD;
+    int action = AmyCommand::eJOINT_VS_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();            
 }
 
 void AmyClient::setPosELB(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_ELBOW, value))
+    int category = AmyCommand::eCAT_JOINT_CMD;
+    int action = AmyCommand::eJOINT_ELB_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();            
 }
 
 void AmyClient::setPosHW(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_HWRIST, value))
+    int category = AmyCommand::eCAT_JOINT_CMD;
+    int action = AmyCommand::eJOINT_HWRI_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();        
 }
 
 void AmyClient::setPosVW(float value)
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_VWRIST, value))
+    int category = AmyCommand::eCAT_JOINT_CMD;
+    int action = AmyCommand::eJOINT_VWRI_POS;
+    if (oAmyCommand.buildCommand(category, action, value))
         sendCommand();            
 }
 
 void AmyClient::endAmy()
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_END_AMY, AmyCommand::eTAR_PROGRAM))
+    int category = AmyCommand::eCAT_AMY_CMD;
+    int action = AmyCommand::eAMY_END;
+    if (oAmyCommand.buildCommand(category, action))
         sendCommand();        
 }
 
-void AmyClient::undefinedCommand()
+void AmyClient::toDoCommand()
 {
     // nothing done
     // dummy method for to do commands

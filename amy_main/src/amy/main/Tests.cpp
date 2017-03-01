@@ -54,46 +54,6 @@ void Tests::testAmyPublisher()
     LOG4CXX_INFO(logger, "TEST FINISHED");          
 }
 
-void Tests::testAmyServer()
-{
-    LOG4CXX_INFO(logger, "> TEST AMY SERVER");      
-
-    // load robot
-    SupportedRobots oSupportedRobots;
-    Robot oRobot;
-    oSupportedRobots.loadRobotVersion(oRobot, SupportedRobots::UR5);
-    // prepare bus
-    ArmBus oArmBus;
-    Arm& oArm = oRobot.getListArms().at(0);        
-    oArmBus.init(oArm);
-    // prepare interface
-    ArmInterface oArmInterface;
-    oArmInterface.connect(oArmBus);
-    // prepare server
-    AmyFileServer oAmyFileServer;
-    oAmyFileServer.connect2Arm(oArmInterface);
-    
-    int i=0;    
-    while (i<10) 
-    {
-        sleep(2);  
-        if (oAmyFileServer.readCommand())
-        {
-            if (oAmyFileServer.isValid())
-            {
-                oAmyFileServer.processCommand();
-            }
-            else
-                LOG4CXX_WARN(logger, "invalid command");                                      
-        }
-        else
-            LOG4CXX_WARN(logger, "no command");                                      
-
-        i++;
-    }    
-    
-    LOG4CXX_INFO(logger, "TEST FINISHED");          
-}
 
 void Tests::testFileReader(std::string name)
 {
