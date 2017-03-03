@@ -19,71 +19,70 @@ Components to be installed:
 
 
 
-*** INSTALL GAZEBO ***
+*** INSTALL REQUIREMENTS ***
 
-> Download ur_gazebo: 
+> UR5 simulator: 
 
-(terminal) 
 sudo apt-get install ros-indigo-ur-gazebo
+
+> log4cxx:
+
+sudo apt-get install liblog4cxx10-dev
 
 
 
 *** INSTALL AMY ***
 
-> Download amy source code:
+> Download amy:
 
-(terminal) 
 git clone https://github.com/albarral/amy.git
-
-
-> Download necessary libs (logging, ...):
-
-(terminal) 
-sudo apt-get install liblog4cxx10-dev
-
 
 > Build amy:
 
 (Netbeans)
-build projects: 
-- amy_main		(generates amy executable)
-- amy_console 	(generates amy2 executable)
+- amy_main project
+- amy_console project
 
+> Build ros_amy: 
 
-> Build ros_amy ROS package:
-
-(terminal)
-- set proper AMY_HOME path in Findamy.cmake file (placed in amy/ws_amy/src/cmake/Modules)
-ws_amy>
+(*)
+gedit /path_to_amy/ws_amy/src/cmake/Modules/Findamy.cmake
+(in editor)
+- set AMY_HOME to be the amy installation path
+cd path_to_amy/ws_amy
 source devel/setup.bash
 catkin_make
 
 
 
-*** PREPARE FOR USER CONTROL ***
+*** PREPARE ENVIRONMENT ***
 
-> Add amy folders to library path:
+> Make amy libs loadable globally:
 
-(terminal)
-sudo gedit /etc/ld.so.conf.d/amy.conf
-(text editor)
-add "/path/to/amy/amy_coms/dist/Debug/GNU-Linux"
-add "/path/to/amy/amy_utils/dist/Debug/GNU-Linux"
-(terminal)
+(*)
+touch amy.conf
+echo /path_to_amy/amy_coms/dist/Debug/GNU-Linux
+echo /path_to_amy/amy_utils/dist/Debug/GNU-Linux
+sudo mv amy.conf /etc/ld.so.conf.d
 sudo /sbin/ldconfig
 
 
-> Put log4cxx configuration files in home folder:
+> Put config files in user's home folder:
 
-(terminal)
-home/user>
+(*)
+cd 
 mkdir .amy
-cp /path/to/amy/logging/*.xml .amy
+cp /path_to_amy/logging/*.xml .amy
 
 
-> Create simbolic link to amy2 (for comfort)
+> Create link to amy2 in user's home folder:
 
 (terminal)
 home/user>
 ln -s amy2 /path/to/amy/amy_console/dist/Debug/GNU-Linux/amy2
+
+
+
+
+(*) note: change path_to_amy for the amy installation path
 
