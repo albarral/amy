@@ -37,7 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/show/ArmPlot.o \
 	${OBJECTDIR}/src/amy/show/ArmPlotter.o \
-	${OBJECTDIR}/src/amy/show/Plot.o
+	${OBJECTDIR}/src/amy/show/Plot.o \
+	${OBJECTDIR}/src/amy/show/PlotRecord.o
 
 
 # C Compiler Flags
@@ -78,6 +79,11 @@ ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
+
+${OBJECTDIR}/src/amy/show/PlotRecord.o: src/amy/show/PlotRecord.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/PlotRecord.o src/amy/show/PlotRecord.cpp
 
 # Subprojects
 .build-subprojects:
