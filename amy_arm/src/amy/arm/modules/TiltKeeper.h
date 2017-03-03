@@ -55,7 +55,9 @@ private:
         // read bus data   
         virtual void senseBus();
         // write action commands to out joint bus
-        void writeBus();
+        virtual void writeBus();
+        // show module initialization in logs
+        virtual void showInitialized();
         
         // shows the present state name
         void showState();

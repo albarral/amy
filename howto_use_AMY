@@ -1,90 +1,66 @@
 
 *** HOW TO USE AMY
 
+(last update: albarral 28/2/2017)
+
 This document explains how to use amy to control a simulated UR5 arm.
 For installation instructions refer to the "howto_install_AMY" document.
 
 Environment requirements:
-- two open terminals
+- 3 open terminals
 - an open instance of Netbeans IDE
 
 Components to be used:
 - ur_gazebo  	(ROS package for UR5 simulator)
-- amy package 	(amy libraries for arm control)
-- amyTesting  	(amy user interface)
-- ros_amy  	 	(ROS package for amy to arm communication)
+- ros_amy  	 	(ROS package to connect amy and arm)
+- amy 			(process where the arm control is done)
+- amy2		  	(program to externally control amy from CLI)
 
 
-* PREPARING THE ENVIRONMENT ...
 
+*** LAUNCH ROS NODES ***
 
-> Launch gazebo & UR5 simulator (graphical simulation): 
+> Launch UR5 simulator in gazebo:
 
-(from terminal 1)
+(terminal 1)
 ws_amy>
 source devel/setup.bash
 roslaunch ur_gazebo ur5.launch
 
 
-> Launch ros_amyarm (communication node between amy and the arm):
+> Launch ros_amyarm node (communication between amy & arm):
 
-(from terminal 2)
+(terminal 2)
 ws_amy>
 source devel/setup.bash
 rosrun ros_amy ros_amyarm
 
 
-> Launch amy (process that controls the arm):
 
-(from Netbeans)
+*** LAUNCH AMY ***
+
+> Launch amy process:
+
+(Netbeans)
 run amy_main project
 
 
-> Launch amyTesting (user interface to control amy): 
-
-(from Netbeans)
-run amyTesting project 
 
 
+*** CONTROL ARM FROM CLI ***
 
+A user can control the arm by sending commands to amy from CLI.
+He can also finish amy from same CLI.
 
-* CONTROLLING THE ARM ...
+> Send control commands:
 
-A user can control the arm by means of amy. 
-Commands are entered at the amyTesting's output tab (which acts as user console while running).
-
-> Available commands:
-
-hs		(move horizontal shoulder)
-vs		(move vertical shoulder)
-elb		(move elbow)
-hwri	(move horizontal wrist)
-vwri	(move vertical wrist)
-pan		(change the arm's pan)
-tilt	(change the arm's tilt)
-radius	(change the arm's radius)
-end		(end the amy process)
-quit 	(end the interface process)
-
-These text commands just set the movement type (except end & quit).
-For each movement action a numeric command must be entered.
-
-
-> Example:
-
-pan		
-60 		(moves arm horizontally to +60 degrees)
--60 	(moves arm horizontally to -60 degrees)
-tilt
-90		(raises arm to +90 degrees)
-50		(lowers arm to +50 degrees)
-elb
-60		(moves elbow to achieve an arm radius of 60 cm)
-80 		(moves elbow to achieve an arm radius of 80 cm)
+(terminal 3)
+~/amy/amy_console/dist/Debug/GNU-Linux> (or another place where we have a simbolic link to amy2)
+./amy2 pan 50
+./amy2 tilt 80
 ...
-end		
-quit
+./amy2 end
 
 
-(last update: albarral 27/1/2017)
+
 

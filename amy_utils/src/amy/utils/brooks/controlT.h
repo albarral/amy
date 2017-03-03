@@ -27,7 +27,7 @@ class ControlT : public Control
         
         // Requests the execution of the control command with an input parameter and a given priority
         // returns true if the request is accepted
-        bool request (T& value, int vpriority = 0);
+        bool request (T value, int vpriority = 0);
                         
         // just gets the last requested value
         T getValue();
@@ -42,7 +42,7 @@ ControlT<T>::ControlT()
 }
     
 template <typename T>
-bool ControlT<T>::request(T& value, int vpriority)
+bool ControlT<T>::request(T value, int vpriority)
 {  
     std::lock_guard<std::mutex> locker(mutex2);
     

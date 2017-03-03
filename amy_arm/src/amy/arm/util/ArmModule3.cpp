@@ -16,11 +16,12 @@ ArmModule3::ArmModule3()
     pArmBus = 0;
  }
 
-void ArmModule3::init(Arm& oArm, AmyConfig& oAmyConfig)
+void ArmModule3::init(Arm& oArm, ArmConfig& oArmConfig)
 {
     this->oArm = oArm;
-    this->oAmyConfig = oAmyConfig;
-    benabled = true;
+    this->oArmConfig = oArmConfig;
+    benabled = true;    
+    showInitialized();
 }
 
 void ArmModule3::connect(ArmBus& oArmBus)

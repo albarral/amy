@@ -5,15 +5,15 @@
 
 #include "log4cxx/ndc.h"
 
-#include "amy/arm/modules/ArmPolarSensing.h"
+#include "amy/arm/modules/ArmSense.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr ArmPolarSensing::logger(Logger::getLogger("amy.arm"));
+LoggerPtr ArmSense::logger(Logger::getLogger("amy.arm"));
 
-ArmPolarSensing::ArmPolarSensing()
+ArmSense::ArmSense()
 {
     modName = "ArmPolarSensing";
     pHSBus = 0;
@@ -21,7 +21,12 @@ ArmPolarSensing::ArmPolarSensing()
     pELBus = 0;
 }
 
-void ArmPolarSensing::first()
+void ArmSense::showInitialized()
+{
+    LOG4CXX_INFO(logger, modName << " initialized");          
+}
+
+void ArmSense::first()
 {
     setState(eSTATE_GO);
     
@@ -34,7 +39,7 @@ void ArmPolarSensing::first()
 }
                     
 // computes the axes positions
-void ArmPolarSensing::loop()
+void ArmSense::loop()
 {
     senseBus();
     
@@ -71,7 +76,7 @@ void ArmPolarSensing::loop()
     writeBus();        
 }
 
-void ArmPolarSensing::senseBus()
+void ArmSense::senseBus()
 {
     // soll values used here instead of ist values
     istHS = pHSBus->getCO_JOINT_ANGLE().getValue();
@@ -80,7 +85,7 @@ void ArmPolarSensing::senseBus()
 }
 
 
-void ArmPolarSensing::writeBus()
+void ArmSense::writeBus()
 {  
     // inform positions
     pArmBus->getSO_ARM_PAN().setValue(istPan);
@@ -89,7 +94,7 @@ void ArmPolarSensing::writeBus()
     // inform speeds
     pArmBus->getSO_PAN_SPEED().setValue(speedPan);
     pArmBus->getSO_TILT_SPEED().setValue(speedTilt);
-    pArmBus->getSO_RADIUS_SPEED().setValue(speedRadius);
+    pArmBus->getSO_RADIAL_SPEED().setValue(speedRadius);
 }
 
 }

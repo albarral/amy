@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/ArmMath.h"
 
 namespace amy
@@ -22,7 +22,7 @@ namespace amy
 // Initialize as a normal RadialControl (sensitivity and tolerance) 
 // Set arm segments and work plane
 // Then work as normal RadialControl (request target and call drive repeatedly till movement finished)     
-class RadialControl : public JointControl
+class RadialPositioner : public JointPositioner
 {
 private:
     // request
@@ -32,7 +32,7 @@ private:
     int workSign;                 // sign of target angles (defines the working plane)  
 
 public:
-        RadialControl();
+        RadialPositioner();
         //~RadialControl();
                 
        // sets sizes of arm segments 

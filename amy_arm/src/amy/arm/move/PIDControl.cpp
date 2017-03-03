@@ -11,8 +11,8 @@ PIDControl::PIDControl()
 {
     // params default
     Kp = Ki = Kd = 0.0; 
-    output = 0;
-    error0 = 0;
+    output = 0.0;
+    error0 = 0.0;
 }
 
 void PIDControl::init(float kp, float ki, float kd)
@@ -24,7 +24,7 @@ void PIDControl::init(float kp, float ki, float kd)
 
 void PIDControl::reset()
 {
-    error0 = 0;
+    error0 = 0.0;
 }
 
 float PIDControl::control(float error)

@@ -20,7 +20,7 @@ namespace amy
 // To request a movement, call newMove() with the target angle.
 // Then, the drive() function must be called periodically. This internally computes the joint speed and updates the acceleration control.
 // Movement is finished when the state is DONE.
-class JointControl
+class JointPositioner
 {
 public:    
     // movement states
@@ -55,13 +55,13 @@ protected:
     amy::Click oClick;      // clock utility
 
 public:
-        JointControl();
+        JointPositioner();
         //~JointControl();
                 
        void init(float kaccel, float kspeed, float posTolerance, float maxSpeed);
 
        // new move requested (to target angle)
-        void newMove(float angle);
+        void setNewMove(float angle);
         float getTargetAngle() {return targetAngle;}
         
         // drive the joint with a proper acceleration, the acceleration is returned

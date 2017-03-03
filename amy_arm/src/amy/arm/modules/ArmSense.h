@@ -16,7 +16,7 @@
 namespace amy
 {
 // Module that senses the axis positions of the arm.
-class ArmPolarSensing: public ArmModule3
+class ArmSense: public ArmModule3
 {
 public:
     // states of module
@@ -49,7 +49,7 @@ protected:
 private:
     
 public:
-        ArmPolarSensing();
+        ArmSense();
         //~ArmPolarSensing();
                 
 private:
@@ -60,7 +60,10 @@ private:
         // read bus data   
         virtual void senseBus();
         // write action commands to out joint bus
-        void writeBus();
+        virtual void writeBus();
+        // show module initialization in logs
+        virtual void showInitialized();
+        
 };
 }
 #endif

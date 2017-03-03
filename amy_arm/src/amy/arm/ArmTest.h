@@ -10,6 +10,8 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
+#include "amy/arm/ArmManager.h"
+#include "amy/arm/bus/ArmBus.h"
 
 namespace amy
 {
@@ -18,11 +20,25 @@ class ArmTest
 {
  private:
      static log4cxx::LoggerPtr logger;
+     ArmBus* pArmBus;   // bus access
+     int step;
+     int direction;
 
 public:
-//    Tests();
-//    ~Tests();
+    ArmTest();
+//    ~ArmTest();
 
+    void connect2Bus(ArmManager& oArmManager);
+    bool isConnected() {return pArmBus != 0;};
+    
+    void reset();            
+    void newStep();
+    void testKeepTilt();    
+
+private:    
+    void setPos();
+    void testRacer();
+    
     void testJointMove();
     void testJointControl();
     void testRadialControl();

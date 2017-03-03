@@ -24,8 +24,8 @@ public:
 
     void testFileReader(std::string name);
     void testFileWriter();    
-    void testAmyServer();
     void testAmyPublisher();
+    void testArmPlot();
 };
 
 }    

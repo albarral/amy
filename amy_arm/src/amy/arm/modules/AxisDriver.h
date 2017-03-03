@@ -10,8 +10,8 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/move/JointControl.h"
-#include "amy/core/config/JointControlConfig.h"
+#include "amy/arm/move/JointPositioner.h"
+#include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/utils/module3.h"
 
@@ -40,28 +40,26 @@ protected:
     static log4cxx::LoggerPtr logger;
     bool benabled;
     // config
-    JointControlConfig* pJointControlConfig;  // control config
+    ArmConfig* pArmConfig;  // control config
     Arm* pArm;              // arm physical data    
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // access to arm bus
-    JointBus* pOutBus;   // bus connection to controlled joint
+    JointBus* pJointBus;   // bus connection to controlled joint
     // control 
     float targetAxis;           // requested axis position
     float istAxis;                 // measured axis position
-    int jointLimit;                 // value indicating the controlled joint is blocked (due to a reached joint limit)   
+    int jointLimit;                 // value indicating the controlled joint is blocked (due to reached limit)   
     // output
     float outAccel;              // commanded joint acceleration 
     int priority;                   // module's priority in control commands
-
-private:
     
 public:
         AxisDriver();
         //~AxisDriver();
                 
        // module params
-       void init(Arm& oArm, JointControlConfig& oJointControlConfig);
+       void init(Arm& oArm, ArmConfig& oArmConfig);
        bool isEnabled() {return benabled;};
 
        // bus connection 
@@ -71,25 +69,25 @@ public:
                       
 protected:
         // return reference to the used joint controller
-        virtual JointControl& getController() = 0;
+        virtual JointPositioner& getController() = 0;
         // connect driver to specific joints
-        virtual void connectJoints() = 0;
+        virtual void setControlledJoint() = 0;
         // prepare axis driver
         virtual void prepareDriver();
         // read bus data
         virtual void senseBus() = 0;
-        // prepare movement
-        virtual void newMove() = 0;
+        // set target for new movement
+        virtual void setNewTarget() = 0;
         // computes the axis position
         virtual void computeAxisPosition() = 0;
-        // write info (control & sensory) to bus
-        virtual void writeBus();
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
+        // write info (control & sensory) to bus
+        virtual void writeBus();
         // perform movement. Return false if movement done
         bool doMove();                                                
         // check if controlled joint is blocked (due to reached range limit)

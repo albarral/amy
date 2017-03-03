@@ -1,6 +1,8 @@
 
 *** HOW TO INSTALL AMY
 
+(last update: albarral 28/2/2017)
+
 This document explains how to install amy to control a simulated UR5 arm.
 
 Software requirements:
@@ -11,40 +13,77 @@ Software requirements:
 
 Components to be installed:
 - ur_gazebo  	(ROS package for UR5 simulator)
-- amy package 	(amy libraries for arm control)
-- amyTesting  	(amy user interface)
-- ros_amy  	 	(ROS package for amy to arm communication)
+- ros_amy  	 	(ROS package to connect amy and arm)
+- amy 			(process where the arm control is done)
+- amy2		  	(program to externally control amy from CLI)
 
 
-* INSTALLATION ...
+
+*** INSTALL GAZEBO ***
 
 > Download ur_gazebo: 
 
-(from terminal) 
+(terminal) 
 sudo apt-get install ros-indigo-ur-gazebo
 
 
-> Download amy, amyTesting & ros_amy (and dependencies):
 
-(from terminal) 
+*** INSTALL AMY ***
+
+> Download amy source code:
+
+(terminal) 
 git clone https://github.com/albarral/amy.git
+
+
+> Download necessary libs (logging, ...):
+
+(terminal) 
 sudo apt-get install liblog4cxx10-dev
 
 
-> Build amy & amyTesting:
+> Build amy:
 
-(from Netbeans)
-build amy_main project
-build amyTesting project
+(Netbeans)
+build projects: 
+- amy_main		(generates amy executable)
+- amy_console 	(generates amy2 executable)
 
 
-> Build ros_amy:
+> Build ros_amy ROS package:
 
-(from terminal)
-- set proper path as AMY_HOME value in amy/ws_amy/src/cmake/Modules/Findamy.cmake
-cd ws_amy
+(terminal)
+- set proper AMY_HOME path in Findamy.cmake file (placed in amy/ws_amy/src/cmake/Modules)
+ws_amy>
 source devel/setup.bash
 catkin_make
 
 
-(last update: albarral 27/1/2017)
+
+*** PREPARE FOR USER CONTROL ***
+
+> Add amy folders to library path:
+
+(terminal)
+sudo gedit /etc/ld.so.conf.d/amy.conf
+(text editor)
+add "/path/to/amy/amy_coms/dist/Debug/GNU-Linux"
+add "/path/to/amy/amy_utils/dist/Debug/GNU-Linux"
+(terminal)
+sudo /sbin/ldconfig
+
+
+> Put log4cxx configuration files in home folder:
+
+(terminal)
+home/user>
+mkdir .amy
+cp /path/to/amy/logging/*.xml .amy
+
+
+> Create simbolic link to amy2 (for comfort)
+
+(terminal)
+home/user>
+ln -s amy2 /path/to/amy/amy_console/dist/Debug/GNU-Linux/amy2
+

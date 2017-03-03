@@ -16,11 +16,12 @@
 #include "amy/core/robot/Robot.h"
 
 #include "amy/main/Tests.h"
+#include "amy/arm/ArmTest.h"
 
 using namespace amy;
 
 // starts the amy control for the specified robot
-void startAmy(Robot& oRobot);
+void runAmy(Robot& oRobot);
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy"));
 
@@ -36,7 +37,7 @@ int main(int argc, char** argv)
     LOG4CXX_INFO(logger, "target robot: " << targetRobot);
 
 //    Tests oTests;
-//    oTests.testAmyPublisher();
+//    oTests.testArmPlot();
 //    return 0;
     
     SupportedRobots oSupportedRobots;
@@ -63,7 +64,7 @@ int main(int argc, char** argv)
     {
         // amy not ready for multiple arms yet
         if (numArms == 1)
-            startAmy(oRobot);
+            runAmy(oRobot);
         else              
             LOG4CXX_WARN(logger, "amy not ready for multi-arm control. Only 1 will be controlled");
             
@@ -74,16 +75,21 @@ int main(int argc, char** argv)
     return 0;
 }
 
-// starts the amy control for the specified robot
-void startAmy(Robot& oRobot)
+// runs the amy control for the specified robot
+void runAmy(Robot& oRobot)
 {        
     AmyControl oAmyControl; 
+
+    //ArmTest oArmTest;
+    //oArmTest.connect2Bus(oAmyControl.getArmManager());
+    //oArmTest.testKeepTilt();
 
     // launch amy control & wait for it to end        
     if (oAmyControl.launch(oRobot))
     {
         while (!oAmyControl.checkEndRequested()) 
         {
+            //oArmTest.newStep();
             sleep(1);
         }    
 

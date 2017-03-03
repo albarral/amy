@@ -5,11 +5,11 @@
 
 #include <cmath>
 
-#include "amy/arm/move/JointControl.h"
+#include "amy/arm/move/JointPositioner.h"
 
 namespace amy
 {
-JointControl::JointControl()
+JointPositioner::JointPositioner()
 {
     // params default
     Kaccel = 1.0; 
@@ -19,14 +19,14 @@ JointControl::JointControl()
     // controls default
     outAccel = 0;
     moveSign = 0;
-    state = JointControl::eSTATE_DONE;
+    state = JointPositioner::eSTATE_DONE;
 }
 
 //JointControl2::~JointControl2()
 //{
 //}
 
-void JointControl::init(float kaccel, float kspeed, float posTolerance, float maxSpeed)
+void JointPositioner::init(float kaccel, float kspeed, float posTolerance, float maxSpeed)
 {
     Kaccel = kaccel; 
     Kspeed = kspeed;                 
@@ -34,7 +34,7 @@ void JointControl::init(float kaccel, float kspeed, float posTolerance, float ma
     this->maxSpeed = fabs(maxSpeed);    // assure absolute value
 };
 
-void JointControl::newMove(float angle)
+void JointPositioner::setNewMove(float angle)
 {
     targetAngle = angle;
     // new move requested
@@ -43,7 +43,7 @@ void JointControl::newMove(float angle)
     steps = 0;
 }
 
-float JointControl::drive(float istAngle)
+float JointPositioner::drive(float istAngle)
 {    
     // compute ellapsed time 
     oClick.read();
@@ -71,8 +71,13 @@ float JointControl::drive(float istAngle)
     else
     {
         // compute joint speed
-        float time = (float)oClick.getMillis()/1000;
-        istSpeed = (istAngle - prevAngle)/time;
+        if (oClick.getMillis() != 0)
+        {
+            float time = (float)oClick.getMillis()/1000;
+            istSpeed = (istAngle - prevAngle)/time;
+        }
+        else
+            istSpeed = 0.0;
     }
     
     //store ist angle for iteration
@@ -127,7 +132,7 @@ float JointControl::drive(float istAngle)
 
 
 // computes the target speed of the movement
-void JointControl::controlSpeed(float dist)
+void JointPositioner::controlSpeed(float dist)
 {        
     // speed is proportional to distance from target
     sollSpeed = Kspeed*dist;
@@ -138,22 +143,22 @@ void JointControl::controlSpeed(float dist)
 }
        
 // gets the proper acceleration to reach the target speed
-void JointControl::controlAccel()
+void JointPositioner::controlAccel()
 {    
     // acceleration is proportional to speed error
     outAccel = Kaccel*(sollSpeed - istSpeed);
 }
 
-std::string JointControl::toString()
+std::string JointPositioner::toString()
 {
-    return "JointControl [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(prevAngle) 
+    return "JointPositioner [target=" + std::to_string(targetAngle) + ", ist=" + std::to_string(prevAngle) 
             + " sollSpeed=" + std::to_string(sollSpeed) + " istSpeed=" + std::to_string(istSpeed) 
             + ", state=" + std::to_string(state) + ", accel=" + std::to_string(outAccel) + "]";
 }
 
-std::string JointControl::paramsToString()
+std::string JointPositioner::paramsToString()
 {
-    return "JointControl params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
+    return "JointPositioner params [Kaccel=" + std::to_string(Kaccel) + ", Kspeed=" + std::to_string(Kspeed) 
             + " posTolerance=" + std::to_string(posTolerance) + " maxSpeed=" + std::to_string(maxSpeed) + "]";
 }
 }

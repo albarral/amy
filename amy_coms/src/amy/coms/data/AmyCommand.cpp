@@ -19,25 +19,25 @@ AmyCommand::AmyCommand()
 /*! resets arm command values */
 void AmyCommand::reset()
 {
-    action = eACT_UNDEFINED;    
-    target = eTAR_UNDEFINED;
+    category = eCAT_UNDEF;    
+    action = eJOINT_UNDEF;
     value = 0.0;
     text = "";
 }
 
-bool AmyCommand::buildCommand(int action, int target, float value)
+bool AmyCommand::buildCommand(int category, int action, float value)
 {
-    bool bvalid = (action > eACT_UNDEFINED && action < eACT_DIM) && 
-                        (target > eTAR_UNDEFINED && target < eTAR_DIM);
+    // check if category and action are valid values
+    bool bvalid = isValidCategory(category) && isValidAction(category, action);
     
     if (bvalid) 
     {
+        this->category = category;
         this->action = action;
-        this->target = target;
         this->value = value;
-        // the command is composed by 3 numbers separated by the "*" character
-        text = std::to_string(action) + separator + std::to_string(target) + separator + std::to_string(value);
-//        text = describeAction(action) + separator + describeTarget(target) + separator + std::to_string(value);
+        // the textual command is built by 3 numbers separated by the "*" character
+        text = std::to_string(category) + separator + std::to_string(action) + separator + std::to_string(value);
+//        text = describeCategory(category) + separator + describeAction(category, action) + separator + std::to_string(value);
     }
     
     return bvalid;
@@ -47,67 +47,36 @@ bool AmyCommand::buildCommand(int action, int target, float value)
 bool AmyCommand::interpret(std::string text)
 {
     bool bvalid = true;
+    bool bnumeric;
     this->text = text;    
     
     // split text in tokens (separated by *)
     std::vector<std::string> listTokens = StringUtil::split(text, separator); 
 
-    /*
-    try
-    {
-        // first token has the action
-        action = std::stoi(listTokens.at(0));
-        if (action <= eACT_UNDEFINED || action >= eACT_DIM)
-        {
-            action = eACT_UNDEFINED;
-            bvalid = false;
-        }
+    // check the category (first element, int)
+    bnumeric = StringUtil::convert2Integer(listTokens.at(0), category);
+    // if well converted, check its validity
+    bvalid = bnumeric && isValidCategory(category);
+    // if not valid, undefined
+    if (!bvalid)
+        category = eCAT_UNDEF;
 
-        // second token has the target
-        target = std::stoi(listTokens.at(1));
-        if (target <= eTAR_UNDEFINED || target >= eTAR_DIM)
-        {
-            target = eTAR_UNDEFINED;
-            bvalid = false;
-        }
-
-        // third token has the value
-        if (listTokens.size() > 2)
-        {
-            value = std::stof(listTokens.at(2));
-        }
-    }
-    catch (std::invalid_argument) 
-    {
-        // if any token is not numeric the command is invalid
-        bvalid = false;        
-    }
-     */ 
-
-    // first token has the action (int)
-    bvalid = StringUtil::convert2Integer(listTokens.at(0), action);
-    // if well converted, check its range
-    if (bvalid && (action <= eACT_UNDEFINED || action >= eACT_DIM))
-    {
-        action = eACT_UNDEFINED;
-        bvalid = false;
-    }
-
+    // if valid category
     if (bvalid)
     {
-        // second token has the target (int)
-        bvalid = StringUtil::convert2Integer(listTokens.at(1), target);
-        // if well converted, check its range
-        if (bvalid && (target <= eTAR_UNDEFINED || target >= eTAR_DIM))
-        {
-            target = eTAR_UNDEFINED;
-            bvalid = false;
-        }
+        // check the action (second element, int)
+        bnumeric = StringUtil::convert2Integer(listTokens.at(1), action);
+        // if well converted, check its validity
+        bvalid = bnumeric && isValidAction(category, action);
+        // if not valid, undefined
+        if (!bvalid)
+            action = eJOINT_UNDEF;
     }
 
+    // if valid action
     if (bvalid)
     {
-        // third token has the value (float)
+        // check the value (third element, float)
         if (listTokens.size() > 2)
         {
             bvalid = StringUtil::convert2Float(listTokens.at(2), value);
@@ -117,68 +86,79 @@ bool AmyCommand::interpret(std::string text)
     return bvalid;
 }
 
-
-bool AmyCommand::isArmCommand()
+bool AmyCommand::isValidCategory(int cat)
 {
-    bool bfound = false;
-    
-    switch (action)
-    {
-        case eACT_MOVE_ARM:
-            bfound = true;
-            break;
-    }
-    return bfound;
+    return (cat > eCAT_UNDEF && cat < eCAT_DIM);    
 }
 
-bool AmyCommand::isJointCommand()
+bool AmyCommand::isValidAction(int cat, int value)
 {
-    bool bfound = false;
-    
-    switch (action)
+    bool bvalid; 
+    switch (cat)
     {
-        case eACT_MOVE_JOINT:
-            bfound = true;
+        case eCAT_JOINT_CMD:
+            bvalid = isValidJointAction(value);
             break;
+        case eCAT_AXIS_CMD:
+             bvalid = isValidAxisAction(value);
+            break;
+        case eCAT_ARM_CMD:
+             bvalid = isValidArmAction(value);
+            break;
+        case eCAT_AMY_CMD:
+             bvalid = isValidAmyAction(value);
+            break;
+        default:
+             bvalid = false;
     }
-    return bfound;
+    return bvalid;
 }
 
-bool AmyCommand::isAmyCommand()
+bool AmyCommand::isValidJointAction(int value)
 {
-    bool bfound = false;
-    
-    switch (action)
-    {
-        case eACT_END_AMY:
-            bfound = true;
-            break;
-    }
-    return bfound;
+    return (value > eJOINT_UNDEF && value < eJOINT_DIM);    
 }
 
+bool AmyCommand::isValidAxisAction(int value)
+{
+    return (value > eAXIS_UNDEF && value < eAXIS_DIM);    
+}
+
+bool AmyCommand::isValidArmAction(int value)
+{
+    return (value > eARM_UNDEF && value < eARM_DIM);    
+}
+
+bool AmyCommand::isValidAmyAction(int value)
+{
+    return (value > eAMY_UNDEF && value < eAMY_DIM);    
+}
+    
 std::string AmyCommand::getDescription()
 {
-    std::string desc = describeAction(action) + 
-            " " + describeTarget(target) + 
+    std::string desc = describeCategory(category) + 
+            " " + describeAction(category, action) + 
             " " + std::to_string(value);
     
     return desc;    
 }
 
-std::string AmyCommand::describeAction(int value)
+std::string AmyCommand::describeCategory(int value)
 {
     std::string desc;
     switch (value)
     {
-        case eACT_MOVE_ARM:
-            desc = "mov";
+        case eCAT_JOINT_CMD:
+            desc = "joint";
             break;
-        case eACT_MOVE_JOINT:
-            desc = "pos";
+        case eCAT_AXIS_CMD:
+            desc = "axis";
             break;
-        case eACT_END_AMY:
-            desc = "end";
+        case eCAT_ARM_CMD:
+            desc = "arm";
+            break;
+        case eCAT_AMY_CMD:
+            desc = "amy";
             break;
         default:
             desc = "unknown";           
@@ -187,42 +167,112 @@ std::string AmyCommand::describeAction(int value)
     return desc;    
 }
 
-std::string AmyCommand::describeTarget(int value)
+std::string AmyCommand::describeAction(int cat, int value)
+{
+    std::string desc;
+    switch (cat)
+    {
+        case eCAT_JOINT_CMD:
+            desc = describeJointAction(value);
+            break;
+        case eCAT_AXIS_CMD:
+            desc = describeAxisAction(value);
+            break;
+        case eCAT_ARM_CMD:
+            desc = describeArmAction(value);
+            break;
+        case eCAT_AMY_CMD:
+            desc = describeAmyAction(value);
+            break;
+        default:
+            desc = "unknown";           
+    }    
+    return desc;    
+}
+
+std::string AmyCommand::describeJointAction(int value)
 {
     std::string desc;
     switch (value)
     {
-        case eTAR_PAN:
-            desc = "pan";
+        case eJOINT_HS_POS:
+            desc = "hs pos";
             break;
-        case eTAR_TILT:
-            desc = "tilt";
+        case eJOINT_VS_POS:
+            desc = "vs pos";
             break;
-        case eTAR_RADIUS:
-            desc = "radius";
+        case eJOINT_ELB_POS:
+            desc = "elb pos";
             break;
-        case eTAR_JOINT_HSHOULDER:
-            desc = "HS";
+        case eJOINT_HWRI_POS:
+            desc = "hwri pos";
             break;
-        case eTAR_JOINT_VSHOULDER:
-            desc = "VS";
-            break;
-        case eTAR_JOINT_ELBOW:
-            desc = "ELB";
-            break;
-        case eTAR_JOINT_HWRIST:
-            desc = "HWRIST";
-            break;
-        case eTAR_JOINT_VWRIST:
-            desc = "VWRIST";
-            break;
-        case eTAR_PROGRAM:
-            desc = "program";
+        case eJOINT_VWRI_POS:
+            desc = "vwri pos";
             break;
         default:
             desc = "unknown";           
-    }
-    
+    }   
+    return desc;    
+}
+
+std::string AmyCommand::describeAxisAction(int value)
+{
+    std::string desc;
+    switch (value)
+    {
+        case eAXIS_PAN_POS:
+            desc = "pan pos";
+            break;
+        case eAXIS_TILT_POS:
+            desc = "tilt pos";
+            break;
+        case eAXIS_RAD_POS:
+            desc = "radius pos";
+            break;
+        case eAXIS_PAN_SPEED:
+            desc = "pan speed";
+            break;
+        case eAXIS_TILT_SPEED:
+            desc = "tilt speed";
+            break;
+        case eAXIS_RAD_SPEED:
+            desc = "radius speed";
+            break;
+        default:
+            desc = "unknown";           
+    }    
+    return desc;    
+}
+
+std::string AmyCommand::describeArmAction(int value)
+{
+    std::string desc;
+    switch (value)
+    {
+        case eARM_STOP:
+            desc = "stop";
+            break;
+        case eARM_KEEP_TILT:
+            desc = "keep tilt";
+            break;
+        default:
+            desc = "unknown";           
+    }    
+    return desc;    
+}
+
+std::string AmyCommand::describeAmyAction(int value)
+{
+    std::string desc;
+    switch (value)
+    {
+        case eAMY_END:
+            desc = "end";
+            break;
+        default:
+            desc = "unknown";           
+    }    
     return desc;    
 }
 

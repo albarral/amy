@@ -46,7 +46,7 @@ public:
         //~ArmMover();
                 
        // module params
-       virtual void init(Arm& oArm, JointControlConfig& oJointControlConfig);
+       virtual void init(Arm& oArm, ArmConfig& oArmConfig);
                
 private:       
         // first actions when the thread begins 

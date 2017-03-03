@@ -25,18 +25,30 @@ public:
     AmyClient();
 
     AmyCommand& getAmyCommand() {return oAmyCommand;};
-    
+
+    // axis speeds        
+    virtual void panSpeed(float value);
+    virtual void tiltSpeed(float value);
+    virtual void radialSpeed(float value);
+    virtual void keepTilt(int value);    
+
+    // axis positions   
     virtual void movePan(float value);
     virtual void moveTilt(float value);
     virtual void moveRadius(float value);
-
+        
+    // joint positions
     virtual void setPosHS(float value);
     virtual void setPosVS(float value);
     virtual void setPosELB(float value);
     virtual void setPosHW(float value);
     virtual void setPosVW(float value);
     
+    // amy commands   
     virtual void endAmy();
+    
+    // dummy method for to do commands
+    virtual void toDoCommand();
     
 protected:
     // command sending method specific for each AmyClient implementation

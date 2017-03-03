@@ -19,38 +19,38 @@ AxisDriver::AxisDriver()
     benabled = false;
     modName = "AxisDriver";
     
-    pJointControlConfig = 0;
+    pArmConfig = 0;
     pArm = 0;        
         
     bconnected = false;
     pArmBus = 0;
-    pOutBus = 0;        
-    priority = 2;
-    outAccel = 0;
+    pJointBus = 0;        
 }
 
 //AxisDriver::~AxisDriver()
 //{
 //}
 
-void AxisDriver::init(Arm& oArm, JointControlConfig& oJointControlConfig)
+void AxisDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
-    pJointControlConfig = &oJointControlConfig;      
+    pArmConfig = &oArmConfig;      
     pArm = &oArm;
+    // control priority
+    priority = pArmConfig->getPriority4AxisDrivers();
     // set specific preparation (in derived class)
     prepareDriver();
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");                  
-    LOG4CXX_INFO(logger, oJointControlConfig.toString());      
+    LOG4CXX_INFO(logger, oArmConfig.toString());      
 };
 
 void AxisDriver::connect(ArmBus& oArmBus)
 {
-    pArmBus = &oArmBus;
-    // set output connection (in derived class)
-    connectJoints();
-    if (pOutBus != 0)
+    pArmBus = &oArmBus;    
+    // connect to controlled joint (defined in derived modules)
+    setControlledJoint();    
+    if (pJointBus != 0)
     {
         bconnected = true;   
         LOG4CXX_DEBUG(logger, modName << " connected to bus");      
@@ -62,14 +62,14 @@ void AxisDriver::connect(ArmBus& oArmBus)
 void AxisDriver::prepareDriver()
 {
     // set movement params
-    if (pJointControlConfig != 0)
+    if (pArmConfig != 0)
     {
         // get used joint controller and initialize it
-        JointControl& oJointControl = getController();        
-        oJointControl.init(pJointControlConfig->getKaccelDriver(),
-                               pJointControlConfig->getKspeedDriver(),
-                               pJointControlConfig->getDriverTolerance(),
-                               pJointControlConfig->getDriverSpeed());        
+        JointPositioner& oJointControl = getController();        
+        oJointControl.init(pArmConfig->getDriverKaccel(),
+                               pArmConfig->getDriverKspeed(),
+                               pArmConfig->getDriverTolerance(),
+                               pArmConfig->getDriverSpeed());        
     }        
 }
 
@@ -95,7 +95,8 @@ void AxisDriver::loop()
     {
         case eSTATE_NEWMOVE:
             // new move requested -> update target & go to DRIVE
-            newMove();        
+            setNewTarget();        
+            outAccel = 0.0;
             setState(eSTATE_DRIVE);
             break;
 
@@ -126,13 +127,13 @@ bool AxisDriver::doMove()
     computeAxisPosition();
     
     // perform the control (compute the proper joint accel)
-    JointControl& oJointControl = getController();        
-    outAccel = oJointControl.drive(istAxis);
+    JointPositioner& oJointPositioner = getController();        
+    outAccel = oJointPositioner.drive(istAxis);
     
-    LOG4CXX_INFO(logger, oJointControl.toString());
+    LOG4CXX_INFO(logger, oJointPositioner.toString());
     
     // check if movement finished 
-    if (oJointControl.isMovementDone())
+    if (oJointPositioner.isMovementDone())
         return false;
     else
         return true;
@@ -149,8 +150,8 @@ bool AxisDriver::checkBlocked()
 void AxisDriver::writeBus()
 {  
     // send command to joint (the computed acceleration)
-    if (pOutBus != 0)
-        pOutBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+    if (pJointBus != 0)
+        pJointBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
 }
 
 

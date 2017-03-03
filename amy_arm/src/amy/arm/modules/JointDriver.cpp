@@ -7,6 +7,7 @@
 
 #include "amy/arm/modules/JointDriver.h"
 #include "amy/core/robot/Joint.h"
+#include "amy/arm/move/JointAccelerator.h"
 
 using namespace log4cxx;
 
@@ -26,12 +27,12 @@ JointDriver::JointDriver()
 //{
 //}
 
-void JointDriver::init(Arm& oArm, JointControlConfig& oJointControlConfig)
+void JointDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
     Joint* pJoint = oArm.getJointByName(jointName);
     lowLimit = pJoint->getLowerLimit();
     highLimit = pJoint->getUpperLimit();
-    brakeAccel = oJointControlConfig.getBrakeAccel();
+    brakeAccel = oArmConfig.getBrakeAccel();
     benabled = true;
     LOG4CXX_INFO(logger, modName << " initialized");      
     LOG4CXX_DEBUG(logger, "joint range= " << pJoint->getLowerLimit() << ", " << pJoint->getUpperLimit());
@@ -39,10 +40,11 @@ void JointDriver::init(Arm& oArm, JointControlConfig& oJointControlConfig)
 
 
 void JointDriver::first()
-{
-    setState(JointDriver::eSTATE_FREE);
-    setNextState(JointDriver::eSTATE_FREE);
-        
+{    
+    setState(JointDriver::eSTATE_DONE);
+    setNextState(JointDriver::eSTATE_DONE);
+  
+    oJointAccelerator.reset();
     log4cxx::NDC::push(modName);   	
 }
                     
@@ -50,31 +52,47 @@ void JointDriver::loop()
 {    
     senseBus();
 
+    // if no input
+    if (bfree)
+    {
+        // and done -> skip
+        if (getState() == eSTATE_DONE)
+            return;
+        // and moving -> BRAKE
+        else if (getState() == eSTATE_MOVE)                    
+            setNextState(eSTATE_BRAKE);            
+    }
+    // if input and not moving -> MOVE
+    else if (getState() != eSTATE_MOVE)
+    {
+        oJointAccelerator.touch(angle);
+        setNextState(eSTATE_MOVE);
+    }
+    
     if (updateState())   
         showState();
               
     switch (getState())
     {
-        case eSTATE_FREE:            
+        case eSTATE_BRAKE:            
 
             // if joint is moving, brake it
-            if (oJointMove.getSpeed() != 0.0)
+            if (oJointAccelerator.getSpeed() != 0.0)
             {
-                // do the control
-                angle = oJointMove.brake(brakeAccel, angle);
+                angle = oJointAccelerator.brake(angle, brakeAccel);
                 angle = limitAngle(angle);
                 //LOG4CXX_INFO(logger, oJointMove.toString());
             }
-            // otherwise keep joint iddle
+            // otherwise -> DONE
             else
-                oJointMove.iddle();
+                setNextState(eSTATE_DONE);            
                 
             break;
 
         case eSTATE_MOVE:
             
             // do the control
-            angle = oJointMove.move(accel, angle);            
+            angle = oJointAccelerator.move(angle, accel);            
             angle = limitAngle(angle);
             //LOG4CXX_INFO(logger, oJointMove.toString());
             break;            
@@ -87,29 +105,23 @@ void JointDriver::loop()
 
 void JointDriver::senseBus()
 {
-    bool bmove = false;
-
     // sense angle
     angle = pJointBus->getCO_JOINT_ANGLE().getValue();
         
-    // if acceleration requests
+    // if move requested -> MOVE
     if (pJointBus->getCO_JCONTROL_ACCEL().checkRequested())
     {
         accel = pJointBus->getCO_JCONTROL_ACCEL().getValue();
-        bmove = true;
-    }
-          
-    // if move requested -> MOVE
-    if (bmove)
-        setNextState(eSTATE_MOVE);
-    // otherwise -> FREE
+        bfree = false;
+    }    
+    // otherwise free
     else
-        setNextState(eSTATE_FREE);
+        bfree = true;
 }
 
 void JointDriver::writeBus()
 {
-    float sollSpeed = oJointMove.getSpeed();        
+    float sollSpeed = oJointAccelerator.getSpeed();        
     
     // command angle
     pJointBus->getCO_JOINT_ANGLE().request(angle);
@@ -155,8 +167,12 @@ void JointDriver::showState()
 {
     switch (getState())
     {
-        case eSTATE_FREE:
-            LOG4CXX_INFO(logger, ">> free");
+        case eSTATE_DONE:
+            LOG4CXX_INFO(logger, ">> done");
+            break;
+
+        case eSTATE_BRAKE:
+            LOG4CXX_INFO(logger, ">> brake");
             break;
                     
         case eSTATE_MOVE:

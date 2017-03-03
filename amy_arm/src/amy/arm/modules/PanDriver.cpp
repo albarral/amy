@@ -12,7 +12,6 @@ namespace amy
 PanDriver::PanDriver()
 {
     modName = "PanDriver";   
-    pHSBus = 0;
 }
 
 //PanDriver::~PanDriver()
@@ -20,38 +19,36 @@ PanDriver::PanDriver()
 //}
 
 
-void PanDriver::connectJoints()
+void PanDriver::setControlledJoint()
 {
-    // connect output to HS joint 
-    pOutBus = &pArmBus->getBusHS();
-    // connect input to HS joint 
-    pHSBus = &pArmBus->getBusHS();
+    // controlled joint is HS
+    pJointBus = &pArmBus->getBusHS();
 }
        
-void PanDriver::newMove()
+void PanDriver::setNewTarget()
 {
     // update movement params
-    if (pJointControlConfig != 0)
+    if (pArmConfig != 0)
     {
-        oJointControl.init(pJointControlConfig->getKaccelDriver(),
-                               pJointControlConfig->getKspeedDriver(),
-                               pJointControlConfig->getDriverTolerance(),
-                               pJointControlConfig->getDriverSpeed());        
+        oJointPositioner.init(pArmConfig->getDriverKaccel(),
+                               pArmConfig->getDriverKspeed(),
+                               pArmConfig->getDriverTolerance(),
+                               pArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move
-    oJointControl.newMove(targetAxis);
+    oJointPositioner.setNewMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
     LOG4CXX_INFO(logger, "target pan = " << targetAxis);  
     LOG4CXX_INFO(logger, "ist HS = " << istHS);
-    LOG4CXX_INFO(logger, oJointControl.paramsToString());      
+    LOG4CXX_INFO(logger, oJointPositioner.paramsToString());      
 }
 
 void PanDriver::senseBus()
 {
-    // get requested pan
+    // if pan requested, new move
     if (pArmBus->getCO_ARM_PAN().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_PAN().getValue();  
@@ -59,14 +56,13 @@ void PanDriver::senseBus()
     }
 
     // sense HS angle (soll value used here)
-    istHS = pHSBus->getCO_JOINT_ANGLE().getValue();
-    
+    istHS = pJointBus->getCO_JOINT_ANGLE().getValue();    
     // sense reached HS limits
-    jointLimit = pOutBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
 void PanDriver::computeAxisPosition()
 {
-    istAxis = istHS;    // the axis is directly the joint
+    istAxis = istHS;    // pan position = HS position
 }
 }

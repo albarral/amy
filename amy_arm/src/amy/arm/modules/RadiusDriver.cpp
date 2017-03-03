@@ -12,7 +12,6 @@ namespace amy
 RadiusDriver::RadiusDriver()
 {
     modName = "RadiusDriver";    
-    pELBus = 0;    
 }
 
 //RadiusDriver::~RadiusDriver()
@@ -24,41 +23,39 @@ void RadiusDriver::prepareDriver()
     // set movement params
     AxisDriver::prepareDriver();
     
-    oRadialControl.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
+    oRadialPositioner.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
 }
 
-void RadiusDriver::connectJoints()
+void RadiusDriver::setControlledJoint()
 {
-    // connect output to EL joint
-    pOutBus = &pArmBus->getBusEL();
-    // connect input to EL joint 
-    pELBus = &pArmBus->getBusEL();
+    // controlled joint is ELB
+    pJointBus = &pArmBus->getBusEL();
 }
        
-void RadiusDriver::newMove()
+void RadiusDriver::setNewTarget()
 {
     // update movement params
-    if (pJointControlConfig != 0)
+    if (pArmConfig != 0)
     {
-        oRadialControl.init(pJointControlConfig->getKaccelDriver(),
-                               pJointControlConfig->getKspeedDriver(),
-                               pJointControlConfig->getDriverTolerance(),
-                               pJointControlConfig->getDriverSpeed());        
+        oRadialPositioner.init(pArmConfig->getDriverKaccel(),
+                               pArmConfig->getDriverKspeed(),
+                               pArmConfig->getDriverTolerance(),
+                               pArmConfig->getDriverSpeed());        
     }
         
     // prepare for new move
-    oRadialControl.newRadialMove(targetAxis);
+    oRadialPositioner.newRadialMove(targetAxis);
     
     // show data
     LOG4CXX_INFO(logger, ">> new request");  
     LOG4CXX_INFO(logger, "target radius = " << targetAxis);  
     LOG4CXX_INFO(logger, "ist ELB = " << istEL);
-    LOG4CXX_INFO(logger, oRadialControl.paramsToString());      
+    LOG4CXX_INFO(logger, oRadialPositioner.paramsToString());      
 }
 
 void RadiusDriver::senseBus()
 {
-    // get requested radius
+    // if radius requested, new move
     if (pArmBus->getCO_ARM_RADIUS().checkRequested())
     {
         targetAxis = pArmBus->getCO_ARM_RADIUS().getValue();    
@@ -66,15 +63,15 @@ void RadiusDriver::senseBus()
     }
 
     // sense EL angle (soll value used here)
-    istEL = pELBus->getCO_JOINT_ANGLE().getValue();
-    
+    istEL = pJointBus->getCO_JOINT_ANGLE().getValue();    
     // sense reached EL limits
-    jointLimit = pOutBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }
 
 void RadiusDriver::computeAxisPosition()
 {
-    // used angle instead of axis (radial distance) needed for the RadialControl
+    // radial distance = function of EL position and arm lengths, BUT ...
+    // only EL position used here -> as the RadialPositioner class internally computes the radial position itself
     istAxis = istEL;
 }
 

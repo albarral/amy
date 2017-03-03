@@ -35,7 +35,17 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
    
-    // HIGH LEVEL CONTROL
+    // AXIS SPEEDS
+    // change pan speed
+    virtual void panSpeed(float value);
+    // change tilt speed
+    virtual void tiltSpeed(float value);
+    // change radial speed
+    virtual void radialSpeed(float value);
+    // keep arm tilt
+    virtual void keepTilt(int value);
+    
+    // AXIS POSITIONS
     // change arm pan
     virtual void movePan(float angle);
     // change arm tilt
@@ -43,7 +53,7 @@ public:
     // extend arm
     virtual void extend(float radius);
 
-    // LOW LEVEL CONTROL
+    // JOINT POSITIONS
     // set HS position
     virtual void moveHS(float angle);
     // set VS position
@@ -55,7 +65,7 @@ public:
     // set VW position
     virtual void moveVW(float angle);
 
-    // LOW LEVEL OUTPUTS
+    // JOINT OUTPUTS    
     // get HS control angle
     virtual float getHSControl();
     // get VS control angle
