@@ -13,8 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="show" displayName="show" projectFiles="true">
-        <itemPath>src/amy/show/ArmPlot.cpp</itemPath>
-        <itemPath>src/amy/show/ArmPlot.h</itemPath>
+        <itemPath>src/amy/show/ArmFrontView.cpp</itemPath>
+        <itemPath>src/amy/show/ArmFrontView.h</itemPath>
         <itemPath>src/amy/show/ArmPlotter.cpp</itemPath>
         <itemPath>src/amy/show/ArmPlotter.h</itemPath>
         <itemPath>src/amy/show/Plot.cpp</itemPath>
@@ -99,9 +99,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/show/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/show/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/show/ArmPlot.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/show/ArmFrontView.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/ArmPlotter.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -136,9 +136,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/show/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/show/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/show/ArmPlot.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/show/ArmFrontView.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/ArmPlotter.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -22,7 +22,7 @@
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
-#include "amy/show/ArmPlot.h"
+#include "amy/show/ArmFrontView.h"
 
 using namespace log4cxx;
 
@@ -115,14 +115,18 @@ void Tests::testFileWriter()
 
 void Tests::testArmPlot()
 {       
-    ArmPlot oArmPlot;
+    ArmFrontView oArmFrontView;
+
+    int w = 200;
+    int h = 100;
     
-    oArmPlot.setPlot(200, 100, 20, 100, "prueba");
+    oArmFrontView.setPlotSize(200, 100, "prueba");
+    oArmFrontView.setRanges(-200, 200, -20, 120);
     
-    oArmPlot.drawArmPosition(10, 20, 0);
-    oArmPlot.show();    
+    oArmFrontView.drawArmPosition(10, 20, 0, 90);
+    oArmFrontView.show();    
     sleep(2);    
-    oArmPlot.hide();    
+    oArmFrontView.hide();    
 }
 
 

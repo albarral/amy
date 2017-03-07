@@ -8,7 +8,9 @@
 
 #include <amy/utils/module3.h>
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/show/ArmPlot.h"
+#include "amy/arm/bus/JointBus.h"
+#include "amy/show/ArmFrontView.h"
+//#include "amy/show/ArmSideView.h"
 
 namespace amy
 {
@@ -20,10 +22,13 @@ private:
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // access to arm's bus
+    JointBus* pVSBus;     // access to arm's VS joint
     float pan;
     float tilt;
-    float radius;
-    ArmPlot oArmPlot;
+    //float radius;
+    float vsAngle;
+    ArmFrontView oArmFrontView;
+    //ArmSideView oArmFrontView2;
 
 public:
     ArmPlotter();
