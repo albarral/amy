@@ -36,7 +36,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/show/ArmFrontView.o \
+	${OBJECTDIR}/src/amy/show/ArmPlot.o \
 	${OBJECTDIR}/src/amy/show/ArmPlotter.o \
+	${OBJECTDIR}/src/amy/show/ArmSideView.o \
 	${OBJECTDIR}/src/amy/show/Plot.o \
 	${OBJECTDIR}/src/amy/show/PlotRecord.o
 
@@ -76,10 +78,20 @@ ${OBJECTDIR}/src/amy/show/ArmFrontView.o: src/amy/show/ArmFrontView.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmFrontView.o src/amy/show/ArmFrontView.cpp
 
+${OBJECTDIR}/src/amy/show/ArmPlot.o: src/amy/show/ArmPlot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlot.o src/amy/show/ArmPlot.cpp
+
 ${OBJECTDIR}/src/amy/show/ArmPlotter.o: src/amy/show/ArmPlotter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlotter.o src/amy/show/ArmPlotter.cpp
+
+${OBJECTDIR}/src/amy/show/ArmSideView.o: src/amy/show/ArmSideView.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmSideView.o src/amy/show/ArmSideView.cpp
 
 ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show

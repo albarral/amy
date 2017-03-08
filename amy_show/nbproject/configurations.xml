@@ -15,8 +15,12 @@
       <logicalFolder name="show" displayName="show" projectFiles="true">
         <itemPath>src/amy/show/ArmFrontView.cpp</itemPath>
         <itemPath>src/amy/show/ArmFrontView.h</itemPath>
+        <itemPath>src/amy/show/ArmPlot.cpp</itemPath>
+        <itemPath>src/amy/show/ArmPlot.h</itemPath>
         <itemPath>src/amy/show/ArmPlotter.cpp</itemPath>
         <itemPath>src/amy/show/ArmPlotter.h</itemPath>
+        <itemPath>src/amy/show/ArmSideView.cpp</itemPath>
+        <itemPath>src/amy/show/ArmSideView.h</itemPath>
         <itemPath>src/amy/show/Plot.cpp</itemPath>
         <itemPath>src/amy/show/Plot.h</itemPath>
         <itemPath>src/amy/show/PlotRecord.cpp</itemPath>
@@ -103,9 +107,17 @@
       </item>
       <item path="src/amy/show/ArmFrontView.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/show/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/ArmPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/show/ArmPlotter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/ArmPlotter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/ArmSideView.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -140,9 +152,17 @@
       </item>
       <item path="src/amy/show/ArmFrontView.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/show/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/ArmPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/show/ArmPlotter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/ArmPlotter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/ArmSideView.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
       </item>

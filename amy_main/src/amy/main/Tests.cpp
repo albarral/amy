@@ -120,10 +120,10 @@ void Tests::testArmPlot()
     int w = 200;
     int h = 100;
     
-    oArmFrontView.setPlotSize(200, 100, "prueba");
+    oArmFrontView.initPlot(200, 100, "prueba");
     oArmFrontView.setRanges(-200, 200, -20, 120);
     
-    oArmFrontView.drawArmPosition(10, 20, 0, 90);
+    oArmFrontView.drawArm(10, 20, 0, 90);
     oArmFrontView.show();    
     sleep(2);    
     oArmFrontView.hide();    

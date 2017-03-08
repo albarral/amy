@@ -10,7 +10,7 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/show/ArmFrontView.h"
-//#include "amy/show/ArmSideView.h"
+#include "amy/show/ArmSideView.h"
 
 namespace amy
 {
@@ -23,12 +23,14 @@ private:
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // access to arm's bus
     JointBus* pVSBus;     // access to arm's VS joint
+    JointBus* pELBus;     // access to arm's ELB joint
     float pan;
     float tilt;
     //float radius;
     float vsAngle;
-    ArmFrontView oArmFrontView;
-    //ArmSideView oArmFrontView2;
+    float elbAngle;
+    ArmFrontView oArmFrontView;    // plotting of frontal arm view 
+    ArmSideView oArmSideView;    // plotting of side arm view  
 
 public:
     ArmPlotter();

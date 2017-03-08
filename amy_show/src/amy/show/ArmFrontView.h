@@ -6,18 +6,21 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/show/Plot.h"
+#include "amy/show/ArmPlot.h"
 
 namespace amy 
 {
-// This class plots in a window an arm's 2D position from a frontal view.
-class ArmFrontView : public Plot
+// This class plots a frontal view of the arm.
+class ArmFrontView : public ArmPlot
 {
 public:
     ArmFrontView();
     
+    // configure plot (defines window size and name)
+    virtual void configDraw(std::string name, int maxSide);
+    
     // draws two points (elbow and hand) showing the arm's 2D position
-    void drawArmPosition(int pan, int tilt, int radius, int vsAngle);
+    void drawArm(int pan, int tilt, int radius, int vsAngle);
 };
 }    
 #endif

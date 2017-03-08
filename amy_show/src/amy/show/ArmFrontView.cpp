@@ -10,9 +10,17 @@ namespace amy
 ArmFrontView::ArmFrontView()
 {
 }
-    
+
+void ArmFrontView::configDraw(std::string name, int maxSide)
+{
+    // create a maxSide x maxSide square window ...
+    // able to represent arm in all directions (up, down, left and right)
+    initPlot(maxSide, maxSide, name);   
+    setRanges(-maxLen, maxLen, -maxLen, maxLen);
+}
+
 // draws two points (elbow and hand) showing the arm's 2D position
-void ArmFrontView::drawArmPosition(int pan, int tilt, int radius, int vsAngle)
+void ArmFrontView::drawArm(int pan, int tilt, int radius, int vsAngle)
 {  
     // prepare image
     image = cv::Scalar(0,0,0);

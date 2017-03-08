@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -12,21 +12,19 @@ namespace amy
 Plot::Plot()
 {
     margin = 10; // 10 pixels margin
-    setPlotSize(120, 120, "default");
-    setRanges(-50, 50, -50, 50);
 }
 
-void Plot::setPlotSize(int w, int h, std::string name)
+void Plot::initPlot(int w, int h, std::string name)
 {
      W=w; 
      H=h; 
-     plotName = name;     
-     // update conversion factors and origin position
-     computeFactorsAndOrigin();
+     // update scale and origin position
+     updateScale();
 
      // create clean image and window      
+     plotName = name;
      image = cv::Mat::zeros(H, W, CV_8UC3);           
-     cv::namedWindow(plotName);         
+     cv::namedWindow(plotName);              
 }
     
 // set plotted ranges 
@@ -41,15 +39,18 @@ void Plot::setRanges(int xmin, int xmax, int ymin, int ymax)
     this->ymin = ymin;
     this->ymax = ymax;
     
-    // update conversion factors and origin position
-    computeFactorsAndOrigin();
+     // update scale and origin position
+    updateScale();
 }
 
-void Plot::computeFactorsAndOrigin()
+void Plot::updateScale()
 {
     // compute conversion factors
-    xfactor = (float)(xmax - xmin) / (W - 2*margin);
-    yfactor = (float)(ymax - ymin) / (H - 2*margin);
+    float xfactor = (float)(xmax - xmin) / (W - 2*margin);
+    float yfactor = (float)(ymax - ymin) / (H - 2*margin);
+    
+    // we'll use a unique conversion factor to grant uniformity (we'll use the bigger one)
+    scale = (xfactor > yfactor ? xfactor : yfactor);
     // compute origin position in image
     x0 = margin + abs(xmin)/xfactor;
     y0 = margin + abs(ymin)/yfactor;    
@@ -91,7 +92,7 @@ bool Plot::checkRangeLimits(float x, float y)
 // transform the specified physical point (x,y) into its representing plotted point in image
 cv::Point Plot::getPoint2Plot(float x, float y)
 {
-    return cv::Point(x0 + x/xfactor, H - (y0 + y/yfactor));  // draw upside-down
+    return cv::Point(x0 + x/scale, H - (y0 + y/scale));  // draw upside-down
 }
 
 }

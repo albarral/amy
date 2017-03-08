@@ -27,8 +27,7 @@ protected:
     int ymin;    // min value represented in y axis
     int ymax;    // max value represented in y axis
     // logic
-    float xfactor;  // conversion factor to represent x values in image 
-    float yfactor;  // conversion factor to represent y values in image
+    float scale;   // conversion factor to represent xy values in image 
     int x0;           // horizontal position of x origin in image (pixels)
     int y0;           // vertical position of y origin in image (pixels)
 
@@ -36,9 +35,9 @@ public:
     Plot();
      //~Plot();
 
-    // set plot size and name
-    void setPlotSize(int w, int h,std::string name);
-    // set plotted ranges (compute conversion factors and origin position in image)
+    // initializes plot with given size (creates image and window)
+    void initPlot(int w, int h, std::string name);
+    // set plotted ranges (requires scale recomputation)
     void setRanges(int xmin, int xmax, int ymin, int ymax);
     
     // show the drawn image
@@ -56,7 +55,7 @@ protected:
     
 private:
     // recomputes conversion factor and origin positions
-    void computeFactorsAndOrigin();
+    void updateScale();
 };
 }    
 #endif
