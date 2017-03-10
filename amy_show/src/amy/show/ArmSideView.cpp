@@ -23,52 +23,28 @@ void ArmSideView::configDraw(std::string name, int maxSide)
     setRanges(0, maxLen, -maxLen, maxLen);
 }
 
-// draws two segments (humerus and radius) showing the arm's 2D side position
-void ArmSideView::drawArm(float vs, float elbow, int lenHum, int lenRad)
+// draws two segments (humerus and radius) showing the arm's 2D lateral projection
+// the vertical plane over the pan angle is represented here, so no projections are needed
+// elbow = (lHum*cos(vs), lHum*sin(vs))
+// hand  = elbow + (lRad*cos(elb2hand), lRad*sin(elb2hand))
+// elb2hand = vs + elb      ...  elbow to hand relative angle (taken from the elbow's horizontal plane)
+void ArmSideView::drawArm(float vs, float elbow)
 {  
     // prepare image
     image = cv::Scalar(0,0,0);
     drawAxes();
 
-    // vertical plane positioned on the arm's pan angle
-    // vs and elbow angles don't need projection
+    float vsRadians = vs * KPI_DIV_180;
+    float elb2handRadians = (vs + elbow) * KPI_DIV_180;
+    
+    // compute positions of elbow & hand from a lateral view
+    int xElbow = lenHum*cos(vsRadians);
+    int yElbow = lenHum*sin(vsRadians);
+    int xHand = xElbow + lenRad*cos(elb2handRadians);
+    int yHand = yElbow + lenRad*sin(elb2handRadians);
 
-    float radiansVS = vs * KPI_DIV_180;
-    // gamma = vs + elbow       (hand angle relative to horizontal at elbow)
-    float radiansHandFromElbow = (vs + elbow) * KPI_DIV_180;
-    
-    // elbow point, depends on VS and humerus length 
-    int xElbow = lenHum*cos(radiansVS);
-    int yElbow = lenHum*sin(radiansVS);
-    
-    // hand point, depends on elbow point, ELB and radius length 
-    int xHand = xElbow + lenRad*cos(radiansHandFromElbow);
-    int yHand = yElbow + lenRad*sin(radiansHandFromElbow);
-
-    // the arm base will be shown at axis origin 
-    cv::Point origin = cv::Point(x0, y0);
-    cv::Point elbowPoint, handPoint;
-    bool belbowVisible = false; // indicates elbow is visible in image
-    
-    // draw elbow point and line base-elbow (ignore out of bound points)
-    if (checkRangeLimits(xElbow, yElbow))
-    {
-        // obtain elbow point in plotted view
-        elbowPoint = getPoint2Plot(xElbow, yElbow);    
-        cv::circle(image, elbowPoint, 5, elbowColor, -1);                   
-        cv::line(image, origin, elbowPoint, elbowColor);   
-        belbowVisible = true;
-    }
-    // draw hand point and line elbow-hand (ignore out of bound points)
-    if (checkRangeLimits(xHand, yHand))
-    {
-        // obtain hand point in plotted view
-        handPoint = getPoint2Plot(xHand, yHand);    
-        cv::circle(image, handPoint, 5, handColor, -1);                   
-        // draw elbow-hand line only if elbow is visible
-        if (belbowVisible)
-            cv::line(image, elbowPoint, handPoint, handColor);           
-    }
+    // draws both points and segments
+    drawElbowAndHand(xElbow, yElbow, xHand, yHand);
 }
 
 }

@@ -31,4 +31,32 @@ void ArmPlot::setArmSize(int lenH, int lenR)
     }
 }
 
+void ArmPlot::drawElbowAndHand(int xElbow, int yElbow, int xHand, int yHand)
+{
+    // the arm base will be at origin 
+    cv::Point origin = cv::Point(x0, y0);
+    cv::Point elbowPoint, handPoint;
+    bool belbowVisible = false; // indicates elbow is visible in image
+    
+    // draw elbow point and line base-elbow (ignore out of bound points)
+    if (checkRangeLimits(xElbow, yElbow))
+    {
+        // obtain elbow point in plotted view
+        elbowPoint = getPoint2Plot(xElbow, yElbow);    
+        cv::circle(image, elbowPoint, 5, elbowColor, -1);                   
+        cv::line(image, origin, elbowPoint, elbowColor);   
+        belbowVisible = true;
+    }
+    // draw hand point and line elbow-hand (ignore out of bound points)
+    if (checkRangeLimits(xHand, yHand))
+    {
+        // obtain hand point in plotted view
+        handPoint = getPoint2Plot(xHand, yHand);    
+        cv::circle(image, handPoint, 5, handColor, -1);                   
+        // draw elbow-hand line only if elbow is visible
+        if (belbowVisible)
+            cv::line(image, elbowPoint, handPoint, handColor);           
+    }
+}
+
 }

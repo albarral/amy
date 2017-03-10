@@ -3,10 +3,14 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <cmath>
+
 #include "amy/show/ArmFrontView.h"
 
 namespace amy 
 {
+const float ArmFrontView::KPI_DIV_180 = 0.0174;    
+    
 ArmFrontView::ArmFrontView()
 {
 }
@@ -19,35 +23,29 @@ void ArmFrontView::configDraw(std::string name, int maxSide)
     setRanges(-maxLen, maxLen, -maxLen, maxLen);
 }
 
-// draws two points (elbow and hand) showing the arm's 2D position
-void ArmFrontView::drawArm(int pan, int tilt, int radius, int vsAngle)
+// draws two segments (humerus and radius) showing the arm's 2D frontal projection
+// elbow = (l1*sin(pan), lHum*sin(vs))
+// hand  = (l2*sin(pan), lHand*sin(tilt))
+// l1 = lHum*cos(vs)      ... humerus projection on horizontal plane
+// l2 = radius*cos(tilt)    ... arm projection on horizontal plane
+void ArmFrontView::drawArm(float vs, float pan, float tilt, float radius)
 {  
     // prepare image
     image = cv::Scalar(0,0,0);
     drawAxes();
-
-    cv::Scalar handColor = cv::Scalar(0, 255, 255);  // yellow
-    cv::Scalar elbowColor = cv::Scalar(255, 255, 255);  // white
     
-    // hand point represents (pan, tilt)
-    // elbow point represents (pan, vsAngle)    
-    int x = pan;
-    int yHand = tilt;
-    int yElbow = vsAngle;
+    float vsRadians = vs * KPI_DIV_180;
+    float tiltRadians = tilt * KPI_DIV_180;
+    float sinusPan = sin(pan * KPI_DIV_180);
+         
+    // compute positions of elbow & hand from a frontal view
+    int xElbow = lenHum * cos(vsRadians) * sinusPan;    
+    int yElbow = lenHum * sin(vsRadians);
+    int xHand = radius * cos(tiltRadians) * sinusPan;    
+    int yHand = radius * sin(tiltRadians);
     
-    // draw elbow point (ignore out of bound points)
-    if (checkRangeLimits(x, yElbow))
-    {
-        // obtain elbow point in plotted view
-        cv::Point elbowPoint = getPoint2Plot(x, yElbow);    
-        cv::circle(image, elbowPoint, 5, elbowColor, -1);           
-    }
-    // draw hand point (ignore out of bound points)
-    if (checkRangeLimits(x, yHand))
-    {
-        // obtain hand point in plotted view
-        cv::Point handPoint = getPoint2Plot(x, yHand);    
-        cv::circle(image, handPoint, 5, handColor, -1);           
-    }
+    // draws both points and segments
+    drawElbowAndHand(xElbow, yElbow, xHand, yHand);
 }
+
 }

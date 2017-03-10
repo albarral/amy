@@ -35,6 +35,10 @@ public:
     void setArmSize(int lenH, int lenR);
     // configure plot (defines window size and name)
     virtual void configDraw(std::string name, int maxSide) = 0;
+    
+protected:
+    // draw elbow and hand segments (ignore out of bound points)    
+    void drawElbowAndHand(int xElbow, int yElbow, int xHand, int yHand);
 };
 }    
 #endif

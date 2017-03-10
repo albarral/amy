@@ -34,12 +34,15 @@ void ArmPlotter::connect(ArmBus& oArmBus)
 
 void ArmPlotter::first()
 {
+    // should be read from config
+    int lenH = 40;
+    int lenR = 40;
     // frontal arm view (200 pixels wide)
-    oArmFrontView.setArmSize(40, 40);
+    oArmFrontView.setArmSize(lenH, lenR);
     oArmFrontView.configDraw("arm frontal", 200);
 
     // side arm view (200 pixels wide)
-    oArmSideView.setArmSize(40, 40);
+    oArmSideView.setArmSize(lenH, lenR);
     oArmSideView.configDraw("arm side", 200);
 }
                     
@@ -48,12 +51,10 @@ void ArmPlotter::loop()
 {
     senseBus();
     // draw arm frontal view
-    oArmFrontView.drawArm(pan, tilt, 0, vsAngle);
+    oArmFrontView.drawArm(vsAngle, pan, tilt, radius);
     oArmFrontView.show();    
     // draw arm side view
-    int lenH = 40;
-    int lenR = 40;
-    oArmSideView.drawArm(vsAngle, elbAngle, lenH, lenR);
+    oArmSideView.drawArm(vsAngle, elbAngle);
     oArmSideView.show();    
 }
 
@@ -61,6 +62,7 @@ void ArmPlotter::senseBus()
 {
     pan = pArmBus->getSO_ARM_PAN().getValue();
     tilt = pArmBus->getSO_ARM_TILT().getValue();    
+    radius = pArmBus->getSO_ARM_RADIUS().getValue();
     vsAngle = pVSBus->getSO_IST_ANGLE().getValue();
     elbAngle = pELBus->getSO_IST_ANGLE().getValue();
 }

@@ -26,7 +26,7 @@ private:
     JointBus* pELBus;     // access to arm's ELB joint
     float pan;
     float tilt;
-    //float radius;
+    float radius;
     float vsAngle;
     float elbAngle;
     ArmFrontView oArmFrontView;    // plotting of frontal arm view 

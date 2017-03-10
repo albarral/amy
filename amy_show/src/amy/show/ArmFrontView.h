@@ -13,14 +13,17 @@ namespace amy
 // This class plots a frontal view of the arm.
 class ArmFrontView : public ArmPlot
 {
+private:    
+    static const float KPI_DIV_180;
+    
 public:
     ArmFrontView();
     
     // configure plot (defines window size and name)
     virtual void configDraw(std::string name, int maxSide);
     
-    // draws two points (elbow and hand) showing the arm's 2D position
-    void drawArm(int pan, int tilt, int radius, int vsAngle);
+    // draws two segments (humerus and radius) showing the arm's 2D side position
+    void drawArm(float vs, float pan, float tilt, float radius);
 };
 }    
 #endif

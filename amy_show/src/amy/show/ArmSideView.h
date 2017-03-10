@@ -17,7 +17,6 @@ class ArmSideView : public ArmPlot
 private:    
     static const float KPI_DIV_180;
     
-
 public:
     ArmSideView();
     
@@ -25,7 +24,7 @@ public:
     virtual void configDraw(std::string name, int maxSide);
 
     // draws two segments (humerus and radius) showing the arm's 2D side position
-    void drawArm(float vs, float elbow, int lenHum, int lenRad);
+    void drawArm(float vs, float elbow);
 };
 }    
 #endif
