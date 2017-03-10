@@ -13,41 +13,58 @@ ArmPlotter::ArmPlotter()
     modName = "ArmPlotter";
     bconnected = false;
     pArmBus = 0;
+    pVSBus = 0;
+    pELBus = 0;
  }
 
 ArmPlotter::~ArmPlotter()
 {
-    // hide window
-    oArmPlot.hide();        
+    // hide windows
+    oArmFrontView.hide();        
+    oArmSideView.hide();        
 }
 
 void ArmPlotter::connect(ArmBus& oArmBus)
 {
-    pArmBus = &oArmBus;    
+    pArmBus = &oArmBus;
+    pVSBus = &pArmBus->getBusVS();    
+    pELBus = &pArmBus->getBusEL();    
     bconnected = true;
 }
 
 void ArmPlotter::first()
 {
-    // set plot sizes
-    int w = 400;
-    int h = 200;
-    oArmPlot.setPlot(w, h, 20, w/2, "arm 1");
+    // should be read from config
+    int lenH = 40;
+    int lenR = 40;
+    // frontal arm view (200 pixels wide)
+    oArmFrontView.setArmSize(lenH, lenR);
+    oArmFrontView.configDraw("arm frontal", 200);
+
+    // side arm view (200 pixels wide)
+    oArmSideView.setArmSize(lenH, lenR);
+    oArmSideView.configDraw("arm side", 200);
 }
                     
 // drives the axis towards the target position
 void ArmPlotter::loop()
 {
     senseBus();
-    // draw arm pos
-    oArmPlot.drawArmPosition(pan, tilt, 0);
-    oArmPlot.show();    
+    // draw arm frontal view
+    oArmFrontView.drawArm(vsAngle, pan, tilt, radius);
+    oArmFrontView.show();    
+    // draw arm side view
+    oArmSideView.drawArm(vsAngle, elbAngle);
+    oArmSideView.show();    
 }
 
 void ArmPlotter::senseBus()
 {
     pan = pArmBus->getSO_ARM_PAN().getValue();
     tilt = pArmBus->getSO_ARM_TILT().getValue();    
+    radius = pArmBus->getSO_ARM_RADIUS().getValue();
+    vsAngle = pVSBus->getSO_IST_ANGLE().getValue();
+    elbAngle = pELBus->getSO_IST_ANGLE().getValue();
 }
 
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -9,35 +9,54 @@ namespace amy
 {
 ArmPlot::ArmPlot()
 {
-    pan0 = -100;
-    pan1 = 100;
-    tilt0 = -10;
-    tilt1 = 150;
+    handColor = cv::Scalar(0, 255, 255);  // yellow
+    elbowColor = cv::Scalar(255, 255, 255);  // white        
+    
+    // set default values (20 + 20 arm, window side 200)
+    lenHum = 20;
+    lenRad = 20;
+    maxLen = lenHum + lenRad + 5;
+    maxSide = 200;    
 }
 
-void ArmPlot::setMaxLimits(int panL, int panR, int tiltBottom, int tiltTop)
-{
-    pan0 = panL; 
-    pan1 = panR;
-    tilt0 = tiltBottom;
-    tilt1 = tiltTop;
-}
     
-void ArmPlot::drawArmPosition(int pan, int tilt, int radius)
-{  
-    // prepare image
-    image = cv::Scalar(0,0,0);
-    drawAxes();
-
-    cv::Scalar color = cv::Scalar(255, 255, 255);  // white
-    
-    int x = yaxis + pan;
-    // draw upside-down
-    int y = H - xaxis - tilt;
-    // ignore points that fall out of plot
-    if (y>=0 && y<H && x>=0 && x<W)
+void ArmPlot::setArmSize(int lenH, int lenR)
+{    
+    // assure valid values
+    if ((lenH > 0) && (lenR > 0))
     {
-        cv::circle(image, cv::Point(x, y), 3, color);           
+        lenHum = lenH;
+        lenRad = lenR;        
+        maxLen = lenHum + lenRad + 5;
     }
 }
+
+void ArmPlot::drawElbowAndHand(int xElbow, int yElbow, int xHand, int yHand)
+{
+    // the arm base will be at origin 
+    cv::Point origin = cv::Point(x0, y0);
+    cv::Point elbowPoint, handPoint;
+    bool belbowVisible = false; // indicates elbow is visible in image
+    
+    // draw elbow point and line base-elbow (ignore out of bound points)
+    if (checkRangeLimits(xElbow, yElbow))
+    {
+        // obtain elbow point in plotted view
+        elbowPoint = getPoint2Plot(xElbow, yElbow);    
+        cv::circle(image, elbowPoint, 5, elbowColor, -1);                   
+        cv::line(image, origin, elbowPoint, elbowColor);   
+        belbowVisible = true;
+    }
+    // draw hand point and line elbow-hand (ignore out of bound points)
+    if (checkRangeLimits(xHand, yHand))
+    {
+        // obtain hand point in plotted view
+        handPoint = getPoint2Plot(xHand, yHand);    
+        cv::circle(image, handPoint, 5, handColor, -1);                   
+        // draw elbow-hand line only if elbow is visible
+        if (belbowVisible)
+            cv::line(image, elbowPoint, handPoint, handColor);           
+    }
+}
+
 }

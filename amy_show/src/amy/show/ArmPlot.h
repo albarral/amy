@@ -6,26 +6,39 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+#include "opencv2/core/core.hpp"    // for cv::Scalar
+
 #include "amy/show/Plot.h"
 
 namespace amy 
 {
-// This class plots an arm's 2D position in a window.
+// Base class used to plot the arm position in a 2D image.
+// Derived from Plot
 class ArmPlot : public Plot
 {
-private:    
-    int pan0;   // max negative pan value (represented)
-    int pan1;   // max positive pan value (represented)
-    int tilt0;    // bottom represented tilt  
-    int tilt1;    // top represented tilt  
+protected:    
+    cv::Scalar handColor;
+    cv::Scalar elbowColor;
+    // params
+    int lenHum; // humerus length (cm)
+    int lenRad; // radius length (cm)
+    int maxSide;  // size of the image's longest side (pixels)
+    // logic
+    int maxLen;   // maximum represented length (cm)
 
 public:
     ArmPlot();
+     //~ArmPlot();
 
-    void setMaxLimits(int panL, int panR, int tiltBottom, int tiltTop);
+    // sets arm sizes (humerus len, radius len)
+    void setArmSize(int lenH, int lenR);
+    // configure plot (defines window size and name)
+    virtual void configDraw(std::string name, int maxSide) = 0;
     
-    // draw a point showing the arm's 2D position
-    void drawArmPosition(int pan, int tilt, int radius);
+protected:
+    // draw elbow and hand segments (ignore out of bound points)    
+    void drawElbowAndHand(int xElbow, int yElbow, int xHand, int yHand);
 };
 }    
 #endif

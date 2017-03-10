@@ -11,32 +11,51 @@
 
 namespace amy 
 {
-// Base class used to plot something in a fixed size image and show it in a window.
+// Base class used to plot something in a 2D image (of fixed size) and show it in a window.
 class Plot
 {
 protected:    
     // image
     cv::Mat image;
-    int W;   // plot width (pixels)
-    int H;   // plot height (pixels)
-    int xaxis;     // position of x axis
-    int yaxis;     // position of y axis
     std::string plotName;
+    // params
+    int W;   // plot width (pixels)
+    int H;   // plot height (pixels)  
+    int margin; // margins applied to plotted image (pixels)
+    int xmin;   // min value represented in x axis
+    int xmax;   // max value represented in x axis
+    int ymin;    // min value represented in y axis
+    int ymax;    // max value represented in y axis
+    // logic
+    float scale;   // conversion factor to represent xy values in image 
+    int x0;           // horizontal position of x origin in image (pixels)
+    int y0;           // vertical position of y origin in image (pixels)
 
 public:
     Plot();
      //~Plot();
 
-    // set plot sizes and name
-    void setPlot(int w, int h, int posXaxis, int posYaxis, std::string name);
+    // initializes plot with given size (creates image and window)
+    void initPlot(int w, int h, std::string name);
+    // set plotted ranges (requires scale recomputation)
+    void setRanges(int xmin, int xmax, int ymin, int ymax);
+    
     // show the drawn image
     void show();
     // hides the drawn image
     void hide();
     
-protected:        
+protected:            
     // draws the axes in the plot
-    void drawAxes();
+    void drawAxes();        
+    // checks if given physical point (x,y) is inside the represented ranges
+    bool checkRangeLimits(float x, float y);
+    // transform the specified physical point (x,y) into its representing plotted point in image
+    cv::Point getPoint2Plot(float x, float y);    
+    
+private:
+    // recomputes conversion factor and origin positions
+    void updateScale();
 };
 }    
 #endif

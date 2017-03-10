@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -11,23 +11,51 @@ namespace amy
 {
 Plot::Plot()
 {
-    W = H = 100;
-    xaxis = yaxis = 50;
+    margin = 10; // 10 pixels margin
 }
 
-void Plot::setPlot(int w, int h, int posXaxis, int posYaxis, std::string name)
+void Plot::initPlot(int w, int h, std::string name)
 {
      W=w; 
      H=h; 
-     xaxis=posXaxis; 
-     yaxis=posYaxis;
+     // update scale and origin position
+     updateScale();
+
+     // create clean image and window      
      plotName = name;
-     // create clean RGB image        
-     image = cv::Mat::zeros(H, W, CV_8UC3);      
-     
-     cv::namedWindow(plotName);         
+     image = cv::Mat::zeros(H, W, CV_8UC3);           
+     cv::namedWindow(plotName);              
 }
     
+// set plotted ranges 
+void Plot::setRanges(int xmin, int xmax, int ymin, int ymax)
+{
+    // skip if null ranges specified
+    if ((xmin == xmax) || (ymin == ymax))
+        return;
+    
+    this->xmin = xmin; 
+    this->xmax = xmax;
+    this->ymin = ymin;
+    this->ymax = ymax;
+    
+     // update scale and origin position
+    updateScale();
+}
+
+void Plot::updateScale()
+{
+    // compute conversion factors
+    float xfactor = (float)(xmax - xmin) / (W - 2*margin);
+    float yfactor = (float)(ymax - ymin) / (H - 2*margin);
+    
+    // we'll use a unique conversion factor to grant uniformity (we'll use the bigger one)
+    scale = (xfactor > yfactor ? xfactor : yfactor);
+    // compute origin position in image
+    x0 = margin + abs(xmin)/xfactor;
+    y0 = margin + abs(ymin)/yfactor;    
+}
+
 void Plot::show()
 {  
     // show plot
@@ -45,14 +73,26 @@ void Plot::drawAxes()
 {
     cv::Scalar colorAxis = cv::Scalar(0, 0, 255);  // red
     // set axes limits
-    cv::Point x0 = cv::Point(0, H-xaxis);
-    cv::Point x1 = cv::Point(W-1, H-xaxis);
-    cv::Point y0 = cv::Point(yaxis, H-1);
-    cv::Point y1 = cv::Point(yaxis, 0);   
+    cv::Point x1 = cv::Point(margin, H-y0);
+    cv::Point x2 = cv::Point(W-margin, H-y0);
+    cv::Point y1 = cv::Point(x0, margin);
+    cv::Point y2 = cv::Point(x0, H-margin);   
     // draw xaxis
-    cv::line(image, x0, x1, colorAxis);
+    cv::line(image, x1, x2, colorAxis);
     // draw yaxis
-    cv::line(image, y0, y1, colorAxis);   
+    cv::line(image, y1, y2, colorAxis);   
+}
+    
+// checks if given physical point (x,y) is inside the represented ranges
+bool Plot::checkRangeLimits(float x, float y)
+{
+    return (x>=xmin && x<=xmax && y>=ymin && y<=ymax);
+}
+
+// transform the specified physical point (x,y) into its representing plotted point in image
+cv::Point Plot::getPoint2Plot(float x, float y)
+{
+    return cv::Point(x0 + x/scale, H - (y0 + y/scale));  // draw upside-down
 }
 
 }

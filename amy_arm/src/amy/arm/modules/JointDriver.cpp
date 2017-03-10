@@ -117,6 +117,11 @@ void JointDriver::senseBus()
     // otherwise free
     else
         bfree = true;
+    
+    // inform real speed 
+    // TEMP: real position not read yet. Should be done in another module
+    // Till then, SOLL angles informed here
+    pJointBus->getSO_IST_ANGLE().setValue(angle);    
 }
 
 void JointDriver::writeBus()
@@ -133,12 +138,7 @@ void JointDriver::writeBus()
     pJointBus->getSO_JCONTROL_LIMIT_REACHED().setValue(limitReached);
 
     if (limitReached != 0)            
-        LOG4CXX_WARN(logger, "joint limit!");
-            
-    // inform real speed 
-    // TEMP: real position not read yet. 
-    // Till then, SOLL angles informed here
-    pJointBus->getSO_IST_ANGLE().setValue(angle);
+        LOG4CXX_WARN(logger, "joint limit!");            
 }
 
 float JointDriver::limitAngle(float value)
