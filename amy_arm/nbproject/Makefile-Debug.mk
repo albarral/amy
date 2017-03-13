@@ -42,12 +42,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
-	${OBJECTDIR}/src/amy/arm/data/MoveStep.o \
-	${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o \
-	${OBJECTDIR}/src/amy/arm/data/Movement.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
@@ -133,36 +127,6 @@ ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
-
-${OBJECTDIR}/src/amy/arm/data/MoveStep.o: src/amy/arm/data/MoveStep.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep.o src/amy/arm/data/MoveStep.cpp
-
-${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o: src/amy/arm/data/MoveStep3D.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/MoveStep3D.o src/amy/arm/data/MoveStep3D.cpp
-
-${OBJECTDIR}/src/amy/arm/data/Movement.o: src/amy/arm/data/Movement.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/data
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/data/Movement.o src/amy/arm/data/Movement.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o: src/amy/arm/modules/ArmComputer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmComputer.o src/amy/arm/modules/ArmComputer.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o: src/amy/arm/modules/ArmPlanner.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmPlanner.o src/amy/arm/modules/ArmPlanner.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmSense.o: src/amy/arm/modules/ArmSense.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

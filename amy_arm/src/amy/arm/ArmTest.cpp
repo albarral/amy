@@ -14,9 +14,7 @@
 
 #include "amy/arm/ArmTest.h"
 
-// test arm planner
-#include "amy/arm/modules/ArmComputer.h"
-#include "amy/arm/data/MoveStep.h"
+
 #include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
@@ -218,26 +216,6 @@ void ArmTest::testArmMath()
 //    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
 }
 
-void ArmTest::testArmPlanner()
-{
-    Movement oMovement;
-    int maxSpeed = 40;    
-    
-    MoveStep oStep1(30, 5000, maxSpeed);
-    MoveStep oStep2(45, 5000, maxSpeed);
-    MoveStep oStep3(60, 5000, maxSpeed);
-    MoveStep oStep4(89, 5000, maxSpeed);
-    
-    ArmComputer::computeMoveStep(oStep1);
-    ArmComputer::computeMoveStep(oStep2);
-    ArmComputer::computeMoveStep(oStep3);
-    ArmComputer::computeMoveStep(oStep4);
-    
-    LOG4CXX_INFO(logger, "step1: " << oStep1.getDescription());
-    LOG4CXX_INFO(logger, "step2: " << oStep2.getDescription());
-    LOG4CXX_INFO(logger, "step3: " << oStep3.getDescription());
-    LOG4CXX_INFO(logger, "step4: " << oStep4.getDescription());
-}
-    
+
 
 }

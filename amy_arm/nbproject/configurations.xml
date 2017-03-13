@@ -25,21 +25,7 @@
           <itemPath>src/amy/arm/config/ArmConfig.cpp</itemPath>
           <itemPath>src/amy/arm/config/ArmConfig.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="data" displayName="data" projectFiles="true">
-          <itemPath>src/amy/arm/data/MoveStep.cpp</itemPath>
-          <itemPath>src/amy/arm/data/MoveStep.h</itemPath>
-          <itemPath>src/amy/arm/data/MoveStep3D.cpp</itemPath>
-          <itemPath>src/amy/arm/data/MoveStep3D.h</itemPath>
-          <itemPath>src/amy/arm/data/Movement.cpp</itemPath>
-          <itemPath>src/amy/arm/data/Movement.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
-          <itemPath>src/amy/arm/modules/ArmComputer.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmComputer.h</itemPath>
-          <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
-          <itemPath>src/amy/arm/modules/ArmPlanner.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmPlanner.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
@@ -183,33 +169,6 @@
       <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep3D.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep3D.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/Movement.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/Movement.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmComputer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -370,33 +329,6 @@
       <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep3D.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/MoveStep3D.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/Movement.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/data/Movement.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmComputer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmComputer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPlanner.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmPlanner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
       </item>
