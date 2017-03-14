@@ -29,7 +29,6 @@ LoggerPtr ArmTest::logger(Logger::getLogger("amy.arm"));
 ArmTest::ArmTest()
 {
     pArmBus = 0;
-    reset();
 }
 
 void ArmTest::connect2Bus(ArmManager& oArmManager)
@@ -37,86 +36,32 @@ void ArmTest::connect2Bus(ArmManager& oArmManager)
     pArmBus = &oArmManager.oArmBus;
 }
 
-void ArmTest::reset()
+void ArmTest::testCycler()
 {
-    step = 0; 
-    direction = 1;    
-}
-
-void ArmTest::newStep()
-{
-    step++;
-
-    LOG4CXX_INFO(logger, "step " << step);    
+    LOG4CXX_INFO(logger, "testCycler");    
     
-     if (step <= 5)
-         setPos();
-     else
-         testRacer();            
+    if (!isConnected())
+         return;
+
+     float freq = 0.5;
+     float amplitude = 40;
+     
+    pArmBus->getCO_PAN_FREQ().request(freq);
+    pArmBus->getCO_PAN_AMPLITUDE().request(amplitude);
+    pArmBus->getCO_PAN_TRIGGER().request(true);
 }
 
-void ArmTest::setPos()
+void ArmTest::setPos(int pan, int tilt, int radius)
 {
-    int value;
-
      if (!isConnected())
          return;
-     
-    switch (step)
-    {
-        case 1: 
-            value = -60;
-            pArmBus->getCO_ARM_PAN().request(value);            
-            LOG4CXX_INFO(logger, "initialPosition: pan");
-            break;
-            
-        case 3: 
-            value = 80;
-            pArmBus->getCO_ARM_TILT().request(value);
-            LOG4CXX_INFO(logger, "initialPosition: tilt");
-            break;
 
-        case 5: 
-            value = 60;
-            pArmBus->getCO_ARM_RADIUS().request(value);            
-            LOG4CXX_INFO(logger, "initialPosition: radius");
-            break;
-    }    
+    pArmBus->getCO_ARM_PAN().request(pan);     
+    pArmBus->getCO_ARM_TILT().request(tilt);
+    pArmBus->getCO_ARM_RADIUS().request(radius);
+    LOG4CXX_INFO(logger, "setPosition: " << pan << ", " << tilt << ", " << radius);
 }
 
-
-void ArmTest::testRacer()
-{
-    if (!isConnected())    
-        return;
-
-    float speed = 40.0;
-    switch (step)
-    {
-        case 7: 
-              pArmBus->getCO_PAN_SPEED().request(speed);
-            break;
-            
-        case 9: 
-              pArmBus->getCO_TILT_SPEED().request(-speed);
-            break;
-
-        case 1: 
-              pArmBus->getCO_PAN_SPEED().request(0);
-              pArmBus->getCO_TILT_SPEED().request(0);
-            break;
-    }    
-    
-    
-    // change pan direction every 2 steps
-//    bool beven = (fmod(step, 2) == 0.0);
-//    if (beven)
-//    {
-//        direction = -direction;
-//        float speed = direction*80.0;
-//        oArmManager.oArmBus.getCO_PAN_SPEED(speed);
-//    }
-}
 
 void ArmTest::testKeepTilt()
 {

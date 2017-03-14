@@ -21,8 +21,6 @@ class ArmTest
  private:
      static log4cxx::LoggerPtr logger;
      ArmBus* pArmBus;   // bus access
-     int step;
-     int direction;
 
 public:
     ArmTest();
@@ -31,19 +29,15 @@ public:
     void connect2Bus(ArmManager& oArmManager);
     bool isConnected() {return pArmBus != 0;};
     
-    void reset();            
-    void newStep();
+    void setPos(int pan, int tilt, int radius);
+    void testCycler();
     void testKeepTilt();    
 
-private:    
-    void setPos();
-    void testRacer();
-    
+private:        
     void testJointMove();
     void testJointControl();
     void testRadialControl();
     void testArmMath();
-    void testArmPlanner();
 };
 
 }    
