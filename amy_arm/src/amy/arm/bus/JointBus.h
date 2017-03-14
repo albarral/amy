@@ -8,8 +8,8 @@
 
 #include <string>
 
-#include "amy/utils/brooks/controlT.h"
-#include "amy/utils/brooks/sensorT.h"
+#include "amy/control/brooks/controlT.h"
+#include "amy/control/brooks/sensorT.h"
 
 namespace amy
 {

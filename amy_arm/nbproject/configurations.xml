@@ -14,8 +14,6 @@
                    projectFiles="true">
       <logicalFolder name="arm" displayName="arm" projectFiles="true">
         <logicalFolder name="f1" displayName="bus" projectFiles="true">
-          <itemPath>src/amy/arm/bus/ArmBeat.cpp</itemPath>
-          <itemPath>src/amy/arm/bus/ArmBeat.h</itemPath>
           <itemPath>src/amy/arm/bus/ArmBus.cpp</itemPath>
           <itemPath>src/amy/arm/bus/ArmBus.h</itemPath>
           <itemPath>src/amy/arm/bus/JointBus.cpp</itemPath>
@@ -34,6 +32,8 @@
           <itemPath>src/amy/arm/modules/AxisRacer.h</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.h</itemPath>
+          <itemPath>src/amy/arm/modules/PanCycler.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/PanCycler.h</itemPath>
           <itemPath>src/amy/arm/modules/PanDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/PanDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/PanRacer.cpp</itemPath>
@@ -58,8 +58,6 @@
           <itemPath>src/amy/arm/move/JointAccelerator.h</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.cpp</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.h</itemPath>
-          <itemPath>src/amy/arm/move/PIDControl.cpp</itemPath>
-          <itemPath>src/amy/arm/move/PIDControl.h</itemPath>
           <itemPath>src/amy/arm/move/RadialPositioner.cpp</itemPath>
           <itemPath>src/amy/arm/move/RadialPositioner.h</itemPath>
           <itemPath>src/amy/arm/move/SpeedSensor3.cpp</itemPath>
@@ -111,6 +109,7 @@
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_utils/src</pElem>
+            <pElem>../amy_control/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -139,6 +138,18 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_control"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_control"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -153,10 +164,6 @@
       <item path="src/amy/arm/ArmTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBeat.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBeat.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -188,6 +195,10 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/PanDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -250,10 +261,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/PIDControl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/PIDControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialPositioner.cpp"
             ex="false"
@@ -314,10 +321,6 @@
       </item>
       <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/bus/ArmBeat.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBeat.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
@@ -348,6 +351,10 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/PanCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/PanDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -410,10 +417,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/PIDControl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/PIDControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialPositioner.cpp"
             ex="false"

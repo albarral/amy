@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/util/ArmModule3.h"
-#include "amy/arm/move/PIDControl.h"
+#include "amy/control/PIDControl.h"
 
 namespace amy
 {

@@ -16,21 +16,18 @@ Record::Record()
 
 void Record::reset()
 {
-    // clears record list & starts chrono
+    // clears record list
     listRecords.clear();
-    oClick.start();
+    time = 0;
 }
 
-void Record::addElement(float value1, float value2)
+void Record::addElement(int time, float value1, float value2)
 {
-    // reads passed time
-    oClick.read();
-    
     // builds a record element & stores it in the list
     recordElement record;
     record.val1 = value1;
     record.val2 = value2;
-    record.time = oClick.getMillis();
+    record.time = time;
     
     listRecords.push_back(record);
 }

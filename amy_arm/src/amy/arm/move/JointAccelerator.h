@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "amy/utils/Click.h"
+#include "amy/control/Click.h"
 
 namespace amy
 {

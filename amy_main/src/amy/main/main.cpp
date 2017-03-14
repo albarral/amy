@@ -80,8 +80,10 @@ void runAmy(Robot& oRobot)
 {        
     AmyControl oAmyControl; 
 
-    //ArmTest oArmTest;
-    //oArmTest.connect2Bus(oAmyControl.getArmManager());
+    ArmTest oArmTest;
+    oArmTest.connect2Bus(oAmyControl.getArmManager());
+    //oArmTest.setPos(10, 30, 80);
+    //oArmTest.testCycler();
     //oArmTest.testKeepTilt();
 
     // launch amy control & wait for it to end        
@@ -89,7 +91,6 @@ void runAmy(Robot& oRobot)
     {
         while (!oAmyControl.checkEndRequested()) 
         {
-            //oArmTest.newStep();
             sleep(1);
         }    
 

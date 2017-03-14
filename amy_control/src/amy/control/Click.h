@@ -1,5 +1,5 @@
-#ifndef _AMY_CLICK_H
-#define _AMY_CLICK_H
+#ifndef _AMY_CONTROL_CLICK_H
+#define _AMY_CONTROL_CLICK_H
 
 /***************************************************************************
  *   Copyright (C) 2014 by Migtron Robotics   *

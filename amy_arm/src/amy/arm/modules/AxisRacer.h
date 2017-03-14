@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/move/PIDControl.h"
+#include "amy/control/PIDControl.h"
 #include "amy/arm/util/ArmModule3.h"
 
 namespace amy

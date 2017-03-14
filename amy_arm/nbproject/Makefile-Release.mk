@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/ArmInterface.o \
 	${OBJECTDIR}/src/amy/arm/ArmManager.o \
 	${OBJECTDIR}/src/amy/arm/ArmTest.o \
-	${OBJECTDIR}/src/amy/arm/bus/ArmBeat.o \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
@@ -46,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
+	${OBJECTDIR}/src/amy/arm/modules/PanCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/RadialRacer.o \
@@ -57,7 +57,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/move/ArmPolarSensor.o \
 	${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o \
 	${OBJECTDIR}/src/amy/arm/move/JointPositioner.o \
-	${OBJECTDIR}/src/amy/arm/move/PIDControl.o \
 	${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o \
 	${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
@@ -104,11 +103,6 @@ ${OBJECTDIR}/src/amy/arm/ArmTest.o: src/amy/arm/ArmTest.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmTest.o src/amy/arm/ArmTest.cpp
 
-${OBJECTDIR}/src/amy/arm/bus/ArmBeat.o: src/amy/arm/bus/ArmBeat.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBeat.o src/amy/arm/bus/ArmBeat.cpp
-
 ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o: src/amy/arm/bus/ArmBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
@@ -143,6 +137,11 @@ ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o: src/amy/arm/modules/JointDriver.
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o src/amy/arm/modules/JointDriver.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/PanCycler.o: src/amy/arm/modules/PanCycler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/PanCycler.o src/amy/arm/modules/PanCycler.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/PanDriver.o: src/amy/arm/modules/PanDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
@@ -198,11 +197,6 @@ ${OBJECTDIR}/src/amy/arm/move/JointPositioner.o: src/amy/arm/move/JointPositione
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointPositioner.o src/amy/arm/move/JointPositioner.cpp
-
-${OBJECTDIR}/src/amy/arm/move/PIDControl.o: src/amy/arm/move/PIDControl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/PIDControl.o src/amy/arm/move/PIDControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o: src/amy/arm/move/RadialPositioner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
