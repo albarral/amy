@@ -13,6 +13,7 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/modules/PanCycler.h"
+#include "amy/arm/modules/TiltCycler.h"
 #include "amy/arm/modules/PanRacer.h"
 #include "amy/arm/modules/TiltRacer.h"
 #include "amy/arm/modules/RadialRacer.h"
@@ -50,6 +51,7 @@ class ArmManager
         // modules ...
         // level 3
         PanCycler oPanCycler;
+        TiltCycler oTiltCycler;
         PanRacer oPanRacer;
         TiltRacer oTiltRacer;
         RadialRacer oRadialRacer;

@@ -45,10 +45,15 @@ void ArmTest::testCycler()
 
      float freq = 0.5;
      float amplitude = 40;
-     
-    pArmBus->getCO_PAN_FREQ().request(freq);
+
+    // pan
+    pArmBus->getCO_PAN_FREQUENCY().request(2*freq);
     pArmBus->getCO_PAN_AMPLITUDE().request(amplitude);
     pArmBus->getCO_PAN_TRIGGER().request(true);
+    // tilt
+    pArmBus->getCO_TILT_FREQUENCY().request(freq);
+    pArmBus->getCO_TILT_AMPLITUDE().request(amplitude);
+    pArmBus->getCO_TILT_TRIGGER().request(true);
 }
 
 void ArmTest::setPos(int pan, int tilt, int radius)

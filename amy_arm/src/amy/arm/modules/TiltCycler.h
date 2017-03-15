@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_PANCYCLER_H
-#define __AMY_ARM_PANCYCLER_H
+#ifndef __AMY_ARM_TILTCYCLER_H
+#define __AMY_ARM_TILTCYCLER_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
@@ -10,13 +10,13 @@
 
 namespace amy
 {
-// Module used to perform cyclic pan movements.
+// Module used to perform cyclic tilt movements.
 // Derives from AxisCycler    
-class PanCycler: public AxisCycler
+class TiltCycler: public AxisCycler
 {       
 public:
-        PanCycler();
-        //~PanCycler();                
+        TiltCycler();
+        //~TiltCycler();                
 
 private:
         // read bus data

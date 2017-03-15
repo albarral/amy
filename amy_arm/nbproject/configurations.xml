@@ -26,6 +26,8 @@
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
           <itemPath>src/amy/arm/modules/ArmSense.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.h</itemPath>
+          <itemPath>src/amy/arm/modules/AxisCycler.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/AxisCycler.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisRacer.cpp</itemPath>
@@ -42,6 +44,8 @@
           <itemPath>src/amy/arm/modules/RadialRacer.h</itemPath>
           <itemPath>src/amy/arm/modules/RadiusDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/RadiusDriver.h</itemPath>
+          <itemPath>src/amy/arm/modules/TiltCycler.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/TiltCycler.h</itemPath>
           <itemPath>src/amy/arm/modules/TiltDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/TiltDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/TiltKeeper.cpp</itemPath>
@@ -181,6 +185,10 @@
       </item>
       <item path="src/amy/arm/modules/ArmSense.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/AxisCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/AxisCycler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisDriver.h" ex="false" tool="3" flavor2="0">
@@ -221,6 +229,10 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/RadiusDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/TiltDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -337,6 +349,10 @@
       </item>
       <item path="src/amy/arm/modules/ArmSense.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/AxisCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/AxisCycler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/AxisDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisDriver.h" ex="false" tool="3" flavor2="0">
@@ -377,6 +393,10 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/modules/RadiusDriver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/TiltCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/TiltDriver.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -3,48 +3,48 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/modules/PanCycler.h"
+#include "amy/arm/modules/TiltCycler.h"
 
 namespace amy
 {
-PanCycler::PanCycler()
+TiltCycler::TiltCycler()
 {
-    modName = "PanCycler";
+    modName = "TiltCycler";
 }
 
-void PanCycler::senseBus()
+void TiltCycler::senseBus()
 {    
     // process frequency requests
-    if (pArmBus->getCO_PAN_FREQUENCY().checkRequested())
+    if (pArmBus->getCO_TILT_FREQUENCY().checkRequested())
     {
-        frequency = pArmBus->getCO_PAN_FREQUENCY().getValue();
+        frequency = pArmBus->getCO_TILT_FREQUENCY().getValue();
         oOscillator.setFrequency(frequency);
         // tune the movement speed
         tuneSpeed();
     }
 
     // process amplitude requests
-    if (pArmBus->getCO_PAN_AMPLITUDE().checkRequested())
+    if (pArmBus->getCO_TILT_AMPLITUDE().checkRequested())
     {
-        amplitude = pArmBus->getCO_PAN_AMPLITUDE().getValue();
+        amplitude = pArmBus->getCO_TILT_AMPLITUDE().getValue();
         // tune the movement speed
         tuneSpeed();
     }
     
-    if (pArmBus->getCO_PAN_TRIGGER().checkRequested())
+    if (pArmBus->getCO_TILT_TRIGGER().checkRequested())
         setState(eSTATE_START);                   
 
-    if (pArmBus->getCO_PAN_STOP().checkRequested())
+    if (pArmBus->getCO_TILT_STOP().checkRequested())
     {
         oOscillator.stop();
         setState(eSTATE_DONE);                   
     }
 }
 
-void PanCycler::writeBus()
+void TiltCycler::writeBus()
 {  
     // control pan speed
-    pArmBus->getCO_PAN_SPEED().request(outSpeed, priority);
+    pArmBus->getCO_TILT_SPEED().request(outSpeed, priority);
 }
 
 }
