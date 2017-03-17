@@ -12,26 +12,28 @@ namespace amy
 TiltRacer::TiltRacer()
 {
     modName = "TiltRacer";       
+    pBusTilt = 0;
     pVSBus = 0;
 }
 
 void TiltRacer::setControlledJoint()
-{
-    // controlled joint is HS
+{  
+    pBusTilt = &pArmBus->getTiltBus();
+    // controlled joint is VS
     pVSBus = &pArmBus->getBusVS();
 }
        
 void TiltRacer::senseBus()
 {
     // if tilt speed requested -> NEWMOVE
-    if (pArmBus->getCO_TILT_SPEED().checkRequested())
+    if (pBusTilt->getCO_AXIS_SPEED().checkRequested())
     {
-        targetSpeed = pArmBus->getCO_TILT_SPEED().getValue();
+        targetSpeed = pBusTilt->getCO_AXIS_SPEED().getValue();
         setState(eSTATE_NEWMOVE);   
     }
     
     // sense tilt speed
-    axisSpeed= pArmBus->getSO_TILT_SPEED().getValue();    
+    axisSpeed= pBusTilt->getSO_AXIS_SPEED().getValue();    
     // sense reached VS limit
     jointLimit = pVSBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }

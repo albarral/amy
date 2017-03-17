@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/ArmMath.h"
@@ -20,9 +21,11 @@ namespace amy
 class TiltDriver: public AxisDriver
 {
 private:
+    // bus
+    AxisBus* pBusTilt;    // bus connection to tilt axis
+    JointBus* pELBus;       // additional bus connection to EL (for axis position computation)
     JointPositioner oJointPositioner;      // utility class to drive the VS
     ArmMath oArmMath;       // utility class for arm computations
-    JointBus* pELBus;       // additional bus connection to EL (for axis position computation)
     float istVS;               // measured VS angle
     float istEL;               // measured EL angle
 

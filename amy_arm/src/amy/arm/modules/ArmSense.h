@@ -9,6 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/arm/move/ArmPolarSensor.h"
 #include "amy/arm/move/SpeedSensor3.h"
@@ -27,10 +28,15 @@ public:
 
 protected:
     static log4cxx::LoggerPtr logger;
-    // logic
+    // axes buses
+    AxisBus* pBusPan;
+    AxisBus* pBusTilt;
+    AxisBus* pBusRadial;
+    // joint buses
     JointBus* pHSBus;       // bus connection to HS
     JointBus* pVSBus;       // bus connection to VS
     JointBus* pELBus;       // bus connection to ELB
+    // logic
     float istPan;           // computed pan
     float istTilt;            // computed tilt  
     float istRadius;       // computed radius 

@@ -10,31 +10,37 @@ namespace amy
 TiltCycler::TiltCycler()
 {
     modName = "TiltCycler";
+    pBusTilt = 0;
+}
+
+void TiltCycler::tune2Axis()
+{
+    pBusTilt = &pArmBus->getTiltBus();
 }
 
 void TiltCycler::senseBus()
 {    
     // process frequency requests
-    if (pArmBus->getCO_TILT_FREQUENCY().checkRequested())
+    if (pBusTilt->getCO_AXIS_FREQUENCY().checkRequested())
     {
-        frequency = pArmBus->getCO_TILT_FREQUENCY().getValue();
+        frequency = pBusTilt->getCO_AXIS_FREQUENCY().getValue();
         oOscillator.setFrequency(frequency);
         // tune the movement speed
         tuneSpeed();
     }
 
     // process amplitude requests
-    if (pArmBus->getCO_TILT_AMPLITUDE().checkRequested())
+    if (pBusTilt->getCO_AXIS_AMPLITUDE().checkRequested())
     {
-        amplitude = pArmBus->getCO_TILT_AMPLITUDE().getValue();
+        amplitude = pBusTilt->getCO_AXIS_AMPLITUDE().getValue();
         // tune the movement speed
         tuneSpeed();
     }
     
-    if (pArmBus->getCO_TILT_TRIGGER().checkRequested())
+    if (pBusTilt->getCO_AXIS_TRIGGER().checkRequested())
         setState(eSTATE_START);                   
 
-    if (pArmBus->getCO_TILT_STOP().checkRequested())
+    if (pBusTilt->getCO_AXIS_STOP().checkRequested())
     {
         oOscillator.stop();
         setState(eSTATE_DONE);                   
@@ -44,7 +50,7 @@ void TiltCycler::senseBus()
 void TiltCycler::writeBus()
 {  
     // control pan speed
-    pArmBus->getCO_TILT_SPEED().request(outSpeed, priority);
+    pBusTilt->getCO_AXIS_SPEED().request(outSpeed, priority);
 }
 
 }

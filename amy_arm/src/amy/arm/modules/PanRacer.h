@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/arm/modules/AxisRacer.h"
 
@@ -18,6 +19,7 @@ class PanRacer: public AxisRacer
 {
 private:    
     // bus
+    AxisBus* pBusPan;    // bus connection to pan axis
     JointBus* pHSBus;      // bus connection to HS joint
     
 public:

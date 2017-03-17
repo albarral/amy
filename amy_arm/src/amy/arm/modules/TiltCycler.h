@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/modules/AxisCycler.h"
 
 namespace amy
@@ -14,11 +15,17 @@ namespace amy
 // Derives from AxisCycler    
 class TiltCycler: public AxisCycler
 {       
+private:    
+    // bus
+    AxisBus* pBusTilt;    // bus connection to tilt axis
+
 public:
         TiltCycler();
         //~TiltCycler();                
 
 private:
+        // connect module to specific axis
+        virtual void tune2Axis();        
         // read bus data
         virtual void senseBus();
         // write info (control & sensory) to bus

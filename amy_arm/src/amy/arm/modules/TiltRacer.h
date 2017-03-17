@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/arm/modules/AxisRacer.h"
 
@@ -18,6 +19,7 @@ class TiltRacer: public AxisRacer
 {
 private:    
     // bus
+    AxisBus* pBusTilt;    // bus connection to tilt axis
     JointBus* pVSBus;      // bus connection to VS joint
     
 public:

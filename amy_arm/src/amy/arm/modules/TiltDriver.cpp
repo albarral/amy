@@ -12,6 +12,7 @@ namespace amy
 TiltDriver::TiltDriver()
 {
     modName = "TiltDriver";    
+    pBusTilt = 0;
     pELBus = 0;
 }
 
@@ -29,6 +30,7 @@ void TiltDriver::prepareDriver()
 
 void TiltDriver::setControlledJoint()
 {
+    pBusTilt = &pArmBus->getTiltBus();
      // controlled joint is VS
     pJointBus = &pArmBus->getBusVS();
     // use EL joint for axis position computation
@@ -60,9 +62,9 @@ void TiltDriver::setNewTarget()
 void TiltDriver::senseBus()
 {
     // if tilt requested, new move
-    if (pArmBus->getCO_ARM_TILT().checkRequested())
+    if (pBusTilt->getCO_AXIS_POS().checkRequested())
     {
-        targetAxis = pArmBus->getCO_ARM_TILT().getValue();    
+        targetAxis = pBusTilt->getCO_AXIS_POS().getValue();    
         setState(eSTATE_NEWMOVE);    
     }
 

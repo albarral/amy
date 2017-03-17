@@ -12,6 +12,7 @@ namespace amy
 RadiusDriver::RadiusDriver()
 {
     modName = "RadiusDriver";    
+    pBusRadial = 0;
 }
 
 //RadiusDriver::~RadiusDriver()
@@ -28,6 +29,7 @@ void RadiusDriver::prepareDriver()
 
 void RadiusDriver::setControlledJoint()
 {
+    pBusRadial = &pArmBus->getRadialBus();
     // controlled joint is ELB
     pJointBus = &pArmBus->getBusEL();
 }
@@ -56,9 +58,9 @@ void RadiusDriver::setNewTarget()
 void RadiusDriver::senseBus()
 {
     // if radius requested, new move
-    if (pArmBus->getCO_ARM_RADIUS().checkRequested())
+    if (pBusRadial->getCO_AXIS_POS().checkRequested())
     {
-        targetAxis = pArmBus->getCO_ARM_RADIUS().getValue();    
+        targetAxis = pBusRadial->getCO_AXIS_POS().getValue();    
         setState(eSTATE_NEWMOVE);   
     }
 

@@ -15,6 +15,7 @@
 #include "amy/arm/ArmTest.h"
 
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
@@ -47,13 +48,15 @@ void ArmTest::testCycler()
      float amplitude = 40;
 
     // pan
-    pArmBus->getCO_PAN_FREQUENCY().request(2*freq);
-    pArmBus->getCO_PAN_AMPLITUDE().request(amplitude);
-    pArmBus->getCO_PAN_TRIGGER().request(true);
-    // tilt
-    pArmBus->getCO_TILT_FREQUENCY().request(freq);
-    pArmBus->getCO_TILT_AMPLITUDE().request(amplitude);
-    pArmBus->getCO_TILT_TRIGGER().request(true);
+    AxisBus& oBusPan = pArmBus->getPanBus();
+    oBusPan.getCO_AXIS_FREQUENCY().request(2*freq);
+    oBusPan.getCO_AXIS_AMPLITUDE().request(amplitude);
+    oBusPan.getCO_AXIS_TRIGGER().request(true);
+    // tilt     
+    AxisBus& oBusTilt = pArmBus->getTiltBus();
+    oBusTilt.getCO_AXIS_FREQUENCY().request(freq);
+    oBusTilt.getCO_AXIS_AMPLITUDE().request(amplitude);
+    oBusTilt.getCO_AXIS_TRIGGER().request(true);
 }
 
 void ArmTest::setPos(int pan, int tilt, int radius)
@@ -61,9 +64,9 @@ void ArmTest::setPos(int pan, int tilt, int radius)
      if (!isConnected())
          return;
 
-    pArmBus->getCO_ARM_PAN().request(pan);     
-    pArmBus->getCO_ARM_TILT().request(tilt);
-    pArmBus->getCO_ARM_RADIUS().request(radius);
+    pArmBus->getPanBus().getCO_AXIS_POS().request(pan);     
+    pArmBus->getTiltBus().getCO_AXIS_POS().request(tilt);
+    pArmBus->getRadialBus().getCO_AXIS_POS().request(radius);
     LOG4CXX_INFO(logger, "setPosition: " << pan << ", " << tilt << ", " << radius);
 }
 

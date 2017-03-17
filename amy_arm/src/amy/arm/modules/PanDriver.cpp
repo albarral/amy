@@ -12,6 +12,7 @@ namespace amy
 PanDriver::PanDriver()
 {
     modName = "PanDriver";   
+    pBusPan = 0;
 }
 
 //PanDriver::~PanDriver()
@@ -21,6 +22,7 @@ PanDriver::PanDriver()
 
 void PanDriver::setControlledJoint()
 {
+    pBusPan = &pArmBus->getPanBus();
     // controlled joint is HS
     pJointBus = &pArmBus->getBusHS();
 }
@@ -49,9 +51,9 @@ void PanDriver::setNewTarget()
 void PanDriver::senseBus()
 {
     // if pan requested, new move
-    if (pArmBus->getCO_ARM_PAN().checkRequested())
+    if (pBusPan->getCO_AXIS_POS().checkRequested())
     {
-        targetAxis = pArmBus->getCO_ARM_PAN().getValue();  
+        targetAxis = pBusPan->getCO_AXIS_POS().getValue();  
         setState(eSTATE_NEWMOVE);   
     }
 

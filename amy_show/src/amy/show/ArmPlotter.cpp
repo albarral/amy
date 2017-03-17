@@ -60,9 +60,9 @@ void ArmPlotter::loop()
 
 void ArmPlotter::senseBus()
 {
-    pan = pArmBus->getSO_ARM_PAN().getValue();
-    tilt = pArmBus->getSO_ARM_TILT().getValue();    
-    radius = pArmBus->getSO_ARM_RADIUS().getValue();
+    pan = pArmBus->getPanBus().getSO_AXIS_POS().getValue();
+    tilt = pArmBus->getTiltBus().getSO_AXIS_POS().getValue();    
+    radius = pArmBus->getRadialBus().getSO_AXIS_POS().getValue();
     vsAngle = pVSBus->getSO_IST_ANGLE().getValue();
     elbAngle = pELBus->getSO_IST_ANGLE().getValue();
 }

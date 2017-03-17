@@ -31,6 +31,8 @@ void AxisCycler::first()
 {
     // start at done
     setState(eSTATE_DONE);
+    // connect to controlled axis (defined in derived modules)
+    tune2Axis();
 
     log4cxx::NDC::push(modName);   	
 }

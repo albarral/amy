@@ -11,12 +11,14 @@ namespace amy
 {
 PanRacer::PanRacer()
 {
-    modName = "PanRacer";       
+    modName = "PanRacer";    
+    pBusPan = 0;
     pHSBus = 0;
 }
 
 void PanRacer::setControlledJoint()
 {
+    pBusPan = &pArmBus->getPanBus();
     // controlled joint is HS
     pHSBus = &pArmBus->getBusHS();
 }
@@ -24,14 +26,14 @@ void PanRacer::setControlledJoint()
 void PanRacer::senseBus()
 {
     // if pan speed requested -> NEWMOVE
-    if (pArmBus->getCO_PAN_SPEED().checkRequested())
+    if (pBusPan->getCO_AXIS_SPEED().checkRequested())
     {
-        targetSpeed = pArmBus->getCO_PAN_SPEED().getValue();
+        targetSpeed = pBusPan->getCO_AXIS_SPEED().getValue();
         setState(eSTATE_NEWMOVE);                   
     }
     
     // sense pan speed
-    axisSpeed= pArmBus->getSO_PAN_SPEED().getValue();    
+    axisSpeed= pBusPan->getSO_AXIS_SPEED().getValue();    
     // sense reached HS limit
     jointLimit = pHSBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
 }

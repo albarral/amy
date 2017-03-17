@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/RadialPositioner.h"
 
@@ -19,6 +20,7 @@ namespace amy
 class RadiusDriver: public AxisDriver
 {
 private:
+    AxisBus* pBusRadial;    // bus connection to radial axis
     RadialPositioner oRadialPositioner;      // utility class to drive the ELB
     float istEL;               // measured EL angle
 

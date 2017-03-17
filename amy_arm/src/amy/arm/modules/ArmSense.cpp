@@ -16,6 +16,9 @@ LoggerPtr ArmSense::logger(Logger::getLogger("amy.arm"));
 ArmSense::ArmSense()
 {
     modName = "ArmPolarSensing";
+    pBusPan = 0;
+    pBusTilt = 0;
+    pBusRadial = 0;
     pHSBus = 0;
     pVSBus = 0;
     pELBus = 0;
@@ -31,6 +34,9 @@ void ArmSense::first()
     setState(eSTATE_GO);
     
     oArmPolarSensor.tune(oArm);
+    pBusPan = &pArmBus->getPanBus();
+    pBusTilt = &pArmBus->getTiltBus();
+    pBusRadial = &pArmBus->getRadialBus();
     pHSBus = &pArmBus->getBusHS();
     pVSBus = &pArmBus->getBusVS();
     pELBus = &pArmBus->getBusEL();
@@ -88,13 +94,13 @@ void ArmSense::senseBus()
 void ArmSense::writeBus()
 {  
     // inform positions
-    pArmBus->getSO_ARM_PAN().setValue(istPan);
-    pArmBus->getSO_ARM_TILT().setValue(istTilt);
-    pArmBus->getSO_ARM_RADIUS().setValue(istRadius);
+    pBusPan->getSO_AXIS_POS().setValue(istPan);
+    pBusTilt->getSO_AXIS_POS().setValue(istTilt);
+    pBusRadial->getSO_AXIS_POS().setValue(istRadius);
     // inform speeds
-    pArmBus->getSO_PAN_SPEED().setValue(speedPan);
-    pArmBus->getSO_TILT_SPEED().setValue(speedTilt);
-    pArmBus->getSO_RADIAL_SPEED().setValue(speedRadius);
+    pBusPan->getSO_AXIS_SPEED().setValue(speedPan);
+    pBusTilt->getSO_AXIS_SPEED().setValue(speedTilt);
+    pBusRadial->getSO_AXIS_SPEED().setValue(speedRadius);
 }
 
 }

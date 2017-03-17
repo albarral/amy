@@ -13,6 +13,9 @@ ArmInterface::ArmInterface()
 {    
     benabled = false;
     pArmBus = 0;
+    pBusPan = 0;
+    pBusTilt = 0;
+    pBusRadial = 0;
     pBusHS = 0;
     pBusVS = 0;
     pBusEL = 0;
@@ -23,6 +26,9 @@ ArmInterface::ArmInterface()
 void ArmInterface::connect(ArmBus& oArmBus)
 {
     pArmBus = &oArmBus;
+    pBusPan = &oArmBus.getPanBus();
+    pBusTilt = &oArmBus.getTiltBus();
+    pBusRadial = &oArmBus.getRadialBus();
     pBusHS = &oArmBus.getBusHS();
     pBusVS = &oArmBus.getBusVS();
     pBusEL = &oArmBus.getBusEL();
@@ -35,17 +41,17 @@ void ArmInterface::connect(ArmBus& oArmBus)
 void ArmInterface::panSpeed(float value)
 {    
     if (benabled)
-        pArmBus->getCO_PAN_SPEED().request(value);            
+        pBusPan->getCO_AXIS_SPEED().request(value);            
 }
 void ArmInterface::tiltSpeed(float value)
 {    
     if (benabled)
-        pArmBus->getCO_TILT_SPEED().request(value);            
+        pBusTilt->getCO_AXIS_SPEED().request(value);            
 }
 void ArmInterface::radialSpeed(float value)
 {    
     if (benabled)
-        pArmBus->getCO_RADIAL_SPEED().request(value);            
+        pBusRadial->getCO_AXIS_SPEED().request(value);            
 }
 void ArmInterface::keepTilt(int value)
 {    
@@ -58,19 +64,19 @@ void ArmInterface::movePan(float angle)
 {    
     int val = angle; // transform to int
     if (benabled)
-        pArmBus->getCO_ARM_PAN().request(val);            
+        pBusPan->getCO_AXIS_POS().request(val);            
 }
 void ArmInterface::moveTilt(float angle)
 {
     int val = angle; // transform to int
     if (benabled)
-        pArmBus->getCO_ARM_TILT().request(val);            
+        pBusTilt->getCO_AXIS_POS().request(val);            
 }
 void ArmInterface::extend(float radius)
 {
     int val = radius; // transform to int
     if (benabled)
-        pArmBus->getCO_ARM_RADIUS().request(val);            
+        pBusRadial->getCO_AXIS_POS().request(val);            
 }
 
 // JOINT POSITIONS

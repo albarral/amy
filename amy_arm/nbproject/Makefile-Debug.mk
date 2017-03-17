@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/ArmManager.o \
 	${OBJECTDIR}/src/amy/arm/ArmTest.o \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
+	${OBJECTDIR}/src/amy/arm/bus/AxisBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
@@ -115,6 +116,11 @@ ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o: src/amy/arm/bus/ArmBus.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o src/amy/arm/bus/ArmBus.cpp
+
+${OBJECTDIR}/src/amy/arm/bus/AxisBus.o: src/amy/arm/bus/AxisBus.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/AxisBus.o src/amy/arm/bus/AxisBus.cpp
 
 ${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus

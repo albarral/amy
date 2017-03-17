@@ -98,7 +98,7 @@ void TiltKeeper::senseBus()
     }
      
     elbowSpeed = pELBus->getSO_JCONTROL_SPEED().getValue();
-    tiltSpeed = pArmBus->getSO_TILT_SPEED().getValue();
+    tiltSpeed = pArmBus->getTiltBus().getSO_AXIS_SPEED().getValue();
 }
 
 

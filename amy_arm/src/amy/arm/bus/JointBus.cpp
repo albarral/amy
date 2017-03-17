@@ -10,6 +10,7 @@ namespace amy
 // Constructor
 JointBus::JointBus ()
 {    
+    jointName = "joint";
     benabled = false;
 }
 

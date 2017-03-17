@@ -10,31 +10,37 @@ namespace amy
 PanCycler::PanCycler()
 {
     modName = "PanCycler";
+    pBusPan = 0;
+}
+
+void PanCycler::tune2Axis()
+{
+    pBusPan = &pArmBus->getPanBus();
 }
 
 void PanCycler::senseBus()
 {    
     // process frequency requests
-    if (pArmBus->getCO_PAN_FREQUENCY().checkRequested())
+    if (pBusPan->getCO_AXIS_FREQUENCY().checkRequested())
     {
-        frequency = pArmBus->getCO_PAN_FREQUENCY().getValue();
+        frequency = pBusPan->getCO_AXIS_FREQUENCY().getValue();
         oOscillator.setFrequency(frequency);
         // tune the movement speed
         tuneSpeed();
     }
 
     // process amplitude requests
-    if (pArmBus->getCO_PAN_AMPLITUDE().checkRequested())
+    if (pBusPan->getCO_AXIS_AMPLITUDE().checkRequested())
     {
-        amplitude = pArmBus->getCO_PAN_AMPLITUDE().getValue();
+        amplitude = pBusPan->getCO_AXIS_AMPLITUDE().getValue();
         // tune the movement speed
         tuneSpeed();
     }
     
-    if (pArmBus->getCO_PAN_TRIGGER().checkRequested())
+    if (pBusPan->getCO_AXIS_TRIGGER().checkRequested())
         setState(eSTATE_START);                   
 
-    if (pArmBus->getCO_PAN_STOP().checkRequested())
+    if (pBusPan->getCO_AXIS_STOP().checkRequested())
     {
         oOscillator.stop();
         setState(eSTATE_DONE);                   
@@ -44,7 +50,7 @@ void PanCycler::senseBus()
 void PanCycler::writeBus()
 {  
     // control pan speed
-    pArmBus->getCO_PAN_SPEED().request(outSpeed, priority);
+    pBusPan->getCO_AXIS_SPEED().request(outSpeed, priority);
 }
 
 }

@@ -48,6 +48,8 @@ public:
         //~AxisCycler();                
 
 protected:
+        // connect module to specific axis
+        virtual void tune2Axis() = 0;        
         // read bus data
         virtual void senseBus() = 0;
         // write info (control & sensory) to bus

@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/arm/modules/AxisRacer.h"
 
@@ -18,6 +19,7 @@ class RadialRacer: public AxisRacer
 {
 private:    
     // bus
+    AxisBus* pBusRadial;    // bus connection to radial axis
     JointBus* pELBus;      // bus connection to ELB joint
     
 public:

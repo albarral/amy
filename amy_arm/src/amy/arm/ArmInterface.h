@@ -8,6 +8,7 @@
 
 #include "amy/core/ifaces/iArmInterface.h"
 #include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
 
 namespace amy
@@ -20,7 +21,11 @@ class ArmInterface : public iArmInterface
 protected:
     // bus
     bool benabled;        // connected to bus
-    ArmBus* pArmBus;          // arm bus
+    ArmBus* pArmBus;          // arm bus    
+    // axes buses
+    AxisBus* pBusPan;
+    AxisBus* pBusTilt;
+    AxisBus* pBusRadial;
     // joint buses
     JointBus* pBusHS;      // horiz. shoulder bus
     JointBus* pBusVS;       // vert. shoulder bus

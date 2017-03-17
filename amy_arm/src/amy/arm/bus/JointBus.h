@@ -1,5 +1,5 @@
-#ifndef __AMY_CORE_JOINTBUS_H
-#define __AMY_CORE_JOINTBUS_H
+#ifndef __AMY_ARM_JOINTBUS_H
+#define __AMY_ARM_JOINTBUS_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -13,8 +13,7 @@
 
 namespace amy
 {
-// Set of bus connections for a specific joint. 
-// All modules controlling this joint must be connected through this bus section.
+// Bus connections for a specific joint.. 
 class JointBus
 {
     private:        

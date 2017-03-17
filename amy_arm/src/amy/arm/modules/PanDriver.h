@@ -6,6 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/JointPositioner.h"
 
@@ -19,6 +20,8 @@ namespace amy
 class PanDriver: public AxisDriver
 {
 private:
+    // bus
+    AxisBus* pBusPan;    // bus connection to pan axis
     JointPositioner oJointPositioner;      // utility class to drive the horizontal shoulder
     float istHS;               // measured HS angle
 
