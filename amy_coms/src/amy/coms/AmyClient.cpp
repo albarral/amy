@@ -12,7 +12,24 @@ AmyClient::AmyClient()
 {    
 }
 
-    // AXIS SPEEDS
+// CYCLIC MOVEMENTS
+void AmyClient::panFrequency(float value)
+{
+}
+// set pan amplitude (degrees)
+void AmyClient::panAmplitude(float value)
+{
+}
+// trigger pan cyclic movement
+void AmyClient::panTrigger()
+{
+}
+// stop pan cyclic movement
+void AmyClient::panStop()
+{
+}
+
+// AXIS SPEEDS
 void AmyClient::panSpeed(float value)
 {
     int category = AmyCommand::eCAT_AXIS_CMD;

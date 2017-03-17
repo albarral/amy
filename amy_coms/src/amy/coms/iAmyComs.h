@@ -12,6 +12,12 @@ namespace amy
 class iAmyComs
 {    
 public:
+    // cyclic movements
+    virtual void panFrequency(float value) = 0;
+    virtual void panAmplitude(float value) = 0;
+    virtual void panTrigger() = 0;
+    virtual void panStop() = 0;
+
     // axis speeds
     virtual void panSpeed(float value) = 0;
     virtual void tiltSpeed(float value) = 0;

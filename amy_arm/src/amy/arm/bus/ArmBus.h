@@ -55,8 +55,8 @@ class ArmBus
         // CONTROLS
         ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};
         // ArmMover 
-        amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
-        amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
+        Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
+        Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
 
         // TiltKeeper
         ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};

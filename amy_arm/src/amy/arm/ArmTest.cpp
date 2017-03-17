@@ -49,14 +49,14 @@ void ArmTest::testCycler()
 
     // pan
     AxisBus& oBusPan = pArmBus->getPanBus();
-    oBusPan.getCO_AXIS_FREQUENCY().request(2*freq);
+    oBusPan.getCO_AXIS_FREQUENCY().request(freq);
     oBusPan.getCO_AXIS_AMPLITUDE().request(amplitude);
-    oBusPan.getCO_AXIS_TRIGGER().request(true);
+    oBusPan.getCO_AXIS_TRIGGER().request();
     // tilt     
     AxisBus& oBusTilt = pArmBus->getTiltBus();
     oBusTilt.getCO_AXIS_FREQUENCY().request(freq);
     oBusTilt.getCO_AXIS_AMPLITUDE().request(amplitude);
-    oBusTilt.getCO_AXIS_TRIGGER().request(true);
+    oBusTilt.getCO_AXIS_TRIGGER().request();
 }
 
 void ArmTest::setPos(int pan, int tilt, int radius)

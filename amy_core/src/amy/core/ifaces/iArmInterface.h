@@ -16,6 +16,16 @@ public:
     // check if it's enabled
     virtual bool isEnabled() = 0;
 
+    // CYCLIC MOVEMENTS
+    // set pan frequency (Hz)
+    virtual void panFrequency(float value) = 0;
+    // set pan amplitude (degrees)
+    virtual void panAmplitude(float value) = 0;
+    // trigger pan cyclic movement
+    virtual void panTrigger() = 0;
+    // stop pan cyclic movement
+    virtual void panStop() = 0;
+
     // AXIS SPEEDS
     // change pan speed
     virtual void panSpeed(float value) = 0;
@@ -45,20 +55,6 @@ public:
     virtual void moveHW(float angle) = 0;
     // set VW position
     virtual void moveVW(float angle) = 0;
-
-    /*
-    // JOINT ACCELERATIONS
-    // set HS acceleration (degrees/s²)
-    virtual void accelHS(float accel) = 0;
-    // set VS acceleration (degrees/s²)
-    virtual void accelVS(float accel) = 0;
-    // set EL acceleration (degrees/s²)
-    virtual void accelEL(float accel) = 0;
-    // set HW acceleration (degrees/s²)
-    virtual void accelHW(float accel) = 0;
-    // set VW acceleration (degrees/s²)
-    virtual void accelVW(float accel) = 0;
-     */ 
     
     // JOINT OUTPUTS    
     // get HS control angle

@@ -26,6 +26,11 @@ public:
 
     AmyCommand& getAmyCommand() {return oAmyCommand;};
 
+    virtual void panFrequency(float value);
+    virtual void panAmplitude(float value);
+    virtual void panTrigger();
+    virtual void panStop();
+
     // axis speeds        
     virtual void panSpeed(float value);
     virtual void tiltSpeed(float value);

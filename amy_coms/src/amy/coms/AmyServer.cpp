@@ -23,7 +23,32 @@ void AmyServer::connect2Arm(iArmInterface& oArmInterface)
     bconnected = true;
 }
 
-    // AXIS SPEEDS
+// CYCLIC MOVEMENTS
+void AmyServer::panFrequency(float value)
+{
+    if (bconnected)
+        pArmInterface->panFrequency(value);
+}
+// set pan amplitude (degrees)
+void AmyServer::panAmplitude(float value)
+{
+    if (bconnected)
+        pArmInterface->panAmplitude(value);
+}
+// trigger pan cyclic movement
+void AmyServer::panTrigger()
+{
+    if (bconnected)
+        pArmInterface->panTrigger();
+}
+// stop pan cyclic movement
+void AmyServer::panStop()
+{
+    if (bconnected)
+        pArmInterface->panStop();
+}
+
+// AXIS SPEEDS
 void AmyServer::panSpeed(float value)
 {
     if (bconnected)

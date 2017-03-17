@@ -37,6 +37,31 @@ void ArmInterface::connect(ArmBus& oArmBus)
     benabled = true;
 }
 
+// CYCLIC MOVEMENTS
+void ArmInterface::panFrequency(float value)
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_FREQUENCY().request(value);                    
+}
+// set pan amplitude (degrees)
+void ArmInterface::panAmplitude(float value)
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_AMPLITUDE().request(value);                    
+}
+// trigger pan cyclic movement
+void ArmInterface::panTrigger()
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_TRIGGER().request();                    
+}
+// stop pan cyclic movement
+void ArmInterface::panStop()
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_STOP().request();                    
+}
+
 // AXIS SPEEDS
 void ArmInterface::panSpeed(float value)
 {    

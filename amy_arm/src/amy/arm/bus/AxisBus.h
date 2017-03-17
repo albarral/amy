@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "amy/control/brooks/control.h"
 #include "amy/control/brooks/controlT.h"
 #include "amy/control/brooks/sensorT.h"
 
@@ -22,8 +23,8 @@ class AxisBus
         // AxisCycler 
         ControlT<float> CO_AXIS_FREQUENCY;    // axis cyclic frequency (Hz)
         ControlT<float> CO_AXIS_AMPLITUDE;    // amplitude of cyclic movement (degrees)
-        ControlT<bool> CO_AXIS_TRIGGER;        // start cyclic move  
-        ControlT<bool> CO_AXIS_STOP;            // stop cyclic move 
+        Control CO_AXIS_TRIGGER;                    // start cyclic move  
+        Control CO_AXIS_STOP;                         // stop cyclic move 
         // AxisRacer
         ControlT<float> CO_AXIS_SPEED;          // axis speed (degrees/s)
         // AxisDriver
@@ -45,8 +46,8 @@ class AxisBus
         // AxisCycler
         ControlT<float>& getCO_AXIS_FREQUENCY() {return CO_AXIS_FREQUENCY;};   
         ControlT<float>& getCO_AXIS_AMPLITUDE() {return CO_AXIS_AMPLITUDE;};   
-        ControlT<bool>& getCO_AXIS_TRIGGER() {return CO_AXIS_TRIGGER;};
-        ControlT<bool>& getCO_AXIS_STOP() {return CO_AXIS_STOP;};
+        Control& getCO_AXIS_TRIGGER() {return CO_AXIS_TRIGGER;};
+        Control& getCO_AXIS_STOP() {return CO_AXIS_STOP;};
         // AxisRacer
         ControlT<float>& getCO_AXIS_SPEED() {return CO_AXIS_SPEED;};        
         // AxisDriver

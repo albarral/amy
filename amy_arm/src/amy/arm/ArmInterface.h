@@ -40,6 +40,16 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
    
+    // CYCLIC MOVEMENTS
+    // set pan frequency (Hz)
+    virtual void panFrequency(float value);
+    // set pan amplitude (degrees)
+    virtual void panAmplitude(float value);
+    // trigger pan cyclic movement
+    virtual void panTrigger();
+    // stop pan cyclic movement
+    virtual void panStop();
+
     // AXIS SPEEDS
     // change pan speed
     virtual void panSpeed(float value);
