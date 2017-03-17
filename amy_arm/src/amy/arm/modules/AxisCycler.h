@@ -9,8 +9,9 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/control/Oscillator.h"
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/util/ArmModule3.h"
+#include "amy/control/Oscillator.h"
 
 namespace amy
 {
@@ -25,12 +26,15 @@ public:
     enum eState
     {
          eSTATE_DONE,        // nothing done
-         eSTATE_START,      // action requested
-         eSTATE_GO            // cyclic movement
+         eSTATE_START,       // trigger requested
+         eSTATE_GO,            // cyclic movement
+         eSTATE_STOP         // stop requested
     };
    
 protected:
     static log4cxx::LoggerPtr logger;
+    // bus
+    AxisBus* pAxisBus;      // bus connection to controlled axis
     // input
     float frequency;             // oscillator frequency (Hz)
     float amplitude;             // amplitude of cyclic movement (degrees)    
@@ -50,18 +54,18 @@ public:
 protected:
         // connect module to specific axis
         virtual void tune2Axis() = 0;        
-        // read bus data
-        virtual void senseBus() = 0;
-        // write info (control & sensory) to bus
-        virtual void writeBus() = 0;
-        // updates the movement speed
-        void tuneSpeed();  
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
+        // read bus data
+        virtual void senseBus();
+        // write info (control & sensory) to bus
+        virtual void writeBus();
+        // updates the movement speed
+        void tuneSpeed();  
         // show module initialization in logs
         virtual void showInitialized();
         // shows the present state name
