@@ -9,8 +9,11 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/coms/iAmyComs.h"
-#include "amy/coms/data/AmyCommand.h"
+#include "amy/coms/ComsInterpreter.h"
+#include "amy/coms/sections/JointServer.h"
+#include "amy/coms/sections/AxisServer.h"
+#include "amy/coms/sections/CyclicServer.h"
+#include "amy/coms/sections/OtherServer.h"
 #include "amy/core/ifaces/iArmInterface.h"
 
 namespace amy
@@ -18,69 +21,29 @@ namespace amy
 // Base class used to serve requests from external processes.
 // Implements the iAmyComs interface.
 // Requests are transformed into proper calls to amy control interfaces (ie the ArmInterface)
-class AmyServer : public iAmyComs
+class AmyServer
 {    
 protected:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
     iArmInterface* pArmInterface;   // interface for arm control
-    bool bamyEndRequested;  // flag indicating amy has to end
-    AmyCommand oAmyCommand;     // class used to interpret the request      
-    bool bvalid;        // indication of valid request
+    ComsInterpreter oComsInterpreter;   // commands interpreter
+    // comms divided in section servers
+    JointServer oJointServer;
+    AxisServer oAxisServer;
+    CyclicServer oCyclicServer;
+    OtherServer oOtherServer;    
         
 public:
     AmyServer();
 
    bool isConnected() {return bconnected;};
    void connect2Arm(iArmInterface& oArmInterface);
-   
-   // cyclic movements
-    virtual void panFrequency(float value);
-    virtual void panAmplitude(float value);
-    virtual void panTrigger();
-    virtual void panStop();
-
-   // axis speeds        
-    virtual void panSpeed(float value);
-    virtual void tiltSpeed(float value);
-    virtual void radialSpeed(float value);
-    virtual void keepTilt(int value);    
-   
-    // axis positions       
-    virtual void movePan(float value);
-    virtual void moveTilt(float value);
-    virtual void moveRadius(float value);
-    
-    // joint positions
-    virtual void setPosHS(float value);
-    virtual void setPosVS(float value);
-    virtual void setPosELB(float value);
-    virtual void setPosHW(float value);
-    virtual void setPosVW(float value);
-    
-    // arm commands   
-    virtual void endAmy();
-    
-    // dummy method for to do commands
-    virtual void toDoCommand(float value);
-
-    bool isAmyEndRequested() {return bamyEndRequested;};
+      
+    bool isAmyEndRequested();
          
-    // interprets textual command. returns whether valid or not
-    bool checkCommand(std::string text);
-   // transforms command into proper call to arm interface
-    bool processCommand();
- 
-private:
-    // process command of joint category
-    bool processJointCommand();
-    // process command of axis category
-    bool processAxisCommand();
-    // process command of arm category
-    bool processArmCommand();
-    // process command of amy category
-    bool processAmyCommand();
-
+   // interprets textual command and if valid sends proper call to arm interface
+    bool processCommand(std::string text); 
 };
 }
 #endif

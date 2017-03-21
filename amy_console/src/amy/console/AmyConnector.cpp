@@ -44,49 +44,62 @@ bool AmyConnector::sendCommand(int action, float value)
     {
         // axis speeds
         case Interpreter::eCMD_PAN_SPEED:
-            pAmyClient->panSpeed(value);
+            pAmyClient->getAxisClient().panSpeed(value);
+            pAmyClient->sendAxisCommand();
             break;
         case Interpreter::eCMD_TILT_SPEED:
-            pAmyClient->tiltSpeed(value);
+            pAmyClient->getAxisClient().tiltSpeed(value);
+            pAmyClient->sendAxisCommand();
             break;
         case Interpreter::eCMD_RADIAL_SPEED:
-            pAmyClient->radialSpeed(value);
+            pAmyClient->getAxisClient().radialSpeed(value);
+            pAmyClient->sendAxisCommand();
             break;
         
         // axis positions
         case Interpreter::eCMD_PAN_POS:            
-            pAmyClient->movePan(value);
+            pAmyClient->getAxisClient().movePan(value);
+            pAmyClient->sendAxisCommand();
             break;
         case Interpreter::eCMD_TILT_POS:
-            pAmyClient->moveTilt(value);
+            pAmyClient->getAxisClient().moveTilt(value);
+            pAmyClient->sendAxisCommand();
             break;
         case Interpreter::eCMD_RADIUS_POS:
-            pAmyClient->moveRadius(value);
+            pAmyClient->getAxisClient().moveRadius(value);
+            pAmyClient->sendAxisCommand();
             break;
-        case Interpreter::eCMD_KEEP_TILT:
-            pAmyClient->tiltSpeed(value);
-            break;
-
+            
         // joint positions
         case Interpreter::eCMD_MOVE_HS:
-            pAmyClient->setPosHS(value);
+            pAmyClient->getJointClient().setPosHS(value);
+            pAmyClient->sendJointCommand();
             break;
         case Interpreter::eCMD_MOVE_VS:
-            pAmyClient->setPosVS(value);
+            pAmyClient->getJointClient().setPosVS(value);
+            pAmyClient->sendJointCommand();
             break;
         case Interpreter::eCMD_MOVE_ELB:
-            pAmyClient->setPosELB(value);
+            pAmyClient->getJointClient().setPosELB(value);
+            pAmyClient->sendJointCommand();
             break;
         case Interpreter::eCMD_MOVE_HWRI:
-            pAmyClient->setPosHW(value);
+            pAmyClient->getJointClient().setPosHW(value);
+            pAmyClient->sendJointCommand();
             break;
         case Interpreter::eCMD_MOVE_VWRI:
-            pAmyClient->setPosVW(value);
+            pAmyClient->getJointClient().setPosVW(value);
+            pAmyClient->sendJointCommand();
             break;
 
          // arm commands
+        case Interpreter::eCMD_KEEP_TILT:
+            pAmyClient->getOtherClient().keepTilt(1);
+            pAmyClient->sendOtherCommand();
+            break;
         case Interpreter::eCMD_AMY_END:
-            pAmyClient->endAmy();
+            pAmyClient->getOtherClient().endAmy();
+            pAmyClient->sendOtherCommand();
             break;
         case Interpreter::eCMD_ARM_STOP:
             pAmyClient->toDoCommand();

@@ -27,12 +27,12 @@ AmyFileClient::~AmyFileClient()
     oFileWriter.close();    
 }
 
-void AmyFileClient::sendCommand()
+void AmyFileClient::sendCommand(std::string text)
 {
     if (oFileWriter.isOpen())        
     {
         // write command in coms file (newline added)
-        std::string output = oAmyCommand.getText() + "\n";
+        std::string output = text + "\n";
         // overwriting any previous command
         oFileWriter.writeFromTop();
         oFileWriter.writeFlush(output);

@@ -38,12 +38,7 @@ void AmyListener::loop()
     {
         // if something received, interpret it and process it
         std::string text = oAmyFileServer.getText();
-        if (oAmyFileServer.checkCommand(text))
-        {
-            oAmyFileServer.processCommand();
-        }
-        else
-            LOG4CXX_WARN(logger, "invalid command");                                      
+        oAmyFileServer.processCommand(text);
     }
 }
 

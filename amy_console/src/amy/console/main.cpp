@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include <cstdlib>  // for getenv
+#include <iostream>
 #include <string>
 
 #include <log4cxx/logger.h>
@@ -25,7 +26,6 @@ int main(int argc, char** argv)
     std::string home = getHomePath();
     std::string configFile = home + "/.amy/log4cxx_config_console.xml";
     log4cxx::xml::DOMConfigurator::configure(configFile);
-    //log4cxx::xml::DOMConfigurator::configure("log4cxx_config.xml");
     
     // command with wrong number of params, show usage
     if (argc == 1 || argc > 3)
@@ -41,6 +41,14 @@ int main(int argc, char** argv)
         if (argc == 3)
            param2 = argv[2];
            
+        // TEMP 
+        // get input from console
+//        std::string entry;
+//        std::getline(std::cin, entry);   
+//        std::string::size_type pos = entry.find_first_of(' ');
+//        std::string param1 = entry.substr(0, pos);
+//        std::string param2 = entry.substr(pos);
+        
         amy::Interpreter oInterpreter;
         amy::AmyConnector oConnector;
         
@@ -69,7 +77,7 @@ int main(int argc, char** argv)
 
 void showUsage()
 {
-    LOG4CXX_INFO(logger, "usage: amyc <action> [<value>]");        
+    LOG4CXX_INFO(logger, "usage: amy2 <action> [<value>]");        
 
     amy::Interpreter oInterpreter;
     std::string description = oInterpreter.getAvailableCommands();

@@ -7,57 +7,43 @@
  ***************************************************************************/
 
 #include <string>
-#include "amy/coms/iAmyComs.h"
-#include "amy/coms/data/AmyCommand.h"
+
+#include "amy/coms/sections/JointClient.h"
+#include "amy/coms/sections/AxisClient.h"
+#include "amy/coms/sections/CyclicClient.h"
+#include "amy/coms/sections/OtherClient.h"
 
 namespace amy
 {
 // Base class used to transmit requests to the amy control process.
-// Implements the iAmyComs interface. 
-// Method to implement by derived classes:
-// - sendCommand()    
-class AmyClient : public iAmyComs
+// Derived classes must implement the sendCommand() method.
+class AmyClient
 {    
-protected:
-    AmyCommand oAmyCommand; // command structure to be sent
+private:
+    JointClient oJointClient;
+    AxisClient oAxisClient;
+    CyclicClient oCyclicClient;
+    OtherClient oOtherClient;    
     
 public:
     AmyClient();
 
-    AmyCommand& getAmyCommand() {return oAmyCommand;};
+    JointClient& getJointClient() {return oJointClient;};
+    AxisClient& getAxisClient() {return oAxisClient;};
+    CyclicClient& getCyclicClient() {return oCyclicClient;};
+    OtherClient& getOtherClient() {return oOtherClient;};
 
-    virtual void panFrequency(float value);
-    virtual void panAmplitude(float value);
-    virtual void panTrigger();
-    virtual void panStop();
-
-    // axis speeds        
-    virtual void panSpeed(float value);
-    virtual void tiltSpeed(float value);
-    virtual void radialSpeed(float value);
-    virtual void keepTilt(int value);    
-
-    // axis positions   
-    virtual void movePan(float value);
-    virtual void moveTilt(float value);
-    virtual void moveRadius(float value);
-        
-    // joint positions
-    virtual void setPosHS(float value);
-    virtual void setPosVS(float value);
-    virtual void setPosELB(float value);
-    virtual void setPosHW(float value);
-    virtual void setPosVW(float value);
-    
-    // amy commands   
-    virtual void endAmy();
+    void sendJointCommand();
+    void sendAxisCommand();
+    void sendCyclicCommand();
+    void sendOtherCommand();
     
     // dummy method for to do commands
-    virtual void toDoCommand();
-    
+    void toDoCommand();
+
 protected:
     // command sending method specific for each AmyClient implementation
-    virtual void sendCommand() = 0;
+    virtual void sendCommand(std::string text) = 0;
 };
 }
 #endif

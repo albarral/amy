@@ -32,7 +32,6 @@ public:
     ~AmyFileServer();
 
     std::string getFilename() {return filename;};
-    AmyCommand& getAmyCommand() {return oAmyCommand;};
         
     // checks for received requests in the coms file and interprets them
     // returns false if no request received

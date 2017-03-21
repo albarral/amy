@@ -40,12 +40,25 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyPublisher.o \
 	${OBJECTDIR}/src/amy/coms/AmyServer.o \
 	${OBJECTDIR}/src/amy/coms/AmySubscriber.o \
+	${OBJECTDIR}/src/amy/coms/ComsInterpreter.o \
 	${OBJECTDIR}/src/amy/coms/data/AmyCommand.o \
 	${OBJECTDIR}/src/amy/coms/data/ArmData.o \
+	${OBJECTDIR}/src/amy/coms/data/AxisCommand.o \
+	${OBJECTDIR}/src/amy/coms/data/CyclicCommand.o \
+	${OBJECTDIR}/src/amy/coms/data/JointCommand.o \
+	${OBJECTDIR}/src/amy/coms/data/OtherCommand.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFilePublisher.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o \
-	${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o
+	${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o \
+	${OBJECTDIR}/src/amy/coms/sections/AxisClient.o \
+	${OBJECTDIR}/src/amy/coms/sections/AxisServer.o \
+	${OBJECTDIR}/src/amy/coms/sections/CyclicClient.o \
+	${OBJECTDIR}/src/amy/coms/sections/CyclicServer.o \
+	${OBJECTDIR}/src/amy/coms/sections/JointClient.o \
+	${OBJECTDIR}/src/amy/coms/sections/JointServer.o \
+	${OBJECTDIR}/src/amy/coms/sections/OtherClient.o \
+	${OBJECTDIR}/src/amy/coms/sections/OtherServer.o
 
 
 # C Compiler Flags
@@ -101,6 +114,11 @@ ${OBJECTDIR}/src/amy/coms/AmySubscriber.o: src/amy/coms/AmySubscriber.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmySubscriber.o src/amy/coms/AmySubscriber.cpp
 
+${OBJECTDIR}/src/amy/coms/ComsInterpreter.o: src/amy/coms/ComsInterpreter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ComsInterpreter.o src/amy/coms/ComsInterpreter.cpp
+
 ${OBJECTDIR}/src/amy/coms/data/AmyCommand.o: src/amy/coms/data/AmyCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
 	${RM} "$@.d"
@@ -110,6 +128,26 @@ ${OBJECTDIR}/src/amy/coms/data/ArmData.o: src/amy/coms/data/ArmData.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/ArmData.o src/amy/coms/data/ArmData.cpp
+
+${OBJECTDIR}/src/amy/coms/data/AxisCommand.o: src/amy/coms/data/AxisCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/AxisCommand.o src/amy/coms/data/AxisCommand.cpp
+
+${OBJECTDIR}/src/amy/coms/data/CyclicCommand.o: src/amy/coms/data/CyclicCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/CyclicCommand.o src/amy/coms/data/CyclicCommand.cpp
+
+${OBJECTDIR}/src/amy/coms/data/JointCommand.o: src/amy/coms/data/JointCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/JointCommand.o src/amy/coms/data/JointCommand.cpp
+
+${OBJECTDIR}/src/amy/coms/data/OtherCommand.o: src/amy/coms/data/OtherCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/OtherCommand.o src/amy/coms/data/OtherCommand.cpp
 
 ${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o: src/amy/coms/file/AmyFileClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
@@ -130,6 +168,46 @@ ${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o: src/amy/coms/file/AmyFileSub
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/file/AmyFileSubscriber.o src/amy/coms/file/AmyFileSubscriber.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/AxisClient.o: src/amy/coms/sections/AxisClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/AxisClient.o src/amy/coms/sections/AxisClient.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/AxisServer.o: src/amy/coms/sections/AxisServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/AxisServer.o src/amy/coms/sections/AxisServer.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/CyclicClient.o: src/amy/coms/sections/CyclicClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/CyclicClient.o src/amy/coms/sections/CyclicClient.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/CyclicServer.o: src/amy/coms/sections/CyclicServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/CyclicServer.o src/amy/coms/sections/CyclicServer.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/JointClient.o: src/amy/coms/sections/JointClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/JointClient.o src/amy/coms/sections/JointClient.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/JointServer.o: src/amy/coms/sections/JointServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/JointServer.o src/amy/coms/sections/JointServer.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/OtherClient.o: src/amy/coms/sections/OtherClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/OtherClient.o src/amy/coms/sections/OtherClient.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/OtherServer.o: src/amy/coms/sections/OtherServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/OtherServer.o src/amy/coms/sections/OtherServer.cpp
 
 # Subprojects
 .build-subprojects:
