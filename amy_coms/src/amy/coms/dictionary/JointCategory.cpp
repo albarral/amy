@@ -10,6 +10,8 @@ namespace amy
 {
 JointCategory::JointCategory() : ComsCategory(eCATEGORY_JOINTS, "joints category")   
 {
+    // builds list of commands
+    build();
 }
 
 void JointCategory::build()

@@ -10,6 +10,8 @@ namespace amy
 {
 OtherCategory::OtherCategory() : ComsCategory(ComsCategory::eCATEGORY_OTHER, "other category")   
 {
+    // builds list of commands
+    build();
 }
 
 void OtherCategory::build()

@@ -27,7 +27,18 @@ public:
     // connect to amy process
     void connect2Amy();                
     // sends command to amy process
-    bool sendCommand(int action, float value);    
+    bool sendCommand(int category, int action, float value);    
+    
+private:
+    // sends joint command to amy process
+    bool sendJointCommand(int action, float value);    
+    // sends axis command to amy process
+    bool sendAxisCommand(int action, float value);    
+    // sends cyclic command to amy process
+    bool sendCyclicCommand(int action, float value);    
+    // sends other command to amy process
+    bool sendOtherCommand(int action, float value);    
+    
 };
 }		
 #endif

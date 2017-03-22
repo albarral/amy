@@ -6,6 +6,15 @@
 #include "amy/console/AmyConnector.h"
 #include "amy/console/Interpreter.h"
 #include "amy/coms/file/AmyFileClient.h"
+#include "amy/coms/dictionary/ComsCategory.h"
+#include "amy/coms/dictionary/JointCategory.h"
+#include "amy/coms/dictionary/AxisCategory.h"
+#include "amy/coms/dictionary/CyclicCategory.h"
+#include "amy/coms/dictionary/OtherCategory.h"
+#include "amy/coms/sections/JointClient.h"
+#include "amy/coms/sections/AxisClient.h"
+#include "amy/coms/sections/CyclicClient.h"
+#include "amy/coms/sections/OtherClient.h"
 
 using namespace log4cxx;
 
@@ -31,7 +40,7 @@ void AmyConnector::connect2Amy()
 };
 
 // send command through the bus
-bool AmyConnector::sendCommand(int action, float value)
+bool AmyConnector::sendCommand(int category, int action, float value)
 {
     if (pAmyClient == 0)
     {
@@ -40,77 +49,166 @@ bool AmyConnector::sendCommand(int action, float value)
     }
     
     bool bsent = true;
-    switch (action)
+    switch (category)
     {
-        // axis speeds
-        case Interpreter::eCMD_PAN_SPEED:
-            pAmyClient->getAxisClient().panSpeed(value);
-            pAmyClient->sendAxisCommand();
+        case ComsCategory::eCATEGORY_JOINTS:
+            bsent = sendJointCommand(action, value);
             break;
-        case Interpreter::eCMD_TILT_SPEED:
-            pAmyClient->getAxisClient().tiltSpeed(value);
-            pAmyClient->sendAxisCommand();
+        case ComsCategory::eCATEGORY_AXIS:
+            bsent = sendAxisCommand(action, value);
             break;
-        case Interpreter::eCMD_RADIAL_SPEED:
-            pAmyClient->getAxisClient().radialSpeed(value);
-            pAmyClient->sendAxisCommand();
+        case ComsCategory::eCATEGORY_CYCLIC:
+            bsent = sendCyclicCommand(action, value);
             break;
-        
-        // axis positions
-        case Interpreter::eCMD_PAN_POS:            
-            pAmyClient->getAxisClient().movePan(value);
-            pAmyClient->sendAxisCommand();
-            break;
-        case Interpreter::eCMD_TILT_POS:
-            pAmyClient->getAxisClient().moveTilt(value);
-            pAmyClient->sendAxisCommand();
-            break;
-        case Interpreter::eCMD_RADIUS_POS:
-            pAmyClient->getAxisClient().moveRadius(value);
-            pAmyClient->sendAxisCommand();
-            break;
-            
-        // joint positions
-        case Interpreter::eCMD_MOVE_HS:
-            pAmyClient->getJointClient().setPosHS(value);
-            pAmyClient->sendJointCommand();
-            break;
-        case Interpreter::eCMD_MOVE_VS:
-            pAmyClient->getJointClient().setPosVS(value);
-            pAmyClient->sendJointCommand();
-            break;
-        case Interpreter::eCMD_MOVE_ELB:
-            pAmyClient->getJointClient().setPosELB(value);
-            pAmyClient->sendJointCommand();
-            break;
-        case Interpreter::eCMD_MOVE_HWRI:
-            pAmyClient->getJointClient().setPosHW(value);
-            pAmyClient->sendJointCommand();
-            break;
-        case Interpreter::eCMD_MOVE_VWRI:
-            pAmyClient->getJointClient().setPosVW(value);
-            pAmyClient->sendJointCommand();
-            break;
-
-         // arm commands
-        case Interpreter::eCMD_KEEP_TILT:
-            pAmyClient->getOtherClient().keepTilt(1);
-            pAmyClient->sendOtherCommand();
-            break;
-        case Interpreter::eCMD_AMY_END:
-            pAmyClient->getOtherClient().endAmy();
-            pAmyClient->sendOtherCommand();
-            break;
-        case Interpreter::eCMD_ARM_STOP:
-            pAmyClient->toDoCommand();
+        case ComsCategory::eCATEGORY_OTHER:
+            bsent = sendOtherCommand(action, value);
             break;
             
         default:
-            LOG4CXX_ERROR(logger, "AmyConnector: client request not available!");        
+            LOG4CXX_ERROR(logger, "AmyConnector: coms category not available!");        
             bsent = false;
             break;
     }
     return bsent;
 }
 
+bool AmyConnector::sendJointCommand(int action, float value)
+{    
+    bool bsent = true;
+    
+    JointClient& oJointClient = pAmyClient->getJointClient();
+    switch (action)
+    {
+        // joint positions
+        case JointCategory::eJOINT_HS_POS:
+            oJointClient.setPosHS(value);
+            pAmyClient->sendJointCommand();
+            break;
+        case JointCategory::eJOINT_VS_POS:
+            oJointClient.setPosVS(value);
+            pAmyClient->sendJointCommand();
+            break;
+        case JointCategory::eJOINT_ELB_POS:
+            oJointClient.setPosELB(value);
+            pAmyClient->sendJointCommand();
+            break;
+        case JointCategory::eJOINT_HWRI_POS:
+            oJointClient.setPosHW(value);
+            pAmyClient->sendJointCommand();
+            break;
+        case JointCategory::eJOINT_VWRI_POS:
+            oJointClient.setPosVW(value);
+            pAmyClient->sendJointCommand();
+            break;
+            
+        default:
+            LOG4CXX_ERROR(logger, "AmyConnector: joint request not available!");        
+            bsent = false;
+            break;
+    }
+    return bsent;
+}
+
+bool AmyConnector::sendAxisCommand(int action, float value)
+{    
+    bool bsent = true;
+    
+    AxisClient& oAxisClient = pAmyClient->getAxisClient();
+    switch (action)
+    {
+        // axis speeds
+        case AxisCategory::eAXIS_PAN_SPEED:
+            oAxisClient.panSpeed(value);
+            pAmyClient->sendAxisCommand();
+            break;
+        case AxisCategory::eAXIS_TILT_SPEED:
+            oAxisClient.tiltSpeed(value);
+            pAmyClient->sendAxisCommand();
+            break;
+        case AxisCategory::eAXIS_RAD_SPEED:
+            oAxisClient.radialSpeed(value);
+            pAmyClient->sendAxisCommand();
+            break;        
+        // axis positions
+        case AxisCategory::eAXIS_PAN_POS:            
+            oAxisClient.movePan(value);
+            pAmyClient->sendAxisCommand();
+            break;
+        case AxisCategory::eAXIS_TILT_POS:
+            oAxisClient.moveTilt(value);
+            pAmyClient->sendAxisCommand();
+            break;
+        case AxisCategory::eAXIS_RAD_POS:
+            oAxisClient.moveRadius(value);
+            pAmyClient->sendAxisCommand();
+            break;
+                        
+        default:
+            LOG4CXX_ERROR(logger, "AmyConnector: axis request not available!");        
+            bsent = false;
+            break;
+    }
+    return bsent;
+}
+
+bool AmyConnector::sendCyclicCommand(int action, float value)
+{    
+    bool bsent = true;
+    
+    CyclicClient& oCyclicClient = pAmyClient->getCyclicClient();
+    switch (action)
+    {
+        // cyclic commands
+        case CyclicCategory::eCYCLIC_PAN_FREQ:
+            oCyclicClient.panFrequency(value);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_PAN_AMP:
+            oCyclicClient.panAmplitude(value);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_PAN_TRIGGER:
+            oCyclicClient.panTrigger();
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_PAN_STOP:            
+            oCyclicClient.panStop();
+            pAmyClient->sendCyclicCommand();
+            break;
+                        
+        default:
+            LOG4CXX_ERROR(logger, "AmyConnector: cyclic request not available!");        
+            bsent = false;
+            break;
+    }
+    return bsent;
+}
+
+bool AmyConnector::sendOtherCommand(int action, float value)
+{    
+    bool bsent = true;
+    
+    OtherClient& oOtherClient = pAmyClient->getOtherClient();
+    switch (action)
+    {
+        // other commands
+        case OtherCategory::eOTHER_ARM_STOP:
+            pAmyClient->toDoCommand();
+            break;
+        case OtherCategory::eOTHER_KEEP_TILT:
+            oOtherClient.keepTilt(1);
+            pAmyClient->sendOtherCommand();
+            break;
+        case OtherCategory::eOTHER_AMY_END:
+            oOtherClient.endAmy();
+            pAmyClient->sendOtherCommand();
+            break;
+                                    
+        default:
+            LOG4CXX_ERROR(logger, "AmyConnector: other request not available!");        
+            bsent = false;
+            break;
+    }
+    return bsent;
+}
 }

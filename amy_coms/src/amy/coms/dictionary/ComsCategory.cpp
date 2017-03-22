@@ -17,8 +17,6 @@ ComsCategory::ComsCategory(int ID, std::string name)
 {
     this->ID = ID;
     this->name = name;
-    // builds list of commands
-    build();
 }
 
 ComsCategory::~ComsCategory()
@@ -31,11 +29,11 @@ bool ComsCategory::isValidCategory(int cat)
     return (cat > eCATEGORY_UNDEF && cat < eCATEGORY_DIM);    
 }
 
-void ComsCategory::build()
-{
-    // nothing done
-    listCommands.clear();
-}
+//void ComsCategory::build()
+//{
+//    // nothing done
+//    listCommands.clear();
+//}
 
 std::string ComsCategory::toString()
 {

@@ -17,8 +17,6 @@
         <itemPath>src/amy/console/AmyConnector.h</itemPath>
         <itemPath>src/amy/console/Interpreter.cpp</itemPath>
         <itemPath>src/amy/console/Interpreter.h</itemPath>
-        <itemPath>src/amy/console/UserCommand.cpp</itemPath>
-        <itemPath>src/amy/console/UserCommand.h</itemPath>
         <itemPath>src/amy/console/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -93,10 +91,6 @@
       </item>
       <item path="src/amy/console/Interpreter.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/console/UserCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/console/UserCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/console/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -127,10 +121,6 @@
       <item path="src/amy/console/Interpreter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/console/Interpreter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/console/UserCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/console/UserCommand.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/console/main.cpp" ex="false" tool="1" flavor2="0">
       </item>

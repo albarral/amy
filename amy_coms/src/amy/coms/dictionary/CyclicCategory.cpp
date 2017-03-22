@@ -10,6 +10,8 @@ namespace amy
 {
 CyclicCategory::CyclicCategory() : ComsCategory(ComsCategory::eCATEGORY_CYCLIC, "cyclic category")   
 {
+    // builds list of commands
+    build();
 }
 
 void CyclicCategory::build()

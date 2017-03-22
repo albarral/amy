@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/console/AmyConnector.o \
 	${OBJECTDIR}/src/amy/console/Interpreter.o \
-	${OBJECTDIR}/src/amy/console/UserCommand.o \
 	${OBJECTDIR}/src/amy/console/main.o
 
 
@@ -78,11 +77,6 @@ ${OBJECTDIR}/src/amy/console/Interpreter.o: src/amy/console/Interpreter.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_coms/src -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/Interpreter.o src/amy/console/Interpreter.cpp
-
-${OBJECTDIR}/src/amy/console/UserCommand.o: src/amy/console/UserCommand.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/console
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_coms/src -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/UserCommand.o src/amy/console/UserCommand.cpp
 
 ${OBJECTDIR}/src/amy/console/main.o: src/amy/console/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console

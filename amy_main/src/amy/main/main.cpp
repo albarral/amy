@@ -83,7 +83,7 @@ void runAmy(Robot& oRobot)
     ArmTest oArmTest;
     oArmTest.connect2Bus(oAmyControl.getArmManager());
     //oArmTest.setPos(10, 30, 80);
-    oArmTest.testCycler();
+    //oArmTest.testCycler();
     //oArmTest.testKeepTilt();
 
     // launch amy control & wait for it to end        

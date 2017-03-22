@@ -49,7 +49,7 @@ public:
     
  protected:
     // builds category with a list of commands
-    virtual void build();
+    virtual void build() = 0;
 
 };
 }

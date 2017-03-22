@@ -10,6 +10,8 @@ namespace amy
 {
 AxisCategory::AxisCategory() : ComsCategory(ComsCategory::eCATEGORY_AXIS, "axis category")   
 {
+    // builds list of commands
+    build();
 }
 
 void AxisCategory::build()

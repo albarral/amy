@@ -58,7 +58,7 @@ int main(int argc, char** argv)
         if (oInterpreter.isValidCommand())
         {
             oConnector.connect2Amy();
-            bool bsent = oConnector.sendCommand(oInterpreter.getAction(), oInterpreter.getValue());
+            bool bsent = oConnector.sendCommand(oInterpreter.getCategory(), oInterpreter.getAction(), oInterpreter.getValue());
             if (!bsent)
             {
                 LOG4CXX_WARN(logger, "send failed");
