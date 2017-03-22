@@ -47,6 +47,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/data/CyclicCommand.o \
 	${OBJECTDIR}/src/amy/coms/data/JointCommand.o \
 	${OBJECTDIR}/src/amy/coms/data/OtherCommand.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/AxisCategory.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/ComsCategory.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/ComsCommand.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/ComsDictionary.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/CyclicCategory.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/JointCategory.o \
+	${OBJECTDIR}/src/amy/coms/dictionary/OtherCategory.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFilePublisher.o \
 	${OBJECTDIR}/src/amy/coms/file/AmyFileServer.o \
@@ -144,6 +151,41 @@ ${OBJECTDIR}/src/amy/coms/data/OtherCommand.o: src/amy/coms/data/OtherCommand.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/data/OtherCommand.o src/amy/coms/data/OtherCommand.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/AxisCategory.o: src/amy/coms/dictionary/AxisCategory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/AxisCategory.o src/amy/coms/dictionary/AxisCategory.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/ComsCategory.o: src/amy/coms/dictionary/ComsCategory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/ComsCategory.o src/amy/coms/dictionary/ComsCategory.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/ComsCommand.o: src/amy/coms/dictionary/ComsCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/ComsCommand.o src/amy/coms/dictionary/ComsCommand.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/ComsDictionary.o: src/amy/coms/dictionary/ComsDictionary.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/ComsDictionary.o src/amy/coms/dictionary/ComsDictionary.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/CyclicCategory.o: src/amy/coms/dictionary/CyclicCategory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/CyclicCategory.o src/amy/coms/dictionary/CyclicCategory.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/JointCategory.o: src/amy/coms/dictionary/JointCategory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/JointCategory.o src/amy/coms/dictionary/JointCategory.cpp
+
+${OBJECTDIR}/src/amy/coms/dictionary/OtherCategory.o: src/amy/coms/dictionary/OtherCategory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/dictionary
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/dictionary/OtherCategory.o src/amy/coms/dictionary/OtherCategory.cpp
 
 ${OBJECTDIR}/src/amy/coms/file/AmyFileClient.o: src/amy/coms/file/AmyFileClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/file

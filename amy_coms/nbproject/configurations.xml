@@ -27,6 +27,22 @@
           <itemPath>src/amy/coms/data/OtherCommand.cpp</itemPath>
           <itemPath>src/amy/coms/data/OtherCommand.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="dictionary" displayName="dictionary" projectFiles="true">
+          <itemPath>src/amy/coms/dictionary/AxisCategory.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/AxisCategory.h</itemPath>
+          <itemPath>src/amy/coms/dictionary/ComsCategory.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/ComsCategory.h</itemPath>
+          <itemPath>src/amy/coms/dictionary/ComsCommand.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/ComsCommand.h</itemPath>
+          <itemPath>src/amy/coms/dictionary/ComsDictionary.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/ComsDictionary.h</itemPath>
+          <itemPath>src/amy/coms/dictionary/CyclicCategory.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/CyclicCategory.h</itemPath>
+          <itemPath>src/amy/coms/dictionary/JointCategory.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/JointCategory.h</itemPath>
+          <itemPath>src/amy/coms/dictionary/OtherCategory.cpp</itemPath>
+          <itemPath>src/amy/coms/dictionary/OtherCategory.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="file" displayName="file" projectFiles="true">
           <itemPath>src/amy/coms/file/AmyFileClient.cpp</itemPath>
           <itemPath>src/amy/coms/file/AmyFileClient.h</itemPath>
@@ -73,7 +89,6 @@
         <itemPath>src/amy/coms/AmySubscriber.h</itemPath>
         <itemPath>src/amy/coms/ComsInterpreter.cpp</itemPath>
         <itemPath>src/amy/coms/ComsInterpreter.h</itemPath>
-        <itemPath>src/amy/coms/iAmyComs.h</itemPath>
         <itemPath>src/amy/coms/iAmyPublisher.h</itemPath>
         <itemPath>src/amy/coms/iAmySubscriber.h</itemPath>
       </logicalFolder>
@@ -191,6 +206,76 @@
       </item>
       <item path="src/amy/coms/data/OtherCommand.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/dictionary/AxisCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/AxisCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCommand.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCommand.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsDictionary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsDictionary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/CyclicCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/CyclicCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/JointCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/JointCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/OtherCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/OtherCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/file/AmyFileClient.cpp"
             ex="false"
             tool="1"
@@ -224,8 +309,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -385,6 +468,76 @@
       </item>
       <item path="src/amy/coms/data/OtherCommand.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/coms/dictionary/AxisCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/AxisCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCommand.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsCommand.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsDictionary.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/ComsDictionary.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/CyclicCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/CyclicCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/JointCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/JointCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/OtherCategory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/dictionary/OtherCategory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/coms/file/AmyFileClient.cpp"
             ex="false"
             tool="1"
@@ -418,8 +571,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
       </item>
