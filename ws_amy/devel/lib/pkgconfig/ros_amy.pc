@@ -1,0 +1,8 @@
+prefix=/home/oriol/amy/ws_amy/devel
+
+Name: ros_amy
+Description: Description of ros_amy
+Version: 0.1.0
+Cflags: -I/home/oriol/amy/amy_core/src -I/home/oriol/amy/amy_utils/src -I/home/oriol/amy/amy_coms/src
+Libs: -L/home/oriol/amy/ws_amy/devel/lib -l:/home/oriol/amy/amy_core/dist/Debug/GNU-Linux/libamy_core.so -l:/home/oriol/amy/amy_utils/dist/Debug/GNU-Linux/libamy_utils.so -l:/home/oriol/amy/amy_coms/dist/Debug/GNU-Linux/libamy_coms.so
+Requires: actionlib control_msgs roscpp
