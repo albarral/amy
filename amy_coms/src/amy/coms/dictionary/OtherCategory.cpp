@@ -26,4 +26,30 @@ void OtherCategory::build()
     oCommand = ComsCommand(ID, OtherCategory::eOTHER_AMY_END, "end", 0, "end amy process");
     listCommands.push_back(oCommand);
 }
+
+bool OtherCategory::isValidAction(int value)
+{
+    return (value > OtherCategory::eOTHER_UNDEF && value < OtherCategory::eOTHER_DIM);
+}
+
+std::string OtherCategory::describeAction(int value)
+{
+    std::string desc;
+    switch (value)
+    {
+        case OtherCategory::eOTHER_ARM_STOP:
+            desc = "stop";
+            break;
+        case OtherCategory::eOTHER_KEEP_TILT:
+            desc = "keep tilt";
+            break;
+        case OtherCategory::eOTHER_AMY_END:
+            desc = "end";
+            break;
+        default:
+            desc = "unknown";           
+    }    
+    return desc;    
+}
+
 }

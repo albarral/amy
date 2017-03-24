@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/CyclicClient.h"
+#include "amy/coms/dictionary/CyclicCategory.h"
 
 namespace amy
 {
@@ -16,28 +17,28 @@ CyclicClient::CyclicClient()
 // CYCLIC MOVEMENTS
 void CyclicClient::panFrequency(float value)
 {
-    CyclicCommand oCyclicCommand(CyclicCommand::eCYCLIC_PAN_FREQ, value);
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_PAN_FREQ, value);
     updateText(oCyclicCommand);
 }
 
 // set pan amplitude (degrees)
 void CyclicClient::panAmplitude(float value)
 {
-    CyclicCommand oCyclicCommand(CyclicCommand::eCYCLIC_PAN_AMP, value);
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_PAN_AMP, value);
     updateText(oCyclicCommand);
 }
 
 // trigger pan cyclic movement
 void CyclicClient::panTrigger()
 {
-    CyclicCommand oCyclicCommand(CyclicCommand::eCYCLIC_PAN_TRIGGER);
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_PAN_TRIGGER);
     updateText(oCyclicCommand);
 }
 
 // stop pan cyclic movement
 void CyclicClient::panStop()
 {
-    CyclicCommand oCyclicCommand(CyclicCommand::eCYCLIC_PAN_STOP);
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_PAN_STOP);
     updateText(oCyclicCommand);
 }
 

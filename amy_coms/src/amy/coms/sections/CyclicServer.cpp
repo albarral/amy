@@ -3,8 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/data/CyclicCommand.h"
 #include "amy/coms/sections/CyclicServer.h"
+#include "amy/coms/dictionary/CyclicCategory.h"
 
 namespace amy
 {
@@ -27,29 +27,29 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
 
     switch (oAmyCommand.getAction())
     {
-        case CyclicCommand::eCYCLIC_PAN_FREQ:
+        case CyclicCategory::eCYCLIC_PAN_FREQ:
             LOG4CXX_INFO(logger, "> set pan freq " << value);                        
             panFrequency(value);
             break;
             
-        case CyclicCommand::eCYCLIC_PAN_AMP:
+        case CyclicCategory::eCYCLIC_PAN_AMP:
             LOG4CXX_INFO(logger, "> set pan amplitude " << value);                        
             panAmplitude(value);
             break;
 
-        case CyclicCommand::eCYCLIC_PAN_TRIGGER:
+        case CyclicCategory::eCYCLIC_PAN_TRIGGER:
             LOG4CXX_INFO(logger, "> pan trigger ");                        
             panTrigger();
             break;
 
-        case CyclicCommand::eCYCLIC_PAN_STOP:
+        case CyclicCategory::eCYCLIC_PAN_STOP:
             LOG4CXX_INFO(logger, "> pan stop ");                        
             panStop();
             break;
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "CyclicServer: unknown command " << oAmyCommand.getDescription());           
+            LOG4CXX_WARN(logger, "CyclicServer: untreated action " << oAmyCommand.getAction());           
     }    
     return bret;
 }

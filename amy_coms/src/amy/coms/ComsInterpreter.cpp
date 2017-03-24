@@ -6,10 +6,12 @@
 #include <vector>
 
 #include "amy/coms/ComsInterpreter.h"
+#include "amy/coms/data/AmyCommand.h"
 #include "amy/coms/data/JointCommand.h"
 #include "amy/coms/data/AxisCommand.h"
 #include "amy/coms/data/CyclicCommand.h"
 #include "amy/coms/data/OtherCommand.h"
+#include "amy/coms/dictionary/ComsCategory.h"
 #include "amy/utils/StringUtil.h"
 
 namespace amy
@@ -68,20 +70,20 @@ bool ComsInterpreter::checkCommand(std::string text)
     // if all elements valid, analyze command
     if (numElements == numValidElements)
     {
-        if (AmyCommand::isValidCategory(category))
+        if (ComsCategory::isValidCategory(category))
         {        
             switch (category)
             {
-                case AmyCommand::eCAT_JOINT_CMD:
+                case ComsCategory::eCATEGORY_JOINTS:
                     pCommand = new JointCommand(action, value);
                     break;
-                case AmyCommand::eCAT_AXIS_CMD:
+                case ComsCategory::eCATEGORY_AXIS:
                     pCommand = new AxisCommand(action, value);
                     break;
-                case AmyCommand::eCAT_CYCLIC_CMD:
+                case ComsCategory::eCATEGORY_CYCLIC:
                      pCommand = new CyclicCommand(action, value);
                     break;
-                case AmyCommand::eCAT_OTHER_CMD:
+                case ComsCategory::eCATEGORY_OTHER:
                      pCommand = new OtherCommand(action, value);
                     break;
             }

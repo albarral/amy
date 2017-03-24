@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/data/AmyCommand.h"
+#include "amy/coms/dictionary/ComsCategory.h"
 #include "amy/utils/StringUtil.h"
 
 namespace amy
@@ -12,7 +13,7 @@ const std::string AmyCommand::separator = "*";
 
 AmyCommand::AmyCommand()
 {
-    category = eCAT_UNDEF;    
+    category = ComsCategory::eCATEGORY_UNDEF;
     action = 0;
     value = 0.0;
     text = "";
@@ -22,7 +23,7 @@ AmyCommand::AmyCommand()
 AmyCommand::AmyCommand(int action, float value)
 {
     // undefined category, invalid command
-    category = eCAT_UNDEF;
+    category = ComsCategory::eCATEGORY_UNDEF;
     this->action = action;
     this->value = value;
     bvalid = false;
@@ -35,46 +36,6 @@ std::string AmyCommand::buildTextualForm()
     return text;
 }
     
-std::string AmyCommand::getDescription()
-{
-    std::string desc = describeCategory(category) + 
-            " " + describeAction() + 
-            " " + std::to_string(value);
-    
-    return desc;    
-}
-
-bool AmyCommand::isValidCategory(int cat)
-{
-    return (cat > eCAT_UNDEF && cat < eCAT_DIM);    
-}
-
-std::string AmyCommand::describeCategory(int value)
-{
-    std::string desc;
-    switch (value)
-    {
-        case eCAT_UNDEF:
-            desc = "undefined";
-            break;
-        case eCAT_JOINT_CMD:
-            desc = "joint";
-            break;
-        case eCAT_AXIS_CMD:
-            desc = "axis";
-            break;
-        case eCAT_CYCLIC_CMD:
-            desc = "cyclic";
-            break;
-        case eCAT_OTHER_CMD:
-            desc = "other";
-            break;
-        default:
-            desc = "invalid";           
-    }
-    return desc;    
-}
-
 std::string AmyCommand::describeAction()
 {
     return "invalid";    

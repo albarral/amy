@@ -27,6 +27,8 @@ int main(int argc, char** argv)
     std::string configFile = home + "/.amy/log4cxx_config_console.xml";
     log4cxx::xml::DOMConfigurator::configure(configFile);
     
+//    argc = 3;
+    
     // command with wrong number of params, show usage
     if (argc == 1 || argc > 3)
     {
@@ -35,20 +37,15 @@ int main(int argc, char** argv)
     // command with proper params number
     else         
     {
-        /// read command
+        // read command
         std::string param1 = argv[1];               // first param read from console
         std::string param2 = "";                      // second param read from console
         if (argc == 3)
-           param2 = argv[2];
-           
-        // TEMP 
-        // get input from console
-//        std::string entry;
-//        std::getline(std::cin, entry);   
-//        std::string::size_type pos = entry.find_first_of(' ');
-//        std::string param1 = entry.substr(0, pos);
-//        std::string param2 = entry.substr(pos);
+           param2 = argv[2];           
         
+//        std::string param1 = "pan";
+//        std::string param2 = "15";
+
         amy::Interpreter oInterpreter;
         amy::AmyConnector oConnector;
         

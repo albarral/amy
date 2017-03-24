@@ -34,5 +34,38 @@ void AxisCategory::build()
     listCommands.push_back(oCommand);
 }
     
+bool AxisCategory::isValidAction(int value)
+{
+    return (value > AxisCategory::eAXIS_UNDEF && value < AxisCategory::eAXIS_DIM);
+}
+
+std::string AxisCategory::describeAction(int value)
+{
+    std::string desc;
+    switch (value)
+    {
+        case AxisCategory::eAXIS_PAN_POS:
+            desc = "pan pos";
+            break;
+        case AxisCategory::eAXIS_TILT_POS:
+            desc = "tilt pos";
+            break;
+        case AxisCategory::eAXIS_RAD_POS:
+            desc = "radius pos";
+            break;
+        case AxisCategory::eAXIS_PAN_SPEED:
+            desc = "pan speed";
+            break;
+        case AxisCategory::eAXIS_TILT_SPEED:
+            desc = "tilt speed";
+            break;
+        case AxisCategory::eAXIS_RAD_SPEED:
+            desc = "radius speed";
+            break;
+        default:
+            desc = "unknown";           
+    }    
+    return desc;    
+}
 
 }

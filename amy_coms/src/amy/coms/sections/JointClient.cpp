@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/JointClient.h"
+#include "amy/coms/dictionary/JointCategory.h"
 
 namespace amy
 {
@@ -16,31 +17,31 @@ JointClient::JointClient()
 // JOINT POSITIONS
 void JointClient::setPosHS(float value)
 {
-    JointCommand oJointCommand(JointCommand::eJOINT_HS_POS, value);
+    JointCommand oJointCommand(JointCategory::eJOINT_HS_POS, value);
     updateText(oJointCommand);
 }
 
 void JointClient::setPosVS(float value)
 {
-    JointCommand oJointCommand(JointCommand::eJOINT_VS_POS, value);
+    JointCommand oJointCommand(JointCategory::eJOINT_VS_POS, value);
     updateText(oJointCommand);
 }
 
 void JointClient::setPosELB(float value)
 {
-    JointCommand oJointCommand(JointCommand::eJOINT_ELB_POS, value);
+    JointCommand oJointCommand(JointCategory::eJOINT_ELB_POS, value);
     updateText(oJointCommand);    
 }
 
 void JointClient::setPosHW(float value)
 {
-    JointCommand oJointCommand(JointCommand::eJOINT_HWRI_POS, value);
+    JointCommand oJointCommand(JointCategory::eJOINT_HWRI_POS, value);
     updateText(oJointCommand);
 }
 
 void JointClient::setPosVW(float value)
 {
-    JointCommand oJointCommand(JointCommand::eJOINT_VWRI_POS, value);
+    JointCommand oJointCommand(JointCategory::eJOINT_VWRI_POS, value);
     updateText(oJointCommand);
 }
 

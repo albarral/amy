@@ -21,12 +21,12 @@ private:
     /*! interpreter states */        
     enum eStates
     {
-         eSTATE_CHECK_FIRST,              /*! checking: first part (action) */
-         eSTATE_CHECK_SECOND,          /*! checking: second part (value) */
-         eSTATE_KO_UNKNOWN,              /*! check ko: unknown command */
-         eSTATE_KO_INCOMPLETE,          /*! check ko: incomplete command */
-         eSTATE_KO_INVALID,                 /*! check ko: invalid command */
-         eSTATE_OK_VALID,                    /*! check ok: valid command */
+         eCHECK_FIRST_WORD,              /*! checking: first part (action) */
+         eCHECK_SECOND_WORD,          /*! checking: second part (value) */
+         eCHECK_UNKNOWN_CMD,         /*! check ko: unknown command */
+         eCHECK_INCOMPLETE_CMD,          /*! check ko: incomplete command */
+         eCHECK_INVALID_CMD,                 /*! check ko: invalid command */
+         eCHECK_VALID_CMD,                    /*! check ok: valid command */
     };
     int state;           // interpreter state (one of eStates)
     int category;     // command category      
@@ -42,7 +42,7 @@ public:
     // analyzes the textual input (composed by 2 strings)
     void checkCommand(std::string entry1, std::string entry2);
     // checks if this command is valid
-    bool isValidCommand() {return (state == eSTATE_OK_VALID);} ;    
+    bool isValidCommand() {return (state == eCHECK_VALID_CMD);} ;    
 
     int getCategory() {return category;};
     int getAction() {return action;};
@@ -54,8 +54,8 @@ public:
     std::string getAvailableCommands();    
 
 private:    
-    // checks if given text is a number
-    bool isNumeric(std::string input, int& val);    
+    // checks if given text is a number (integer or float)
+    bool checkNumericParam(std::string input);    
 
 };
 }		

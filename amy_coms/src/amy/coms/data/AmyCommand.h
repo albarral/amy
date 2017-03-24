@@ -20,17 +20,6 @@ class AmyCommand
 {
 public:
     static const std::string separator;
-    
-    /*! command categories */
-    enum eCategories
-    {
-         eCAT_UNDEF,                    /*! undefined category */
-         eCAT_JOINT_CMD,                /*! command of joint category */
-         eCAT_AXIS_CMD,                 /*! command of axis category */
-         eCAT_CYCLIC_CMD,            /*! command of cyclic category */
-         eCAT_OTHER_CMD,             /*! command of other category */
-         eCAT_DIM
-    };
         
 protected:    
     int category;   /*! command category  */
@@ -53,14 +42,6 @@ public:
     /*! builds the textual form of the command and returns it */
     std::string buildTextualForm();
     
-    // describe command
-    std::string getDescription();    
-
-    // check valid values
-    static bool isValidCategory(int value);    
-    // describe category
-    static std::string describeCategory(int value);
-
 protected:    
     // describe action 
     virtual std::string describeAction();

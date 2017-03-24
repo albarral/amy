@@ -14,23 +14,23 @@ namespace amy
  // Class to represent cyclic commands.
 class CyclicCommand: public AmyCommand
 {
-public:
-    /*! actions of cyclic category  */
-    enum eCyclicActions
-    {
-         eCYCLIC_UNDEF,                          /*! undefined cyclic action */
-         eCYCLIC_PAN_FREQ,
-         eCYCLIC_PAN_AMP,
-         eCYCLIC_PAN_TRIGGER,
-         eCYCLIC_PAN_STOP,
-         eCYCLIC_DIM
-    };
+//public:
+//    /*! actions of cyclic category  */
+//    enum eCyclicActions
+//    {
+//         eCYCLIC_UNDEF,                          /*! undefined cyclic action */
+//         eCYCLIC_PAN_FREQ,
+//         eCYCLIC_PAN_AMP,
+//         eCYCLIC_PAN_TRIGGER,
+//         eCYCLIC_PAN_STOP,
+//         eCYCLIC_DIM
+//    };
     
 public:
     CyclicCommand(int action, float value=0.0);
 
     // describe action 
-    virtual std::string describeAction();
+    //virtual std::string describeAction();
 };
 }
 #endif

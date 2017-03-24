@@ -6,6 +6,7 @@
 
 #include "amy/coms/AmyServer.h"
 #include "amy/coms/data/AmyCommand.h"
+#include "amy/coms/dictionary/ComsCategory.h"
 
 namespace amy
 {
@@ -48,33 +49,33 @@ bool AmyServer::processCommand(std::string text)
         {
             switch (oAmyCommand.getCategory())
             {
-                case AmyCommand::eCAT_JOINT_CMD:
+                case ComsCategory::eCATEGORY_JOINTS:
                     bret = oJointServer.processCommand(oAmyCommand);
                     break;
 
-                case AmyCommand::eCAT_AXIS_CMD:
+                case ComsCategory::eCATEGORY_AXIS:
                     bret = oAxisServer.processCommand(oAmyCommand);
                     break;
 
-                case AmyCommand::eCAT_CYCLIC_CMD:
+                case ComsCategory::eCATEGORY_CYCLIC:
                     bret = oCyclicServer.processCommand(oAmyCommand);
                     break;
 
-                case AmyCommand::eCAT_OTHER_CMD:
+                case ComsCategory::eCATEGORY_OTHER:
                     bret = oOtherServer.processCommand(oAmyCommand);
                     break;
 
                 default:
-                    LOG4CXX_WARN(logger, "AmyServer: no processing for this category " << oAmyCommand.getDescription());                        
+                    LOG4CXX_WARN(logger, "AmyServer: no processing for this category " << oAmyCommand.getCategory());                        
             }                
         }
         // unknown command
         else
-            LOG4CXX_WARN(logger, "AmyServer: unknown command " << oAmyCommand.getDescription());                                    
+            LOG4CXX_WARN(logger, "AmyServer: unknown command " << text);                                    
     }
     // invalid command (could not be interpreted)
     else
-        LOG4CXX_WARN(logger, "AmyServer: invalid command " << text);                        
+        LOG4CXX_WARN(logger, "AmyServer: malformed command " << text);                        
         
     return bret;
 }

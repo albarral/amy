@@ -28,6 +28,11 @@ public:
 
     JointCategory(); 
 
+    // check if given action is valid for this category
+    static bool isValidAction(int value);
+    // describe given action name for this category
+    static std::string describeAction(int value);
+
  private:    
     // builds category with a list of commands
     virtual void build();

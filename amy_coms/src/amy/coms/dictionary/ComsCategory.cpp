@@ -26,14 +26,8 @@ ComsCategory::~ComsCategory()
 
 bool ComsCategory::isValidCategory(int cat)
 {
-    return (cat > eCATEGORY_UNDEF && cat < eCATEGORY_DIM);    
+    return (cat > ComsCategory::eCATEGORY_UNDEF && cat < ComsCategory::eCATEGORY_DIM);    
 }
-
-//void ComsCategory::build()
-//{
-//    // nothing done
-//    listCommands.clear();
-//}
 
 std::string ComsCategory::toString()
 {
@@ -44,6 +38,33 @@ std::string ComsCategory::toString()
         desc += oCommand.toString() + "\n";
     }
 
+    return desc;    
+}
+
+std::string ComsCategory::describeCategory(int value)
+{
+    std::string desc;
+    switch (value)
+    {
+        case ComsCategory::eCATEGORY_UNDEF:
+            desc = "undefined";
+            break;
+        case ComsCategory::eCATEGORY_JOINTS:
+            desc = "joint";
+            break;
+        case ComsCategory::eCATEGORY_AXIS:
+            desc = "axis";
+            break;
+        case ComsCategory::eCATEGORY_CYCLIC:
+            desc = "cyclic";
+            break;
+        case ComsCategory::eCATEGORY_OTHER:
+            desc = "other";
+            break;
+            
+        default:
+            desc = "invalid";           
+    }
     return desc;    
 }
 

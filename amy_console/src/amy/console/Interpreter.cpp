@@ -6,6 +6,7 @@
 #include <stdexcept>      // std::invalid_argument
 
 #include "amy/console/Interpreter.h"
+#include "amy/utils/StringUtil.h"
 
 
 namespace amy
@@ -13,9 +14,9 @@ namespace amy
 // Constructor 
 Interpreter::Interpreter()
 {    
-    state = eSTATE_CHECK_FIRST;
+    state = eCHECK_FIRST_WORD;
     
-    // build the list of available commands from the coms dictionary (all categories)      
+    // select the commands of amy_coms dictionary that will be analyzed by the interpreter
     std::vector<ComsCommand>& listJointCommands = oComsDictionary.getJointCategory().getListCommands();
     std::vector<ComsCommand>& listAxisCommands = oComsDictionary.getAxisCategory().getListCommands();
     std::vector<ComsCommand>& listCyclicCommands = oComsDictionary.getCyclicCategory().getListCommands();
@@ -28,8 +29,8 @@ Interpreter::Interpreter()
 
 void Interpreter::checkCommand(std::string entry1, std::string entry2)
 {  
-    // not valid till correctly checked
-    state = eSTATE_CHECK_FIRST;
+    // the check will go through a set of states 
+    state = eCHECK_FIRST_WORD;
     // search command in commands list
     for (ComsCommand& oCommand : listCommands)
     {
@@ -40,20 +41,20 @@ void Interpreter::checkCommand(std::string entry1, std::string entry2)
             action = oCommand.getID();
             // if simple command -> valid
             if (oCommand.getNumElements() == 0)
-                state = eSTATE_OK_VALID;
+                state = eCHECK_VALID_CMD;
             // if complex command -> check second part
             else
-                state = eSTATE_CHECK_SECOND;
+                state = eCHECK_SECOND_WORD;
             break;
         }        
     }
 
     // if not found -> unknown
-    if (state == eSTATE_CHECK_FIRST)
-        state = eSTATE_KO_UNKNOWN;
+    if (state == eCHECK_FIRST_WORD)
+        state = eCHECK_UNKNOWN_CMD;
         
     // nothing more to check, skip
-    if (state != eSTATE_CHECK_SECOND)
+    if (state != eCHECK_SECOND_WORD)
         return;
 
     // It's a complex command. Let's check the second part  ...
@@ -61,54 +62,57 @@ void Interpreter::checkCommand(std::string entry1, std::string entry2)
     // if no second part -> incomplete
     if (entry2.empty())
     {
-        state = eSTATE_KO_INCOMPLETE;
+        state = eCHECK_INCOMPLETE_CMD;
         return;            
     }
 
     // if second part is numeric value -> valid
-    int x;
-    if (isNumeric(entry2, x))
-    {
-        value = (float)x;
-        state = eSTATE_OK_VALID;        
-    }
+    if (checkNumericParam(entry2))
+        state = eCHECK_VALID_CMD;        
     // otherwise -> invalid
     else
-        state = eSTATE_KO_INVALID;
-
+        state = eCHECK_INVALID_CMD;
 }
 
-// checks if the specified text is a number
-bool Interpreter::isNumeric(std::string input, int& val)
+// checks if the specified text is a number (integer or float)
+bool Interpreter::checkNumericParam(std::string input)
 {
-    try
+    bool bnumeric = false;
+    int ivalue;
+    float fvalue;
+    
+    // try if it's a float 
+    if (StringUtil::convert2Float(input, fvalue))
     {
-        // try converting string to integer
-        val = std::stoi(input);
-        return true;
+        bnumeric = true;
+        value = fvalue;        
     }
-    catch (std::invalid_argument) 
+    // or try if it's an integer
+    else if (StringUtil::convert2Integer(input, ivalue))
     {
-        // if conversion fails it's not a number
-        return false;        
+        bnumeric = true;
+        value = ivalue;
     }
+
+    return bnumeric;
 }
+
 
 std::string Interpreter::getResult()
 {
     std::string result;
     switch (state)
     {
-        case eSTATE_KO_UNKNOWN:
+        case eCHECK_UNKNOWN_CMD:
             result = "unknown command";
             break;
-        case eSTATE_KO_INCOMPLETE:
+        case eCHECK_INCOMPLETE_CMD:
             result = "incomplete command";
             break;
-        case eSTATE_KO_INVALID:
+        case eCHECK_INVALID_CMD:
             result = "invalid value";
             break;
-        case eSTATE_OK_VALID:
+        case eCHECK_VALID_CMD:
             result = "ok";
             break;            
     }    

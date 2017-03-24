@@ -3,8 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/data/JointCommand.h"
 #include "amy/coms/sections/JointServer.h"
+#include "amy/coms/dictionary/JointCategory.h"
 
 namespace amy
 {
@@ -27,34 +27,34 @@ bool JointServer::processCommand(AmyCommand& oAmyCommand)
 
     switch (oAmyCommand.getAction())
     {
-        case JointCommand::eJOINT_HS_POS:
+        case JointCategory::eJOINT_HS_POS:
             LOG4CXX_INFO(logger, "> set HS " << value);                        
             setPosHS(value);
             break;
             
-        case JointCommand::eJOINT_VS_POS:
+        case JointCategory::eJOINT_VS_POS:
             LOG4CXX_INFO(logger, "> set VS " << value);                        
             setPosVS(value);
             break;
 
-        case JointCommand::eJOINT_ELB_POS:
+        case JointCategory::eJOINT_ELB_POS:
             LOG4CXX_INFO(logger, "> set ELB " << value);                        
             setPosELB(value);
             break;
 
-        case JointCommand::eJOINT_HWRI_POS:
+        case JointCategory::eJOINT_HWRI_POS:
             LOG4CXX_INFO(logger, "> set HW " << value);                        
             setPosHW(value);
             break;
 
-        case JointCommand::eJOINT_VWRI_POS:
+        case JointCategory::eJOINT_VWRI_POS:
             LOG4CXX_INFO(logger, "> set VW " << value);                        
             setPosVW(value);
             break;
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "JointServer: unknown command " << oAmyCommand.getDescription());           
+            LOG4CXX_WARN(logger, "JointServer: untreated action " << oAmyCommand.getAction());           
     }    
     return bret;
 }

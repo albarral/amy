@@ -42,10 +42,17 @@ public:
     std::string getName() {return name;};
     std::vector<ComsCommand>& getListCommands() {return listCommands;};
     
-    // check valid values
+    // check if given category is valid
     static bool isValidCategory(int value);    
+    // check if given action is valid (depends on each category)
+    //virtual bool isValidAction(int value) = 0;    
+    
     // describe category
     std::string toString();
+    // describe category name
+    static std::string describeCategory(int value);
+    // describe given action name (depends on each category)
+    //virtual std::string describeAction(int value) = 0;
     
  protected:
     // builds category with a list of commands

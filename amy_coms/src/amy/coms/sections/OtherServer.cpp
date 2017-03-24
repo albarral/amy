@@ -3,9 +3,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/data/JointCommand.h"
 #include "amy/coms/sections/OtherServer.h"
-#include "amy/coms/data/OtherCommand.h"
+#include "amy/coms/dictionary/OtherCategory.h"
 
 namespace amy
 {
@@ -29,24 +28,24 @@ bool OtherServer::processCommand(AmyCommand& oAmyCommand)
     
     switch (oAmyCommand.getAction())
     {
-        case OtherCommand::eOTHER_ARM_STOP:
+        case OtherCategory::eOTHER_ARM_STOP:
             LOG4CXX_INFO(logger, "> arm stop ");                        
             toDoCommand(value);
             break;
             
-        case OtherCommand::eOTHER_KEEP_TILT:
+        case OtherCategory::eOTHER_KEEP_TILT:
             LOG4CXX_INFO(logger, "> keep tilt " << value);                        
             keepTilt((int)value);
             break;
             
-        case OtherCommand::eOTHER_AMY_END:
+        case OtherCategory::eOTHER_AMY_END:
             LOG4CXX_INFO(logger, "> end emy");                        
             endAmy();
             break;
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "OtherServer: unknown command " << oAmyCommand.getDescription());           
+            LOG4CXX_WARN(logger, "OtherServer: untreated action " << oAmyCommand.getAction());           
     }    
     return bret;
 }

@@ -3,8 +3,9 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/data/AxisCommand.h"
 #include "amy/coms/sections/AxisServer.h"
+#include "amy/coms/dictionary/AxisCategory.h"
+
 
 namespace amy
 {
@@ -27,39 +28,39 @@ bool AxisServer::processCommand(AmyCommand& oAmyCommand)
     
     switch (oAmyCommand.getAction())
     {
-        case AxisCommand::eAXIS_PAN_POS:
+        case AxisCategory::eAXIS_PAN_POS:
             LOG4CXX_INFO(logger, "> move pan " << value);                        
             movePan(value);
             break;
             
-        case AxisCommand::eAXIS_TILT_POS:
+        case AxisCategory::eAXIS_TILT_POS:
             LOG4CXX_INFO(logger, "> move tilt " << value);                        
             moveTilt(value);
             break;
 
-        case AxisCommand::eAXIS_RAD_POS:
+        case AxisCategory::eAXIS_RAD_POS:
             LOG4CXX_INFO(logger, "> move radius " << value);                        
             moveRadius(value);
             break;
 
-        case AxisCommand::eAXIS_PAN_SPEED:
+        case AxisCategory::eAXIS_PAN_SPEED:
             LOG4CXX_INFO(logger, "> pan speed " << value);                        
             panSpeed(value);
             break;
             
-        case AxisCommand::eAXIS_TILT_SPEED:
+        case AxisCategory::eAXIS_TILT_SPEED:
             LOG4CXX_INFO(logger, "> tilt speed " << value);                        
             tiltSpeed(value);
             break;
 
-        case AxisCommand::eAXIS_RAD_SPEED:
+        case AxisCategory::eAXIS_RAD_SPEED:
             LOG4CXX_INFO(logger, "> rad speed " << value);                        
             radialSpeed(value);
             break;
             
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "AxisServer: unknown command " << oAmyCommand.getDescription());           
+            LOG4CXX_WARN(logger, "AxisServer: untreated action " << oAmyCommand.getAction());           
     }    
     return bret;
 }

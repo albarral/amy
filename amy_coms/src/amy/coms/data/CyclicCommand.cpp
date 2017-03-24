@@ -3,42 +3,21 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-
 #include "amy/coms/data/CyclicCommand.h"
+#include "amy/coms/dictionary/ComsCategory.h"
+#include "amy/coms/dictionary/CyclicCategory.h"
 
 namespace amy
 {
 
 CyclicCommand::CyclicCommand(int action, float value)
 {
-    category = AmyCommand::eCAT_CYCLIC_CMD;
+    category = ComsCategory::eCATEGORY_CYCLIC;
     this->action = action;
     this->value = value;
     // check command validity
-    bvalid = (action > eCYCLIC_UNDEF && action < eCYCLIC_DIM);
+    bvalid = CyclicCategory::isValidAction(action);
 }
 
-std::string CyclicCommand::describeAction()
-{
-    std::string desc;
-    switch (action)
-    {
-        case eCYCLIC_PAN_FREQ:
-            desc = "pan frequency";
-            break;
-        case eCYCLIC_PAN_AMP:
-            desc = "pan amplitude";
-            break;
-        case eCYCLIC_PAN_TRIGGER:
-            desc = "pan trigger";
-            break;
-        case eCYCLIC_PAN_STOP:
-            desc = "pan stop";
-            break;
-        default:
-            desc = "unknown";           
-    }    
-    return desc;    
-}
 
 }
