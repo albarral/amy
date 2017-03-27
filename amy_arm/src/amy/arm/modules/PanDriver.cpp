@@ -60,7 +60,7 @@ void PanDriver::senseBus()
     // sense HS angle (soll value used here)
     istHS = pJointBus->getCO_JOINT_ANGLE().getValue();    
     // sense reached HS limits
-    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
 void PanDriver::computeAxisPosition()

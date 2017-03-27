@@ -67,7 +67,7 @@ void RadiusDriver::senseBus()
     // sense EL angle (soll value used here)
     istEL = pJointBus->getCO_JOINT_ANGLE().getValue();    
     // sense reached EL limits
-    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
 void RadiusDriver::computeAxisPosition()

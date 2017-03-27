@@ -71,7 +71,7 @@ void TiltDriver::senseBus()
     // sense VS angle (soll value used here)
     istVS = pJointBus->getCO_JOINT_ANGLE().getValue();
     // sense reached VS limits
-    jointLimit = pJointBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pJointBus->getSO_JOINT_LIMIT_REACHED().getValue();
     // sense EL angle for axis pos computation (soll value used here)
     istEL = pELBus->getCO_JOINT_ANGLE().getValue();
 }

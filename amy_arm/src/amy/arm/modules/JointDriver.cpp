@@ -109,9 +109,9 @@ void JointDriver::senseBus()
     angle = pJointBus->getCO_JOINT_ANGLE().getValue();
         
     // if move requested -> MOVE
-    if (pJointBus->getCO_JCONTROL_ACCEL().checkRequested())
+    if (pJointBus->getCO_JOINT_ACCEL().checkRequested())
     {
-        accel = pJointBus->getCO_JCONTROL_ACCEL().getValue();
+        accel = pJointBus->getCO_JOINT_ACCEL().getValue();
         bfree = false;
     }    
     // otherwise free
@@ -132,10 +132,10 @@ void JointDriver::writeBus()
     pJointBus->getCO_JOINT_ANGLE().request(angle);
     
     // inform of control speed
-    pJointBus->getSO_JCONTROL_SPEED().setValue(sollSpeed);
+    pJointBus->getSO_JOINT_SPEED().setValue(sollSpeed);
 
     // inform of limit reached
-    pJointBus->getSO_JCONTROL_LIMIT_REACHED().setValue(limitReached);
+    pJointBus->getSO_JOINT_LIMIT_REACHED().setValue(limitReached);
 
     if (limitReached != 0)            
         LOG4CXX_WARN(logger, "joint limit!");            

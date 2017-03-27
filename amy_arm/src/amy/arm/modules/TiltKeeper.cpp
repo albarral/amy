@@ -97,14 +97,14 @@ void TiltKeeper::senseBus()
             setState(eSTATE_DONE);                   
     }
      
-    elbowSpeed = pELBus->getSO_JCONTROL_SPEED().getValue();
+    elbowSpeed = pELBus->getSO_JOINT_SPEED().getValue();
     tiltSpeed = pArmBus->getTiltBus().getSO_AXIS_SPEED().getValue();
 }
 
 
 void TiltKeeper::writeBus()
 {  
-    pVSBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+    pVSBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 
