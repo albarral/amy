@@ -27,6 +27,7 @@ class AxisBus
         Control CO_AXIS_STOP;                         // stop cyclic move 
         // AxisRacer
         ControlT<float> CO_AXIS_SPEED;          // axis speed (degrees/s)
+        ControlT<float> CO_AXIS_SPEED2;        // axis secondary speed (degrees/s)
         // AxisDriver
         ControlT<int> CO_AXIS_POS;                // axis target position (degrees)
         
@@ -50,6 +51,7 @@ class AxisBus
         Control& getCO_AXIS_STOP() {return CO_AXIS_STOP;};
         // AxisRacer
         ControlT<float>& getCO_AXIS_SPEED() {return CO_AXIS_SPEED;};        
+        ControlT<float>& getCO_AXIS_SPEED2() {return CO_AXIS_SPEED2;};        
         // AxisDriver
         ControlT<int>& getCO_AXIS_POS() {return CO_AXIS_POS;};        
         

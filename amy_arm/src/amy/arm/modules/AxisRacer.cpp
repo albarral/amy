@@ -34,6 +34,7 @@ void AxisRacer::first()
     // tune PID controller
     float* pPID = oArmConfig.getPIDRacer();
     oPIDControl.init(pPID[0], pPID[1], pPID[2]);
+    speed1 = speed2 = 0.0;
 
     log4cxx::NDC::push(modName);   	
 }
@@ -56,6 +57,7 @@ void AxisRacer::loop()
             //reset PID controller
             oPIDControl.reset();
             outAccel = 0.0;
+            targetSpeed = speed1 + speed2;
             if (targetSpeed != 0.0)
                 setState(eSTATE_DRIVE);
             // zero speed requested -> DONE

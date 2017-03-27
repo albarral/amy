@@ -18,7 +18,7 @@ AxisCycler::AxisCycler()
 {
     modName = "AxisCycler";
     pAxisBus = 0;
-    tunedSpeed = 0;
+    amplitude = frequency = tunedSpeed = 0.0;
     // control priority
     priority = 1; //oArmConfig.getPriority4AxisCyclers();    
 }
@@ -58,8 +58,8 @@ void AxisCycler::loop()
             oOscillator.trigger();
             lastSignal = oOscillator.getSignal();
             
-            // if amplitude defined -> GO 
-            if (amplitude != 0.0)
+            // if amplitude & frequency defined -> GO 
+            if (amplitude != 0.0 && frequency != 0.0)
                 setState(eSTATE_GO);
             // otherwise, nothing to do -> DONE
             else
@@ -135,8 +135,8 @@ void AxisCycler::senseBus()
 
 void AxisCycler::writeBus()
 {  
-    // control axis speed
-    pAxisBus->getCO_AXIS_SPEED().request(outSpeed, priority);
+    // control axis secondary speed
+    pAxisBus->getCO_AXIS_SPEED2().request(outSpeed, priority);
 }
 
 void AxisCycler::tuneSpeed()

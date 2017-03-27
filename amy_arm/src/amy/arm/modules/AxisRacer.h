@@ -32,7 +32,9 @@ protected:
     static log4cxx::LoggerPtr logger;
     // control 
     PIDControl oPIDControl;       // PID controller to achieve the target speed    
-    float targetSpeed;              // requested axis speed
+    float speed1;                     // requested primary speed
+    float speed2;                     // requested secondary speed
+    float targetSpeed;              // final requested axis speed
     float axisSpeed;                // measured axis speed
     int jointLimit;                    // value indicating the controlled joint is blocked (due to reached limit)   
     // output

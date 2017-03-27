@@ -151,7 +151,7 @@ void AxisDriver::writeBus()
 {  
     // send command to joint (the computed acceleration)
     if (pJointBus != 0)
-        pJointBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+        pJointBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 

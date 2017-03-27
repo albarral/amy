@@ -25,23 +25,29 @@ void RadialRacer::setControlledJoint()
        
 void RadialRacer::senseBus()
 {
-    // if radial speed requested -> NEWMOVE
+    // if primary radial speed requested -> NEWMOVE
     if (pBusRadial->getCO_AXIS_SPEED().checkRequested())
     {
-        targetSpeed = pBusRadial->getCO_AXIS_SPEED().getValue();
+        speed1 = pBusRadial->getCO_AXIS_SPEED().getValue();
+        setState(eSTATE_NEWMOVE);   
+    }
+    // if secondary radial speed requested -> NEWMOVE
+    if (pBusRadial->getCO_AXIS_SPEED2().checkRequested())
+    {
+        speed2 = pBusRadial->getCO_AXIS_SPEED2().getValue();
         setState(eSTATE_NEWMOVE);   
     }
     
     // sense radial speed
     axisSpeed= pBusRadial->getSO_AXIS_SPEED().getValue();    
     // sense reached ELB limit
-    jointLimit = pELBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pELBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
 void RadialRacer::writeBus()
 {  
     // control ELB joint
-    pELBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+    pELBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 }

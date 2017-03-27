@@ -25,23 +25,29 @@ void PanRacer::setControlledJoint()
        
 void PanRacer::senseBus()
 {
-    // if pan speed requested -> NEWMOVE
+    // if primary pan speed requested -> NEWMOVE
     if (pBusPan->getCO_AXIS_SPEED().checkRequested())
     {
-        targetSpeed = pBusPan->getCO_AXIS_SPEED().getValue();
+        speed1 = pBusPan->getCO_AXIS_SPEED().getValue();
+        setState(eSTATE_NEWMOVE);                   
+    }
+    // if secondary pan speed requested -> NEWMOVE
+    if (pBusPan->getCO_AXIS_SPEED2().checkRequested())
+    {
+        speed2 = pBusPan->getCO_AXIS_SPEED2().getValue();
         setState(eSTATE_NEWMOVE);                   
     }
     
     // sense pan speed
     axisSpeed= pBusPan->getSO_AXIS_SPEED().getValue();    
     // sense reached HS limit
-    jointLimit = pHSBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pHSBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
 void PanRacer::writeBus()
 {  
     // control HS joint
-    pHSBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+    pHSBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 }

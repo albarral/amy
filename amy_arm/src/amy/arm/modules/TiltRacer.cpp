@@ -25,23 +25,29 @@ void TiltRacer::setControlledJoint()
        
 void TiltRacer::senseBus()
 {
-    // if tilt speed requested -> NEWMOVE
+    // if primary tilt speed requested -> NEWMOVE
     if (pBusTilt->getCO_AXIS_SPEED().checkRequested())
     {
-        targetSpeed = pBusTilt->getCO_AXIS_SPEED().getValue();
+        speed1 = pBusTilt->getCO_AXIS_SPEED().getValue();
+        setState(eSTATE_NEWMOVE);   
+    }
+    // if secondary tilt speed requested -> NEWMOVE
+    if (pBusTilt->getCO_AXIS_SPEED2().checkRequested())
+    {
+        speed2 = pBusTilt->getCO_AXIS_SPEED2().getValue();
         setState(eSTATE_NEWMOVE);   
     }
     
     // sense tilt speed
     axisSpeed= pBusTilt->getSO_AXIS_SPEED().getValue();    
     // sense reached VS limit
-    jointLimit = pVSBus->getSO_JCONTROL_LIMIT_REACHED().getValue();
+    jointLimit = pVSBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
 void TiltRacer::writeBus()
 {  
     // control VS joint
-    pVSBus->getCO_JCONTROL_ACCEL().request(outAccel, priority);
+    pVSBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 }
