@@ -38,6 +38,7 @@ void ArmInterface::connect(ArmBus& oArmBus)
 }
 
 // CYCLIC MOVEMENTS
+// set pan cyclic frequency
 void ArmInterface::panFrequency(float value)
 {
     if (benabled)
@@ -61,6 +62,32 @@ void ArmInterface::panStop()
     if (benabled)
         pBusPan->getCO_AXIS_STOP().request();                    
 }
+
+// set tilt cyclic frequency
+void ArmInterface::tiltFrequency(float value)
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_FREQUENCY().request(value);                    
+}
+// set tilt amplitude (degrees)
+void ArmInterface::tiltAmplitude(float value)
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_AMPLITUDE().request(value);                    
+}
+// trigger tilt cyclic movement
+void ArmInterface::tiltTrigger()
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_TRIGGER().request();                    
+}
+// stop tilt cyclic movement
+void ArmInterface::tiltStop()
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_STOP().request();                    
+}
+
 
 // AXIS SPEEDS
 void ArmInterface::panSpeed(float value)
