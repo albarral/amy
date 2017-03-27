@@ -31,10 +31,10 @@ public:
     virtual void panTrigger();
     virtual void panStop();
     // tilt cyclic movements
-//    virtual void tiltFrequency(float value);
-//    virtual void tiltAmplitude(float value);
-//    virtual void tiltTrigger();
-//    virtual void tiltStop();
+    virtual void tiltFrequency(float value);
+    virtual void tiltAmplitude(float value);
+    virtual void tiltTrigger();
+    virtual void tiltStop();
 
 private:
     // obtains the textual form of the given command

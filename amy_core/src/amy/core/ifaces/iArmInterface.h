@@ -26,6 +26,15 @@ public:
     // stop pan cyclic movement
     virtual void panStop() = 0;
 
+    // set tilt frequency (Hz)
+    virtual void tiltFrequency(float value) = 0;
+    // set tilt amplitude (degrees)
+    virtual void tiltAmplitude(float value) = 0;
+    // trigger tilt cyclic movement
+    virtual void tiltTrigger() = 0;
+    // stop tilt cyclic movement
+    virtual void tiltStop() = 0;
+
     // AXIS SPEEDS
     // change pan speed
     virtual void panSpeed(float value) = 0;

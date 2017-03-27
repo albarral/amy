@@ -158,7 +158,7 @@ bool AmyConnector::sendCyclicCommand(int action, float value)
     CyclicClient& oCyclicClient = pAmyClient->getCyclicClient();
     switch (action)
     {
-        // cyclic commands
+        // pan cyclic moves
         case CyclicCategory::eCYCLIC_PAN_FREQ:
             oCyclicClient.panFrequency(value);
             pAmyClient->sendCyclicCommand();
@@ -173,6 +173,23 @@ bool AmyConnector::sendCyclicCommand(int action, float value)
             break;
         case CyclicCategory::eCYCLIC_PAN_STOP:            
             oCyclicClient.panStop();
+            pAmyClient->sendCyclicCommand();
+            break;
+        // tilt cyclic moves
+        case CyclicCategory::eCYCLIC_TILT_FREQ:
+            oCyclicClient.tiltFrequency(value);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_TILT_AMP:
+            oCyclicClient.tiltAmplitude(value);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
+            oCyclicClient.tiltTrigger();
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_TILT_STOP:            
+            oCyclicClient.tiltStop();
             pAmyClient->sendCyclicCommand();
             break;
                         

@@ -47,6 +47,26 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             panStop();
             break;
 
+        case CyclicCategory::eCYCLIC_TILT_FREQ:
+            LOG4CXX_INFO(logger, "> set tilt freq " << value);                        
+            tiltFrequency(value);
+            break;
+            
+        case CyclicCategory::eCYCLIC_TILT_AMP:
+            LOG4CXX_INFO(logger, "> set tilt amplitude " << value);                        
+            tiltAmplitude(value);
+            break;
+
+        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
+            LOG4CXX_INFO(logger, "> tilt trigger ");                        
+            tiltTrigger();
+            break;
+
+        case CyclicCategory::eCYCLIC_TILT_STOP:
+            LOG4CXX_INFO(logger, "> tilt stop ");                        
+            tiltStop();
+            break;
+
         default:
             bret = false;
             LOG4CXX_WARN(logger, "CyclicServer: untreated action " << oAmyCommand.getAction());           
@@ -54,7 +74,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
     return bret;
 }
 
-// CYCLIC MOVEMENTS
+// set pan cyclic frequency
 void CyclicServer::panFrequency(float value)
 {
     if (pArmInterface != 0)
@@ -77,5 +97,30 @@ void CyclicServer::panStop()
 {
     if (pArmInterface != 0)
         pArmInterface->panStop();
+}
+
+// set tilt cyclic frequency
+void CyclicServer::tiltFrequency(float value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->tiltFrequency(value);
+}
+// set tilt amplitude (degrees)
+void CyclicServer::tiltAmplitude(float value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->tiltAmplitude(value);
+}
+// trigger tilt cyclic movement
+void CyclicServer::tiltTrigger()
+{
+    if (pArmInterface != 0)
+        pArmInterface->tiltTrigger();
+}
+// stop tilt cyclic movement
+void CyclicServer::tiltStop()
+{
+    if (pArmInterface != 0)
+        pArmInterface->tiltStop();
 }
 }
