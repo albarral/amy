@@ -19,22 +19,22 @@ void CyclicCategory::build()
     listCommands.clear();
     
     // define commands for pan cyclic movements
-    ComsCommand oCommand(ID, CyclicCategory::eCYCLIC_PAN_FREQ, "panfreq", 1, "set frequency of pan cycles (Hz)");    
+    ComsCommand oCommand(ID, CyclicCategory::eCYCLIC_PAN_FREQ, "panf", 1, "set frequency of pan cycles (Hz)");    
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_PAN_AMP, "panamp", 1, "set amplitude of pan cycles (degrees)");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_PAN_AMP, "pana", 1, "set amplitude of pan cycles (degrees)");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_PAN_TRIGGER, "pantrig", 0, "trigger pan cyclic movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_PAN_TRIGGER, "pan1", 0, "trigger pan cyclic movement");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_PAN_STOP, "panstop", 0, "stop pan cyclic movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_PAN_STOP, "pan0", 0, "stop pan cyclic movement");
     listCommands.push_back(oCommand);
     // define commands for tilt cyclic movements
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_FREQ, "tilfreq", 1, "set frequency of tilt cycles (Hz)");    
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_FREQ, "tiltf", 1, "set frequency of tilt cycles (Hz)");    
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_AMP, "tilamp", 1, "set amplitude of tilt cycles (degrees)");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_AMP, "tilta", 1, "set amplitude of tilt cycles (degrees)");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_TRIGGER, "tiltrig", 0, "trigger tilt cyclic movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_TRIGGER, "tilt1", 0, "trigger tilt cyclic movement");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_STOP, "tilstop", 0, "stop tilt cyclic movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_STOP, "tilt0", 0, "stop tilt cyclic movement");
     listCommands.push_back(oCommand);
 }
 
