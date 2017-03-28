@@ -40,7 +40,7 @@ void AxisCycler::first()
                     
 void AxisCycler::loop()
 {
-    bool bchangeOutput = false;
+    float signal;
     
     senseBus();
 
@@ -56,9 +56,7 @@ void AxisCycler::loop()
             
             // trigger new oscillation            
             oOscillator.trigger();
-            outSpeed = 0;
-            //lastSignal = oOscillator.getSignal();
-            
+            outSpeed = 0;            
             // if amplitude & frequency defined -> GO 
             if (amplitude != 0.0 && frequency != 0.0)
                 setState(eSTATE_GO);
@@ -76,16 +74,7 @@ void AxisCycler::loop()
 
             // get oscillator signal
             signal = oOscillator.run();           
-            outSpeed = signal * tunedSpeed; // triangular speed mode (instead of square speed)
-//            // if signal sign changed, change out speed
-//            if (signal*lastSignal <= 0)
-//            {
-//                outSpeed = (signal > 0 ? tunedSpeed : -tunedSpeed);
-//                bchangeOutput = true;
-//                LOG4CXX_INFO(logger, " outSpeed=" + std::to_string(outSpeed));
-//            }        
-//            // store signal
-//            lastSignal = signal;
+            outSpeed = signal * tunedSpeed; // output a triangular speed (as signal changes linearly)
             break;
 
         case eSTATE_STOP:
@@ -94,7 +83,6 @@ void AxisCycler::loop()
             // stop oscillator and command null speed 
             oOscillator.stop();
             outSpeed = 0.0;
-            bchangeOutput = true;
             // then go to DONE
             setState(eSTATE_DONE);
             break;
@@ -103,8 +91,7 @@ void AxisCycler::loop()
     if (isStateChanged())
         showState();
 
-//    if (bchangeOutput)
-        writeBus();        
+    writeBus();        
 }
 
 void AxisCycler::senseBus()

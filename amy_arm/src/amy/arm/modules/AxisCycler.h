@@ -17,8 +17,8 @@ namespace amy
 {
 // Module used to perform cyclic movements with an axis.  
 // The movement is specified by a frequency and an amplitude
-// An oscillator is used to generate the cyclic output, which is the axis speed..
-// The speed is tuned continously to achieve the requested amplitude.
+// An oscillator is used to generate the cyclic output, which is the axis speed.
+// The commanded axis speed follows a triangular form (continuous, to grant soft movements).
 class AxisCycler: public ArmModule3
 {
 public:
@@ -41,8 +41,6 @@ protected:
     // control 
     Oscillator oOscillator;      
     float tunedSpeed;          // tuned speed of the movement (deg/s)
-    float signal;                   // oscillator signal [-1, 1]
-    //float lastSignal;
     // output
     int priority;                    // module's priority in control commands
     float outSpeed;             // commanded axis speed 
