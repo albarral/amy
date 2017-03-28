@@ -20,6 +20,7 @@ class AmyComsConfig
         AmyComsConfig();
         //~AmyComsConfig();
                 
+        std::string getComsFolder();
         std::string getComsFilename1() {return comsFilename1;}        
         std::string getComsFilename2() {return comsFilename2;}        
 };

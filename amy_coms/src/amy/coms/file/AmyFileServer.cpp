@@ -5,6 +5,7 @@
 
 #include <string>
 #include <iostream>
+#include <sys/stat.h>
 
 #include "amy/coms/file/AmyFileServer.h"
 #include "amy/coms/AmyComsConfig.h"
@@ -17,6 +18,10 @@ AmyFileServer::AmyFileServer()
 {    
     // get coms file name
     AmyComsConfig oAmyComsConfig;    
+
+    // create coms folder (if it doesn't exist)
+    mkdir(oAmyComsConfig.getComsFolder().c_str(), 0777);
+
     filename = oAmyComsConfig.getComsFilename1();
     // open coms file for reading & writing
     if (!filename.empty())
