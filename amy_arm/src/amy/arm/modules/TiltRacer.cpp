@@ -29,13 +29,16 @@ void TiltRacer::senseBus()
     if (pBusTilt->getCO_AXIS_SPEED().checkRequested())
     {
         speed1 = pBusTilt->getCO_AXIS_SPEED().getValue();
+        updateTargetSpeed();
         setState(eSTATE_NEWMOVE);   
     }
     // if secondary tilt speed requested -> NEWMOVE
     if (pBusTilt->getCO_AXIS_SPEED2().checkRequested())
     {
         speed2 = pBusTilt->getCO_AXIS_SPEED2().getValue();
-        setState(eSTATE_NEWMOVE);   
+        updateTargetSpeed();
+        if (getState() == eSTATE_DONE)
+            setState(eSTATE_NEWMOVE);   
     }
     
     // sense tilt speed

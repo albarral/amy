@@ -52,6 +52,8 @@ protected:
         virtual void senseBus() = 0;
         // write info (control & sensory) to bus
         virtual void writeBus() = 0;
+        // updates target speed
+        void updateTargetSpeed();
         
 private:
         // first actions when the thread begins 

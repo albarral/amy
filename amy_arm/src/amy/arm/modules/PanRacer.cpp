@@ -29,13 +29,16 @@ void PanRacer::senseBus()
     if (pBusPan->getCO_AXIS_SPEED().checkRequested())
     {
         speed1 = pBusPan->getCO_AXIS_SPEED().getValue();
+        updateTargetSpeed();
         setState(eSTATE_NEWMOVE);                   
     }
     // if secondary pan speed requested -> NEWMOVE
     if (pBusPan->getCO_AXIS_SPEED2().checkRequested())
     {
         speed2 = pBusPan->getCO_AXIS_SPEED2().getValue();
-        setState(eSTATE_NEWMOVE);                   
+        updateTargetSpeed();
+        if (getState() == eSTATE_DONE)
+            setState(eSTATE_NEWMOVE);                   
     }
     
     // sense pan speed

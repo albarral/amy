@@ -56,13 +56,12 @@ void AxisRacer::loop()
 
             //reset PID controller
             oPIDControl.reset();
-            outAccel = 0.0;
-            targetSpeed = speed1 + speed2;
-            if (targetSpeed != 0.0)
+            outAccel = 0.0;            
+            //if (targetSpeed != 0.0)
                 setState(eSTATE_DRIVE);
-            // zero speed requested -> DONE
-            else
-                setState(eSTATE_DONE);                            
+//            // zero speed requested -> DONE
+//            else
+//                setState(eSTATE_DONE);                            
             // show data
             LOG4CXX_INFO(logger, ">> new request");  
             LOG4CXX_INFO(logger, "target speed = " << targetSpeed);  
@@ -87,6 +86,11 @@ void AxisRacer::loop()
     writeBus();        
 }
 
+
+void AxisRacer::updateTargetSpeed()
+{
+    targetSpeed = speed1 + speed2;  
+}
 
 bool AxisRacer::checkBlocked()
 {

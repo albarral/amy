@@ -41,8 +41,8 @@ protected:
     // control 
     Oscillator oOscillator;      
     float tunedSpeed;          // tuned speed of the movement (deg/s)
-    float signal;
-    float lastSignal;
+    float signal;                   // oscillator signal [-1, 1]
+    //float lastSignal;
     // output
     int priority;                    // module's priority in control commands
     float outSpeed;             // commanded axis speed 
