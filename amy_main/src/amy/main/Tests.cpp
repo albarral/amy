@@ -79,7 +79,7 @@ void Tests::testAmyServer()
     while (i<10) 
     {
         sleep(2);  
-        if (oAmyZeroMQServer.readCommand())
+        if (oAmyZeroMQServer.readCommandTesting())
         {
             if (oAmyZeroMQServer.isValid())
             {
@@ -88,7 +88,7 @@ void Tests::testAmyServer()
             else
                 LOG4CXX_WARN(logger, "invalid command");                                      
         }
-        else
+        else 
             LOG4CXX_WARN(logger, "no command");
         i++;
     }    

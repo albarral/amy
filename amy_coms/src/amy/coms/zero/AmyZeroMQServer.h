@@ -29,7 +29,8 @@ namespace amy
             static log4cxx::LoggerPtr logger;
             AmyCommand oAmyCommand;     // class used to interpret the request
             bool bvalid;        // indication of valid request
-            std::string serverPort;
+            std::string portTestingString;
+            std::string portControlGuiString;
         public:
 
             Responses response;    
@@ -37,12 +38,13 @@ namespace amy
             AmyZeroMQServer();
             ~AmyZeroMQServer();
 
-            void setPort(const int port);
+            void setPort(const int portTesting, const int portControlGui);
             AmyCommand& getAmyCommand() {return oAmyCommand;};
 
             // checks for received requests in the coms file and interprets them
             // returns false if no request received
-            bool readCommand();
+            bool readCommandTesting();
+            bool readCommandControl();
             // returns whether command is valid or not
             bool isValid() {return bvalid;};
             // transforms requests into transferred control signals to amy bus

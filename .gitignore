@@ -2,6 +2,7 @@
 
 # Ignore build and private Netbeans folders ...
 build/
+devel/
 dist/
 private/
 # Ignore Qt generated files ...

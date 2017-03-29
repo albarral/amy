@@ -30,7 +30,7 @@ namespace amy
     
     void AmyZeroMQClient::setPort(const int port){
         clientPort = std::to_string(port);
-        socketClient.connect ("tcp://127.0.0.1:"+clientPort);
+        socketClient.connect("tcp://localhost:"+clientPort);
         LOG4CXX_INFO(logger, "Client ZMQ connecting...");
     }
 

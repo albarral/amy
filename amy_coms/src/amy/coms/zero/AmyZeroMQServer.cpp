@@ -11,6 +11,7 @@ log4cxx::LoggerPtr AmyZeroMQServer::logger(log4cxx::Logger::getLogger("amy.serve
 
 zmq::context_t contextServer (1); //creates the context 
 zmq::socket_t socketServer (contextServer, ZMQ_REP); //creates the socket
+zmq::socket_t socketControlGui (contextServer, ZMQ_REP); //creates the socket
 
 AmyZeroMQServer::AmyZeroMQServer()
 {    
@@ -21,16 +22,21 @@ AmyZeroMQServer::AmyZeroMQServer()
 AmyZeroMQServer::~AmyZeroMQServer()
 {
     socketServer.close();
-        LOG4CXX_INFO(logger, "Server ZMQ closing...");
+    socketControlGui.close();
+    LOG4CXX_INFO(logger, "Server ZMQ closing...");
 }
 
-void AmyZeroMQServer::setPort(const int port){
-    serverPort = std::to_string(port);
-    socketServer.bind ("tcp://*:"+serverPort); //and binds it
-    LOG4CXX_INFO(logger, "Server ZMQ connecting...");
+void AmyZeroMQServer::setPort(const int portTesting, const int portControlGui){
+    portTestingString = std::to_string(portTesting);
+    portControlGuiString = std::to_string(portControlGui);
+    
+    socketServer.bind("tcp://*:"+portTestingString); //and binds it
+    socketControlGui.bind("tcp://*:"+portControlGuiString); //and binds it
+    
+    LOG4CXX_INFO(logger, "Server ZMQ connecting 2 sockets..." +portTestingString+"   "+portControlGuiString);
 }
 
-bool AmyZeroMQServer::readCommand()
+bool AmyZeroMQServer::readCommandTesting()
 {
     bool brequest = false;  // default no request received
     try{
@@ -49,6 +55,33 @@ bool AmyZeroMQServer::readCommand()
         memcpy (reply.data (), buffer.c_str(), buffer.length());
         std::cout << "Sending reply..." << std::endl;
         socketServer.send (reply);
+
+        return brequest;
+    }catch(zmq::error_t& e) {
+            std::cout << "ERROR: Client -> Sending before receiving a request." << std::endl;
+    }
+}
+
+bool AmyZeroMQServer::readCommandControl()
+{
+    bool brequest = false;  // default no request received
+    std::cout << "Read Control" << std::endl;
+    try{
+        zmq::message_t request;
+
+        //  Wait for next request from client
+        brequest = socketControlGui.recv (&request);
+        std::string stringRequest = std::string(static_cast<char*>(request.data()), request.size());
+        std::cout << "Received Control -> "<< stringRequest << std::endl;
+        //bvalid = oAmyCommand.interpret(stringRequest);
+
+        //Send reply
+        std::string buffer="OK";
+
+        zmq::message_t reply (buffer.length());
+        memcpy (reply.data (), buffer.c_str(), buffer.length());
+        std::cout << "Sending reply..." << std::endl;
+        socketControlGui.send(reply);
 
         return brequest;
     }catch(zmq::error_t& e) {

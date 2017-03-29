@@ -37,11 +37,14 @@ import org.zeromq.ZMQ;
  */
 public class Amy_gui extends Application {
     ZMQ.Context context = ZMQ.context(1);
-    //  Socket to talk to clients
+    
+    //  Socket to SEND Commands
     ZMQ.Socket reqControlPRT = context.socket(ZMQ.REQ);
-    ZMQ.Socket repControlJoints = context.socket(ZMQ.REP);
-    ZMQ.Socket reqFbPRT = context.socket(ZMQ.REQ);
-    ZMQ.Socket reqFbJoints = context.socket(ZMQ.REQ);
+    ZMQ.Socket reqControlJoints = context.socket(ZMQ.REQ);
+    
+    //Socket to RECEIVE Feedback
+    ZMQ.Socket repFbPRT = context.socket(ZMQ.REP);
+    ZMQ.Socket repFbJoints = context.socket(ZMQ.REP);
     
     @Override
     public void start(Stage primaryStage) {
@@ -51,7 +54,8 @@ public class Amy_gui extends Application {
         COMS -> JEROMQ Server port 5401
         */
         
-        reqControlPRT.bind("tcp://*:5401");
+        reqControlPRT.connect("tcp://*:5401");
+        reqControlPRT.setReceiveTimeOut(5000);
         
         final Label titleLabel = new Label(" Control Panel          ");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -71,7 +75,7 @@ public class Amy_gui extends Application {
         PANE TOP RIGHT -> FEEDBACK PAN & RADIUS & TILT
         COMS -> JEROMQ client port 5403
         */
-        reqFbPRT.bind("tcp://*:5403");
+        repFbPRT.bind("tcp://*:5403");
         
         final Label titleFbLabel = new Label(" Feedback Panel          ");
         titleFbLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -100,8 +104,8 @@ public class Amy_gui extends Application {
         COMS -> JEROMQ Server port 5405
                 JEROMQ Client port 5407
         */
-        repControlJoints.bind("tcp://*:5405");
-        reqFbJoints.bind("tcp://*:5407");
+        reqControlJoints.bind("tcp://*:5405");
+        repFbJoints.bind("tcp://*:5407");
         
         final Label titleJointsLabel = new Label(" JOINTS                     "
                                                 +"                            ");
@@ -200,11 +204,11 @@ public class Amy_gui extends Application {
                     String valueString = String.format("%1$.3f", radiusControl.getValue());
                     System.out.format(valueString);
                     boolean send = reqControlPRT.send(valueString, 0);
-                    System.out.format(valueString);
-                    
-                   // byte[] responseBytes = repControlPRT.recv(0);
-                   // String response = new String(responseBytes); 
-                   // System.out.format(response);
+                    System.out.format("Sending Control REQ -> "+valueString);
+                     
+                    byte[] responseBytes = reqControlPRT.recv(0);
+                    String response = new String(responseBytes); 
+                    System.out.format(response);
             }
         });
         radiusLabel.setTranslateY(17.5);
