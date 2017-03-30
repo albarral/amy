@@ -5,18 +5,23 @@
 
 #include <string>
 #include <iostream>
+#include <sys/stat.h>
 
 #include "amy/coms/file/AmyFileServer.h"
 #include "amy/coms/AmyComsConfig.h"
 
 namespace amy
 {
-log4cxx::LoggerPtr AmyFileServer::logger(log4cxx::Logger::getLogger("amy.server"));
+//log4cxx::LoggerPtr AmyFileServer::logger(log4cxx::Logger::getLogger("amy.server"));
 
 AmyFileServer::AmyFileServer()
 {    
     // get coms file name
     AmyComsConfig oAmyComsConfig;    
+
+    // create coms folder (if it doesn't exist)
+    mkdir(oAmyComsConfig.getComsFolder().c_str(), 0777);
+
     filename = oAmyComsConfig.getComsFilename1();
     // open coms file for reading & writing
     if (!filename.empty())
@@ -41,7 +46,7 @@ bool AmyFileServer::readCommand()
         // read file from top
         oFileReader.readFromTop();
         //LOG4CXX_INFO(logger, "AmyFileServer: read pos " << oFileReader.getPos());
-        std::string text = oFileReader.readLine();
+        text = oFileReader.readLine();
         
         // and clear it
         oFileWriter.writeFromTop();
@@ -49,11 +54,7 @@ bool AmyFileServer::readCommand()
 
         // if request received, interpret it
         if (!text.empty())
-        {
             brequest = true;
-            bvalid = oAmyCommand.interpret(text);
-            LOG4CXX_DEBUG(logger, "AmyFileServer: command = " << oAmyCommand.getDescription());
-        }        
     }
     else
     {
@@ -63,88 +64,5 @@ bool AmyFileServer::readCommand()
     return brequest;
 }
 
-void AmyFileServer::processCommand()
-{
-    switch (oAmyCommand.getAction())
-    {
-        case AmyCommand::eACT_MOVE_ARM:
-            processArmCommand();
-            break;
-            
-        case AmyCommand::eACT_MOVE_JOINT:
-            processJointCommand();
-            break;
-
-        case AmyCommand::eACT_END_AMY:
-            LOG4CXX_INFO(logger, "> end amy");                        
-            endAmy();
-            break;
-
-        default:
-            LOG4CXX_WARN(logger, "AmyFileServer: unknown action");                        
-    }    
-}
-
-void AmyFileServer::processArmCommand()
-{
-    float value = oAmyCommand.getValue();
-
-    switch (oAmyCommand.getTarget())
-    {
-        case AmyCommand::eTAR_PAN:
-            LOG4CXX_INFO(logger, "> move pan " << value);                        
-            AmyServer::movePan(value);
-            break;
-            
-        case AmyCommand::eTAR_TILT:
-            LOG4CXX_INFO(logger, "> move tilt " << value);                        
-            AmyServer::moveTilt(value);
-            break;
-
-        case AmyCommand::eTAR_RADIUS:
-            LOG4CXX_INFO(logger, "> move radius " << value);                        
-            AmyServer::moveRadius(value);
-            break;
-
-        default:
-            LOG4CXX_WARN(logger, "AmyFileServer: unknown arm target");                        
-    }    
-}
-
-void AmyFileServer::processJointCommand()
-{
-    float value = oAmyCommand.getValue();
-
-    switch (oAmyCommand.getTarget())
-    {
-        case AmyCommand::eTAR_JOINT_HSHOULDER:
-            LOG4CXX_INFO(logger, "> set HS " << value);                        
-            AmyServer::setPosHS(value);
-            break;
-            
-        case AmyCommand::eTAR_JOINT_VSHOULDER:
-            LOG4CXX_INFO(logger, "> set VS " << value);                        
-            AmyServer::setPosVS(value);
-            break;
-
-        case AmyCommand::eTAR_JOINT_ELBOW:
-            LOG4CXX_INFO(logger, "> set ELB " << value);                        
-            AmyServer::setPosELB(value);
-            break;
-
-        case AmyCommand::eTAR_JOINT_HWRIST:
-            LOG4CXX_INFO(logger, "> set HW " << value);                        
-            AmyServer::setPosHW(value);
-            break;
-
-        case AmyCommand::eTAR_JOINT_VWRIST:
-            LOG4CXX_INFO(logger, "> set VW " << value);                        
-            AmyServer::setPosVW(value);
-            break;
-
-        default:
-            LOG4CXX_WARN(logger, "AmyFileServer: unknown joint target");                        
-    }    
-}
 
 }

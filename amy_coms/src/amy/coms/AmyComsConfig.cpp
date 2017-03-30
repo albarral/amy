@@ -24,5 +24,16 @@ AmyComsConfig::AmyComsConfig()
     }
 }
 
+std::string AmyComsConfig::getComsFolder()
+{
+    // coms file located in home folder
+    char* pVar = getenv("HOME");    
+    if (pVar!=NULL)
+    {
+        std::string home(pVar);
+        return home + "/coms";
+    }
+}
+
 }
 

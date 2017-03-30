@@ -11,83 +11,40 @@
 namespace amy
 {
 /** 
- * Class to represent amy commands. Used for communicating with amy from external processes.
- * It involves 3 elements: action, target and value.
- * Before transmission, the command must be converted to textual form (
- * On reception, it must be converted back to interpret it
+ * Base class to represent amy commands. Used for communicating with amy from external processes.
+ * It involves 3 elements: category, action and value.
+ * For its transmission, the command must be converted to textual form.
+ * On reception, the textual form is analyzed and the command interpreted.
  */
 class AmyCommand
 {
 public:
-    /*! action identifiers */
-    enum eAction
-    {
-         eACT_UNDEFINED,                /*! undefined action */
-         eACT_MOVE_ARM,                /*! move arm as a whole */
-         eACT_MOVE_JOINT,              /*! move specific joint*/
-         eACT_END_AMY,          /*! end amy process */
-         eACT_DIM
-    };
-
-    /*! target identifiers */
-    enum eTarget
-    {
-         eTAR_UNDEFINED,        /*! undefined target */
-         // MOVE ARM options
-         eTAR_PAN,                  /*! arm's pan */
-         eTAR_TILT,                  /*! arm's tilt */
-         eTAR_RADIUS,             /*! arm's radius */
-         // MOVE JOINT options
-         eTAR_JOINT_HSHOULDER,          /*! horizontal shoulder */
-         eTAR_JOINT_VSHOULDER,          /*! vertical shoulder */
-         eTAR_JOINT_ELBOW,                 /*! elbow */
-         eTAR_JOINT_HWRIST,                 /*! horizontal wrist */
-         eTAR_JOINT_VWRIST,                 /*! vertical wrist */
-         // END AMY options
-         eTAR_PROGRAM,
-         eTAR_DIM
-    };
-
-    
-private:
-    int action;   /*! action to be performed (one of eAction values)*/
-    int target;   /*! element affected by the action (one of eTarget value)*/
-    float value;   /*! value applied by the action */
+    static const std::string separator;
+        
+protected:    
+    int category;   /*! command category  */
+    int action;       /*! action to be performed */
+    float value;     /*! value applied by the action */
+    bool bvalid;     /*! command validity */   
     std::string text;      /*! command textual form */    
-    const std::string separator = "*";
-
     
 public:
-    AmyCommand();
-    // clears the command
-    void reset();
+    AmyCommand();        
+    // undefined category, invalid command
+    AmyCommand(int action, float value);
 
+    int getCategory() {return category;};
     int getAction() {return action;};
-    int getTarget() {return target;};
     float getValue() {return value;};
+    bool isValidCommand() {return bvalid;}; 
     std::string getText() {return text;};
         
-    /*! builds an amy textual command with the given elements */
-    /*! returns true if valid, false otherwise */    
-    bool buildCommand(int action, int target, float value=0.0);
+    /*! builds the textual form of the command and returns it */
+    std::string buildTextualForm();
     
-    /*! interprets an amy command from its textual form */
-    /*! returns true if valid, false otherwise */    
-    bool interpret(std::string text);
-
-    // checks if it's an arm command
-    bool isArmCommand();
-    // checks if it's a joint command
-    bool isJointCommand();
-    // checks if it's an amy command
-    bool isAmyCommand();
-    
-    // describe command
-    std::string getDescription();    
+protected:    
     // describe action 
-    std::string describeAction(int value);
-    // describe target
-    std::string describeTarget(int value);
+    virtual std::string describeAction();
 };
 }
 #endif

@@ -1,5 +1,5 @@
-#ifndef __AMY_CORE_ARMBUS_H
-#define __AMY_CORE_ARMBUS_H
+#ifndef __AMY_ARM_ARMBUS_H
+#define __AMY_ARM_ARMBUS_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -8,8 +8,9 @@
 
 #include <string>
 
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/utils/brooks/control.h"
+#include "amy/control/brooks/control.h"
 #include "amy/core/robot/Arm.h"
 
 namespace amy
@@ -21,18 +22,19 @@ class ArmBus
         std::string armName;
         
         // CONTROLS 
+        ControlT<bool> CO_ARM_STOP;       // arm stop
         // ArmMover 
-        amy::Control CO_ARMMOVER_START;       // ArmMover command: start 
-        amy::Control CO_ARMMOVER_STOP;       // ArmMover command: stop
-        // AxisDrivers
-        ControlT<int> CO_ARM_PAN;       // arm's target pan
-        ControlT<int> CO_ARM_TILT;       // arm's target tilt
-        ControlT<int> CO_ARM_RADIUS;   // arm's target radius
-        // ArmPosition
-//        SensorT<int> SO_ARM_PAN;      // arm's real pan
-//        SensorT<int> SO_ARM_TILT;      // arm's real tilt
-//        SensorT<int> SO_ARM_RADIUS;      // arm's real radius
-        
+        Control CO_ARMMOVER_START;       // ArmMover command: start 
+        Control CO_ARMMOVER_STOP;       // ArmMover command: stop
+                
+        // TiltKeeper
+        ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
+
+        // connection for each axis (pan, tilt, radial)
+        AxisBus oBusPan;
+        AxisBus oBusTilt;
+        AxisBus oBusRadial;
+                
         // connections for individual joints 
         JointBus oBusHS;    // HS: horiz shoulder 
         JointBus oBusVS;    // VS: vert shoulder 
@@ -50,19 +52,21 @@ class ArmBus
         int getNumJoints() {return numJoints;};
         bool isEnabled() {return benabled;};
         
-        // controls
-        amy::Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
-        amy::Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
+        // CONTROLS
+        ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};
+        // ArmMover 
+        Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
+        Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
 
-        ControlT<int>& getCO_ARM_PAN() {return CO_ARM_PAN;};        
-        ControlT<int>& getCO_ARM_TILT() {return CO_ARM_TILT;};        
-        ControlT<int>& getCO_ARM_RADIUS() {return CO_ARM_RADIUS;};        
-        // sensors
-//        SensorT<int>& getSO_ARM_PAN() {return SO_ARM_PAN;};        
-//        SensorT<int>& getSO_ARM_TILT() {return SO_ARM_TILT;};        
-//        SensorT<int>& getSO_ARM_RADIUS() {return SO_ARM_RADIUS;};        
+        // TiltKeeper
+        ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
         
-        // joints
+        // CONTROLS & SENSORS for axes
+        AxisBus& getPanBus() {return oBusPan;};
+        AxisBus& getTiltBus() {return oBusTilt;};
+        AxisBus& getRadialBus() {return oBusRadial;};        
+                
+        // CONTROLS & SENSORS for joints
         JointBus& getBusHS() {return oBusHS;};
         JointBus& getBusVS() {return oBusVS;};
         JointBus& getBusEL() {return oBusEL;};

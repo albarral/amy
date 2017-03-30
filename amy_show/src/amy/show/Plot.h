@@ -2,33 +2,60 @@
 #define __AMY_SHOW_PLOT_H
 
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "opencv2/core/core.hpp"
-#include "amy/utils/Record.h"
+#include <string>
+#include "opencv2/core/core.hpp"    // for mat
 
 namespace amy 
 {
-// This class plots a record in a window (fixed size) and shows it.
+// Base class used to plot something in a 2D image (of fixed size) and show it in a window.
 class Plot
 {
-private:    
-    static const int PLOT_W = 800;   // plot width (pixels)
-    static const int PLOT_H = 400;   // plot width (pixels)
-    static const int LEFT_MARGIN = 10;   // position of y axis (pixels)
-    static const int MARGIN = 10;     // margin used in both limits (pixels)  
+protected:    
+    // image
+    cv::Mat image;
+    std::string plotName;
+    // params
+    int W;   // plot width (pixels)
+    int H;   // plot height (pixels)  
+    int margin; // margins applied to plotted image (pixels)
+    int xmin;   // min value represented in x axis
+    int xmax;   // max value represented in x axis
+    int ymin;    // min value represented in y axis
+    int ymax;    // max value represented in y axis
+    // logic
+    float scale;   // conversion factor to represent xy values in image 
+    int x0;           // horizontal position of x origin in image (pixels)
+    int y0;           // vertical position of y origin in image (pixels)
 
 public:
-    //Plot();       
+    Plot();
+     //~Plot();
 
-    // plots the given record in a window
-    static void plotRecord(Record& oRecord, int maxRange = 100);
+    // initializes plot with given size (creates image and window)
+    void initPlot(int w, int h, std::string name);
+    // set plotted ranges (requires scale recomputation)
+    void setRanges(int xmin, int xmax, int ymin, int ymax);
     
-private:    
+    // show the drawn image
+    void show();
+    // hides the drawn image
+    void hide();
+    
+protected:            
     // draws the axes in the plot
-    static void drawAxes(cv::Mat image, int POS_XAXIS, float yfactor);
+    void drawAxes();        
+    // checks if given physical point (x,y) is inside the represented ranges
+    bool checkRangeLimits(float x, float y);
+    // transform the specified physical point (x,y) into its representing plotted point in image
+    cv::Point getPoint2Plot(float x, float y);    
+    
+private:
+    // recomputes conversion factor and origin positions
+    void updateScale();
 };
 }    
 #endif

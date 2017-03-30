@@ -9,7 +9,6 @@
 
 #include <string>
 #include <vector>
-#include "amy/utils/Click.h"
 
 namespace amy 
 {
@@ -26,8 +25,8 @@ private:
     std::vector<recordElement> listRecords; // records list
     std::string magnitude1;  // name of magnitude 1
     std::string magnitude2;  // name of magnitude 2
+    int time;           // moment of record
     std::string timeUnit;   // time units (ms)
-    Click oClick;   
     float maxValue;    // max of magnitude 1
     float minValue;    // min of magnitude 1
     int maxTime;        // time of last element  
@@ -44,7 +43,7 @@ public:
     // resets the record
     void reset();
     // adds one element (with single or dual magnitude)
-    void addElement(float value1, float value2=0.0);
+    void addElement(int time, float value1, float value2=0.0);
 
     // RECORD ANALYSING ...
     // access records list

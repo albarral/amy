@@ -17,12 +17,13 @@
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/ArmInterface.h"
-//#include "amy/coms/file/AmyFileServer.h"
+#include "amy/coms/file/AmyFileServer.h"
 #include "amy/coms/zero/AmyZeroMQServer.h"
 #include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
+#include "amy/show/ArmFrontView.h"
 
 using namespace log4cxx;
 
@@ -54,47 +55,6 @@ void Tests::testAmyPublisher()
     LOG4CXX_INFO(logger, "TEST FINISHED");          
 }
 
-void Tests::testAmyServer()
-{
-    LOG4CXX_INFO(logger, "> TEST AMY SERVER");      
-
-    // load robot
-    SupportedRobots oSupportedRobots;
-    Robot oRobot;
-    oSupportedRobots.loadRobotVersion(oRobot, SupportedRobots::UR5);
-    // prepare bus
-    ArmBus oArmBus;
-    Arm& oArm = oRobot.getListArms().at(0);        
-    oArmBus.init(oArm);
-    // prepare interface
-    ArmInterface oArmInterface;
-    oArmInterface.connect(oArmBus);
-    // prepare server
-    //AmyFileServer oAmyFileServer;
-    //oAmyFileServer.connect2Arm(oArmInterface);
-    AmyZeroMQServer oAmyZeroMQServer;
-    oAmyZeroMQServer.connect2Arm(oArmInterface);
-    
-    int i=0;    
-    while (i<10) 
-    {
-        sleep(2);  
-        if (oAmyZeroMQServer.readCommandTesting())
-        {
-            if (oAmyZeroMQServer.isValid())
-            {
-                oAmyZeroMQServer.processCommand();
-            }
-            else
-                LOG4CXX_WARN(logger, "invalid command");                                      
-        }
-        else 
-            LOG4CXX_WARN(logger, "no command");
-        i++;
-    }    
-    
-    LOG4CXX_INFO(logger, "TEST FINISHED");          
-}
 
 void Tests::testFileReader(std::string name)
 {
@@ -154,6 +114,21 @@ void Tests::testFileWriter()
      LOG4CXX_ERROR(logger, "Test failed: unable to open file " << name);
 }
 
+void Tests::testArmPlot()
+{       
+    ArmFrontView oArmFrontView;
+
+    int w = 200;
+    int h = 100;
+    
+    oArmFrontView.initPlot(200, 100, "prueba");
+    oArmFrontView.setRanges(-200, 200, -20, 120);
+    
+    oArmFrontView.drawArm(10, 20, 0, 90);
+    oArmFrontView.show();    
+    sleep(2);    
+    oArmFrontView.hide();    
+}
 
 
 }

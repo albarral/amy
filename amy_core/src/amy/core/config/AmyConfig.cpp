@@ -11,18 +11,12 @@ namespace amy
 // Constructor
 AmyConfig::AmyConfig ()
 {    
-    modulesFreq = 10;  // 10 Hz
+    modulesFreq = 20;  // 10 Hz
     
     listControlledJoints.push_back(Arm::horizontal_shoulder);
     listControlledJoints.push_back(Arm::vertical_shoulder);
     listControlledJoints.push_back(Arm::elbow);
     listControlledJoints.push_back(Arm::vertical_wrist);
-
-    oJointControlConfig.setBrakeAccel(30);
-    oJointControlConfig.setKaccelDriver(4.0);
-    oJointControlConfig.setKspeedDriver(2.0);
-    oJointControlConfig.setDriverTolerance(0.05);
-    oJointControlConfig.setDriverSpeed(60.0);
 }
 
 AmyConfig::~AmyConfig()

@@ -9,3 +9,8 @@ private/
 qt-Debug.mk
 moc_*.cpp
 ui_*.h
+# Ignore auxiliary ROS folders and files ...
+.catkin_workspace
+devel/
+src/CMakeLists.txt
+

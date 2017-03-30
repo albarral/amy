@@ -62,8 +62,10 @@
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_utils/src</pElem>
+            <pElem>../amy_control/src</pElem>
             <pElem>../amy_arm/src</pElem>
             <pElem>../amy_coms/src</pElem>
+            <pElem>../amy_show/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -94,6 +96,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../amy_control"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_control"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../amy_arm"
                             CT="2"
                             CN="Debug"
@@ -117,7 +131,21 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_show"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_show"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
+            <linkerLibLibItem>opencv_core</linkerLibLibItem>
+            <linkerLibLibItem>opencv_highgui</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

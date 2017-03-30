@@ -8,6 +8,7 @@
 
 #include "amy/core/ifaces/iArmInterface.h"
 #include "amy/arm/bus/ArmBus.h"
+#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
 
 namespace amy
@@ -20,7 +21,11 @@ class ArmInterface : public iArmInterface
 protected:
     // bus
     bool benabled;        // connected to bus
-    ArmBus* pArmBus;          // arm bus
+    ArmBus* pArmBus;          // arm bus    
+    // axes buses
+    AxisBus* pBusPan;
+    AxisBus* pBusTilt;
+    AxisBus* pBusRadial;
     // joint buses
     JointBus* pBusHS;      // horiz. shoulder bus
     JointBus* pBusVS;       // vert. shoulder bus
@@ -35,7 +40,36 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
    
-    // HIGH LEVEL CONTROL
+    // CYCLIC MOVEMENTS
+    // set pan frequency (Hz)
+    virtual void panFrequency(float value);
+    // set pan amplitude (degrees)
+    virtual void panAmplitude(float value);
+    // trigger pan cyclic movement
+    virtual void panTrigger();
+    // stop pan cyclic movement
+    virtual void panStop();
+
+    // set tilt frequency (Hz)
+    virtual void tiltFrequency(float value);
+    // set tilt amplitude (degrees)
+    virtual void tiltAmplitude(float value);
+    // trigger tilt cyclic movement
+    virtual void tiltTrigger();
+    // stop tilt cyclic movement
+    virtual void tiltStop();
+
+    // AXIS SPEEDS
+    // change pan speed
+    virtual void panSpeed(float value);
+    // change tilt speed
+    virtual void tiltSpeed(float value);
+    // change radial speed
+    virtual void radialSpeed(float value);
+    // keep arm tilt
+    virtual void keepTilt(int value);
+    
+    // AXIS POSITIONS
     // change arm pan
     virtual void movePan(float angle);
     // change arm tilt
@@ -43,7 +77,7 @@ public:
     // extend arm
     virtual void extend(float radius);
 
-    // LOW LEVEL CONTROL
+    // JOINT POSITIONS
     // set HS position
     virtual void moveHS(float angle);
     // set VS position
@@ -55,7 +89,7 @@ public:
     // set VW position
     virtual void moveVW(float angle);
 
-    // LOW LEVEL OUTPUTS
+    // JOINT OUTPUTS    
     // get HS control angle
     virtual float getHSControl();
     // get VS control angle

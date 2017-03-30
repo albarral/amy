@@ -29,7 +29,7 @@ public:
         
 private:
     // send textual command
-    virtual void sendCommand();
+    virtual void sendCommand(std::string text);
 };
 }
 #endif

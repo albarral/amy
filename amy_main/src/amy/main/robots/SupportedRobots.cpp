@@ -55,6 +55,7 @@ bool SupportedRobots::loadRobotVersion (Robot& oRobot, std::string version)
         ArmYoubot oArmYoubot;
         oArmYoubot.setType(Arm::eSINGLE_ARM);
         oRobot.addArm(oArmYoubot);
+        oRobot.setName(SupportedRobots::Youbot);
     }
     else if (version.compare(SupportedRobots::UR5) == 0) 
     {
@@ -62,6 +63,7 @@ bool SupportedRobots::loadRobotVersion (Robot& oRobot, std::string version)
         ArmUR5 oArmUR5;
         oArmUR5.setType(Arm::eSINGLE_ARM);
         oRobot.addArm(oArmUR5);
+        oRobot.setName(SupportedRobots::UR5);
     }
     
     return true;

@@ -11,13 +11,21 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/modules/ArmMover.h"
-#include "amy/arm/modules/ArmPanner2.h"
-#include "amy/arm/modules/ArmElbow.h"
-#include "amy/arm/modules/ArmExtender.h"
-#include "amy/arm/modules/JointControl2.h"
+#include "amy/arm/config/ArmConfig.h"
+#include "amy/arm/modules/PanCycler.h"
+#include "amy/arm/modules/TiltCycler.h"
+#include "amy/arm/modules/PanRacer.h"
+#include "amy/arm/modules/TiltRacer.h"
+#include "amy/arm/modules/RadialRacer.h"
+#include "amy/arm/modules/TiltKeeper.h"
+#include "amy/arm/modules/PanDriver.h"
+#include "amy/arm/modules/TiltDriver.h"
+#include "amy/arm/modules/RadiusDriver.h"
+#include "amy/arm/modules/ArmSense.h"
+#include "amy/arm/modules/JointDriver.h"
 #include "amy/arm/ArmInterface.h"
 #include "amy/arm/util/ArmModule.h"
+#include "amy/arm/util/ArmModule3.h"
 #include "amy/core/config/AmyConfig.h"
 #include "amy/core/robot/Arm.h"
 
@@ -35,18 +43,28 @@ class ArmManager
         static log4cxx::LoggerPtr logger;
         bool blaunched;     // indicates when the manager has been launched
         AmyConfig* pAmyConfig;  // acces to amy config
+        ArmConfig oArmConfig;     // arm configuration
         ArmBus oArmBus;        // arm bus
-        Arm oArm;       // controlled arm
+        Arm oArm;                   // controlled arm
         ArmInterface oArmInterface;     // interface for external arm control
-        int level;      // highest level activated 
-        int maxLevel; // allow activation of modules until this level
+        int topLevel; // allow activation of modules until this level
         // modules ...
-        ArmMover oArmMover;
-        ArmExtender oArmExtender;
-        ArmElbow oArmElbow;
-        ArmPanner2 oArmPanner;
-        JointControl2 oJointControl2[AMY_MAX_JOINTS];
+        // level 3
+        PanCycler oPanCycler;
+        TiltCycler oTiltCycler;
+        PanRacer oPanRacer;
+        TiltRacer oTiltRacer;
+        RadialRacer oRadialRacer;
+        // level 2
+        TiltKeeper oTiltKeeper;
+        PanDriver oPanDriver;
+        TiltDriver oTiltDriver;
+        RadiusDriver oRadiusDriver;
+        ArmSense oArmSense;
+        // level 1
+        JointDriver oJointDriver[AMY_MAX_JOINTS];
         std::vector<ArmModule*> listModules;      // list of modules (pointers)
+        std::vector<ArmModule3*> listModules3;   // list of modules (pointers)
 
     public:
         ArmManager();
@@ -60,6 +78,10 @@ class ArmManager
        
        // give access to the arm's control interface
        ArmInterface& getArmInterface() {return oArmInterface;}
+       // give access to arm bus (only for debug purpose)
+       ArmBus& getArmBus4Debug() {return oArmBus;}
+
+       friend class ArmTest;
        
 private:
     // initialize control architecture (organize in levels)
@@ -80,7 +102,7 @@ private:
    // start the modules of a level
     void startLevel(int level);        
    // stop the modules of a level
-    void stopLevel(int level);        
+    void stopLevel(int level);            
 };
 
 }    

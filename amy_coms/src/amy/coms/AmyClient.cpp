@@ -12,68 +12,30 @@ AmyClient::AmyClient()
 {    
 }
 
-void AmyClient::movePan(float value)
+void AmyClient::sendJointCommand()
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_PAN, value)){
-        sendCommand();  
-    }
+    sendCommand(oJointClient.getCommand());    
 }
 
-void AmyClient::moveTilt(float value)
+void AmyClient::sendAxisCommand()
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_TILT, value)){
-        sendCommand();  
-    }
+    sendCommand(oAxisClient.getCommand());        
 }
 
-void AmyClient::moveRadius(float value)
+void AmyClient::sendCyclicCommand()
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_ARM, AmyCommand::eTAR_RADIUS, value)){
-        sendCommand();  
-    }
+    sendCommand(oCyclicClient.getCommand());        
 }
 
-void AmyClient::setPosHS(float value)
+void AmyClient::sendOtherCommand()
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_HSHOULDER, value)){
-        sendCommand();  
-    }      
+    sendCommand(oOtherClient.getCommand());        
 }
 
-void AmyClient::setPosVS(float value)
+void AmyClient::toDoCommand()
 {
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_VSHOULDER, value)){
-        sendCommand();  
-    }        
+    // nothing done
+    // dummy method for to do commands
 }
-
-void AmyClient::setPosELB(float value)
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_ELBOW, value)){
-        sendCommand();  
-    }
-}
-
-void AmyClient::setPosHW(float value)
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_HWRIST, value)){
-        sendCommand();  
-    }
-}
-
-void AmyClient::setPosVW(float value)
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_MOVE_JOINT, AmyCommand::eTAR_JOINT_VWRIST, value)){
-        sendCommand();  
-    } 
-}
-
-void AmyClient::endAmy()
-{
-    if (oAmyCommand.buildCommand(AmyCommand::eACT_END_AMY, AmyCommand::eTAR_PROGRAM)){
-        sendCommand();  
-    }
-}
-
 
 }

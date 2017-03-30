@@ -27,19 +27,19 @@ AmyFileClient::~AmyFileClient()
     oFileWriter.close();    
 }
 
-void AmyFileClient::sendCommand()
+void AmyFileClient::sendCommand(std::string text)
 {
     if (oFileWriter.isOpen())        
     {
         // write command in coms file (newline added)
-        std::string output = oAmyCommand.getText() + "\n";
+        std::string output = text + "\n";
         // overwriting any previous command
         oFileWriter.writeFromTop();
         oFileWriter.writeFlush(output);
-        LOG4CXX_INFO(logger, "AmyFileClient: command > " << output);        
+        LOG4CXX_INFO(logger, "AmyFileClient: command sent");        
     }
     else
-        LOG4CXX_ERROR(logger, "AmyFileClient: send command failed, coms file not open");                
+        LOG4CXX_ERROR(logger, "AmyFileClient: send failed! coms file not open");                
 }
 
 

@@ -18,8 +18,7 @@ LoggerPtr ArmManager::logger(Logger::getLogger("amy.arm"));
 ArmManager::ArmManager ()
 {    
     blaunched = false;
-    level = -1;
-    maxLevel = 2;       
+    topLevel = 3;       
     pAmyConfig = 0;
 }
 
@@ -36,7 +35,7 @@ bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm)
     if (!blaunched)
     {
         log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
-        LOG4CXX_INFO(logger, "Launching for arm type " << oTargetArm.getType());
+        LOG4CXX_INFO(logger, "Launching for arm " << oTargetArm.toString());
 
         // acces to amy config
         pAmyConfig = &oAmyConfig;
@@ -46,15 +45,14 @@ bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm)
         oArmBus.init(oArm);
         oArmInterface.connect(oArmBus);
         
-        // init modules & start them
-        LOG4CXX_INFO(logger, "max level: " << maxLevel);
+        LOG4CXX_INFO(logger, "max level: " << topLevel);
         // organize control architecture in levels
         initArchitecture();
         showArchitecture();
-
+        // init modules & start them
         initModules();
         startModules();
-
+        
         blaunched = true;    
     }
     // report problems
@@ -86,26 +84,44 @@ void ArmManager::initArchitecture()
     i=0;
     for (std::string& jointName : listControlledJoints)
     {        
-        oJointControl2[i].setTargetJoint(jointName);        
-        oJointControl2[i].setLevel(nivel);
-        listModules.push_back(&oJointControl2[i]);
+        oJointDriver[i].setTargetJoint(jointName);        
+        oJointDriver[i].setLevel(nivel);
+        listModules.push_back(&oJointDriver[i]);
         i++;
     }
     
     // LEVEL 2    
     nivel = 2;        
-    // arm mover module
-    //oArmMover.setLevel(nivel);     
-    //listModules.push_back(&oArmMover);
-    // arm panner module
-    oArmPanner.setLevel(nivel);
-    //listModules.push_back(&oArmPanner);   // it's a module3, not a module2
-    // arm elbow module
-    oArmElbow.setLevel(1000); // disabled, as it collides with ArmExtender
-    //listModules.push_back(&oArmElbow);   // it's a module3, not a module2
-    // arm extender            
-    oArmExtender.setLevel(nivel);
-    //listModules.push_back(&oArmExtender); // it's a module3, not a module2
+    
+    // arm sense module
+    oArmSense.setLevel(nivel);
+    listModules3.push_back(&oArmSense);
+
+    // pan / tilt / radius driver modules
+    oPanDriver.setLevel(nivel);
+    oTiltDriver.setLevel(nivel);
+    oRadiusDriver.setLevel(nivel); 
+
+    // tilt keeper module
+    oTiltKeeper.setLevel(nivel);
+    listModules3.push_back(&oTiltKeeper);
+
+    // LEVEL 3    
+    nivel = 3;        
+
+    // pan / tilt / radial racer modules
+    oPanRacer.setLevel(nivel);
+    listModules3.push_back(&oPanRacer);
+    oTiltRacer.setLevel(nivel);
+    listModules3.push_back(&oTiltRacer);
+    oRadialRacer.setLevel(nivel);
+    listModules3.push_back(&oRadialRacer);
+
+    // pan / tilt /radial cycler modules
+    oPanCycler.setLevel(nivel);
+    listModules3.push_back(&oPanCycler);
+    oTiltCycler.setLevel(nivel);
+    listModules3.push_back(&oTiltCycler);
 }
 
 void ArmManager::showArchitecture()
@@ -121,11 +137,9 @@ void ArmManager::initModules()
 {    
     LOG4CXX_INFO(logger, "INIT MODULES ...");
 
-    level = -1;
-    for (int i=0; i<=maxLevel; i++)
+    for (int i=0; i<=topLevel; i++)
     {
         initLevel(i);
-        level = i;        
     }
 }
 
@@ -133,12 +147,10 @@ void ArmManager::startModules()
 {
     LOG4CXX_INFO(logger, "STARTING MODULES ...");
 
-    level = -1;
     int microsWait = 100000;  // 100ms
-    for (int i=0; i<=maxLevel; i++)
+    for (int i=0; i<=topLevel; i++)
     {
         startLevel(i);
-        level = i;        
         usleep(microsWait);
     }
 }
@@ -150,10 +162,9 @@ void ArmManager::stopModules()
     if (!blaunched)
         return;
 
-    for (int i=level; i>=0; i--)
+    for (int i=topLevel; i>=0; i--)
     {
         stopLevel(i);
-        level = i;        
     }
 }
 
@@ -163,45 +174,58 @@ void ArmManager::initLevel(int num)
 
     float freq = pAmyConfig->getModulesFreq();
 
+    // init ArmModule's
     for (ArmModule* pModule : listModules)
     {
         if (pModule->getLevel() == num)
         {                        
-            pModule->init(oArm, pAmyConfig->getJointControlConfig());
+            pModule->init(oArm, oArmConfig);
             pModule->connect(oArmBus);
             pModule->setFrequency(freq);  
         }
     }
 
-    if (oArmPanner.getLevel() == num)
-    {    
-        // arm panner module
-        oArmPanner.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmPanner.connect(oArmBus);
-        oArmPanner.setFrequency(freq);
-    }
-    
-    if (oArmElbow.getLevel() == num)
-    {    
-        // arm panner module
-        oArmElbow.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmElbow.connect(oArmBus);
-        oArmElbow.setFrequency(freq);
+    // init ArmModule3's
+    for (ArmModule3* pModule3 : listModules3)
+    {
+        if (pModule3->getLevel() == num)
+        {
+            pModule3->init(oArm, oArmConfig);
+            pModule3->connect(oArmBus);
+            pModule3->setFrequency(freq);
+        }    
     }
 
-    if (oArmExtender.getLevel() == num)
-    {
-        // arm extender module
-        oArmExtender.init(oArm, pAmyConfig->getJointControlConfig());
-        oArmExtender.connect(oArmBus);
-        oArmExtender.setFrequency(freq);
-    }    
+    if (oPanDriver.getLevel() == num)
+    {    
+        // pan driver module
+        oPanDriver.init(oArm, oArmConfig);
+        oPanDriver.connect(oArmBus);
+        oPanDriver.setFrequency(freq);
+    }
+    
+    if (oTiltDriver.getLevel() == num)
+    {    
+        // tilt driver module
+        oTiltDriver.init(oArm, oArmConfig);
+        oTiltDriver.connect(oArmBus);
+        oTiltDriver.setFrequency(freq);
+    }
+
+    if (oRadiusDriver.getLevel() == num)
+    {    
+        // pan driver module
+        oRadiusDriver.init(oArm, oArmConfig);
+        oRadiusDriver.connect(oArmBus);
+        oRadiusDriver.setFrequency(freq);
+    }
 }
 
 void ArmManager::startLevel(int num)
 {
     LOG4CXX_INFO(logger, ">> START level " << num);
 
+    // init ArmModule's
     for (ArmModule* pModule : listModules)
     {
         if (pModule->getLevel() == num)
@@ -211,61 +235,75 @@ void ArmManager::startLevel(int num)
         }
     }
 
-    if (oArmPanner.getLevel() == num)
-    {    
-        if (oArmPanner.isEnabled() && oArmPanner.isConnected())      
-            oArmPanner.on();                      
-    }
-    
-    if (oArmElbow.getLevel() == num)
-    {    
-        if (oArmElbow.isEnabled() && oArmElbow.isConnected())      
-            oArmElbow.on();                      
+    // init ArmModule3's
+    for (ArmModule3* pModule3 : listModules3)
+    {
+        if (pModule3->getLevel() == num)
+        {
+            if (pModule3->isEnabled() && pModule3->isConnected())
+                pModule3->on();
+        }
     }
 
-    if (oArmExtender.getLevel() == num)
-    {
-        // arm extender module
-        if (oArmExtender.isEnabled() && oArmExtender.isConnected())
-        {
-            oArmExtender.on();          
-        }
+    if (oPanDriver.getLevel() == num)
+    {    
+        if (oPanDriver.isEnabled() && oPanDriver.isConnected())      
+            oPanDriver.on();                      
+    }
+
+    if (oTiltDriver.getLevel() == num)
+    {    
+        if (oTiltDriver.isEnabled() && oTiltDriver.isConnected())      
+            oTiltDriver.on();                      
+    }
+    
+    if (oRadiusDriver.getLevel() == num)
+    {    
+        if (oRadiusDriver.isEnabled() && oRadiusDriver.isConnected())      
+            oRadiusDriver.on();                      
     }
 }
 
 void ArmManager::stopLevel(int num)
 {
     LOG4CXX_INFO(logger, ">> STOP level " << num);
-       
+
+    // stop ArmModule's
     for (ArmModule* pModule : listModules)
     {
-        if (pModule->getLevel() == num)
-        {
-            if (pModule->isOn())
-            {
-                pModule->off();
-                pModule->wait();
-            }
+        if (pModule->getLevel() == num && pModule->isOn())
+        {            
+            pModule->off();
+            pModule->wait();
         }
     }
 
-    if (oArmPanner.getLevel() == num && oArmPanner.isOn())
-    {    
-        oArmPanner.off();
-        oArmPanner.wait();
-    }
-    
-    if (oArmElbow.getLevel() == num && oArmElbow.isOn())
-    {    
-        oArmElbow.off();
-        oArmElbow.wait();
+    // stop ArmModule3's
+    for (ArmModule3* pModule3 : listModules3)
+    {
+        if (pModule3->getLevel() == num && pModule3->isOn())
+        {
+            pModule3->off();
+            pModule3->wait();
+        }
     }
 
-    if (oArmExtender.getLevel() == num && oArmExtender.isOn())
-    {
-        // arm extender module
-        oArmExtender.off();
-        oArmExtender.wait();
+    if (oPanDriver.getLevel() == num && oPanDriver.isOn())
+    {    
+        oPanDriver.off();
+        oPanDriver.wait();
+    }
+    
+    if (oTiltDriver.getLevel() == num && oTiltDriver.isOn())
+    {    
+        oTiltDriver.off();
+        oTiltDriver.wait();
+    }
+
+    if (oRadiusDriver.getLevel() == num && oRadiusDriver.isOn())
+    {    
+        oRadiusDriver.off();
+        oRadiusDriver.wait();
     }
 }
 

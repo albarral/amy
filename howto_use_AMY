@@ -1,0 +1,66 @@
+
+*** HOW TO USE AMY
+
+(last update: albarral 28/2/2017)
+
+This document explains how to use amy to control a simulated UR5 arm.
+For installation instructions refer to the "howto_install_AMY" document.
+
+Environment requirements:
+- 3 open terminals
+- an open instance of Netbeans IDE
+
+Components to be used:
+- ur_gazebo  	(ROS package for UR5 simulator)
+- ros_amy  	 	(ROS package to connect amy and arm)
+- amy 			(process where the arm control is done)
+- amy2		  	(program to externally control amy from CLI)
+
+
+
+*** LAUNCH ROS NODES ***
+
+> Launch UR5 simulator in gazebo:
+
+(terminal 1)
+ws_amy>
+source devel/setup.bash
+roslaunch ur_gazebo ur5.launch
+
+
+> Launch ros_amyarm node (communication between amy & arm):
+
+(terminal 2)
+ws_amy>
+source devel/setup.bash
+rosrun ros_amy ros_amyarm
+
+
+
+*** LAUNCH AMY ***
+
+> Launch amy process:
+
+(Netbeans)
+run amy_main project
+
+
+
+
+*** CONTROL ARM FROM CLI ***
+
+A user can control the arm by sending commands to amy from CLI.
+He can also finish amy from same CLI.
+
+> Send control commands:
+
+(terminal 3)
+~/amy/amy_console/dist/Debug/GNU-Linux> (or another place where we have a simbolic link to amy2)
+./amy2 pan 50
+./amy2 tilt 80
+...
+./amy2 end
+
+
+
+

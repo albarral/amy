@@ -1,0 +1,88 @@
+
+*** HOW TO INSTALL AMY
+
+(last update: albarral 28/2/2017)
+
+This document explains how to install amy to control a simulated UR5 arm.
+
+Software requirements:
+- Linux environment
+- ROS indigo with gazebo 
+- Netbeans 8.1 for C++
+- git
+
+Components to be installed:
+- ur_gazebo  	(ROS package for UR5 simulator)
+- ros_amy  	 	(ROS package to connect amy and arm)
+- amy 			(process where the arm control is done)
+- amy2		  	(program to externally control amy from CLI)
+
+
+
+*** INSTALL REQUIREMENTS ***
+
+> UR5 simulator: 
+
+sudo apt-get install ros-indigo-ur-gazebo
+
+> log4cxx:
+
+sudo apt-get install liblog4cxx10-dev
+
+
+
+*** INSTALL AMY ***
+
+> Download amy:
+
+git clone https://github.com/albarral/amy.git
+
+> Build amy:
+
+(Netbeans)
+- amy_main project
+- amy_console project
+
+> Build ros_amy: 
+
+(*)
+gedit /path_to_amy/ws_amy/src/cmake/Modules/Findamy.cmake
+(in editor)
+- set AMY_HOME to be the amy installation path
+cd path_to_amy/ws_amy
+source devel/setup.bash
+catkin_make
+
+
+
+*** PREPARE ENVIRONMENT ***
+
+> Make amy libs loadable globally:
+
+(*)
+touch amy.conf
+echo /path_to_amy/amy_coms/dist/Debug/GNU-Linux
+echo /path_to_amy/amy_utils/dist/Debug/GNU-Linux
+sudo mv amy.conf /etc/ld.so.conf.d
+sudo /sbin/ldconfig
+
+
+> Put config files in user's home folder:
+
+(*)
+cd 
+mkdir .amy
+cp /path_to_amy/logging/*.xml .amy
+
+
+> Create link to amy2 in user's home folder:
+
+(terminal)
+home/user>
+ln -s amy2 /path/to/amy/amy_console/dist/Debug/GNU-Linux/amy2
+
+
+
+
+(*) note: change path_to_amy for the amy installation path
+

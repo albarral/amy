@@ -1,77 +1,98 @@
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
 #include <opencv2/highgui/highgui.hpp>  // for named window
-#include <vector>
 
 #include "amy/show/Plot.h"
 
 namespace amy 
 {
-void Plot::plotRecord(Record& oRecord, int maxRange)
-{  
-    // create clean RGB image
-    cv::Mat image = cv::Mat::zeros(PLOT_H, PLOT_W, CV_8UC3); 
-
-    // get limits of magnitude
-    oRecord.findRecordLimits();
-    
-    // get x factor to fill timeline in plot
-    float xfactor = (float)(PLOT_W - LEFT_MARGIN - MARGIN) / oRecord.getMaxTime();
-    // get y factor to fill max range in plot
-    float yfactor = (float)(PLOT_H/2 - MARGIN) / maxRange;
-
-    const int POS_XAXIS = PLOT_H/2;            
-    cv::Scalar color = cv::Scalar(255, 255, 255);  // white
-    
-    // draw axis
-    drawAxes(image, POS_XAXIS, yfactor);
-    
-    // plot records  in image  
-    std::vector<recordElement>& listRecords = oRecord.getRecords();         
-    for (recordElement& element : listRecords)
-    {        
-        int x = LEFT_MARGIN + xfactor * element.time;
-        // draw upside-down
-        int y = POS_XAXIS - yfactor * element.val1;
-        // ignore points that fall out of plot
-        if (y >= 0 && y<PLOT_H)
-        {
-            cv::circle(image, cv::Point(x, y), 3, color);           
-        }
-    }
-    
-    // show plot
-    cv::namedWindow("plot");         
-    cv::imshow("plot", image);
-    cv::waitKey(5000);
-    //cv::destroyWindow("plot");
-    cv::destroyAllWindows();
+Plot::Plot()
+{
+    margin = 10; // 10 pixels margin
 }
 
-void Plot::drawAxes(cv::Mat image, int POS_XAXIS, float yfactor)
+void Plot::initPlot(int w, int h, std::string name)
+{
+     W=w; 
+     H=h; 
+     // update scale and origin position
+     updateScale();
+
+     // create clean image and window      
+     plotName = name;
+     image = cv::Mat::zeros(H, W, CV_8UC3);           
+     cv::namedWindow(plotName);              
+}
+    
+// set plotted ranges 
+void Plot::setRanges(int xmin, int xmax, int ymin, int ymax)
+{
+    // skip if null ranges specified
+    if ((xmin == xmax) || (ymin == ymax))
+        return;
+    
+    this->xmin = xmin; 
+    this->xmax = xmax;
+    this->ymin = ymin;
+    this->ymax = ymax;
+    
+     // update scale and origin position
+    updateScale();
+}
+
+void Plot::updateScale()
+{
+    // compute conversion factors
+    float xfactor = (float)(xmax - xmin) / (W - 2*margin);
+    float yfactor = (float)(ymax - ymin) / (H - 2*margin);
+    
+    // we'll use a unique conversion factor to grant uniformity (we'll use the bigger one)
+    scale = (xfactor > yfactor ? xfactor : yfactor);
+    // compute origin position in image
+    x0 = margin + abs(xmin)/xfactor;
+    y0 = margin + abs(ymin)/yfactor;    
+}
+
+void Plot::show()
+{  
+    // show plot
+    cv::imshow(plotName, image);
+    cv::waitKey(100);    
+}
+
+void Plot::hide()
+{
+    cv::destroyWindow(plotName);
+    //cv::destroyAllWindows();    
+}
+
+void Plot::drawAxes()
 {
     cv::Scalar colorAxis = cv::Scalar(0, 0, 255);  // red
-    // axes
-    cv::Point x0 = cv::Point(LEFT_MARGIN, POS_XAXIS);
-    cv::Point x1 = cv::Point(PLOT_W-1, POS_XAXIS);
-    cv::Point y0 = cv::Point(LEFT_MARGIN, 0);
-    cv::Point y1 = cv::Point(LEFT_MARGIN, PLOT_H-1);    
-    cv::line(image, x0, x1, colorAxis);
-    cv::line(image, y0, y1, colorAxis);   
-    // scale line 50
-    cv::Scalar colorScale = cv::Scalar(255, 255, 255);  // white
-    int y50 = POS_XAXIS - (yfactor * 50);    
-    x0 = cv::Point(LEFT_MARGIN, y50);
-    x1 = cv::Point(PLOT_W-1, y50);
-    cv::line(image, x0, x1, colorScale);
-    // scale line -50
-    int ym50 = POS_XAXIS - (yfactor * -50);
-    x0 = cv::Point(LEFT_MARGIN, ym50);
-    x1 = cv::Point(PLOT_W-1, ym50);    
-    cv::line(image, x0, x1, colorScale);
+    // set axes limits
+    cv::Point x1 = cv::Point(margin, H-y0);
+    cv::Point x2 = cv::Point(W-margin, H-y0);
+    cv::Point y1 = cv::Point(x0, margin);
+    cv::Point y2 = cv::Point(x0, H-margin);   
+    // draw xaxis
+    cv::line(image, x1, x2, colorAxis);
+    // draw yaxis
+    cv::line(image, y1, y2, colorAxis);   
+}
+    
+// checks if given physical point (x,y) is inside the represented ranges
+bool Plot::checkRangeLimits(float x, float y)
+{
+    return (x>=xmin && x<=xmax && y>=ymin && y<=ymax);
+}
+
+// transform the specified physical point (x,y) into its representing plotted point in image
+cv::Point Plot::getPoint2Plot(float x, float y)
+{
+    return cv::Point(x0 + x/scale, H - (y0 + y/scale));  // draw upside-down
 }
 
 }

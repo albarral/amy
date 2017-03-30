@@ -71,11 +71,6 @@ ${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/AmyConfig.o src/amy/core/config/AmyConfig.cpp
 
-${OBJECTDIR}/src/amy/core/config/JointControlConfig.o: src/amy/core/config/JointControlConfig.cpp
-	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/JointControlConfig.o src/amy/core/config/JointControlConfig.cpp
-
 ${OBJECTDIR}/src/amy/core/robot/Arm.o: src/amy/core/robot/Arm.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"

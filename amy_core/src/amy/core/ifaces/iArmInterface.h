@@ -16,7 +16,36 @@ public:
     // check if it's enabled
     virtual bool isEnabled() = 0;
 
-    // HIGH LEVEL CONTROL
+    // CYCLIC MOVEMENTS
+    // set pan frequency (Hz)
+    virtual void panFrequency(float value) = 0;
+    // set pan amplitude (degrees)
+    virtual void panAmplitude(float value) = 0;
+    // trigger pan cyclic movement
+    virtual void panTrigger() = 0;
+    // stop pan cyclic movement
+    virtual void panStop() = 0;
+
+    // set tilt frequency (Hz)
+    virtual void tiltFrequency(float value) = 0;
+    // set tilt amplitude (degrees)
+    virtual void tiltAmplitude(float value) = 0;
+    // trigger tilt cyclic movement
+    virtual void tiltTrigger() = 0;
+    // stop tilt cyclic movement
+    virtual void tiltStop() = 0;
+
+    // AXIS SPEEDS
+    // change pan speed
+    virtual void panSpeed(float value) = 0;
+    // change tilt speed
+    virtual void tiltSpeed(float value) = 0;
+    // change radial speed
+    virtual void radialSpeed(float value) = 0;
+    // keep arm tilt
+    virtual void keepTilt(int value) = 0;
+    
+    // AXIS POSITIONS
     // change arm pan
     virtual void movePan(float angle) = 0;
     // change arm tilt
@@ -24,7 +53,7 @@ public:
     // extend arm
     virtual void extend(float value) = 0;
 
-    // LOW LEVEL CONTROL    
+    // JOINT POSITIONS
     // set HS position
     virtual void moveHS(float angle) = 0;
     // set VS position
@@ -35,21 +64,8 @@ public:
     virtual void moveHW(float angle) = 0;
     // set VW position
     virtual void moveVW(float angle) = 0;
-
-    /*
-    // set HS acceleration (degrees/s²)
-    virtual void accelHS(float accel) = 0;
-    // set VS acceleration (degrees/s²)
-    virtual void accelVS(float accel) = 0;
-    // set EL acceleration (degrees/s²)
-    virtual void accelEL(float accel) = 0;
-    // set HW acceleration (degrees/s²)
-    virtual void accelHW(float accel) = 0;
-    // set VW acceleration (degrees/s²)
-    virtual void accelVW(float accel) = 0;
-     */ 
     
-    // LOW LEVEL OUTPUTS    
+    // JOINT OUTPUTS    
     // get HS control angle
     virtual float getHSControl() = 0;
     // get VS control angle

@@ -29,6 +29,10 @@ public:
     void setLimits(int lowLimit, int highLimit);        
     int getLowerLimit() {return limit1;}
     int getUpperLimit() {return limit2;}
+    
+    // return joint description
+    std::string toString();
+
 };
 }
 #endif

@@ -13,6 +13,9 @@ ArmInterface::ArmInterface()
 {    
     benabled = false;
     pArmBus = 0;
+    pBusPan = 0;
+    pBusTilt = 0;
+    pBusRadial = 0;
     pBusHS = 0;
     pBusVS = 0;
     pBusEL = 0;
@@ -23,6 +26,9 @@ ArmInterface::ArmInterface()
 void ArmInterface::connect(ArmBus& oArmBus)
 {
     pArmBus = &oArmBus;
+    pBusPan = &oArmBus.getPanBus();
+    pBusTilt = &oArmBus.getTiltBus();
+    pBusRadial = &oArmBus.getRadialBus();
     pBusHS = &oArmBus.getBusHS();
     pBusVS = &oArmBus.getBusVS();
     pBusEL = &oArmBus.getBusEL();
@@ -31,64 +37,128 @@ void ArmInterface::connect(ArmBus& oArmBus)
     benabled = true;
 }
 
-// HIGH LEVEL CONTROL
+// CYCLIC MOVEMENTS
+// set pan cyclic frequency
+void ArmInterface::panFrequency(float value)
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_FREQUENCY().request(value);                    
+}
+// set pan amplitude (degrees)
+void ArmInterface::panAmplitude(float value)
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_AMPLITUDE().request(value);                    
+}
+// trigger pan cyclic movement
+void ArmInterface::panTrigger()
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_TRIGGER().request();                    
+}
+// stop pan cyclic movement
+void ArmInterface::panStop()
+{
+    if (benabled)
+        pBusPan->getCO_AXIS_STOP().request();                    
+}
 
+// set tilt cyclic frequency
+void ArmInterface::tiltFrequency(float value)
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_FREQUENCY().request(value);                    
+}
+// set tilt amplitude (degrees)
+void ArmInterface::tiltAmplitude(float value)
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_AMPLITUDE().request(value);                    
+}
+// trigger tilt cyclic movement
+void ArmInterface::tiltTrigger()
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_TRIGGER().request();                    
+}
+// stop tilt cyclic movement
+void ArmInterface::tiltStop()
+{
+    if (benabled)
+        pBusTilt->getCO_AXIS_STOP().request();                    
+}
+
+
+// AXIS SPEEDS
+void ArmInterface::panSpeed(float value)
+{    
+    if (benabled)
+        pBusPan->getCO_AXIS_SPEED().request(value);            
+}
+void ArmInterface::tiltSpeed(float value)
+{    
+    if (benabled)
+        pBusTilt->getCO_AXIS_SPEED().request(value);            
+}
+void ArmInterface::radialSpeed(float value)
+{    
+    if (benabled)
+        pBusRadial->getCO_AXIS_SPEED().request(value);            
+}
+void ArmInterface::keepTilt(int value)
+{    
+    if (benabled)
+        pArmBus->getCO_KEEP_TILT().request(value);            
+}
+        
+// AXIS POSITIONS
 void ArmInterface::movePan(float angle)
 {    
     int val = angle; // transform to int
     if (benabled)
-        pArmBus->getCO_ARM_PAN().request(val);            
+        pBusPan->getCO_AXIS_POS().request(val);            
 }
-
 void ArmInterface::moveTilt(float angle)
 {
     int val = angle; // transform to int
     if (benabled)
-        pArmBus->getCO_ARM_TILT().request(val);            
+        pBusTilt->getCO_AXIS_POS().request(val);            
 }
-
 void ArmInterface::extend(float radius)
 {
     int val = radius; // transform to int
     if (benabled)
-        pArmBus->getCO_ARM_RADIUS().request(val);            
+        pBusRadial->getCO_AXIS_POS().request(val);            
 }
 
-// LOW LEVEL CONTROL
-
+// JOINT POSITIONS
 void ArmInterface::moveHS(float angle)
 {
     if (benabled)
          pBusHS->getCO_JOINT_ANGLE().request(angle);    
 }
-
 void ArmInterface::moveVS(float angle)
 {
     if (benabled)
          pBusVS->getCO_JOINT_ANGLE().request(angle);        
 }
-
 void ArmInterface::moveEL(float angle)
 {
     if (benabled)
          pBusEL->getCO_JOINT_ANGLE().request(angle);        
 }
-
 void ArmInterface::moveHW(float angle)
 {
     if (benabled)
          pBusHW->getCO_JOINT_ANGLE().request(angle);            
 }
-
 void ArmInterface::moveVW(float angle)
 {
     if (benabled)
          pBusVW->getCO_JOINT_ANGLE().request(angle);            
 }
 
-// LOW LEVEL OUTPUTS
-
-// get HS control angle
+// JOINT OUTPUTS    
 float ArmInterface::getHSControl()
 {
     if (benabled)
@@ -96,8 +166,6 @@ float ArmInterface::getHSControl()
     else
         return 0.0;
 }
-
-// get VS control angle
 float ArmInterface::getVSControl()
 {
     if (benabled)
@@ -105,8 +173,6 @@ float ArmInterface::getVSControl()
     else
         return 0.0;
 }
-
-// get EL control angle
 float ArmInterface::getELControl()
 {
     if (benabled)
@@ -114,8 +180,6 @@ float ArmInterface::getELControl()
     else
         return 0.0;
 }
-
-// get HW control angle
 float ArmInterface::getHWControl()
 {
     if (benabled)
@@ -123,8 +187,6 @@ float ArmInterface::getHWControl()
     else
         return 0.0;
 }
-
-// get VW control angle
 float ArmInterface::getVWControl()
 {
     if (benabled)
