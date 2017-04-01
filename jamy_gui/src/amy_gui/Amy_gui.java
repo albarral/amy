@@ -37,9 +37,10 @@ import org.zeromq.ZMQ;
  */
 public class Amy_gui extends Application {
     ZMQ.Context context = ZMQ.context(1);
-    //  Socket to talk to clients
+    //  Socket Client to send commands
     ZMQ.Socket reqControlPRT = context.socket(ZMQ.REQ);
     ZMQ.Socket repControlJoints = context.socket(ZMQ.REQ);
+    
     ZMQ.Socket reqFbPRT = context.socket(ZMQ.REP);
     ZMQ.Socket reqFbJoints = context.socket(ZMQ.REP);
     
@@ -52,6 +53,7 @@ public class Amy_gui extends Application {
         */
         
         reqControlPRT.connect("tcp://*:5555");
+        reqControlPRT.setReceiveTimeOut(100);
         
         final Label titleLabel = new Label(" Control Panel          ");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
