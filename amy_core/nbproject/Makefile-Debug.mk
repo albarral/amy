@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/core/config/AmyConfig.o \
-	${OBJECTDIR}/src/amy/core/config/JointControlConfig.o \
 	${OBJECTDIR}/src/amy/core/robot/Arm.o \
 	${OBJECTDIR}/src/amy/core/robot/Joint.o \
 	${OBJECTDIR}/src/amy/core/robot/Robot.o

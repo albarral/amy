@@ -10,8 +10,8 @@
 #include "RosAmyArm.h"
 #include "YoubotArm.h"
 #include "UR5Arm.h"
-#include "amy/coms/zero/AmyZeroMQSubscriber.h"
 #include "amy/coms/file/AmyFileSubscriber.h"
+
 
 
 int main(int argc, char** argv) 
@@ -50,21 +50,13 @@ RosAmyArm::RosAmyArm()
 
     UR5Arm oUR5Arm;
     oUR5Arm.setHandPos(0.0, 0.0, 0.0);
-
+    
     // create subscriber
-
-    amy::AmyZeroMQSubscriber oAmyZeroMQSubscriber;
-    oAmyZeroMQSubscriber.setPort(5557);
-    oAmyZeroMQSubscriber.init();
-
-    bool bok = oAmyZeroMQSubscriber.isEnabled();
-
     amy::AmyFileSubscriber oAmyFileSubscriber;
     oAmyFileSubscriber.init();    
 
 	bool bok = oAmyFileSubscriber.isEnabled();
-
-
+       
     if (!bok)
     {
         ROS_ERROR("RosAmyArm: failed init of arm network");
@@ -74,20 +66,16 @@ RosAmyArm::RosAmyArm()
     amy::ArmData oArmData;
     amy::ArmData oArmData0; // for storage of previous data
     oArmData0.reset();
-
+    
     while (ros::ok()) 
     {
         // process callbacks
         ros::spinOnce();
 
-        oArmData = oAmyZeroMQSubscriber.readArmControl();
-
-
         oArmData = oAmyFileSubscriber.readArmControl();
-
         //oArmNetwork.getArmSoll(0, oArmData);
         showAngles(oArmData);
-
+        
         if (!oArmData.sameSollValues(oArmData0))
         {            
             // set hshoulder, vshouler & elbow joints

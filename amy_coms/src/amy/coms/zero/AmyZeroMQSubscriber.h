@@ -24,6 +24,7 @@
 #include <zmq.hpp>
 #include <string>
 #include <iostream>
+
 #include "amy/coms/AmySubscriber.h"
 
 namespace amy

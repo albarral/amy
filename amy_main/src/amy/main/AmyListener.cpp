@@ -17,8 +17,8 @@ LoggerPtr AmyListener::logger(Logger::getLogger("amy.main"));
 AmyListener::AmyListener()
 {    
     modName = "AmyListener";
+    oAmyZeroMQServer.setPort(5555);
     benabled = false;
-    oAmyZeroMQServer.setPort(5555, 5401);
  }
 
 void AmyListener::init(iArmInterface& oArmInterface)
@@ -34,24 +34,17 @@ void AmyListener::first()
 
 void AmyListener::loop()
 {
-    LOG4CXX_WARN(logger, "OK");
-    if (oAmyZeroMQServer.readCommandTesting())
+    // listen to user commands
+    if (oAmyZeroMQServer.readCommand())
     {
-            LOG4CXX_WARN(logger, "OK");   
-        if (oAmyZeroMQServer.isValid())
-        {
-            oAmyZeroMQServer.processCommand();
-        }
-        else
-            LOG4CXX_WARN(logger, "invalid command");                                      
-    }else if(oAmyZeroMQServer.readCommandControl()){
-        LOG4CXX_WARN(logger, "Command from Control Listener");
-    }else 
-        LOG4CXX_WARN(logger, "no command");
+        // if something received, interpret it and process it
+        std::string text = oAmyZeroMQServer.getText();
+        oAmyZeroMQServer.processCommand(text);
+    }
 }
 
 bool AmyListener::checkAmyEndRequested()
-{ 
-    return oAmyZeroMQServer.isAmyEndRequested(); 
+{
+    return oAmyZeroMQServer.isAmyEndRequested();    
 }
 }

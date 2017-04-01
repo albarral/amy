@@ -40,10 +40,13 @@ public:
     
     // dummy method for to do commands
     void toDoCommand();
+    
+    virtual void setPort(const int port) = 0;
 
 protected:
     // command sending method specific for each AmyClient implementation
     virtual void sendCommand(std::string text) = 0;
+    
 };
 }
 #endif

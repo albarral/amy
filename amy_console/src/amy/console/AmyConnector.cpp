@@ -6,6 +6,7 @@
 #include "amy/console/AmyConnector.h"
 #include "amy/console/Interpreter.h"
 #include "amy/coms/file/AmyFileClient.h"
+#include "amy/coms/zero/AmyZeroMQClient.h"
 #include "amy/coms/dictionary/ComsCategory.h"
 #include "amy/coms/dictionary/JointCategory.h"
 #include "amy/coms/dictionary/AxisCategory.h"
@@ -36,7 +37,9 @@ AmyConnector::~AmyConnector()
 
 void AmyConnector::connect2Amy()
 {
-    pAmyClient = new AmyFileClient();     // amy file client   
+    //pAmyClient = new AmyFileClient();     // amy file client 
+    pAmyClient= new AmyZeroMQClient();     // amy zero client
+    pAmyClient->setPort(5555);
 };
 
 // send command through the bus

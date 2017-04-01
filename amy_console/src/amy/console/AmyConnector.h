@@ -18,7 +18,8 @@ class AmyConnector
 {
 private:
     static log4cxx::LoggerPtr logger;
-    AmyClient* pAmyClient;     // amy client   
+    //AmyClient* pAmyClient;     // amy client   
+    AmyClient* pAmyClient;     // amy client 
 
 public:
     AmyConnector();

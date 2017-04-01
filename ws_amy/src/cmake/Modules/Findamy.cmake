@@ -9,7 +9,7 @@
 # - amy_utils   (libamy_utils.so)
 # - amy_coms (libamy_coms.so)
 
-set (AMY_HOME /home/oriol/amy)
+set (AMY_HOME /home/albarral/DEV2/amy)
 set (TARGET_SYSTEM Debug/GNU-Linux)
 
 find_path(amy_core_INC  amy/core/robot/Arm.h  PATHS ${AMY_HOME}/amy_core/src)

@@ -30,6 +30,8 @@ public:
 private:
     // send textual command
     virtual void sendCommand(std::string text);
+    
+    virtual void setPort(const int port);
 };
 }
 #endif

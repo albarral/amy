@@ -42,5 +42,9 @@ void AmyFileClient::sendCommand(std::string text)
         LOG4CXX_ERROR(logger, "AmyFileClient: send failed! coms file not open");                
 }
 
+void AmyFileClient::setPort(const int port){
+    
+}
+
 
 }

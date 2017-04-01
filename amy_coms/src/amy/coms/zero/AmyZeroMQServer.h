@@ -11,7 +11,6 @@
 #include <iostream>
 
 #include "amy/coms/AmyServer.h"
-#include "amy/coms/data/AmyCommand.h"
 #include <zmq.hpp>
 
 struct Responses{
@@ -29,8 +28,8 @@ namespace amy
             static log4cxx::LoggerPtr logger;
             AmyCommand oAmyCommand;     // class used to interpret the request
             bool bvalid;        // indication of valid request
-            std::string portTestingString;
-            std::string portControlGuiString;
+            std::string portString;
+            std::string text;               // received textual command
         public:
 
             Responses response;    
@@ -38,23 +37,17 @@ namespace amy
             AmyZeroMQServer();
             ~AmyZeroMQServer();
 
-            void setPort(const int portTesting, const int portControlGui);
+            void setPort(const int port);
             AmyCommand& getAmyCommand() {return oAmyCommand;};
 
             // checks for received requests in the coms file and interprets them
             // returns false if no request received
-            bool readCommandTesting();
-            bool readCommandControl();
+            bool readCommand();
+            
             // returns whether command is valid or not
             bool isValid() {return bvalid;};
-            // transforms requests into transferred control signals to amy bus
-            void processCommand();
-
-        private:
-            // process command target to the arm
-            void processArmCommand();
-            // process command target to the arm
-            void processJointCommand();
+            
+            std::string getText() {return text;};
     };
 }
 

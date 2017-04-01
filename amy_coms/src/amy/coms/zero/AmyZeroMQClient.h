@@ -24,11 +24,13 @@ namespace amy
             AmyZeroMQClient();    
             ~AmyZeroMQClient();
             
-            void setPort(const int port);
+            
 
         private:
             // send textual command
-            virtual void sendCommand();
+            virtual void sendCommand(std::string text);
+            
+            virtual void setPort(const int port);
     };
 }
 

@@ -11,8 +11,7 @@
 
 #include "amy/test/Interpreter.h"
 #include <amy/utils/module2.h>
-//#include "amy/coms/file/AmyFileClient.h"
-#include "amy/coms/zero/AmyZeroMQClient.h"
+#include "amy/coms/file/AmyFileClient.h"
 
 namespace amy
 {
@@ -27,8 +26,7 @@ private:
     // logic
     std::string entry;                  // command read from console
     Interpreter oInterpreter;       // interpreter of console commands
-    //AmyFileClient oAmyFileClient;     // amy client   
-    AmyZeroMQClient oAmyZeroMQClient;
+    AmyFileClient oAmyFileClient;     // amy client   
 
 public:
     AmyCommander();
@@ -47,7 +45,7 @@ private:
     // listen for user's input from console
     bool listen();
     // sends command to amy process
-    void sendCommand(int action, float value);
+    void sendCommand(int action, float value);    
         
     void showCommandsList();
 };

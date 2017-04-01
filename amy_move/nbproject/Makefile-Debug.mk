@@ -53,7 +53,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,'../amy_core/dist/Debug/GNU-Linux' -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,'../amy_utils/dist/Debug/GNU-Linux' -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -67,12 +67,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/move/data/MoveGroup.o: src/amy/move/data/MoveGroup.cpp 
+${OBJECTDIR}/src/amy/move/data/MoveGroup.o: src/amy/move/data/MoveGroup.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/data/MoveGroup.o src/amy/move/data/MoveGroup.cpp
 
-${OBJECTDIR}/src/amy/move/data/Movement.o: src/amy/move/data/Movement.cpp 
+${OBJECTDIR}/src/amy/move/data/Movement.o: src/amy/move/data/Movement.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/data/Movement.o src/amy/move/data/Movement.cpp
@@ -85,6 +85,7 @@ ${OBJECTDIR}/src/amy/move/data/Movement.o: src/amy/move/data/Movement.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} -r ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.so ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.so
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}
 
 # Subprojects

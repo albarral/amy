@@ -9,8 +9,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/utils/module2.h"
-//#include "amy/coms/file/AmyFilePublisher.h"
-#include "amy/coms/zero/AmyZeroMQPublisher.h"
+#include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/coms/data/ArmData.h"
 #include "amy/core/ifaces/iArmInterface.h"
 
@@ -25,8 +24,7 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    //AmyFilePublisher oAmyPublisher;          // the info publisher (based in shared file)
-    AmyZeroMQPublisher oAmyPublisher;           // the info publisher (based in shared zeroMQ)
+    AmyFilePublisher oAmyPublisher;          // the info publisher (based in shared file)
     ArmData oArmData;                             // data to be broadcasted
     ArmData oArmData0;                           // data storage (for change detection)
     iArmInterface* pArmInterface;               // interface to the arm's control

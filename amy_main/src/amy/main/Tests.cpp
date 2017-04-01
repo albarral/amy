@@ -18,7 +18,6 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/ArmInterface.h"
 #include "amy/coms/file/AmyFileServer.h"
-#include "amy/coms/zero/AmyZeroMQServer.h"
 #include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/utils/FileReader.h"

@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include "amy/coms/zero/AmyZeroMQClient.h"
-#include "amy/coms/AmyComsConfig.h"
 
 namespace amy
 {
@@ -16,10 +15,11 @@ namespace amy
     
     AmyZeroMQClient::AmyZeroMQClient()
     {        
+        LOG4CXX_INFO(logger, "************SERVER ZMQ***********");
         //socketClient.setsockopt(ZMQ_RCVTIMEO, 500);
-        socketClient.setsockopt(ZMQ_SNDTIMEO,500);
-        socketClient.setsockopt(ZMQ_REQ_CORRELATE,1);
-        socketClient.setsockopt(ZMQ_REQ_RELAXED,1);
+        //socketClient.setsockopt(ZMQ_SNDTIMEO,500);
+        //socketClient.setsockopt(ZMQ_REQ_CORRELATE,1);
+        //socketClient.setsockopt(ZMQ_REQ_RELAXED,1);
     }
 
     AmyZeroMQClient::~AmyZeroMQClient()
@@ -29,20 +29,22 @@ namespace amy
     }
     
     void AmyZeroMQClient::setPort(const int port){
+        
         clientPort = std::to_string(port);
         socketClient.connect("tcp://localhost:"+clientPort);
         LOG4CXX_INFO(logger, "Client ZMQ connecting...");
     }
 
-    void AmyZeroMQClient::sendCommand()
+    void AmyZeroMQClient::sendCommand(std::string command)
     {
-        std::string command = oAmyCommand.getText();
+       
         try{
             //Send Command
             zmq::message_t request (command.length());
             memcpy (request.data (), command.c_str(), command.length());
             std::cout << "Sending request... " << command << std::endl;
             socketClient.send (request);
+            
             //  Get the reply.
             zmq::message_t reply;
             socketClient.recv (&reply);

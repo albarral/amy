@@ -63,12 +63,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/move/data/MoveGroup.o: src/amy/move/data/MoveGroup.cpp 
+${OBJECTDIR}/src/amy/move/data/MoveGroup.o: src/amy/move/data/MoveGroup.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/data/MoveGroup.o src/amy/move/data/MoveGroup.cpp
 
-${OBJECTDIR}/src/amy/move/data/Movement.o: src/amy/move/data/Movement.cpp 
+${OBJECTDIR}/src/amy/move/data/Movement.o: src/amy/move/data/Movement.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/move/data
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/move/data/Movement.o src/amy/move/data/Movement.cpp
@@ -79,7 +79,6 @@ ${OBJECTDIR}/src/amy/move/data/Movement.o: src/amy/move/data/Movement.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:

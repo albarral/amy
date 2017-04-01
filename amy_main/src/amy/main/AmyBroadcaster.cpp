@@ -19,7 +19,6 @@ AmyBroadcaster::AmyBroadcaster ()
     modName = "AmyBroadcaster";
     benabled = false;
     pArmInterface = 0;
-    oAmyPublisher.setPort(5557);
  }
 
 void AmyBroadcaster::init(iArmInterface& oArmInterface)

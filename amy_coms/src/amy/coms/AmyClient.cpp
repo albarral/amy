@@ -38,4 +38,8 @@ void AmyClient::toDoCommand()
     // dummy method for to do commands
 }
 
+void AmyClient::setPort(const int port){
+    
+}
+
 }
