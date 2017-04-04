@@ -5,12 +5,8 @@
 
 #include <cmath>
 
-#include "amy/arm/move/ArmMath.h"
-
-#define PI 3.1416
-#define KPI_DIV_180 0.0174
-#define K180_DIV_PI 57.2958
-
+#include "amy/math/ArmMath.h"
+#include "amy/math/MathDefines.h"
 
 namespace amy
 {

@@ -33,7 +33,7 @@ void ArmSense::first()
 {
     setState(eSTATE_GO);
     
-    oArmPolarSensor.tune(oArm);
+    oArmPolar.tune(oArm.getLenHumerus(), oArm.getLenRadius());
     pBusPan = &pArmBus->getPanBus();
     pBusTilt = &pArmBus->getTiltBus();
     pBusRadial = &pArmBus->getRadialBus();
@@ -56,10 +56,10 @@ void ArmSense::loop()
     if (barmMoved)
     {
         // compute polar position
-        oArmPolarSensor.sense(istHS, istVS, istELB);
-        istPan = oArmPolarSensor.getPanAngle();
-        istTilt = oArmPolarSensor.getTiltAngle();
-        istRadius = oArmPolarSensor.getRadius();        
+        oArmPolar.sense(istHS, istVS, istELB);
+        istPan = oArmPolar.getPanAngle();
+        istTilt = oArmPolar.getTiltAngle();
+        istRadius = oArmPolar.getRadius();        
         // and store joint positions (for next comparison)
         prevHS = istHS;
         prevVS = istVS;

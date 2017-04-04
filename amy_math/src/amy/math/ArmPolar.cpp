@@ -3,29 +3,29 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/move/ArmPolarSensor.h"
+#include "amy/math/ArmPolar.h"
 
 namespace amy
 {
-ArmPolarSensor::ArmPolarSensor()
+ArmPolar::ArmPolar()
 {
     istPan = 0.0;         
     istTilt = 0.0;    
     istRadius = 0.0;
 }
 
-void ArmPolarSensor::tune(Arm& oArm)
+void ArmPolar::tune(int lenHum, int lenRadius)
 {
-    oArmMath.setLengths(oArm.getLenHumerus(), oArm.getLenRadius());
+    oArmMath.setLengths(lenHum, lenRadius);
 }
 
-void ArmPolarSensor::getTuning(int& lenHumerus, int& lenRadius)
+void ArmPolar::getTuning(int& lenHumerus, int& lenRadius)
 {
     lenHumerus = oArmMath.getLenHumerus();
     lenRadius = oArmMath.getLenRadius();    
 }
 
-void ArmPolarSensor::sense(float angleHS, float angleVS, float angleELB)
+void ArmPolar::sense(float angleHS, float angleVS, float angleELB)
 {
     istPan = angleHS;
     istTilt = oArmMath.computeTilt4JointAngles(angleVS, angleELB);      

@@ -56,10 +56,6 @@
           <itemPath>src/amy/arm/modules/TiltRacer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="move" displayName="move" projectFiles="true">
-          <itemPath>src/amy/arm/move/ArmMath.cpp</itemPath>
-          <itemPath>src/amy/arm/move/ArmMath.h</itemPath>
-          <itemPath>src/amy/arm/move/ArmPolarSensor.cpp</itemPath>
-          <itemPath>src/amy/arm/move/ArmPolarSensor.h</itemPath>
           <itemPath>src/amy/arm/move/JointAccelerator.cpp</itemPath>
           <itemPath>src/amy/arm/move/JointAccelerator.h</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.cpp</itemPath>
@@ -116,6 +112,7 @@
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_utils/src</pElem>
             <pElem>../amy_control/src</pElem>
+            <pElem>../amy_math/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -154,6 +151,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_math"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_math"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_math.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -251,17 +260,6 @@
       <item path="src/amy/arm/modules/TiltRacer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/TiltRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmMath.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmPolarSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmPolarSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointAccelerator.cpp"
             ex="false"
@@ -419,17 +417,6 @@
       <item path="src/amy/arm/modules/TiltRacer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/TiltRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmMath.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmMath.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmPolarSensor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/ArmPolarSensor.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointAccelerator.cpp"
             ex="false"

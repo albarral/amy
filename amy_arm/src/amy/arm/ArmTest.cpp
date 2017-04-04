@@ -19,7 +19,7 @@
 #include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
-#include "amy/arm/move/ArmMath.h"
+#include "amy/math/ArmMath.h"
 
 using namespace log4cxx;
 

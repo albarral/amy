@@ -1,19 +1,18 @@
-#ifndef __AMY_MOVE_ARMPOLARSENSOR_H
-#define __AMY_MOVE_ARMPOLARSENSOR_H
+#ifndef __AMY_MATH_ARMPOLAR_H
+#define __AMY_MATH_ARMPOLAR_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/move/ArmMath.h"
-#include "amy/core/robot/Arm.h"
+#include "amy/math/ArmMath.h"
 
 namespace amy
 {
 // Class used to compute an arm's polar positions (pan, tilt and radius).
 // It must be tuned to the arm before using it.
-class ArmPolarSensor
+class ArmPolar
 {
 private:
     float istPan;           // computed pan value (degrees)
@@ -22,11 +21,11 @@ private:
     ArmMath oArmMath;   // utility class for arm computations
 
 public:
-        ArmPolarSensor();
-        //~ArmPolarSensor();
+        ArmPolar();
+        //~ArmPolar();
                 
        // tune sensor to arm sizes
-       void tune(Arm& oArm);
+       void tune(int lenHum, int lenRad);
        void getTuning(int& lenHumerus, int& lenRadius);               
 
        // compute polar positions

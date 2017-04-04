@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_ARMMATH_H
-#define __AMY_MOVE_ARMMATH_H
+#ifndef __AMY_MATH_ARMMATH_H
+#define __AMY_MATH_ARMMATH_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -24,7 +24,7 @@ private:
     
 public:  
     ArmMath();
-    //~ArmTrigonometry();
+    //~ArmMath();
 
     // store segment lengths (cm))
     void setLengths(int lenHum, int lenRad);

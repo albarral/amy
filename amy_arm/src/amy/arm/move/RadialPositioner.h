@@ -9,7 +9,7 @@
 #include <string>
 
 #include "amy/arm/move/JointPositioner.h"
-#include "amy/arm/move/ArmMath.h"
+#include "amy/math/ArmMath.h"
 
 namespace amy
 {
