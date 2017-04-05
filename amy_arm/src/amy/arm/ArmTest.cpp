@@ -59,6 +59,23 @@ void ArmTest::testCycler()
     oBusTilt.getCO_AXIS_TRIGGER().request();
 }
 
+void ArmTest::testCycler2()
+{
+    LOG4CXX_INFO(logger, "testCycler2");    
+    
+    if (!isConnected())
+         return;
+        
+    float angle = 45; 
+    float amplitude = 20;
+    float freq = 0.5;
+    bool bgo = true;
+    pArmBus->getCO_FRONT_ANGLE().request(angle);
+    pArmBus->getCO_FRONT_MAYOR().request(amplitude);
+    pArmBus->getCO_FRONT_FREQ().request(freq);
+    pArmBus->getCO_FRONT_ACTION().request(bgo);
+}
+
 void ArmTest::setPos(int pan, int tilt, int radius)
 {
      if (!isConnected())

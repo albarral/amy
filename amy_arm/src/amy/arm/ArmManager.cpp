@@ -122,6 +122,10 @@ void ArmManager::initArchitecture()
     listModules3.push_back(&oPanCycler);
     oTiltCycler.setLevel(nivel);
     listModules3.push_back(&oTiltCycler);
+
+    // frontal cycler
+//    oFrontalCycler.setLevel(nivel);
+//    listModules3.push_back(&oFrontalCycler);
 }
 
 void ArmManager::showArchitecture()

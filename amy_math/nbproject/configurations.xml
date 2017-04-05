@@ -49,6 +49,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
           </incDir>

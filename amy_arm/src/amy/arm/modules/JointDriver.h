@@ -31,7 +31,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // logic
-    bool bfree;         // indicates no input received
+    bool baccel;         // indicates no input received
     JointAccelerator oJointAccelerator;     // utility class used to compute the joint movement 
     float angle;
     float accel;

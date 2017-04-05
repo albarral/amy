@@ -10,7 +10,7 @@
 
 #include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
-#include "amy/control/brooks/control.h"
+#include "amy/control/brooks/controlT.h"
 #include "amy/core/robot/Arm.h"
 
 namespace amy
@@ -23,9 +23,13 @@ class ArmBus
         
         // CONTROLS 
         ControlT<bool> CO_ARM_STOP;       // arm stop
-        // ArmMover 
-        Control CO_ARMMOVER_START;       // ArmMover command: start 
-        Control CO_ARMMOVER_STOP;       // ArmMover command: stop
+        
+        // Frontal cycler 
+        ControlT<float> CO_FRONT_ANGLE;     // degrees
+        ControlT<float> CO_FRONT_MAYOR;    // size of primary movement (degrees)
+        ControlT<float> CO_FRONT_MINOR;     // size of secondary movement (degrees)
+        ControlT<float> CO_FRONT_FREQ;       // frequency
+        ControlT<bool> CO_FRONT_ACTION;    // start/stop
                 
         // TiltKeeper
         ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
@@ -54,9 +58,13 @@ class ArmBus
         
         // CONTROLS
         ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};
-        // ArmMover 
-        Control& getCO_ARMMOVER_START() {return CO_ARMMOVER_START;};        
-        Control& getCO_ARMMOVER_STOP() {return CO_ARMMOVER_STOP;};        
+        
+        // Frontal cycler
+        ControlT<float>& getCO_FRONT_ANGLE() {return CO_FRONT_ANGLE;};        
+        ControlT<float>& getCO_FRONT_MAYOR() {return CO_FRONT_MAYOR;};        
+        ControlT<float>& getCO_FRONT_MINOR() {return CO_FRONT_MINOR;};        
+        ControlT<float>& getCO_FRONT_FREQ() {return CO_FRONT_FREQ;};        
+        ControlT<bool>& getCO_FRONT_ACTION() {return CO_FRONT_ACTION;};        
 
         // TiltKeeper
         ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};

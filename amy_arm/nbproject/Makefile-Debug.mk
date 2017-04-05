@@ -46,6 +46,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/AxisCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
+	${OBJECTDIR}/src/amy/arm/modules/FrontalCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
@@ -151,6 +152,11 @@ ${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o: src/amy/arm/modules/AxisRacer.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o src/amy/arm/modules/AxisRacer.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/FrontalCycler.o: src/amy/arm/modules/FrontalCycler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/FrontalCycler.o src/amy/arm/modules/FrontalCycler.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o: src/amy/arm/modules/JointDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

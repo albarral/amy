@@ -68,8 +68,16 @@ void EllipticMove::compute()
             ax2 = ay2 = 0.0;                
         }
     }
+    // if null frequency, reset
     else
-        reset();
-    
+        reset();    
+}
+
+std::string EllipticMove::toString()
+{
+    return "EllipticMove: [angle=" + std::to_string(angle) +
+            ", mayor=" + std::to_string(lenA) + 
+            ", minor=" + std::to_string(lenB) +
+            ", freq=" + std::to_string(freq) + "]";
 }
 }

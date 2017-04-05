@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/control/Click.o \
 	${OBJECTDIR}/src/amy/control/Oscillator.o \
+	${OBJECTDIR}/src/amy/control/Oscillator2.o \
 	${OBJECTDIR}/src/amy/control/PIDControl.o \
 	${OBJECTDIR}/src/amy/control/brooks/control.o \
 	${OBJECTDIR}/src/amy/control/brooks/inhibition.o
@@ -75,6 +76,11 @@ ${OBJECTDIR}/src/amy/control/Oscillator.o: src/amy/control/Oscillator.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Oscillator.o src/amy/control/Oscillator.cpp
+
+${OBJECTDIR}/src/amy/control/Oscillator2.o: src/amy/control/Oscillator2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Oscillator2.o src/amy/control/Oscillator2.cpp
 
 ${OBJECTDIR}/src/amy/control/PIDControl.o: src/amy/control/PIDControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control

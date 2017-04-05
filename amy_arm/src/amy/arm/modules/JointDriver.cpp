@@ -52,21 +52,27 @@ void JointDriver::loop()
 {    
     senseBus();
 
-    // if no input
-    if (bfree)
+    int state = getState();
+    
+    // if done ...
+    if (state == eSTATE_DONE)
     {
-        // and done -> skip
-        if (getState() == eSTATE_DONE)
+         // if no accel request -> skip
+        if (!baccel)
             return;
-        // and moving -> BRAKE
-        else if (getState() == eSTATE_MOVE)                    
-            setNextState(eSTATE_BRAKE);            
+        // if accel requested -> MOVE
+        else
+        {                    
+            setNextState(eSTATE_MOVE);
+            oJointAccelerator.touch(angle);  // store angle (should be done during all DONE state) 
+        }
     }
-    // if input and not moving -> MOVE
-    else if (getState() != eSTATE_MOVE)
+    // if moving ... 
+    else 
     {
-        oJointAccelerator.touch(angle);
-        setNextState(eSTATE_MOVE);
+        // if no accel request -> BRAKE
+        if (!baccel && state == eSTATE_MOVE)
+            setNextState(eSTATE_BRAKE);
     }
     
     if (updateState())   
@@ -108,15 +114,14 @@ void JointDriver::senseBus()
     // sense angle
     angle = pJointBus->getCO_JOINT_ANGLE().getValue();
         
-    // if move requested -> MOVE
+    // accel requested 
     if (pJointBus->getCO_JOINT_ACCEL().checkRequested())
     {
         accel = pJointBus->getCO_JOINT_ACCEL().getValue();
-        bfree = false;
+        baccel = true;
     }    
-    // otherwise free
     else
-        bfree = true;
+        baccel = false;
     
     // inform real speed 
     // TEMP: real position not read yet. Should be done in another module

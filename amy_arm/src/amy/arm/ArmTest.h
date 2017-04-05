@@ -31,6 +31,7 @@ public:
     
     void setPos(int pan, int tilt, int radius);
     void testCycler();
+    void testCycler2();
     void testKeepTilt();    
 
 private:        

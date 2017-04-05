@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+ 
 namespace amy
 {
 // Class used to compute how to perform an elliptic movement.
@@ -57,6 +59,8 @@ public:
     float getAccely1() {return ay1;}; 
     float getAccelx2() {return ax2;}; 
     float getAccely2() {return ay2;}; 
+    
+    std::string toString();
     
 private:
     void reset();    

@@ -27,11 +27,8 @@ ArmConfig::ArmConfig ()
     PIDRacer[2] = 2.0; // D        
     
     // joint accel priorities
-    int priority = 0;
-    priority4AxisRacers = priority;
-    priority++;
-    priority4AxisDrivers = priority;
-    priority++;
+    priority4AxisRacers = 1;
+    priority4AxisDrivers = 2;
     priority4TiltKeeper = 1;
 }
 

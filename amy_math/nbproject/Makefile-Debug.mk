@@ -67,17 +67,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_math.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/amy/math/ArmMath.o: src/amy/math/ArmMath.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/ArmMath.o src/amy/math/ArmMath.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/ArmMath.o src/amy/math/ArmMath.cpp
 
 ${OBJECTDIR}/src/amy/math/ArmPolar.o: src/amy/math/ArmPolar.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/ArmPolar.o src/amy/math/ArmPolar.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/ArmPolar.o src/amy/math/ArmPolar.cpp
 
 ${OBJECTDIR}/src/amy/math/EllipticMove.o: src/amy/math/EllipticMove.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/EllipticMove.o src/amy/math/EllipticMove.cpp
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/EllipticMove.o src/amy/math/EllipticMove.cpp
 
 # Subprojects
 .build-subprojects:
