@@ -16,7 +16,8 @@ LoggerPtr FrontalCycler::logger(Logger::getLogger("amy.arm"));
 FrontalCycler::FrontalCycler()
 {
     modName = "FrontalCycler";
-    pBusHS = pBusVS = 0;
+    pPanBus = 0;
+    pTiltBus = 0;
     // control priority
     priority = 1; 
 }
@@ -30,17 +31,14 @@ void FrontalCycler::first()
 {
     // start at done
     setState(eSTATE_DONE);
-
-    pBusHS = &pArmBus->getBusHS();
-    pBusVS = &pArmBus->getBusVS();
     
+    pPanBus = &pArmBus->getPanBus();
+    pTiltBus = &pArmBus->getTiltBus();
     log4cxx::NDC::push(modName);   	
 }
                     
 void FrontalCycler::loop()
-{
-    float signal;
-    
+{    
     senseBus();
 
     int state = getState();
@@ -54,10 +52,10 @@ void FrontalCycler::loop()
             // launch movement
             
             // trigger new oscillation            
-            oOscillator2.reset();
-            xaccel = yaccel = 0.0;
+            oTriangularSignal.start();
+            xspeed = yspeed = 0.0;
             // if amplitude & frequency defined -> GO 
-            if (oEllipticMove.getLenA() != 0.0 && oEllipticMove.getFrequency() != 0.0)
+            if (amplitude != 0.0 && freq != 0.0)
                 setState(eSTATE_GO);
             // otherwise, nothing to do -> DONE
             else
@@ -65,26 +63,21 @@ void FrontalCycler::loop()
 
             // show data
             LOG4CXX_INFO(logger, ">> new request");  
-            LOG4CXX_INFO(logger, oEllipticMove.toString());  
             break;  
 
         case eSTATE_GO:
             // do cycles
 
-            // get oscillator signal
-            signal = oOscillator2.update();
-            LOG4CXX_INFO(logger, "oscillator: " << oOscillator2.getPosition() << ", signal = " << signal);  
-            // and perform movement
-            doPrimaryMove(signal);
-            //doSecondaryMove(signal);
+            // perform movement
+            updateMovement();
+            LOG4CXX_INFO(logger, "speeds: " << oLinearMove.getXSpeed() << ", " << oLinearMove.getYpeed());  
             break;
 
         case eSTATE_STOP:
             // stop movement
 
-            // stop oscillator and command null accels
-            oOscillator2.stop();
-            xaccel = yaccel = 0.0;  // better not to command anything
+            // command null speeds
+            xspeed = yspeed = 0.0;
             // then go to DONE
             setState(eSTATE_DONE);
             break;
@@ -96,70 +89,49 @@ void FrontalCycler::loop()
     writeBus();        
 }
 
-// A square acceleration function is applied
-void FrontalCycler::doPrimaryMove(int signal)
+void FrontalCycler::updateMovSpeed()
 {
-    int sign;
-    switch (signal)
-    {
-        case 0:
-        case 3:
-            sign = 1;
-            break;
-            
-        case 1:
-        case 2:
-            sign = -1;
-            break;
-            
-        default: 
-            sign = 0;
-    }
-    
-    xaccel = sign*oEllipticMove.getAccelx1();
-    yaccel = sign*oEllipticMove.getAccely1();
-    LOG4CXX_INFO(logger, "xaccel =  " << xaccel << ", yaccel = " << yaccel);  
+    // on each period the amplitude must be walked twice
+    float avgSpeed = 2.0*amplitude*freq;    
+    // the top speed is twice the average speed (for a triangular signal)
+    movSpeed = 2.0*avgSpeed;
 }
 
-void FrontalCycler::doSecondaryMove(int signal)
+// A square acceleration function is applied
+void FrontalCycler::updateMovement()
 {
-    
+    // modulate speed as a triangular signal
+    float speed = movSpeed * oTriangularSignal.sense();    
+    // and decompose it in x & y speeds
+    oLinearMove.compute(speed);
+    xspeed = oLinearMove.getXSpeed();
+    yspeed = oLinearMove.getYpeed();
 }
 
 void FrontalCycler::senseBus()
 {    
-    bool bupdateMove = false;
+    bool bupdateSpeed = false;
 
-    // movement angle
-    if (pArmBus->getCO_FRONT_ANGLE().checkRequested())
-    {
-        oEllipticMove.setAngle(pArmBus->getCO_FRONT_ANGLE().getValue());
-        bupdateMove = true;
-    }
-    // mayor axis
-    if (pArmBus->getCO_FRONT_MAYOR().checkRequested())
-    {
-        oEllipticMove.setLengthA(pArmBus->getCO_FRONT_MAYOR().getValue());
-        bupdateMove = true;
-    }
-    // minor axis
-    if (pArmBus->getCO_FRONT_MINOR().checkRequested())
-    {
-        oEllipticMove.setLengthB(pArmBus->getCO_FRONT_MINOR().getValue());
-        bupdateMove = true;
-    }    
     // movement frequency 
     if (pArmBus->getCO_FRONT_FREQ().checkRequested())
     {
-        float freq = pArmBus->getCO_FRONT_FREQ().getValue();
-        oEllipticMove.setFrequency(freq);
-        oOscillator2.setFrequency(freq);
-        bupdateMove = true;
+        freq = pArmBus->getCO_FRONT_FREQ().getValue();
+        oTriangularSignal.setFrequency(freq);
+        bupdateSpeed = true;
     }
+    // movement amplitude
+    if (pArmBus->getCO_FRONT_AMPLITUDE().checkRequested())
+    {
+        amplitude = pArmBus->getCO_FRONT_AMPLITUDE().getValue();
+        bupdateSpeed = true;
+    }
+    // movement angle
+    if (pArmBus->getCO_FRONT_ANGLE().checkRequested())
+        oLinearMove.setAngle(pArmBus->getCO_FRONT_ANGLE().getValue());
 
-    // if some movement parameter changed, recompute movement
-    if (bupdateMove)
-        oEllipticMove.compute();
+    // if movement changed, recompute speed
+    if (bupdateSpeed)
+        updateMovSpeed();
     
     // action requested 
     if (pArmBus->getCO_FRONT_ACTION().checkRequested())
@@ -175,9 +147,9 @@ void FrontalCycler::senseBus()
 
 void FrontalCycler::writeBus()
 {  
-    // control HS and VS joints
-    pBusHS->getCO_JOINT_ACCEL().request(xaccel, priority);
-    pBusVS->getCO_JOINT_ACCEL().request(yaccel, priority);
+    // control pan & tilt speeds
+    pPanBus->getCO_AXIS_SPEED2().request(xspeed, priority);
+    pTiltBus->getCO_AXIS_SPEED2().request(yspeed, priority);
 }
 
 

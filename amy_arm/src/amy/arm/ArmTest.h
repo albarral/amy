@@ -30,7 +30,6 @@ public:
     bool isConnected() {return pArmBus != 0;};
     
     void setPos(int pan, int tilt, int radius);
-    void testCycler();
     void testCycler2();
     void testKeepTilt();    
 

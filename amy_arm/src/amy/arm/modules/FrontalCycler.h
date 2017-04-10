@@ -9,18 +9,17 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/bus/JointBus.h"
 #include "amy/arm/util/ArmModule3.h"
-#include "amy/control/Oscillator2.h"
-#include "amy/math/EllipticMove.h"
+#include "amy/arm/bus/AxisBus.h"
+#include "amy/control/TriangularSignal.h"
+#include "amy/math/LinearMove.h"
 
 namespace amy
 {
-// Module used to perform cyclic movements in the frontal plane (just involving pan & tilt).
-// The module is able to combine two linear movements to perform elliptic trajectories.
-// The module's inputs are: the frequency, two ortogonal amplitudes and the orientation angle.
-// An oscillator is used to generate cyclic movements.
-// The module outputs are: HS & VS accelerations.
+// Module used to perform cyclic linear movements in the frontal plane (just involving pan & tilt).
+// The module's inputs are: the frequency, the movement amplitude and the orientation angle.
+// A triangular signal is used to generate the cyclic movements.
+// The module outputs are: pan & tilt speeds.
 class FrontalCycler: public ArmModule3
 {
 public:
@@ -35,16 +34,19 @@ public:
    
 private:
     static log4cxx::LoggerPtr logger;
-    // bus
-    JointBus* pBusHS;      // bus connection to HS joint
-    JointBus* pBusVS;      // bus connection to VS joint
+    // bus 
+    AxisBus* pPanBus;    // bus connection to pan axis
+    AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
-    Oscillator2 oOscillator2;     
-    EllipticMove oEllipticMove;
+    float freq;             // movement frequency (Hz))
+    float amplitude;     // movement amplitude (degrees)
+    float movSpeed;     // max speed for the movement
+    TriangularSignal oTriangularSignal;     
+    LinearMove oLinearMove;
     // output
     int priority;               // module's priority in control commands
-    float xaccel;             // commanded axis speed 
-    float yaccel;             // commanded axis speed 
+    float xspeed;             // commanded pan speed 
+    float yspeed;             // commanded tilt speed 
     
 public:
         FrontalCycler();
@@ -64,10 +66,10 @@ private:
         // shows the present state name
         void showState();
         
-        // apply accels for primary move
-        void doPrimaryMove(int signal);
-        // apply accels for secondary move
-        void doSecondaryMove(int signal);
+        // perform the movement
+        void updateMovement();
+        // update max speed for the movement
+        void updateMovSpeed();
 };
 }
 #endif

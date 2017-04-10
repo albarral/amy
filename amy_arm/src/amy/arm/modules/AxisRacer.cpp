@@ -46,8 +46,8 @@ void AxisRacer::loop()
     senseBus();
 
     int state = getState();
-    // skip if DONE or BLOCKED
-    if (state == eSTATE_DONE ||state == eSTATE_BLOCKED)            
+    // skip if DONE
+    if (state == eSTATE_DONE)            
         return;
             
     switch (state)
@@ -74,9 +74,20 @@ void AxisRacer::loop()
             outAccel = oPIDControl.control(targetSpeed - axisSpeed);                      
             // if movement blocked -> BLOCKED
             if (checkBlocked())
-                    setState(eSTATE_BLOCKED);   
+            {
+                outAccel = 0;                    
+                setState(eSTATE_BLOCKED);   
+            }
             
             LOG4CXX_INFO(logger, " sollSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(axisSpeed) +  ", accel=" + std::to_string(outAccel) + "]");
+            break;
+
+        case eSTATE_BLOCKED:
+            // blocked arm
+
+            // if movement not blocked anymore -> NEWMOVE
+            if (!checkBlocked())                    
+                setState(eSTATE_NEWMOVE);   
             break;
     }   // end switch    
 

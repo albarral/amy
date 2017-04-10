@@ -31,6 +31,8 @@
           <itemPath>src/amy/control/Oscillator2.h</itemPath>
           <itemPath>src/amy/control/PIDControl.cpp</itemPath>
           <itemPath>src/amy/control/PIDControl.h</itemPath>
+          <itemPath>src/amy/control/TriangularSignal.cpp</itemPath>
+          <itemPath>src/amy/control/TriangularSignal.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -83,6 +85,13 @@
       <item path="src/amy/control/PIDControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/control/PIDControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/control/TriangularSignal.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/control/TriangularSignal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/control/brooks/control.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -140,6 +149,13 @@
       <item path="src/amy/control/PIDControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/control/PIDControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/control/TriangularSignal.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/control/TriangularSignal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/control/brooks/control.cpp" ex="false" tool="1" flavor2="0">
       </item>

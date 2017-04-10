@@ -37,7 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/math/ArmMath.o \
 	${OBJECTDIR}/src/amy/math/ArmPolar.o \
-	${OBJECTDIR}/src/amy/math/EllipticMove.o
+	${OBJECTDIR}/src/amy/math/EllipticMove.o \
+	${OBJECTDIR}/src/amy/math/LinearMove.o
 
 
 # C Compiler Flags
@@ -78,6 +79,11 @@ ${OBJECTDIR}/src/amy/math/EllipticMove.o: src/amy/math/EllipticMove.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/EllipticMove.o src/amy/math/EllipticMove.cpp
+
+${OBJECTDIR}/src/amy/math/LinearMove.o: src/amy/math/LinearMove.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/LinearMove.o src/amy/math/LinearMove.cpp
 
 # Subprojects
 .build-subprojects:

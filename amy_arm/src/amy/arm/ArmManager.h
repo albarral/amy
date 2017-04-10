@@ -13,8 +13,6 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/modules/FrontalCycler.h"
-#include "amy/arm/modules/PanCycler.h"
-#include "amy/arm/modules/TiltCycler.h"
 #include "amy/arm/modules/PanRacer.h"
 #include "amy/arm/modules/TiltRacer.h"
 #include "amy/arm/modules/RadialRacer.h"
@@ -51,9 +49,9 @@ class ArmManager
         int topLevel; // allow activation of modules until this level
         // modules ...
         // level 3
-        //FrontalCycler oFrontalCycler;
-        PanCycler oPanCycler;
-        TiltCycler oTiltCycler;
+        FrontalCycler oFrontalCycler;
+//        PanCycler oPanCycler;
+//        TiltCycler oTiltCycler;
         PanRacer oPanRacer;
         TiltRacer oTiltRacer;
         RadialRacer oRadialRacer;

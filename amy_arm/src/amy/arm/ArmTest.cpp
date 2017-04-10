@@ -37,28 +37,6 @@ void ArmTest::connect2Bus(ArmManager& oArmManager)
     pArmBus = &oArmManager.oArmBus;
 }
 
-void ArmTest::testCycler()
-{
-    LOG4CXX_INFO(logger, "testCycler");    
-    
-    if (!isConnected())
-         return;
-
-     float freq = 0.5;
-     float amplitude = 40;
-
-    // pan
-    AxisBus& oBusPan = pArmBus->getPanBus();
-    oBusPan.getCO_AXIS_FREQUENCY().request(freq);
-    oBusPan.getCO_AXIS_AMPLITUDE().request(amplitude);
-    oBusPan.getCO_AXIS_TRIGGER().request();
-    // tilt     
-    AxisBus& oBusTilt = pArmBus->getTiltBus();
-    oBusTilt.getCO_AXIS_FREQUENCY().request(freq);
-    oBusTilt.getCO_AXIS_AMPLITUDE().request(amplitude);
-    oBusTilt.getCO_AXIS_TRIGGER().request();
-}
-
 void ArmTest::testCycler2()
 {
     LOG4CXX_INFO(logger, "testCycler2");    
@@ -71,7 +49,7 @@ void ArmTest::testCycler2()
     float freq = 0.5;
     bool bgo = true;
     pArmBus->getCO_FRONT_ANGLE().request(angle);
-    pArmBus->getCO_FRONT_MAYOR().request(amplitude);
+    pArmBus->getCO_FRONT_AMPLITUDE().request(amplitude);
     pArmBus->getCO_FRONT_FREQ().request(freq);
     pArmBus->getCO_FRONT_ACTION().request(bgo);
 }

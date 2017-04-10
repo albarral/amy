@@ -41,23 +41,23 @@ public:
     void connect(ArmBus& oArmBus);
    
     // CYCLIC MOVEMENTS
-    // set pan frequency (Hz)
-    virtual void panFrequency(float value);
-    // set pan amplitude (degrees)
-    virtual void panAmplitude(float value);
-    // trigger pan cyclic movement
-    virtual void panTrigger();
-    // stop pan cyclic movement
-    virtual void panStop();
+    // set front frequency (Hz)
+    virtual void frontFrequency(float value);
+    // set front amplitude (degrees)
+    virtual void frontAmplitude(float value);
+    // set front angle (degrees)
+    virtual void frontAngle(float value);
+    // start/stop front cyclic movement
+    virtual void frontAction(bool bvalue);
 
-    // set tilt frequency (Hz)
-    virtual void tiltFrequency(float value);
-    // set tilt amplitude (degrees)
-    virtual void tiltAmplitude(float value);
-    // trigger tilt cyclic movement
-    virtual void tiltTrigger();
-    // stop tilt cyclic movement
-    virtual void tiltStop();
+//    // set tilt frequency (Hz)
+//    virtual void tiltFrequency(float value);
+//    // set tilt amplitude (degrees)
+//    virtual void tiltAmplitude(float value);
+//    // trigger tilt cyclic movement
+//    virtual void tiltTrigger();
+//    // stop tilt cyclic movement
+//    virtual void tiltStop();
 
     // AXIS SPEEDS
     // change pan speed

@@ -43,17 +43,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
-	${OBJECTDIR}/src/amy/arm/modules/AxisCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/FrontalCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
-	${OBJECTDIR}/src/amy/arm/modules/PanCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/RadialRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o \
-	${OBJECTDIR}/src/amy/arm/modules/TiltCycler.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltRacer.o \
@@ -138,11 +135,6 @@ ${OBJECTDIR}/src/amy/arm/modules/ArmSense.o: src/amy/arm/modules/ArmSense.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmSense.o src/amy/arm/modules/ArmSense.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/AxisCycler.o: src/amy/arm/modules/AxisCycler.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/AxisCycler.o src/amy/arm/modules/AxisCycler.cpp
-
 ${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o: src/amy/arm/modules/AxisDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -163,11 +155,6 @@ ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o: src/amy/arm/modules/JointDriver.
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/JointDriver.o src/amy/arm/modules/JointDriver.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/PanCycler.o: src/amy/arm/modules/PanCycler.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/PanCycler.o src/amy/arm/modules/PanCycler.cpp
-
 ${OBJECTDIR}/src/amy/arm/modules/PanDriver.o: src/amy/arm/modules/PanDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -187,11 +174,6 @@ ${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o: src/amy/arm/modules/RadiusDrive
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o src/amy/arm/modules/RadiusDriver.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/TiltCycler.o: src/amy/arm/modules/TiltCycler.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/TiltCycler.o src/amy/arm/modules/TiltCycler.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/TiltDriver.o: src/amy/arm/modules/TiltDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

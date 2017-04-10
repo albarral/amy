@@ -17,23 +17,23 @@ public:
     virtual bool isEnabled() = 0;
 
     // CYCLIC MOVEMENTS
-    // set pan frequency (Hz)
-    virtual void panFrequency(float value) = 0;
-    // set pan amplitude (degrees)
-    virtual void panAmplitude(float value) = 0;
-    // trigger pan cyclic movement
-    virtual void panTrigger() = 0;
-    // stop pan cyclic movement
-    virtual void panStop() = 0;
+    // set front frequency (Hz)
+    virtual void frontFrequency(float value) = 0;
+    // set front amplitude (degrees)
+    virtual void frontAmplitude(float value) = 0;
+    // set front angle (degrees)
+    virtual void frontAngle(float value) = 0;
+    // start/stop front cyclic movement
+    virtual void frontAction(bool bvalue) = 0;
 
-    // set tilt frequency (Hz)
-    virtual void tiltFrequency(float value) = 0;
-    // set tilt amplitude (degrees)
-    virtual void tiltAmplitude(float value) = 0;
-    // trigger tilt cyclic movement
-    virtual void tiltTrigger() = 0;
-    // stop tilt cyclic movement
-    virtual void tiltStop() = 0;
+//    // set tilt frequency (Hz)
+//    virtual void tiltFrequency(float value) = 0;
+//    // set tilt amplitude (degrees)
+//    virtual void tiltAmplitude(float value) = 0;
+//    // trigger tilt cyclic movement
+//    virtual void tiltTrigger() = 0;
+//    // stop tilt cyclic movement
+//    virtual void tiltStop() = 0;
 
     // AXIS SPEEDS
     // change pan speed

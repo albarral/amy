@@ -18,14 +18,15 @@ public:
     enum eCyclicActions
     {
          eCYCLIC_UNDEF,                          /*! undefined cyclic action */
-         eCYCLIC_PAN_FREQ,                      // pan movement 
-         eCYCLIC_PAN_AMP,
-         eCYCLIC_PAN_TRIGGER,
-         eCYCLIC_PAN_STOP,
-         eCYCLIC_TILT_FREQ,                      // tilt movement
-         eCYCLIC_TILT_AMP,
-         eCYCLIC_TILT_TRIGGER,
-         eCYCLIC_TILT_STOP,
+         eCYCLIC_FRONT_FREQ,                    // frontal movement 
+         eCYCLIC_FRONT_AMP,
+         eCYCLIC_FRONT_ANGLE,
+         eCYCLIC_FRONT_START,
+         eCYCLIC_FRONT_STOP,
+//         eCYCLIC_TILT_FREQ,                      // tilt movement
+//         eCYCLIC_TILT_AMP,
+//         eCYCLIC_TILT_TRIGGER,
+//         eCYCLIC_TILT_STOP,
          eCYCLIC_DIM
     };
 

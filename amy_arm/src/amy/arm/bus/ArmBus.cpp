@@ -105,10 +105,9 @@ JointBus& ArmBus::getJointBus(std::string jointName)
 std::string ArmBus::toString()
 {
     std::string text = "ArmBus:[" + armName + "]\n" +       
-        "CO_FRONT_ANGLE: " + std::to_string(CO_FRONT_ANGLE.getValue()) + "\n" +
-        "CO_FRONT_MAYOR: " + std::to_string(CO_FRONT_MAYOR.getValue()) + "\n" +
-        "CO_FRONT_MINOR: " + std::to_string(CO_FRONT_MINOR.getValue()) + "\n" +
         "CO_FRONT_FREQ: " + std::to_string(CO_FRONT_FREQ.getValue()) + "\n" +
+        "CO_FRONT_AMPLITUDE: " + std::to_string(CO_FRONT_AMPLITUDE.getValue()) + "\n" +
+        "CO_FRONT_ANGLE: " + std::to_string(CO_FRONT_ANGLE.getValue()) + "\n" +
         "CO_FRONT_ACTION: " + std::to_string(CO_FRONT_ACTION.getValue()) + "\n" +
         "CO_KEEP_TILT: " + std::to_string(CO_KEEP_TILT.getRequested()) + " - " + std::to_string(CO_KEEP_TILT.getValue()) + "\n" +
         "\n" + oBusPan.toString() +   

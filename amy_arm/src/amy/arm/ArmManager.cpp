@@ -117,15 +117,9 @@ void ArmManager::initArchitecture()
     oRadialRacer.setLevel(nivel);
     listModules3.push_back(&oRadialRacer);
 
-    // pan / tilt /radial cycler modules
-    oPanCycler.setLevel(nivel);
-    listModules3.push_back(&oPanCycler);
-    oTiltCycler.setLevel(nivel);
-    listModules3.push_back(&oTiltCycler);
-
     // frontal cycler
-//    oFrontalCycler.setLevel(nivel);
-//    listModules3.push_back(&oFrontalCycler);
+    oFrontalCycler.setLevel(nivel);
+    listModules3.push_back(&oFrontalCycler);
 }
 
 void ArmManager::showArchitecture()

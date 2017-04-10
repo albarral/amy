@@ -20,11 +20,6 @@ class AxisBus
     private:        
         std::string axisName;
         
-        // AxisCycler 
-        ControlT<float> CO_AXIS_FREQUENCY;    // axis cyclic frequency (Hz)
-        ControlT<float> CO_AXIS_AMPLITUDE;    // amplitude of cyclic movement (degrees)
-        Control CO_AXIS_TRIGGER;                    // start cyclic move  
-        Control CO_AXIS_STOP;                         // stop cyclic move 
         // AxisRacer
         ControlT<float> CO_AXIS_SPEED;          // axis speed (degrees/s)
         ControlT<float> CO_AXIS_SPEED2;        // axis secondary speed (degrees/s)
@@ -44,11 +39,6 @@ class AxisBus
         void init (std::string axisName);        
         std::string& getAxisName() {return axisName;};
                 
-        // AxisCycler
-        ControlT<float>& getCO_AXIS_FREQUENCY() {return CO_AXIS_FREQUENCY;};   
-        ControlT<float>& getCO_AXIS_AMPLITUDE() {return CO_AXIS_AMPLITUDE;};   
-        Control& getCO_AXIS_TRIGGER() {return CO_AXIS_TRIGGER;};
-        Control& getCO_AXIS_STOP() {return CO_AXIS_STOP;};
         // AxisRacer
         ControlT<float>& getCO_AXIS_SPEED() {return CO_AXIS_SPEED;};        
         ControlT<float>& getCO_AXIS_SPEED2() {return CO_AXIS_SPEED2;};        

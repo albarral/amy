@@ -159,39 +159,44 @@ bool AmyConnector::sendCyclicCommand(int action, float value)
     switch (action)
     {
         // pan cyclic moves
-        case CyclicCategory::eCYCLIC_PAN_FREQ:
-            oCyclicClient.panFrequency(value);
+        case CyclicCategory::eCYCLIC_FRONT_FREQ:
+            oCyclicClient.frontFrequency(value);
             pAmyClient->sendCyclicCommand();
             break;
-        case CyclicCategory::eCYCLIC_PAN_AMP:
-            oCyclicClient.panAmplitude(value);
+        case CyclicCategory::eCYCLIC_FRONT_AMP:
+            oCyclicClient.frontAmplitude(value);
             pAmyClient->sendCyclicCommand();
             break;
-        case CyclicCategory::eCYCLIC_PAN_TRIGGER:
-            oCyclicClient.panTrigger();
+        case CyclicCategory::eCYCLIC_FRONT_ANGLE:
+            oCyclicClient.frontAngle(value);
             pAmyClient->sendCyclicCommand();
             break;
-        case CyclicCategory::eCYCLIC_PAN_STOP:            
-            oCyclicClient.panStop();
+        case CyclicCategory::eCYCLIC_FRONT_START:            
+            oCyclicClient.frontStart();
             pAmyClient->sendCyclicCommand();
             break;
-        // tilt cyclic moves
-        case CyclicCategory::eCYCLIC_TILT_FREQ:
-            oCyclicClient.tiltFrequency(value);
+        case CyclicCategory::eCYCLIC_FRONT_STOP:            
+            oCyclicClient.frontStop();
             pAmyClient->sendCyclicCommand();
             break;
-        case CyclicCategory::eCYCLIC_TILT_AMP:
-            oCyclicClient.tiltAmplitude(value);
-            pAmyClient->sendCyclicCommand();
-            break;
-        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
-            oCyclicClient.tiltTrigger();
-            pAmyClient->sendCyclicCommand();
-            break;
-        case CyclicCategory::eCYCLIC_TILT_STOP:            
-            oCyclicClient.tiltStop();
-            pAmyClient->sendCyclicCommand();
-            break;
+
+            // tilt cyclic moves
+//        case CyclicCategory::eCYCLIC_TILT_FREQ:
+//            oCyclicClient.tiltFrequency(value);
+//            pAmyClient->sendCyclicCommand();
+//            break;
+//        case CyclicCategory::eCYCLIC_TILT_AMP:
+//            oCyclicClient.tiltAmplitude(value);
+//            pAmyClient->sendCyclicCommand();
+//            break;
+//        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
+//            oCyclicClient.tiltTrigger();
+//            pAmyClient->sendCyclicCommand();
+//            break;
+//        case CyclicCategory::eCYCLIC_TILT_STOP:            
+//            oCyclicClient.tiltStop();
+//            pAmyClient->sendCyclicCommand();
+//            break;
                         
         default:
             LOG4CXX_ERROR(logger, "AmyConnector: cyclic request not available!");        

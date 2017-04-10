@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/control/Oscillator.o \
 	${OBJECTDIR}/src/amy/control/Oscillator2.o \
 	${OBJECTDIR}/src/amy/control/PIDControl.o \
+	${OBJECTDIR}/src/amy/control/TriangularSignal.o \
 	${OBJECTDIR}/src/amy/control/brooks/control.o \
 	${OBJECTDIR}/src/amy/control/brooks/inhibition.o
 
@@ -86,6 +87,11 @@ ${OBJECTDIR}/src/amy/control/PIDControl.o: src/amy/control/PIDControl.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/PIDControl.o src/amy/control/PIDControl.cpp
+
+${OBJECTDIR}/src/amy/control/TriangularSignal.o: src/amy/control/TriangularSignal.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/TriangularSignal.o src/amy/control/TriangularSignal.cpp
 
 ${OBJECTDIR}/src/amy/control/brooks/control.o: src/amy/control/brooks/control.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control/brooks

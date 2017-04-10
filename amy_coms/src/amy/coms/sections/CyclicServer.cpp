@@ -27,45 +27,50 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
 
     switch (oAmyCommand.getAction())
     {
-        case CyclicCategory::eCYCLIC_PAN_FREQ:
-            LOG4CXX_INFO(logger, "> set pan freq " << value);                        
-            panFrequency(value);
+        case CyclicCategory::eCYCLIC_FRONT_FREQ:
+            LOG4CXX_INFO(logger, "> set front freq " << value);                        
+            frontFrequency(value);
             break;
             
-        case CyclicCategory::eCYCLIC_PAN_AMP:
-            LOG4CXX_INFO(logger, "> set pan amplitude " << value);                        
-            panAmplitude(value);
+        case CyclicCategory::eCYCLIC_FRONT_AMP:
+            LOG4CXX_INFO(logger, "> set front amplitude " << value);                        
+            frontAmplitude(value);
             break;
 
-        case CyclicCategory::eCYCLIC_PAN_TRIGGER:
-            LOG4CXX_INFO(logger, "> pan trigger ");                        
-            panTrigger();
+        case CyclicCategory::eCYCLIC_FRONT_ANGLE:
+            LOG4CXX_INFO(logger, "> set front angle ");                        
+            frontAngle(value);
             break;
 
-        case CyclicCategory::eCYCLIC_PAN_STOP:
-            LOG4CXX_INFO(logger, "> pan stop ");                        
-            panStop();
+        case CyclicCategory::eCYCLIC_FRONT_START:
+            LOG4CXX_INFO(logger, "> front start ");                        
+            frontStart();
             break;
 
-        case CyclicCategory::eCYCLIC_TILT_FREQ:
-            LOG4CXX_INFO(logger, "> set tilt freq " << value);                        
-            tiltFrequency(value);
+        case CyclicCategory::eCYCLIC_FRONT_STOP:
+            LOG4CXX_INFO(logger, "> front stop ");                        
+            frontStop();
             break;
             
-        case CyclicCategory::eCYCLIC_TILT_AMP:
-            LOG4CXX_INFO(logger, "> set tilt amplitude " << value);                        
-            tiltAmplitude(value);
-            break;
-
-        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
-            LOG4CXX_INFO(logger, "> tilt trigger ");                        
-            tiltTrigger();
-            break;
-
-        case CyclicCategory::eCYCLIC_TILT_STOP:
-            LOG4CXX_INFO(logger, "> tilt stop ");                        
-            tiltStop();
-            break;
+//        case CyclicCategory::eCYCLIC_TILT_FREQ:
+//            LOG4CXX_INFO(logger, "> set tilt freq " << value);                        
+//            tiltFrequency(value);
+//            break;
+//            
+//        case CyclicCategory::eCYCLIC_TILT_AMP:
+//            LOG4CXX_INFO(logger, "> set tilt amplitude " << value);                        
+//            tiltAmplitude(value);
+//            break;
+//
+//        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
+//            LOG4CXX_INFO(logger, "> tilt trigger ");                        
+//            tiltTrigger();
+//            break;
+//
+//        case CyclicCategory::eCYCLIC_TILT_STOP:
+//            LOG4CXX_INFO(logger, "> tilt stop ");                        
+//            tiltStop();
+//            break;
 
         default:
             bret = false;
@@ -74,53 +79,59 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
     return bret;
 }
 
-// set pan cyclic frequency
-void CyclicServer::panFrequency(float value)
+// set front cyclic frequency
+void CyclicServer::frontFrequency(float value)
 {
     if (pArmInterface != 0)
-        pArmInterface->panFrequency(value);
+        pArmInterface->frontFrequency(value);
 }
-// set pan amplitude (degrees)
-void CyclicServer::panAmplitude(float value)
+// set front amplitude (degrees)
+void CyclicServer::frontAmplitude(float value)
 {
     if (pArmInterface != 0)
-        pArmInterface->panAmplitude(value);
+        pArmInterface->frontAmplitude(value);
 }
-// trigger pan cyclic movement
-void CyclicServer::panTrigger()
+// set front cyclic angle
+void CyclicServer::frontAngle(float value)
 {
     if (pArmInterface != 0)
-        pArmInterface->panTrigger();
+        pArmInterface->frontAngle(value);
 }
-// stop pan cyclic movement
-void CyclicServer::panStop()
+// start front cyclic movement
+void CyclicServer::frontStart()
 {
     if (pArmInterface != 0)
-        pArmInterface->panStop();
+        pArmInterface->frontAction(true);
+}
+// stop front cyclic movement
+void CyclicServer::frontStop()
+{
+    if (pArmInterface != 0)
+        pArmInterface->frontAction(false);
 }
 
 // set tilt cyclic frequency
-void CyclicServer::tiltFrequency(float value)
-{
-    if (pArmInterface != 0)
-        pArmInterface->tiltFrequency(value);
-}
-// set tilt amplitude (degrees)
-void CyclicServer::tiltAmplitude(float value)
-{
-    if (pArmInterface != 0)
-        pArmInterface->tiltAmplitude(value);
-}
-// trigger tilt cyclic movement
-void CyclicServer::tiltTrigger()
-{
-    if (pArmInterface != 0)
-        pArmInterface->tiltTrigger();
-}
-// stop tilt cyclic movement
-void CyclicServer::tiltStop()
-{
-    if (pArmInterface != 0)
-        pArmInterface->tiltStop();
-}
+//void CyclicServer::tiltFrequency(float value)
+//{
+//    if (pArmInterface != 0)
+//        pArmInterface->tiltFrequency(value);
+//}
+//// set tilt amplitude (degrees)
+//void CyclicServer::tiltAmplitude(float value)
+//{
+//    if (pArmInterface != 0)
+//        pArmInterface->tiltAmplitude(value);
+//}
+//// trigger tilt cyclic movement
+//void CyclicServer::tiltTrigger()
+//{
+//    if (pArmInterface != 0)
+//        pArmInterface->tiltTrigger();
+//}
+//// stop tilt cyclic movement
+//void CyclicServer::tiltStop()
+//{
+//    if (pArmInterface != 0)
+//        pArmInterface->tiltStop();
+//}
 }

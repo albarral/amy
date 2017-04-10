@@ -20,6 +20,8 @@
           <itemPath>src/amy/math/ArmPolar.h</itemPath>
           <itemPath>src/amy/math/EllipticMove.cpp</itemPath>
           <itemPath>src/amy/math/EllipticMove.h</itemPath>
+          <itemPath>src/amy/math/LinearMove.cpp</itemPath>
+          <itemPath>src/amy/math/LinearMove.h</itemPath>
           <itemPath>src/amy/math/MathDefines.h</itemPath>
         </logicalFolder>
       </logicalFolder>
@@ -67,6 +69,10 @@
       </item>
       <item path="src/amy/math/EllipticMove.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/math/LinearMove.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/LinearMove.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/math/MathDefines.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -101,6 +107,10 @@
       <item path="src/amy/math/EllipticMove.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/math/EllipticMove.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/LinearMove.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/LinearMove.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/math/MathDefines.h" ex="false" tool="3" flavor2="0">
       </item>

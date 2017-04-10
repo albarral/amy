@@ -25,11 +25,10 @@ class ArmBus
         ControlT<bool> CO_ARM_STOP;       // arm stop
         
         // Frontal cycler 
-        ControlT<float> CO_FRONT_ANGLE;     // degrees
-        ControlT<float> CO_FRONT_MAYOR;    // size of primary movement (degrees)
-        ControlT<float> CO_FRONT_MINOR;     // size of secondary movement (degrees)
-        ControlT<float> CO_FRONT_FREQ;       // frequency
-        ControlT<bool> CO_FRONT_ACTION;    // start/stop
+        ControlT<float> CO_FRONT_FREQ;              // movement frequency
+        ControlT<float> CO_FRONT_AMPLITUDE;      // movement amplitude (degrees)
+        ControlT<float> CO_FRONT_ANGLE;            // movement orientation (degrees)
+        ControlT<bool> CO_FRONT_ACTION;           // start/stop movement
                 
         // TiltKeeper
         ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
@@ -60,10 +59,9 @@ class ArmBus
         ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};
         
         // Frontal cycler
-        ControlT<float>& getCO_FRONT_ANGLE() {return CO_FRONT_ANGLE;};        
-        ControlT<float>& getCO_FRONT_MAYOR() {return CO_FRONT_MAYOR;};        
-        ControlT<float>& getCO_FRONT_MINOR() {return CO_FRONT_MINOR;};        
         ControlT<float>& getCO_FRONT_FREQ() {return CO_FRONT_FREQ;};        
+        ControlT<float>& getCO_FRONT_AMPLITUDE() {return CO_FRONT_AMPLITUDE;};        
+        ControlT<float>& getCO_FRONT_ANGLE() {return CO_FRONT_ANGLE;};        
         ControlT<bool>& getCO_FRONT_ACTION() {return CO_FRONT_ACTION;};        
 
         // TiltKeeper

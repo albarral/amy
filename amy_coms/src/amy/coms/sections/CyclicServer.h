@@ -31,16 +31,17 @@ public:
     bool processCommand(AmyCommand& oAmyCommand);
 
 private:
-   // pan cyclic movements
-    virtual void panFrequency(float value);
-    virtual void panAmplitude(float value);
-    virtual void panTrigger();
-    virtual void panStop();
+   // front cyclic movements
+    virtual void frontFrequency(float value);
+    virtual void frontAmplitude(float value);
+    virtual void frontAngle(float value);
+    virtual void frontStart();
+    virtual void frontStop();
     // tilt cyclic movements
-    virtual void tiltFrequency(float value);
-    virtual void tiltAmplitude(float value);
-    virtual void tiltTrigger();
-    virtual void tiltStop();
+//    virtual void tiltFrequency(float value);
+//    virtual void tiltAmplitude(float value);
+//    virtual void tiltTrigger();
+//    virtual void tiltStop();
 
 };
 }
