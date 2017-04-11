@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     LOG4CXX_INFO(logger, "target robot: " << targetRobot);
 
 //    Tests oTests;
-//    oTests.testArmPlot();
+//    oTests.testHistoryPlot();
 //    return 0;
     
     SupportedRobots oSupportedRobots;
@@ -66,8 +66,7 @@ int main(int argc, char** argv)
         if (numArms == 1)
             runAmy(oRobot);
         else              
-            LOG4CXX_WARN(logger, "amy not ready for multi-arm control. Only 1 will be controlled");
-            
+            LOG4CXX_WARN(logger, "amy not ready for multi-arm control. Only 1 will be controlled");            
     }
     else 
         LOG4CXX_WARN(logger, "No arms. Nothing to do");

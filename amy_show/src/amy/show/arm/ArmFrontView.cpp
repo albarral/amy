@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-#include "amy/show/ArmFrontView.h"
+#include "amy/show/arm/ArmFrontView.h"
 
 namespace amy 
 {
@@ -18,7 +18,8 @@ ArmFrontView::ArmFrontView()
 void ArmFrontView::configDraw(std::string name, int maxSide)
 {
     // create a maxSide x maxSide square window ...
-    // able to represent arm in all directions (up, down, left and right)
+    // able to represent arm in all directions (up, down, left and right) with isotropic scaling
+    setIsotropic(true);
     initPlot(maxSide, maxSide, name);   
     setRanges(-maxLen, maxLen, -maxLen, maxLen);
 }

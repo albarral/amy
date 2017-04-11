@@ -23,7 +23,6 @@ protected:
     // params
     int lenHum; // humerus length (cm)
     int lenRad; // radius length (cm)
-    int maxSide;  // size of the image's longest side (pixels)
     // logic
     int maxLen;   // maximum represented length (cm)
 

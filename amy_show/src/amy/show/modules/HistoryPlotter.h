@@ -1,5 +1,5 @@
-#ifndef __AMY_SHOW_ARMPLOTTER_H
-#define __AMY_SHOW_ARMPLOTTER_H
+#ifndef __AMY_SHOW_HISTORYPLOTTER_H
+#define __AMY_SHOW_HISTORYPLOTTER_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
@@ -8,33 +8,29 @@
 
 #include <amy/utils/module3.h>
 #include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/bus/JointBus.h"
-#include "amy/show/ArmFrontView.h"
-#include "amy/show/ArmSideView.h"
+#include "amy/arm/bus/AxisBus.h"
+#include "amy/show/history/HistoryPlot.h"
+#include "amy/show/history/History2D.h"
 
 namespace amy
 {
-// Module used to plot an arm's position (for debugging purpose).
+// Module used to plot the evolution of arm signals (for debugging purpose).
 // It gets the info from the arm bus.
-class ArmPlotter : public Module3
+class HistoryPlotter : public Module3
 {
 private:
     // bus
     bool bconnected;        // connected to bus
     ArmBus* pArmBus;     // access to arm's bus
-    JointBus* pVSBus;     // access to arm's VS joint
-    JointBus* pELBus;     // access to arm's ELB joint
-    float pan;
-    float tilt;
-    float radius;
-    float vsAngle;
-    float elbAngle;
-    ArmFrontView oArmFrontView;    // plotting of frontal arm view 
-    ArmSideView oArmSideView;    // plotting of side arm view  
+    AxisBus* pPanBus;      // access to pan bus 
+    //AxisBus* pTiltBus;      // access to tilt bus
+    // logic
+    History2D oPanHistory2D;
+    HistoryPlot oPanHistoryPlot;    // plotting of pan speed
 
 public:
-    ArmPlotter();
-    ~ArmPlotter();
+    HistoryPlotter();
+    ~HistoryPlotter();
 
     // bus connection 
     void connect(ArmBus& oArmBus);

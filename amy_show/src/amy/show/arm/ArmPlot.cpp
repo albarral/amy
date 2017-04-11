@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/show/ArmPlot.h"
+#include "amy/show/arm/ArmPlot.h"
 
 namespace amy 
 {
@@ -16,7 +16,6 @@ ArmPlot::ArmPlot()
     lenHum = 20;
     lenRad = 20;
     maxLen = lenHum + lenRad + 5;
-    maxSide = 200;    
 }
 
     

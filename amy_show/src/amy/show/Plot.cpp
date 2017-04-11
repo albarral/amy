@@ -12,6 +12,8 @@ namespace amy
 Plot::Plot()
 {
     margin = 10; // 10 pixels margin
+    xscale = yscale = 1.0;
+    bisotropic = false;
 }
 
 void Plot::initPlot(int w, int h, std::string name)
@@ -43,17 +45,33 @@ void Plot::setRanges(int xmin, int xmax, int ymin, int ymax)
     updateScale();
 }
 
+void Plot::setIsotropic(bool bvalue)
+{
+    bisotropic = bvalue;
+}
+
 void Plot::updateScale()
 {
-    // compute conversion factors
-    float xfactor = (float)(xmax - xmin) / (W - 2*margin);
-    float yfactor = (float)(ymax - ymin) / (H - 2*margin);
+    // compute drawing scales
+    if (xmax - xmin > 0)
+        xscale = (float)(W - 2*margin) / (xmax - xmin);
+    if (ymax - ymin > 0)
+        yscale = (float)(H - 2*margin) / (ymax - ymin);
     
-    // we'll use a unique conversion factor to grant uniformity (we'll use the bigger one)
-    scale = (xfactor > yfactor ? xfactor : yfactor);
     // compute origin position in image
-    x0 = margin + abs(xmin)/xfactor;
-    y0 = margin + abs(ymin)/yfactor;    
+    if (xscale > 0)
+        x0 = margin + abs(xmin)*xscale;
+    if (yscale > 0)
+        y0 = margin + abs(ymin)*yscale;    
+
+    // if isotropy required, use the same scale factor for both axes (the smaller)
+    if (bisotropic)
+    {
+        if (xscale > yscale) 
+            xscale = yscale;
+        else
+            yscale = xscale;
+    }
 }
 
 void Plot::show()
@@ -92,7 +110,7 @@ bool Plot::checkRangeLimits(float x, float y)
 // transform the specified physical point (x,y) into its representing plotted point in image
 cv::Point Plot::getPoint2Plot(float x, float y)
 {
-    return cv::Point(x0 + x/scale, H - (y0 + y/scale));  // draw upside-down
+    return cv::Point(x0 + x*xscale, H - (y0 + y*yscale));  // draw upside-down
 }
 
 }

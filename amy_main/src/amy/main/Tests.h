@@ -26,6 +26,7 @@ public:
     void testFileWriter();    
     void testAmyPublisher();
     void testArmPlot();
+    void testHistoryPlot();
 };
 
 }    

@@ -26,8 +26,10 @@ protected:
     int xmax;   // max value represented in x axis
     int ymin;    // min value represented in y axis
     int ymax;    // max value represented in y axis
+    bool bisotropic; // isotropic scaling used (default is false)
     // logic
-    float scale;   // conversion factor to represent xy values in image 
+    float xscale;   // conversion factor to represent x values in image 
+    float yscale;   // conversion factor to represent y values in image 
     int x0;           // horizontal position of x origin in image (pixels)
     int y0;           // vertical position of y origin in image (pixels)
 
@@ -39,6 +41,8 @@ public:
     void initPlot(int w, int h, std::string name);
     // set plotted ranges (requires scale recomputation)
     void setRanges(int xmin, int xmax, int ymin, int ymax);
+    // sets isotropic scaling for the plot
+    void setIsotropic(bool bvalue);
     
     // show the drawn image
     void show();

@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/show/ArmPlotter.h"
+#include "amy/show/modules/ArmPlotter.h"
 
 namespace amy
 {

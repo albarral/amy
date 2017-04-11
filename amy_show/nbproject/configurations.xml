@@ -13,17 +13,30 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="show" displayName="show" projectFiles="true">
-        <itemPath>src/amy/show/ArmFrontView.cpp</itemPath>
-        <itemPath>src/amy/show/ArmFrontView.h</itemPath>
-        <itemPath>src/amy/show/ArmPlot.cpp</itemPath>
-        <itemPath>src/amy/show/ArmPlot.h</itemPath>
-        <itemPath>src/amy/show/ArmPlotter.cpp</itemPath>
-        <itemPath>src/amy/show/ArmPlotter.h</itemPath>
-        <itemPath>src/amy/show/ArmSideView.cpp</itemPath>
-        <itemPath>src/amy/show/ArmSideView.h</itemPath>
+        <logicalFolder name="arm" displayName="arm" projectFiles="true">
+          <itemPath>src/amy/show/arm/ArmFrontView.cpp</itemPath>
+          <itemPath>src/amy/show/arm/ArmFrontView.h</itemPath>
+          <itemPath>src/amy/show/arm/ArmPlot.cpp</itemPath>
+          <itemPath>src/amy/show/arm/ArmPlot.h</itemPath>
+          <itemPath>src/amy/show/arm/ArmSideView.cpp</itemPath>
+          <itemPath>src/amy/show/arm/ArmSideView.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="history" displayName="history" projectFiles="true">
+          <itemPath>src/amy/show/history/History.cpp</itemPath>
+          <itemPath>src/amy/show/history/History.h</itemPath>
+          <itemPath>src/amy/show/history/History2D.cpp</itemPath>
+          <itemPath>src/amy/show/history/History2D.h</itemPath>
+          <itemPath>src/amy/show/history/HistoryPlot.cpp</itemPath>
+          <itemPath>src/amy/show/history/HistoryPlot.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="modules" displayName="modules" projectFiles="true">
+          <itemPath>src/amy/show/modules/ArmPlotter.cpp</itemPath>
+          <itemPath>src/amy/show/modules/ArmPlotter.h</itemPath>
+          <itemPath>src/amy/show/modules/HistoryPlotter.cpp</itemPath>
+          <itemPath>src/amy/show/modules/HistoryPlotter.h</itemPath>
+        </logicalFolder>
         <itemPath>src/amy/show/Plot.cpp</itemPath>
         <itemPath>src/amy/show/Plot.h</itemPath>
-        <itemPath>src/amy/show/PlotRecord.cpp</itemPath>
         <itemPath>src/amy/show/PlotRecord.h</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -116,29 +129,55 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/show/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmFrontView.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlotter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlotter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmSideView.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/show/PlotRecord.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/amy/show/PlotRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmFrontView.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmSideView.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History2D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/HistoryPlot.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/history/HistoryPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/ArmPlotter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/ArmPlotter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/HistoryPlotter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/HistoryPlotter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -161,29 +200,55 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/show/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmFrontView.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlotter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmPlotter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/ArmSideView.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/show/PlotRecord.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/amy/show/PlotRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmFrontView.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmPlot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/arm/ArmSideView.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/History2D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/history/HistoryPlot.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/history/HistoryPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/ArmPlotter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/ArmPlotter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/HistoryPlotter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/HistoryPlotter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
   </confs>

@@ -35,12 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/show/ArmFrontView.o \
-	${OBJECTDIR}/src/amy/show/ArmPlot.o \
-	${OBJECTDIR}/src/amy/show/ArmPlotter.o \
-	${OBJECTDIR}/src/amy/show/ArmSideView.o \
 	${OBJECTDIR}/src/amy/show/Plot.o \
-	${OBJECTDIR}/src/amy/show/PlotRecord.o
+	${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o \
+	${OBJECTDIR}/src/amy/show/arm/ArmPlot.o \
+	${OBJECTDIR}/src/amy/show/arm/ArmSideView.o \
+	${OBJECTDIR}/src/amy/show/history/History.o \
+	${OBJECTDIR}/src/amy/show/history/History2D.o \
+	${OBJECTDIR}/src/amy/show/history/HistoryPlot.o \
+	${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o \
+	${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o
 
 
 # C Compiler Flags
@@ -67,35 +70,50 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/show/ArmFrontView.o: src/amy/show/ArmFrontView.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/show
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmFrontView.o src/amy/show/ArmFrontView.cpp
-
-${OBJECTDIR}/src/amy/show/ArmPlot.o: src/amy/show/ArmPlot.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/show
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlot.o src/amy/show/ArmPlot.cpp
-
-${OBJECTDIR}/src/amy/show/ArmPlotter.o: src/amy/show/ArmPlotter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/show
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmPlotter.o src/amy/show/ArmPlotter.cpp
-
-${OBJECTDIR}/src/amy/show/ArmSideView.o: src/amy/show/ArmSideView.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/show
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ArmSideView.o src/amy/show/ArmSideView.cpp
-
 ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
 
-${OBJECTDIR}/src/amy/show/PlotRecord.o: src/amy/show/PlotRecord.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o: src/amy/show/arm/ArmFrontView.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/PlotRecord.o src/amy/show/PlotRecord.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o src/amy/show/arm/ArmFrontView.cpp
+
+${OBJECTDIR}/src/amy/show/arm/ArmPlot.o: src/amy/show/arm/ArmPlot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmPlot.o src/amy/show/arm/ArmPlot.cpp
+
+${OBJECTDIR}/src/amy/show/arm/ArmSideView.o: src/amy/show/arm/ArmSideView.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmSideView.o src/amy/show/arm/ArmSideView.cpp
+
+${OBJECTDIR}/src/amy/show/history/History.o: src/amy/show/history/History.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/History.o src/amy/show/history/History.cpp
+
+${OBJECTDIR}/src/amy/show/history/History2D.o: src/amy/show/history/History2D.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/History2D.o src/amy/show/history/History2D.cpp
+
+${OBJECTDIR}/src/amy/show/history/HistoryPlot.o: src/amy/show/history/HistoryPlot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/HistoryPlot.o src/amy/show/history/HistoryPlot.cpp
+
+${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o: src/amy/show/modules/ArmPlotter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o src/amy/show/modules/ArmPlotter.cpp
+
+${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o: src/amy/show/modules/HistoryPlotter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o src/amy/show/modules/HistoryPlotter.cpp
 
 # Subprojects
 .build-subprojects:

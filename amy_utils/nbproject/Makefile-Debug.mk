@@ -39,7 +39,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/utils/File.o \
 	${OBJECTDIR}/src/amy/utils/FileReader.o \
 	${OBJECTDIR}/src/amy/utils/FileWriter.o \
-	${OBJECTDIR}/src/amy/utils/Record.o \
 	${OBJECTDIR}/src/amy/utils/StringUtil.o \
 	${OBJECTDIR}/src/amy/utils/module.o \
 	${OBJECTDIR}/src/amy/utils/module2.o \
@@ -89,11 +88,6 @@ ${OBJECTDIR}/src/amy/utils/FileWriter.o: src/amy/utils/FileWriter.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileWriter.o src/amy/utils/FileWriter.cpp
-
-${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Record.o src/amy/utils/Record.cpp
 
 ${OBJECTDIR}/src/amy/utils/StringUtil.o: src/amy/utils/StringUtil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils

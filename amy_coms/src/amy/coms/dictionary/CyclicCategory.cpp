@@ -19,15 +19,15 @@ void CyclicCategory::build()
     listCommands.clear();
     
     // define commands for front cyclic movements (all require an extra value)
-    ComsCommand oCommand(ID, CyclicCategory::eCYCLIC_FRONT_FREQ, "freq1", 1, "set frequency of frontal cycler (Hz)");    
+    ComsCommand oCommand(ID, CyclicCategory::eCYCLIC_FRONT_FREQ, "f1f", 1, "set frequency of frontal cycler (Hz)");    
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_AMP, "amp1", 1, "set amplitude of frontal cycler (degrees)");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_AMP, "f1am", 1, "set amplitude of frontal cycler (degrees)");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_ANGLE, "ang1", 1, "set orientation of frontal cycler (degrees)");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_ANGLE, "f1an", 1, "set orientation of frontal cycler (degrees)");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_START, "go1", 0, "start frontal cycler movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_START, "f1go", 0, "start frontal cycler movement");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_STOP, "stop1", 0, "stop frontal cycler movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_STOP, "f1end", 0, "stop frontal cycler movement");
     listCommands.push_back(oCommand);
     // define commands for tilt cyclic movements
 //    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_FREQ, "tiltf", 1, "set frequency of tilt cycles (Hz)");    

@@ -22,7 +22,9 @@
 #include "amy/coms/file/AmyFileSubscriber.h"
 #include "amy/utils/FileReader.h"
 #include "amy/utils/FileWriter.h"
-#include "amy/show/ArmFrontView.h"
+#include "amy/show/arm/ArmFrontView.h"
+#include "amy/show/history/History.h"
+#include "amy/show/history/HistoryPlot.h"
 
 using namespace log4cxx;
 
@@ -129,5 +131,25 @@ void Tests::testArmPlot()
     oArmFrontView.hide();    
 }
 
+
+void Tests::testHistoryPlot()
+{
+    HistoryPlot oHistoryPlot;
+    
+    oHistoryPlot.setParams(2000, 100);
+    oHistoryPlot.configDraw("histplot", 400);
+    
+    History oHistory;
+    for (int i=0; i<20; i++)
+    {
+        float value = 3.0*i;
+        oHistory.addRecord(value);
+        usleep(100000); // wait 100 ms
+    }
+    
+    oHistoryPlot.drawHistory(oHistory);    
+    oHistoryPlot.show();
+    sleep(5);    
+}
 
 }
