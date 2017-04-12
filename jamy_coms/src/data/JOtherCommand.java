@@ -4,11 +4,22 @@
  * and open the template in the editor.
  */
 package data;
+import dictionary.JComsCategory;
+import dictionary.JOtherCategory;
+
 
 /**
  *
  * @author oriol
  */
-public class JOtherCommand {
+public class JOtherCommand extends JAmyCommand{
+    
+    public JOtherCommand(int action, float value){
+        
+        category = JComsCategory.eCategories.eCATEGORY_OTHER.ordinal();
+        this.action = action;
+        this.value = value;
+        bvalid = JOtherCategory.isValidAction(action);
+    }
     
 }

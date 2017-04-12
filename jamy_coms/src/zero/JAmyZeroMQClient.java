@@ -6,11 +6,12 @@
 package zero;
 
 import org.zeromq.ZMQ;
+import source.JAmyClient;
 /**
  *
  * @author oriol
  */
-public class JAmyZeroMQClient {
+public class JAmyZeroMQClient extends JAmyClient{
     
     ZMQ.Context context = ZMQ.context(1);
     ZMQ.Socket socketClient = context.socket(ZMQ.REQ);
@@ -22,8 +23,7 @@ public class JAmyZeroMQClient {
         socketClient.setReceiveTimeOut(100);
     }
     
-    
-    
+    @Override
     public void setPort(int port){
         
         clientPort = String.valueOf(port);
@@ -31,6 +31,7 @@ public class JAmyZeroMQClient {
         System.out.println("Client GUI ZMQ connecting...");
     }
     
+    @Override
     public void sendCommand(String command){
         
         boolean send = socketClient.send(command, 0);

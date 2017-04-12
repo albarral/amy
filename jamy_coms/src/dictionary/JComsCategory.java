@@ -13,9 +13,18 @@ import java.util.ArrayList;
  */
 abstract public class JComsCategory {
     
-    protected int ID;                    /*! category ID  */
-    protected String name;    /*! category name  */
-    protected ArrayList<JComsCommand> listCommands;  /*! list of commands for this category */
+    public enum eCategories{
+    eCATEGORY_UNDEF,               /*! undefined category */
+    eCATEGORY_JOINTS,              /*! command of joint category */
+    eCATEGORY_AXIS,                 /*! command of axis category */
+    eCATEGORY_CYCLIC,            /*! command of cyclic category */
+    eCATEGORY_OTHER,             /*! command of other category */
+    eCATEGORY_DIM
+}
+    
+    public int ID = 0;                    /*! category ID  */
+    public String name = "";    /*! category name  */
+     ArrayList<JComsCommand> listCommands = new ArrayList();  /*! list of commands for this category */
     
     public JComsCategory(){
         ID = eCategories.eCATEGORY_UNDEF.ordinal();   
@@ -37,13 +46,15 @@ abstract public class JComsCategory {
     // check if given action is valid (depends on each category)
     
     // describe category
+    @Override
     public String toString(){
         String desc = "ComsCategory: [id="  + String.valueOf(ID) + ", name=" + name + "]\n";
-    
-        for (JComsCommand oCommand: listCommands)
+        int lenght = listCommands.size();
+        for (int index = 0; index<lenght; index++){//JComsCommand oCommand: listCommands)
+            JComsCommand oCommand;
+            oCommand = listCommands.get(index);
             desc += oCommand.toString() + "\n";
-        
-
+        }
         return desc;
     }
     // describe category name
@@ -76,11 +87,4 @@ abstract public class JComsCategory {
     abstract protected void build();
 }
 
-enum eCategories{
-    eCATEGORY_UNDEF,               /*! undefined category */
-    eCATEGORY_JOINTS,              /*! command of joint category */
-    eCATEGORY_AXIS,                 /*! command of axis category */
-    eCATEGORY_CYCLIC,            /*! command of cyclic category */
-    eCATEGORY_OTHER,             /*! command of other category */
-    eCATEGORY_DIM
-}
+

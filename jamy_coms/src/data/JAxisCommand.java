@@ -5,10 +5,20 @@
  */
 package data;
 
+import dictionary.JComsCategory;
+import dictionary.JAxisCategory;
+
 /**
  *
  * @author oriol
  */
-public class JAxisCommand {
+public class JAxisCommand extends JAmyCommand{
     
+    public JAxisCommand(int action, float value){
+        
+        category = JComsCategory.eCategories.eCATEGORY_AXIS.ordinal();
+        this.action = action;
+        this.value = value;
+        bvalid = JAxisCategory.isValidAction(action);
+    }  
 }
