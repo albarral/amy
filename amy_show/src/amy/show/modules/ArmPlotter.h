@@ -11,6 +11,7 @@
 #include "amy/arm/bus/JointBus.h"
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/arm/ArmSideView.h"
+#include "amy/show/SharedDisplay.h"
 
 namespace amy
 {
@@ -31,6 +32,7 @@ private:
     float elbAngle;
     ArmFrontView oArmFrontView;    // plotting of frontal arm view 
     ArmSideView oArmSideView;    // plotting of side arm view  
+    SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
 
 public:
     ArmPlotter();
@@ -39,6 +41,7 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
     bool isConnected() {return bconnected;};
+    void shareDisplay(SharedDisplay& oSharedDisplay);
     
 private:
         // first actions when the thread begins 

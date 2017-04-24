@@ -30,6 +30,8 @@
           <itemPath>src/amy/show/history/HistoryPlot.h</itemPath>
         </logicalFolder>
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
+          <itemPath>src/amy/show/modules/AmyDisplayer.cpp</itemPath>
+          <itemPath>src/amy/show/modules/AmyDisplayer.h</itemPath>
           <itemPath>src/amy/show/modules/ArmPlotter.cpp</itemPath>
           <itemPath>src/amy/show/modules/ArmPlotter.h</itemPath>
           <itemPath>src/amy/show/modules/HistoryPlotter.cpp</itemPath>
@@ -37,7 +39,8 @@
         </logicalFolder>
         <itemPath>src/amy/show/Plot.cpp</itemPath>
         <itemPath>src/amy/show/Plot.h</itemPath>
-        <itemPath>src/amy/show/PlotRecord.h</itemPath>
+        <itemPath>src/amy/show/SharedDisplay.cpp</itemPath>
+        <itemPath>src/amy/show/SharedDisplay.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -133,7 +136,9 @@
       </item>
       <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/show/PlotRecord.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/show/SharedDisplay.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/SharedDisplay.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -161,6 +166,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/show/history/HistoryPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/AmyDisplayer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/AmyDisplayer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/show/modules/ArmPlotter.cpp"
             ex="false"
@@ -204,7 +219,9 @@
       </item>
       <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/show/PlotRecord.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/show/SharedDisplay.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/SharedDisplay.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -232,6 +249,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/show/history/HistoryPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/AmyDisplayer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/show/modules/AmyDisplayer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/show/modules/ArmPlotter.cpp"
             ex="false"

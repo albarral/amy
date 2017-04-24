@@ -15,12 +15,11 @@ HistoryPlotter::HistoryPlotter()
     pArmBus = 0;
     pPanBus = 0;
     //pTiltBus = 0;
+    pSharedDisplay = 0;
  }
 
 HistoryPlotter::~HistoryPlotter()
 {
-    // hide windows
-    oPanHistoryPlot.hide();        
 }
 
 void HistoryPlotter::connect(ArmBus& oArmBus)
@@ -29,6 +28,11 @@ void HistoryPlotter::connect(ArmBus& oArmBus)
     pPanBus = &pArmBus->getPanBus();
     //pTiltBus = &pArmBus->getTiltBus(); 
     bconnected = true;
+}
+
+void HistoryPlotter::shareDisplay(SharedDisplay& oSharedDisplay)
+{
+    pSharedDisplay = &oSharedDisplay;    
 }
 
 void HistoryPlotter::first()
@@ -47,7 +51,13 @@ void HistoryPlotter::loop()
     senseBus();
     // draw pan speed history
     oPanHistoryPlot.draw2DHistory(oPanHistory2D);
-    oPanHistoryPlot.show();    
+
+    // show window
+    if (pSharedDisplay != 0)
+    {    
+        // copy the history view to the display (middle window)
+        pSharedDisplay->updateDisplayMiddle(oPanHistoryPlot.getImage());
+    }
 }
 
 void HistoryPlotter::senseBus()

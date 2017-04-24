@@ -20,7 +20,7 @@ void ArmSideView::configDraw(std::string name, int maxSide)
     // create a rectangular window of maxSide/2 x maxSide ...
     // able to represent the arm in 3 directions (up, down and right) with isotropic scaling
     setIsotropic(true);
-    initPlot(maxSide/2, maxSide, name);   
+    initPlot(maxSide, maxSide, name);   
     setRanges(0, maxLen, -maxLen, maxLen);
 }
 

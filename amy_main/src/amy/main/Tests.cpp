@@ -25,6 +25,7 @@
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/history/History.h"
 #include "amy/show/history/HistoryPlot.h"
+#include "amy/show/SharedDisplay.h"
 
 using namespace log4cxx;
 
@@ -117,26 +118,29 @@ void Tests::testFileWriter()
 
 void Tests::testArmPlot()
 {       
-    ArmFrontView oArmFrontView;
+    SharedDisplay oSharedDisplay;
+    ArmFrontView oArmFrontView;    
 
     int w = 200;
     int h = 100;
-    
-    oArmFrontView.initPlot(200, 100, "prueba");
+    oSharedDisplay.initDisplay();
+    oArmFrontView.initPlot(200, 200, "prueba");
     oArmFrontView.setRanges(-200, 200, -20, 120);
     
     oArmFrontView.drawArm(10, 20, 0, 90);
-    oArmFrontView.show();    
-    sleep(2);    
-    oArmFrontView.hide();    
+    oSharedDisplay.updateDisplayUp2(oArmFrontView.getImage());
+    oSharedDisplay.show();
+    sleep(4);    
 }
 
 
 void Tests::testHistoryPlot()
 {
+    SharedDisplay oSharedDisplay;
     HistoryPlot oHistoryPlot;
     
-    oHistoryPlot.setParams(2000, 100);
+    oSharedDisplay.initDisplay();
+    oHistoryPlot.setParams(400, 100);
     oHistoryPlot.configDraw("histplot", 400);
     
     History oHistory;
@@ -148,7 +152,8 @@ void Tests::testHistoryPlot()
     }
     
     oHistoryPlot.drawHistory(oHistory);    
-    oHistoryPlot.show();
+    oSharedDisplay.updateDisplayMiddle(oHistoryPlot.getImage());
+    oSharedDisplay.show();
     sleep(5);    
 }
 

@@ -36,12 +36,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/show/Plot.o \
+	${OBJECTDIR}/src/amy/show/SharedDisplay.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmPlot.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmSideView.o \
 	${OBJECTDIR}/src/amy/show/history/History.o \
 	${OBJECTDIR}/src/amy/show/history/History2D.o \
 	${OBJECTDIR}/src/amy/show/history/HistoryPlot.o \
+	${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o \
 	${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o \
 	${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o
 
@@ -83,6 +85,11 @@ ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
 
+${OBJECTDIR}/src/amy/show/SharedDisplay.o: src/amy/show/SharedDisplay.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/SharedDisplay.o src/amy/show/SharedDisplay.cpp
+
 ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o: src/amy/show/arm/ArmFrontView.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
 	${RM} "$@.d"
@@ -112,6 +119,11 @@ ${OBJECTDIR}/src/amy/show/history/HistoryPlot.o: src/amy/show/history/HistoryPlo
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/HistoryPlot.o src/amy/show/history/HistoryPlot.cpp
+
+${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o: src/amy/show/modules/AmyDisplayer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o src/amy/show/modules/AmyDisplayer.cpp
 
 ${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o: src/amy/show/modules/ArmPlotter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules

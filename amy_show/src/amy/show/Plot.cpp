@@ -3,8 +3,6 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <opencv2/highgui/highgui.hpp>  // for named window
-
 #include "amy/show/Plot.h"
 
 namespace amy 
@@ -23,10 +21,9 @@ void Plot::initPlot(int w, int h, std::string name)
      // update scale and origin position
      updateScale();
 
-     // create clean image and window      
      plotName = name;
+     // create clean image
      image = cv::Mat::zeros(H, W, CV_8UC3);           
-     cv::namedWindow(plotName);              
 }
     
 // set plotted ranges 
@@ -72,19 +69,6 @@ void Plot::updateScale()
         else
             yscale = xscale;
     }
-}
-
-void Plot::show()
-{  
-    // show plot
-    cv::imshow(plotName, image);
-    cv::waitKey(100);    
-}
-
-void Plot::hide()
-{
-    cv::destroyWindow(plotName);
-    //cv::destroyAllWindows();    
 }
 
 void Plot::drawAxes()

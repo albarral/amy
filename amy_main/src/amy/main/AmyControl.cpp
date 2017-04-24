@@ -49,15 +49,24 @@ bool AmyControl::launch(Robot& oRobot)
         oAmyBroadcaster.setFrequency(freq);
         oAmyBroadcaster.on();
 
+        oSharedDisplay.initDisplay();
+        
         // launch arm plotter module (for debug)
         oArmPlotter.connect(oArmManager.getArmBus4Debug());
         oArmPlotter.setFrequency(freq);
+        oArmPlotter.shareDisplay(oSharedDisplay);
         oArmPlotter.on();
         
         // launch history plotter module (for debug)
-//        oHistoryPlotter.connect(oArmManager.getArmBus4Debug());
-//        oHistoryPlotter.setFrequency(freq);
-//        oHistoryPlotter.on();        
+        oHistoryPlotter.connect(oArmManager.getArmBus4Debug());
+        oHistoryPlotter.setFrequency(freq);
+        oHistoryPlotter.shareDisplay(oSharedDisplay);
+        oHistoryPlotter.on();        
+
+        // launch displayer module (for debug)
+        oAmyDisplayer.setFrequency(freq);
+        oAmyDisplayer.shareDisplay(oSharedDisplay);
+        oAmyDisplayer.on();        
     }
     else
     {
@@ -86,8 +95,12 @@ bool AmyControl::end()
     oArmPlotter.wait();      
 
     // finish history plotter module
-//    oHistoryPlotter.off();
-//    oHistoryPlotter.wait();      
+    oHistoryPlotter.off();
+    oHistoryPlotter.wait();      
+    
+    // finish displayer module 
+    oAmyDisplayer.off();
+    oAmyDisplayer.wait();
 }
 
 bool AmyControl::checkEndRequested()

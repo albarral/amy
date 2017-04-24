@@ -15,13 +15,11 @@ ArmPlotter::ArmPlotter()
     pArmBus = 0;
     pVSBus = 0;
     pELBus = 0;
+    pSharedDisplay = 0;
  }
 
 ArmPlotter::~ArmPlotter()
 {
-    // hide windows
-    oArmFrontView.hide();        
-    oArmSideView.hide();        
 }
 
 void ArmPlotter::connect(ArmBus& oArmBus)
@@ -30,6 +28,11 @@ void ArmPlotter::connect(ArmBus& oArmBus)
     pVSBus = &pArmBus->getBusVS();    
     pELBus = &pArmBus->getBusEL();    
     bconnected = true;
+}
+
+void ArmPlotter::shareDisplay(SharedDisplay& oSharedDisplay)
+{
+    pSharedDisplay = &oSharedDisplay;    
 }
 
 void ArmPlotter::first()
@@ -52,10 +55,17 @@ void ArmPlotter::loop()
     senseBus();
     // draw arm frontal view
     oArmFrontView.drawArm(vsAngle, pan, tilt, radius);
-    oArmFrontView.show();    
     // draw arm side view
     oArmSideView.drawArm(vsAngle, elbAngle);
-    oArmSideView.show();    
+        
+    // show windows
+    if (pSharedDisplay != 0)
+    {
+        // copy the frontal view to the display (up1 window)
+        pSharedDisplay->updateDisplayUp1(oArmFrontView.getImage());
+        // copy the side view to the display (up2 window)
+        pSharedDisplay->updateDisplayUp2(oArmSideView.getImage());
+    }
 }
 
 void ArmPlotter::senseBus()

@@ -11,7 +11,7 @@
 
 namespace amy 
 {
-// Base class used to plot something in a 2D image (of fixed size) and show it in a window.
+// Base class used to plot something in a 2D image (of fixed size).
 class Plot
 {
 protected:    
@@ -43,11 +43,8 @@ public:
     void setRanges(int xmin, int xmax, int ymin, int ymax);
     // sets isotropic scaling for the plot
     void setIsotropic(bool bvalue);
-    
-    // show the drawn image
-    void show();
-    // hides the drawn image
-    void hide();
+    // gets access to plotted image
+    cv::Mat& getImage() {return image;};
     
 protected:            
     // draws the axes in the plot
