@@ -26,12 +26,13 @@ void HistoryPlot::setParams(int timeSpan, int signalRange)
         this->signalRange = signalRange;
 }
 
-void HistoryPlot::configDraw(std::string name, int maxSide)
+void HistoryPlot::configDraw(std::string name, int w, int h)
 {
     // create a maxSide x 100 window ...
     // able to represent all the signal range in the whole time span (with different scaling for each axis)
     setIsotropic(false);
-    initPlot(maxSide, 100, name);   
+    initPlot(w, h, name);   
+    // negative time till 0
     setRanges(-timeSpan, 0, -signalRange, signalRange);
 }
 

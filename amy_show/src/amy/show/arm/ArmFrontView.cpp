@@ -15,12 +15,13 @@ ArmFrontView::ArmFrontView()
 {
 }
 
-void ArmFrontView::configDraw(std::string name, int maxSide)
+void ArmFrontView::configDraw(std::string name, int w, int h)
 {
-    // create a maxSide x maxSide square window ...
-    // able to represent arm in all directions (up, down, left and right) with isotropic scaling
+    // create an image of the specified size
+    // able to represent arm in all directions (up, down, left and right)
+    // with isotropic scaling (same scale in all directions)
     setIsotropic(true);
-    initPlot(maxSide, maxSide, name);   
+    initPlot(w, h, name);   
     setRanges(-maxLen, maxLen, -maxLen, maxLen);
 }
 

@@ -27,6 +27,8 @@ public:
     void testAmyPublisher();
     void testArmPlot();
     void testHistoryPlot();
+    void testDiscPlot();
+    
 };
 
 }    

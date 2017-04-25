@@ -11,9 +11,12 @@
 
 namespace amy 
 {
-// This class represents the amy display, which can hold different plots thanks to its division in sub-windows.
-// The drawing and showing of the display is designed to be thread safe, to allow concurrent plotters and displayer. 
-// The display is composed by 2 upper windows, one mid window, and one bottom window.    
+// This class represents the amy display, which is designed to show multiple plots, each one in a sub-window.
+// Thread safety is implemented to allow the drawing and showing of the display be carried by different threads.
+// The display composition is the following:
+//   -  2 upper windows (in a row)
+//   -  2 middle windows (vertically stacked)
+//   -  5 bottom windows (in a row).    
 class SharedDisplay
 {
 private:    
@@ -21,6 +24,7 @@ private:
         // display 
         cv::Mat image;
         std::string windowName;        
+        int numBottomWindows;
         // window sizes
         int up_w;
         int up_h;
@@ -31,13 +35,15 @@ private:
         // display windows
         cv::Rect window_up1;
         cv::Rect window_up2;
-        cv::Rect window_mid;
-        cv::Rect window_bot;
+        cv::Rect window_mid1;
+        cv::Rect window_mid2;
+        cv::Rect window_bot[5];
         // display ROIs
         cv::Mat image_up1;
         cv::Mat image_up2;
-        cv::Mat image_mid;
-        cv::Mat image_bot;                        
+        cv::Mat image_mid1;
+        cv::Mat image_mid2;                        
+        cv::Mat image_bot[5];    
 
 public:
     SharedDisplay();       
@@ -47,8 +53,18 @@ public:
     // update display sub-windows
     void updateDisplayUp1(cv::Mat& img);
     void updateDisplayUp2(cv::Mat& img);
-    void updateDisplayMiddle(cv::Mat& img);
-    void updateDisplayBottom(cv::Mat& img);
+    void updateDisplayMid1(cv::Mat& img);
+    void updateDisplayMid2(cv::Mat& img);
+    void updateDisplayBot(int num, cv::Mat& img);
+    
+    // get display measurements
+    int getDisplayUpW() {return up_w;}
+    int getDisplayUpH() {return up_h;}
+    int getDisplayMidW() {return mid_w;}
+    int getDisplayMidH() {return mid_h;}
+    int getDisplayBotW() {return bot_w;}
+    int getDisplayBotH() {return bot_h;}
+    
     // show display on screen
     void show();
 };

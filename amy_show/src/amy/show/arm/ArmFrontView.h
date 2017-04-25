@@ -20,7 +20,7 @@ public:
     ArmFrontView();
     
     // configure plot (defines window size and name)
-    virtual void configDraw(std::string name, int maxSide);
+    virtual void configDraw(std::string name, int w, int h);
     
     // draws two segments (humerus and radius) showing the arm's 2D side position
     void drawArm(float vs, float pan, float tilt, float radius);

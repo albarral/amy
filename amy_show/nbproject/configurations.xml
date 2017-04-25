@@ -37,6 +37,8 @@
           <itemPath>src/amy/show/modules/HistoryPlotter.cpp</itemPath>
           <itemPath>src/amy/show/modules/HistoryPlotter.h</itemPath>
         </logicalFolder>
+        <itemPath>src/amy/show/DiscPlot.cpp</itemPath>
+        <itemPath>src/amy/show/DiscPlot.h</itemPath>
         <itemPath>src/amy/show/Plot.cpp</itemPath>
         <itemPath>src/amy/show/Plot.h</itemPath>
         <itemPath>src/amy/show/SharedDisplay.cpp</itemPath>
@@ -132,6 +134,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/amy/show/DiscPlot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/DiscPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
@@ -215,6 +221,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/show/DiscPlot.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/show/DiscPlot.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">

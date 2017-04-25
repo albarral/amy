@@ -34,7 +34,7 @@ public:
     // sets params
     void setParams(int timeSpan, int signalRange);
     // configure plot (defines window size and name)
-    void configDraw(std::string name, int maxSide);
+    void configDraw(std::string name, int w, int h);
     
     // draw the given history
     void drawHistory(History& oHistory);

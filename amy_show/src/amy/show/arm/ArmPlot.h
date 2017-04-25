@@ -33,7 +33,7 @@ public:
     // sets arm sizes (humerus len, radius len)
     void setArmSize(int lenH, int lenR);
     // configure plot (defines window size and name)
-    virtual void configDraw(std::string name, int maxSide) = 0;
+    virtual void configDraw(std::string name, int w, int h) = 0;
     
 protected:
     // draw elbow and hand segments (ignore out of bound points)    

@@ -11,7 +11,7 @@
 
 namespace amy 
 {
-// Base class used to plot something in a 2D image (of fixed size).
+// Base class used to plot something in a 2D image (of fixed size) over two orthogonal axes.
 class Plot
 {
 protected:    

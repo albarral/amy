@@ -22,13 +22,14 @@ class HistoryPlotter : public Module3
 private:
     // bus
     bool bconnected;        // connected to bus
-    ArmBus* pArmBus;     // access to arm's bus
     AxisBus* pPanBus;      // access to pan bus 
-    //AxisBus* pTiltBus;      // access to tilt bus
+    AxisBus* pTiltBus;      // access to tilt bus
     // logic
-    History2D oPanHistory2D;
+    History2D oPanHistory2D;        // pan speed history
     HistoryPlot oPanHistoryPlot;    // plotting of pan speed
-    SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
+    History2D oTiltHistory2D;       // tilt speed history
+    HistoryPlot oTiltHistoryPlot;    // plotting of tilt speed
+    SharedDisplay* pSharedDisplay;  // access to the shared display 
 
 public:
     HistoryPlotter();

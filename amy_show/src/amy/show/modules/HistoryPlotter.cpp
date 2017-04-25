@@ -12,9 +12,8 @@ HistoryPlotter::HistoryPlotter()
 {    
     modName = "HistoryPlotter";
     bconnected = false;
-    pArmBus = 0;
     pPanBus = 0;
-    //pTiltBus = 0;
+    pTiltBus = 0;
     pSharedDisplay = 0;
  }
 
@@ -24,9 +23,8 @@ HistoryPlotter::~HistoryPlotter()
 
 void HistoryPlotter::connect(ArmBus& oArmBus)
 {
-    pArmBus = &oArmBus;
-    pPanBus = &pArmBus->getPanBus();
-    //pTiltBus = &pArmBus->getTiltBus(); 
+    pPanBus = &oArmBus.getPanBus();
+    pTiltBus = &oArmBus.getTiltBus(); 
     bconnected = true;
 }
 
@@ -39,10 +37,14 @@ void HistoryPlotter::first()
 {
     int timeSpan = 10000;    // 10s history shown
     int signalRange = 150;  // speed range
-    // plot (400 pixels wide)
+    // plot pan
     oPanHistoryPlot.setParams(timeSpan, signalRange);
-    oPanHistoryPlot.configDraw("Speeds", 400);
+    oPanHistoryPlot.configDraw("Pan speed", pSharedDisplay->getDisplayMidW(), pSharedDisplay->getDisplayMidH());
     oPanHistory2D.setTimeSpan(timeSpan);
+    // plot tilt 
+    oTiltHistoryPlot.setParams(timeSpan, signalRange);
+    oTiltHistoryPlot.configDraw("Tilt speed", pSharedDisplay->getDisplayMidW(), pSharedDisplay->getDisplayMidH());
+    oTiltHistory2D.setTimeSpan(timeSpan);
 }
                     
 // drives the axis towards the target position
@@ -51,20 +53,29 @@ void HistoryPlotter::loop()
     senseBus();
     // draw pan speed history
     oPanHistoryPlot.draw2DHistory(oPanHistory2D);
+    // draw tilt speed history
+    oTiltHistoryPlot.draw2DHistory(oTiltHistory2D);
 
     // show window
     if (pSharedDisplay != 0)
     {    
-        // copy the history view to the display (middle window)
-        pSharedDisplay->updateDisplayMiddle(oPanHistoryPlot.getImage());
+        // put the pan speed in the display (middle 1 window)
+        pSharedDisplay->updateDisplayMid1(oPanHistoryPlot.getImage());
+        // put the tilt speed in the display (middle 2 window)
+        pSharedDisplay->updateDisplayMid2(oTiltHistoryPlot.getImage());
     }
 }
 
 void HistoryPlotter::senseBus()
 {
+    // update pan speed history
     float panSOSpeed = pPanBus->getSO_AXIS_SPEED().getValue();
     float panCOSpeed = pPanBus->getCO_AXIS_SPEED().getValue();
     oPanHistory2D.addRecord(panSOSpeed, panCOSpeed);
+    // update tilt speed history
+    float tiltSOSpeed = pTiltBus->getSO_AXIS_SPEED().getValue();
+    float tiltCOSpeed = pTiltBus->getCO_AXIS_SPEED().getValue();
+    oTiltHistory2D.addRecord(tiltSOSpeed, tiltCOSpeed);
 }
 
 
