@@ -25,6 +25,7 @@ class JointBus
         ControlT<float> CO_JOINT_ANGLE;         // commanded joint angle (degrees)
 
         // SENSORS 
+        SensorT<int> SO_DRIVER_STATE;               //  state of JointDriver module
         SensorT<float> SO_JOINT_SPEED;               //  internally commanded speed (degrees/s)
         SensorT<int> SO_JOINT_LIMIT_REACHED;     //  joint range limit reached: 0, 1 (top limit), -1 (bottom limit)
         SensorT<float> SO_IST_ANGLE;                 // real joint angle (degrees)
@@ -43,6 +44,7 @@ class JointBus
         ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
         // SENSORS 
+        SensorT<int>& getSO_DRIVER_STATE() {return SO_DRIVER_STATE;}; 
         SensorT<float>& getSO_JOINT_SPEED() {return SO_JOINT_SPEED;}; 
         SensorT<int>& getSO_JOINT_LIMIT_REACHED() {return SO_JOINT_LIMIT_REACHED;}; 
         SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 

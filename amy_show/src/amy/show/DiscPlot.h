@@ -14,6 +14,16 @@ namespace amy
 // Class used to plot a colored disc in a 2D image.
 class DiscPlot 
 {
+public:    
+    // disc states
+    enum eState
+    {
+         eSTATE_GREY,              // grey disk
+         eSTATE_RED,                // red disk
+         eSTATE_YELLOW,          // yellow disk
+         eSTATE_GREEN             // green disk
+    };
+
 private:    
     cv::Mat image;
     // params
@@ -23,9 +33,12 @@ private:
     // logic
     cv::Point center;           // disc center
     int radius;                   // disc radius (pixels)
-    cv::Scalar colorGood;   // color for good state
-    cv::Scalar colorBad;     // color for bad state   
-    cv::Scalar colorText;     // color for text   
+    // colors for disk & text
+    cv::Scalar colorGrey;     
+    cv::Scalar colorRed;     
+    cv::Scalar colorYellow;     
+    cv::Scalar colorGreen;   
+    cv::Scalar colorText;    
     // text configuration
     cv::Point textOrigin;       // origin position for the text
     int fontFace;
@@ -41,8 +54,8 @@ public:
     // gets access to plotted image
     cv::Mat& getImage() {return image;};
 
-    // draws disc representing the given state (good or bad)
-    void drawDisc(bool bgood);
+    // draws disc representing the given state (one of eStates)
+    void drawDisc(int state);
 };
 }    
 #endif

@@ -53,28 +53,29 @@ void JointDriver::loop()
     senseBus();
 
     int state = getState();
-    
-    // if done ...
-    if (state == eSTATE_DONE)
+
+    // if no requests & move done -> nothing to do
+    if (!baccel && state == eSTATE_DONE)
+        return; 
+    // otherwise, move someway
+    else
     {
-         // if no accel request -> skip
-        if (!baccel)
-            return;
         // if accel requested -> MOVE
-        else
-        {                    
-            setNextState(eSTATE_MOVE);
-            oJointAccelerator.touch(angle);  // store angle (should be done during all DONE state) 
+        if (baccel)
+        {
+            if (state != eSTATE_MOVE)
+            {
+                setNextState(eSTATE_MOVE);
+                // if coming from DONE, store angle 
+                if (state == eSTATE_DONE)
+                    oJointAccelerator.touch(angle);                      
+            }
         }
+        // if no accel request -> BRAKE        
+        else
+            setNextState(eSTATE_BRAKE);            
     }
-    // if moving ... 
-    else 
-    {
-        // if no accel request -> BRAKE
-        if (!baccel && state == eSTATE_MOVE)
-            setNextState(eSTATE_BRAKE);
-    }
-    
+        
     if (updateState())   
         showState();
               
@@ -91,7 +92,11 @@ void JointDriver::loop()
             }
             // otherwise -> DONE
             else
+            {
                 setNextState(eSTATE_DONE);            
+                updateState();
+                showState();
+            }
                 
             break;
 
@@ -105,8 +110,7 @@ void JointDriver::loop()
     }   // end switch    
     
     // always command angle 
-    writeBus();
-    
+    writeBus();    
 }
 
 void JointDriver::senseBus()
@@ -132,14 +136,18 @@ void JointDriver::senseBus()
 void JointDriver::writeBus()
 {
     float sollSpeed = oJointAccelerator.getSpeed();        
+    int state = getState();
     
-    // command angle
+    // CO commands ...
+    // joint angle
     pJointBus->getCO_JOINT_ANGLE().request(angle);
     
-    // inform of control speed
+    // SO informations ...
+    // driver state
+    pJointBus->getSO_DRIVER_STATE().setValue(state);
+    // control speed
     pJointBus->getSO_JOINT_SPEED().setValue(sollSpeed);
-
-    // inform of limit reached
+    // limit reached
     pJointBus->getSO_JOINT_LIMIT_REACHED().setValue(limitReached);
 
     if (limitReached != 0)            

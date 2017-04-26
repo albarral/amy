@@ -9,9 +9,13 @@ namespace amy
 {
 DiscPlot::DiscPlot()
 {
-    colorGood = cv::Scalar(0, 255, 0);       // green
-    colorBad = cv::Scalar(0, 0, 255);         // red     
+    // BGR colors
+    colorGrey = cv::Scalar(125, 125, 125);
+    colorRed = cv::Scalar(0, 0, 255);         
+    colorYellow = cv::Scalar(0, 255, 255);
+    colorGreen = cv::Scalar(0, 255, 0);
     colorText = cv::Scalar(255, 255, 255);  // white
+    // small simple text
     fontFace = cv::FONT_HERSHEY_SIMPLEX;
     fontScale = 0.3;
     thickness = 1;
@@ -38,7 +42,7 @@ void DiscPlot::initPlot(int w, int h, std::string name)
      image = cv::Mat::zeros(H, W, CV_8UC3);           
 }
 
-void DiscPlot::drawDisc(bool bgood)
+void DiscPlot::drawDisc(int state)
 {
     // prepare image
     image = cv::Scalar(0,0,0);
@@ -46,12 +50,24 @@ void DiscPlot::drawDisc(bool bgood)
     // the arm base will be at origin 
     cv::putText(image, plotName, textOrigin, fontFace, fontScale, colorText, thickness, 8);
 
-    // draw disc indicating good status
-    if (bgood)
-        cv::circle(image, center, radius, colorGood, -1);                   
-    // draw disc indicating bad status
-    else
-        cv::circle(image, center, radius, colorBad, -1);                   
+    switch (state)
+    {                 
+        case eSTATE_GREY:
+            cv::circle(image, center, radius, colorGrey, -1);                   
+            break;
+
+        case eSTATE_RED:
+            cv::circle(image, center, radius, colorRed, -1);                   
+            break;
+
+        case eSTATE_YELLOW:
+            cv::circle(image, center, radius, colorYellow, -1);                   
+            break;
+
+        case eSTATE_GREEN:
+            cv::circle(image, center, radius, colorGreen, -1);                   
+            break;
+    }
 }
 
 }

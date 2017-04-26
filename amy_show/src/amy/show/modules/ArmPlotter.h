@@ -33,18 +33,17 @@ private:
     float radius;
     float angleVS;
     float angleELB;
-    int limitHS;
-    int limitVS;
-    int limitELB;
+    int stateHS;    // HS driver state
+    int stateVS;    // VS driver state
+    int stateELB;   // ELB driver state
     // display
     SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
     ArmFrontView oArmFrontView;    // plotting of frontal arm view 
     ArmSideView oArmSideView;     // plotting of side arm view  
-    DiscPlot oHSDiscPlot;               // plotting of HS limit reached
-    DiscPlot oHSDiscPlot2;             // plotting of VS limit reached 
-    DiscPlot oHSDiscPlot3;             // plotting of ELB limit reached
-//    DiscPlot oHSDiscPlot4;             // plotting of HWRI limit reached 
-//    DiscPlot oHSDiscPlot5;             // plotting of VWRI limit reached  
+    // disk plots
+    DiscPlot oDiscPlot1;  
+    DiscPlot oDiscPlot2;  
+    DiscPlot oDiscPlot3;  
 
 public:
     ArmPlotter();
@@ -62,6 +61,9 @@ private:
         virtual void loop();            
         // read bus data   
         virtual void senseBus();
+        
+        // translate state of joint driver module to DiscPlot color
+        int driverState2DiscColor(int driveState);
 };
 }		
 #endif

@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/show/modules/ArmPlotter.h"
+#include "amy/arm/modules/JointDriver.h"
 
 namespace amy
 {
@@ -48,12 +49,12 @@ void ArmPlotter::first()
     // side arm view
     oArmSideView.setArmSize(lenH, lenR);
     oArmSideView.configDraw("arm side", pSharedDisplay->getDisplayUpW(), pSharedDisplay->getDisplayUpH());
-    // joint limits
+    // discs for joint driver states
     int w = pSharedDisplay->getDisplayBotW();
     int h = pSharedDisplay->getDisplayBotH();
-    oHSDiscPlot.initPlot(w, h, "HS");
-    oHSDiscPlot2.initPlot(w, h, "VS");
-    oHSDiscPlot3.initPlot(w, h, "ELB");
+    oDiscPlot1.initPlot(w, h, "HS");
+    oDiscPlot2.initPlot(w, h, "VS");
+    oDiscPlot3.initPlot(w, h, "ELB");
 }
                     
 // drives the axis towards the target position
@@ -64,10 +65,10 @@ void ArmPlotter::loop()
     oArmFrontView.drawArm(angleVS, pan, tilt, radius);
     // draw arm side view
     oArmSideView.drawArm(angleVS, angleELB);
-    // draw joint limits
-    oHSDiscPlot.drawDisc(limitHS==0);
-    oHSDiscPlot2.drawDisc(limitVS==0);
-    oHSDiscPlot3.drawDisc(limitELB==0);
+    // draw joint driver states
+    oDiscPlot1.drawDisc(driverState2DiscColor(stateHS));
+    oDiscPlot2.drawDisc(driverState2DiscColor(stateVS));
+    oDiscPlot3.drawDisc(driverState2DiscColor(stateELB));
         
     // show windows
     if (pSharedDisplay != 0)
@@ -77,9 +78,9 @@ void ArmPlotter::loop()
         // copy the side view to the display (up2 window)
         pSharedDisplay->updateDisplayUp2(oArmSideView.getImage());
         // copy joint states to display (bottom windows)
-        pSharedDisplay->updateDisplayBot(0, oHSDiscPlot.getImage());
-        pSharedDisplay->updateDisplayBot(1, oHSDiscPlot2.getImage());
-        pSharedDisplay->updateDisplayBot(2, oHSDiscPlot3.getImage());
+        pSharedDisplay->updateDisplayBot(0, oDiscPlot1.getImage());
+        pSharedDisplay->updateDisplayBot(1, oDiscPlot2.getImage());
+        pSharedDisplay->updateDisplayBot(2, oDiscPlot3.getImage());
     }
 }
 
@@ -93,10 +94,28 @@ void ArmPlotter::senseBus()
     angleVS = pVSBus->getSO_IST_ANGLE().getValue();
     angleELB = pELBus->getSO_IST_ANGLE().getValue();
     // joint limits
-    limitHS = pHSBus->getSO_JOINT_LIMIT_REACHED().getValue(); 
-    limitVS = pVSBus->getSO_JOINT_LIMIT_REACHED().getValue(); 
-    limitELB = pELBus->getSO_JOINT_LIMIT_REACHED().getValue(); 
+    stateHS = pHSBus->getSO_DRIVER_STATE().getValue(); 
+    stateVS = pVSBus->getSO_DRIVER_STATE().getValue(); 
+    stateELB = pELBus->getSO_DRIVER_STATE().getValue(); 
 }
 
-
+int ArmPlotter::driverState2DiscColor(int driveState)
+{
+    int disc;
+    switch (driveState) 
+    {
+        case JointDriver::eSTATE_DONE:
+            disc = DiscPlot::eSTATE_RED;
+            break;
+        case JointDriver::eSTATE_MOVE:
+            disc = DiscPlot::eSTATE_GREEN;
+            break;
+        case JointDriver::eSTATE_BRAKE:
+            disc = DiscPlot::eSTATE_YELLOW;
+            break;
+        default:
+            disc = DiscPlot::eSTATE_GREY;            
+    }
+    return disc;
+}
 }
