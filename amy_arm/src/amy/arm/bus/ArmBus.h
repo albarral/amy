@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "amy/arm/bus/CyclerBus.h"
 #include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/control/brooks/controlT.h"
@@ -23,12 +24,17 @@ class ArmBus
         
         // CONTROLS 
         ControlT<bool> CO_ARM_STOP;       // arm stop
-        
-        // Frontal cycler 
-        ControlT<float> CO_FRONT_FREQ;              // movement frequency
-        ControlT<float> CO_FRONT_AMPLITUDE;      // movement amplitude (degrees)
-        ControlT<float> CO_FRONT_ANGLE;            // movement orientation (degrees)
-        ControlT<bool> CO_FRONT_ACTION;           // start/stop movement
+
+        // ArmMover
+        ControlT<int> CO_MOVER_TYPE;       // set movement type
+        ControlT<bool> CO_MOVER_ACTION;    // start/stop movement
+        ControlT<int> CO_MOVER_TURN;       // change movement orientation
+        ControlT<bool> CO_MOVER_WIDER;    // change movement width
+        ControlT<bool> CO_MOVER_TALLER;    // change movement height
+        ControlT<bool> CO_MOVER_FASTER;    // change movement speed
+
+        // connections for all cyclers
+        CyclerBus oFrontalCyclerBus;
                 
         // TiltKeeper
         ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
@@ -56,13 +62,18 @@ class ArmBus
         bool isEnabled() {return benabled;};
         
         // CONTROLS
-        ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};
+        ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};        
+
+        // ArmMover
+        ControlT<int>& getCO_MOVER_TYPE() {return CO_MOVER_TYPE;};
+        ControlT<bool>& getCO_MOVER_ACTION() {return CO_MOVER_ACTION;};
+        ControlT<int>& getCO_MOVER_TURN() {return CO_MOVER_TURN;};
+        ControlT<bool>& getCO_MOVER_WIDER() {return CO_MOVER_WIDER;};
+        ControlT<bool>& getCO_MOVER_TALLER() {return CO_MOVER_TALLER;};
+        ControlT<bool>& getCO_MOVER_FASTER() {return CO_MOVER_FASTER;};
         
-        // Frontal cycler
-        ControlT<float>& getCO_FRONT_FREQ() {return CO_FRONT_FREQ;};        
-        ControlT<float>& getCO_FRONT_AMPLITUDE() {return CO_FRONT_AMPLITUDE;};        
-        ControlT<float>& getCO_FRONT_ANGLE() {return CO_FRONT_ANGLE;};        
-        ControlT<bool>& getCO_FRONT_ACTION() {return CO_FRONT_ACTION;};        
+        // CONTROLS & SENSORS for cyclers
+        CyclerBus& getFrontalCyclerBus() {return oFrontalCyclerBus;};
 
         // TiltKeeper
         ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};

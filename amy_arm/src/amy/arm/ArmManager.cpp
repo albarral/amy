@@ -18,7 +18,7 @@ LoggerPtr ArmManager::logger(Logger::getLogger("amy.arm"));
 ArmManager::ArmManager ()
 {    
     blaunched = false;
-    topLevel = 3;       
+    topLevel = 4;       
     pAmyConfig = 0;
 }
 
@@ -117,9 +117,15 @@ void ArmManager::initArchitecture()
     oRadialRacer.setLevel(nivel);
     listModules3.push_back(&oRadialRacer);
 
+    // LEVEL 4    
+    nivel = 4;        
+
     // frontal cycler
     oFrontalCycler.setLevel(nivel);
     listModules3.push_back(&oFrontalCycler);
+    // arm mover
+    oArmMover.setLevel(nivel);
+    listModules3.push_back(&oArmMover);
 }
 
 void ArmManager::showArchitecture()

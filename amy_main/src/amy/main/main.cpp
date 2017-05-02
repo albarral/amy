@@ -95,7 +95,7 @@ void runAmy(Robot& oRobot)
 //            if (test == 1)
 //                oArmTest.setPos(30, 30, 80);
 //            else if (test == 5)
-//                oArmTest.testCycler2();                            
+//                oArmTest.testArmMover();
         }    
 
         LOG4CXX_INFO(logger, "\namy end requested ...\n");

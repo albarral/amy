@@ -16,6 +16,7 @@ LoggerPtr FrontalCycler::logger(Logger::getLogger("amy.arm"));
 FrontalCycler::FrontalCycler()
 {
     modName = "FrontalCycler";
+    pBusFrontalCycler = 0;
     pPanBus = 0;
     pTiltBus = 0;
     // control priority
@@ -32,6 +33,7 @@ void FrontalCycler::first()
     // start at done
     setState(eSTATE_DONE);
     
+    pBusFrontalCycler = &pArmBus->getFrontalCyclerBus();
     pPanBus = &pArmBus->getPanBus();
     pTiltBus = &pArmBus->getTiltBus();
     log4cxx::NDC::push(modName);   	
@@ -113,31 +115,31 @@ void FrontalCycler::senseBus()
     bool bupdateSpeed = false;
 
     // movement frequency 
-    if (pArmBus->getCO_FRONT_FREQ().checkRequested())
+    if (pBusFrontalCycler->getCO_CYCLER_FREQ().checkRequested())
     {
-        freq = pArmBus->getCO_FRONT_FREQ().getValue();
+        freq = pBusFrontalCycler->getCO_CYCLER_FREQ().getValue();
         oTriangularSignal.setFrequency(freq);
         bupdateSpeed = true;
     }
     // movement amplitude
-    if (pArmBus->getCO_FRONT_AMPLITUDE().checkRequested())
+    if (pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().checkRequested())
     {
-        amplitude = pArmBus->getCO_FRONT_AMPLITUDE().getValue();
+        amplitude = pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().getValue();
         bupdateSpeed = true;
     }
     // movement angle
-    if (pArmBus->getCO_FRONT_ANGLE().checkRequested())
-        oLinearMove.setAngle(pArmBus->getCO_FRONT_ANGLE().getValue());
+    if (pBusFrontalCycler->getCO_CYCLER_ANGLE().checkRequested())
+        oLinearMove.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE().getValue());
 
     // if movement changed, recompute speed
     if (bupdateSpeed)
         updateMovSpeed();
     
     // action requested 
-    if (pArmBus->getCO_FRONT_ACTION().checkRequested())
+    if (pBusFrontalCycler->getCO_CYCLER_ACTION().checkRequested())
     {
         // start requested
-        if (pArmBus->getCO_FRONT_ACTION().getValue()) 
+        if (pBusFrontalCycler->getCO_CYCLER_ACTION().getValue()) 
             setState(eSTATE_START);                   
         // stop requested
         else

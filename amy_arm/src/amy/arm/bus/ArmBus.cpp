@@ -20,8 +20,11 @@ void ArmBus::init(Arm& oArm)
 {
     numJoints = 0;
     armName = oArm.getName();
-         
-    // name axes buses
+    
+    // init cycler buses
+    oFrontalCyclerBus.init("frontalcycler");
+    
+    // init axis buses
     oBusPan.init("pan");
     oBusTilt.init("tilt");
     oBusRadial.init("radial");
@@ -105,10 +108,7 @@ JointBus& ArmBus::getJointBus(std::string jointName)
 std::string ArmBus::toString()
 {
     std::string text = "ArmBus:[" + armName + "]\n" +       
-        "CO_FRONT_FREQ: " + std::to_string(CO_FRONT_FREQ.getValue()) + "\n" +
-        "CO_FRONT_AMPLITUDE: " + std::to_string(CO_FRONT_AMPLITUDE.getValue()) + "\n" +
-        "CO_FRONT_ANGLE: " + std::to_string(CO_FRONT_ANGLE.getValue()) + "\n" +
-        "CO_FRONT_ACTION: " + std::to_string(CO_FRONT_ACTION.getValue()) + "\n" +
+        "\n" + oFrontalCyclerBus.toString() +   
         "CO_KEEP_TILT: " + std::to_string(CO_KEEP_TILT.getRequested()) + " - " + std::to_string(CO_KEEP_TILT.getValue()) + "\n" +
         "\n" + oBusPan.toString() +   
         "\n" + oBusTilt.toString() +   

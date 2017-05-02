@@ -32,6 +32,7 @@ public:
     void setPos(int pan, int tilt, int radius);
     void testCycler2();
     void testKeepTilt();    
+    void testArmMover();
 
 private:        
     void testJointMove();

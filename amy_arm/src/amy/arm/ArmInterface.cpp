@@ -13,6 +13,7 @@ ArmInterface::ArmInterface()
 {    
     benabled = false;
     pArmBus = 0;
+    pBusFrontalCycler = 0;
     pBusPan = 0;
     pBusTilt = 0;
     pBusRadial = 0;
@@ -26,6 +27,7 @@ ArmInterface::ArmInterface()
 void ArmInterface::connect(ArmBus& oArmBus)
 {
     pArmBus = &oArmBus;
+    pBusFrontalCycler = &oArmBus.getFrontalCyclerBus();
     pBusPan = &oArmBus.getPanBus();
     pBusTilt = &oArmBus.getTiltBus();
     pBusRadial = &oArmBus.getRadialBus();
@@ -42,25 +44,25 @@ void ArmInterface::connect(ArmBus& oArmBus)
 void ArmInterface::frontFrequency(float value)
 {
     if (benabled)
-        pArmBus->getCO_FRONT_FREQ().request(value);                    
+        pBusFrontalCycler->getCO_CYCLER_FREQ().request(value);                    
 }
 // set front amplitude (degrees)
 void ArmInterface::frontAmplitude(float value)
 {
     if (benabled)
-        pArmBus->getCO_FRONT_AMPLITUDE().request(value);                    
+        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().request(value);                    
 }
 // set front angle (degrees)
 void ArmInterface::frontAngle(float value)
 {
     if (benabled)
-        pArmBus->getCO_FRONT_ANGLE().request(value);                    
+        pBusFrontalCycler->getCO_CYCLER_ANGLE().request(value);                    
 }
 // start/stop front cyclic movement
 void ArmInterface::frontAction(bool bvalue)
 {
     if (benabled)
-        pArmBus->getCO_FRONT_ACTION().request(bvalue);                    
+        pBusFrontalCycler->getCO_CYCLER_ACTION().request(bvalue);                    
 }
 
 //// set tilt cyclic frequency

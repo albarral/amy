@@ -20,6 +20,7 @@
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
 #include "amy/math/ArmMath.h"
+#include "amy/math/MoveFactory.h"
 
 using namespace log4cxx;
 
@@ -48,10 +49,10 @@ void ArmTest::testCycler2()
     float amplitude = 20;
     float freq = 0.5;
     bool bgo = true;
-    pArmBus->getCO_FRONT_ANGLE().request(angle);
-    pArmBus->getCO_FRONT_AMPLITUDE().request(amplitude);
-    pArmBus->getCO_FRONT_FREQ().request(freq);
-    pArmBus->getCO_FRONT_ACTION().request(bgo);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE().request(angle);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE().request(amplitude);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ().request(freq);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(bgo);
 }
 
 void ArmTest::setPos(int pan, int tilt, int radius)
@@ -164,6 +165,18 @@ void ArmTest::testArmMath()
 //    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
 }
 
+void ArmTest::testArmMover()
+{
+    LOG4CXX_INFO(logger, "testArmMover");    
+    
+    if (!isConnected())
+         return;
+        
+    int movType = MoveFactory::eMOV_LINE;
+    bool bgo = true;
+    pArmBus->getCO_MOVER_TYPE().request(movType);
+    pArmBus->getCO_MOVER_ACTION().request(bgo);
+}
 
 
 }

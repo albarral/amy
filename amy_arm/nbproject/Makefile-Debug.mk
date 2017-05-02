@@ -40,8 +40,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/ArmTest.o \
 	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/AxisBus.o \
+	${OBJECTDIR}/src/amy/arm/bus/CyclerBus.o \
 	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
+	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
@@ -120,6 +122,11 @@ ${OBJECTDIR}/src/amy/arm/bus/AxisBus.o: src/amy/arm/bus/AxisBus.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/AxisBus.o src/amy/arm/bus/AxisBus.cpp
 
+${OBJECTDIR}/src/amy/arm/bus/CyclerBus.o: src/amy/arm/bus/CyclerBus.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/CyclerBus.o src/amy/arm/bus/CyclerBus.cpp
+
 ${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
 	${RM} "$@.d"
@@ -129,6 +136,11 @@ ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
+
+${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmSense.o: src/amy/arm/modules/ArmSense.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

@@ -11,6 +11,7 @@
 
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/arm/bus/AxisBus.h"
+#include "amy/arm/bus/CyclerBus.h"
 #include "amy/control/TriangularSignal.h"
 #include "amy/math/LinearMove.h"
 
@@ -35,6 +36,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // bus 
+    CyclerBus* pBusFrontalCycler;  // bus connection for this cycler
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
