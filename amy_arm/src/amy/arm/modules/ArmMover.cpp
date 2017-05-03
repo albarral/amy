@@ -7,7 +7,6 @@
 
 #include "amy/arm/modules/ArmMover.h"
 
-
 using namespace log4cxx;
 
 namespace amy
@@ -19,8 +18,6 @@ ArmMover::ArmMover()
     modName = "ArmMover";
     // bus
     pBusFrontalCycler = 0;
-    barmed = false;
-    factor = 1.1;   // default change factor (10%) 
 }
 
 //ArmMover::~ArmMover()
@@ -47,104 +44,137 @@ void ArmMover::loop()
 {
     senseBus();
     
-    int state = getState();    
-    if (isStateChanged())
-        showState();
-    
     // skip if WAIT 
-    if (state == eSTATE_WAIT)            
+    if (getState() == eSTATE_WAIT)            
         return;
 
-    switch (state)
+    if (isStateChanged())
+        showState();
+
+    switch (getState())
     {
         case eSTATE_TALK:
             
-            // go to WAIT    
+            // talk to cyclers & go to WAIT    
+            talk2Cyclers();
             setState(eSTATE_WAIT);
             break;
     }   // end switch        
     
-    writeBus();
+    //writeBus();
 }
 
 void ArmMover::senseBus()
 {
-    bool bupdateMove = false;
-
-    // check movement type requests
+    // check move requests
     if (pArmBus->getCO_MOVER_TYPE().checkRequested())
     {
-        // compute movement & set to armed
+        // compute movement 
         oCyclicMove = oMoveFactory.computeMove(pArmBus->getCO_MOVER_TYPE().getValue());
-        barmed = true;
-        bupdateMove = true;
+        oCyclicMove.setElasticity(0.1);
+        // and send TRIGGER message
+        message = eMSG_TRIGGER;
+        setState(eSTATE_TALK);                       
     }
     
     // check action requests
     if (pArmBus->getCO_MOVER_ACTION().checkRequested())
     {                
-        // store requested action
-        bcyclerAction = pBusFrontalCycler->getCO_CYCLER_ACTION().getValue();
-        bupdateMove = true;
+        // send TRIGGER or STOP message
+        if (pArmBus->getCO_MOVER_ACTION().getValue())
+            message = eMSG_TRIGGER;
+        else
+            message = eMSG_STOP;
+        setState(eSTATE_TALK);                       
     }
     
     // check turn requests
     if (pArmBus->getCO_MOVER_TURN().checkRequested())
     {                
         // update movement orientation
-        int angle = pArmBus->getCO_MOVER_TURN().getValue();
-        oCyclicMove.makeTurn(angle);
-        bupdateMove = true;
+        oCyclicMove.makeTurn(pArmBus->getCO_MOVER_TURN().getValue());
+        // and send UPDATE message
+        message = eMSG_UPDATE;
+        setState(eSTATE_TALK);                       
     }
         
     // check width requests
     if (pArmBus->getCO_MOVER_WIDER().checkRequested())
     {                
-        // make move wider
-        if (pArmBus->getCO_MOVER_WIDER().getValue())
-            oCyclicMove.makeWider(factor);
-        // make move narrower
-        else
-            oCyclicMove.makeWider(1.0/factor);
-        bupdateMove = true;
+        // make move wider or narrower
+        oCyclicMove.makeWider(pArmBus->getCO_MOVER_WIDER().getValue());
+        // and send UPDATE message
+        message = eMSG_UPDATE;
+        setState(eSTATE_TALK);                       
     }
         
     // check height requests
     if (pArmBus->getCO_MOVER_TALLER().checkRequested())
     {                
-        // make move taller
-        if (pArmBus->getCO_MOVER_TALLER().getValue())
-            oCyclicMove.makeTaller(factor);
-        // make move shorter
-        else
-            oCyclicMove.makeTaller(1.0/factor);
-        bupdateMove = true;
+        // make move taller or shorter
+        oCyclicMove.makeTaller(pArmBus->getCO_MOVER_TALLER().getValue());
+        // and send UPDATE message
+        message = eMSG_UPDATE;
+        setState(eSTATE_TALK);                       
     }
            
     // check speed requests
     if (pArmBus->getCO_MOVER_FASTER().checkRequested())
     {                
-        // make move faster
-        if (pArmBus->getCO_MOVER_FASTER().getValue())
-            oCyclicMove.makeFaster(factor);
-        // make move slower
-        else
-            oCyclicMove.makeFaster(1.0/factor);
-        bupdateMove = true;
-    }
-
-    // movement to be updated -> go to TALK    
-    if (barmed && bupdateMove)
+        // make move faster or slower
+        oCyclicMove.makeFaster(pArmBus->getCO_MOVER_FASTER().getValue());
+        // and send UPDATE message
+        message = eMSG_UPDATE;
         setState(eSTATE_TALK);                       
+    }
 }
 
-void ArmMover::writeBus()
+void ArmMover::talk2Cyclers()
+{
+    switch (message)
+    {
+        case eMSG_TRIGGER:
+            // triggers the cyclic movement
+            triggerMove();
+            break;
+            
+        case eMSG_STOP:
+            // stops the cyclic movement
+            stopMove();
+            break;
+            
+        case eMSG_UPDATE:            
+            // changes the cyclic movement           
+            updateMove();
+            break;
+    }
+}
+
+void ArmMover::triggerMove()
 {    
-    // command new move steps to the joints
+    // sets a cyclic movement           
+    updateMove();
+    // and starts it
+    pBusFrontalCycler->getCO_CYCLER_ACTION().request(true);
+}
+
+void ArmMover::stopMove()
+{    
+    // stops the cyclic movement
+    pBusFrontalCycler->getCO_CYCLER_ACTION().request(false);
+}
+
+void ArmMover::updateMove()
+{        
+    // changes the cyclic movement           
     pBusFrontalCycler->getCO_CYCLER_FREQ().request(oCyclicMove.getFreq1());     
     pBusFrontalCycler->getCO_CYCLER_ANGLE().request(oCyclicMove.getAngle1());
     pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().request(oCyclicMove.getAmp1());
-    pBusFrontalCycler->getCO_CYCLER_ACTION().request(bcyclerAction);
+}
+
+
+void ArmMover::writeBus()
+{    
 }
 
 void ArmMover::showState()

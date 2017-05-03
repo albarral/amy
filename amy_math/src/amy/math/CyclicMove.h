@@ -23,8 +23,11 @@ private:
     float freq2;   // movement frequency (Hz)
     float angle2;  // movement frontal angle (degrees)
     float amp2;   // movement amplitude (degress)
-    // phase
+    // general
     float phase;   // phase difference between both cyclic components
+    float elasticity;
+    float changeUp;
+    float changeDown;
     
 public:  
     CyclicMove();
@@ -48,15 +51,16 @@ public:
     float getFreq2() {return freq2;}; 
     float getAngle2() {return angle2;}; 
     float getAmp2() {return amp2;}; 
-    // phase
+    // general
     void setPhase(float value) {phase = value;}
+    void setElasticity(float value);
     
     // update movement making it wider/narrower
-    void makeWider(float change); 
+    void makeWider(bool bchange); 
     // update movement making it taller/shorter
-    void makeTaller(float change); 
+    void makeTaller(bool bchange); 
     // update movement making it faster/slower
-    void makeFaster(float change); 
+    void makeFaster(bool bchange); 
     // update movement changing its orientation the specified angle
     void makeTurn(float degrees); 
 };

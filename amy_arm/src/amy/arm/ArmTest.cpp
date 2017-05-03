@@ -175,7 +175,7 @@ void ArmTest::testArmMover()
     int movType = MoveFactory::eMOV_LINE;
     bool bgo = true;
     pArmBus->getCO_MOVER_TYPE().request(movType);
-    pArmBus->getCO_MOVER_ACTION().request(bgo);
+    //pArmBus->getCO_MOVER_ACTION().request(bgo);
 }
 
 

@@ -17,22 +17,33 @@ CyclicMove::CyclicMove()
     freq2 = 0.0;
     angle2 = 0.0;
     amp2 = 0.0;
+    phase = 0.0;
+    setElasticity(0.1);
 }
 
-void CyclicMove::makeWider(float change)
+void CyclicMove::setElasticity(float value)
 {
+    elasticity = value;
+    changeUp = 1.0+elasticity;
+    changeDown = 1.0/changeUp;
+}
+void CyclicMove::makeWider(bool bchange)
+{
+    float change = (bchange ? changeUp : changeDown);
     // just affects first component
     amp1 = change*amp1;    
 }
 
-void CyclicMove::makeTaller(float change)
+void CyclicMove::makeTaller(bool bchange)
 {
+    float change = (bchange ? changeUp : changeDown);
     // just affects second component
     amp2 = change*amp2;    
 }
 
-void CyclicMove::makeFaster(float change)
+void CyclicMove::makeFaster(bool bchange)
 {
+    float change = (bchange ? changeUp : changeDown);
     // affects both components equally
     freq1 = change*freq1;
     freq2 = change*freq2;

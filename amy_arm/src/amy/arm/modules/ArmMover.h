@@ -16,30 +16,37 @@
 
 namespace amy
 {
-// Module to perform predefined cyclic movements with the arm
-// States:
-// WAIT
-// TALK
+// Module to perform predefined cyclic movements with the arm.
+// It controls two cycler modules simultaneously to achieve complex moves.
+// States: 
+// The module is normally in WAIT state. It jumps to TALK state to send commands and returns back to WAIT.
+// Messages:
+// The module sends 3 types of messages using different bus channels.     
 class ArmMover : public ArmModule3
 {
 public:
     // states of ArmMover module
     enum eType
     {
-         eSTATE_WAIT,
-         eSTATE_TALK
+         eSTATE_WAIT,           // just senses bus
+         eSTATE_TALK           // sends commands to cyclers
+    };
+private:    
+    // types of message
+    enum eMsg
+    {
+         eMSG_TRIGGER,       // starts a cyclic movement   
+         eMSG_STOP,           // ends a cyclic movement   
+         eMSG_UPDATE       // modifies a cyclic movement
     };
 
-private:
     static log4cxx::LoggerPtr logger;
     // bus
     CyclerBus* pBusFrontalCycler;  // bus connection for this cycler
     // logic
     MoveFactory oMoveFactory;    
     CyclicMove oCyclicMove;    
-    bool barmed;    // the movement is armed (prepared)
-    bool bcyclerAction;     // start/stop cycler movement
-    float factor; // change factor
+    int message;        // type of message to be sent
 
 public:
         ArmMover();
@@ -58,6 +65,15 @@ private:
         virtual void showInitialized();
         // shows the present state name
         void showState();
+        
+        // sends message to cyclers
+        void talk2Cyclers();
+        // triggers a cyclic movement
+        void triggerMove();
+        // stop a cyclic movement
+        void stopMove();
+        // changes a cyclic movement        
+        void updateMove();
 };
 }
 #endif
