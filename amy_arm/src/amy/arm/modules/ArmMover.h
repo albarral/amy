@@ -16,12 +16,13 @@
 
 namespace amy
 {
-// Module to perform predefined cyclic movements with the arm.
-// It controls two cycler modules simultaneously to achieve complex moves.
+// Module to perform complex cyclic movements with the arm. It controls two cyclers simultaneously.
 // States: 
-// The module is normally in WAIT state. It jumps to TALK state to send commands and returns back to WAIT.
+// The module is usually in WAIT state.
+// It goes to TALK state for sending commands to cyclers.
+// Then returns fast to WAIT state.
 // Messages:
-// The module sends 3 types of messages using different bus channels.     
+// It sends 3 types of messages to cyclers: trigger, stop & update.
 class ArmMover : public ArmModule3
 {
 public:
@@ -42,7 +43,8 @@ private:
 
     static log4cxx::LoggerPtr logger;
     // bus
-    CyclerBus* pBusFrontalCycler;  // bus connection for this cycler
+    CyclerBus* pBusFrontalCycler;  // bus connection to first cycler
+    CyclerBus* pBusFrontalCycler2;  // bus connection to second cycler
     // logic
     MoveFactory oMoveFactory;    
     CyclicMove oCyclicMove;    

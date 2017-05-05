@@ -18,15 +18,19 @@ public:
     enum eCyclicActions
     {
          eCYCLIC_UNDEF,                          /*! undefined cyclic action */
-         eCYCLIC_FRONT_FREQ,                    // frontal movement 
+         // FRONTAL CYCLER
+         eCYCLIC_FRONT_FREQ,  
          eCYCLIC_FRONT_AMP,
          eCYCLIC_FRONT_ANGLE,
          eCYCLIC_FRONT_START,
          eCYCLIC_FRONT_STOP,
-//         eCYCLIC_TILT_FREQ,                      // tilt movement
-//         eCYCLIC_TILT_AMP,
-//         eCYCLIC_TILT_TRIGGER,
-//         eCYCLIC_TILT_STOP,
+         // ARM MOVER
+         eCYCLIC_MOVER_LAUNCH,
+         eCYCLIC_MOVER_STOP,
+         eCYCLIC_MOVER_TURN,
+         eCYCLIC_MOVER_WIDER,
+         eCYCLIC_MOVER_TALLER,
+         eCYCLIC_MOVER_FASTER,
          eCYCLIC_DIM
     };
 
@@ -34,8 +38,6 @@ public:
 
     // check if given action is valid for this category
     static bool isValidAction(int value);
-    // describe given action name for this category
-    static std::string describeAction(int value);
     
  private:    
     // builds category with a list of commands

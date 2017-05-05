@@ -25,17 +25,26 @@ public:
 
     std::string getCommand() {return text;};
     
-   // front cyclic movements    
-    virtual void frontFrequency(float value);
+     // ARM MOVER
+    // launch this movement type
+    virtual void launchMove(int value);
+    // stop movement
+    virtual void stopMove();
+    // turn the movement these angle (degrees)
+    virtual void turnMove(int value);
+    // make movement wider/narrower
+    virtual void moveWider(bool value);
+    // make movement taller/shorter
+    virtual void moveTaller(bool value);
+    // make movement faster/slower
+    virtual void moveFaster(bool value);
+    
+    // FRONTAL CYCLER
+   virtual void frontFrequency(float value);
     virtual void frontAmplitude(float value);
     virtual void frontAngle(float value);
     virtual void frontStart();
     virtual void frontStop();
-//    // tilt cyclic movements
-//    virtual void tiltFrequency(float value);
-//    virtual void tiltAmplitude(float value);
-//    virtual void tiltTrigger();
-//    virtual void tiltStop();
 
 private:
     // obtains the textual form of the given command

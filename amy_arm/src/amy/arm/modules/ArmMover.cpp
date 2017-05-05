@@ -18,6 +18,7 @@ ArmMover::ArmMover()
     modName = "ArmMover";
     // bus
     pBusFrontalCycler = 0;
+    pBusFrontalCycler2 = 0;
 }
 
 //ArmMover::~ArmMover()
@@ -36,6 +37,7 @@ void ArmMover::first()
     setState(eSTATE_WAIT);
     
     pBusFrontalCycler = &pArmBus->getFrontalCyclerBus();    
+    //pBusFrontalCycler2 = &pArmBus->getFrontalCyclerBus2();    // to do (when second cycler available)
     log4cxx::NDC::push(modName);   	
 }
                     
@@ -55,7 +57,7 @@ void ArmMover::loop()
     {
         case eSTATE_TALK:
             
-            // talk to cyclers & go to WAIT    
+            // send commands to cyclers & go to WAIT    
             talk2Cyclers();
             setState(eSTATE_WAIT);
             break;
@@ -71,8 +73,9 @@ void ArmMover::senseBus()
     {
         // compute movement 
         oCyclicMove = oMoveFactory.computeMove(pArmBus->getCO_MOVER_TYPE().getValue());
+        // and give it an elasticity to change
         oCyclicMove.setElasticity(0.1);
-        // and send TRIGGER message
+        // prepare to send a trigger message
         message = eMSG_TRIGGER;
         setState(eSTATE_TALK);                       
     }
@@ -80,7 +83,7 @@ void ArmMover::senseBus()
     // check action requests
     if (pArmBus->getCO_MOVER_ACTION().checkRequested())
     {                
-        // send TRIGGER or STOP message
+        // prepare to send a trigger or stop message
         if (pArmBus->getCO_MOVER_ACTION().getValue())
             message = eMSG_TRIGGER;
         else
@@ -93,7 +96,7 @@ void ArmMover::senseBus()
     {                
         // update movement orientation
         oCyclicMove.makeTurn(pArmBus->getCO_MOVER_TURN().getValue());
-        // and send UPDATE message
+        // prepare to send an update message
         message = eMSG_UPDATE;
         setState(eSTATE_TALK);                       
     }
@@ -103,7 +106,7 @@ void ArmMover::senseBus()
     {                
         // make move wider or narrower
         oCyclicMove.makeWider(pArmBus->getCO_MOVER_WIDER().getValue());
-        // and send UPDATE message
+        // prepare to send an update message
         message = eMSG_UPDATE;
         setState(eSTATE_TALK);                       
     }
@@ -113,7 +116,7 @@ void ArmMover::senseBus()
     {                
         // make move taller or shorter
         oCyclicMove.makeTaller(pArmBus->getCO_MOVER_TALLER().getValue());
-        // and send UPDATE message
+        // prepare to send an update message
         message = eMSG_UPDATE;
         setState(eSTATE_TALK);                       
     }
@@ -123,7 +126,7 @@ void ArmMover::senseBus()
     {                
         // make move faster or slower
         oCyclicMove.makeFaster(pArmBus->getCO_MOVER_FASTER().getValue());
-        // and send UPDATE message
+        // prepare to send an update message
         message = eMSG_UPDATE;
         setState(eSTATE_TALK);                       
     }
@@ -152,29 +155,48 @@ void ArmMover::talk2Cyclers()
 
 void ArmMover::triggerMove()
 {    
-    // sets a cyclic movement           
+    // modulates both cyclic movements           
     updateMove();
-    // and starts it
-    pBusFrontalCycler->getCO_CYCLER_ACTION().request(true);
+    // starts move of first cycler
+    if (pBusFrontalCycler != 0)
+        pBusFrontalCycler->getCO_CYCLER_ACTION().request(true);
+    // starts move of second cycler
+    if (pBusFrontalCycler2 != 0)
+        pBusFrontalCycler2->getCO_CYCLER_ACTION().request(true);
 }
 
 void ArmMover::stopMove()
 {    
-    // stops the cyclic movement
-    pBusFrontalCycler->getCO_CYCLER_ACTION().request(false);
+    // stops move of first cycler
+    if (pBusFrontalCycler != 0)
+        pBusFrontalCycler->getCO_CYCLER_ACTION().request(false);
+    // stops move of second cycler
+    if (pBusFrontalCycler2 != 0)
+        pBusFrontalCycler2->getCO_CYCLER_ACTION().request(false);
 }
 
 void ArmMover::updateMove()
 {        
-    // changes the cyclic movement           
-    pBusFrontalCycler->getCO_CYCLER_FREQ().request(oCyclicMove.getFreq1());     
-    pBusFrontalCycler->getCO_CYCLER_ANGLE().request(oCyclicMove.getAngle1());
-    pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().request(oCyclicMove.getAmp1());
+    // modulates move of first cycler
+    if (pBusFrontalCycler != 0)
+    {
+        pBusFrontalCycler->getCO_CYCLER_FREQ().request(oCyclicMove.getFreq1());     
+        pBusFrontalCycler->getCO_CYCLER_ANGLE().request(oCyclicMove.getAngle1());
+        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().request(oCyclicMove.getAmp1());
+    }
+    // modulates move of second cycler
+    if (pBusFrontalCycler2 != 0)
+    {
+        pBusFrontalCycler2->getCO_CYCLER_FREQ().request(oCyclicMove.getFreq2());     
+        pBusFrontalCycler2->getCO_CYCLER_ANGLE().request(oCyclicMove.getAngle2());
+        pBusFrontalCycler2->getCO_CYCLER_AMPLITUDE().request(oCyclicMove.getAmp2());
+    }
 }
 
-
 void ArmMover::writeBus()
-{    
+{
+    // nothing to do here    
+    // control already done by triggerMove, stopMove & updateMove methods
 }
 
 void ArmMover::showState()

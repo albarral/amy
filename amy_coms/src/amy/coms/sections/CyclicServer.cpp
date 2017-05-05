@@ -27,6 +27,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
 
     switch (oAmyCommand.getAction())
     {
+        // FRONTAL CYCLER
         case CyclicCategory::eCYCLIC_FRONT_FREQ:
             LOG4CXX_INFO(logger, "> set front freq " << value);                        
             frontFrequency(value);
@@ -51,26 +52,37 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             LOG4CXX_INFO(logger, "> front stop ");                        
             frontStop();
             break;
+
+       // ARM MOVER            
+        case CyclicCategory::eCYCLIC_MOVER_LAUNCH:
+            LOG4CXX_INFO(logger, "> set tilt freq " << value);                        
+            tiltFrequency(value);
+            break;
             
-//        case CyclicCategory::eCYCLIC_TILT_FREQ:
-//            LOG4CXX_INFO(logger, "> set tilt freq " << value);                        
-//            tiltFrequency(value);
-//            break;
-//            
-//        case CyclicCategory::eCYCLIC_TILT_AMP:
-//            LOG4CXX_INFO(logger, "> set tilt amplitude " << value);                        
-//            tiltAmplitude(value);
-//            break;
-//
-//        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
-//            LOG4CXX_INFO(logger, "> tilt trigger ");                        
-//            tiltTrigger();
-//            break;
-//
-//        case CyclicCategory::eCYCLIC_TILT_STOP:
-//            LOG4CXX_INFO(logger, "> tilt stop ");                        
-//            tiltStop();
-//            break;
+        case CyclicCategory::eCYCLIC_MOVER_STOP:
+            LOG4CXX_INFO(logger, "> set tilt amplitude " << value);                        
+            tiltAmplitude(value);
+            break;
+
+        case CyclicCategory::eCYCLIC_MOVER_TURN:
+            LOG4CXX_INFO(logger, "> tilt trigger ");                        
+            tiltTrigger();
+            break;
+
+        case CyclicCategory::eCYCLIC_MOVER_WIDER:
+            LOG4CXX_INFO(logger, "> tilt stop ");                        
+            tiltStop();
+            break;
+
+        case CyclicCategory::eCYCLIC_MOVER_TALLER:
+            LOG4CXX_INFO(logger, "> tilt stop ");                        
+            tiltStop();
+            break;
+
+        case CyclicCategory::eCYCLIC_MOVER_FASTER:
+            LOG4CXX_INFO(logger, "> tilt stop ");                        
+            tiltStop();
+            break;
 
         default:
             bret = false;
@@ -79,6 +91,8 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
     return bret;
 }
 
+
+// FRONTAL CYCLER
 // set front cyclic frequency
 void CyclicServer::frontFrequency(float value)
 {
@@ -110,28 +124,36 @@ void CyclicServer::frontStop()
         pArmInterface->frontAction(false);
 }
 
-// set tilt cyclic frequency
-//void CyclicServer::tiltFrequency(float value)
-//{
-//    if (pArmInterface != 0)
-//        pArmInterface->tiltFrequency(value);
-//}
-//// set tilt amplitude (degrees)
-//void CyclicServer::tiltAmplitude(float value)
-//{
-//    if (pArmInterface != 0)
-//        pArmInterface->tiltAmplitude(value);
-//}
-//// trigger tilt cyclic movement
-//void CyclicServer::tiltTrigger()
-//{
-//    if (pArmInterface != 0)
-//        pArmInterface->tiltTrigger();
-//}
-//// stop tilt cyclic movement
-//void CyclicServer::tiltStop()
-//{
-//    if (pArmInterface != 0)
-//        pArmInterface->tiltStop();
-//}
+
+// ARM MOVER            
+void CyclicServer::launchMove(int value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->launchMove(value);
+}
+void CyclicServer::stopMove()
+{
+    if (pArmInterface != 0)
+        pArmInterface->stopMove();
+}
+void CyclicServer::turnMove(int value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->turnMove(value);
+}
+void CyclicServer::moveWider(bool value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->moveWider(value);
+}
+void CyclicServer::moveTaller(bool value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->moveTaller(value);
+}
+void CyclicServer::moveFaster(bool value)
+{
+    if (pArmInterface != 0)
+        pArmInterface->moveFaster(value);
+}
 }

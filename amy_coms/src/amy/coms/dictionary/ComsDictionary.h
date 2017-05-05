@@ -33,9 +33,6 @@ public:
     // describe dictionary
     std::string toString();
     
-    // describe given action name of the given category
-    static std::string describeAction4Category(int cat, int action);
-
 };
 }
 #endif

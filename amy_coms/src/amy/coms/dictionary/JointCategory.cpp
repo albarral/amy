@@ -36,30 +36,4 @@ bool JointCategory::isValidAction(int value)
     return (value > JointCategory::eJOINT_UNDEF && value < JointCategory::eJOINT_DIM);
 }
 
-std::string JointCategory::describeAction(int value)
-{
-    std::string desc;
-    switch (value)
-    {
-        case JointCategory::eJOINT_HS_POS:
-            desc = "hs pos";
-            break;
-        case JointCategory::eJOINT_VS_POS:
-            desc = "vs pos";
-            break;
-        case JointCategory::eJOINT_ELB_POS:
-            desc = "elb pos";
-            break;
-        case JointCategory::eJOINT_HWRI_POS:
-            desc = "hwri pos";
-            break;
-        case JointCategory::eJOINT_VWRI_POS:
-            desc = "vwri pos";
-            break;
-        default:
-            desc = "unknown";           
-    }   
-    return desc;    
-}
-
 }

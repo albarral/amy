@@ -18,69 +18,39 @@ void CyclicCategory::build()
 {
     listCommands.clear();
     
-    // define commands for front cyclic movements (all require an extra value)
-    ComsCommand oCommand(ID, CyclicCategory::eCYCLIC_FRONT_FREQ, "f1", 1, "set frequency of frontal cycler (Hz)");    
+    int needsValue = 1; // command needs an extra value
+    int noValue = 0;      // command doesn't need an extra value
+    
+    // commands definition for all cyclic movements 
+    // FRONTAL CYCLER
+    ComsCommand oCommand(ID, CyclicCategory::eCYCLIC_FRONT_FREQ, "f1", needsValue, "set frequency of frontal cycler (Hz)");    
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_AMP, "amp1", 1, "set amplitude of frontal cycler (degrees)");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_AMP, "amp1", needsValue, "set amplitude of frontal cycler (degrees)");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_ANGLE, "ang1", 1, "set orientation of frontal cycler (degrees)");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_ANGLE, "ang1", needsValue, "set orientation of frontal cycler (degrees)");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_START, "go1", 0, "start frontal cycler movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_START, "go1", noValue, "start frontal cycler movement");
     listCommands.push_back(oCommand);
-    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_STOP, "end1", 0, "stop frontal cycler movement");
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_FRONT_STOP, "end1", noValue, "stop frontal cycler movement");
     listCommands.push_back(oCommand);
-    // define commands for tilt cyclic movements
-//    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_FREQ, "tiltf", 1, "set frequency of tilt cycles (Hz)");    
-//    listCommands.push_back(oCommand);
-//    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_AMP, "tilta", 1, "set amplitude of tilt cycles (degrees)");
-//    listCommands.push_back(oCommand);
-//    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_TRIGGER, "tilt1", 0, "trigger tilt cyclic movement");
-//    listCommands.push_back(oCommand);
-//    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_TILT_STOP, "tilt0", 0, "stop tilt cyclic movement");
-//    listCommands.push_back(oCommand);
+    // ARM MOVER
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_MOVER_LAUNCH, "mov", needsValue, "launch specified movement (type)");    
+    listCommands.push_back(oCommand);
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_MOVER_STOP, "m0", noValue, "stops cyclic movement");
+    listCommands.push_back(oCommand);
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_MOVER_TURN, "tur", needsValue, "turns cyclic movement (degrees)");
+    listCommands.push_back(oCommand);
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_MOVER_WIDER, "wid", needsValue, "makes cyclic movement wider (1) or narrower (0)");
+    listCommands.push_back(oCommand);
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_MOVER_TALLER, "tal", needsValue, "makes cyclic movement taller (1) or shorter (0)");
+    listCommands.push_back(oCommand);
+    oCommand = ComsCommand(ID, CyclicCategory::eCYCLIC_MOVER_FASTER, "fas", needsValue, "makes cyclic movement faster (1) or slower (0)");
+    listCommands.push_back(oCommand);
 }
 
 bool CyclicCategory::isValidAction(int value)
 {
     return (value > CyclicCategory::eCYCLIC_UNDEF && value < CyclicCategory::eCYCLIC_DIM);
-}
-
-std::string CyclicCategory::describeAction(int value)
-{
-    std::string desc;
-    switch (value)
-    {
-        case CyclicCategory::eCYCLIC_FRONT_FREQ:
-            desc = "front frequency";
-            break;
-        case CyclicCategory::eCYCLIC_FRONT_AMP:
-            desc = "front amplitude";
-            break;
-        case CyclicCategory::eCYCLIC_FRONT_ANGLE:
-            desc = "front angle";
-            break;
-        case CyclicCategory::eCYCLIC_FRONT_START:
-            desc = "front start";
-            break;
-        case CyclicCategory::eCYCLIC_FRONT_STOP:
-            desc = "front stop";
-            break;
-//        case CyclicCategory::eCYCLIC_TILT_FREQ:
-//            desc = "tilt frequency";
-//            break;
-//        case CyclicCategory::eCYCLIC_TILT_AMP:
-//            desc = "tilt amplitude";
-//            break;
-//        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
-//            desc = "tilt trigger";
-//            break;
-//        case CyclicCategory::eCYCLIC_TILT_STOP:
-//            desc = "tilt stop";
-//            break;
-        default:
-            desc = "unknown";           
-    }    
-    return desc;    
 }
 
 }

@@ -39,7 +39,40 @@ void ArmInterface::connect(ArmBus& oArmBus)
     benabled = true;
 }
 
-// CYCLIC MOVEMENTS
+
+// ARM MOVER
+void ArmInterface::launchMove(int value)
+{
+    if (benabled)
+        pArmBus->getCO_MOVER_TYPE().request(value);                    
+}
+void ArmInterface::stopMove()
+{
+    if (benabled)
+        pArmBus->getCO_MOVER_ACTION().request(false);                    
+}
+void ArmInterface::turnMove(int value)
+{
+    if (benabled)
+        pArmBus->getCO_MOVER_TURN().request(value);                    
+}
+void ArmInterface::moveWider(bool value)
+{
+    if (benabled)
+        pArmBus->getCO_MOVER_WIDER().request(value);                    
+}
+void ArmInterface::moveTaller(bool value)
+{
+    if (benabled)
+        pArmBus->getCO_MOVER_TALLER().request(value);                    
+}
+void ArmInterface::moveFaster(bool value)
+{
+    if (benabled)
+        pArmBus->getCO_MOVER_FASTER().request(value);                    
+}
+
+// CYCLERS
 // set front cyclic frequency
 void ArmInterface::frontFrequency(float value)
 {
@@ -64,32 +97,6 @@ void ArmInterface::frontAction(bool bvalue)
     if (benabled)
         pBusFrontalCycler->getCO_CYCLER_ACTION().request(bvalue);                    
 }
-
-//// set tilt cyclic frequency
-//void ArmInterface::tiltFrequency(float value)
-//{
-//    if (benabled)
-//        pBusTilt->getCO_AXIS_FREQUENCY().request(value);                    
-//}
-//// set tilt amplitude (degrees)
-//void ArmInterface::tiltAmplitude(float value)
-//{
-//    if (benabled)
-//        pBusTilt->getCO_AXIS_AMPLITUDE().request(value);                    
-//}
-//// trigger tilt cyclic movement
-//void ArmInterface::tiltTrigger()
-//{
-//    if (benabled)
-//        pBusTilt->getCO_AXIS_TRIGGER().request();                    
-//}
-//// stop tilt cyclic movement
-//void ArmInterface::tiltStop()
-//{
-//    if (benabled)
-//        pBusTilt->getCO_AXIS_STOP().request();                    
-//}
-
 
 // AXIS SPEEDS
 void ArmInterface::panSpeed(float value)

@@ -14,6 +14,44 @@ CyclicClient::CyclicClient()
     text = "";
 }
 
+
+// ARM MOVER
+void CyclicClient::launchMove(int value)
+{
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_MOVER_LAUNCH, value);
+    updateText(oCyclicCommand);
+}
+
+void CyclicClient::stopMove()
+{
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_MOVER_STOP);
+    updateText(oCyclicCommand);
+}
+
+void CyclicClient::turnMove(int value)
+{
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_MOVER_TURN, value);
+    updateText(oCyclicCommand);
+}
+
+void CyclicClient::moveWider(bool value)
+{
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_MOVER_WIDER, (value ? 1 : 0));
+    updateText(oCyclicCommand);
+}
+
+void CyclicClient::moveTaller(bool value)
+{
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_MOVER_TALLER, (value ? 1 : 0));
+    updateText(oCyclicCommand);
+}
+void CyclicClient::moveFaster(bool value)
+{
+    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_MOVER_FASTER, (value ? 1 : 0));
+    updateText(oCyclicCommand);
+}
+
+// FRONTAL CYCLER
 // set front cyclic frequency
 void CyclicClient::frontFrequency(float value)
 {
@@ -49,32 +87,6 @@ void CyclicClient::frontStop()
     updateText(oCyclicCommand);
 }
 
-//void CyclicClient::tiltFrequency(float value)
-//{
-//    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_TILT_FREQ, value);
-//    updateText(oCyclicCommand);
-//}
-//
-//// set tilt amplitude (degrees)
-//void CyclicClient::tiltAmplitude(float value)
-//{
-//    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_TILT_AMP, value);
-//    updateText(oCyclicCommand);
-//}
-//
-//// trigger tilt cyclic movement
-//void CyclicClient::tiltTrigger()
-//{
-//    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_TILT_TRIGGER);
-//    updateText(oCyclicCommand);
-//}
-//
-//// stop tilt cyclic movement
-//void CyclicClient::tiltStop()
-//{
-//    CyclicCommand oCyclicCommand(CyclicCategory::eCYCLIC_TILT_STOP);
-//    updateText(oCyclicCommand);
-//}
 
 void CyclicClient::updateText(CyclicCommand& oCyclicCommand)
 {       

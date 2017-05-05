@@ -12,17 +12,25 @@ namespace amy
 class iComsCyclic
 {    
 public:
-    // frontal cyclic movements
+    // ARM MOVER
+    // launch this movement type
+    virtual void launchMove(int value) = 0;
+    // stop movement
+    virtual void stopMove() = 0;
+    // turn the movement these angle (degrees)
+    virtual void turnMove(int value) = 0;
+    // make movement wider/narrower
+    virtual void moveWider(bool value) = 0;
+    // make movement taller/shorter
+    virtual void moveTaller(bool value) = 0;
+    // make movement faster/slower
+    virtual void moveFaster(bool value) = 0;
+    // FRONTAL CYCLER
     virtual void frontFrequency(float value) = 0;
     virtual void frontAmplitude(float value) = 0;
     virtual void frontAngle(float value) = 0;
     virtual void frontStart() = 0;
     virtual void frontStop() = 0;
-    // tilt cyclic movements
-//    virtual void tiltFrequency(float value) = 0;
-//    virtual void tiltAmplitude(float value) = 0;
-//    virtual void tiltTrigger() = 0;
-//    virtual void tiltStop() = 0;
 };
 }
 #endif

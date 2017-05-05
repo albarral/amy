@@ -15,8 +15,22 @@ class iArmInterface
 public:
     // check if it's enabled
     virtual bool isEnabled() = 0;
+        
+    // ARM MOVER
+    // launch this movement type
+    virtual void launchMove(int value) = 0;
+    // stop movement
+    virtual void stopMove() = 0;
+    // turn the movement these angle (degrees)
+    virtual void turnMove(int value) = 0;
+    // make movement wider/narrower
+    virtual void moveWider(bool value) = 0;
+    // make movement taller/shorter
+    virtual void moveTaller(bool value) = 0;
+    // make movement faster/slower
+    virtual void moveFaster(bool value) = 0;
 
-    // CYCLIC MOVEMENTS
+    // CYCLERS
     // set front frequency (Hz)
     virtual void frontFrequency(float value) = 0;
     // set front amplitude (degrees)
@@ -25,15 +39,6 @@ public:
     virtual void frontAngle(float value) = 0;
     // start/stop front cyclic movement
     virtual void frontAction(bool bvalue) = 0;
-
-//    // set tilt frequency (Hz)
-//    virtual void tiltFrequency(float value) = 0;
-//    // set tilt amplitude (degrees)
-//    virtual void tiltAmplitude(float value) = 0;
-//    // trigger tilt cyclic movement
-//    virtual void tiltTrigger() = 0;
-//    // stop tilt cyclic movement
-//    virtual void tiltStop() = 0;
 
     // AXIS SPEEDS
     // change pan speed

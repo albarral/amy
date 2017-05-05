@@ -43,7 +43,21 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
    
-    // CYCLIC MOVEMENTS
+    // ARM MOVER
+    // launch this movement type
+    virtual void launchMove(int value);
+    // stop movement
+    virtual void stopMove();
+    // turn the movement these angle (degrees)
+    virtual void turnMove(int value);
+    // make movement wider/narrower
+    virtual void moveWider(bool value);
+    // make movement taller/shorter
+    virtual void moveTaller(bool value);
+    // make movement faster/slower
+    virtual void moveFaster(bool value);
+    
+    // CYCLERS
     // set front frequency (Hz)
     virtual void frontFrequency(float value);
     // set front amplitude (degrees)
@@ -52,15 +66,6 @@ public:
     virtual void frontAngle(float value);
     // start/stop front cyclic movement
     virtual void frontAction(bool bvalue);
-
-//    // set tilt frequency (Hz)
-//    virtual void tiltFrequency(float value);
-//    // set tilt amplitude (degrees)
-//    virtual void tiltAmplitude(float value);
-//    // trigger tilt cyclic movement
-//    virtual void tiltTrigger();
-//    // stop tilt cyclic movement
-//    virtual void tiltStop();
 
     // AXIS SPEEDS
     // change pan speed
