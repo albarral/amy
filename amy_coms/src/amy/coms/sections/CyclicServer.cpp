@@ -24,6 +24,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
 {
     bool bret = true;
     float value = oAmyCommand.getValue();
+    bool byes;
 
     switch (oAmyCommand.getAction())
     {
@@ -55,33 +56,51 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
 
        // ARM MOVER            
         case CyclicCategory::eCYCLIC_MOVER_LAUNCH:
-            LOG4CXX_INFO(logger, "> set tilt freq " << value);                        
-            tiltFrequency(value);
+            LOG4CXX_INFO(logger, "> launch move " << (int)value);                        
+            this->launchMove((int)value);
             break;
             
         case CyclicCategory::eCYCLIC_MOVER_STOP:
-            LOG4CXX_INFO(logger, "> set tilt amplitude " << value);                        
-            tiltAmplitude(value);
+            LOG4CXX_INFO(logger, "> stop move");                        
+            this->stopMove();
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_TURN:
-            LOG4CXX_INFO(logger, "> tilt trigger ");                        
-            tiltTrigger();
+            LOG4CXX_INFO(logger, "> turn move " << (int)value);                        
+            this->turnMove((int)value);
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_WIDER:
-            LOG4CXX_INFO(logger, "> tilt stop ");                        
-            tiltStop();
+            byes = (value == 1.0);
+            if (byes)
+            {
+                LOG4CXX_INFO(logger, "> move wider");                        
+            }
+            else
+                LOG4CXX_INFO(logger, "> move narrower");                                        
+            this->moveWider(byes);
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_TALLER:
-            LOG4CXX_INFO(logger, "> tilt stop ");                        
-            tiltStop();
+            byes = (value == 1.0);
+            if (byes)
+            {
+                LOG4CXX_INFO(logger, "> move taller");                        
+            }
+            else
+                LOG4CXX_INFO(logger, "> move shorter");                                        
+            this->moveTaller(byes);
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_FASTER:
-            LOG4CXX_INFO(logger, "> tilt stop ");                        
-            tiltStop();
+            byes = (value == 1.0);
+            if (byes)
+            {
+                LOG4CXX_INFO(logger, "> move faster");                        
+            }
+            else
+                LOG4CXX_INFO(logger, "> move slower");                                        
+            this->moveFaster(byes);
             break;
 
         default:

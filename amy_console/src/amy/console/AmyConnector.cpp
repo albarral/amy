@@ -158,7 +158,7 @@ bool AmyConnector::sendCyclicCommand(int action, float value)
     CyclicClient& oCyclicClient = pAmyClient->getCyclicClient();
     switch (action)
     {
-        // pan cyclic moves
+        // FRONTAL CYCLER
         case CyclicCategory::eCYCLIC_FRONT_FREQ:
             oCyclicClient.frontFrequency(value);
             pAmyClient->sendCyclicCommand();
@@ -180,24 +180,32 @@ bool AmyConnector::sendCyclicCommand(int action, float value)
             pAmyClient->sendCyclicCommand();
             break;
 
-            // tilt cyclic moves
-//        case CyclicCategory::eCYCLIC_TILT_FREQ:
-//            oCyclicClient.tiltFrequency(value);
-//            pAmyClient->sendCyclicCommand();
-//            break;
-//        case CyclicCategory::eCYCLIC_TILT_AMP:
-//            oCyclicClient.tiltAmplitude(value);
-//            pAmyClient->sendCyclicCommand();
-//            break;
-//        case CyclicCategory::eCYCLIC_TILT_TRIGGER:
-//            oCyclicClient.tiltTrigger();
-//            pAmyClient->sendCyclicCommand();
-//            break;
-//        case CyclicCategory::eCYCLIC_TILT_STOP:            
-//            oCyclicClient.tiltStop();
-//            pAmyClient->sendCyclicCommand();
-//            break;
-                        
+        // ARM MOVER
+        case CyclicCategory::eCYCLIC_MOVER_LAUNCH:
+            oCyclicClient.launchMove((int)value);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_MOVER_STOP:
+            oCyclicClient.stopMove();
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_MOVER_TURN:
+            oCyclicClient.turnMove((int)value);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_MOVER_WIDER:            
+            oCyclicClient.moveWider(value == 1.0);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_MOVER_TALLER:            
+            oCyclicClient.moveTaller(value == 1.0);
+            pAmyClient->sendCyclicCommand();
+            break;
+        case CyclicCategory::eCYCLIC_MOVER_FASTER:            
+            oCyclicClient.moveFaster(value == 1.0);
+            pAmyClient->sendCyclicCommand();
+            break;
+
         default:
             LOG4CXX_ERROR(logger, "AmyConnector: cyclic request not available!");        
             bsent = false;

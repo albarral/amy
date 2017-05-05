@@ -25,6 +25,7 @@ public:
     virtual void moveTaller(bool value) = 0;
     // make movement faster/slower
     virtual void moveFaster(bool value) = 0;
+    
     // FRONTAL CYCLER
     virtual void frontFrequency(float value) = 0;
     virtual void frontAmplitude(float value) = 0;
