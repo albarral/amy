@@ -34,9 +34,12 @@ protected:
     PIDControl oPIDControl;       // PID controller to achieve the target speed    
     float speed1;                     // requested primary speed
     float speed2;                     // requested secondary speed
+    bool brequested;                // flag indicating a speed request has arrived
     float targetSpeed;              // final requested axis speed
+    // sensor
     float axisSpeed;                // measured axis speed
     int jointLimit;                    // value indicating the controlled joint is blocked (due to reached limit)   
+    int silentCycles;               // cycles with no requests
     // output
     int priority;                    // module's priority in control commands
     float outAccel;               // commanded joint acceleration     
@@ -52,18 +55,19 @@ protected:
         virtual void senseBus() = 0;
         // write info (control & sensory) to bus
         virtual void writeBus() = 0;
-        // updates target speed
-        void updateTargetSpeed();
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-        // show module initialization in logs
-        virtual void showInitialized();
+        // updates target speed
+        void updateTargetSpeed();
         // check if controlled joint is blocked (due to reached range limit)
         bool checkBlocked();                                                
+
+        // show module initialization in logs
+        virtual void showInitialized();
         // shows the present state name
         void showState();
 };

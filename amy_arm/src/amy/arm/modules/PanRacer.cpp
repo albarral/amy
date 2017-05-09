@@ -25,20 +25,18 @@ void PanRacer::setControlledJoint()
        
 void PanRacer::senseBus()
 {
+    brequested = false;
     // if primary pan speed requested -> NEWMOVE
     if (pBusPan->getCO_AXIS_SPEED().checkRequested())
     {
         speed1 = pBusPan->getCO_AXIS_SPEED().getValue();
-        updateTargetSpeed();
-        setState(eSTATE_NEWMOVE);                   
+        brequested = true;
     }
     // if secondary pan speed requested -> NEWMOVE
     if (pBusPan->getCO_AXIS_SPEED2().checkRequested())
     {
         speed2 = pBusPan->getCO_AXIS_SPEED2().getValue();
-        updateTargetSpeed();
-        if (getState() == eSTATE_DONE)
-            setState(eSTATE_NEWMOVE);                   
+        brequested = true;
     }
     
     // sense pan speed

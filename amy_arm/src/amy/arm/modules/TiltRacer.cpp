@@ -25,20 +25,18 @@ void TiltRacer::setControlledJoint()
        
 void TiltRacer::senseBus()
 {
+    brequested = false;
     // if primary tilt speed requested -> NEWMOVE
     if (pBusTilt->getCO_AXIS_SPEED().checkRequested())
     {
         speed1 = pBusTilt->getCO_AXIS_SPEED().getValue();
-        updateTargetSpeed();
-        setState(eSTATE_NEWMOVE);   
+        brequested = true;
     }
     // if secondary tilt speed requested -> NEWMOVE
     if (pBusTilt->getCO_AXIS_SPEED2().checkRequested())
     {
         speed2 = pBusTilt->getCO_AXIS_SPEED2().getValue();
-        updateTargetSpeed();
-        if (getState() == eSTATE_DONE)
-            setState(eSTATE_NEWMOVE);   
+        brequested = true;
     }
     
     // sense tilt speed

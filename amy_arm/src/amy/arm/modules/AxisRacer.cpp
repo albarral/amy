@@ -35,6 +35,7 @@ void AxisRacer::first()
     float* pPID = oArmConfig.getPIDRacer();
     oPIDControl.init(pPID[0], pPID[1], pPID[2]);
     speed1 = speed2 = 0.0;
+    silentCycles = 0;
 
     log4cxx::NDC::push(modName);   	
 }
@@ -45,23 +46,43 @@ void AxisRacer::loop()
 {
     senseBus();
 
-    int state = getState();
-    // skip if DONE
-    if (state == eSTATE_DONE)            
-        return;
+    // if control requested
+    if (brequested)
+    {    
+        silentCycles = 0;
+
+        // exit from DONE 
+        if (getState() == eSTATE_DONE)            
+            setState(eSTATE_NEWMOVE);                           
+
+        // update target speed 
+        updateTargetSpeed();
+    }
+    else
+        silentCycles++;
             
-    switch (state)
+    switch (getState())
     {
+        case eSTATE_DONE:
+            // skip if DONE
+            return;
+            
         case eSTATE_NEWMOVE:     
 
-            //reset PID controller
-            oPIDControl.reset();
-            outAccel = 0.0;            
-            //if (targetSpeed != 0.0)
+            // if movement blocked -> BLOCKED
+            if (checkBlocked())
+            {
+                outAccel = 0;                    
+                setState(eSTATE_BLOCKED);   
+            }
+            // otherwise -> DRIVE
+            else
+            {
+                //reset PID controller
+                oPIDControl.reset();
+                outAccel = 0.0;            
                 setState(eSTATE_DRIVE);
-//            // zero speed requested -> DONE
-//            else
-//                setState(eSTATE_DONE);                            
+            }
             // show data
             LOG4CXX_INFO(logger, ">> new request");  
             LOG4CXX_INFO(logger, "target speed = " << targetSpeed);  
@@ -70,14 +91,21 @@ void AxisRacer::loop()
         case eSTATE_DRIVE:
             // drive arm
 
-            // compute movement acceleration
-            outAccel = oPIDControl.control(targetSpeed - axisSpeed);                      
             // if movement blocked -> BLOCKED
             if (checkBlocked())
             {
                 outAccel = 0;                    
-                setState(eSTATE_BLOCKED);   
+                setState(eSTATE_BLOCKED);
             }
+            // if null speed requested & confirmed -> DONE
+            else if (silentCycles > 3 && targetSpeed == 0)
+            {
+                outAccel = 0;                    
+                setState(eSTATE_DONE);   
+            }
+            else
+                // compute movement acceleration
+                outAccel = oPIDControl.control(targetSpeed - axisSpeed);                      
             
             LOG4CXX_INFO(logger, " sollSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(axisSpeed) +  ", accel=" + std::to_string(outAccel) + "]");
             break;
@@ -85,8 +113,10 @@ void AxisRacer::loop()
         case eSTATE_BLOCKED:
             // blocked arm
 
+            if (checkBlocked())                    
+                outAccel = 0;                    
             // if movement not blocked anymore -> NEWMOVE
-            if (!checkBlocked())                    
+            else
                 setState(eSTATE_NEWMOVE);   
             break;
     }   // end switch    

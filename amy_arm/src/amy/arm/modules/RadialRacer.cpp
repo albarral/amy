@@ -25,17 +25,18 @@ void RadialRacer::setControlledJoint()
        
 void RadialRacer::senseBus()
 {
+    brequested = false;
     // if primary radial speed requested -> NEWMOVE
     if (pBusRadial->getCO_AXIS_SPEED().checkRequested())
     {
         speed1 = pBusRadial->getCO_AXIS_SPEED().getValue();
-        setState(eSTATE_NEWMOVE);   
+        brequested = true;
     }
     // if secondary radial speed requested -> NEWMOVE
     if (pBusRadial->getCO_AXIS_SPEED2().checkRequested())
     {
         speed2 = pBusRadial->getCO_AXIS_SPEED2().getValue();
-        setState(eSTATE_NEWMOVE);   
+        brequested = true;
     }
     
     // sense radial speed

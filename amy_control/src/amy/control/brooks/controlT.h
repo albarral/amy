@@ -38,7 +38,8 @@ class ControlT : public Control
 // Constructor
 template <typename T>
 ControlT<T>::ControlT()
-{        
+{      
+    value = 0;
 }
     
 template <typename T>
