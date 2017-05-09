@@ -68,10 +68,14 @@ private:
         // shows the present state name
         void showState();
         
+        // trigger the movement
+        void triggerMove();
         // perform the movement
-        void updateMovement();
+        void updateMove();
+        // stop the movement
+        void stopMove();
         // update max speed for the movement
-        void updateMovSpeed();
+        void recomputeSpeed();
 };
 }
 #endif

@@ -57,17 +57,17 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
        // ARM MOVER            
         case CyclicCategory::eCYCLIC_MOVER_LAUNCH:
             LOG4CXX_INFO(logger, "> launch move " << (int)value);                        
-            this->launchMove((int)value);
+            launchMove((int)value);
             break;
             
         case CyclicCategory::eCYCLIC_MOVER_STOP:
             LOG4CXX_INFO(logger, "> stop move");                        
-            this->stopMove();
+            stopMove();
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_TURN:
             LOG4CXX_INFO(logger, "> turn move " << (int)value);                        
-            this->turnMove((int)value);
+            turnMove((int)value);
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_WIDER:
@@ -78,7 +78,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             }
             else
                 LOG4CXX_INFO(logger, "> move narrower");                                        
-            this->moveWider(byes);
+            moveWider(byes);
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_TALLER:
@@ -89,7 +89,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             }
             else
                 LOG4CXX_INFO(logger, "> move shorter");                                        
-            this->moveTaller(byes);
+            moveTaller(byes);
             break;
 
         case CyclicCategory::eCYCLIC_MOVER_FASTER:
@@ -100,7 +100,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             }
             else
                 LOG4CXX_INFO(logger, "> move slower");                                        
-            this->moveFaster(byes);
+            moveFaster(byes);
             break;
 
         default:

@@ -21,6 +21,8 @@ void TriangularSignal::setFrequency(float freq)
     {        
         // signal must go from 0 to 1 in a quarter of a period
         absSlope = 4.0*freq/1000; 
+        // the slope changes but keeping its sign
+        slope = (slope > 0 ? absSlope : -absSlope);
         frequency = freq;
     }
 };

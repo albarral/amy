@@ -51,14 +51,14 @@ void FrontalCycler::loop()
     switch (state)
     {
         case eSTATE_START:         
-            // launch movement
             
-            // trigger new oscillation            
-            oTriangularSignal.start();
-            xspeed = yspeed = 0.0;
             // if amplitude & frequency defined -> GO 
             if (amplitude != 0.0 && freq != 0.0)
+            {
+                // launch movement    
+                triggerMove();
                 setState(eSTATE_GO);
+            }
             // otherwise, nothing to do -> DONE
             else
                 setState(eSTATE_DONE);                            
@@ -68,18 +68,16 @@ void FrontalCycler::loop()
             break;  
 
         case eSTATE_GO:
-            // do cycles
 
             // perform movement
-            updateMovement();
+            updateMove();
             LOG4CXX_INFO(logger, "speeds: " << oLinearMove.getXSpeed() << ", " << oLinearMove.getYpeed());  
             break;
 
         case eSTATE_STOP:
-            // stop movement
 
-            // command null speeds
-            xspeed = yspeed = 0.0;
+            // stop movement
+            stopMove();
             // then go to DONE
             setState(eSTATE_DONE);
             break;
@@ -91,7 +89,7 @@ void FrontalCycler::loop()
     writeBus();        
 }
 
-void FrontalCycler::updateMovSpeed()
+void FrontalCycler::recomputeSpeed()
 {
     // on each period the amplitude must be walked twice
     float avgSpeed = 2.0*amplitude*freq;    
@@ -99,8 +97,16 @@ void FrontalCycler::updateMovSpeed()
     movSpeed = 2.0*avgSpeed;
 }
 
-// A square acceleration function is applied
-void FrontalCycler::updateMovement()
+// triggers a cyclic movement
+void FrontalCycler::triggerMove()
+{
+    // trigger new oscillation            
+    oTriangularSignal.start();
+    xspeed = yspeed = 0.0;
+}
+
+// update the cyclic movement
+void FrontalCycler::updateMove()
 {
     // modulate speed as a triangular signal
     float speed = movSpeed * oTriangularSignal.sense();    
@@ -108,6 +114,13 @@ void FrontalCycler::updateMovement()
     oLinearMove.compute(speed);
     xspeed = oLinearMove.getXSpeed();
     yspeed = oLinearMove.getYpeed();
+}
+
+// stop the cyclic movement
+void FrontalCycler::stopMove()
+{
+    // command null speeds
+    xspeed = yspeed = 0.0;
 }
 
 void FrontalCycler::senseBus()
@@ -133,7 +146,7 @@ void FrontalCycler::senseBus()
 
     // if movement changed, recompute speed
     if (bupdateSpeed)
-        updateMovSpeed();
+        recomputeSpeed();
     
     // action requested 
     if (pBusFrontalCycler->getCO_CYCLER_ACTION().checkRequested())

@@ -15,7 +15,7 @@ LoggerPtr ArmSense::logger(Logger::getLogger("amy.arm"));
 
 ArmSense::ArmSense()
 {
-    modName = "ArmPolarSensing";
+    modName = "ArmSense";
     pBusPan = 0;
     pBusTilt = 0;
     pBusRadial = 0;
