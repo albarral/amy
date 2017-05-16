@@ -52,8 +52,8 @@ void FrontalCycler::loop()
     {
         case eSTATE_START:         
             
-            // if amplitude & frequency defined -> GO 
-            if (amplitude != 0.0 && freq != 0.0)
+            // if some amplitude defined -> GO 
+            if (oLinearCycler1.getAmp() != 0.0 || oLinearCycler2.getAmp() != 0.0)
             {
                 // launch movement    
                 triggerMove();
@@ -71,7 +71,9 @@ void FrontalCycler::loop()
 
             // perform movement
             updateMove();
-            LOG4CXX_INFO(logger, "speeds: " << oSpeedVector.getXComponent() << ", " << oSpeedVector.getYComponent());  
+            LOG4CXX_INFO(logger, "speeds1: " << oLinearCycler1.getXSpeed() << ", " << oLinearCycler1.getYSpeed());  
+            LOG4CXX_INFO(logger, "speeds2: " << oLinearCycler2.getXSpeed() << ", " << oLinearCycler2.getYSpeed());  
+            //LOG4CXX_INFO(logger, "speeds: " << xspeed << ", " << yspeed);  
             break;
 
         case eSTATE_STOP:
@@ -89,31 +91,24 @@ void FrontalCycler::loop()
     writeBus();        
 }
 
-void FrontalCycler::recomputeSpeed()
-{
-    // on each period the amplitude must be walked twice
-    float avgSpeed = 2.0*amplitude*freq;    
-    // the top speed is twice the average speed (for a triangular signal)
-    movSpeed = 2.0*avgSpeed;
-}
-
 // triggers a cyclic movement
 void FrontalCycler::triggerMove()
 {
-    // trigger new oscillation            
-    oTriangularSignal.start();
+    // trigger new oscillation   
+    oLinearCycler1.trigger();
+    oLinearCycler2.trigger();
     xspeed = yspeed = 0.0;
 }
 
 // update the cyclic movement
 void FrontalCycler::updateMove()
 {
-    // modulate speed as a triangular signal
-    float speed = movSpeed * oTriangularSignal.sense();    
-    // and decompose it in x & y speeds
-    oSpeedVector.compute(speed);
-    xspeed = oSpeedVector.getXComponent();
-    yspeed = oSpeedVector.getYComponent();
+    // update movement components
+    oLinearCycler1.update();
+    oLinearCycler2.update();
+    // and combine them
+    xspeed =  oLinearCycler1.getXSpeed() + oLinearCycler2.getXSpeed();
+    yspeed =  oLinearCycler1.getYSpeed() + oLinearCycler2.getYSpeed();
 }
 
 // stop the cyclic movement
@@ -124,29 +119,40 @@ void FrontalCycler::stopMove()
 }
 
 void FrontalCycler::senseBus()
-{    
-    bool bupdateSpeed = false;
-
-    // movement frequency 
-    if (pBusFrontalCycler->getCO_CYCLER_FREQ().checkRequested())
+{  
+    // first component's ...
+    // frequency 
+    if (pBusFrontalCycler->getCO_CYCLER_FREQ1().checkRequested())
     {
-        freq = pBusFrontalCycler->getCO_CYCLER_FREQ().getValue();
-        oTriangularSignal.setFrequency(freq);
-        bupdateSpeed = true;
+        oLinearCycler1.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ1().getValue());
     }
-    // movement amplitude
-    if (pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().checkRequested())
+    // amplitude 
+    if (pBusFrontalCycler->getCO_CYCLER_AMPLITUDE1().checkRequested())
     {
-        amplitude = pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().getValue();
-        bupdateSpeed = true;
+        oLinearCycler1.setAmp(pBusFrontalCycler->getCO_CYCLER_AMPLITUDE1().getValue());
     }
-    // movement angle
-    if (pBusFrontalCycler->getCO_CYCLER_ANGLE().checkRequested())
-        oSpeedVector.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE().getValue());
-
-    // if movement changed, recompute speed
-    if (bupdateSpeed)
-        recomputeSpeed();
+    // angle 
+    if (pBusFrontalCycler->getCO_CYCLER_ANGLE1().checkRequested())
+    {
+        oLinearCycler1.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
+    }
+    
+    // second component's ...
+    // frequency
+    if (pBusFrontalCycler->getCO_CYCLER_FREQ2().checkRequested())
+    {
+        oLinearCycler2.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ2().getValue());
+    }
+    // amplitude
+    if (pBusFrontalCycler->getCO_CYCLER_AMPLITUDE2().checkRequested())
+    {
+        oLinearCycler2.setAmp(pBusFrontalCycler->getCO_CYCLER_AMPLITUDE2().getValue());
+    }
+    // angle
+    if (pBusFrontalCycler->getCO_CYCLER_ANGLE2().checkRequested())
+    {
+        oLinearCycler2.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
+    }
     
     // action requested 
     if (pBusFrontalCycler->getCO_CYCLER_ACTION().checkRequested())

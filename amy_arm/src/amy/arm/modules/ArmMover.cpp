@@ -18,7 +18,6 @@ ArmMover::ArmMover()
     modName = "ArmMover";
     // bus
     pBusFrontalCycler = 0;
-    pBusFrontalCycler2 = 0;
 }
 
 //ArmMover::~ArmMover()
@@ -37,7 +36,6 @@ void ArmMover::first()
     setState(eSTATE_WAIT);
     
     pBusFrontalCycler = &pArmBus->getFrontalCyclerBus();    
-    //pBusFrontalCycler2 = &pArmBus->getFrontalCyclerBus2();    // to do (when second cycler available)
     log4cxx::NDC::push(modName);   	
 }
                     
@@ -57,7 +55,7 @@ void ArmMover::loop()
     {
         case eSTATE_TALK:
             
-            // send commands to cyclers & go to WAIT    
+            // send commands to cycler & go to WAIT    
             talk2Cyclers();
             setState(eSTATE_WAIT);
             break;
@@ -155,41 +153,33 @@ void ArmMover::talk2Cyclers()
 
 void ArmMover::triggerMove()
 {    
-    // modulates both cyclic movements           
+    // modulates cyclic movement
     updateMove();
-    // starts move of first cycler
+    // starts cycler move
     if (pBusFrontalCycler != 0)
         pBusFrontalCycler->getCO_CYCLER_ACTION().request(true);
-    // starts move of second cycler
-    if (pBusFrontalCycler2 != 0)
-        pBusFrontalCycler2->getCO_CYCLER_ACTION().request(true);
 }
 
 void ArmMover::stopMove()
 {    
-    // stops move of first cycler
+    // stops cycler move
     if (pBusFrontalCycler != 0)
         pBusFrontalCycler->getCO_CYCLER_ACTION().request(false);
-    // stops move of second cycler
-    if (pBusFrontalCycler2 != 0)
-        pBusFrontalCycler2->getCO_CYCLER_ACTION().request(false);
 }
 
 void ArmMover::updateMove()
 {        
-    // modulates move of first cycler
+    // modulates move of both cycler components
     if (pBusFrontalCycler != 0)
     {
-        pBusFrontalCycler->getCO_CYCLER_FREQ().request(oCyclicMove.getFreq1());     
-        pBusFrontalCycler->getCO_CYCLER_ANGLE().request(oCyclicMove.getAngle1());
-        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().request(oCyclicMove.getAmp1());
-    }
-    // modulates move of second cycler
-    if (pBusFrontalCycler2 != 0)
-    {
-        pBusFrontalCycler2->getCO_CYCLER_FREQ().request(oCyclicMove.getFreq2());     
-        pBusFrontalCycler2->getCO_CYCLER_ANGLE().request(oCyclicMove.getAngle2());
-        pBusFrontalCycler2->getCO_CYCLER_AMPLITUDE().request(oCyclicMove.getAmp2());
+        // first cycler component        
+        pBusFrontalCycler->getCO_CYCLER_FREQ1().request(oCyclicMove.getFreq1());     
+        pBusFrontalCycler->getCO_CYCLER_ANGLE1().request(oCyclicMove.getAngle1());
+        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE1().request(oCyclicMove.getAmp1());
+        // second cycler component        
+        pBusFrontalCycler->getCO_CYCLER_FREQ2().request(oCyclicMove.getFreq2());     
+        pBusFrontalCycler->getCO_CYCLER_ANGLE2().request(oCyclicMove.getAngle2());
+        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE2().request(oCyclicMove.getAmp2());
     }
 }
 

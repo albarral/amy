@@ -18,11 +18,17 @@ class CyclerBus
     private:        
         std::string cyclerName;
         
-        // cycler module
-        ControlT<float> CO_CYCLER_FREQ;              // movement frequency
-        ControlT<float> CO_CYCLER_AMPLITUDE;      // movement amplitude (degrees)
-        ControlT<float> CO_CYCLER_ANGLE;            // movement orientation (degrees)
+        // first cycler component
+        ControlT<float> CO_CYCLER_FREQ1;              // movement frequency
+        ControlT<float> CO_CYCLER_AMPLITUDE1;      // movement amplitude (degrees)
+        ControlT<float> CO_CYCLER_ANGLE1;            // movement orientation (degrees)
+        // second cycler component
+        ControlT<float> CO_CYCLER_FREQ2;              // movement frequency
+        ControlT<float> CO_CYCLER_AMPLITUDE2;      // movement amplitude (degrees)
+        ControlT<float> CO_CYCLER_ANGLE2;            // movement orientation (degrees)
+        // common to both components
         ControlT<bool> CO_CYCLER_ACTION;           // start/stop movement
+        ControlT<int> CO_CYCLER_PHASE;                 // phase between components 
                 
     public:
         CyclerBus();
@@ -32,10 +38,17 @@ class CyclerBus
         void init (std::string cyclerName);        
         std::string& getCyclerName() {return cyclerName;};
                 
-        ControlT<float>& getCO_CYCLER_FREQ() {return CO_CYCLER_FREQ;};        
-        ControlT<float>& getCO_CYCLER_AMPLITUDE() {return CO_CYCLER_AMPLITUDE;};        
-        ControlT<float>& getCO_CYCLER_ANGLE() {return CO_CYCLER_ANGLE;};        
-        ControlT<bool>& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};        
+        // first cycler component
+        ControlT<float>& getCO_CYCLER_FREQ1() {return CO_CYCLER_FREQ1;};        
+        ControlT<float>& getCO_CYCLER_AMPLITUDE1() {return CO_CYCLER_AMPLITUDE1;};        
+        ControlT<float>& getCO_CYCLER_ANGLE1() {return CO_CYCLER_ANGLE1;};        
+        // second cycler component
+        ControlT<float>& getCO_CYCLER_FREQ2() {return CO_CYCLER_FREQ2;};        
+        ControlT<float>& getCO_CYCLER_AMPLITUDE2() {return CO_CYCLER_AMPLITUDE2;};        
+        ControlT<float>& getCO_CYCLER_ANGLE2() {return CO_CYCLER_ANGLE2;};        
+        // common to both components
+        ControlT<bool>& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};                
+        ControlT<int>& getCO_CYCLER_PHASE() {return CO_CYCLER_PHASE;};        
         
         std::string toString();
 };

@@ -11,18 +11,18 @@
 
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/arm/bus/CyclerBus.h"
-#include "amy/math/MoveFactory.h"
-#include "amy/math/CyclicMove.h"
+#include "amy/move/MoveFactory.h"
+#include "amy/move/CyclicMove.h"
 
 namespace amy
 {
-// Module to perform complex cyclic movements with the arm. It controls two cyclers simultaneously.
+// Module to perform complex cyclic movements with the arm. It controls a cycler module.
 // States: 
 // The module is usually in WAIT state.
-// It goes to TALK state for sending commands to cyclers.
+// It goes to TALK state for sending commands to the cycler.
 // Then returns fast to WAIT state.
 // Messages:
-// It sends 3 types of messages to cyclers: trigger, stop & update.
+// It sends 3 types of messages to the cycler: trigger, stop & update.
 class ArmMover : public ArmModule3
 {
 public:
@@ -30,7 +30,7 @@ public:
     enum eType
     {
          eSTATE_WAIT,           // just senses bus
-         eSTATE_TALK           // sends commands to cyclers
+         eSTATE_TALK           // send commands to cycler
     };
 private:    
     // types of message
@@ -43,8 +43,7 @@ private:
 
     static log4cxx::LoggerPtr logger;
     // bus
-    CyclerBus* pBusFrontalCycler;  // bus connection to first cycler
-    CyclerBus* pBusFrontalCycler2;  // bus connection to second cycler
+    CyclerBus* pBusFrontalCycler;  // bus connection to frontal cycler
     // logic
     MoveFactory oMoveFactory;    
     CyclicMove oCyclicMove;    

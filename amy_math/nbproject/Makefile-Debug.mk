@@ -39,9 +39,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/math/ArmMath.o \
 	${OBJECTDIR}/src/amy/math/ArmPolar.o \
 	${OBJECTDIR}/src/amy/math/Click.o \
-	${OBJECTDIR}/src/amy/math/CyclicMove.o \
-	${OBJECTDIR}/src/amy/math/EllipticMove.o \
-	${OBJECTDIR}/src/amy/math/MoveFactory.o \
 	${OBJECTDIR}/src/amy/math/PIDControl.o \
 	${OBJECTDIR}/src/amy/math/TriangularSignal.o \
 	${OBJECTDIR}/src/amy/math/Vector.o
@@ -90,21 +87,6 @@ ${OBJECTDIR}/src/amy/math/Click.o: src/amy/math/Click.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/Click.o src/amy/math/Click.cpp
-
-${OBJECTDIR}/src/amy/math/CyclicMove.o: src/amy/math/CyclicMove.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/math
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/CyclicMove.o src/amy/math/CyclicMove.cpp
-
-${OBJECTDIR}/src/amy/math/EllipticMove.o: src/amy/math/EllipticMove.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/math
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/EllipticMove.o src/amy/math/EllipticMove.cpp
-
-${OBJECTDIR}/src/amy/math/MoveFactory.o: src/amy/math/MoveFactory.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/math
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/MoveFactory.o src/amy/math/MoveFactory.cpp
 
 ${OBJECTDIR}/src/amy/math/PIDControl.o: src/amy/math/PIDControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math

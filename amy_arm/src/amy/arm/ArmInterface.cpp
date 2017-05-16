@@ -77,19 +77,19 @@ void ArmInterface::moveFaster(bool value)
 void ArmInterface::frontFrequency(float value)
 {
     if (benabled)
-        pBusFrontalCycler->getCO_CYCLER_FREQ().request(value);                    
+        pBusFrontalCycler->getCO_CYCLER_FREQ1().request(value);                    
 }
 // set front amplitude (degrees)
 void ArmInterface::frontAmplitude(float value)
 {
     if (benabled)
-        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE().request(value);                    
+        pBusFrontalCycler->getCO_CYCLER_AMPLITUDE1().request(value);                    
 }
 // set front angle (degrees)
 void ArmInterface::frontAngle(float value)
 {
     if (benabled)
-        pBusFrontalCycler->getCO_CYCLER_ANGLE().request(value);                    
+        pBusFrontalCycler->getCO_CYCLER_ANGLE1().request(value);                    
 }
 // start/stop front cyclic movement
 void ArmInterface::frontAction(bool bvalue)

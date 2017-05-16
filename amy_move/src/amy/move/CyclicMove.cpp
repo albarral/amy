@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/math/CyclicMove.h"
+#include "amy/move/CyclicMove.h"
 #include "amy/math/Angle.h"
 
 namespace amy

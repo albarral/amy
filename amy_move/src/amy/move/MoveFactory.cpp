@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/math/MoveFactory.h"
+#include "amy/move/MoveFactory.h"
 
 namespace amy
 {

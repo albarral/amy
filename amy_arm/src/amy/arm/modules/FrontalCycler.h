@@ -12,15 +12,14 @@
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/CyclerBus.h"
-#include "amy/math/TriangularSignal.h"
-#include "amy/math/Vector.h"
+#include "amy/move/LinearCycler.h"
 
 namespace amy
 {
-// Module used to perform cyclic linear movements in the frontal plane (just involving pan & tilt).
-// The module's inputs are: the frequency, the movement amplitude and the orientation angle.
-// A triangular signal is used to generate the cyclic movements.
-// The module outputs are: pan & tilt speeds.
+// Module used to perform cyclic movements in the frontal plane (just involving pan & tilt).
+// Movement parameters such as frequency, amplitude and orientation angle can be changed dynamically (without restarting the movement).
+// Movements are achieved by the combination of two perpendicular linear cyclers working in a coordinated way.
+// The module's outputs are the pan & tilt speeds.
 class FrontalCycler: public ArmModule3
 {
 public:
@@ -40,11 +39,9 @@ private:
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
-    float freq;             // movement frequency (Hz))
-    float amplitude;     // movement amplitude (degrees)
-    float movSpeed;     // max speed for the movement
-    TriangularSignal oTriangularSignal;     
-    Vector oSpeedVector;
+    LinearCycler oLinearCycler1;    // first cyclic component
+    LinearCycler oLinearCycler2;    // second cyclic component
+    int phase;               // phase difference between both components
     // output
     int priority;               // module's priority in control commands
     float xspeed;             // commanded pan speed 

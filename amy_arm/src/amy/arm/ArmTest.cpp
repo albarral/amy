@@ -20,7 +20,7 @@
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
 #include "amy/math/ArmMath.h"
-#include "amy/math/MoveFactory.h"
+#include "amy/move/MoveFactory.h"
 
 using namespace log4cxx;
 
@@ -49,9 +49,9 @@ void ArmTest::testCycler2()
     float amplitude = 20;
     float freq = 0.5;
     bool bgo = true;
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE().request(angle);
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE().request(amplitude);
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ().request(freq);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(angle);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE1().request(amplitude);
+    pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ1().request(freq);
     pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(bgo);
 }
 

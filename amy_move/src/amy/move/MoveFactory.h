@@ -1,12 +1,12 @@
-#ifndef __AMY_MATH_MOVEFACTORY_H
-#define __AMY_MATH_MOVEFACTORY_H
+#ifndef __AMY_MOVE_MOVEFACTORY_H
+#define __AMY_MOVE_MOVEFACTORY_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/math/CyclicMove.h"
+#include "amy/move/CyclicMove.h"
  
 namespace amy
 {

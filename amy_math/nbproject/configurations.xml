@@ -22,13 +22,7 @@
           <itemPath>src/amy/math/ArmPolar.h</itemPath>
           <itemPath>src/amy/math/Click.cpp</itemPath>
           <itemPath>src/amy/math/Click.h</itemPath>
-          <itemPath>src/amy/math/CyclicMove.cpp</itemPath>
-          <itemPath>src/amy/math/CyclicMove.h</itemPath>
-          <itemPath>src/amy/math/EllipticMove.cpp</itemPath>
-          <itemPath>src/amy/math/EllipticMove.h</itemPath>
           <itemPath>src/amy/math/MathDefines.h</itemPath>
-          <itemPath>src/amy/math/MoveFactory.cpp</itemPath>
-          <itemPath>src/amy/math/MoveFactory.h</itemPath>
           <itemPath>src/amy/math/PIDControl.cpp</itemPath>
           <itemPath>src/amy/math/PIDControl.h</itemPath>
           <itemPath>src/amy/math/TriangularSignal.cpp</itemPath>
@@ -85,19 +79,7 @@
       </item>
       <item path="src/amy/math/Click.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/math/CyclicMove.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/CyclicMove.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/math/EllipticMove.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/EllipticMove.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/math/MathDefines.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/math/MoveFactory.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/MoveFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/math/PIDControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -148,19 +130,7 @@
       </item>
       <item path="src/amy/math/Click.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/math/CyclicMove.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/CyclicMove.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/math/EllipticMove.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/EllipticMove.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/math/MathDefines.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/math/MoveFactory.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/MoveFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/math/PIDControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
