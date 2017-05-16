@@ -50,7 +50,7 @@ public:
 
 protected:
         // connect module to specific joint
-        virtual void setControlledJoint() = 0;
+        virtual void setSpecificConnections() = 0;
         // read bus data
         virtual void senseBus() = 0;
         // write info (control & sensory) to bus

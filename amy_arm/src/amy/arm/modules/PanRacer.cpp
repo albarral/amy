@@ -16,7 +16,7 @@ PanRacer::PanRacer()
     pHSBus = 0;
 }
 
-void PanRacer::setControlledJoint()
+void PanRacer::setSpecificConnections()
 {
     pBusPan = &pArmBus->getPanBus();
     // controlled joint is HS

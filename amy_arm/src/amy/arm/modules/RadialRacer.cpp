@@ -16,7 +16,7 @@ RadialRacer::RadialRacer()
     pELBus = 0;
 }
 
-void RadialRacer::setControlledJoint()
+void RadialRacer::setSpecificConnections()
 {
     pBusRadial = &pArmBus->getRadialBus();
     // controlled joint is ELB

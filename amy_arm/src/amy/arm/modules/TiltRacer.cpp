@@ -16,7 +16,7 @@ TiltRacer::TiltRacer()
     pVSBus = 0;
 }
 
-void TiltRacer::setControlledJoint()
+void TiltRacer::setSpecificConnections()
 {  
     pBusTilt = &pArmBus->getTiltBus();
     // controlled joint is VS

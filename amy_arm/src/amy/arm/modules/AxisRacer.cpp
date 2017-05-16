@@ -30,7 +30,7 @@ void AxisRacer::first()
     // start at done
     setState(eSTATE_DONE);
     // connect to controlled joint (defined in derived modules)
-    setControlledJoint();    
+    setSpecificConnections();    
     // tune PID controller
     float* pPID = oArmConfig.getPIDRacer();
     oPIDControl.init(pPID[0], pPID[1], pPID[2]);

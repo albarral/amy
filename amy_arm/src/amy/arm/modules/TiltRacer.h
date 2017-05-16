@@ -28,7 +28,7 @@ public:
                        
 private:       
         // connect module to specific joint
-        virtual void setControlledJoint();    
+        virtual void setSpecificConnections();    
         // read bus data
         virtual void senseBus();
         // write info (control & sensory) to bus
