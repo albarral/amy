@@ -8,7 +8,7 @@
 
 #include <log4cxx/logger.h>
 
-#include "amy/utils/module2.h"
+#include "amy/control/module2.h"
 #include "amy/coms/file/AmyFilePublisher.h"
 #include "amy/coms/data/ArmData.h"
 #include "amy/core/ifaces/iArmInterface.h"

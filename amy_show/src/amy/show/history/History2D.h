@@ -8,7 +8,7 @@
 
 #include <deque>
 
-#include "amy/control/Click.h"
+#include "amy/math/Click.h"
 
 namespace amy 
 {

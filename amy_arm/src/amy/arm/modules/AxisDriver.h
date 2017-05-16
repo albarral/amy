@@ -13,7 +13,7 @@
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
-#include "amy/utils/module3.h"
+#include "amy/control/module3.h"
 
 namespace amy
 {

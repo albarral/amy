@@ -12,8 +12,8 @@
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/bus/CyclerBus.h"
-#include "amy/control/TriangularSignal.h"
-#include "amy/math/LinearMove.h"
+#include "amy/math/TriangularSignal.h"
+#include "amy/math/Vector.h"
 
 namespace amy
 {
@@ -44,7 +44,7 @@ private:
     float amplitude;     // movement amplitude (degrees)
     float movSpeed;     // max speed for the movement
     TriangularSignal oTriangularSignal;     
-    LinearMove oLinearMove;
+    Vector oSpeedVector;
     // output
     int priority;               // module's priority in control commands
     float xspeed;             // commanded pan speed 

@@ -39,10 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/utils/File.o \
 	${OBJECTDIR}/src/amy/utils/FileReader.o \
 	${OBJECTDIR}/src/amy/utils/FileWriter.o \
-	${OBJECTDIR}/src/amy/utils/StringUtil.o \
-	${OBJECTDIR}/src/amy/utils/module.o \
-	${OBJECTDIR}/src/amy/utils/module2.o \
-	${OBJECTDIR}/src/amy/utils/module3.o
+	${OBJECTDIR}/src/amy/utils/StringUtil.o
 
 
 # C Compiler Flags
@@ -93,21 +90,6 @@ ${OBJECTDIR}/src/amy/utils/StringUtil.o: src/amy/utils/StringUtil.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/StringUtil.o src/amy/utils/StringUtil.cpp
-
-${OBJECTDIR}/src/amy/utils/module.o: src/amy/utils/module.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module.o src/amy/utils/module.cpp
-
-${OBJECTDIR}/src/amy/utils/module2.o: src/amy/utils/module2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module2.o src/amy/utils/module2.cpp
-
-${OBJECTDIR}/src/amy/utils/module3.o: src/amy/utils/module3.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module3.o src/amy/utils/module3.cpp
 
 # Subprojects
 .build-subprojects:

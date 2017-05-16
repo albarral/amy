@@ -71,7 +71,7 @@ void FrontalCycler::loop()
 
             // perform movement
             updateMove();
-            LOG4CXX_INFO(logger, "speeds: " << oLinearMove.getXSpeed() << ", " << oLinearMove.getYpeed());  
+            LOG4CXX_INFO(logger, "speeds: " << oSpeedVector.getXComponent() << ", " << oSpeedVector.getYComponent());  
             break;
 
         case eSTATE_STOP:
@@ -111,9 +111,9 @@ void FrontalCycler::updateMove()
     // modulate speed as a triangular signal
     float speed = movSpeed * oTriangularSignal.sense();    
     // and decompose it in x & y speeds
-    oLinearMove.compute(speed);
-    xspeed = oLinearMove.getXSpeed();
-    yspeed = oLinearMove.getYpeed();
+    oSpeedVector.compute(speed);
+    xspeed = oSpeedVector.getXComponent();
+    yspeed = oSpeedVector.getYComponent();
 }
 
 // stop the cyclic movement
@@ -142,7 +142,7 @@ void FrontalCycler::senseBus()
     }
     // movement angle
     if (pBusFrontalCycler->getCO_CYCLER_ANGLE().checkRequested())
-        oLinearMove.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE().getValue());
+        oSpeedVector.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE().getValue());
 
     // if movement changed, recompute speed
     if (bupdateSpeed)

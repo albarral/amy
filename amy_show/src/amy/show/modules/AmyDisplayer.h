@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <amy/utils/module3.h>
+#include <amy/control/module3.h>
 #include "amy/show/SharedDisplay.h"
 
 namespace amy

@@ -5,20 +5,20 @@
 
 #include <cmath>
 
-#include "amy/math/LinearMove.h"
+#include "amy/math/Vector.h"
 #include "amy/math/MathDefines.h"
 
 namespace amy
 {
-LinearMove::LinearMove()
+Vector::Vector()
 {
     angle = 0.0;
     cosA = 1.0;
     sinA = 0.0;
-    vx = vy = 0.0;
+    x = y = 0.0;
 }
 
-void LinearMove::setAngle(float value)
+void Vector::setAngle(float value)
 {
     // convert to radians
     angle = value;
@@ -27,11 +27,11 @@ void LinearMove::setAngle(float value)
     cosA = cos(radians);    
 }
 
-void LinearMove::compute(float speed)
+void Vector::compute(float magnitude)
 {
-    // vx = vA cos(a)
-    // vy = vA sin(a);
-    vx = speed*cosA;    
-    vy = speed*sinA;  
+    // x = A cos(a)
+    // v = A sin(a);
+    x = magnitude*cosA;    
+    y = magnitude*sinA;  
 }
 }

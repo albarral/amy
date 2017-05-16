@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/control/PIDControl.h"
+#include "amy/math/PIDControl.h"
 
 namespace amy
 {

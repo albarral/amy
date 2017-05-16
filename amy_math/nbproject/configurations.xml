@@ -20,15 +20,21 @@
           <itemPath>src/amy/math/ArmMath.h</itemPath>
           <itemPath>src/amy/math/ArmPolar.cpp</itemPath>
           <itemPath>src/amy/math/ArmPolar.h</itemPath>
+          <itemPath>src/amy/math/Click.cpp</itemPath>
+          <itemPath>src/amy/math/Click.h</itemPath>
           <itemPath>src/amy/math/CyclicMove.cpp</itemPath>
           <itemPath>src/amy/math/CyclicMove.h</itemPath>
           <itemPath>src/amy/math/EllipticMove.cpp</itemPath>
           <itemPath>src/amy/math/EllipticMove.h</itemPath>
-          <itemPath>src/amy/math/LinearMove.cpp</itemPath>
-          <itemPath>src/amy/math/LinearMove.h</itemPath>
           <itemPath>src/amy/math/MathDefines.h</itemPath>
           <itemPath>src/amy/math/MoveFactory.cpp</itemPath>
           <itemPath>src/amy/math/MoveFactory.h</itemPath>
+          <itemPath>src/amy/math/PIDControl.cpp</itemPath>
+          <itemPath>src/amy/math/PIDControl.h</itemPath>
+          <itemPath>src/amy/math/TriangularSignal.cpp</itemPath>
+          <itemPath>src/amy/math/TriangularSignal.h</itemPath>
+          <itemPath>src/amy/math/Vector.cpp</itemPath>
+          <itemPath>src/amy/math/Vector.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -75,6 +81,10 @@
       </item>
       <item path="src/amy/math/ArmPolar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/math/Click.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/Click.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/math/CyclicMove.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/math/CyclicMove.h" ex="false" tool="3" flavor2="0">
@@ -83,15 +93,23 @@
       </item>
       <item path="src/amy/math/EllipticMove.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/math/LinearMove.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/LinearMove.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/math/MathDefines.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/math/MoveFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/math/MoveFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/PIDControl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/PIDControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/TriangularSignal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/TriangularSignal.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/Vector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -126,6 +144,10 @@
       </item>
       <item path="src/amy/math/ArmPolar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/math/Click.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/Click.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/math/CyclicMove.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/math/CyclicMove.h" ex="false" tool="3" flavor2="0">
@@ -134,15 +156,23 @@
       </item>
       <item path="src/amy/math/EllipticMove.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/math/LinearMove.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/math/LinearMove.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/math/MathDefines.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/math/MoveFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/math/MoveFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/PIDControl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/PIDControl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/TriangularSignal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/TriangularSignal.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/math/Vector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/math/Vector.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

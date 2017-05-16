@@ -9,7 +9,7 @@
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
-#include <amy/utils/module2.h>
+#include <amy/control/module2.h>
 
 namespace amy
 {

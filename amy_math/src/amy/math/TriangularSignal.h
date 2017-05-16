@@ -1,12 +1,12 @@
-#ifndef __AMY_CONTROL_TRIANGULAR_SIGNAL_H
-#define __AMY_CONTROL_TRIANGULAR_SIGNAL_H
+#ifndef __AMY_MATH_TRIANGULAR_SIGNAL_H
+#define __AMY_MATH_TRIANGULAR_SIGNAL_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/control/Click.h"
+#include "amy/math/Click.h"
 
 namespace amy
 {

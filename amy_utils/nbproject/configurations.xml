@@ -25,12 +25,6 @@
             <itemPath>src/amy/utils/FileWriter.h</itemPath>
             <itemPath>src/amy/utils/StringUtil.cpp</itemPath>
             <itemPath>src/amy/utils/StringUtil.h</itemPath>
-            <itemPath>src/amy/utils/module.cpp</itemPath>
-            <itemPath>src/amy/utils/module.h</itemPath>
-            <itemPath>src/amy/utils/module2.cpp</itemPath>
-            <itemPath>src/amy/utils/module2.h</itemPath>
-            <itemPath>src/amy/utils/module3.cpp</itemPath>
-            <itemPath>src/amy/utils/module3.h</itemPath>
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
@@ -86,18 +80,6 @@
       </item>
       <item path="src/amy/utils/StringUtil.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/utils/module.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module3.h" ex="false" tool="3" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="2">
       <toolsSet>
@@ -138,18 +120,6 @@
       <item path="src/amy/utils/StringUtil.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/utils/StringUtil.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/utils/module3.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

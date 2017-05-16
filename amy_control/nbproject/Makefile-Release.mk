@@ -35,13 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/control/Click.o \
-	${OBJECTDIR}/src/amy/control/Oscillator.o \
-	${OBJECTDIR}/src/amy/control/Oscillator2.o \
-	${OBJECTDIR}/src/amy/control/PIDControl.o \
-	${OBJECTDIR}/src/amy/control/TriangularSignal.o \
 	${OBJECTDIR}/src/amy/control/brooks/control.o \
-	${OBJECTDIR}/src/amy/control/brooks/inhibition.o
+	${OBJECTDIR}/src/amy/control/brooks/inhibition.o \
+	${OBJECTDIR}/src/amy/control/module.o \
+	${OBJECTDIR}/src/amy/control/module2.o \
+	${OBJECTDIR}/src/amy/control/module3.o
 
 
 # C Compiler Flags
@@ -68,31 +66,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT}: ${OBJ
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/control/Click.o: src/amy/control/Click.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/control
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Click.o src/amy/control/Click.cpp
-
-${OBJECTDIR}/src/amy/control/Oscillator.o: src/amy/control/Oscillator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/control
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Oscillator.o src/amy/control/Oscillator.cpp
-
-${OBJECTDIR}/src/amy/control/Oscillator2.o: src/amy/control/Oscillator2.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/control
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Oscillator2.o src/amy/control/Oscillator2.cpp
-
-${OBJECTDIR}/src/amy/control/PIDControl.o: src/amy/control/PIDControl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/control
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/PIDControl.o src/amy/control/PIDControl.cpp
-
-${OBJECTDIR}/src/amy/control/TriangularSignal.o: src/amy/control/TriangularSignal.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/control
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/TriangularSignal.o src/amy/control/TriangularSignal.cpp
-
 ${OBJECTDIR}/src/amy/control/brooks/control.o: src/amy/control/brooks/control.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control/brooks
 	${RM} "$@.d"
@@ -102,6 +75,21 @@ ${OBJECTDIR}/src/amy/control/brooks/inhibition.o: src/amy/control/brooks/inhibit
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control/brooks
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/brooks/inhibition.o src/amy/control/brooks/inhibition.cpp
+
+${OBJECTDIR}/src/amy/control/module.o: src/amy/control/module.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/module.o src/amy/control/module.cpp
+
+${OBJECTDIR}/src/amy/control/module2.o: src/amy/control/module2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/module2.o src/amy/control/module2.cpp
+
+${OBJECTDIR}/src/amy/control/module3.o: src/amy/control/module3.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/module3.o src/amy/control/module3.cpp
 
 # Subprojects
 .build-subprojects:

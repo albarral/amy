@@ -38,10 +38,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/math/Angle.o \
 	${OBJECTDIR}/src/amy/math/ArmMath.o \
 	${OBJECTDIR}/src/amy/math/ArmPolar.o \
+	${OBJECTDIR}/src/amy/math/Click.o \
 	${OBJECTDIR}/src/amy/math/CyclicMove.o \
 	${OBJECTDIR}/src/amy/math/EllipticMove.o \
-	${OBJECTDIR}/src/amy/math/LinearMove.o \
-	${OBJECTDIR}/src/amy/math/MoveFactory.o
+	${OBJECTDIR}/src/amy/math/MoveFactory.o \
+	${OBJECTDIR}/src/amy/math/PIDControl.o \
+	${OBJECTDIR}/src/amy/math/TriangularSignal.o \
+	${OBJECTDIR}/src/amy/math/Vector.o
 
 
 # C Compiler Flags
@@ -83,6 +86,11 @@ ${OBJECTDIR}/src/amy/math/ArmPolar.o: src/amy/math/ArmPolar.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/ArmPolar.o src/amy/math/ArmPolar.cpp
 
+${OBJECTDIR}/src/amy/math/Click.o: src/amy/math/Click.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/Click.o src/amy/math/Click.cpp
+
 ${OBJECTDIR}/src/amy/math/CyclicMove.o: src/amy/math/CyclicMove.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
@@ -93,15 +101,25 @@ ${OBJECTDIR}/src/amy/math/EllipticMove.o: src/amy/math/EllipticMove.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/EllipticMove.o src/amy/math/EllipticMove.cpp
 
-${OBJECTDIR}/src/amy/math/LinearMove.o: src/amy/math/LinearMove.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/math
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/LinearMove.o src/amy/math/LinearMove.cpp
-
 ${OBJECTDIR}/src/amy/math/MoveFactory.o: src/amy/math/MoveFactory.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/MoveFactory.o src/amy/math/MoveFactory.cpp
+
+${OBJECTDIR}/src/amy/math/PIDControl.o: src/amy/math/PIDControl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/PIDControl.o src/amy/math/PIDControl.cpp
+
+${OBJECTDIR}/src/amy/math/TriangularSignal.o: src/amy/math/TriangularSignal.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/TriangularSignal.o src/amy/math/TriangularSignal.cpp
+
+${OBJECTDIR}/src/amy/math/Vector.o: src/amy/math/Vector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/Vector.o src/amy/math/Vector.cpp
 
 # Subprojects
 .build-subprojects:

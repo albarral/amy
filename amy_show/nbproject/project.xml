@@ -9,8 +9,8 @@
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>../amy_utils</make-dep-project>
                 <make-dep-project>../amy_control</make-dep-project>
+                <make-dep-project>../amy_math</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
                 <make-dep-project>../amy_arm</make-dep-project>
             </make-dep-projects>

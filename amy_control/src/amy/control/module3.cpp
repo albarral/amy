@@ -5,7 +5,7 @@
 
 #include <unistd.h>
 
-#include "amy/utils/module3.h"
+#include "amy/control/module3.h"
 
 
 namespace amy

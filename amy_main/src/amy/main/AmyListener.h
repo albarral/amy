@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/utils/module2.h"
+#include "amy/control/module2.h"
 #include "amy/coms/file/AmyFileServer.h"
 #include "amy/core/ifaces/iArmInterface.h"
 

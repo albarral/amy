@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <amy/utils/module3.h>
+#include <amy/control/module3.h>
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/AxisBus.h"
 #include "amy/show/history/HistoryPlot.h"
