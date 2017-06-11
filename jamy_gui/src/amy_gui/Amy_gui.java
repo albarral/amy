@@ -121,7 +121,8 @@ public class Amy_gui extends Application {
         reqFbJoints.bind("tcp://*:5407");
         
         final Label titleJointsLabel = new Label(" JOINTS                     "
-                                                +"                            ");
+                 
+                +"                            ");
         titleJointsLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         
         final Label HSLabel = new Label("         HS -> ");
