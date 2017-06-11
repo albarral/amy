@@ -19,7 +19,7 @@ public class JAmyCommand {
     protected int action;       /*! action to be performed */
     protected float value;     /*! value applied by the action */
     protected boolean bvalid;     /*! command validity */   
-    protected String text;      /*! command textual form */ 
+    protected String text;       /*! command textual form */ 
     
     JAmyCommand(){
         category = JComsCategory.eCategories.eCATEGORY_UNDEF.ordinal();

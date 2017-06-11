@@ -41,6 +41,7 @@ public class amy_gui_Preloader extends Preloader {
     public void handleStateChangeNotification(StateChangeNotification scn) {
         if (scn.getType() == StateChangeNotification.Type.BEFORE_START) {
             stage.hide();
+            
         }
     }
     
