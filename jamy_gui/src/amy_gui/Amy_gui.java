@@ -14,12 +14,16 @@ import javafx.geometry.HPos;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -38,11 +42,23 @@ import org.zeromq.ZMQ;
 public class Amy_gui extends Application {
     ZMQ.Context context = ZMQ.context(1);
     //  Socket Client to send commands
-    ZMQ.Socket reqControlPRT = context.socket(ZMQ.REQ);
-    ZMQ.Socket repControlJoints = context.socket(ZMQ.REQ);
+    ZMQ.Socket reqControl = context.socket(ZMQ.REQ);
     
     ZMQ.Socket reqFbPRT = context.socket(ZMQ.REP);
     ZMQ.Socket reqFbJoints = context.socket(ZMQ.REP);
+    
+    public boolean sendMessage(String msg, double value){
+        String valueString = String.format(msg + "%1$.3f", value);
+        System.out.println(valueString);
+        boolean send = reqControl.send(valueString, 0);
+        System.out.println(valueString);
+
+        byte[] responseBytes = reqControl.recv(0);
+        String response = new String(responseBytes); 
+        System.out.println(response);
+        if(response == "OK" && send) return true;
+        else return false;
+    }
     
     @Override
     public void start(Stage primaryStage) {
@@ -52,8 +68,8 @@ public class Amy_gui extends Application {
         COMS -> JEROMQ Server port 5401
         */
         
-        reqControlPRT.connect("tcp://*:5555");
-        reqControlPRT.setReceiveTimeOut(100);
+        reqControl.connect("tcp://*:5555");
+        reqControl.setReceiveTimeOut(100);
         
         final Label titleLabel = new Label(" Control Panel          ");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -102,7 +118,6 @@ public class Amy_gui extends Application {
         COMS -> JEROMQ Server port 5405
                 JEROMQ Client port 5407
         */
-        repControlJoints.connect("tcp://*:5555");
         reqFbJoints.bind("tcp://*:5407");
         
         final Label titleJointsLabel = new Label(" JOINTS                     "
@@ -143,12 +158,32 @@ public class Amy_gui extends Application {
         VWTextfield.setPrefColumnCount(10);
         
         /*
-        PANE BOTTOM RIGHT -> IMAGE UR5
+        PANE BOTTOM RIGHT -> ICyclic movements
         */
-        File file = new File("/home/oriol/Pictures/ur5.png");
-        Image image = new Image(file.toURI().toString());
-        ImageView imageView = new ImageView(image);
+        final Label titleCyclicLabel = new Label(" Cyclic Move Panel          ");
+        titleCyclicLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         
+        //A checkbox without a caption
+        CheckBox panCheckBox = new CheckBox("Pan");
+        //A checkbox with a string caption
+        CheckBox tiltCheckBox = new CheckBox("Tilt");
+        panCheckBox.setSelected(true);
+        tiltCheckBox.setSelected(false);
+        
+        final TextField freqTextfield = new TextField();
+        freqTextfield.setPrefColumnCount(10);
+        freqTextfield.setPrefWidth(100);
+        final TextField ampTextfield = new TextField();
+        ampTextfield.setPrefColumnCount(10);;
+        ampTextfield.setPrefWidth(100);
+        
+        final Button startCyclic = new Button("Start");
+        final Button stopCyclic = new Button("Stop");
+        
+//        File file = new File("/home/oriol/Pictures/ur5.png");
+//        Image image = new Image(file.toURI().toString());
+//        ImageView imageView = new ImageView(image);
+//        
         HBox hboxTop = new HBox(0);
         hboxTop.setTranslateX(0);
         hboxTop.setTranslateY(0);
@@ -187,26 +222,11 @@ public class Amy_gui extends Application {
         radiusControl.setMajorTickUnit(60);
         radiusControl.setMinorTickCount(5);
         radiusControl.setBlockIncrement(5);
-        /*radiusControl.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, 
-
-            }
-            
-        });*/
         radiusControl.setOnDragDetected(mouseEvent -> radiusControl.startFullDrag());
         radiusControl.setOnMouseDragReleased(new EventHandler<MouseDragEvent>() {
             @Override
             public void handle(MouseDragEvent event) { 
-                
-                    String valueString = String.format("%1$.3f", radiusControl.getValue());
-                    System.out.format(valueString);
-                    boolean send = reqControlPRT.send(valueString, 0);
-                    System.out.format(valueString);
-                    
-                   // byte[] responseBytes = repControlPRT.recv(0);
-                   // String response = new String(responseBytes); 
-                   // System.out.format(response);
+                sendMessage("2*3*", radiusControl.getValue());
             }
         });
         radiusLabel.setTranslateY(17.5);
@@ -227,6 +247,13 @@ public class Amy_gui extends Application {
         tiltControl.setMajorTickUnit(60);
         tiltControl.setMinorTickCount(5);
         tiltControl.setBlockIncrement(5);
+        tiltControl.setOnDragDetected(mouseEvent -> tiltControl.startFullDrag());
+        tiltControl.setOnMouseDragReleased(new EventHandler<MouseDragEvent>() {
+            @Override
+            public void handle(MouseDragEvent event) { 
+                sendMessage("2*2*", tiltControl.getValue());
+            }
+        });
         
         tiltLabel.setTranslateX(-15);
         tiltLabel.setTranslateY(25);
@@ -246,6 +273,13 @@ public class Amy_gui extends Application {
         panControl.setMajorTickUnit(60);
         panControl.setMinorTickCount(50);
         panControl.setBlockIncrement(5);
+        panControl.setOnDragDetected(mouseEvent -> panControl.startFullDrag());
+        panControl.setOnMouseDragReleased(new EventHandler<MouseDragEvent>() {
+            @Override
+            public void handle(MouseDragEvent event) { 
+                sendMessage("2*1*", panControl.getValue());
+            }
+        });
         
         panLabel.setTranslateX(-140);
         panLabel.setTranslateY(47.5);
@@ -369,6 +403,17 @@ public class Amy_gui extends Application {
         
         HSTextfield.setTranslateX(7.5);
         HSTextfield.setPrefWidth(60);
+        HSTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    sendMessage("1*1*", Double.parseDouble(HSTextfield.getText()));
+                }
+            }
+        });
         
         VSFb.setTranslateY(5);
         VSFb.setTranslateX(20);
@@ -385,6 +430,17 @@ public class Amy_gui extends Application {
         
         VSTextfield.setTranslateX(7.5);
         VSTextfield.setPrefWidth(60);
+        VSTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    sendMessage("1*2*", Double.parseDouble(VSTextfield.getText()));
+                }
+            }
+        });
         
         ELFb.setTranslateY(5);
         ELFb.setTranslateX(20);
@@ -401,6 +457,17 @@ public class Amy_gui extends Application {
         
         ELTextfield.setTranslateX(7.5);
         ELTextfield.setPrefWidth(60);
+        ELTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    sendMessage("1*3*", Double.parseDouble(ELTextfield.getText()));
+                }
+            }
+        });
         
         HWFb.setTranslateY(5);
         HWFb.setTranslateX(20);
@@ -417,6 +484,18 @@ public class Amy_gui extends Application {
         
         HWTextfield.setTranslateX(7.5);
         HWTextfield.setPrefWidth(60);
+        HWTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    sendMessage("1*4*", Double.parseDouble(HWTextfield.getText()));
+                }
+            }
+        });
+        
         
         VWFb.setTranslateY(5);
         VWFb.setTranslateX(20);
@@ -433,6 +512,17 @@ public class Amy_gui extends Application {
         
         VWTextfield.setTranslateX(7.5);
         VWTextfield.setPrefWidth(60);
+        VWTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    sendMessage("1*5*", Double.parseDouble(VWTextfield.getText()));
+                }
+            }
+        });
         
         final Separator separatorV2 = new Separator();
         separatorV2.setMaxWidth(40);
@@ -441,14 +531,37 @@ public class Amy_gui extends Application {
         hboxBottom.getChildren().add(separatorV2);
         
         /*
-        BOTTOM RIGHT PANE -> Control&Feedback JOINTS
+        BOTTOM RIGHT PANE -> Cyclic movements
         */
         FlowPane Pane4 = new FlowPane();
         Pane4.setPrefSize(360, 240);
-        Pane4.getChildren().addAll(imageView);
+        Pane4.setStyle("-fx-background-color: rgb(154,154,154)");
+//        Pane4.getChildren().addAll(imageView);
+        Pane4.getChildren().addAll(titleCyclicLabel, panCheckBox, tiltCheckBox, freqTextfield, ampTextfield, startCyclic, stopCyclic); 
+//                freqTextfield, ampTextfield, startCyclic, stopCyclic);
         hboxBottom.getChildren().add(Pane4);
+        
+        panCheckBox.setTranslateX(-97.5);
+        panCheckBox.setTranslateY(50);
+        
+        tiltCheckBox.setTranslateX(-85);
+        tiltCheckBox.setTranslateY(50);
+        
+        freqTextfield.setPromptText("Frequency");
+        freqTextfield.setTranslateX(50);
+        freqTextfield.setTranslateY(70);
+        
+        ampTextfield.setPromptText("Amplitude");
+        ampTextfield.setTranslateX(80);
+        ampTextfield.setTranslateY(70);
+        
+        startCyclic.setTranslateX(-110);
+        startCyclic.setTranslateY(120);
+        
+        stopCyclic.setTranslateX(-60);
+        stopCyclic.setTranslateY(120);
        
-        imageView.setFitHeight(Pane4.getPrefHeight()-15);
+//        imageView.setFitHeight(Pane4.getPrefHeight()-15);
         
         VBox VBox = new VBox();
         VBox.getChildren().add(hboxTop);
