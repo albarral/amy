@@ -9,6 +9,7 @@ import java.io.File;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Orientation;
@@ -544,23 +545,87 @@ public class Amy_gui extends Application {
         
         panCheckBox.setTranslateX(-97.5);
         panCheckBox.setTranslateY(50);
+        panCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                tiltCheckBox.setSelected(!newValue);
+            }
+        });
         
         tiltCheckBox.setTranslateX(-85);
         tiltCheckBox.setTranslateY(50);
+        tiltCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                panCheckBox.setSelected(!newValue);
+            }
+        });
         
         freqTextfield.setPromptText("Frequency");
         freqTextfield.setTranslateX(50);
         freqTextfield.setTranslateY(70);
+        freqTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {   
+                    if(panCheckBox.isSelected()){
+                        sendMessage("3*1*", Double.parseDouble(freqTextfield.getText()));
+                    }else if(tiltCheckBox.isSelected()){
+                        sendMessage("3*5*", Double.parseDouble(freqTextfield.getText()));
+                    }
+                    
+                }
+            }
+        });
         
         ampTextfield.setPromptText("Amplitude");
         ampTextfield.setTranslateX(80);
         ampTextfield.setTranslateY(70);
+        ampTextfield.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {   
+                    if(panCheckBox.isSelected()){
+                        sendMessage("3*2*", Double.parseDouble(ampTextfield.getText()));
+                    }else if(tiltCheckBox.isSelected()){
+                        sendMessage("3*6*", Double.parseDouble(ampTextfield.getText()));
+                    }
+                    
+                }
+            }
+        });
         
         startCyclic.setTranslateX(-110);
         startCyclic.setTranslateY(120);
+        startCyclic.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(panCheckBox.isSelected()){
+                    sendMessage("3*3*", 0.0);
+                }else if(tiltCheckBox.isSelected()){
+                    sendMessage("3*7*", 0.0);
+                }
+            }
+        });
         
         stopCyclic.setTranslateX(-60);
         stopCyclic.setTranslateY(120);
+        stopCyclic.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(panCheckBox.isSelected()){
+                    sendMessage("3*4*", 0.0);
+                }else if(tiltCheckBox.isSelected()){
+                    sendMessage("3*8*", 0.0);
+                }
+            }
+        });
        
 //        imageView.setFitHeight(Pane4.getPrefHeight()-15);
         
