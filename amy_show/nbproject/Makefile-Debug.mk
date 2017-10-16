@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/show/DiscPlot.o \
 	${OBJECTDIR}/src/amy/show/Plot.o \
 	${OBJECTDIR}/src/amy/show/SharedDisplay.o \
+	${OBJECTDIR}/src/amy/show/ShowTest.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmPlot.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmSideView.o \
@@ -95,6 +96,11 @@ ${OBJECTDIR}/src/amy/show/SharedDisplay.o: src/amy/show/SharedDisplay.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/SharedDisplay.o src/amy/show/SharedDisplay.cpp
+
+${OBJECTDIR}/src/amy/show/ShowTest.o: src/amy/show/ShowTest.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ShowTest.o src/amy/show/ShowTest.cpp
 
 ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o: src/amy/show/arm/ArmFrontView.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
