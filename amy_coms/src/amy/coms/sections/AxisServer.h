@@ -10,8 +10,8 @@
 #include <log4cxx/logger.h>
 
 #include "amy/coms/ifaces/iComsAxes.h"
-#include "amy/coms/data/AmyCommand.h"
 #include "amy/core/ifaces/iArmInterface.h"
+#include "talky/coms/Command.h"
 
 namespace amy
 {
@@ -28,7 +28,7 @@ public:
     void connect2Arm(iArmInterface& oArmInterface);
 
    // transforms command into proper call to arm interface
-    bool processCommand(AmyCommand& oAmyCommand);
+    bool processCommand(talky::Command& oCommand);
 
 private:
    // axis speeds        

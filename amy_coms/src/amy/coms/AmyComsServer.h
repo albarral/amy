@@ -1,5 +1,5 @@
-#ifndef __AMY_COMS_AMYSERVER_H
-#define __AMY_COMS_AMYSERVER_H
+#ifndef __AMY_COMS_AMYCOMSSERVER_H
+#define __AMY_COMS_AMYCOMSSERVER_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -9,25 +9,25 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/coms/ComsInterpreter.h"
 #include "amy/coms/sections/JointServer.h"
 #include "amy/coms/sections/AxisServer.h"
 #include "amy/coms/sections/CyclicServer.h"
 #include "amy/coms/sections/OtherServer.h"
 #include "amy/core/ifaces/iArmInterface.h"
+#include "talky/talk/Interpreter.h"
 
 namespace amy
 {
 // Base class used to serve requests from external processes.
 // Implements the iAmyComs interface.
 // Requests are transformed into proper calls to amy control interfaces (ie the ArmInterface)
-class AmyServer
+class AmyComsServer
 {    
 protected:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
     iArmInterface* pArmInterface;   // interface for arm control
-    ComsInterpreter oComsInterpreter;   // commands interpreter
+    talky::Interpreter oInterpreter;     // msg interpreter
     // comms divided in section servers
     JointServer oJointServer;
     AxisServer oAxisServer;
@@ -35,7 +35,7 @@ protected:
     OtherServer oOtherServer;    
         
 public:
-    AmyServer();
+    AmyComsServer();
 
    bool isConnected() {return bconnected;};
    void connect2Arm(iArmInterface& oArmInterface);
@@ -43,7 +43,7 @@ public:
     bool isAmyEndRequested();
          
    // interprets textual command and if valid sends proper call to arm interface
-    bool processCommand(std::string text); 
+    bool processMessage(std::string text); 
 };
 }
 #endif

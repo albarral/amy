@@ -4,11 +4,11 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/JointServer.h"
-#include "amy/coms/dictionary/JointCategory.h"
+#include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
-log4cxx::LoggerPtr JointServer::logger(log4cxx::Logger::getLogger("amy.server"));
+log4cxx::LoggerPtr JointServer::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 JointServer::JointServer()
 {    
@@ -20,41 +20,41 @@ void JointServer::connect2Arm(iArmInterface& oArmInterface)
     pArmInterface = &oArmInterface;
 }
 
-bool JointServer::processCommand(AmyCommand& oAmyCommand)
+bool JointServer::processCommand(talky::Command& oCommand)
 {
     bool bret = true;
-    float value = oAmyCommand.getValue();
+    float quantity = oCommand.getQuantity();
 
-    switch (oAmyCommand.getAction())
+    switch (oCommand.getConcept())
     {
-        case JointCategory::eJOINT_HS_POS:
-            LOG4CXX_INFO(logger, "> set HS " << value);                        
-            setPosHS(value);
+        case talky::ArmTopic::eJOINT_HS_POS:
+            LOG4CXX_INFO(logger, "> set HS " << quantity);                        
+            setPosHS(quantity);
             break;
             
-        case JointCategory::eJOINT_VS_POS:
-            LOG4CXX_INFO(logger, "> set VS " << value);                        
-            setPosVS(value);
+        case talky::ArmTopic::eJOINT_VS_POS:
+            LOG4CXX_INFO(logger, "> set VS " << quantity);                        
+            setPosVS(quantity);
             break;
 
-        case JointCategory::eJOINT_ELB_POS:
-            LOG4CXX_INFO(logger, "> set ELB " << value);                        
-            setPosELB(value);
+        case talky::ArmTopic::eJOINT_ELB_POS:
+            LOG4CXX_INFO(logger, "> set ELB " << quantity);                        
+            setPosELB(quantity);
             break;
 
-        case JointCategory::eJOINT_HWRI_POS:
-            LOG4CXX_INFO(logger, "> set HW " << value);                        
-            setPosHW(value);
+        case talky::ArmTopic::eJOINT_HWRI_POS:
+            LOG4CXX_INFO(logger, "> set HW " << quantity);                        
+            setPosHW(quantity);
             break;
 
-        case JointCategory::eJOINT_VWRI_POS:
-            LOG4CXX_INFO(logger, "> set VW " << value);                        
-            setPosVW(value);
+        case talky::ArmTopic::eJOINT_VWRI_POS:
+            LOG4CXX_INFO(logger, "> set VW " << quantity);                        
+            setPosVW(quantity);
             break;
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "JointServer: untreated action " << oAmyCommand.getAction());           
+            LOG4CXX_WARN(logger, "JointServer: untreated concept " << oCommand.getConcept());           
     }    
     return bret;
 }

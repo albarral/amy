@@ -4,11 +4,12 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/OtherServer.h"
-#include "amy/coms/dictionary/OtherCategory.h"
+#include "talky/topics/ArmTopic.h"
+
 
 namespace amy
 {
-log4cxx::LoggerPtr OtherServer::logger(log4cxx::Logger::getLogger("amy.server"));
+log4cxx::LoggerPtr OtherServer::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 OtherServer::OtherServer()
 {    
@@ -21,31 +22,31 @@ void OtherServer::connect2Arm(iArmInterface& oArmInterface)
     pArmInterface = &oArmInterface;
 }
 
-bool OtherServer::processCommand(AmyCommand& oAmyCommand)
+bool OtherServer::processCommand(talky::Command& oCommand)
 {
     bool bret = true;
-    float value = oAmyCommand.getValue();
+    float quantity = oCommand.getQuantity();
     
-    switch (oAmyCommand.getAction())
+    switch (oCommand.getConcept())
     {
-        case OtherCategory::eOTHER_ARM_STOP:
+        case talky::ArmTopic::eEXTRA_ARM_STOP:
             LOG4CXX_INFO(logger, "> arm stop ");                        
-            toDoCommand(value);
+            toDoCommand(quantity);
             break;
             
-        case OtherCategory::eOTHER_KEEP_TILT:
-            LOG4CXX_INFO(logger, "> keep tilt " << value);                        
-            keepTilt((int)value);
+        case talky::ArmTopic::eEXTRA_KEEP_TILT:
+            LOG4CXX_INFO(logger, "> keep tilt " << quantity);                        
+            keepTilt((int)quantity);
             break;
             
-        case OtherCategory::eOTHER_AMY_END:
+        case talky::ArmTopic::eEXTRA_AMY_END:
             LOG4CXX_INFO(logger, "> end emy");                        
             endAmy();
             break;
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "OtherServer: untreated action " << oAmyCommand.getAction());           
+            LOG4CXX_WARN(logger, "OtherServer: untreated action " << oCommand.getConcept());           
     }    
     return bret;
 }

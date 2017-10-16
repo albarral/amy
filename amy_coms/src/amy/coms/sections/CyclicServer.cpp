@@ -4,11 +4,12 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/CyclicServer.h"
-#include "amy/coms/dictionary/CyclicCategory.h"
+#include "talky/topics/ArmTopic.h"
+
 
 namespace amy
 {
-log4cxx::LoggerPtr CyclicServer::logger(log4cxx::Logger::getLogger("amy.server"));
+log4cxx::LoggerPtr CyclicServer::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 CyclicServer::CyclicServer()
 {    
@@ -20,58 +21,58 @@ void CyclicServer::connect2Arm(iArmInterface& oArmInterface)
     pArmInterface = &oArmInterface;
 }
 
-bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
+bool CyclicServer::processCommand(talky::Command& oCommand)
 {
     bool bret = true;
-    float value = oAmyCommand.getValue();
+    float quantity = oCommand.getQuantity();
     bool byes;
 
-    switch (oAmyCommand.getAction())
+    switch (oCommand.getConcept())
     {
         // FRONTAL CYCLER
-        case CyclicCategory::eCYCLIC_FRONT_FREQ:
-            LOG4CXX_INFO(logger, "> set front freq " << value);                        
-            frontFrequency(value);
+        case talky::ArmTopic::eCYCLIC_FRONT_FREQ:
+            LOG4CXX_INFO(logger, "> set front freq " << quantity);                        
+            frontFrequency(quantity);
             break;
             
-        case CyclicCategory::eCYCLIC_FRONT_AMP:
-            LOG4CXX_INFO(logger, "> set front amplitude " << value);                        
-            frontAmplitude(value);
+        case talky::ArmTopic::eCYCLIC_FRONT_AMP:
+            LOG4CXX_INFO(logger, "> set front amplitude " << quantity);                        
+            frontAmplitude(quantity);
             break;
 
-        case CyclicCategory::eCYCLIC_FRONT_ANGLE:
+        case talky::ArmTopic::eCYCLIC_FRONT_ANGLE:
             LOG4CXX_INFO(logger, "> set front angle ");                        
-            frontAngle(value);
+            frontAngle(quantity);
             break;
 
-        case CyclicCategory::eCYCLIC_FRONT_START:
+        case talky::ArmTopic::eCYCLIC_FRONT_START:
             LOG4CXX_INFO(logger, "> front start ");                        
             frontStart();
             break;
 
-        case CyclicCategory::eCYCLIC_FRONT_STOP:
+        case talky::ArmTopic::eCYCLIC_FRONT_STOP:
             LOG4CXX_INFO(logger, "> front stop ");                        
             frontStop();
             break;
 
        // ARM MOVER            
-        case CyclicCategory::eCYCLIC_MOVER_LAUNCH:
-            LOG4CXX_INFO(logger, "> launch move " << (int)value);                        
-            launchMove((int)value);
+        case talky::ArmTopic::eCYCLIC_MOVER_LAUNCH:
+            LOG4CXX_INFO(logger, "> launch move " << (int)quantity);                        
+            launchMove((int)quantity);
             break;
             
-        case CyclicCategory::eCYCLIC_MOVER_STOP:
+        case talky::ArmTopic::eCYCLIC_MOVER_STOP:
             LOG4CXX_INFO(logger, "> stop move");                        
             stopMove();
             break;
 
-        case CyclicCategory::eCYCLIC_MOVER_TURN:
-            LOG4CXX_INFO(logger, "> turn move " << (int)value);                        
-            turnMove((int)value);
+        case talky::ArmTopic::eCYCLIC_MOVER_TURN:
+            LOG4CXX_INFO(logger, "> turn move " << (int)quantity);                        
+            turnMove((int)quantity);
             break;
 
-        case CyclicCategory::eCYCLIC_MOVER_WIDER:
-            byes = (value == 1.0);
+        case talky::ArmTopic::eCYCLIC_MOVER_WIDER:
+            byes = (quantity == 1.0);
             if (byes)
             {
                 LOG4CXX_INFO(logger, "> move wider");                        
@@ -81,8 +82,8 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             moveWider(byes);
             break;
 
-        case CyclicCategory::eCYCLIC_MOVER_TALLER:
-            byes = (value == 1.0);
+        case talky::ArmTopic::eCYCLIC_MOVER_TALLER:
+            byes = (quantity == 1.0);
             if (byes)
             {
                 LOG4CXX_INFO(logger, "> move taller");                        
@@ -92,8 +93,8 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
             moveTaller(byes);
             break;
 
-        case CyclicCategory::eCYCLIC_MOVER_FASTER:
-            byes = (value == 1.0);
+        case talky::ArmTopic::eCYCLIC_MOVER_FASTER:
+            byes = (quantity == 1.0);
             if (byes)
             {
                 LOG4CXX_INFO(logger, "> move faster");                        
@@ -105,7 +106,7 @@ bool CyclicServer::processCommand(AmyCommand& oAmyCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "CyclicServer: untreated action " << oAmyCommand.getAction());           
+            LOG4CXX_WARN(logger, "CyclicServer: untreated action " << oCommand.getConcept());           
     }    
     return bret;
 }

@@ -4,12 +4,12 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/AxisServer.h"
-#include "amy/coms/dictionary/AxisCategory.h"
+#include "talky/topics/ArmTopic.h"
 
 
 namespace amy
 {
-log4cxx::LoggerPtr AxisServer::logger(log4cxx::Logger::getLogger("amy.server"));
+log4cxx::LoggerPtr AxisServer::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 AxisServer::AxisServer()
 {    
@@ -21,46 +21,46 @@ void AxisServer::connect2Arm(iArmInterface& oArmInterface)
     pArmInterface = &oArmInterface;
 }
 
-bool AxisServer::processCommand(AmyCommand& oAmyCommand)
+bool AxisServer::processCommand(talky::Command& oCommand)
 {
     bool bret = true;
-    float value = oAmyCommand.getValue();
+    float quantity = oCommand.getQuantity();
     
-    switch (oAmyCommand.getAction())
+    switch (oCommand.getConcept())
     {
-        case AxisCategory::eAXIS_PAN_POS:
-            LOG4CXX_INFO(logger, "> move pan " << value);                        
-            movePan(value);
+        case talky::ArmTopic::eAXIS_PAN_POS:
+            LOG4CXX_INFO(logger, "> move pan " << quantity);                        
+            movePan(quantity);
             break;
             
-        case AxisCategory::eAXIS_TILT_POS:
-            LOG4CXX_INFO(logger, "> move tilt " << value);                        
-            moveTilt(value);
+        case talky::ArmTopic::eAXIS_TILT_POS:
+            LOG4CXX_INFO(logger, "> move tilt " << quantity);                        
+            moveTilt(quantity);
             break;
 
-        case AxisCategory::eAXIS_RAD_POS:
-            LOG4CXX_INFO(logger, "> move radius " << value);                        
-            moveRadius(value);
+        case talky::ArmTopic::eAXIS_RAD_POS:
+            LOG4CXX_INFO(logger, "> move radius " << quantity);                        
+            moveRadius(quantity);
             break;
 
-        case AxisCategory::eAXIS_PAN_SPEED:
-            LOG4CXX_INFO(logger, "> pan speed " << value);                        
-            panSpeed(value);
+        case talky::ArmTopic::eAXIS_PAN_SPEED:
+            LOG4CXX_INFO(logger, "> pan speed " << quantity);                        
+            panSpeed(quantity);
             break;
             
-        case AxisCategory::eAXIS_TILT_SPEED:
-            LOG4CXX_INFO(logger, "> tilt speed " << value);                        
-            tiltSpeed(value);
+        case talky::ArmTopic::eAXIS_TILT_SPEED:
+            LOG4CXX_INFO(logger, "> tilt speed " << quantity);                        
+            tiltSpeed(quantity);
             break;
 
-        case AxisCategory::eAXIS_RAD_SPEED:
-            LOG4CXX_INFO(logger, "> rad speed " << value);                        
-            radialSpeed(value);
+        case talky::ArmTopic::eAXIS_RAD_SPEED:
+            LOG4CXX_INFO(logger, "> rad speed " << quantity);                        
+            radialSpeed(quantity);
             break;
             
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "AxisServer: untreated action " << oAmyCommand.getAction());           
+            LOG4CXX_WARN(logger, "AxisServer: untreated concept " << oCommand.getConcept());           
     }    
     return bret;
 }
