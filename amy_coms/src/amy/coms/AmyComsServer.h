@@ -9,10 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/coms/sections/JointServer.h"
-#include "amy/coms/sections/AxisServer.h"
-#include "amy/coms/sections/CyclicServer.h"
-#include "amy/coms/sections/OtherServer.h"
+#include "amy/coms/sections/ArmComsControl.h"
 #include "amy/core/ifaces/iArmInterface.h"
 #include "talky/talk/Interpreter.h"
 
@@ -23,22 +20,18 @@ namespace amy
 // Requests are transformed into proper calls to amy control interfaces (ie the ArmInterface)
 class AmyComsServer
 {    
-protected:
+private:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
     iArmInterface* pArmInterface;   // interface for arm control
-    talky::Interpreter oInterpreter;     // msg interpreter
-    // comms divided in section servers
-    JointServer oJointServer;
-    AxisServer oAxisServer;
-    CyclicServer oCyclicServer;
-    OtherServer oOtherServer;    
+    talky::Interpreter oInterpreter;     // message interpreter
+    ArmComsControl oArmComsControl;     // control commands sender to arm interface
         
 public:
     AmyComsServer();
 
    bool isConnected() {return bconnected;};
-   void connect2Arm(iArmInterface& oArmInterface);
+   void connect2Arm(iArmInterface* pArmInterface);
       
     bool isAmyEndRequested();
          

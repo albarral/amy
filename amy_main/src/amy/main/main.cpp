@@ -15,7 +15,6 @@
 #include "amy/main/robots/SupportedRobots.h"
 #include "amy/core/robot/Robot.h"
 
-#include "amy/main/Tests.h"
 #include "amy/arm/ArmTest.h"
 
 using namespace amy;
@@ -35,11 +34,7 @@ int main(int argc, char** argv)
 
     LOG4CXX_INFO(logger, "\n\nSTART amy\n");
     LOG4CXX_INFO(logger, "target robot: " << targetRobot);
-    
-//    Tests oTests;
-//    oTests.testDiscPlot();
-//    return 0;
-    
+        
     SupportedRobots oSupportedRobots;
     Robot oRobot;
     

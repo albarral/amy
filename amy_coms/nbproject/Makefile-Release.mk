@@ -36,10 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComsServer.o \
-	${OBJECTDIR}/src/amy/coms/sections/AxisServer.o \
-	${OBJECTDIR}/src/amy/coms/sections/CyclicServer.o \
-	${OBJECTDIR}/src/amy/coms/sections/JointServer.o \
-	${OBJECTDIR}/src/amy/coms/sections/OtherServer.o
+	${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o
 
 
 # C Compiler Flags
@@ -71,25 +68,10 @@ ${OBJECTDIR}/src/amy/coms/AmyComsServer.o: src/amy/coms/AmyComsServer.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsServer.o src/amy/coms/AmyComsServer.cpp
 
-${OBJECTDIR}/src/amy/coms/sections/AxisServer.o: src/amy/coms/sections/AxisServer.cpp 
+${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o: src/amy/coms/sections/ArmComsControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/AxisServer.o src/amy/coms/sections/AxisServer.cpp
-
-${OBJECTDIR}/src/amy/coms/sections/CyclicServer.o: src/amy/coms/sections/CyclicServer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/CyclicServer.o src/amy/coms/sections/CyclicServer.cpp
-
-${OBJECTDIR}/src/amy/coms/sections/JointServer.o: src/amy/coms/sections/JointServer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/JointServer.o src/amy/coms/sections/JointServer.cpp
-
-${OBJECTDIR}/src/amy/coms/sections/OtherServer.o: src/amy/coms/sections/OtherServer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/OtherServer.o src/amy/coms/sections/OtherServer.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o src/amy/coms/sections/ArmComsControl.cpp
 
 # Subprojects
 .build-subprojects:

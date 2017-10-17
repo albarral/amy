@@ -21,14 +21,10 @@
           <itemPath>src/amy/main/robots/SupportedRobots.cpp</itemPath>
           <itemPath>src/amy/main/robots/SupportedRobots.h</itemPath>
         </logicalFolder>
-        <itemPath>src/amy/main/AmyBroadcaster.cpp</itemPath>
-        <itemPath>src/amy/main/AmyBroadcaster.h</itemPath>
         <itemPath>src/amy/main/AmyControl.cpp</itemPath>
         <itemPath>src/amy/main/AmyControl.h</itemPath>
         <itemPath>src/amy/main/AmyListener.cpp</itemPath>
         <itemPath>src/amy/main/AmyListener.h</itemPath>
-        <itemPath>src/amy/main/Tests.cpp</itemPath>
-        <itemPath>src/amy/main/Tests.h</itemPath>
         <itemPath>src/amy/main/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -68,6 +64,9 @@
             <pElem>../amy_arm/src</pElem>
             <pElem>../amy_coms/src</pElem>
             <pElem>../amy_show/src</pElem>
+            <pElem>../../tron/comy/src</pElem>
+            <pElem>../../tron/tuly/src</pElem>
+            <pElem>../../tron/talky/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -172,13 +171,45 @@
             <linkerLibLibItem>log4cxx</linkerLibLibItem>
             <linkerLibLibItem>opencv_core</linkerLibLibItem>
             <linkerLibLibItem>opencv_highgui</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/comy"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/comy"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_comy.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/tuly"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/tuly"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_tuly.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/talky"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/talky"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtalky.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/main/AmyBroadcaster.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/main/AmyBroadcaster.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
@@ -186,10 +217,6 @@
       <item path="src/amy/main/AmyListener.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/main/Tests.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/main/Tests.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/main/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -232,10 +259,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/main/AmyBroadcaster.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/main/AmyBroadcaster.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
@@ -243,10 +266,6 @@
       <item path="src/amy/main/AmyListener.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/main/Tests.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/main/Tests.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/main/main.cpp" ex="false" tool="1" flavor2="0">
       </item>

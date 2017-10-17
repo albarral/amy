@@ -35,10 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/main/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/main/AmyControl.o \
 	${OBJECTDIR}/src/amy/main/AmyListener.o \
-	${OBJECTDIR}/src/amy/main/Tests.o \
 	${OBJECTDIR}/src/amy/main/main.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmUR5.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o \
@@ -69,11 +67,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_main: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_main ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/main/AmyBroadcaster.o: src/amy/main/AmyBroadcaster.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/main
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyBroadcaster.o src/amy/main/AmyBroadcaster.cpp
-
 ${OBJECTDIR}/src/amy/main/AmyControl.o: src/amy/main/AmyControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
@@ -83,11 +76,6 @@ ${OBJECTDIR}/src/amy/main/AmyListener.o: src/amy/main/AmyListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyListener.o src/amy/main/AmyListener.cpp
-
-${OBJECTDIR}/src/amy/main/Tests.o: src/amy/main/Tests.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/main
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/Tests.o src/amy/main/Tests.cpp
 
 ${OBJECTDIR}/src/amy/main/main.o: src/amy/main/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main

@@ -7,7 +7,7 @@
 
 #include <log4cxx/logger.h>
 
-#include "amy/show/ShowTest.h"
+#include "amy/show/TestShow.h"
 
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/history/History.h"
@@ -19,9 +19,9 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr ShowTest::logger(Logger::getLogger("amy.show"));    
+LoggerPtr TestShow::logger(Logger::getLogger("amy.show"));    
 
-void ShowTest::testArmPlot()
+void TestShow::testArmPlot()
 {       
     SharedDisplay oSharedDisplay;
     ArmFrontView oArmFrontView;    
@@ -37,7 +37,7 @@ void ShowTest::testArmPlot()
 }
 
 
-void ShowTest::testHistoryPlot()
+void TestShow::testHistoryPlot()
 {
     SharedDisplay oSharedDisplay;
     HistoryPlot oHistoryPlot;
@@ -60,7 +60,7 @@ void ShowTest::testHistoryPlot()
     sleep(5);    
 }
 
-void ShowTest::testDiscPlot()
+void TestShow::testDiscPlot()
 {
     SharedDisplay oSharedDisplay;
     DiscPlot oDiscPlot;

@@ -11,7 +11,7 @@
 namespace amy
 {
 // class used to conduct tests
-class ShowTest
+class TestShow
 {
  private:
      static log4cxx::LoggerPtr logger;

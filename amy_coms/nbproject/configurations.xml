@@ -13,21 +13,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="coms" displayName="coms" projectFiles="true">
-        <logicalFolder name="ifaces" displayName="ifaces" projectFiles="true">
-          <itemPath>src/amy/coms/ifaces/iComsAxes.h</itemPath>
-          <itemPath>src/amy/coms/ifaces/iComsCyclic.h</itemPath>
-          <itemPath>src/amy/coms/ifaces/iComsJoints.h</itemPath>
-          <itemPath>src/amy/coms/ifaces/iComsOthers.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="sections" displayName="sections" projectFiles="true">
-          <itemPath>src/amy/coms/sections/AxisServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/AxisServer.h</itemPath>
-          <itemPath>src/amy/coms/sections/CyclicServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/CyclicServer.h</itemPath>
-          <itemPath>src/amy/coms/sections/JointServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/JointServer.h</itemPath>
-          <itemPath>src/amy/coms/sections/OtherServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/OtherServer.h</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsControl.cpp</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsControl.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/coms/AmyComsServer.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComsServer.h</itemPath>
@@ -77,9 +65,7 @@
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_utils/src</pElem>
-            <pElem>../../tron/comy/src</pElem>
             <pElem>../../tron/talky/src</pElem>
-            <pElem>../../tron/tuly/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -110,18 +96,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/comy"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron/comy"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_comy.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../tron/talky"
                             CT="2"
                             CN="Debug"
@@ -131,18 +105,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtalky.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/tuly"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron/tuly"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_tuly.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -156,47 +118,12 @@
       </item>
       <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/ifaces/iComsAxes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsCyclic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsJoints.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsOthers.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisServer.cpp"
+      <item path="src/amy/coms/sections/ArmComsControl.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/sections/AxisServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.h"
+      <item path="src/amy/coms/sections/ArmComsControl.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -230,47 +157,12 @@
       </item>
       <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/ifaces/iComsAxes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsCyclic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsJoints.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsOthers.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisServer.cpp"
+      <item path="src/amy/coms/sections/ArmComsControl.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/sections/AxisServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.h"
+      <item path="src/amy/coms/sections/ArmComsControl.h"
             ex="false"
             tool="3"
             flavor2="0">
