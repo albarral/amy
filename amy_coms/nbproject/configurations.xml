@@ -16,11 +16,13 @@
         <logicalFolder name="sections" displayName="sections" projectFiles="true">
           <itemPath>src/amy/coms/sections/ArmComsControl.cpp</itemPath>
           <itemPath>src/amy/coms/sections/ArmComsControl.h</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsSensing.cpp</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsSensing.h</itemPath>
         </logicalFolder>
+        <itemPath>src/amy/coms/AmyComsInformer.cpp</itemPath>
+        <itemPath>src/amy/coms/AmyComsInformer.h</itemPath>
         <itemPath>src/amy/coms/AmyComsServer.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComsServer.h</itemPath>
-        <itemPath>src/amy/coms/iAmyPublisher.h</itemPath>
-        <itemPath>src/amy/coms/iAmySubscriber.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -110,13 +112,13 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="src/amy/coms/AmyComsInformer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmyComsInformer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/coms/AmyComsServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/AmyComsServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/sections/ArmComsControl.cpp"
             ex="false"
@@ -124,6 +126,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/sections/ArmComsControl.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/sections/ArmComsSensing.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/sections/ArmComsSensing.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -149,13 +161,13 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/coms/AmyComsInformer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/coms/AmyComsInformer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/coms/AmyComsServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/AmyComsServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/sections/ArmComsControl.cpp"
             ex="false"
@@ -163,6 +175,16 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/sections/ArmComsControl.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/sections/ArmComsSensing.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/sections/ArmComsSensing.h"
             ex="false"
             tool="3"
             flavor2="0">

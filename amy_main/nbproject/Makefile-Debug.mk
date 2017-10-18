@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/main/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/main/AmyControl.o \
 	${OBJECTDIR}/src/amy/main/AmyListener.o \
 	${OBJECTDIR}/src/amy/main/main.o \
@@ -88,6 +89,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/talky/dist/Debug/GNU-
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/src/amy/main/AmyBroadcaster.o: src/amy/main/AmyBroadcaster.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/main
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../amy_control/src -I../amy_math/src -I../amy_move/src -I../amy_arm/src -I../amy_coms/src -I../amy_show/src -I../../tron/comy/src -I../../tron/tuly/src -I../../tron/talky/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyBroadcaster.o src/amy/main/AmyBroadcaster.cpp
 
 ${OBJECTDIR}/src/amy/main/AmyControl.o: src/amy/main/AmyControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main

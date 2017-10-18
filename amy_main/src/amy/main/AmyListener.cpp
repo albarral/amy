@@ -34,7 +34,7 @@ void AmyListener::init(iArmInterface* pArmInterface)
     }
     else
         LOG4CXX_ERROR(logger, modName + ": failed initialization, coms or control server was not connected!");                        
-};
+}
 
 void AmyListener::first()
 {    
@@ -46,6 +46,7 @@ void AmyListener::loop()
     // listen to received messages
     if (oComyServer.readMessage())
     {
+        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServer.getRawMessage());        
         // if something received process it
         oAmyComsServer.processMessage(oComyServer.getRawMessage());
     }            

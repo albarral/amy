@@ -45,9 +45,9 @@ bool AmyControl::launch(Robot& oRobot)
         oAmyListener.on();
         
         // launch broadcaster module
-//        oAmyBroadcaster.init(oArmManager.getArmInterface());
-//        oAmyBroadcaster.setFrequency(freq);
-//        oAmyBroadcaster.on();
+        oAmyBroadcaster.init(&oArmManager.getArmInterface());
+        oAmyBroadcaster.setFrequency(freq);
+        oAmyBroadcaster.on();
 
         oSharedDisplay.initDisplay();
         
@@ -87,8 +87,8 @@ bool AmyControl::end()
     oAmyListener.wait();      
     
     // finish broadcaster module
-//    oAmyBroadcaster.off();
-//    oAmyBroadcaster.wait();      
+    oAmyBroadcaster.off();
+    oAmyBroadcaster.wait();      
 
     // finish arm plotter module
     oArmPlotter.off();

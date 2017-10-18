@@ -12,7 +12,7 @@
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/ArmManager.h"
 #include "amy/main/AmyListener.h"
-//#include "amy/main/AmyBroadcaster.h"
+#include "amy/main/AmyBroadcaster.h"
 #include "amy/show/SharedDisplay.h"
 #include "amy/show/modules/ArmPlotter.h"
 #include "amy/show/modules/HistoryPlotter.h"
@@ -29,7 +29,7 @@ class AmyControl
         AmyConfig oAmyConfig;
         ArmManager oArmManager;
         AmyListener oAmyListener;               // communications module for responding to external requests
-        //AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
+        AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
         SharedDisplay oSharedDisplay;
         ArmPlotter oArmPlotter;                     // debug module (draws arm position in display)
         HistoryPlotter oHistoryPlotter;             // debug module (draws speed evolution in display)

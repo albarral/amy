@@ -2,7 +2,7 @@
 #define __AMY_COMS_AMYCOMSSERVER_H
 
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -12,20 +12,20 @@
 #include "amy/coms/sections/ArmComsControl.h"
 #include "amy/core/ifaces/iArmInterface.h"
 #include "talky/talk/Interpreter.h"
+#include "talky/coms/CommandBlock.h"
 
 namespace amy
 {
-// Base class used to serve requests from external processes.
-// Implements the iAmyComs interface.
-// Requests are transformed into proper calls to amy control interfaces (ie the ArmInterface)
+// Server for amy control requests from external processes.
+// Interprets received messages and sends proper commands to arm interface.
 class AmyComsServer
 {    
 private:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
-    iArmInterface* pArmInterface;   // interface for arm control
+    iArmInterface* pArmInterface;   // arm interface
     talky::Interpreter oInterpreter;     // message interpreter
-    ArmComsControl oArmComsControl;     // control commands sender to arm interface
+    ArmComsControl oArmComsControl;     // sender of proper control commands to arm interface
         
 public:
     AmyComsServer();
@@ -35,8 +35,12 @@ public:
       
     bool isAmyEndRequested();
          
-   // interprets textual command and if valid sends proper call to arm interface
+   // interpret textual command, and send it properly to arm interface
     bool processMessage(std::string text); 
+
+private:
+    // transform interpreted command block to proper interface calls
+    bool processCommandBlock(talky::CommandBlock& oCommandBlock);
 };
 }
 #endif

@@ -6,12 +6,13 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
 #include <log4cxx/logger.h>
 
 #include "amy/control/module2.h"
-#include "amy/coms/file/AmyFilePublisher.h"
-#include "amy/coms/data/ArmData.h"
 #include "amy/core/ifaces/iArmInterface.h"
+#include "amy/coms/AmyComsInformer.h"
+#include "comy/file/ComyFilePublisher.h"
 
 namespace amy
 {
@@ -24,24 +25,20 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    AmyFilePublisher oAmyPublisher;          // the info publisher (based in shared file)
-    ArmData oArmData;                             // data to be broadcasted
-    ArmData oArmData0;                           // data storage (for change detection)
-    iArmInterface* pArmInterface;               // interface to the arm's control
+    comy::ComyFilePublisher oComyPublisher;      // the info publisher (based in shared file)
+    AmyComsInformer oAmyComsInformer;           // amy sensor informer
 
 public:
     AmyBroadcaster ();
     //~AmyBroadcaster();
 
-    void init(iArmInterface& oArmInterface);       
+    void init(iArmInterface* pArmInterface);       
     bool isEnabled() {return benabled;};
                 
 private:
     void first();
     // executes the behaviour
     void loop ();    
-    // fetch joints control info through the arm's interface
-    void fetchInfo();
 };
 }		
 #endif

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2016 by Migtron Robotics   *
+ *   Copyright (C) 2017 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -8,7 +8,6 @@
 #include "talky/Topics.h"
 #include "talky/coms/Command.h"
 #include "talky/topics/ArmTopic.h"
-
 
 namespace amy
 {
@@ -47,21 +46,55 @@ bool AmyComsServer::processMessage(std::string text)
     // interpret message
     if (oInterpreter.processMessage(text))
     {
-        // show obtained command
-        talky::Command& oCommand = oInterpreter.getCommand();
-        LOG4CXX_INFO(logger, "AmyComsServer: msg processed ok");        
-        LOG4CXX_INFO(logger, "AmyComsServer: " + oCommand.toString());    
-
-        // and process command (convert to arm interface control)
-        oArmComsControl.processCommand(oCommand);
+        // simple message received
+        if (!oInterpreter.isBlockProcessed())
+        {
+            // get interpreted command
+            talky::Command& oCommand = oInterpreter.getCommand();
+            // and process it, transforming it to a proper arm interface call
+            bret = oArmComsControl.processCommand(oCommand);
+            
+            if (bret)
+            {
+                LOG4CXX_INFO(logger, "AmyComsServer: command ok - " + oCommand.toString());                    
+            }                
+            else
+                LOG4CXX_WARN(logger, "AmyComsServer: command failed - " + oCommand.toString());                                    
+        }
+        // message block received
+        else
+        {            
+            // process interpreted commands
+            bret = processCommandBlock(oInterpreter.getCommandBlock());
+        }
     }
     else
     {
         LOG4CXX_WARN(logger, "AmyComsServer: msg processing failed!");            
-        LOG4CXX_WARN(logger, "AmyComsServer: " + oInterpreter.getMessage().toStringValidity());            
     }
             
     return bret;
+}
+
+bool AmyComsServer::processCommandBlock(talky::CommandBlock& oCommandBlock)
+{
+    int numWellProcessed = 0;
+
+    // for each interpreted command
+    for (talky::Command& oCommand : oCommandBlock.getListCommands())
+    {
+        // process it, transforming it to a proper arm interface call        
+        if (oArmComsControl.processCommand(oCommand))
+        {
+            numWellProcessed++;
+            LOG4CXX_INFO(logger, "AmyComsServer: command ok - " + oCommand.toString());                    
+        }                
+        else
+            LOG4CXX_WARN(logger, "AmyComsServer: command failed - " + oCommand.toString());                                            
+    }
+
+    // return true if all commands well processed
+    return (numWellProcessed == oCommandBlock.getListCommands().size());
 }
 
 }

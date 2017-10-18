@@ -35,8 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/coms/AmyComsInformer.o \
 	${OBJECTDIR}/src/amy/coms/AmyComsServer.o \
-	${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o
+	${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o \
+	${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o
 
 
 # C Compiler Flags
@@ -69,6 +71,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
+${OBJECTDIR}/src/amy/coms/AmyComsInformer.o: src/amy/coms/AmyComsInformer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsInformer.o src/amy/coms/AmyComsInformer.cpp
+
 ${OBJECTDIR}/src/amy/coms/AmyComsServer.o: src/amy/coms/AmyComsServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
@@ -78,6 +85,11 @@ ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o: src/amy/coms/sections/ArmCo
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o src/amy/coms/sections/ArmComsControl.cpp
+
+${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o: src/amy/coms/sections/ArmComsSensing.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_utils/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o src/amy/coms/sections/ArmComsSensing.cpp
 
 # Subprojects
 .build-subprojects:

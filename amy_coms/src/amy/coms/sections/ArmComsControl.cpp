@@ -54,7 +54,7 @@ bool ArmComsControl::processCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: untreated category " << oCommand.getCategory());                        
+            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated category " << oCommand.getCategory());                        
     }                
     return bret;
 }
@@ -93,7 +93,7 @@ bool ArmComsControl::processJointCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: untreated joint concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated joint concept " << oCommand.getConcept());           
     }    
     return bret;
 }
@@ -137,7 +137,7 @@ bool ArmComsControl::processAxisCommand(talky::Command& oCommand)
             
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: untreated axis concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated axis concept " << oCommand.getConcept());           
     }    
     return bret;
 }
@@ -221,7 +221,7 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: untreated cyclic concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated cyclic concept " << oCommand.getConcept());           
     }    
     return bret;
 }
@@ -250,7 +250,7 @@ bool ArmComsControl::processExtraCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: untreated extra concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated extra concept " << oCommand.getConcept());           
     }    
     return bret;
 }
