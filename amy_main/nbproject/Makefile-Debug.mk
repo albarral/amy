@@ -58,7 +58,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_control/dist/Debug/GNU-Linux -L../amy_control/dist/Debug/GNU-Linux -lamy_control -Wl,-rpath,../amy_math/dist/Debug/GNU-Linux -L../amy_math/dist/Debug/GNU-Linux -lamy_math -Wl,-rpath,../amy_move/dist/Debug/GNU-Linux -L../amy_move/dist/Debug/GNU-Linux -lamy_move -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -Wl,-rpath,../amy_show/dist/Debug/GNU-Linux -L../amy_show/dist/Debug/GNU-Linux -lamy_show -llog4cxx -lopencv_core -lopencv_highgui -Wl,-rpath,../../tron/comy/dist/Debug/GNU-Linux -L../../tron/comy/dist/Debug/GNU-Linux -ltron_comy -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltalky
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -Wl,-rpath,../amy_control/dist/Debug/GNU-Linux -L../amy_control/dist/Debug/GNU-Linux -lamy_control -Wl,-rpath,../amy_math/dist/Debug/GNU-Linux -L../amy_math/dist/Debug/GNU-Linux -lamy_math -Wl,-rpath,../amy_move/dist/Debug/GNU-Linux -L../amy_move/dist/Debug/GNU-Linux -lamy_move -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -Wl,-rpath,../amy_show/dist/Debug/GNU-Linux -L../amy_show/dist/Debug/GNU-Linux -lamy_show -llog4cxx -lopencv_core -lopencv_highgui -Wl,-rpath,../../tron/comy/dist/Debug/GNU-Linux -L../../tron/comy/dist/Debug/GNU-Linux -ltron_comy -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -84,7 +84,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/comy/dist/Debug/GNU-L
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/talky/dist/Debug/GNU-Linux/libtalky.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/talky/dist/Debug/GNU-Linux/libtron_talky.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

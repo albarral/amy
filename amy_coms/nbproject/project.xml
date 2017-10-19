@@ -15,7 +15,6 @@
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src/amy/coms</sourceRootElem>
-                <sourceRootElem>src/amy/coms</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
