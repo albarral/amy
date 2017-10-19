@@ -36,16 +36,17 @@ The available actions are:
 git clone https://github.com/albarral/amy.git
 
 
-2. Build amy_main & amy_console projects (in Netbeans)
+2. Build amy_main + amy_console projects (in Netbeans)
 
 
-3. Make amy libs loadable globally:
+3. Prepare to load required tron libs from everywhere:
 
 (*)
-touch amy.conf
-echo /path_to_amy/amy_coms/dist/Debug/GNU-Linux > amy.conf
-echo /path_to_amy/amy_utils/dist/Debug/GNU-Linux >> amy.conf
-sudo mv amy.conf /etc/ld.so.conf.d
+touch tron_dady.conf
+echo /path_to_tron/talky/dist/Debug/GNU-Linux > tron_dady.conf
+echo /path_to_tron/comy/dist/Debug/GNU-Linux >> tron_dady.conf
+echo /path_to_tron/tuly/dist/Debug/GNU-Linux >> tron_dady.conf
+sudo mv tron_dady.conf /etc/ld.so.conf.d
 sudo /sbin/ldconfig
 
 
@@ -66,6 +67,6 @@ ln -s /path_to_amy/amy_console/dist/Debug/GNU-Linux/amy2 amy2
 
 
 
-(*) note: change path_to_amy for the amy installation path
+(*) note: change path_to_tron for the amy installation path
 
 

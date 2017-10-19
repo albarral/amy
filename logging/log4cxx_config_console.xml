@@ -22,7 +22,17 @@
   </root>
 
   <!-- Specify the level for some specific categories -->
-  <category name="amy" >
+  <category name="dady" >
+        <priority value ="info" />
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="dailyAppender"/>
+  </category>
+  <category name="talky" >
+        <priority value ="info" />
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="dailyAppender"/>
+  </category>
+  <category name="comy" >
         <priority value ="info" />
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="dailyAppender"/>

@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/console/AmyConnector.o \
-	${OBJECTDIR}/src/amy/console/Interpreter.o \
+	${OBJECTDIR}/src/amy/console/DadyCommander.o \
+	${OBJECTDIR}/src/amy/console/DadyCommunicator.o \
 	${OBJECTDIR}/src/amy/console/main.o
 
 
@@ -54,39 +54,42 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -Wl,-rpath,../amy_utils/dist/Debug/GNU-Linux -L../amy_utils/dist/Debug/GNU-Linux -lamy_utils -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky -Wl,-rpath,../../tron/comy/dist/Debug/GNU-Linux -L../../tron/comy/dist/Debug/GNU-Linux -ltron_comy -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2: ../amy_coms/dist/Debug/GNU-Linux/libamy_coms.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2: ../../tron/talky/dist/Debug/GNU-Linux/libtron_talky.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2: ../amy_utils/dist/Debug/GNU-Linux/libamy_utils.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2: ../../tron/comy/dist/Debug/GNU-Linux/libtron_comy.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy2 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/console/AmyConnector.o: src/amy/console/AmyConnector.cpp 
+${OBJECTDIR}/src/amy/console/DadyCommander.o: src/amy/console/DadyCommander.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_coms/src -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/AmyConnector.o src/amy/console/AmyConnector.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/talky/src -I../../tron/comy/src -I../../tron/tuly/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/DadyCommander.o src/amy/console/DadyCommander.cpp
 
-${OBJECTDIR}/src/amy/console/Interpreter.o: src/amy/console/Interpreter.cpp 
+${OBJECTDIR}/src/amy/console/DadyCommunicator.o: src/amy/console/DadyCommunicator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_coms/src -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/Interpreter.o src/amy/console/Interpreter.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/talky/src -I../../tron/comy/src -I../../tron/tuly/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/DadyCommunicator.o src/amy/console/DadyCommunicator.cpp
 
 ${OBJECTDIR}/src/amy/console/main.o: src/amy/console/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_coms/src -I../amy_utils/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/main.o src/amy/console/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/talky/src -I../../tron/comy/src -I../../tron/tuly/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/main.o src/amy/console/main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../amy_coms && ${MAKE}  -f Makefile CONF=Debug
-	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/comy && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -95,8 +98,9 @@ ${OBJECTDIR}/src/amy/console/main.o: src/amy/console/main.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../amy_coms && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../amy_utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/comy && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

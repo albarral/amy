@@ -10,75 +10,59 @@
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
-#include "amy/console/Interpreter.h"
-#include "amy/console/AmyConnector.h"
+#include "amy/console/DadyCommander.h"
+#include "amy/console/DadyCommunicator.h"
 
-// shows usage of amy2
-void showUsage();
 // obtains user's home path
 std::string getHomePath();
 
-log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy.console"));
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("dady"));
 
 // main program of amy2
 int main(int argc, char** argv) 
 {       
     std::string home = getHomePath();
     std::string configFile = home + "/.amy/log4cxx_config_console.xml";
-    log4cxx::xml::DOMConfigurator::configure(configFile);
+    log4cxx::xml::DOMConfigurator::configure(configFile);    
     
-//    argc = 3;
+    const int MAX_PARTS = 2;    // command must have to parts: amy2 + talky message (with no spaces)
+    // create commander and communicator
+    dady::DadyCommander oDadyCommander;
+    dady::DadyCommunicator oDadyCommunicator;
     
-    // command with wrong number of params, show usage
-    if (argc == 1 || argc > 3)
+    // if command has wrong number of params, show usage
+    if (argc == 1 || argc > MAX_PARTS)
     {
-        showUsage();
+        LOG4CXX_WARN(logger, "usage: amy2 <talky message>");        
+        LOG4CXX_INFO(logger, "Talky available language ...");        
+        oDadyCommander.showAvailableCommands();
+        return 0;
+    }    
+    
+    // read command
+    std::string userCommand = argv[1];      // read user talky message
+//    std::string sep = "*";
+//    std::string userCommand = "arm" + sep + "axis" + sep + "tilt" + sep + "10.0";            
+    
+    // interpret command
+    // if valid, send it to amy
+    bool bsent = false;
+    if (oDadyCommander.checkValidCommand(userCommand))
+    {
+        if (oDadyCommunicator.connect2Amy())
+            bsent = oDadyCommunicator.sendCommand(userCommand);
     }
-    // command with proper params number
-    else         
+    
+    if (bsent)
     {
-        // read command
-        std::string param1 = argv[1];               // first param read from console
-        std::string param2 = "";                      // second param read from console
-        if (argc == 3)
-           param2 = argv[2];           
-        
-//        std::string param1 = "pan";
-//        std::string param2 = "15";
-
-        amy::Interpreter oInterpreter;
-        amy::AmyConnector oConnector;
-        
-        // interpret command
-        oInterpreter.checkCommand(param1, param2);
-        // if valid, send it to amy
-        if (oInterpreter.isValidCommand())
-        {
-            oConnector.connect2Amy();
-            bool bsent = oConnector.sendCommand(oInterpreter.getCategory(), oInterpreter.getAction(), oInterpreter.getValue());
-            if (!bsent)
-            {
-                LOG4CXX_WARN(logger, "send failed");
-            }
-        }
-        // otherwise show why command is invalid
-        else
-        {
-            std::string result = oInterpreter.getResult();
-            LOG4CXX_ERROR(logger, param1 << ": " << result);                        
-        }                
+        LOG4CXX_INFO(logger, "dady: msg sent");                            
+    }
+    else
+    {
+        LOG4CXX_WARN(logger, "dady: msg not sent");            
     }
     
     return 0;
-}
-
-void showUsage()
-{
-    LOG4CXX_INFO(logger, "usage: amy2 <action> [<value>]");        
-
-    amy::Interpreter oInterpreter;
-    std::string description = oInterpreter.getAvailableCommands();
-    LOG4CXX_INFO(logger, "\nThe available actions are:\n" << description);
 }
 
 std::string getHomePath()
