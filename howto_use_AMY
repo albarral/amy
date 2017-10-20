@@ -1,7 +1,7 @@
 
 *** HOW TO USE AMY
 
-(last update: albarral 28/2/2017)
+(updated: albarral 20/10/2017)
 
 This document explains how to use amy to control a simulated UR5 arm.
 For installation instructions refer to the "howto_install_AMY" document.
@@ -14,7 +14,7 @@ Components to be used:
 - ur_gazebo  	(ROS package for UR5 simulator)
 - ros_amy  	 	(ROS package to connect amy and arm)
 - amy 			(process where the arm control is done)
-- amy2		  	(program to externally control amy from CLI)
+- dady		  	(program to externally control amy and other robotic nodes from CLI)
 
 
 
@@ -47,19 +47,20 @@ run amy_main project
 
 
 
-*** CONTROL ARM FROM CLI ***
+*** LAUNCH DADY (to control the arm from CLI) ***
 
-A user can control the arm by sending commands to amy from CLI.
-He can also finish amy from same CLI.
+The arm can be controlled from CLI with the dady program.
 
-> Send control commands:
+dady sends commands in talky language to amy or any robotic node.
+(there's a command for ending the amy process remotely)
+See howto_dady file in tron folder for installation instructions.
+
+> Launch dady programm:
 
 (terminal 3)
-~/amy/amy_console/dist/Debug/GNU-Linux> (or another place where we have a simbolic link to amy2)
-./amy2 pan 50
-./amy2 tilt 80
+./dady arm*joint*hs*10
 ...
-./amy2 end
+./dady arm*extra*end
 
 
 
