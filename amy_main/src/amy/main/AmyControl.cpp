@@ -40,12 +40,12 @@ bool AmyControl::launch(Robot& oRobot)
         bok = oArmManager.launch(oAmyConfig, oArm);
         
         // launch listener module
-        oAmyListener.init(oArmManager.getArmInterface());
+        oAmyListener.init(&oArmManager.getArmInterface());
         oAmyListener.setFrequency(freq);
         oAmyListener.on();
         
         // launch broadcaster module
-        oAmyBroadcaster.init(oArmManager.getArmInterface());
+        oAmyBroadcaster.init(&oArmManager.getArmInterface());
         oAmyBroadcaster.setFrequency(freq);
         oAmyBroadcaster.on();
 

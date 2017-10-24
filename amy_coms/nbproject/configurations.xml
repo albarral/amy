@@ -13,85 +13,28 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="coms" displayName="coms" projectFiles="true">
-        <logicalFolder name="data" displayName="data" projectFiles="true">
-          <itemPath>src/amy/coms/data/AmyCommand.cpp</itemPath>
-          <itemPath>src/amy/coms/data/AmyCommand.h</itemPath>
-          <itemPath>src/amy/coms/data/ArmData.cpp</itemPath>
-          <itemPath>src/amy/coms/data/ArmData.h</itemPath>
-          <itemPath>src/amy/coms/data/AxisCommand.cpp</itemPath>
-          <itemPath>src/amy/coms/data/AxisCommand.h</itemPath>
-          <itemPath>src/amy/coms/data/CyclicCommand.cpp</itemPath>
-          <itemPath>src/amy/coms/data/CyclicCommand.h</itemPath>
-          <itemPath>src/amy/coms/data/JointCommand.cpp</itemPath>
-          <itemPath>src/amy/coms/data/JointCommand.h</itemPath>
-          <itemPath>src/amy/coms/data/OtherCommand.cpp</itemPath>
-          <itemPath>src/amy/coms/data/OtherCommand.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="dictionary" displayName="dictionary" projectFiles="true">
-          <itemPath>src/amy/coms/dictionary/AxisCategory.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/AxisCategory.h</itemPath>
-          <itemPath>src/amy/coms/dictionary/ComsCategory.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/ComsCategory.h</itemPath>
-          <itemPath>src/amy/coms/dictionary/ComsCommand.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/ComsCommand.h</itemPath>
-          <itemPath>src/amy/coms/dictionary/ComsDictionary.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/ComsDictionary.h</itemPath>
-          <itemPath>src/amy/coms/dictionary/CyclicCategory.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/CyclicCategory.h</itemPath>
-          <itemPath>src/amy/coms/dictionary/JointCategory.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/JointCategory.h</itemPath>
-          <itemPath>src/amy/coms/dictionary/OtherCategory.cpp</itemPath>
-          <itemPath>src/amy/coms/dictionary/OtherCategory.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="file" displayName="file" projectFiles="true">
-          <itemPath>src/amy/coms/file/AmyFileClient.cpp</itemPath>
-          <itemPath>src/amy/coms/file/AmyFileClient.h</itemPath>
-          <itemPath>src/amy/coms/file/AmyFilePublisher.cpp</itemPath>
-          <itemPath>src/amy/coms/file/AmyFilePublisher.h</itemPath>
-          <itemPath>src/amy/coms/file/AmyFileServer.cpp</itemPath>
-          <itemPath>src/amy/coms/file/AmyFileServer.h</itemPath>
-          <itemPath>src/amy/coms/file/AmyFileSubscriber.cpp</itemPath>
-          <itemPath>src/amy/coms/file/AmyFileSubscriber.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="ifaces" displayName="ifaces" projectFiles="true">
-          <itemPath>src/amy/coms/ifaces/iComsAxes.h</itemPath>
-          <itemPath>src/amy/coms/ifaces/iComsCyclic.h</itemPath>
-          <itemPath>src/amy/coms/ifaces/iComsJoints.h</itemPath>
-          <itemPath>src/amy/coms/ifaces/iComsOthers.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="sections" displayName="sections" projectFiles="true">
-          <itemPath>src/amy/coms/sections/AxisClient.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/AxisClient.h</itemPath>
-          <itemPath>src/amy/coms/sections/AxisServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/AxisServer.h</itemPath>
-          <itemPath>src/amy/coms/sections/CyclicClient.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/CyclicClient.h</itemPath>
-          <itemPath>src/amy/coms/sections/CyclicServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/CyclicServer.h</itemPath>
-          <itemPath>src/amy/coms/sections/JointClient.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/JointClient.h</itemPath>
-          <itemPath>src/amy/coms/sections/JointServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/JointServer.h</itemPath>
-          <itemPath>src/amy/coms/sections/OtherClient.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/OtherClient.h</itemPath>
-          <itemPath>src/amy/coms/sections/OtherServer.cpp</itemPath>
-          <itemPath>src/amy/coms/sections/OtherServer.h</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsControl.cpp</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsControl.h</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsSensing.cpp</itemPath>
+          <itemPath>src/amy/coms/sections/ArmComsSensing.h</itemPath>
         </logicalFolder>
-        <itemPath>src/amy/coms/AmyClient.cpp</itemPath>
-        <itemPath>src/amy/coms/AmyClient.h</itemPath>
-        <itemPath>src/amy/coms/AmyComsConfig.cpp</itemPath>
-        <itemPath>src/amy/coms/AmyComsConfig.h</itemPath>
-        <itemPath>src/amy/coms/AmyPublisher.cpp</itemPath>
-        <itemPath>src/amy/coms/AmyPublisher.h</itemPath>
-        <itemPath>src/amy/coms/AmyServer.cpp</itemPath>
-        <itemPath>src/amy/coms/AmyServer.h</itemPath>
-        <itemPath>src/amy/coms/AmySubscriber.cpp</itemPath>
-        <itemPath>src/amy/coms/AmySubscriber.h</itemPath>
-        <itemPath>src/amy/coms/ComsInterpreter.cpp</itemPath>
-        <itemPath>src/amy/coms/ComsInterpreter.h</itemPath>
-        <itemPath>src/amy/coms/iAmyPublisher.h</itemPath>
-        <itemPath>src/amy/coms/iAmySubscriber.h</itemPath>
+        <itemPath>src/amy/coms/AmyComsInformer.cpp</itemPath>
+        <itemPath>src/amy/coms/AmyComsInformer.h</itemPath>
+        <itemPath>src/amy/coms/AmyComsServer.cpp</itemPath>
+        <itemPath>src/amy/coms/AmyComsServer.h</itemPath>
       </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -123,6 +66,7 @@
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_utils/src</pElem>
+            <pElem>../../tron/talky/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -152,246 +96,45 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/talky"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/talky"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_talky.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/coms/AmyClient.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/coms/AmyComsInformer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyClient.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/AmyComsInformer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyComsConfig.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/coms/AmyComsServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyComsConfig.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/AmyComsServer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyPublisher.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyPublisher.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyServer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmySubscriber.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmySubscriber.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ComsInterpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ComsInterpreter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AmyCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AmyCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/ArmData.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/ArmData.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AxisCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AxisCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/CyclicCommand.cpp"
+      <item path="src/amy/coms/sections/ArmComsControl.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/data/CyclicCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/JointCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/JointCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/OtherCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/OtherCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/AxisCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/AxisCategory.h"
+      <item path="src/amy/coms/sections/ArmComsControl.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/dictionary/ComsCategory.cpp"
+      <item path="src/amy/coms/sections/ArmComsSensing.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/dictionary/ComsCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsCommand.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsCommand.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsDictionary.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsDictionary.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/CyclicCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/CyclicCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/JointCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/JointCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/OtherCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/OtherCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileClient.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFilePublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFilePublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileSubscriber.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileSubscriber.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsAxes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsCyclic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsJoints.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsOthers.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisClient.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicClient.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointClient.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherClient.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.h"
+      <item path="src/amy/coms/sections/ArmComsSensing.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -417,243 +160,30 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/coms/AmyClient.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/coms/AmyComsInformer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyClient.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/AmyComsInformer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyComsConfig.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/coms/AmyComsServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyComsConfig.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/AmyComsServer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/AmyPublisher.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyPublisher.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyServer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmyServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmySubscriber.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/AmySubscriber.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ComsInterpreter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ComsInterpreter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AmyCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AmyCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/ArmData.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/ArmData.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AxisCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/AxisCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/CyclicCommand.cpp"
+      <item path="src/amy/coms/sections/ArmComsControl.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/data/CyclicCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/JointCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/JointCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/OtherCommand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/data/OtherCommand.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/AxisCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/AxisCategory.h"
+      <item path="src/amy/coms/sections/ArmComsControl.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/dictionary/ComsCategory.cpp"
+      <item path="src/amy/coms/sections/ArmComsSensing.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/dictionary/ComsCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsCommand.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsCommand.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsDictionary.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/ComsDictionary.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/CyclicCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/CyclicCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/JointCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/JointCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/OtherCategory.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/dictionary/OtherCategory.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileClient.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFilePublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFilePublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileSubscriber.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/file/AmyFileSubscriber.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmyPublisher.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/iAmySubscriber.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsAxes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsCyclic.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsJoints.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ifaces/iComsOthers.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisClient.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/AxisServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicClient.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/CyclicServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointClient.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/JointServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherClient.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/sections/OtherServer.h"
+      <item path="src/amy/coms/sections/ArmComsSensing.h"
             ex="false"
             tool="3"
             flavor2="0">

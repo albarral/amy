@@ -1,7 +1,0 @@
-
-LOGGING CONFIGURATION
-
-Files for log4cxx configuration are searched in the .amy folder of the user's HOME directory.
-
-Create the hidden .amy folder in your home directory and move these files there:
-- log4cxx_config_console.xml

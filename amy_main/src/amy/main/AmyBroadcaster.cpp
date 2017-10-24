@@ -18,22 +18,22 @@ AmyBroadcaster::AmyBroadcaster ()
 {    
     modName = "AmyBroadcaster";
     benabled = false;
-    pArmInterface = 0;
  }
 
-void AmyBroadcaster::init(iArmInterface& oArmInterface)
+void AmyBroadcaster::init(iArmInterface* pArmInterface)
 {
-    // access arm interface
-    pArmInterface = &oArmInterface;
-    // and init the publisher
-    oAmyPublisher.init();
-    if (oAmyPublisher.isEnabled())
+    // prepare communications publisher
+    oComyPublisher.connect();
+    // prepare amy sensor informer
+    oAmyComsInformer.connect2Arm(pArmInterface);
+    
+    // if both connected listener is enabled
+    if (oComyPublisher.isConnected() && oAmyComsInformer.isConnected())
     {
         benabled = true;
-        LOG4CXX_INFO(logger, modName << " initialized");          
     }
-    else    
-        LOG4CXX_ERROR(logger, modName << " init failed");                  
+    else
+        LOG4CXX_ERROR(logger, modName + ": failed initialization, publisher or sensor informer was not connected!");                        
 };
 
 void AmyBroadcaster::first()
@@ -42,26 +42,13 @@ void AmyBroadcaster::first()
 }
 
 void AmyBroadcaster::loop()
-{        
-    fetchInfo();
-
-    // if control values have changed, broadcast them 
-    if (!oArmData.sameSollValues(oArmData0))
-    {
-        oAmyPublisher.publishArmControl(oArmData);
-        // and store them for next comparison
-        oArmData0 = oArmData;        
-    }
-}
-
-void AmyBroadcaster::fetchInfo()
-{        
-    // read commanded control values of all joints
-    oArmData.setSollHS(pArmInterface->getHSControl());
-    oArmData.setSollVS(pArmInterface->getVSControl());
-    oArmData.setSollEL(pArmInterface->getELControl());
-    oArmData.setSollHW(pArmInterface->getHWControl());
-    oArmData.setSollVW(pArmInterface->getVWControl());   
+{
+    // get arm info in form of talky message
+    std::string rawMessage = oAmyComsInformer.getArmInfo();
+    
+    // if info obtained, broadcast it
+    if (!rawMessage.empty())
+        oComyPublisher.publishMessage(rawMessage);
 }
 
 }

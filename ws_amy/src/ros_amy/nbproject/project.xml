@@ -3,27 +3,19 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>amy_coms</name>
+            <name>ros_amy</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects>
-                <make-dep-project>../amy_utils</make-dep-project>
-                <make-dep-project>../amy_core</make-dep-project>
-                <make-dep-project>../../tron/talky</make-dep-project>
-            </make-dep-projects>
+            <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>src/amy/coms</sourceRootElem>
+                <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>Debug</name>
-                    <type>2</type>
-                </confElem>
-                <confElem>
-                    <name>Release</name>
-                    <type>2</type>
+                    <name>Default</name>
+                    <type>0</type>
                 </confElem>
             </confList>
             <formatting>

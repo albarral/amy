@@ -20,11 +20,21 @@ AmyListener::AmyListener()
     benabled = false;
  }
 
-void AmyListener::init(iArmInterface& oArmInterface)
+void AmyListener::init(iArmInterface* pArmInterface)
 {
-    oAmyFileServer.connect2Arm(oArmInterface);
-    benabled = true;
-};
+    // prepare communications server
+    oComyServer.connect();
+    // prepare amy control server
+    oAmyComsServer.connect2Arm(pArmInterface);
+    
+    // if both connected listener is enabled
+    if (oComyServer.isConnected() && oAmyComsServer.isConnected())
+    {
+        benabled = true;
+    }
+    else
+        LOG4CXX_ERROR(logger, modName + ": failed initialization, coms or control server was not connected!");                        
+}
 
 void AmyListener::first()
 {    
@@ -33,17 +43,17 @@ void AmyListener::first()
 
 void AmyListener::loop()
 {
-    // listen to user commands
-    if (oAmyFileServer.readCommand())
+    // listen to received messages
+    if (oComyServer.readMessage())
     {
-        // if something received, interpret it and process it
-        std::string text = oAmyFileServer.getText();
-        oAmyFileServer.processCommand(text);
-    }
+        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServer.getRawMessage());        
+        // if something received process it
+        oAmyComsServer.processMessage(oComyServer.getRawMessage());
+    }            
 }
 
 bool AmyListener::checkAmyEndRequested()
 {
-    return oAmyFileServer.isAmyEndRequested();    
+    return oAmyComsServer.isAmyEndRequested();    
 }
 }

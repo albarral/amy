@@ -43,8 +43,8 @@
         <itemPath>src/amy/show/Plot.h</itemPath>
         <itemPath>src/amy/show/SharedDisplay.cpp</itemPath>
         <itemPath>src/amy/show/SharedDisplay.h</itemPath>
-        <itemPath>src/amy/show/ShowTest.cpp</itemPath>
-        <itemPath>src/amy/show/ShowTest.h</itemPath>
+        <itemPath>src/amy/show/TestShow.cpp</itemPath>
+        <itemPath>src/amy/show/TestShow.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -148,9 +148,9 @@
       </item>
       <item path="src/amy/show/SharedDisplay.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/show/ShowTest.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/show/TestShow.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/show/ShowTest.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/show/TestShow.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -239,9 +239,9 @@
       </item>
       <item path="src/amy/show/SharedDisplay.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/show/ShowTest.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/show/TestShow.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/show/ShowTest.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/show/TestShow.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
