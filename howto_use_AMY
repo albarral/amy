@@ -11,7 +11,7 @@ Environment requirements:
 - an open instance of Netbeans IDE
 
 Components to be used:
-- ur_gazebo  	(ROS package for UR5 simulator)
+- ur_gazebo  		(ROS package for UR5 simulator)
 - ros_amy  	 	(ROS package to connect amy and arm)
 - amy 			(process where the arm control is done)
 - dady		  	(program to externally control amy and other robotic nodes from CLI)
