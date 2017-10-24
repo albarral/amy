@@ -6,14 +6,14 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <amy/control/module3.h>
+#include <tuly/control/module3.h>
 #include "amy/show/SharedDisplay.h"
 
 namespace amy
 {
 // Module used to plot the evolution of arm signals (for debugging purpose).
 // It gets the info from the arm bus.
-class AmyDisplayer : public Module3
+class AmyDisplayer : public tuly::Module3
 {
 private:
     SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)

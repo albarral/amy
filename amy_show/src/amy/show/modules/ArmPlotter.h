@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <amy/control/module3.h>
+#include <tuly/control/module3.h>
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/JointBus.h"
 #include "amy/show/arm/ArmFrontView.h"
@@ -18,7 +18,7 @@ namespace amy
 {
 // Module used to plot an arm's position (for debugging purpose).
 // It gets the info from the arm bus.
-class ArmPlotter : public Module3
+class ArmPlotter : public tuly::Module3
 {
 private:
     // bus

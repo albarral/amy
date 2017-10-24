@@ -64,7 +64,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_control/dist/Debug/GNU-Linux -L../amy_control/dist/Debug/GNU-Linux -lamy_control -Wl,-rpath,../amy_math/dist/Debug/GNU-Linux -L../amy_math/dist/Debug/GNU-Linux -lamy_math -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -lopencv_core -lopencv_highgui
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_math/dist/Debug/GNU-Linux -L../amy_math/dist/Debug/GNU-Linux -lamy_math -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly -lopencv_core -lopencv_highgui
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -72,11 +72,11 @@ LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Deb
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_core/dist/Debug/GNU-Linux/libamy_core.so
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_control/dist/Debug/GNU-Linux/libamy_control.so
-
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_math/dist/Debug/GNU-Linux/libamy_math.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../amy_arm/dist/Debug/GNU-Linux/libamy_arm.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -85,74 +85,74 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/amy/show/DiscPlot.o: src/amy/show/DiscPlot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/DiscPlot.o src/amy/show/DiscPlot.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/DiscPlot.o src/amy/show/DiscPlot.cpp
 
 ${OBJECTDIR}/src/amy/show/Plot.o: src/amy/show/Plot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/Plot.o src/amy/show/Plot.cpp
 
 ${OBJECTDIR}/src/amy/show/SharedDisplay.o: src/amy/show/SharedDisplay.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/SharedDisplay.o src/amy/show/SharedDisplay.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/SharedDisplay.o src/amy/show/SharedDisplay.cpp
 
 ${OBJECTDIR}/src/amy/show/TestShow.o: src/amy/show/TestShow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/TestShow.o src/amy/show/TestShow.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/TestShow.o src/amy/show/TestShow.cpp
 
 ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o: src/amy/show/arm/ArmFrontView.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o src/amy/show/arm/ArmFrontView.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o src/amy/show/arm/ArmFrontView.cpp
 
 ${OBJECTDIR}/src/amy/show/arm/ArmPlot.o: src/amy/show/arm/ArmPlot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmPlot.o src/amy/show/arm/ArmPlot.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmPlot.o src/amy/show/arm/ArmPlot.cpp
 
 ${OBJECTDIR}/src/amy/show/arm/ArmSideView.o: src/amy/show/arm/ArmSideView.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmSideView.o src/amy/show/arm/ArmSideView.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmSideView.o src/amy/show/arm/ArmSideView.cpp
 
 ${OBJECTDIR}/src/amy/show/history/History.o: src/amy/show/history/History.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/History.o src/amy/show/history/History.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/History.o src/amy/show/history/History.cpp
 
 ${OBJECTDIR}/src/amy/show/history/History2D.o: src/amy/show/history/History2D.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/History2D.o src/amy/show/history/History2D.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/History2D.o src/amy/show/history/History2D.cpp
 
 ${OBJECTDIR}/src/amy/show/history/HistoryPlot.o: src/amy/show/history/HistoryPlot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/history
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/HistoryPlot.o src/amy/show/history/HistoryPlot.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/history/HistoryPlot.o src/amy/show/history/HistoryPlot.cpp
 
 ${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o: src/amy/show/modules/AmyDisplayer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o src/amy/show/modules/AmyDisplayer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o src/amy/show/modules/AmyDisplayer.cpp
 
 ${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o: src/amy/show/modules/ArmPlotter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o src/amy/show/modules/ArmPlotter.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o src/amy/show/modules/ArmPlotter.cpp
 
 ${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o: src/amy/show/modules/HistoryPlotter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_control/src -I../amy_math/src -I../amy_arm/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o src/amy/show/modules/HistoryPlotter.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_arm/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o src/amy/show/modules/HistoryPlotter.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug
-	cd ../amy_control && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_math && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -162,9 +162,9 @@ ${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o: src/amy/show/modules/History
 # Subprojects
 .clean-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../amy_control && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_math && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/control/module2.h"
+#include "tuly/control/module2.h"
 #include "amy/core/ifaces/iArmInterface.h"
 #include "amy/coms/AmyComsInformer.h"
 #include "comy/file/ComyFilePublisher.h"
@@ -18,7 +18,7 @@ namespace amy
 {
 // This module is in charge of publishing the commanded joint angles to be applied to the arm.
 // It uses an AmyPublisher object to broadcast the data.
-class AmyBroadcaster : public Module2
+class AmyBroadcaster : public tuly::Module2
 {
 private:
     static log4cxx::LoggerPtr logger;

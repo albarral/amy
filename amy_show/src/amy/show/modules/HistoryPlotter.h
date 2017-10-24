@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <amy/control/module3.h>
+#include <tuly/control/module3.h>
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/AxisBus.h"
 #include "amy/show/history/HistoryPlot.h"
@@ -17,7 +17,7 @@ namespace amy
 {
 // Module used to plot the evolution of arm signals (for debugging purpose).
 // It gets the info from the arm bus.
-class HistoryPlotter : public Module3
+class HistoryPlotter : public tuly::Module3
 {
 private:
     // bus
