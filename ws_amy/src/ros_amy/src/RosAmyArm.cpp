@@ -10,8 +10,8 @@
 #include "RosAmyArm.h"
 #include "YoubotArm.h"
 #include "UR5Arm.h"
-#include "amy/coms/file/AmyFileSubscriber.h"
-
+#include "talky/Topics.h"
+#include "talky/coms/CommandBlock.h"
 
 
 int main(int argc, char** argv) 
@@ -33,60 +33,64 @@ RosAmyArm::RosAmyArm()
 {
 }
 
-  RosAmyArm::~RosAmyArm()
-  {    
-      //oArmManager.stopModules();
-  }
- 
-
-    
+RosAmyArm::~RosAmyArm()
+{    
+}
+     
   void RosAmyArm::runUR5()
 {
     ROS_INFO("RosAmyArm: keyLoop started");
         
     // set loop frequency
-    float freq = 5.0;
+    float freq = 5.0;    
     ros::Rate rate(freq);
-
-    UR5Arm oUR5Arm;
-    oUR5Arm.setHandPos(0.0, 0.0, 0.0);
+    float moveDelay = 0.20; // 200 ms
     
-    // create subscriber
-    amy::AmyFileSubscriber oAmyFileSubscriber;
-    oAmyFileSubscriber.init();    
-
-	bool bok = oAmyFileSubscriber.isEnabled();
-       
-    if (!bok)
+    UR5Arm oUR5Arm;
+    oUR5Arm.setHandPos(0.0, 0.0, 0.0); 
+   
+    // prepare interpreter for arm topic communications
+    oInterpreter.addLanguage(talky::Topics::eTOPIC_ARM);    
+    // prepare coms subscriber
+    oComySubscriber.connect();
+    
+    // prepare coms subscriber
+    if (!oComySubscriber.isConnected())
     {
-        ROS_ERROR("RosAmyArm: failed init of arm network");
+        ROS_ERROR("RosAmyArm: failed connection of comy subscriber");
         return;
     }
-    // objects needed to operate with arm coms
-    amy::ArmData oArmData;
-    amy::ArmData oArmData0; // for storage of previous data
-    oArmData0.reset();
+    
+    // reset joints info
+    oJointAngles0.reset();    
+    bool bnewInfo;
     
     while (ros::ok()) 
     {
         // process callbacks
         ros::spinOnce();
 
-        oArmData = oAmyFileSubscriber.readArmControl();
-        //oArmNetwork.getArmSoll(0, oArmData);
-        showAngles(oArmData);
-        
-        if (!oArmData.sameSollValues(oArmData0))
+        if (oComySubscriber.readMessage())
         {            
+            bnewInfo = processMessage(oComySubscriber.getRawMessage());            
+        }            
+        else
+            bnewInfo = false;       
+        
+        // if new info received and different from previous one
+        if (bnewInfo && !oJointAngles.isEqual(oJointAngles0))
+        {                        
+            showAngles();
+    
             // set hshoulder, vshouler & elbow joints
-            oUR5Arm.setArmPos(-oArmData.getSollHS(), -oArmData.getSollVS(), -oArmData.getSollEL());
+            oUR5Arm.setArmPos(-oJointAngles.getPosHS(), -oJointAngles.getPosVS(), -oJointAngles.getPosEL());
             // set wrist & hand joints
-            oUR5Arm.setHandPos(oArmData.getSollVW(), 0.0, 0.0);
-            oUR5Arm.prepareMove(0.2);
+            oUR5Arm.setHandPos(oJointAngles.getPosVW(), 0.0, 0.0);
+            oUR5Arm.prepareMove(moveDelay);
             oUR5Arm.move();
 
             // store data for next iteration
-            oArmData0 = oArmData;
+            oJointAngles0 = oJointAngles;
         }
         rate.sleep();
     }    
@@ -96,10 +100,40 @@ RosAmyArm::RosAmyArm()
     return;
 }
 
-  
-void RosAmyArm::showAngles(amy::ArmData& oArmData)
+
+bool RosAmyArm::processMessage(std::string rawMessage)
 {
-    ROS_INFO("soll angles: %d, %d, %d, %d", (int)oArmData.getSollHS(), (int)oArmData.getSollVS(), (int)oArmData.getSollEL(), (int)oArmData.getSollVW());      
+    bool bret = false;
+
+    // interpret received message
+    if (oInterpreter.processMessage(rawMessage))
+    {
+        // if message block
+        if (oInterpreter.isBlockProcessed())
+        {
+            // show obtained command block
+	    // ROS_INFO("RosAmyArm: %s", oInterpreter.getCommandBlock().toString());        
+
+            // process interpreted command block
+            bret = oJointAngles.readJointPositions(oInterpreter.getCommandBlock());
+        }
+        // if simple message
+        else
+        {
+            ROS_INFO("RosAmyArm: simple msg received, ignore");
+        }            
+    }
+    else
+    {
+        ROS_WARN("RosAmyArm: message processing failed!");            
+    }
+
+    return bret;    
+}
+
+void RosAmyArm::showAngles()
+{
+    ROS_INFO("arm angles: %d, %d, %d", (int)oJointAngles.getPosHS(), (int)oJointAngles.getPosVS(), (int)oJointAngles.getPosEL());      
 }
 
   

@@ -6,12 +6,20 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/data/ArmData.h"
+#include <string>
+
+#include "comy/file/ComyFileSubscriber.h"
+#include "talky/talk/Interpreter.h"
+#include "talky2/arm/ArmJointAngles.h"
 
 class RosAmyArm
 {
 private:    
-  int counter;  
+    int counter;          
+    comy::ComyFileSubscriber oComySubscriber;     // comy coms subscriber
+    talky::Interpreter oInterpreter;                           // talky language interpreter        
+    talky2::ArmJointAngles oJointAngles;                    // talky2 utility to process arm joints info
+    talky2::ArmJointAngles oJointAngles0;                  // talky2 utility to process arm joints info
   
 public:
   RosAmyArm();
@@ -24,8 +32,8 @@ public:
 private:
     //void waitMoveDone(YoubotArm& oYoubotArm);
     
-    void showAngles(amy::ArmData& oArmData);
-  
+    bool processMessage(std::string rawMessage);    
+    void showAngles();  
 };
 
 #endif
