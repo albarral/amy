@@ -4,9 +4,6 @@
  ***************************************************************************/
 
 #include "amy/coms/sections/ArmComsSensing.h"
-#include "talky/Topics.h"
-#include "talky/coms/Command.h"
-#include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
@@ -25,46 +22,27 @@ bool ArmComsSensing::fetchArmInfo(iArmInterface* pArmInterface, talky::CommandBl
     }
 
     // fetch joints info
-    bret = fetchJointInfo(pArmInterface, oCommandBlock);
+    bret = senseJointAngles(pArmInterface, oCommandBlock);
 
     return bret;
 }
 
-bool ArmComsSensing::fetchJointInfo(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::senseJointAngles(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
     if (pArmInterface == 0)
         return false;
 
-    // all commands in this block have arm topic and joint category
-    talky::Command oCommand;        
-    oCommand.setTopic(talky::Topics::eTOPIC_ARM);
-    oCommand.setCategory(talky::ArmTopic::eCAT_ARM_JOINT);
-       
+    oArmJointAngles.reset();
     // read commanded control values of all joints ...
-    // and add them as commands to given command block
-    // HS
-    oCommand.setConcept(talky::ArmTopic::eJOINT_HS_POS);
-    oCommand.setQuantity(pArmInterface->getHSControl());
-    oCommandBlock.addCommand(oCommand);
-    // VS
-    oCommand.setConcept(talky::ArmTopic::eJOINT_VS_POS);
-    oCommand.setQuantity(pArmInterface->getVSControl());
-    oCommandBlock.addCommand(oCommand);
-    // ELB
-    oCommand.setConcept(talky::ArmTopic::eJOINT_ELB_POS);
-    oCommand.setQuantity(pArmInterface->getELControl());
-    oCommandBlock.addCommand(oCommand);
-    // HWRI
-    oCommand.setConcept(talky::ArmTopic::eJOINT_HWRI_POS);
-    oCommand.setQuantity(pArmInterface->getHWControl());
-    oCommandBlock.addCommand(oCommand);
-    // VWRI
-    oCommand.setConcept(talky::ArmTopic::eJOINT_VWRI_POS);
-    oCommand.setQuantity(pArmInterface->getVWControl());
-    oCommandBlock.addCommand(oCommand);
+    oArmJointAngles.setPosHS(pArmInterface->getHSControl());
+    oArmJointAngles.setPosVS(pArmInterface->getVSControl());
+    oArmJointAngles.setPosEL(pArmInterface->getELControl());
+    oArmJointAngles.setPosHW(pArmInterface->getHWControl());
+    oArmJointAngles.setPosVW(pArmInterface->getVWControl());
 
-    return true;
+    // and convert them to a command block
+    return oArmJointAngles.writeJointPositions(oCommandBlock);
 }
 
 }

@@ -10,6 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/ifaces/iArmInterface.h"
+#include "amy/coms/sections/ArmComsSensing.h"
 #include "talky/coms/CommandBlock.h"
 #include "talky/talk/Interpreter.h"
 
@@ -25,6 +26,8 @@ private:
     iArmInterface* pArmInterface;   // arm interface
     talky::Interpreter oInterpreter;     // message builder
     talky::CommandBlock oCommandBlock;  // arm info is stored in the form of commands block
+    ArmComsSensing oArmComsSensing;
+
         
 public:
     AmyComsInformer();

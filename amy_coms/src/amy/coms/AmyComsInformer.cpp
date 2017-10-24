@@ -5,7 +5,6 @@
 
 
 #include "amy/coms/AmyComsInformer.h"
-#include "amy/coms/sections/ArmComsSensing.h"
 #include "talky/Topics.h"
 #include "talky/coms/MessageBlock.h"
 
@@ -43,7 +42,7 @@ std::string AmyComsInformer::getArmInfo()
     oCommandBlock.reset();
     
     // fetch arm info into commands block
-    ArmComsSensing::fetchArmInfo(pArmInterface, oCommandBlock);  
+    oArmComsSensing.fetchArmInfo(pArmInterface, oCommandBlock);  
         
     // transform commands block to message with the interpreter        
     talky::MessageBlock oMessageBlock;
