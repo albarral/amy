@@ -13,10 +13,10 @@
 #include "amy/arm/ArmManager.h"
 #include "amy/main/AmyListener.h"
 #include "amy/main/AmyBroadcaster.h"
-#include "amy/show/SharedDisplay.h"
 #include "amy/show/modules/ArmPlotter.h"
 #include "amy/show/modules/HistoryPlotter.h"
 #include "amy/show/modules/AmyDisplayer.h"
+#include "tivy/SharedDisplay.h"
 
 namespace amy
 {
@@ -30,7 +30,7 @@ class AmyControl
         ArmManager oArmManager;
         AmyListener oAmyListener;               // communications module for responding to external requests
         AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
-        SharedDisplay oSharedDisplay;
+        tivy::SharedDisplay oSharedDisplay;
         ArmPlotter oArmPlotter;                     // debug module (draws arm position in display)
         HistoryPlotter oHistoryPlotter;             // debug module (draws speed evolution in display)
         AmyDisplayer oAmyDisplayer;             // debug module (shows display)

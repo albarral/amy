@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include <tuly/control/module3.h>
-#include "amy/show/SharedDisplay.h"
+#include "tivy/SharedDisplay.h"
 
 namespace amy
 {
@@ -16,13 +16,13 @@ namespace amy
 class AmyDisplayer : public tuly::Module3
 {
 private:
-    SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
+    tivy::SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
 
 public:
     AmyDisplayer();
     ~AmyDisplayer();
 
-    void shareDisplay(SharedDisplay& oSharedDisplay);
+    void shareDisplay(tivy::SharedDisplay& oSharedDisplay);
     
 private:
         // first actions when the thread begins 

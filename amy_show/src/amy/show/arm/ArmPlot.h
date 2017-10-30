@@ -9,13 +9,13 @@
 #include <string>
 #include "opencv2/core/core.hpp"    // for cv::Scalar
 
-#include "amy/show/Plot.h"
+#include "tivy/plot/Plot.h"
 
 namespace amy 
 {
 // Base class used to plot the arm position in a 2D image.
 // Derived from Plot
-class ArmPlot : public Plot
+class ArmPlot : public tivy::Plot
 {
 protected:    
     cv::Scalar handColor;

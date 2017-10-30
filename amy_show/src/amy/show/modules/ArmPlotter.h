@@ -11,8 +11,8 @@
 #include "amy/arm/bus/JointBus.h"
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/arm/ArmSideView.h"
-#include "amy/show/DiscPlot.h"
-#include "amy/show/SharedDisplay.h"
+#include "tivy/plot/DiscPlot.h"
+#include "tivy/SharedDisplay.h"
 
 namespace amy
 {
@@ -37,13 +37,13 @@ private:
     int stateVS;    // VS driver state
     int stateELB;   // ELB driver state
     // display
-    SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
+    tivy::SharedDisplay* pSharedDisplay;      // pointer to shared display (used to avoid X11 problems with different threads)
     ArmFrontView oArmFrontView;    // plotting of frontal arm view 
     ArmSideView oArmSideView;     // plotting of side arm view  
     // disk plots
-    DiscPlot oDiscPlot1;  
-    DiscPlot oDiscPlot2;  
-    DiscPlot oDiscPlot3;  
+    tivy::DiscPlot oDiscPlot1;  
+    tivy::DiscPlot oDiscPlot2;  
+    tivy::DiscPlot oDiscPlot3;  
 
 public:
     ArmPlotter();
@@ -52,7 +52,7 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
     bool isConnected() {return bconnected;};
-    void shareDisplay(SharedDisplay& oSharedDisplay);
+    void shareDisplay(tivy::SharedDisplay& oSharedDisplay);
     
 private:
         // first actions when the thread begins 

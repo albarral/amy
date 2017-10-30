@@ -9,9 +9,9 @@
 #include <tuly/control/module3.h>
 #include "amy/arm/bus/ArmBus.h"
 #include "amy/arm/bus/AxisBus.h"
-#include "amy/show/history/HistoryPlot.h"
-#include "amy/show/history/History2D.h"
-#include "amy/show/SharedDisplay.h"
+#include "tivy/plot/HistoryPlot.h"
+#include "tivy/history/History2D.h"
+#include "tivy/SharedDisplay.h"
 
 namespace amy
 {
@@ -25,11 +25,11 @@ private:
     AxisBus* pPanBus;      // access to pan bus 
     AxisBus* pTiltBus;      // access to tilt bus
     // logic
-    History2D oPanHistory2D;        // pan speed history
-    HistoryPlot oPanHistoryPlot;    // plotting of pan speed
-    History2D oTiltHistory2D;       // tilt speed history
-    HistoryPlot oTiltHistoryPlot;    // plotting of tilt speed
-    SharedDisplay* pSharedDisplay;  // access to the shared display 
+    tivy::History2D oPanHistory2D;        // pan speed history
+    tivy::HistoryPlot oPanHistoryPlot;    // plotting of pan speed
+    tivy::History2D oTiltHistory2D;       // tilt speed history
+    tivy::HistoryPlot oTiltHistoryPlot;    // plotting of tilt speed
+    tivy::SharedDisplay* pSharedDisplay;  // access to the shared display 
 
 public:
     HistoryPlotter();
@@ -38,7 +38,7 @@ public:
     // bus connection 
     void connect(ArmBus& oArmBus);
     bool isConnected() {return bconnected;};
-    void shareDisplay(SharedDisplay& oSharedDisplay);
+    void shareDisplay(tivy::SharedDisplay& oSharedDisplay);
     
 private:
         // first actions when the thread begins 

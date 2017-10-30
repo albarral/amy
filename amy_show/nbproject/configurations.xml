@@ -21,14 +21,6 @@
           <itemPath>src/amy/show/arm/ArmSideView.cpp</itemPath>
           <itemPath>src/amy/show/arm/ArmSideView.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="history" displayName="history" projectFiles="true">
-          <itemPath>src/amy/show/history/History.cpp</itemPath>
-          <itemPath>src/amy/show/history/History.h</itemPath>
-          <itemPath>src/amy/show/history/History2D.cpp</itemPath>
-          <itemPath>src/amy/show/history/History2D.h</itemPath>
-          <itemPath>src/amy/show/history/HistoryPlot.cpp</itemPath>
-          <itemPath>src/amy/show/history/HistoryPlot.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
           <itemPath>src/amy/show/modules/AmyDisplayer.cpp</itemPath>
           <itemPath>src/amy/show/modules/AmyDisplayer.h</itemPath>
@@ -37,14 +29,6 @@
           <itemPath>src/amy/show/modules/HistoryPlotter.cpp</itemPath>
           <itemPath>src/amy/show/modules/HistoryPlotter.h</itemPath>
         </logicalFolder>
-        <itemPath>src/amy/show/DiscPlot.cpp</itemPath>
-        <itemPath>src/amy/show/DiscPlot.h</itemPath>
-        <itemPath>src/amy/show/Plot.cpp</itemPath>
-        <itemPath>src/amy/show/Plot.h</itemPath>
-        <itemPath>src/amy/show/SharedDisplay.cpp</itemPath>
-        <itemPath>src/amy/show/SharedDisplay.h</itemPath>
-        <itemPath>src/amy/show/TestShow.cpp</itemPath>
-        <itemPath>src/amy/show/TestShow.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -79,6 +63,7 @@
             <pElem>../amy_math/src</pElem>
             <pElem>../amy_arm/src</pElem>
             <pElem>../../tron/tuly/src</pElem>
+            <pElem>../../tron/tivy/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -133,25 +118,21 @@
             </linkerLibProjectItem>
             <linkerLibLibItem>opencv_core</linkerLibLibItem>
             <linkerLibLibItem>opencv_highgui</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/tivy"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/tivy"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_tivy.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/show/DiscPlot.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/DiscPlot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/SharedDisplay.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/SharedDisplay.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/TestShow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/TestShow.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmFrontView.h" ex="false" tool="3" flavor2="0">
@@ -163,21 +144,6 @@
       <item path="src/amy/show/arm/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmSideView.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History2D.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History2D.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/HistoryPlot.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/show/history/HistoryPlot.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/modules/AmyDisplayer.cpp"
             ex="false"
@@ -227,22 +193,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/show/DiscPlot.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/DiscPlot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/Plot.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/Plot.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/SharedDisplay.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/SharedDisplay.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/TestShow.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/TestShow.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/show/arm/ArmFrontView.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmFrontView.h" ex="false" tool="3" flavor2="0">
@@ -254,21 +204,6 @@
       <item path="src/amy/show/arm/ArmSideView.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/show/arm/ArmSideView.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History2D.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/History2D.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/show/history/HistoryPlot.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/show/history/HistoryPlot.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/show/modules/AmyDisplayer.cpp"
             ex="false"

@@ -33,7 +33,7 @@ void ArmPlotter::connect(ArmBus& oArmBus)
     bconnected = true;
 }
 
-void ArmPlotter::shareDisplay(SharedDisplay& oSharedDisplay)
+void ArmPlotter::shareDisplay(tivy::SharedDisplay& oSharedDisplay)
 {
     pSharedDisplay = &oSharedDisplay;    
 }
@@ -105,16 +105,16 @@ int ArmPlotter::driverState2DiscColor(int driveState)
     switch (driveState) 
     {
         case JointDriver::eSTATE_DONE:
-            disc = DiscPlot::eSTATE_RED;
+            disc = tivy::DiscPlot::eSTATE_RED;
             break;
         case JointDriver::eSTATE_MOVE:
-            disc = DiscPlot::eSTATE_GREEN;
+            disc = tivy::DiscPlot::eSTATE_GREEN;
             break;
         case JointDriver::eSTATE_BRAKE:
-            disc = DiscPlot::eSTATE_YELLOW;
+            disc = tivy::DiscPlot::eSTATE_YELLOW;
             break;
         default:
-            disc = DiscPlot::eSTATE_GREY;            
+            disc = tivy::DiscPlot::eSTATE_GREY;            
     }
     return disc;
 }

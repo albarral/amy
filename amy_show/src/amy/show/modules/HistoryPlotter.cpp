@@ -28,7 +28,7 @@ void HistoryPlotter::connect(ArmBus& oArmBus)
     bconnected = true;
 }
 
-void HistoryPlotter::shareDisplay(SharedDisplay& oSharedDisplay)
+void HistoryPlotter::shareDisplay(tivy::SharedDisplay& oSharedDisplay)
 {
     pSharedDisplay = &oSharedDisplay;    
 }

@@ -18,7 +18,7 @@ AmyDisplayer::~AmyDisplayer()
 {
 }
 
-void AmyDisplayer::shareDisplay(SharedDisplay& oSharedDisplay)
+void AmyDisplayer::shareDisplay(tivy::SharedDisplay& oSharedDisplay)
 {
     pSharedDisplay = &oSharedDisplay;    
 }
