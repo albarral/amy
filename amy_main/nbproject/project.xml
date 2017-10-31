@@ -11,6 +11,7 @@
             <make-dep-projects>
                 <make-dep-project>../amy_show</make-dep-project>
                 <make-dep-project>../../tron/comy</make-dep-project>
+                <make-dep-project>../amy_talk</make-dep-project>
                 <make-dep-project>../../tron/tuly</make-dep-project>
                 <make-dep-project>../amy_coms</make-dep-project>
                 <make-dep-project>../amy_math</make-dep-project>

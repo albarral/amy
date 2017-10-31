@@ -23,6 +23,10 @@ bool ArmComsSensing::fetchArmInfo(iArmInterface* pArmInterface, talky::CommandBl
 
     // fetch joints info
     bret = senseJointAngles(pArmInterface, oCommandBlock);
+    talky::CommandBlock oCommandBlock2;     // TEMP to be given as parameter
+    bret = senseJointStates(pArmInterface, oCommandBlock2);
+    talky::CommandBlock oCommandBlock3;      // TEMP to be given as parameter
+    bret = senseArmAxes(pArmInterface, oCommandBlock3);
 
     return bret;
 }
@@ -33,16 +37,49 @@ bool ArmComsSensing::senseJointAngles(iArmInterface* pArmInterface, talky::Comma
     if (pArmInterface == 0)
         return false;
 
-    oArmJointAngles.reset();
     // read commanded control values of all joints ...
-    oArmJointAngles.setPosHS(pArmInterface->getHSControl());
-    oArmJointAngles.setPosVS(pArmInterface->getVSControl());
-    oArmJointAngles.setPosEL(pArmInterface->getELControl());
-    oArmJointAngles.setPosHW(pArmInterface->getHWControl());
-    oArmJointAngles.setPosVW(pArmInterface->getVWControl());
+    oDataBlockJoints.setPosHS(pArmInterface->getHSControl());
+    oDataBlockJoints.setPosVS(pArmInterface->getVSControl());
+    oDataBlockJoints.setPosEL(pArmInterface->getELControl());
+    oDataBlockJoints.setPosHW(pArmInterface->getHWControl());
+    oDataBlockJoints.setPosVW(pArmInterface->getVWControl());
 
     // and convert them to a command block
-    return oArmJointAngles.writeJointPositions(oCommandBlock);
+    return oDataBlockJoints.writeBlock(oCommandBlock);
+}
+
+bool ArmComsSensing::senseJointStates(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+{
+    // skip if no interface connection
+    if (pArmInterface == 0)
+        return false;
+
+    // read state of all joint drivers
+//    oDataBlockJointDrivers.setStateHS(pArmInterface->getHSControl());
+//    oDataBlockJointDrivers.setStateVS(pArmInterface->getVSControl());
+//    oDataBlockJointDrivers.setStateEL(pArmInterface->getELControl());
+//    oDataBlockJointDrivers.setStateHW(pArmInterface->getHWControl());
+//    oDataBlockJointDrivers.setStateVW(pArmInterface->getVWControl());
+
+    // and convert them to a command block
+    return oDataBlockJointDrivers.writeBlock(oCommandBlock);
+}
+
+bool ArmComsSensing::senseArmAxes(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+{
+    // skip if no interface connection
+    if (pArmInterface == 0)
+        return false;
+
+    // read commanded axes values and their sensed speeds
+//    oDataBlockAxes.setPan(pArmInterface->getHSControl());
+//    oDataBlockAxes.setTilt(pArmInterface->getVSControl());
+//    oDataBlockAxes.setRadius(pArmInterface->getELControl());
+//    oDataBlockAxes.setPanSpeed(pArmInterface->getHWControl());
+//    oDataBlockAxes.setTiltSpeed(pArmInterface->getVWControl());
+
+    // and convert them to a command block
+    return oDataBlockAxes.writeBlock(oCommandBlock);
 }
 
 }

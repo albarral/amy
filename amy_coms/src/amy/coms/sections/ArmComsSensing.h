@@ -9,8 +9,10 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/ifaces/iArmInterface.h"
+#include "amy/talk/DataBlockAxes.h"
+#include "amy/talk/DataBlockJoints.h"
+#include "amy/talk/DataBlockJointDrivers.h"
 #include "talky/coms/CommandBlock.h"
-#include "talky2/arm/ArmJointAngles.h"
 
 namespace amy
 {
@@ -20,15 +22,21 @@ class ArmComsSensing
 {    
 private:
     static log4cxx::LoggerPtr logger;    
-    talky2::ArmJointAngles oArmJointAngles;     // talky2 object for arm position info
+    DataBlockJoints oDataBlockJoints;                      // data block for joint angles
+    DataBlockJointDrivers oDataBlockJointDrivers;     // data block for joint states
+    DataBlockAxes oDataBlockAxes;                        // data block for axes positions and speeds
     
 public:       
     // fetch arm sensor info through the arm interface
     bool fetchArmInfo(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
     
 private:
-    // read commanded joint angles through the arm interface
+    // read commanded joint angles
     bool senseJointAngles(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
+    // read joint driver states 
+    bool senseJointStates(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
+    // read axes positions and speeds
+    bool senseArmAxes(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
 };
 }
 #endif
