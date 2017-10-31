@@ -32,40 +32,42 @@ sudo apt-get install liblog4cxx10-dev
 
 
 
-*** INSTALL TRON LIBS & DADY ***
+*** INSTALL TRON ***
+
+> download tron repo:
 
 git clone https://github.com/albarral/tron.git
 
-> tron libs
+> build tron libs
 
-follow instructions in howto_install_tron file
+follow instructions in howto_install_tron 
 
-> dady program
+> build dady
 
-follow instruction in howto_use_dady file
+follow instruction in howto_use_dady 
 
 
 
 *** INSTALL AMY ***
 
-> Download amy repo:
+> download amy repo:
 
 git clone https://github.com/albarral/amy.git
 
-
-> Build amy:
+> build amy:
 
 (Netbeans)
 - amy_main project 	
 
+> build ros_amy: 
 
-> Build ros_amy (ROS node): 
-
-gedit /path_to_amy/ws_amy/src/cmake/Modules/Findtron.cmake
-(in editor)
+edit /path_to_amy/ws_amy/src/cmake/Modules/Findtron.cmake
 - set TRON_HOME to be the tron installation path
 
-follow instructions in path_to_amy/ws_amy/src/README_amy_ROS file
+edit /path_to_amy/ws_amy/src/cmake/Modules/Findamy.cmake
+- set AMY_HOME to be the amy installation path
+
+follow instructions in path_to_amy/ws_amy/src/README_amy_ROS 
 
 
 

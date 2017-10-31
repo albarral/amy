@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(tron REQUIRED)
+find_package(amy REQUIRED)
 
 catkin_package(CATKIN_DEPENDS 
   actionlib
@@ -18,12 +19,13 @@ catkin_package(CATKIN_DEPENDS
   roscpp
   DEPENDS
   tron
+  amy
 )
 
-include_directories(${catkin_INCLUDE_DIRS} ${tron_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS} ${tron_INCLUDE_DIRS} ${amy_INCLUDE_DIRS})
 
 add_executable(ros_amyarm src/RosAmyArm.cpp src/YoubotArm.cpp src/UR5Arm.cpp)
 
-target_link_libraries(ros_amyarm ${catkin_LIBRARIES} ${tron_LIBRARIES})
+target_link_libraries(ros_amyarm ${catkin_LIBRARIES} ${tron_LIBRARIES} ${amy_LIBRARIES})
 
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
