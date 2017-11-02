@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_AXISBUS_H
-#define __AMY_ARM_AXISBUS_H
+#ifndef __AMY_CORE_AXISBUS_H
+#define __AMY_CORE_AXISBUS_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *

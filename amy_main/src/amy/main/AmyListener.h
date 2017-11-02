@@ -9,10 +9,10 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "tuly/control/module2.h"
-#include "amy/core/ifaces/iArmInterface.h"
+#include "amy/core/bus/ArmBus.h"
 #include "amy/coms/AmyComsServer.h"
 #include "comy/file/ComyFileServer.h"
+#include "tuly/control/module2.h"
 
 namespace amy
 {
@@ -32,7 +32,7 @@ public:
     AmyListener();
     //~AmyListener();
 
-    void init(iArmInterface* pArmInterface);       
+    void init(ArmBus& oArmBus);       
     bool isEnabled() {return benabled;};
     
     // checks if amy end has been requested

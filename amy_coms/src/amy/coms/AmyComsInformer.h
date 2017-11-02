@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/core/ifaces/iArmInterface.h"
+#include "amy/core/bus/ArmBus.h"
 #include "amy/coms/sections/ArmComsSensing.h"
 #include "talky/coms/CommandBlock.h"
 #include "talky/talk/Interpreter.h"
@@ -23,7 +23,7 @@ class AmyComsInformer
 private:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
-    iArmInterface* pArmInterface;   // arm interface
+    ArmBus* pArmBus;      // access to arm bus
     talky::Interpreter oInterpreter;     // message builder
     talky::CommandBlock oCommandBlock;  // arm info is stored in the form of commands block
     ArmComsSensing oArmComsSensing;
@@ -33,7 +33,7 @@ public:
     AmyComsInformer();
 
    bool isConnected() {return bconnected;};
-   void connect2Arm(iArmInterface* pArmInterface);
+   void connect2Arm(ArmBus& oArmBus);
                
     // fetch arm info and build message with it
     std::string getArmInfo();

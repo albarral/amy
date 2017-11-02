@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/bus/AxisBus.h"
+#include "amy/core/bus/AxisBus.h"
 
 namespace amy
 {

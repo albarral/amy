@@ -9,7 +9,7 @@
 #include <string>
 
 #include "amy/arm/util/ArmModule.h"
-#include "amy/arm/bus/JointBus.h"
+#include "amy/core/bus/JointBus.h"
 
 namespace amy
 {

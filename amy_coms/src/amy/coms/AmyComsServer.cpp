@@ -16,18 +16,18 @@ log4cxx::LoggerPtr AmyComsServer::logger(log4cxx::Logger::getLogger("amy.coms"))
 AmyComsServer::AmyComsServer()
 {    
     bconnected = false;
-    pArmInterface = 0;
+    pArmBus = 0;
     // prepare interpreter for arm topic communications
     oInterpreter.addLanguage(talky::Topics::eTOPIC_ARM);
 }
 
-void AmyComsServer::connect2Arm(iArmInterface* pArmInterface)
+void AmyComsServer::connect2Arm(ArmBus& oArmBus)
 {
-    this->pArmInterface = pArmInterface;
-    if (pArmInterface != 0)
+    pArmBus = &oArmBus;
+    if (pArmBus != 0)
     {
         // connect controller to arm interface
-        oArmComsControl.connect2Arm(pArmInterface);
+        oArmComsControl.connect2Arm(pArmBus);
         bconnected = true;
     }
     else

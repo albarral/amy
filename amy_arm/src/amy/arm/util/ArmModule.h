@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/bus/ArmBus.h"
+#include "amy/core/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
 #include <tuly/control/module2.h>

@@ -7,7 +7,7 @@
  ***************************************************************************/
 
 #include <tuly/control/module3.h>
-#include "amy/arm/bus/ArmBus.h"
+#include "amy/core/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
 

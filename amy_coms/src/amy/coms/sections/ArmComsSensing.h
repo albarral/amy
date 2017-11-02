@@ -8,7 +8,7 @@
 
 #include <log4cxx/logger.h>
 
-#include "amy/core/ifaces/iArmInterface.h"
+#include "amy/core/bus/ArmBus.h"
 #include "amy/talk/DataBlockAxes.h"
 #include "amy/talk/DataBlockJoints.h"
 #include "amy/talk/DataBlockJointDrivers.h"
@@ -28,15 +28,15 @@ private:
     
 public:       
     // fetch arm sensor info through the arm interface
-    bool fetchArmInfo(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
+    bool fetchArmInfo(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
     
 private:
     // read commanded joint angles
-    bool senseJointAngles(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
+    bool senseJointAngles(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
     // read joint driver states 
-    bool senseJointStates(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
+    bool senseJointStates(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
     // read axes positions and speeds
-    bool senseArmAxes(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock);
+    bool senseArmAxes(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
 };
 }
 #endif

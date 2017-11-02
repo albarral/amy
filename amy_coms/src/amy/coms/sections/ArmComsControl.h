@@ -8,7 +8,7 @@
 
 #include <log4cxx/logger.h>
 
-#include "amy/core/ifaces/iArmInterface.h"
+#include "amy/core/bus/ArmBus.h"
 #include "talky/coms/Command.h"
 
 namespace amy
@@ -18,13 +18,13 @@ namespace amy
 class ArmComsControl 
 {    
 private:
-    static log4cxx::LoggerPtr logger;    
-    iArmInterface* pArmInterface;   // interface for arm control
+    static log4cxx::LoggerPtr logger;            
+    ArmBus* pArmBus;      // access to arm bus
     bool bamyEndRequested;  // flag indicating amy has to end        
     
 public:
     ArmComsControl();
-    void connect2Arm(iArmInterface* pArmInterface);
+    void connect2Arm(ArmBus* pArmBus);
 
    // transforms command into proper call to arm interface
     bool processCommand(talky::Command& oCommand);

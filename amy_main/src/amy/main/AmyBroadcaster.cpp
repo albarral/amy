@@ -20,12 +20,12 @@ AmyBroadcaster::AmyBroadcaster ()
     benabled = false;
  }
 
-void AmyBroadcaster::init(iArmInterface* pArmInterface)
+void AmyBroadcaster::init(ArmBus& oArmBus)
 {
     // prepare communications publisher
     oComyPublisher.connect();
     // prepare amy sensor informer
-    oAmyComsInformer.connect2Arm(pArmInterface);
+    oAmyComsInformer.connect2Arm(oArmBus);
     
     // if both connected listener is enabled
     if (oComyPublisher.isConnected() && oAmyComsInformer.isConnected())

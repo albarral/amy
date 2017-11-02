@@ -10,48 +10,48 @@ namespace amy
 log4cxx::LoggerPtr ArmComsSensing::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 
-bool ArmComsSensing::fetchArmInfo(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::fetchArmInfo(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
 {
     bool bret = true;
 
     // skip if no interface connection
-    if (pArmInterface == 0)
+    if (pArmBus == 0)
     {
         LOG4CXX_ERROR(logger, "ArmComsSensing: can't fetch info, no arm interface connection");           
         return false;
     }
 
     // fetch joints info
-    bret = senseJointAngles(pArmInterface, oCommandBlock);
+    bret = senseJointAngles(pArmBus, oCommandBlock);
     talky::CommandBlock oCommandBlock2;     // TEMP to be given as parameter
-    bret = senseJointStates(pArmInterface, oCommandBlock2);
+    bret = senseJointStates(pArmBus, oCommandBlock2);
     talky::CommandBlock oCommandBlock3;      // TEMP to be given as parameter
-    bret = senseArmAxes(pArmInterface, oCommandBlock3);
+    bret = senseArmAxes(pArmBus, oCommandBlock3);
 
     return bret;
 }
 
-bool ArmComsSensing::senseJointAngles(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::senseJointAngles(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
-    if (pArmInterface == 0)
+    if (pArmBus == 0)
         return false;
 
     // read commanded control values of all joints ...
-    oDataBlockJoints.setPosHS(pArmInterface->getHSControl());
-    oDataBlockJoints.setPosVS(pArmInterface->getVSControl());
-    oDataBlockJoints.setPosEL(pArmInterface->getELControl());
-    oDataBlockJoints.setPosHW(pArmInterface->getHWControl());
-    oDataBlockJoints.setPosVW(pArmInterface->getVWControl());
+    oDataBlockJoints.setPosHS(pArmBus->getBusHS().getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosVS(pArmBus->getBusVS().getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosEL(pArmBus->getBusEL().getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosHW(pArmBus->getBusHW().getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosVW(pArmBus->getBusVW().getCO_JOINT_ANGLE().getValue());
 
     // and convert them to a command block
     return oDataBlockJoints.writeBlock(oCommandBlock);
 }
 
-bool ArmComsSensing::senseJointStates(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::senseJointStates(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
-    if (pArmInterface == 0)
+    if (pArmBus == 0)
         return false;
 
     // read state of all joint drivers
@@ -65,10 +65,10 @@ bool ArmComsSensing::senseJointStates(iArmInterface* pArmInterface, talky::Comma
     return oDataBlockJointDrivers.writeBlock(oCommandBlock);
 }
 
-bool ArmComsSensing::senseArmAxes(iArmInterface* pArmInterface, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::senseArmAxes(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
-    if (pArmInterface == 0)
+    if (pArmBus == 0)
         return false;
 
     // read commanded axes values and their sensed speeds

@@ -15,7 +15,7 @@
 #include "amy/main/robots/SupportedRobots.h"
 #include "amy/core/robot/Robot.h"
 
-#include "amy/arm/ArmTest.h"
+#include "amy/main/ArmTest.h"
 
 using namespace amy;
 
@@ -79,7 +79,7 @@ void runAmy(Robot& oRobot)
     AmyControl oAmyControl; 
 
     ArmTest oArmTest;
-    oArmTest.connect2Bus(oAmyControl.getArmManager());
+    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
     int test = 0;
     //oArmTest.testKeepTilt();
 

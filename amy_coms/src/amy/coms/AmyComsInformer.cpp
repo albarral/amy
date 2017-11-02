@@ -15,15 +15,15 @@ log4cxx::LoggerPtr AmyComsInformer::logger(log4cxx::Logger::getLogger("amy.coms"
 AmyComsInformer::AmyComsInformer()
 {    
     bconnected = false;
-    pArmInterface = 0;
+    pArmBus = 0;
     // prepare interpreter for arm topic communications
     oInterpreter.addLanguage(talky::Topics::eTOPIC_ARM);
 }
 
-void AmyComsInformer::connect2Arm(iArmInterface* pArmInterface)
+void AmyComsInformer::connect2Arm(ArmBus& oArmBus)
 {
-    this->pArmInterface = pArmInterface;
-    if (pArmInterface != 0)
+    pArmBus = &oArmBus;
+    if (pArmBus != 0)
         bconnected = true;
     else
         bconnected = false;
@@ -42,7 +42,7 @@ std::string AmyComsInformer::getArmInfo()
     oCommandBlock.reset();
     
     // fetch arm info into commands block
-    oArmComsSensing.fetchArmInfo(pArmInterface, oCommandBlock);  
+    oArmComsSensing.fetchArmInfo(pArmBus, oCommandBlock);  
         
     // transform commands block to message with the interpreter        
     talky::MessageBlock oMessageBlock;

@@ -20,12 +20,12 @@ AmyListener::AmyListener()
     benabled = false;
  }
 
-void AmyListener::init(iArmInterface* pArmInterface)
+void AmyListener::init(ArmBus& oArmBus)
 {
     // prepare communications server
     oComyServer.connect();
     // prepare amy control server
-    oAmyComsServer.connect2Arm(pArmInterface);
+    oAmyComsServer.connect2Arm(oArmBus);
     
     // if both connected listener is enabled
     if (oComyServer.isConnected() && oAmyComsServer.isConnected())

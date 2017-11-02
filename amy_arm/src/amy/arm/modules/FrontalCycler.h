@@ -10,8 +10,8 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/util/ArmModule3.h"
-#include "amy/arm/bus/AxisBus.h"
-#include "amy/arm/bus/CyclerBus.h"
+#include "amy/core/bus/AxisBus.h"
+#include "amy/core/bus/CyclerBus.h"
 #include "amy/move/LinearCycler.h"
 
 namespace amy

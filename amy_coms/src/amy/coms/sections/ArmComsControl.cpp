@@ -14,13 +14,13 @@ log4cxx::LoggerPtr ArmComsControl::logger(log4cxx::Logger::getLogger("amy.coms")
 
 ArmComsControl::ArmComsControl()
 {    
-    pArmInterface = 0;
+    pArmBus = 0;
     bamyEndRequested = false;
 }
 
-void ArmComsControl::connect2Arm(iArmInterface* pArmInterface)
+void ArmComsControl::connect2Arm(ArmBus* pArmBus)
 {
-    this->pArmInterface = pArmInterface;
+    this->pArmBus = pArmBus;
 }
 
 bool ArmComsControl::processCommand(talky::Command& oCommand)
@@ -28,7 +28,7 @@ bool ArmComsControl::processCommand(talky::Command& oCommand)
     bool bret = true;
 
     // skip if no interface connection
-    if (pArmInterface == 0)
+    if (pArmBus == 0)
     {
         LOG4CXX_ERROR(logger, "ArmComsControl: can't process command, no connection to arm interface");           
         return false;
@@ -68,27 +68,27 @@ bool ArmComsControl::processJointCommand(talky::Command& oCommand)
     {
         case talky::ArmTopic::eJOINT_HS_POS:
             LOG4CXX_INFO(logger, "> set HS " << quantity);                        
-            pArmInterface->moveHS(quantity);
+            pArmBus->getBusHS().getCO_JOINT_ANGLE().request(quantity);
             break;
             
         case talky::ArmTopic::eJOINT_VS_POS:
             LOG4CXX_INFO(logger, "> set VS " << quantity);                        
-            pArmInterface->moveVS(quantity);
+            pArmBus->getBusVS().getCO_JOINT_ANGLE().request(quantity);
             break;
 
         case talky::ArmTopic::eJOINT_ELB_POS:
             LOG4CXX_INFO(logger, "> set ELB " << quantity);                        
-            pArmInterface->moveEL(quantity);
+            pArmBus->getBusEL().getCO_JOINT_ANGLE().request(quantity);
             break;
 
         case talky::ArmTopic::eJOINT_HWRI_POS:
             LOG4CXX_INFO(logger, "> set HW " << quantity);                        
-            pArmInterface->moveHW(quantity);
+            pArmBus->getBusHW().getCO_JOINT_ANGLE().request(quantity);
             break;
 
         case talky::ArmTopic::eJOINT_VWRI_POS:
             LOG4CXX_INFO(logger, "> set VW " << quantity);                        
-            pArmInterface->moveVW(quantity);
+            pArmBus->getBusVW().getCO_JOINT_ANGLE().request(quantity);
             break;
 
         default:
@@ -107,32 +107,32 @@ bool ArmComsControl::processAxisCommand(talky::Command& oCommand)
     {
         case talky::ArmTopic::eAXIS_PAN_POS:
             LOG4CXX_INFO(logger, "> move pan " << quantity);                        
-            pArmInterface->movePan(quantity);
+            pArmBus->getPanBus().getCO_AXIS_POS().request(quantity);
             break;
             
         case talky::ArmTopic::eAXIS_TILT_POS:
             LOG4CXX_INFO(logger, "> move tilt " << quantity);                        
-            pArmInterface->moveTilt(quantity);
+            pArmBus->getTiltBus().getCO_AXIS_POS().request(quantity);
             break;
 
         case talky::ArmTopic::eAXIS_RAD_POS:
             LOG4CXX_INFO(logger, "> move radius " << quantity);                        
-            pArmInterface->extend(quantity);
+            pArmBus->getRadialBus().getCO_AXIS_POS().request(quantity);
             break;
 
         case talky::ArmTopic::eAXIS_PAN_SPEED:
             LOG4CXX_INFO(logger, "> pan speed " << quantity);                        
-            pArmInterface->panSpeed(quantity);
+            pArmBus->getPanBus().getCO_AXIS_SPEED().request(quantity);
             break;
             
         case talky::ArmTopic::eAXIS_TILT_SPEED:
             LOG4CXX_INFO(logger, "> tilt speed " << quantity);                        
-           pArmInterface->tiltSpeed(quantity);
+           pArmBus->getTiltBus().getCO_AXIS_SPEED().request(quantity);
             break;
 
         case talky::ArmTopic::eAXIS_RAD_SPEED:
             LOG4CXX_INFO(logger, "> rad speed " << quantity);                        
-            pArmInterface->radialSpeed(quantity);
+            pArmBus->getRadialBus().getCO_AXIS_SPEED().request(quantity);
             break;
             
         default:
@@ -153,43 +153,43 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
         // FRONTAL CYCLER
         case talky::ArmTopic::eCYCLIC_FRONT_FREQ:
             LOG4CXX_INFO(logger, "> set front freq " << quantity);                        
-            pArmInterface->frontFrequency(quantity);
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ1().request(quantity);
             break;
             
         case talky::ArmTopic::eCYCLIC_FRONT_AMP:
             LOG4CXX_INFO(logger, "> set front amplitude " << quantity);                        
-            pArmInterface->frontAmplitude(quantity);
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE1().request(quantity);
             break;
 
         case talky::ArmTopic::eCYCLIC_FRONT_ANGLE:
             LOG4CXX_INFO(logger, "> set front angle ");                        
-            pArmInterface->frontAngle(quantity);
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(quantity);
             break;
 
         case talky::ArmTopic::eCYCLIC_FRONT_START:
             LOG4CXX_INFO(logger, "> front start ");                        
-            pArmInterface->frontAction(true);
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(true);
             break;
 
         case talky::ArmTopic::eCYCLIC_FRONT_STOP:
             LOG4CXX_INFO(logger, "> front stop ");                        
-             pArmInterface->frontAction(false);
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(false);
             break;
 
        // ARM MOVER            
         case talky::ArmTopic::eCYCLIC_MOVER_LAUNCH:
             LOG4CXX_INFO(logger, "> launch move " << (int)quantity);                        
-            pArmInterface->launchMove((int)quantity);
+            pArmBus->getCO_MOVER_TYPE().request((int)quantity);
             break;
             
         case talky::ArmTopic::eCYCLIC_MOVER_STOP:
             LOG4CXX_INFO(logger, "> stop move");                        
-            pArmInterface->stopMove();
+            pArmBus->getCO_MOVER_ACTION().request(false);      
             break;
 
         case talky::ArmTopic::eCYCLIC_MOVER_TURN:
             LOG4CXX_INFO(logger, "> turn move " << (int)quantity);                        
-            pArmInterface->turnMove((int)quantity);
+            pArmBus->getCO_MOVER_TURN().request((int)quantity);
             break;
 
         case talky::ArmTopic::eCYCLIC_MOVER_WIDER:
@@ -198,7 +198,7 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
                 std::string text = (byes ? "> move wider" : "> move narrower");
                 LOG4CXX_INFO(logger, text);                        
             }
-            pArmInterface->moveWider(byes);
+            pArmBus->getCO_MOVER_WIDER().request(byes);
             break;
 
         case talky::ArmTopic::eCYCLIC_MOVER_TALLER:
@@ -207,7 +207,7 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
                 std::string text = (byes ? "> move taller" : "> move shorter");
                 LOG4CXX_INFO(logger, text);                        
             }
-            pArmInterface->moveTaller(byes);
+            pArmBus->getCO_MOVER_TALLER().request(byes);
             break;
 
         case talky::ArmTopic::eCYCLIC_MOVER_FASTER:
@@ -216,7 +216,7 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
                 std::string text = (byes ? "> move faster" : "> move slower");
                 LOG4CXX_INFO(logger, text);                        
             }
-            pArmInterface->moveFaster(byes);
+            pArmBus->getCO_MOVER_FASTER().request(byes);
             break;
 
         default:
@@ -240,7 +240,7 @@ bool ArmComsControl::processExtraCommand(talky::Command& oCommand)
             
         case talky::ArmTopic::eEXTRA_KEEP_TILT:
             LOG4CXX_INFO(logger, "> keep tilt " << quantity);                        
-            pArmInterface->keepTilt((int)quantity);
+            pArmBus->getCO_KEEP_TILT().request((int)quantity);
             break;
             
         case talky::ArmTopic::eEXTRA_AMY_END:

@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/main/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/main/AmyControl.o \
 	${OBJECTDIR}/src/amy/main/AmyListener.o \
+	${OBJECTDIR}/src/amy/main/ArmTest.o \
 	${OBJECTDIR}/src/amy/main/main.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmUR5.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o \
@@ -104,6 +105,11 @@ ${OBJECTDIR}/src/amy/main/AmyListener.o: src/amy/main/AmyListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../amy_arm/src -I../amy_coms/src -I../amy_talk/src -I../amy_show/src -I../../tron/comy/src -I../../tron/tuly/src -I../../tron/talky/src -I../../tron/tivy/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyListener.o src/amy/main/AmyListener.cpp
+
+${OBJECTDIR}/src/amy/main/ArmTest.o: src/amy/main/ArmTest.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/main
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../amy_arm/src -I../amy_coms/src -I../amy_talk/src -I../amy_show/src -I../../tron/comy/src -I../../tron/tuly/src -I../../tron/talky/src -I../../tron/tivy/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/ArmTest.o src/amy/main/ArmTest.cpp
 
 ${OBJECTDIR}/src/amy/main/main.o: src/amy/main/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main

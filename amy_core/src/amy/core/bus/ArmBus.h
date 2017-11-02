@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_ARMBUS_H
-#define __AMY_ARM_ARMBUS_H
+#ifndef __AMY_CORE_ARMBUS_H
+#define __AMY_CORE_ARMBUS_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *
@@ -8,9 +8,9 @@
 
 #include <string>
 
-#include "amy/arm/bus/CyclerBus.h"
-#include "amy/arm/bus/AxisBus.h"
-#include "amy/arm/bus/JointBus.h"
+#include "amy/core/bus/CyclerBus.h"
+#include "amy/core/bus/AxisBus.h"
+#include "amy/core/bus/JointBus.h"
 #include "tuly/control/brooks/controlT.h"
 #include "amy/core/robot/Arm.h"
 

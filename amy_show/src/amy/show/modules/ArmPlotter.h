@@ -7,8 +7,8 @@
  ***************************************************************************/
 
 #include <tuly/control/module3.h>
-#include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/bus/JointBus.h"
+#include "amy/core/bus/ArmBus.h"
+#include "amy/core/bus/JointBus.h"
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/arm/ArmSideView.h"
 #include "tivy/plot/DiscPlot.h"
