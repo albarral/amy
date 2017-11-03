@@ -42,13 +42,14 @@ void AmyBroadcaster::first()
 }
 
 void AmyBroadcaster::loop()
-{
-    // get arm info in form of talky message
-    std::string rawMessage = oAmyComsInformer.getArmInfo();
-    
+{      
+    // get arm info in form of talky messages
     // if info obtained, broadcast it
-    if (!rawMessage.empty())
+    if (oAmyComsInformer.getArmInfo())
+    {
+        std::string rawMessage = oAmyComsInformer.getMessage4JointAngles();
         oComyPublisher.publishMessage(rawMessage);
+    }
 }
 
 }

@@ -23,11 +23,14 @@ class AmyComsInformer
 private:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
-    ArmBus* pArmBus;      // access to arm bus
     talky::Interpreter oInterpreter;     // message builder
-    talky::CommandBlock oCommandBlock;  // arm info is stored in the form of commands block
     ArmComsSensing oArmComsSensing;
-
+    talky::CommandBlock oCommandBlock1;  // commands block for arm info
+    talky::CommandBlock oCommandBlock2;  // commands block for arm info
+    talky::CommandBlock oCommandBlock3;  // commands block for arm info
+    std::string messageJointAngles;               // raw message with joint angles
+    std::string messageJointStates;                // raw message with joint states
+    std::string messageAxes;                        // raw message with axes info
         
 public:
     AmyComsInformer();
@@ -35,8 +38,12 @@ public:
    bool isConnected() {return bconnected;};
    void connect2Arm(ArmBus& oArmBus);
                
-    // fetch arm info and build message with it
-    std::string getArmInfo();
+    // fetch arm info and build messages with it
+    bool getArmInfo();
+    
+    std::string getMessage4JointAngles() {return messageJointAngles;};
+    std::string getMessage4JointStates() {return messageJointStates;};
+    std::string getMessage4Axes() {return messageAxes;};
 };
 }
 #endif

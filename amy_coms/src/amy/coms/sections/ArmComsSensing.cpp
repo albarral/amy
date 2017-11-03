@@ -10,73 +10,78 @@ namespace amy
 log4cxx::LoggerPtr ArmComsSensing::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 
-bool ArmComsSensing::fetchArmInfo(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
+ArmComsSensing::ArmComsSensing()
 {
-    bool bret = true;
-
-    // skip if no interface connection
-    if (pArmBus == 0)
-    {
-        LOG4CXX_ERROR(logger, "ArmComsSensing: can't fetch info, no arm interface connection");           
-        return false;
-    }
-
-    // fetch joints info
-    bret = senseJointAngles(pArmBus, oCommandBlock);
-    talky::CommandBlock oCommandBlock2;     // TEMP to be given as parameter
-    bret = senseJointStates(pArmBus, oCommandBlock2);
-    talky::CommandBlock oCommandBlock3;      // TEMP to be given as parameter
-    bret = senseArmAxes(pArmBus, oCommandBlock3);
-
-    return bret;
+    pBusHS = 0;
+    pBusVS = 0;
+    pBusEL = 0;
+    pBusHW = 0;
+    pBusVW = 0;
+    pBusPan = 0;
+    pBusTilt = 0;
+    pBusRadial = 0;    
 }
 
-bool ArmComsSensing::senseJointAngles(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
+void ArmComsSensing::connect2Arm(ArmBus& oArmBus)
+{
+    // buses for joints
+    pBusHS = &oArmBus.getBusHS();    
+    pBusVS = &oArmBus.getBusVS();    
+    pBusEL = &oArmBus.getBusEL();    
+    pBusHW = &oArmBus.getBusHW();    
+    pBusVW = &oArmBus.getBusVW();    
+    // buses for axes
+    pBusPan = &oArmBus.getPanBus();
+    pBusTilt = &oArmBus.getTiltBus();
+    pBusRadial = &oArmBus.getRadialBus();
+}
+
+bool ArmComsSensing::senseJointAngles(talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
-    if (pArmBus == 0)
+    if (pBusHS == 0)
         return false;
 
     // read commanded control values of all joints ...
-    oDataBlockJoints.setPosHS(pArmBus->getBusHS().getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosVS(pArmBus->getBusVS().getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosEL(pArmBus->getBusEL().getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosHW(pArmBus->getBusHW().getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosVW(pArmBus->getBusVW().getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosHS(pBusHS->getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosVS(pBusVS->getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosEL(pBusEL->getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosHW(pBusHW->getCO_JOINT_ANGLE().getValue());
+    oDataBlockJoints.setPosVW(pBusVW->getCO_JOINT_ANGLE().getValue());
 
     // and convert them to a command block
     return oDataBlockJoints.writeBlock(oCommandBlock);
 }
 
-bool ArmComsSensing::senseJointStates(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::senseJointStates(talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
-    if (pArmBus == 0)
+    if (pBusHS == 0)
         return false;
 
     // read state of all joint drivers
-//    oDataBlockJointDrivers.setStateHS(pArmInterface->getHSControl());
-//    oDataBlockJointDrivers.setStateVS(pArmInterface->getVSControl());
-//    oDataBlockJointDrivers.setStateEL(pArmInterface->getELControl());
-//    oDataBlockJointDrivers.setStateHW(pArmInterface->getHWControl());
-//    oDataBlockJointDrivers.setStateVW(pArmInterface->getVWControl());
+    oDataBlockJointDrivers.setStateHS(pBusHS->getSO_DRIVER_STATE().getValue());
+    oDataBlockJointDrivers.setStateVS(pBusVS->getSO_DRIVER_STATE().getValue());
+    oDataBlockJointDrivers.setStateEL(pBusEL->getSO_DRIVER_STATE().getValue());
+    oDataBlockJointDrivers.setStateHW(pBusHW->getSO_DRIVER_STATE().getValue());
+    oDataBlockJointDrivers.setStateVW(pBusVW->getSO_DRIVER_STATE().getValue());
 
     // and convert them to a command block
     return oDataBlockJointDrivers.writeBlock(oCommandBlock);
 }
 
-bool ArmComsSensing::senseArmAxes(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock)
+bool ArmComsSensing::senseArmAxes(talky::CommandBlock& oCommandBlock)
 {
     // skip if no interface connection
-    if (pArmBus == 0)
+    if (pBusPan == 0)
         return false;
 
     // read commanded axes values and their sensed speeds
-//    oDataBlockAxes.setPan(pArmInterface->getHSControl());
-//    oDataBlockAxes.setTilt(pArmInterface->getVSControl());
-//    oDataBlockAxes.setRadius(pArmInterface->getELControl());
-//    oDataBlockAxes.setPanSpeed(pArmInterface->getHWControl());
-//    oDataBlockAxes.setTiltSpeed(pArmInterface->getVWControl());
+    oDataBlockAxes.setPan(pBusPan->getCO_AXIS_POS().getValue());
+    oDataBlockAxes.setTilt(pBusTilt->getCO_AXIS_POS().getValue());
+    oDataBlockAxes.setRadius(pBusRadial->getCO_AXIS_POS().getValue());
+    oDataBlockAxes.setPanSpeed(pBusPan->getSO_AXIS_SPEED().getValue());
+    oDataBlockAxes.setTiltSpeed(pBusTilt->getSO_AXIS_SPEED().getValue());
 
     // and convert them to a command block
     return oDataBlockAxes.writeBlock(oCommandBlock);

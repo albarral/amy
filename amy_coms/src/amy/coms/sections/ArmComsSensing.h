@@ -9,6 +9,8 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
+#include "amy/core/bus/AxisBus.h"
+#include "amy/core/bus/JointBus.h"
 #include "amy/talk/DataBlockAxes.h"
 #include "amy/talk/DataBlockJoints.h"
 #include "amy/talk/DataBlockJointDrivers.h"
@@ -22,21 +24,28 @@ class ArmComsSensing
 {    
 private:
     static log4cxx::LoggerPtr logger;    
+    JointBus* pBusHS;     // access to arm's HS joint
+    JointBus* pBusVS;     // access to arm's VS joint
+    JointBus* pBusEL;     // access to arm's ELB joint
+    JointBus* pBusHW;     // access to arm's HWRI joint
+    JointBus* pBusVW;     // access to arm's VWRI joint
+    AxisBus* pBusPan;          // access to pan bus 
+    AxisBus* pBusTilt;          // access to tilt bus
+    AxisBus* pBusRadial;      // access to radial bus
     DataBlockJoints oDataBlockJoints;                      // data block for joint angles
     DataBlockJointDrivers oDataBlockJointDrivers;     // data block for joint states
     DataBlockAxes oDataBlockAxes;                        // data block for axes positions and speeds
     
 public:       
-    // fetch arm sensor info through the arm interface
-    bool fetchArmInfo(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
+    ArmComsSensing();
+    void connect2Arm(ArmBus& oArmBus);
     
-private:
-    // read commanded joint angles
-    bool senseJointAngles(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
-    // read joint driver states 
-    bool senseJointStates(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
-    // read axes positions and speeds
-    bool senseArmAxes(ArmBus* pArmBus, talky::CommandBlock& oCommandBlock);
+    // read commanded joint angles (and convert it to command block)
+    bool senseJointAngles(talky::CommandBlock& oCommandBlock);
+    // read joint driver states (and convert it to command block)
+    bool senseJointStates(talky::CommandBlock& oCommandBlock);
+    // read axes positions and speeds (and convert it to command block)
+    bool senseArmAxes(talky::CommandBlock& oCommandBlock);
 };
 }
 #endif
