@@ -10,7 +10,7 @@
 
 #include "comy/file/ComyFileSubscriber.h"
 #include "talky/talk/Interpreter.h"
-#include "talky2/arm/ArmJointAngles.h"
+#include "amy/talk/DataBlockJoints.h"
 
 class RosAmyArm
 {
@@ -18,8 +18,8 @@ private:
     int counter;          
     comy::ComyFileSubscriber oComySubscriber;     // comy coms subscriber
     talky::Interpreter oInterpreter;                           // talky language interpreter        
-    talky2::ArmJointAngles oJointAngles;                    // talky2 utility to process arm joints info
-    talky2::ArmJointAngles oJointAngles0;                  // talky2 utility to process arm joints info
+    amy::DataBlockJoints oDataBlockJoints;                    // amy utility to process arm joints info
+    amy::DataBlockJoints oDataBlockJoints0;                  // amy utility to process arm joints info
   
 public:
   RosAmyArm();

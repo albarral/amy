@@ -34,31 +34,36 @@ bool AmyControl::launch(Robot& oRobot)
     // for now, just single arm robots supported
     if (oRobot.getNumArms() == 1)
     {
+        // get controlled arm 
         Arm& oArm = oRobot.getListArms().at(0);        
         
+        // init bus
+        oArmBus.init(oArm);
+
         // launch arm manager
-        bok = oArmManager.launch(oAmyConfig, oArm);
+        int topLevel = 4;
+        bok = oArmManager.launch(oArm, oArmBus, oAmyConfig, topLevel);
         
         // launch listener module
-        oAmyListener.init(&oArmManager.getArmInterface());
+        oAmyListener.init(oArmBus);
         oAmyListener.setFrequency(freq);
         oAmyListener.on();
         
         // launch broadcaster module
-        oAmyBroadcaster.init(&oArmManager.getArmInterface());
+        oAmyBroadcaster.init(oArmBus);
         oAmyBroadcaster.setFrequency(freq);
         oAmyBroadcaster.on();
 
         oSharedDisplay.initDisplay();
         
         // launch arm plotter module (for debug)
-        oArmPlotter.connect(oArmManager.getArmBus4Debug());
+        oArmPlotter.connect(oArmBus);
         oArmPlotter.setFrequency(freq);
         oArmPlotter.shareDisplay(oSharedDisplay);
         oArmPlotter.on();
         
         // launch history plotter module (for debug)
-        oHistoryPlotter.connect(oArmManager.getArmBus4Debug());
+        oHistoryPlotter.connect(oArmBus);
         oHistoryPlotter.setFrequency(freq);
         oHistoryPlotter.shareDisplay(oSharedDisplay);
         oHistoryPlotter.on();        

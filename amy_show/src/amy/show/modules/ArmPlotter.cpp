@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include "amy/show/modules/ArmPlotter.h"
-#include "amy/arm/modules/JointDriver.h"
 
 namespace amy
 {
@@ -86,13 +85,19 @@ void ArmPlotter::loop()
 
 void ArmPlotter::senseBus()
 {
+    // read broadcasted arm info 
+    oAmyShow.senseInfo();    
+    DataBlockJoints& oDataBlockJoints = oAmyShow.getDataBlockJoints();
+    DataBlockJointDrivers& oDataBlockJointDrivers = oAmyShow.getDataBlockJointDrivers();
+    DataBlockAxes& oDataBlockAxes = oAmyShow.getDataBlockAxes();
+    
     // axis positions
     pan = pArmBus->getPanBus().getSO_AXIS_POS().getValue();
     tilt = pArmBus->getTiltBus().getSO_AXIS_POS().getValue();    
     radius = pArmBus->getRadialBus().getSO_AXIS_POS().getValue();
     // joint positions
-    angleVS = pVSBus->getSO_IST_ANGLE().getValue();
-    angleELB = pELBus->getSO_IST_ANGLE().getValue();
+    angleVS = oDataBlockJoints.getPosVS();
+    angleELB = oDataBlockJoints.getPosEL();
     // joint limits
     stateHS = pHSBus->getSO_DRIVER_STATE().getValue(); 
     stateVS = pVSBus->getSO_DRIVER_STATE().getValue(); 
@@ -104,13 +109,13 @@ int ArmPlotter::driverState2DiscColor(int driveState)
     int disc;
     switch (driveState) 
     {
-        case JointDriver::eSTATE_DONE:
+        case 0:
             disc = tivy::DiscPlot::eSTATE_RED;
             break;
-        case JointDriver::eSTATE_MOVE:
+        case 1:
             disc = tivy::DiscPlot::eSTATE_GREEN;
             break;
-        case JointDriver::eSTATE_BRAKE:
+        case 2:
             disc = tivy::DiscPlot::eSTATE_YELLOW;
             break;
         default:

@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/amy/show/AmyShow.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmPlot.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmSideView.o \
@@ -66,6 +67,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_show.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/src/amy/show/AmyShow.o: src/amy/show/AmyShow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/AmyShow.o src/amy/show/AmyShow.cpp
 
 ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o: src/amy/show/arm/ArmFrontView.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm

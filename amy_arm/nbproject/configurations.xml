@@ -13,16 +13,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="arm" displayName="arm" projectFiles="true">
-        <logicalFolder name="f1" displayName="bus" projectFiles="true">
-          <itemPath>src/amy/arm/bus/ArmBus.cpp</itemPath>
-          <itemPath>src/amy/arm/bus/ArmBus.h</itemPath>
-          <itemPath>src/amy/arm/bus/AxisBus.cpp</itemPath>
-          <itemPath>src/amy/arm/bus/AxisBus.h</itemPath>
-          <itemPath>src/amy/arm/bus/CyclerBus.cpp</itemPath>
-          <itemPath>src/amy/arm/bus/CyclerBus.h</itemPath>
-          <itemPath>src/amy/arm/bus/JointBus.cpp</itemPath>
-          <itemPath>src/amy/arm/bus/JointBus.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="config" displayName="config" projectFiles="true">
           <itemPath>src/amy/arm/config/ArmConfig.cpp</itemPath>
           <itemPath>src/amy/arm/config/ArmConfig.h</itemPath>
@@ -73,12 +63,8 @@
           <itemPath>src/amy/arm/util/JointModule.cpp</itemPath>
           <itemPath>src/amy/arm/util/JointModule.h</itemPath>
         </logicalFolder>
-        <itemPath>src/amy/arm/ArmInterface.cpp</itemPath>
-        <itemPath>src/amy/arm/ArmInterface.h</itemPath>
         <itemPath>src/amy/arm/ArmManager.cpp</itemPath>
         <itemPath>src/amy/arm/ArmManager.h</itemPath>
-        <itemPath>src/amy/arm/ArmTest.cpp</itemPath>
-        <itemPath>src/amy/arm/ArmTest.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -168,33 +154,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/arm/ArmInterface.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/ArmInterface.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/ArmManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/ArmManager.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/ArmTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/AxisBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/AxisBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/CyclerBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/CyclerBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -331,33 +293,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/arm/ArmInterface.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/ArmInterface.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/ArmManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/ArmManager.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/ArmTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/ArmTest.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/AxisBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/AxisBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/CyclerBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/CyclerBus.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/bus/JointBus.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>

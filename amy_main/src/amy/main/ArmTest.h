@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_TESTS_H
-#define __AMY_ARM_TESTS_H
+#ifndef __AMY_MAIN_ARMTEST_H
+#define __AMY_MAIN_ARMTEST_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -10,8 +10,7 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/ArmManager.h"
-#include "amy/arm/bus/ArmBus.h"
+#include "amy/core/bus/ArmBus.h"
 
 namespace amy
 {
@@ -26,7 +25,7 @@ public:
     ArmTest();
 //    ~ArmTest();
 
-    void connect2Bus(ArmManager& oArmManager);
+    void connect2Bus(ArmBus& oArmBus);
     bool isConnected() {return pArmBus != 0;};
     
     void setPos(int pan, int tilt, int radius);

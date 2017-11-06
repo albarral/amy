@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/bus/CyclerBus.h"
+#include "amy/core/bus/CyclerBus.h"
 
 namespace amy
 {

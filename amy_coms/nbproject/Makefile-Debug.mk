@@ -55,7 +55,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_talk/dist/Debug/GNU-Linux -L../amy_talk/dist/Debug/GNU-Linux -lamy_talk -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -63,7 +63,11 @@ LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Deb
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_core/dist/Debug/GNU-Linux/libamy_core.so
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_talk/dist/Debug/GNU-Linux/libamy_talk.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/talky/dist/Debug/GNU-Linux/libtron_talky.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -72,27 +76,29 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/amy/coms/AmyComsInformer.o: src/amy/coms/AmyComsInformer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsInformer.o src/amy/coms/AmyComsInformer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsInformer.o src/amy/coms/AmyComsInformer.cpp
 
 ${OBJECTDIR}/src/amy/coms/AmyComsServer.o: src/amy/coms/AmyComsServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsServer.o src/amy/coms/AmyComsServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsServer.o src/amy/coms/AmyComsServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o: src/amy/coms/sections/ArmComsControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o src/amy/coms/sections/ArmComsControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o src/amy/coms/sections/ArmComsControl.cpp
 
 ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o: src/amy/coms/sections/ArmComsSensing.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o src/amy/coms/sections/ArmComsSensing.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o src/amy/coms/sections/ArmComsSensing.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug
+	cd ../amy_talk && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -102,7 +108,9 @@ ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o: src/amy/coms/sections/ArmCo
 # Subprojects
 .clean-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../amy_talk && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

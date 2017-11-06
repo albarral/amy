@@ -9,8 +9,8 @@
 #include <string>
 #include <log4cxx/logger.h>
 
+#include "amy/core/bus/ArmBus.h"
 #include "amy/coms/sections/ArmComsControl.h"
-#include "amy/core/ifaces/iArmInterface.h"
 #include "talky/talk/Interpreter.h"
 #include "talky/coms/CommandBlock.h"
 
@@ -23,7 +23,7 @@ class AmyComsServer
 private:
     static log4cxx::LoggerPtr logger;      
     bool bconnected;        // connected to amy control interfaces
-    iArmInterface* pArmInterface;   // arm interface
+    ArmBus* pArmBus;      // access to arm bus
     talky::Interpreter oInterpreter;     // message interpreter
     ArmComsControl oArmComsControl;     // sender of proper control commands to arm interface
         
@@ -31,7 +31,7 @@ public:
     AmyComsServer();
 
    bool isConnected() {return bconnected;};
-   void connect2Arm(iArmInterface* pArmInterface);
+   void connect2Arm(ArmBus& oArmBus);
       
     bool isAmyEndRequested();
          

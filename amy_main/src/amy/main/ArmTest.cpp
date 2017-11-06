@@ -12,10 +12,9 @@
 
 #include <log4cxx/logger.h>
 
-#include "amy/arm/ArmTest.h"
+#include "amy/main/ArmTest.h"
 
 
-#include "amy/arm/bus/AxisBus.h"
 #include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
@@ -33,9 +32,9 @@ ArmTest::ArmTest()
     pArmBus = 0;
 }
 
-void ArmTest::connect2Bus(ArmManager& oArmManager)
+void ArmTest::connect2Bus(ArmBus& oArmBus)
 {
-    pArmBus = &oArmManager.oArmBus;
+    pArmBus = &oArmBus;
 }
 
 void ArmTest::testCycler2()

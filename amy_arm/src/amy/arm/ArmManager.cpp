@@ -18,7 +18,9 @@ LoggerPtr ArmManager::logger(Logger::getLogger("amy.arm"));
 ArmManager::ArmManager ()
 {    
     blaunched = false;
-    topLevel = 4;       
+    topLevel = 0;       
+    pArm = 0; 
+    pArmBus = 0;       
     pAmyConfig = 0;
 }
 
@@ -29,23 +31,21 @@ ArmManager::~ArmManager ()
 }
 
 
-bool ArmManager::launch(AmyConfig& oAmyConfig, Arm& oTargetArm) 
+bool ArmManager::launch(Arm& oArm, ArmBus& oArmBus, AmyConfig& oAmyConfig, int maxLevel) 
 {  
     // launch it if not launched yet
     if (!blaunched)
     {
-        log4cxx::NDC::push("ArmManager-" + std::to_string(oTargetArm.getType()));   	
-        LOG4CXX_INFO(logger, "Launching for arm " << oTargetArm.toString());
+        log4cxx::NDC::push("ArmManager-" + std::to_string(oArm.getType()));   	
+        LOG4CXX_INFO(logger, "Launching for arm " << oArm.toString());
 
-        // acces to amy config
+        // store pointers to external objects
+        pArm = &oArm;
+        pArmBus = &oArmBus;
         pAmyConfig = &oAmyConfig;
-        oArm = oTargetArm;
-        
-        // init bus & connect arm interface to it
-        oArmBus.init(oArm);
-        oArmInterface.connect(oArmBus);
-        
-        LOG4CXX_INFO(logger, "max level: " << topLevel);
+        topLevel = maxLevel;
+                
+        LOG4CXX_INFO(logger, "top level: " << topLevel);
         // organize control architecture in levels
         initArchitecture();
         showArchitecture();
@@ -178,6 +178,9 @@ void ArmManager::initLevel(int num)
 
     float freq = pAmyConfig->getModulesFreq();
 
+    Arm& oArm = *pArm;
+    ArmBus& oArmBus = *pArmBus;
+    
     // init ArmModule's
     for (ArmModule* pModule : listModules)
     {

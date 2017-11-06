@@ -35,13 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/arm/ArmInterface.o \
 	${OBJECTDIR}/src/amy/arm/ArmManager.o \
-	${OBJECTDIR}/src/amy/arm/ArmTest.o \
-	${OBJECTDIR}/src/amy/arm/bus/ArmBus.o \
-	${OBJECTDIR}/src/amy/arm/bus/AxisBus.o \
-	${OBJECTDIR}/src/amy/arm/bus/CyclerBus.o \
-	${OBJECTDIR}/src/amy/arm/bus/JointBus.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
@@ -97,40 +91,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_arm.${CND_DLIB_EXT}: ${OBJECTF
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_arm.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/arm/ArmInterface.o: src/amy/arm/ArmInterface.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmInterface.o src/amy/arm/ArmInterface.cpp
-
 ${OBJECTDIR}/src/amy/arm/ArmManager.o: src/amy/arm/ArmManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmManager.o src/amy/arm/ArmManager.cpp
-
-${OBJECTDIR}/src/amy/arm/ArmTest.o: src/amy/arm/ArmTest.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/ArmTest.o src/amy/arm/ArmTest.cpp
-
-${OBJECTDIR}/src/amy/arm/bus/ArmBus.o: src/amy/arm/bus/ArmBus.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/ArmBus.o src/amy/arm/bus/ArmBus.cpp
-
-${OBJECTDIR}/src/amy/arm/bus/AxisBus.o: src/amy/arm/bus/AxisBus.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/AxisBus.o src/amy/arm/bus/AxisBus.cpp
-
-${OBJECTDIR}/src/amy/arm/bus/CyclerBus.o: src/amy/arm/bus/CyclerBus.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/CyclerBus.o src/amy/arm/bus/CyclerBus.cpp
-
-${OBJECTDIR}/src/amy/arm/bus/JointBus.o: src/amy/arm/bus/JointBus.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/bus
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_math/src -I../amy_move/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/bus/JointBus.o src/amy/arm/bus/JointBus.cpp
 
 ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config

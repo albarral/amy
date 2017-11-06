@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_JOINTBUS_H
-#define __AMY_ARM_JOINTBUS_H
+#ifndef __AMY_CORE_JOINTBUS_H
+#define __AMY_CORE_JOINTBUS_H
 
 /***************************************************************************
  *   Copyright (C) 2015 by Migtron Robotics   *

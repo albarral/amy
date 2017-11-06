@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/bus/ArmBus.h"
+#include "amy/core/bus/ArmBus.h"
 #include "amy/core/robot/Joint.h"
 
 namespace amy

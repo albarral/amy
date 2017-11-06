@@ -62,7 +62,7 @@ RosAmyArm::~RosAmyArm()
     }
     
     // reset joints info
-    oJointAngles0.reset();    
+    oDataBlockJoints0.resetData();    
     bool bnewInfo;
     
     while (ros::ok()) 
@@ -78,19 +78,19 @@ RosAmyArm::~RosAmyArm()
             bnewInfo = false;       
         
         // if new info received and different from previous one
-        if (bnewInfo && !oJointAngles.isEqual(oJointAngles0))
+        if (bnewInfo && !oDataBlockJoints.isEqual(oDataBlockJoints0))
         {                        
             showAngles();
     
             // set hshoulder, vshouler & elbow joints
-            oUR5Arm.setArmPos(-oJointAngles.getPosHS(), -oJointAngles.getPosVS(), -oJointAngles.getPosEL());
+            oUR5Arm.setArmPos(-oDataBlockJoints.getPosHS(), -oDataBlockJoints.getPosVS(), -oDataBlockJoints.getPosEL());
             // set wrist & hand joints
-            oUR5Arm.setHandPos(oJointAngles.getPosVW(), 0.0, 0.0);
+            oUR5Arm.setHandPos(oDataBlockJoints.getPosVW(), 0.0, 0.0);
             oUR5Arm.prepareMove(moveDelay);
             oUR5Arm.move();
 
             // store data for next iteration
-            oJointAngles0 = oJointAngles;
+            oDataBlockJoints0 = oDataBlockJoints;
         }
         rate.sleep();
     }    
@@ -112,10 +112,10 @@ bool RosAmyArm::processMessage(std::string rawMessage)
         if (oInterpreter.isBlockProcessed())
         {
             // show obtained command block
-	    // ROS_INFO("RosAmyArm: %s", oInterpreter.getCommandBlock().toString());        
+            // ROS_INFO("RosAmyArm: %s", oInterpreter.getCommandBlock().toString());        
 
             // process interpreted command block
-            bret = oJointAngles.readJointPositions(oInterpreter.getCommandBlock());
+            bret = oDataBlockJoints.readBlock(oInterpreter.getCommandBlock());
         }
         // if simple message
         else
@@ -133,7 +133,7 @@ bool RosAmyArm::processMessage(std::string rawMessage)
 
 void RosAmyArm::showAngles()
 {
-    ROS_INFO("arm angles: %d, %d, %d", (int)oJointAngles.getPosHS(), (int)oJointAngles.getPosVS(), (int)oJointAngles.getPosEL());      
+    ROS_INFO("arm angles: %d, %d, %d", (int)oDataBlockJoints.getPosHS(), (int)oDataBlockJoints.getPosVS(), (int)oDataBlockJoints.getPosEL());      
 }
 
   

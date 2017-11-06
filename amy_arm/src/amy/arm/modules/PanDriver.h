@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/bus/AxisBus.h"
+#include "amy/core/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/JointPositioner.h"
 

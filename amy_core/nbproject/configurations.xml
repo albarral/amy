@@ -13,12 +13,19 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="core" displayName="core" projectFiles="true">
+        <logicalFolder name="f1" displayName="bus" projectFiles="true">
+          <itemPath>src/amy/core/bus/ArmBus.cpp</itemPath>
+          <itemPath>src/amy/core/bus/ArmBus.h</itemPath>
+          <itemPath>src/amy/core/bus/AxisBus.cpp</itemPath>
+          <itemPath>src/amy/core/bus/AxisBus.h</itemPath>
+          <itemPath>src/amy/core/bus/CyclerBus.cpp</itemPath>
+          <itemPath>src/amy/core/bus/CyclerBus.h</itemPath>
+          <itemPath>src/amy/core/bus/JointBus.cpp</itemPath>
+          <itemPath>src/amy/core/bus/JointBus.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="config" displayName="config" projectFiles="true">
           <itemPath>src/amy/core/config/AmyConfig.cpp</itemPath>
           <itemPath>src/amy/core/config/AmyConfig.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="ifaces" displayName="ifaces" projectFiles="true">
-          <itemPath>src/amy/core/ifaces/iArmInterface.h</itemPath>
         </logicalFolder>
         <logicalFolder name="robot" displayName="robot" projectFiles="true">
           <itemPath>src/amy/core/robot/Arm.cpp</itemPath>
@@ -58,17 +65,45 @@
           <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
+            <pElem>../../tron/tuly/src</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/tuly"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/tuly"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_tuly.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
+      <item path="src/amy/core/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/AxisBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/AxisBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/CyclerBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/CyclerBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/JointBus.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/ifaces/iArmInterface.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/core/robot/Arm.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -103,14 +138,25 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="src/amy/core/bus/ArmBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/ArmBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/AxisBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/AxisBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/CyclerBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/CyclerBus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/JointBus.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/core/bus/JointBus.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/core/config/AmyConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/core/config/AmyConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/core/ifaces/iArmInterface.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/core/robot/Arm.cpp" ex="false" tool="1" flavor2="0">
       </item>

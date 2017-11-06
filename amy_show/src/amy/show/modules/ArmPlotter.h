@@ -6,13 +6,14 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <tuly/control/module3.h>
-#include "amy/arm/bus/ArmBus.h"
-#include "amy/arm/bus/JointBus.h"
+#include "amy/show/AmyShow.h"
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/arm/ArmSideView.h"
+#include "amy/core/bus/ArmBus.h"
+#include "amy/core/bus/JointBus.h"
 #include "tivy/plot/DiscPlot.h"
 #include "tivy/SharedDisplay.h"
+#include "tuly/control/module3.h"
 
 namespace amy
 {
@@ -23,6 +24,7 @@ class ArmPlotter : public tuly::Module3
 private:
     // bus
     bool bconnected;        // connected to bus
+    AmyShow oAmyShow;
     ArmBus* pArmBus;     // access to arm's bus
     JointBus* pHSBus;     // access to arm's HS joint
     JointBus* pVSBus;     // access to arm's VS joint

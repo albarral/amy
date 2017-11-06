@@ -10,7 +10,9 @@
 #include <vector>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/bus/ArmBus.h"
+#include "amy/core/bus/ArmBus.h"
+#include "amy/core/config/AmyConfig.h"
+#include "amy/core/robot/Arm.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/FrontalCycler.h"
@@ -23,11 +25,8 @@
 #include "amy/arm/modules/RadiusDriver.h"
 #include "amy/arm/modules/ArmSense.h"
 #include "amy/arm/modules/JointDriver.h"
-#include "amy/arm/ArmInterface.h"
 #include "amy/arm/util/ArmModule.h"
 #include "amy/arm/util/ArmModule3.h"
-#include "amy/core/config/AmyConfig.h"
-#include "amy/core/robot/Arm.h"
 
 
 #define AMY_MAX_JOINTS 5
@@ -42,11 +41,10 @@ class ArmManager
     private:
         static log4cxx::LoggerPtr logger;
         bool blaunched;     // indicates when the manager has been launched
+        Arm* pArm;                   // access to controlled arm
+        ArmBus* pArmBus;        // access to arm bus
         AmyConfig* pAmyConfig;  // acces to amy config
         ArmConfig oArmConfig;     // arm configuration
-        ArmBus oArmBus;        // arm bus
-        Arm oArm;                   // controlled arm
-        ArmInterface oArmInterface;     // interface for external arm control
         int topLevel; // allow activation of modules until this level
         // modules ...
         // level 3
@@ -71,16 +69,11 @@ class ArmManager
         ~ArmManager();
 
        // launches the arm manager to handle the specified robot arm (returns false if something fails)
-       bool launch(AmyConfig& oAmyConfig, Arm& oArm);
+       bool launch(Arm& oArm, ArmBus& oArmBus, AmyConfig& oAmyConfig,int maxLevel);
        // ends the arm manager
        bool end();
        bool isLaunched() {return blaunched;};                
        
-       // give access to the arm's control interface
-       ArmInterface& getArmInterface() {return oArmInterface;}
-       // give access to arm bus (only for debug purpose)
-       ArmBus& getArmBus4Debug() {return oArmBus;}
-
        friend class ArmTest;
        
 private:

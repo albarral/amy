@@ -6,8 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/arm/bus/AxisBus.h"
-#include "amy/arm/bus/JointBus.h"
+#include "amy/core/bus/AxisBus.h"
+#include "amy/core/bus/JointBus.h"
 #include "amy/arm/modules/AxisRacer.h"
 
 namespace amy
