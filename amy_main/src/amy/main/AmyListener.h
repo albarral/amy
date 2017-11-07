@@ -25,7 +25,10 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    comy::ComyFileServer oComyServer;      // communications server
+    comy::ComyFileServer oComyServerJoints;      // communications server for joint category
+    comy::ComyFileServer oComyServerAxis;      // communications server for axis category
+    comy::ComyFileServer oComyServerCyclic;      // communications server for cyclic category
+    comy::ComyFileServer oComyServerExtra;      // communications server for extra category
     AmyComsServer oAmyComsServer;       // amy control server
 
 public:

@@ -6,6 +6,8 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/main/AmyBroadcaster.h"
+#include "talky/Topics.h"
+#include "talky/languages/ArmLanguage.h"
 
 using namespace log4cxx;
 
@@ -22,19 +24,24 @@ AmyBroadcaster::AmyBroadcaster ()
 
 void AmyBroadcaster::init(ArmBus& oArmBus)
 {
-    // prepare communications publisher
-    oComyPublisher.connect();
+    talky::ArmLanguage oArmLanguage;    
+    // prepare communication publishers
+    oComyPublisherJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
+    oComyPublisherAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
     // prepare amy sensor informer
     oAmyComsInformer.connect2Arm(oArmBus);
     
-    // if both connected listener is enabled
-    if (oComyPublisher.isConnected() && oAmyComsInformer.isConnected())
+    // if publishers enabled
+    if (oComyPublisherJoints.isConnected() && 
+            oComyPublisherAxis.isConnected() &&
+            oAmyComsInformer.isConnected())
     {
         benabled = true;
+        LOG4CXX_INFO(logger, modName + " initialized");                                
     }
     else
-        LOG4CXX_ERROR(logger, modName + ": failed initialization, publisher or sensor informer was not connected!");                        
-};
+        LOG4CXX_ERROR(logger, modName + ": failed initialization, coms publishers not connected!");                        
+}
 
 void AmyBroadcaster::first()
 {    
@@ -44,11 +51,11 @@ void AmyBroadcaster::first()
 void AmyBroadcaster::loop()
 {      
     // get arm info in form of talky messages
-    // if info obtained, broadcast it
+    // if info obtained, broadcast them
     if (oAmyComsInformer.getArmInfo())
     {
-        std::string rawMessage = oAmyComsInformer.getMessage4JointAngles();
-        oComyPublisher.publishMessage(rawMessage);
+        oComyPublisherJoints.publishMessage(oAmyComsInformer.getMessage4JointAngles());
+        oComyPublisherAxis.publishMessage(oAmyComsInformer.getMessage4Axes());
     }
 }
 

@@ -7,7 +7,6 @@
 #include "amy/coms/AmyComsServer.h"
 #include "talky/Topics.h"
 #include "talky/coms/Command.h"
-#include "talky/topics/ArmTopic.h"
 
 namespace amy
 {

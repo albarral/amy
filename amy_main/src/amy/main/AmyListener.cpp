@@ -6,6 +6,8 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/main/AmyListener.h"
+#include "talky/Topics.h"
+#include "talky/languages/ArmLanguage.h"
 
 using namespace log4cxx;
 
@@ -22,18 +24,28 @@ AmyListener::AmyListener()
 
 void AmyListener::init(ArmBus& oArmBus)
 {
-    // prepare communications server
-    oComyServer.connect();
+    talky::ArmLanguage oArmLanguage;
+    // prepare communication servers
+    oComyServerJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
+    oComyServerAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
+    oComyServerCyclic.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_CYCLIC);
+    oComyServerExtra.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_EXTRA);    
+    
     // prepare amy control server
     oAmyComsServer.connect2Arm(oArmBus);
     
-    // if both connected listener is enabled
-    if (oComyServer.isConnected() && oAmyComsServer.isConnected())
+    // if servers enabled
+    if (oComyServerJoints.isConnected() && 
+            oComyServerAxis.isConnected() &&
+            oComyServerCyclic.isConnected() &&
+            oComyServerExtra.isConnected() &&
+            oAmyComsServer.isConnected())
     {
         benabled = true;
+        LOG4CXX_INFO(logger, modName + " initialized");                                
     }
     else
-        LOG4CXX_ERROR(logger, modName + ": failed initialization, coms or control server was not connected!");                        
+        LOG4CXX_ERROR(logger, modName + ": failed initialization, coms servers not connected!");                        
 }
 
 void AmyListener::first()
@@ -43,12 +55,36 @@ void AmyListener::first()
 
 void AmyListener::loop()
 {
-    // listen to received messages
-    if (oComyServer.readMessage())
+    // listen to joint messages
+    if (oComyServerJoints.readMessage())
     {
-        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServer.getRawMessage());        
+        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerJoints.getRawMessage());        
         // if something received process it
-        oAmyComsServer.processMessage(oComyServer.getRawMessage());
+        oAmyComsServer.processMessage(oComyServerJoints.getRawMessage());
+    }            
+
+    // listen to axis messages
+    if (oComyServerAxis.readMessage())
+    {
+        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerAxis.getRawMessage());        
+        // if something received process it
+        oAmyComsServer.processMessage(oComyServerAxis.getRawMessage());
+    }            
+
+    // listen to cyclic messages
+    if (oComyServerCyclic.readMessage())
+    {
+        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerCyclic.getRawMessage());        
+        // if something received process it
+        oAmyComsServer.processMessage(oComyServerCyclic.getRawMessage());
+    }            
+
+    // listen to extra messages
+    if (oComyServerExtra.readMessage())
+    {
+        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerExtra.getRawMessage());        
+        // if something received process it
+        oAmyComsServer.processMessage(oComyServerExtra.getRawMessage());
     }            
 }
 

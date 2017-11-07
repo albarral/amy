@@ -11,7 +11,7 @@
 #include "comy/file/ComyFileSubscriber.h"
 #include "amy/talk/DataBlockAxes.h"
 #include "amy/talk/DataBlockJoints.h"
-#include "amy/talk/DataBlockJointDrivers.h"
+//#include "amy/talk/DataBlockJointDrivers.h"
 #include "talky/talk/Interpreter.h"
 
 namespace amy
@@ -20,23 +20,28 @@ class AmyShow
 {
 private:    
     static log4cxx::LoggerPtr logger;      
-    comy::ComyFileSubscriber oComySubscriber;     // comy coms subscriber
+    bool benabled;
+    comy::ComyFileSubscriber oComySubscriberJoints;     // communications subscriber for joint category
+    comy::ComyFileSubscriber oComySubscriberAxis;     // communications subscriber for axis category
     talky::Interpreter oInterpreter;                           // talky language interpreter        
     DataBlockJoints oDataBlockJoints;                       // data block for joint angles
-    DataBlockJointDrivers oDataBlockJointDrivers;     // data block for joint states
+    //DataBlockJointDrivers oDataBlockJointDrivers;     // data block for joint states
     DataBlockAxes oDataBlockAxes;                        // data block for axes positions and speeds
 
 public:
   AmyShow();
   ~AmyShow();
-    
+
+  bool isEnabled() {return benabled;};
+
   void senseInfo();
   DataBlockJoints& getDataBlockJoints() {return oDataBlockJoints;};
-  DataBlockJointDrivers& getDataBlockJointDrivers() {return oDataBlockJointDrivers;};
+  //DataBlockJointDrivers& getDataBlockJointDrivers() {return oDataBlockJointDrivers;};
   DataBlockAxes& getDataBlockAxes() {return oDataBlockAxes;};
   
 private:
-    bool processMessage(std::string rawMessage);    
+    bool processMessage4Joints(std::string rawMessage);    
+    bool processMessage4Axes(std::string rawMessage);    
 };
 }		
 

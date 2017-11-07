@@ -25,7 +25,8 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    comy::ComyFilePublisher oComyPublisher;      // the info publisher (based in shared file)
+    comy::ComyFilePublisher oComyPublisherJoints;      // communications publisher for joint category
+    comy::ComyFilePublisher oComyPublisherAxis;    // communications publisher for axis category
     AmyComsInformer oAmyComsInformer;           // amy sensor informer
 
 public:

@@ -88,13 +88,13 @@ void ArmPlotter::senseBus()
     // read broadcasted arm info 
     oAmyShow.senseInfo();    
     DataBlockJoints& oDataBlockJoints = oAmyShow.getDataBlockJoints();
-    DataBlockJointDrivers& oDataBlockJointDrivers = oAmyShow.getDataBlockJointDrivers();
+    //DataBlockJointDrivers& oDataBlockJointDrivers = oAmyShow.getDataBlockJointDrivers();
     DataBlockAxes& oDataBlockAxes = oAmyShow.getDataBlockAxes();
     
     // axis positions
-    pan = pArmBus->getPanBus().getSO_AXIS_POS().getValue();
-    tilt = pArmBus->getTiltBus().getSO_AXIS_POS().getValue();    
-    radius = pArmBus->getRadialBus().getSO_AXIS_POS().getValue();
+    pan = oDataBlockAxes.getPan();
+    tilt = oDataBlockAxes.getTilt();    
+    radius = oDataBlockAxes.getRadius();
     // joint positions
     angleVS = oDataBlockJoints.getPosVS();
     angleELB = oDataBlockJoints.getPosEL();
