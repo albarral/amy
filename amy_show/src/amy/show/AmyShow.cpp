@@ -17,12 +17,13 @@ AmyShow::~AmyShow()
 {    
 }
      
- bool AmyShow::launch()
+ bool AmyShow::launch(ArmBus& oArmBus)
 {
     LOG4CXX_INFO(logger, "AmyShow: launch modules");
     float freq = 10.0;
      
     // launch senser module
+    oShowSenser.connect(oArmBus);
     oShowSenser.init(oShowData);
     oShowSenser.setFrequency(freq);
     oShowSenser.on();

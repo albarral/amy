@@ -37,22 +37,18 @@ void ArmPlotter::init(tivy::SharedDisplay& oSharedDisplay)
                     
 // drives the axis towards the target position
 void ArmPlotter::draw(tivy::SharedDisplay& oSharedDisplay, ShowData* pShowData)
-{    
-    DataBlockJoints& oDataBlockJoints = pShowData->getDataBlockJoints();
-    //DataBlockJointDrivers& oDataBlockJointDrivers = pShowData->getDataBlockJointDrivers();
-    DataBlockAxes& oDataBlockAxes = pShowData->getDataBlockAxes();   
-    
+{        
     // axis positions
-    pan = oDataBlockAxes.getPan();
-    tilt = oDataBlockAxes.getTilt();    
-    radius = oDataBlockAxes.getRadius();
+    pan = pShowData->pan;
+    tilt = pShowData->tilt;
+    radius = pShowData->radius;
     // joint positions
-    angleVS = oDataBlockJoints.getPosVS();
-    angleELB = oDataBlockJoints.getPosEL();
+    angleVS = pShowData->angleVS;
+    angleELB = pShowData->angleELB;
     // joint limits
-//    stateHS = pHSBus->getSO_DRIVER_STATE().getValue(); 
-//    stateVS = pVSBus->getSO_DRIVER_STATE().getValue(); 
-//    stateELB = pELBus->getSO_DRIVER_STATE().getValue(); 
+    stateHS = pShowData->stateHS;
+    stateVS = pShowData->stateVS;
+    stateELB = pShowData->stateELB;
 
     // draw arm frontal view
     oArmFrontView.drawArm(angleVS, pan, tilt, radius);

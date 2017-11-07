@@ -33,15 +33,13 @@ void HistoryPlotter::init(tivy::SharedDisplay& oSharedDisplay)
 // drives the axis towards the target position
 void HistoryPlotter::draw(tivy::SharedDisplay& oSharedDisplay, ShowData* pShowData)
 {
-    DataBlockAxes& oDataBlockAxes = pShowData->getDataBlockAxes();
-    
     // update pan speed history
-    float panSOSpeed = oDataBlockAxes.getPanSpeed();
-    float panCOSpeed = 0; //pPanBus->getCO_AXIS_SPEED().getValue();
+    float panSOSpeed = pShowData->panSOSpeed;
+    float panCOSpeed = pShowData->panCOSpeed;
     oPanHistory2D.addRecord(panSOSpeed, panCOSpeed);
     // update tilt speed history
-    float tiltSOSpeed = oDataBlockAxes.getTiltSpeed();
-    float tiltCOSpeed = 0; //pTiltBus->getCO_AXIS_SPEED().getValue();
+    float tiltSOSpeed = pShowData->tiltSOSpeed;
+    float tiltCOSpeed = pShowData->tiltCOSpeed;
     oTiltHistory2D.addRecord(tiltSOSpeed, tiltCOSpeed);
 
     // draw pan speed history

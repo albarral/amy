@@ -54,7 +54,7 @@ bool AmyControl::launch(Robot& oRobot)
         oAmyBroadcaster.setFrequency(freq);
         oAmyBroadcaster.on();
 
-        oAmyShow.launch();
+        oAmyShow.launch(oArmBus);
     }
     else
     {

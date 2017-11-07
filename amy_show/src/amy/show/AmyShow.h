@@ -11,6 +11,7 @@
 #include "amy/show/ShowData.h"
 #include "amy/show/modules/ShowPlotter.h"
 #include "amy/show/modules/ShowSenser.h"
+#include "amy/core/bus/ArmBus.h"
 
 namespace amy
 {
@@ -27,7 +28,7 @@ public:
   ~AmyShow();
 
    // launches the show modules
-   bool launch();
+   bool launch(ArmBus& oArmBus);
    // ends the show modules
    bool end();
 };
