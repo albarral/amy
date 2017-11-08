@@ -43,35 +43,12 @@ bool AmyControl::launch(Robot& oRobot)
         // launch arm manager
         int topLevel = 4;
         bok = oArmManager.launch(oArm, oArmBus, oAmyConfig, topLevel);
-        
-        // launch listener module
-        oAmyListener.init(oArmBus);
-        oAmyListener.setFrequency(freq);
-        oAmyListener.on();
-        
-        // launch broadcaster module
-        oAmyBroadcaster.init(oArmBus);
-        oAmyBroadcaster.setFrequency(freq);
-        oAmyBroadcaster.on();
 
-        oSharedDisplay.initDisplay();
-        
-        // launch arm plotter module (for debug)
-        oArmPlotter.connect(oArmBus);
-        oArmPlotter.setFrequency(freq);
-        oArmPlotter.shareDisplay(oSharedDisplay);
-        oArmPlotter.on();
-        
-        // launch history plotter module (for debug)
-        oHistoryPlotter.connect(oArmBus);
-        oHistoryPlotter.setFrequency(freq);
-        oHistoryPlotter.shareDisplay(oSharedDisplay);
-        oHistoryPlotter.on();        
+        // launch coms
+        oAmyComs.launch(oArmBus);        
 
-        // launch displayer module (for debug)
-        oAmyDisplayer.setFrequency(freq);
-        oAmyDisplayer.shareDisplay(oSharedDisplay);
-        oAmyDisplayer.on();        
+        // launch gui
+        oAmyShow.launch(oArmBus);
     }
     else
     {
@@ -86,31 +63,17 @@ bool AmyControl::end()
 {
     // finish arm manager
     oArmManager.end();
-    
-    // finish listener module
-    oAmyListener.off();
-    oAmyListener.wait();      
-    
-    // finish broadcaster module
-    oAmyBroadcaster.off();
-    oAmyBroadcaster.wait();      
 
-    // finish arm plotter module
-    oArmPlotter.off();
-    oArmPlotter.wait();      
+    // end coms
+    oAmyComs.end();
 
-    // finish history plotter module
-    oHistoryPlotter.off();
-    oHistoryPlotter.wait();      
-    
-    // finish displayer module 
-    oAmyDisplayer.off();
-    oAmyDisplayer.wait();
+    // end gui
+    oAmyShow.end();
 }
 
 bool AmyControl::checkEndRequested()
 {
-    return oAmyListener.checkAmyEndRequested();
+    return oAmyComs.checkAmyEndRequested();
 }
 
 }

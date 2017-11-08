@@ -16,8 +16,8 @@ class RosAmyArm
 {
 private:    
     int counter;          
-    comy::ComyFileSubscriber oComySubscriber;     // comy coms subscriber
-    talky::Interpreter oInterpreter;                           // talky language interpreter        
+    comy::ComyFileSubscriber oComySubscriberJoints;     // coms subscriber for arm topic & joint category
+    talky::Interpreter oInterpreter;                                   // talky language interpreter        
     amy::DataBlockJoints oDataBlockJoints;                    // amy utility to process arm joints info
     amy::DataBlockJoints oDataBlockJoints0;                  // amy utility to process arm joints info
   

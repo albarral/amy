@@ -4,8 +4,6 @@
  ***************************************************************************/
 
 #include "amy/show/AmyShow.h"
-#include "talky/Topics.h"
-#include "talky/coms/CommandBlock.h"
 
 namespace amy
 {
@@ -13,57 +11,39 @@ log4cxx::LoggerPtr AmyShow::logger(log4cxx::Logger::getLogger("amy.show"));
 
 AmyShow::AmyShow() 
 {
-    // prepare interpreter for arm topic communications
-    oInterpreter.addLanguage(talky::Topics::eTOPIC_ARM);    
-    // prepare coms subscriber
-    oComySubscriber.connect();    
 }
 
 AmyShow::~AmyShow()
 {    
 }
      
-  void AmyShow::senseInfo()
-{    
-    // prepare coms subscriber
-    if (!oComySubscriber.isConnected())
-    {
-        LOG4CXX_ERROR(logger, "AmyShow: failed connection of comy subscriber");
-        return;
-    }
-    
-    // read message and process it
-    if (oComySubscriber.readMessage())
-    {            
-        processMessage(oComySubscriber.getRawMessage());            
-    }            
+ bool AmyShow::launch(ArmBus& oArmBus)
+{
+    LOG4CXX_INFO(logger, "AmyShow: launch modules");
+    float freq = 10.0;
+     
+    // launch senser module
+    oShowSenser.connect(oArmBus);
+    oShowSenser.init(oShowData);
+    oShowSenser.setFrequency(freq);
+    oShowSenser.on();
+
+    // launch plotter module
+    oShowPlotter.init(oShowData);
+    oShowPlotter.setFrequency(freq);
+    oShowPlotter.on();        
   }
 
-bool AmyShow::processMessage(std::string rawMessage)
+bool AmyShow::end()
 {
-    bool bret = false;
+    LOG4CXX_INFO(logger, "AmyShow: end modules");
+    // finish senser module
+    oShowSenser.off();
+    oShowSenser.wait();      
 
-    // interpret received message
-    if (oInterpreter.processMessage(rawMessage))
-    {
-        // if message block
-        if (oInterpreter.isBlockProcessed())
-        {
-            // process interpreted command block
-            bret = oDataBlockJoints.readBlock(oInterpreter.getCommandBlock());
-        }
-        // if simple message
-        else
-        {
-            LOG4CXX_INFO(logger, "AmyShow: simple msg received, ignore");
-        }            
-    }
-    else
-    {
-        LOG4CXX_ERROR(logger, "AmyShow: message processing failed!");            
-    }
-
-    return bret;    
+    // finish plotter module
+    oShowPlotter.off();
+    oShowPlotter.wait();      
 }
 
 }		

@@ -36,12 +36,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/show/AmyShow.o \
+	${OBJECTDIR}/src/amy/show/ShowData.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmPlot.o \
 	${OBJECTDIR}/src/amy/show/arm/ArmSideView.o \
-	${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o \
-	${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o \
-	${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o
+	${OBJECTDIR}/src/amy/show/modules/ShowPlotter.o \
+	${OBJECTDIR}/src/amy/show/modules/ShowSenser.o \
+	${OBJECTDIR}/src/amy/show/plot/ArmPlotter.o \
+	${OBJECTDIR}/src/amy/show/plot/HistoryPlotter.o
 
 
 # C Compiler Flags
@@ -73,6 +75,11 @@ ${OBJECTDIR}/src/amy/show/AmyShow.o: src/amy/show/AmyShow.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/AmyShow.o src/amy/show/AmyShow.cpp
 
+${OBJECTDIR}/src/amy/show/ShowData.o: src/amy/show/ShowData.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/ShowData.o src/amy/show/ShowData.cpp
+
 ${OBJECTDIR}/src/amy/show/arm/ArmFrontView.o: src/amy/show/arm/ArmFrontView.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/arm
 	${RM} "$@.d"
@@ -88,20 +95,25 @@ ${OBJECTDIR}/src/amy/show/arm/ArmSideView.o: src/amy/show/arm/ArmSideView.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/arm/ArmSideView.o src/amy/show/arm/ArmSideView.cpp
 
-${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o: src/amy/show/modules/AmyDisplayer.cpp 
+${OBJECTDIR}/src/amy/show/modules/ShowPlotter.o: src/amy/show/modules/ShowPlotter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/AmyDisplayer.o src/amy/show/modules/AmyDisplayer.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/ShowPlotter.o src/amy/show/modules/ShowPlotter.cpp
 
-${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o: src/amy/show/modules/ArmPlotter.cpp 
+${OBJECTDIR}/src/amy/show/modules/ShowSenser.o: src/amy/show/modules/ShowSenser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/ArmPlotter.o src/amy/show/modules/ArmPlotter.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/ShowSenser.o src/amy/show/modules/ShowSenser.cpp
 
-${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o: src/amy/show/modules/HistoryPlotter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/show/modules
+${OBJECTDIR}/src/amy/show/plot/ArmPlotter.o: src/amy/show/plot/ArmPlotter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/plot
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/modules/HistoryPlotter.o src/amy/show/modules/HistoryPlotter.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/plot/ArmPlotter.o src/amy/show/plot/ArmPlotter.cpp
+
+${OBJECTDIR}/src/amy/show/plot/HistoryPlotter.o: src/amy/show/plot/HistoryPlotter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/show/plot
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/show/plot/HistoryPlotter.o src/amy/show/plot/HistoryPlotter.cpp
 
 # Subprojects
 .build-subprojects:

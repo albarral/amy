@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 
-#include "amy/coms/AmyComsInformer.h"
+#include "amy/coms/out/AmyComsInformer.h"
 #include "talky/Topics.h"
 #include "talky/coms/MessageBlock.h"
 
@@ -33,9 +33,7 @@ bool AmyComsInformer::getArmInfo()
         LOG4CXX_ERROR(logger, "AmyComsInformer: can't fetch info, no connection to arm bus");           
         return false;
     }
-    
-    // TEMPORALLY LIMITED TO JUST ONE MESSAGE
-    
+        
     // reset command blocks
     oCommandBlock1.reset();
 //    oCommandBlock2.reset();
@@ -45,9 +43,9 @@ bool AmyComsInformer::getArmInfo()
     bool bret1 = oArmComsSensing.senseJointAngles(oCommandBlock1);
 //    bool bret2 = oArmComsSensing.senseJointStates(oCommandBlock2);
 //    bool bret3 = oArmComsSensing.senseArmAxes(oCommandBlock3);
-    bool bret2 = true, bret3 = true;
         
-    if (!bret1 || !bret2 || !bret3)
+//    if (!bret1 || !bret2 || !bret3)
+    if (!bret1)
     {
         LOG4CXX_ERROR(logger, "AmyComsInformer: error fetching arm info");           
         return false;        
@@ -71,7 +69,7 @@ bool AmyComsInformer::getArmInfo()
         LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock1.toString());    
     }
 
-//    // message 2 (joint states)
+    // message 2 (joint states)
 //    if (oInterpreter.buildMessageBlock(oCommandBlock2, oMessageBlock))
 //    {
 //        // if message built ok, get its raw text
@@ -85,8 +83,8 @@ bool AmyComsInformer::getArmInfo()
 //        LOG4CXX_ERROR(logger, "AmyComsInformer: message 2 could not be built!");    
 //        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock2.toString());    
 //    }
-//    
-//    // message 3 (axes)
+    
+    // message 3 (axes)
 //    if (oInterpreter.buildMessageBlock(oCommandBlock3, oMessageBlock))
 //    {
 //        // if message built ok, get its raw text
@@ -101,7 +99,8 @@ bool AmyComsInformer::getArmInfo()
 //        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock3.toString());    
 //    }
     
-    return (bret1 && bret2 && bret3);
+//    return (bret1 && bret2 && bret3);
+    return (bret1);
 }
 
 }

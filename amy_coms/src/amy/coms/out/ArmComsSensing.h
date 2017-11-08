@@ -11,9 +11,9 @@
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/JointBus.h"
-#include "amy/talk/DataBlockAxes.h"
+//#include "amy/talk/DataBlockAxes.h"
 #include "amy/talk/DataBlockJoints.h"
-#include "amy/talk/DataBlockJointDrivers.h"
+//#include "amy/talk/DataBlockJointDrivers.h"
 #include "talky/coms/CommandBlock.h"
 
 namespace amy
@@ -33,8 +33,8 @@ private:
     AxisBus* pBusTilt;          // access to tilt bus
     AxisBus* pBusRadial;      // access to radial bus
     DataBlockJoints oDataBlockJoints;                      // data block for joint angles
-    DataBlockJointDrivers oDataBlockJointDrivers;     // data block for joint states
-    DataBlockAxes oDataBlockAxes;                        // data block for axes positions and speeds
+//    DataBlockJointDrivers oDataBlockJointDrivers;     // data block for joint states
+//    DataBlockAxes oDataBlockAxes;                        // data block for axes positions and speeds
     
 public:       
     ArmComsSensing();
@@ -43,9 +43,9 @@ public:
     // read commanded joint angles (and convert it to command block)
     bool senseJointAngles(talky::CommandBlock& oCommandBlock);
     // read joint driver states (and convert it to command block)
-    bool senseJointStates(talky::CommandBlock& oCommandBlock);
+    //bool senseJointStates(talky::CommandBlock& oCommandBlock);
     // read axes positions and speeds (and convert it to command block)
-    bool senseArmAxes(talky::CommandBlock& oCommandBlock);
+    //bool senseArmAxes(talky::CommandBlock& oCommandBlock);
 };
 }
 #endif

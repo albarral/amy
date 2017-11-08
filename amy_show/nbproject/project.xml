@@ -9,12 +9,9 @@
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>../../tron/comy</make-dep-project>
-                <make-dep-project>../amy_talk</make-dep-project>
                 <make-dep-project>../../tron/tuly</make-dep-project>
                 <make-dep-project>../amy_math</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
-                <make-dep-project>../../tron/talky</make-dep-project>
                 <make-dep-project>../../tron/tivy</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
