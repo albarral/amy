@@ -12,7 +12,7 @@
 #include "UR5Arm.h"
 #include "talky/Topics.h"
 #include "talky/coms/CommandBlock.h"
-
+#include "talky/languages/ArmLanguage.h"
 
 int main(int argc, char** argv) 
 {
@@ -51,11 +51,14 @@ RosAmyArm::~RosAmyArm()
    
     // prepare interpreter for arm topic communications
     oInterpreter.addLanguage(talky::Topics::eTOPIC_ARM);    
-    // prepare coms subscriber
-    oComySubscriber.connect();
     
     // prepare coms subscriber
-    if (!oComySubscriber.isConnected())
+    talky::ArmLanguage oArmLanguage;
+    // prepare communication servers
+    oComySubscriberJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
+    
+    // prepare coms subscriber
+    if (!oComySubscriberJoints.isConnected())
     {
         ROS_ERROR("RosAmyArm: failed connection of comy subscriber");
         return;
@@ -70,9 +73,9 @@ RosAmyArm::~RosAmyArm()
         // process callbacks
         ros::spinOnce();
 
-        if (oComySubscriber.readMessage())
+        if (oComySubscriberJoints.readMessage())
         {            
-            bnewInfo = processMessage(oComySubscriber.getRawMessage());            
+            bnewInfo = processMessage(oComySubscriberJoints.getRawMessage());            
         }            
         else
             bnewInfo = false;       
