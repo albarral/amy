@@ -1,5 +1,5 @@
-#ifndef _AMY_MAIN_AMYBROADCASTER_H
-#define _AMY_MAIN_AMYBROADCASTER_H
+#ifndef _AMY_COMS_AMYBROADCASTER_H
+#define _AMY_COMS_AMYBROADCASTER_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/AmyComsInformer.h"
+#include "amy/coms/out/AmyComsInformer.h"
 #include "comy/file/ComyFilePublisher.h"
 #include "tuly/control/module2.h"
 
@@ -26,7 +26,7 @@ private:
     bool benabled;
     // logic
     comy::ComyFilePublisher oComyPublisherJoints;      // communications publisher for joint category
-    comy::ComyFilePublisher oComyPublisherAxis;    // communications publisher for axis category
+    //comy::ComyFilePublisher oComyPublisherAxis;    // communications publisher for axis category
     AmyComsInformer oAmyComsInformer;           // amy sensor informer
 
 public:

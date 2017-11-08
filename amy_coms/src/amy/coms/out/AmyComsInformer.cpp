@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 
-#include "amy/coms/AmyComsInformer.h"
+#include "amy/coms/out/AmyComsInformer.h"
 #include "talky/Topics.h"
 #include "talky/coms/MessageBlock.h"
 
@@ -36,15 +36,16 @@ bool AmyComsInformer::getArmInfo()
         
     // reset command blocks
     oCommandBlock1.reset();
-    oCommandBlock2.reset();
-    oCommandBlock3.reset();
+//    oCommandBlock2.reset();
+//    oCommandBlock3.reset();
     
     // fetch arm info into command blocks        
     bool bret1 = oArmComsSensing.senseJointAngles(oCommandBlock1);
-    bool bret2 = oArmComsSensing.senseJointStates(oCommandBlock2);
-    bool bret3 = oArmComsSensing.senseArmAxes(oCommandBlock3);
+//    bool bret2 = oArmComsSensing.senseJointStates(oCommandBlock2);
+//    bool bret3 = oArmComsSensing.senseArmAxes(oCommandBlock3);
         
-    if (!bret1 || !bret2 || !bret3)
+//    if (!bret1 || !bret2 || !bret3)
+    if (!bret1)
     {
         LOG4CXX_ERROR(logger, "AmyComsInformer: error fetching arm info");           
         return false;        
@@ -69,36 +70,37 @@ bool AmyComsInformer::getArmInfo()
     }
 
     // message 2 (joint states)
-    if (oInterpreter.buildMessageBlock(oCommandBlock2, oMessageBlock))
-    {
-        // if message built ok, get its raw text
-        messageJointStates = oMessageBlock.getRawText();
-    }
-    else
-    {
-        // otherwise set empty message
-        messageJointStates = "";
-        bret2 = false;
-        LOG4CXX_ERROR(logger, "AmyComsInformer: message 2 could not be built!");    
-        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock2.toString());    
-    }
+//    if (oInterpreter.buildMessageBlock(oCommandBlock2, oMessageBlock))
+//    {
+//        // if message built ok, get its raw text
+//        messageJointStates = oMessageBlock.getRawText();
+//    }
+//    else
+//    {
+//        // otherwise set empty message
+//        messageJointStates = "";
+//        bret2 = false;
+//        LOG4CXX_ERROR(logger, "AmyComsInformer: message 2 could not be built!");    
+//        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock2.toString());    
+//    }
     
     // message 3 (axes)
-    if (oInterpreter.buildMessageBlock(oCommandBlock3, oMessageBlock))
-    {
-        // if message built ok, get its raw text
-        messageAxes = oMessageBlock.getRawText();
-    }
-    else
-    {
-        // otherwise set empty message
-        messageAxes = "";
-        bret3 = false;
-        LOG4CXX_ERROR(logger, "AmyComsInformer: message 3 could not be built!");    
-        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock3.toString());    
-    }
+//    if (oInterpreter.buildMessageBlock(oCommandBlock3, oMessageBlock))
+//    {
+//        // if message built ok, get its raw text
+//        messageAxes = oMessageBlock.getRawText();
+//    }
+//    else
+//    {
+//        // otherwise set empty message
+//        messageAxes = "";
+//        bret3 = false;
+//        LOG4CXX_ERROR(logger, "AmyComsInformer: message 3 could not be built!");    
+//        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock3.toString());    
+//    }
     
-    return (bret1 && bret2 && bret3);
+//    return (bret1 && bret2 && bret3);
+    return (bret1);
 }
 
 }

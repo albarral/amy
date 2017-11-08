@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 
-#include "amy/coms/AmyComsServer.h"
+#include "amy/coms/in/AmyComsServer.h"
 #include "talky/Topics.h"
 #include "talky/coms/Command.h"
 
@@ -32,13 +32,8 @@ void AmyComsServer::connect2Arm(ArmBus& oArmBus)
     else
         bconnected = false;
 }
-
-bool AmyComsServer::isAmyEndRequested()
-{
-    return oArmComsControl.getAmyEndRequested();
-}
     
-bool AmyComsServer::processMessage(std::string text)
+bool AmyComsServer::processMessage(std::string text, ComsData& oComsData)
 {
     bool bret = false;
 
@@ -51,7 +46,7 @@ bool AmyComsServer::processMessage(std::string text)
             // get interpreted command
             talky::Command& oCommand = oInterpreter.getCommand();
             // and process it, transforming it to a proper arm interface call
-            bret = oArmComsControl.processCommand(oCommand);
+            bret = oArmComsControl.processCommand(oCommand, oComsData);
             
             if (bret)
             {
@@ -64,7 +59,7 @@ bool AmyComsServer::processMessage(std::string text)
         else
         {            
             // process interpreted commands
-            bret = processCommandBlock(oInterpreter.getCommandBlock());
+            bret = processCommandBlock(oInterpreter.getCommandBlock(), oComsData);
         }
     }
     else
@@ -75,7 +70,7 @@ bool AmyComsServer::processMessage(std::string text)
     return bret;
 }
 
-bool AmyComsServer::processCommandBlock(talky::CommandBlock& oCommandBlock)
+bool AmyComsServer::processCommandBlock(talky::CommandBlock& oCommandBlock, ComsData& oComsData)
 {
     int numWellProcessed = 0;
 
@@ -83,7 +78,7 @@ bool AmyComsServer::processCommandBlock(talky::CommandBlock& oCommandBlock)
     for (talky::Command& oCommand : oCommandBlock.getListCommands())
     {
         // process it, transforming it to a proper arm interface call        
-        if (oArmComsControl.processCommand(oCommand))
+        if (oArmComsControl.processCommand(oCommand, oComsData))
         {
             numWellProcessed++;
             LOG4CXX_INFO(logger, "AmyComsServer: command ok - " + oCommand.toString());                    

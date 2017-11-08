@@ -43,17 +43,11 @@ bool AmyControl::launch(Robot& oRobot)
         // launch arm manager
         int topLevel = 4;
         bok = oArmManager.launch(oArm, oArmBus, oAmyConfig, topLevel);
-        
-        // launch listener module
-        oAmyListener.init(oArmBus);
-        oAmyListener.setFrequency(freq);
-        oAmyListener.on();
-        
-        // launch broadcaster module
-        oAmyBroadcaster.init(oArmBus);
-        oAmyBroadcaster.setFrequency(freq);
-        oAmyBroadcaster.on();
 
+        // launch coms
+        oAmyComs.launch(oArmBus);        
+
+        // launch gui
         oAmyShow.launch(oArmBus);
     }
     else
@@ -69,21 +63,17 @@ bool AmyControl::end()
 {
     // finish arm manager
     oArmManager.end();
-    
-    // finish listener module
-    oAmyListener.off();
-    oAmyListener.wait();      
-    
-    // finish broadcaster module
-    oAmyBroadcaster.off();
-    oAmyBroadcaster.wait();      
 
+    // end coms
+    oAmyComs.end();
+
+    // end gui
     oAmyShow.end();
 }
 
 bool AmyControl::checkEndRequested()
 {
-    return oAmyListener.checkAmyEndRequested();
+    return oAmyComs.checkAmyEndRequested();
 }
 
 }

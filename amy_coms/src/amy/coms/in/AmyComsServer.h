@@ -9,8 +9,9 @@
 #include <string>
 #include <log4cxx/logger.h>
 
+#include "amy/coms/ComsData.h"
+#include "amy/coms/in/ArmComsControl.h"
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/sections/ArmComsControl.h"
 #include "talky/talk/Interpreter.h"
 #include "talky/coms/CommandBlock.h"
 
@@ -33,14 +34,12 @@ public:
    bool isConnected() {return bconnected;};
    void connect2Arm(ArmBus& oArmBus);
       
-    bool isAmyEndRequested();
-         
    // interpret textual command, and send it properly to arm interface
-    bool processMessage(std::string text); 
+    bool processMessage(std::string text, ComsData& oComsData); 
 
 private:
     // transform interpreted command block to proper interface calls
-    bool processCommandBlock(talky::CommandBlock& oCommandBlock);
+    bool processCommandBlock(talky::CommandBlock& oCommandBlock, ComsData& oComsData);
 };
 }
 #endif

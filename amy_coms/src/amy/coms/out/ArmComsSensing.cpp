@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/sections/ArmComsSensing.h"
+#include "amy/coms/out/ArmComsSensing.h"
 
 namespace amy
 {
@@ -53,38 +53,38 @@ bool ArmComsSensing::senseJointAngles(talky::CommandBlock& oCommandBlock)
     return oDataBlockJoints.writeBlock(oCommandBlock);
 }
 
-bool ArmComsSensing::senseJointStates(talky::CommandBlock& oCommandBlock)
-{
-    // skip if no interface connection
-    if (pBusHS == 0)
-        return false;
+//bool ArmComsSensing::senseJointStates(talky::CommandBlock& oCommandBlock)
+//{
+//    // skip if no interface connection
+//    if (pBusHS == 0)
+//        return false;
+//
+//    // read state of all joint drivers
+//    oDataBlockJointDrivers.setStateHS(pBusHS->getSO_DRIVER_STATE().getValue());
+//    oDataBlockJointDrivers.setStateVS(pBusVS->getSO_DRIVER_STATE().getValue());
+//    oDataBlockJointDrivers.setStateEL(pBusEL->getSO_DRIVER_STATE().getValue());
+//    oDataBlockJointDrivers.setStateHW(pBusHW->getSO_DRIVER_STATE().getValue());
+//    oDataBlockJointDrivers.setStateVW(pBusVW->getSO_DRIVER_STATE().getValue());
+//
+//    // and convert them to a command block
+//    return oDataBlockJointDrivers.writeBlock(oCommandBlock);
+//}
 
-    // read state of all joint drivers
-    oDataBlockJointDrivers.setStateHS(pBusHS->getSO_DRIVER_STATE().getValue());
-    oDataBlockJointDrivers.setStateVS(pBusVS->getSO_DRIVER_STATE().getValue());
-    oDataBlockJointDrivers.setStateEL(pBusEL->getSO_DRIVER_STATE().getValue());
-    oDataBlockJointDrivers.setStateHW(pBusHW->getSO_DRIVER_STATE().getValue());
-    oDataBlockJointDrivers.setStateVW(pBusVW->getSO_DRIVER_STATE().getValue());
-
-    // and convert them to a command block
-    return oDataBlockJointDrivers.writeBlock(oCommandBlock);
-}
-
-bool ArmComsSensing::senseArmAxes(talky::CommandBlock& oCommandBlock)
-{
-    // skip if no interface connection
-    if (pBusPan == 0)
-        return false;
-
-    // read commanded axes values and their sensed speeds
-    oDataBlockAxes.setPan(pBusPan->getCO_AXIS_POS().getValue());
-    oDataBlockAxes.setTilt(pBusTilt->getCO_AXIS_POS().getValue());
-    oDataBlockAxes.setRadius(pBusRadial->getCO_AXIS_POS().getValue());
-    oDataBlockAxes.setPanSpeed(pBusPan->getSO_AXIS_SPEED().getValue());
-    oDataBlockAxes.setTiltSpeed(pBusTilt->getSO_AXIS_SPEED().getValue());
-
-    // and convert them to a command block
-    return oDataBlockAxes.writeBlock(oCommandBlock);
-}
+//bool ArmComsSensing::senseArmAxes(talky::CommandBlock& oCommandBlock)
+//{
+//    // skip if no interface connection
+//    if (pBusPan == 0)
+//        return false;
+//
+//    // read commanded axes values and their sensed speeds
+//    oDataBlockAxes.setPan(pBusPan->getCO_AXIS_POS().getValue());
+//    oDataBlockAxes.setTilt(pBusTilt->getCO_AXIS_POS().getValue());
+//    oDataBlockAxes.setRadius(pBusRadial->getCO_AXIS_POS().getValue());
+//    oDataBlockAxes.setPanSpeed(pBusPan->getSO_AXIS_SPEED().getValue());
+//    oDataBlockAxes.setTiltSpeed(pBusTilt->getSO_AXIS_SPEED().getValue());
+//
+//    // and convert them to a command block
+//    return oDataBlockAxes.writeBlock(oCommandBlock);
+//}
 
 }

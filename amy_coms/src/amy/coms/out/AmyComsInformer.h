@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/sections/ArmComsSensing.h"
+#include "amy/coms/out/ArmComsSensing.h"
 #include "talky/coms/CommandBlock.h"
 #include "talky/talk/Interpreter.h"
 
@@ -26,11 +26,11 @@ private:
     talky::Interpreter oInterpreter;     // message builder
     ArmComsSensing oArmComsSensing;
     talky::CommandBlock oCommandBlock1;  // commands block for arm info
-    talky::CommandBlock oCommandBlock2;  // commands block for arm info
-    talky::CommandBlock oCommandBlock3;  // commands block for arm info
+//    talky::CommandBlock oCommandBlock2;  // commands block for arm info
+//    talky::CommandBlock oCommandBlock3;  // commands block for arm info
     std::string messageJointAngles;               // raw message with joint angles
-    std::string messageJointStates;                // raw message with joint states
-    std::string messageAxes;                        // raw message with axes info
+//    std::string messageJointStates;                // raw message with joint states
+//    std::string messageAxes;                        // raw message with axes info
         
 public:
     AmyComsInformer();
@@ -42,8 +42,8 @@ public:
     bool getArmInfo();
     
     std::string getMessage4JointAngles() {return messageJointAngles;};
-    std::string getMessage4JointStates() {return messageJointStates;};
-    std::string getMessage4Axes() {return messageAxes;};
+//    std::string getMessage4JointStates() {return messageJointStates;};
+//    std::string getMessage4Axes() {return messageAxes;};
 };
 }
 #endif

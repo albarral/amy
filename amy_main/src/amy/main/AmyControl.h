@@ -12,8 +12,7 @@
 #include "amy/core/config/AmyConfig.h"
 #include "amy/core/robot/Robot.h"
 #include "amy/arm/ArmManager.h"
-#include "amy/main/AmyListener.h"
-#include "amy/main/AmyBroadcaster.h"
+#include "amy/coms/AmyComs.h"
 #include "amy/show/AmyShow.h"
 
 namespace amy
@@ -27,8 +26,7 @@ class AmyControl
         AmyConfig oAmyConfig;
         ArmBus oArmBus;                            // arm bus
         ArmManager oArmManager;
-        AmyListener oAmyListener;               // communications module for responding to external requests
-        AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
+        AmyComs oAmyComs;
         AmyShow oAmyShow;
 
     public:

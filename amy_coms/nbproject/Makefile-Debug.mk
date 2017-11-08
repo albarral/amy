@@ -35,10 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/coms/AmyComsInformer.o \
-	${OBJECTDIR}/src/amy/coms/AmyComsServer.o \
-	${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o \
-	${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o
+	${OBJECTDIR}/src/amy/coms/AmyComs.o \
+	${OBJECTDIR}/src/amy/coms/ComsData.o \
+	${OBJECTDIR}/src/amy/coms/in/AmyComsServer.o \
+	${OBJECTDIR}/src/amy/coms/in/ArmComsControl.o \
+	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
+	${OBJECTDIR}/src/amy/coms/modules/AmyListener.o \
+	${OBJECTDIR}/src/amy/coms/out/AmyComsInformer.o \
+	${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o
 
 
 # C Compiler Flags
@@ -55,7 +59,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_talk/dist/Debug/GNU-Linux -L../amy_talk/dist/Debug/GNU-Linux -lamy_talk -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_talk/dist/Debug/GNU-Linux -L../amy_talk/dist/Debug/GNU-Linux -lamy_talk -Wl,-rpath,../../tron/comy/dist/Debug/GNU-Linux -L../../tron/comy/dist/Debug/GNU-Linux -ltron_comy -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -65,6 +69,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_c
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_talk/dist/Debug/GNU-Linux/libamy_talk.so
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/comy/dist/Debug/GNU-Linux/libtron_comy.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/talky/dist/Debug/GNU-Linux/libtron_talky.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
@@ -73,30 +79,51 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/coms/AmyComsInformer.o: src/amy/coms/AmyComsInformer.cpp 
+${OBJECTDIR}/src/amy/coms/AmyComs.o: src/amy/coms/AmyComs.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsInformer.o src/amy/coms/AmyComsInformer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
 
-${OBJECTDIR}/src/amy/coms/AmyComsServer.o: src/amy/coms/AmyComsServer.cpp 
+${OBJECTDIR}/src/amy/coms/ComsData.o: src/amy/coms/ComsData.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComsServer.o src/amy/coms/AmyComsServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ComsData.o src/amy/coms/ComsData.cpp
 
-${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o: src/amy/coms/sections/ArmComsControl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+${OBJECTDIR}/src/amy/coms/in/AmyComsServer.o: src/amy/coms/in/AmyComsServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsControl.o src/amy/coms/sections/ArmComsControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/AmyComsServer.o src/amy/coms/in/AmyComsServer.cpp
 
-${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o: src/amy/coms/sections/ArmComsSensing.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/sections
+${OBJECTDIR}/src/amy/coms/in/ArmComsControl.o: src/amy/coms/in/ArmComsControl.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o src/amy/coms/sections/ArmComsSensing.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/ArmComsControl.o src/amy/coms/in/ArmComsControl.cpp
+
+${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o: src/amy/coms/modules/AmyBroadcaster.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o src/amy/coms/modules/AmyBroadcaster.cpp
+
+${OBJECTDIR}/src/amy/coms/modules/AmyListener.o: src/amy/coms/modules/AmyListener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o src/amy/coms/modules/AmyListener.cpp
+
+${OBJECTDIR}/src/amy/coms/out/AmyComsInformer.o: src/amy/coms/out/AmyComsInformer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/AmyComsInformer.o src/amy/coms/out/AmyComsInformer.cpp
+
+${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o: src/amy/coms/out/ArmComsSensing.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/comy/src -I../../tron/talky/src -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o src/amy/coms/out/ArmComsSensing.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_talk && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/comy && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug
 
@@ -109,6 +136,7 @@ ${OBJECTDIR}/src/amy/coms/sections/ArmComsSensing.o: src/amy/coms/sections/ArmCo
 .clean-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_talk && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/comy && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug clean
 

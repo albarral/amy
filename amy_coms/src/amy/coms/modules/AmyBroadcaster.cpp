@@ -5,7 +5,7 @@
 
 #include "log4cxx/ndc.h"
 
-#include "amy/main/AmyBroadcaster.h"
+#include "amy/coms/modules/AmyBroadcaster.h"
 #include "talky/Topics.h"
 #include "talky/languages/ArmLanguage.h"
 
@@ -13,7 +13,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr AmyBroadcaster::logger(Logger::getLogger("amy.main"));
+LoggerPtr AmyBroadcaster::logger(Logger::getLogger("amy.coms"));
 
 // Constructor 
 AmyBroadcaster::AmyBroadcaster ()
@@ -27,13 +27,12 @@ void AmyBroadcaster::init(ArmBus& oArmBus)
     talky::ArmLanguage oArmLanguage;    
     // prepare communication publishers
     oComyPublisherJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
-    oComyPublisherAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
+    //oComyPublisherAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
     // prepare amy sensor informer
     oAmyComsInformer.connect2Arm(oArmBus);
     
     // if publishers enabled
-    if (oComyPublisherJoints.isConnected() && 
-            oComyPublisherAxis.isConnected() &&
+    if (oComyPublisherJoints.isConnected() &&             
             oAmyComsInformer.isConnected())
     {
         benabled = true;
@@ -55,7 +54,7 @@ void AmyBroadcaster::loop()
     if (oAmyComsInformer.getArmInfo())
     {
         oComyPublisherJoints.publishMessage(oAmyComsInformer.getMessage4JointAngles());
-        oComyPublisherAxis.publishMessage(oAmyComsInformer.getMessage4Axes());
+        //oComyPublisherAxis.publishMessage(oAmyComsInformer.getMessage4Axes());
     }
 }
 

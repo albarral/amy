@@ -5,7 +5,7 @@
 
 #include "log4cxx/ndc.h"
 
-#include "amy/main/AmyListener.h"
+#include "amy/coms/modules/AmyListener.h"
 #include "talky/Topics.h"
 #include "talky/languages/ArmLanguage.h"
 
@@ -13,7 +13,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr AmyListener::logger(Logger::getLogger("amy.main"));
+LoggerPtr AmyListener::logger(Logger::getLogger("amy.coms"));
 
 // Constructor 
 AmyListener::AmyListener()
@@ -60,7 +60,7 @@ void AmyListener::loop()
     {
         LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerJoints.getRawMessage());        
         // if something received process it
-        oAmyComsServer.processMessage(oComyServerJoints.getRawMessage());
+        oAmyComsServer.processMessage(oComyServerJoints.getRawMessage(), oComsData);
     }            
 
     // listen to axis messages
@@ -68,7 +68,7 @@ void AmyListener::loop()
     {
         LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerAxis.getRawMessage());        
         // if something received process it
-        oAmyComsServer.processMessage(oComyServerAxis.getRawMessage());
+        oAmyComsServer.processMessage(oComyServerAxis.getRawMessage(), oComsData);
     }            
 
     // listen to cyclic messages
@@ -76,7 +76,7 @@ void AmyListener::loop()
     {
         LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerCyclic.getRawMessage());        
         // if something received process it
-        oAmyComsServer.processMessage(oComyServerCyclic.getRawMessage());
+        oAmyComsServer.processMessage(oComyServerCyclic.getRawMessage(), oComsData);
     }            
 
     // listen to extra messages
@@ -84,12 +84,17 @@ void AmyListener::loop()
     {
         LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerExtra.getRawMessage());        
         // if something received process it
-        oAmyComsServer.processMessage(oComyServerExtra.getRawMessage());
+        oAmyComsServer.processMessage(oComyServerExtra.getRawMessage(), oComsData);
     }            
 }
 
-bool AmyListener::checkAmyEndRequested()
+bool AmyListener::checkSpecialActions()
 {
-    return oAmyComsServer.isAmyEndRequested();    
+    return oComsData.hasPendingActions();
+}
+
+void AmyListener::clearSpecialActions()
+{
+    oComsData.reset();    
 }
 }
