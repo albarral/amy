@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/math/ArmMath.o \
 	${OBJECTDIR}/src/amy/math/ArmPolar.o \
 	${OBJECTDIR}/src/amy/math/Click.o \
+	${OBJECTDIR}/src/amy/math/LinearCycler.o \
 	${OBJECTDIR}/src/amy/math/PIDControl.o \
 	${OBJECTDIR}/src/amy/math/TriangularSignal.o \
 	${OBJECTDIR}/src/amy/math/Vector.o
@@ -87,6 +88,11 @@ ${OBJECTDIR}/src/amy/math/Click.o: src/amy/math/Click.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/Click.o src/amy/math/Click.cpp
+
+${OBJECTDIR}/src/amy/math/LinearCycler.o: src/amy/math/LinearCycler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/math
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/math/LinearCycler.o src/amy/math/LinearCycler.cpp
 
 ${OBJECTDIR}/src/amy/math/PIDControl.o: src/amy/math/PIDControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/math

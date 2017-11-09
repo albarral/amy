@@ -13,13 +13,10 @@
 #include <log4cxx/logger.h>
 
 #include "amy/main/ArmTest.h"
-
-
 #include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
 #include "amy/math/ArmMath.h"
-#include "amy/move/MoveFactory.h"
 
 using namespace log4cxx;
 
@@ -164,18 +161,6 @@ void ArmTest::testArmMath()
 //    LOG4CXX_INFO(logger, "radius: " << radius << ", angle = " << angle << "\n");
 }
 
-void ArmTest::testArmMover()
-{
-    LOG4CXX_INFO(logger, "testArmMover");    
-    
-    if (!isConnected())
-         return;
-        
-    int movType = MoveFactory::eMOV_LINE;
-    bool bgo = true;
-    pArmBus->getCO_MOVER_TYPE().request(movType);
-    //pArmBus->getCO_MOVER_ACTION().request(bgo);
-}
 
 
 }

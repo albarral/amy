@@ -14,7 +14,6 @@
 #include "amy/core/config/AmyConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/arm/config/ArmConfig.h"
-#include "amy/arm/modules/ArmMover.h"
 #include "amy/arm/modules/FrontalCycler.h"
 #include "amy/arm/modules/PanRacer.h"
 #include "amy/arm/modules/TiltRacer.h"
@@ -41,12 +40,10 @@ class ArmManager
         AmyConfig oAmyConfig;        
         Arm* pArm;                   // access to controlled arm
         ArmBus* pArmBus;        // access to arm bus
-        AmyConfig* pAmyConfig;  // acces to amy config
         ArmConfig oArmConfig;     // arm configuration
         int topLevel; // allow activation of modules until this level
         // modules ...
         // level 4
-        ArmMover oArmMover;
         FrontalCycler oFrontalCycler;
         // level 3
         PanRacer oPanRacer;

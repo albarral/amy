@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/ArmManager.o \
 	${OBJECTDIR}/src/amy/arm/config/ArmConfig.o \
-	${OBJECTDIR}/src/amy/arm/modules/ArmMover.o \
 	${OBJECTDIR}/src/amy/arm/modules/ArmSense.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/AxisRacer.o \
@@ -92,11 +91,6 @@ ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o: src/amy/arm/config/ArmConfig.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/config
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/config/ArmConfig.o src/amy/arm/config/ArmConfig.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/ArmMover.o: src/amy/arm/modules/ArmMover.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/ArmMover.o src/amy/arm/modules/ArmMover.cpp
 
 ${OBJECTDIR}/src/amy/arm/modules/ArmSense.o: src/amy/arm/modules/ArmSense.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules

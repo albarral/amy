@@ -12,7 +12,6 @@
                 <make-dep-project>../../tron/tuly</make-dep-project>
                 <make-dep-project>../amy_math</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
-                <make-dep-project>../amy_move</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src/amy/arm</sourceRootElem>

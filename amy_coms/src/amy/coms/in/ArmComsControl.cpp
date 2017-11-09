@@ -150,19 +150,34 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
     switch (oCommand.getConcept())
     {
         // FRONTAL CYCLER
-        case talky::ArmTopic::eCYCLIC_FRONT_FREQ:
-            LOG4CXX_INFO(logger, "> set front freq " << quantity);                        
+        case talky::ArmTopic::eCYCLIC_FRONT1_FREQ:
+            LOG4CXX_INFO(logger, "> set front1 freq " << quantity);                        
             pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ1().request(quantity);
             break;
             
-        case talky::ArmTopic::eCYCLIC_FRONT_AMP:
-            LOG4CXX_INFO(logger, "> set front amplitude " << quantity);                        
+        case talky::ArmTopic::eCYCLIC_FRONT1_AMP:
+            LOG4CXX_INFO(logger, "> set front1 amplitude " << quantity);                        
             pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE1().request(quantity);
             break;
 
-        case talky::ArmTopic::eCYCLIC_FRONT_ANGLE:
-            LOG4CXX_INFO(logger, "> set front angle ");                        
+        case talky::ArmTopic::eCYCLIC_FRONT1_ANGLE:
+            LOG4CXX_INFO(logger, "> set front1 angle ");                        
             pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(quantity);
+            break;
+
+        case talky::ArmTopic::eCYCLIC_FRONT2_FREQ:
+            LOG4CXX_INFO(logger, "> set front2 freq " << quantity);                        
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ2().request(quantity);
+            break;
+            
+        case talky::ArmTopic::eCYCLIC_FRONT2_AMP:
+            LOG4CXX_INFO(logger, "> set front2 amplitude " << quantity);                        
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE2().request(quantity);
+            break;
+
+        case talky::ArmTopic::eCYCLIC_FRONT2_ANGLE:
+            LOG4CXX_INFO(logger, "> set front2 angle ");                        
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE2().request(quantity);
             break;
 
         case talky::ArmTopic::eCYCLIC_FRONT_START:
@@ -175,48 +190,6 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
             pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(false);
             break;
 
-       // ARM MOVER            
-        case talky::ArmTopic::eCYCLIC_MOVER_LAUNCH:
-            LOG4CXX_INFO(logger, "> launch move " << (int)quantity);                        
-            pArmBus->getCO_MOVER_TYPE().request((int)quantity);
-            break;
-            
-        case talky::ArmTopic::eCYCLIC_MOVER_STOP:
-            LOG4CXX_INFO(logger, "> stop move");                        
-            pArmBus->getCO_MOVER_ACTION().request(false);      
-            break;
-
-        case talky::ArmTopic::eCYCLIC_MOVER_TURN:
-            LOG4CXX_INFO(logger, "> turn move " << (int)quantity);                        
-            pArmBus->getCO_MOVER_TURN().request((int)quantity);
-            break;
-
-        case talky::ArmTopic::eCYCLIC_MOVER_WIDER:
-            byes = (quantity == 1.0);
-            {
-                std::string text = (byes ? "> move wider" : "> move narrower");
-                LOG4CXX_INFO(logger, text);                        
-            }
-            pArmBus->getCO_MOVER_WIDER().request(byes);
-            break;
-
-        case talky::ArmTopic::eCYCLIC_MOVER_TALLER:
-            byes = (quantity == 1.0);
-            {
-                std::string text = (byes ? "> move taller" : "> move shorter");
-                LOG4CXX_INFO(logger, text);                        
-            }
-            pArmBus->getCO_MOVER_TALLER().request(byes);
-            break;
-
-        case talky::ArmTopic::eCYCLIC_MOVER_FASTER:
-            byes = (quantity == 1.0);
-            {
-                std::string text = (byes ? "> move faster" : "> move slower");
-                LOG4CXX_INFO(logger, text);                        
-            }
-            pArmBus->getCO_MOVER_FASTER().request(byes);
-            break;
 
         default:
             bret = false;

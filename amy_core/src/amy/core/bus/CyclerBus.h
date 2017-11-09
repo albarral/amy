@@ -28,7 +28,6 @@ class CyclerBus
         tuly::ControlT<float> CO_CYCLER_ANGLE2;            // movement orientation (degrees)
         // common to both components
         tuly::ControlT<bool> CO_CYCLER_ACTION;           // start/stop movement
-        tuly::ControlT<int> CO_CYCLER_PHASE;                 // phase between components 
                 
     public:
         CyclerBus();
@@ -48,7 +47,6 @@ class CyclerBus
         tuly::ControlT<float>& getCO_CYCLER_ANGLE2() {return CO_CYCLER_ANGLE2;};        
         // common to both components
         tuly::ControlT<bool>& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};                
-        tuly::ControlT<int>& getCO_CYCLER_PHASE() {return CO_CYCLER_PHASE;};        
         
         std::string toString();
 };

@@ -25,14 +25,6 @@ class ArmBus
         // CONTROLS 
         tuly::ControlT<bool> CO_ARM_STOP;       // arm stop
 
-        // ArmMover
-        tuly::ControlT<int> CO_MOVER_TYPE;       // set movement type
-        tuly::ControlT<bool> CO_MOVER_ACTION;    // start/stop movement
-        tuly::ControlT<int> CO_MOVER_TURN;       // change movement orientation
-        tuly::ControlT<bool> CO_MOVER_WIDER;    // change movement width
-        tuly::ControlT<bool> CO_MOVER_TALLER;    // change movement height
-        tuly::ControlT<bool> CO_MOVER_FASTER;    // change movement speed
-
         // connections for all cyclers
         CyclerBus oFrontalCyclerBus;
                 
@@ -63,14 +55,6 @@ class ArmBus
         
         // CONTROLS
         tuly::ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};        
-
-        // ArmMover
-        tuly::ControlT<int>& getCO_MOVER_TYPE() {return CO_MOVER_TYPE;};
-        tuly::ControlT<bool>& getCO_MOVER_ACTION() {return CO_MOVER_ACTION;};
-        tuly::ControlT<int>& getCO_MOVER_TURN() {return CO_MOVER_TURN;};
-        tuly::ControlT<bool>& getCO_MOVER_WIDER() {return CO_MOVER_WIDER;};
-        tuly::ControlT<bool>& getCO_MOVER_TALLER() {return CO_MOVER_TALLER;};
-        tuly::ControlT<bool>& getCO_MOVER_FASTER() {return CO_MOVER_FASTER;};
         
         // CONTROLS & SENSORS for cyclers
         CyclerBus& getFrontalCyclerBus() {return oFrontalCyclerBus;};

@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_LINEARCYCLER_H
-#define __AMY_MOVE_LINEARCYCLER_H
+#ifndef __AMY_MATH_LINEARCYCLER_H
+#define __AMY_MATH_LINEARCYCLER_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *

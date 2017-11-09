@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/move/LinearCycler.h"
+#include "amy/math/LinearCycler.h"
 
 
 namespace amy

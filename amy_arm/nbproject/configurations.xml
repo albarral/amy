@@ -18,8 +18,6 @@
           <itemPath>src/amy/arm/config/ArmConfig.h</itemPath>
         </logicalFolder>
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
-          <itemPath>src/amy/arm/modules/ArmMover.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/ArmMover.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
@@ -97,7 +95,6 @@
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_math/src</pElem>
-            <pElem>../amy_move/src</pElem>
             <pElem>../../tron/tuly/src</pElem>
           </incDir>
         </ccTool>
@@ -128,18 +125,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../amy_move"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../amy_move"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_move.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../../tron/tuly"
                             CT="2"
                             CN="Debug"
@@ -161,10 +146,6 @@
       <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -300,10 +281,6 @@
       <item path="src/amy/arm/config/ArmConfig.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/ArmMover.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
       </item>

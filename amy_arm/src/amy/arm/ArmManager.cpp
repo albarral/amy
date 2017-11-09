@@ -21,7 +21,6 @@ ArmManager::ArmManager ()
     topLevel = 4;       
     pArm = 0; 
     pArmBus = 0;       
-    pAmyConfig = 0;
 }
 
 // Destructor
@@ -121,9 +120,6 @@ void ArmManager::initArchitecture()
     // frontal cycler
     oFrontalCycler.setLevel(nivel);
     listModules3.push_back(&oFrontalCycler);
-    // arm mover
-    oArmMover.setLevel(nivel);
-    listModules3.push_back(&oArmMover);
 }
 
 void ArmManager::showArchitecture()
@@ -132,6 +128,10 @@ void ArmManager::showArchitecture()
     for (ArmModule* pModule : listModules)
     {
         LOG4CXX_INFO(logger, "level " << std::to_string(pModule->getLevel()) << ": module " << pModule->getModuleName());        
+    }        
+    for (ArmModule3* pModule3 : listModules3)
+    {
+        LOG4CXX_INFO(logger, "level " << std::to_string(pModule3->getLevel()) << ": module " << pModule3->getModuleName());        
     }        
 }
 
@@ -174,7 +174,7 @@ void ArmManager::initLevel(int num)
 {    
     LOG4CXX_INFO(logger, ">> INIT level " << num);       
 
-    float freq = pAmyConfig->getModulesFreq();
+    float freq = oAmyConfig.getModulesFreq();
 
     Arm& oArm = *pArm;
     ArmBus& oArmBus = *pArmBus;

@@ -12,7 +12,7 @@
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
-#include "amy/move/LinearCycler.h"
+#include "amy/math/LinearCycler.h"
 
 namespace amy
 {
