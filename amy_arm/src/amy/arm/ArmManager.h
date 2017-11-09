@@ -28,9 +28,6 @@
 #include "amy/arm/util/ArmModule.h"
 #include "amy/arm/util/ArmModule3.h"
 
-
-#define AMY_MAX_JOINTS 5
-
 namespace amy
 {
 // This class manages a robot's arm.
@@ -40,16 +37,18 @@ class ArmManager
 {
     private:
         static log4cxx::LoggerPtr logger;
-        bool blaunched;     // indicates when the manager has been launched
+        bool blaunched;     // indicates when the manager has been launched   
+        AmyConfig oAmyConfig;        
         Arm* pArm;                   // access to controlled arm
         ArmBus* pArmBus;        // access to arm bus
         AmyConfig* pAmyConfig;  // acces to amy config
         ArmConfig oArmConfig;     // arm configuration
         int topLevel; // allow activation of modules until this level
         // modules ...
-        // level 3
+        // level 4
         ArmMover oArmMover;
         FrontalCycler oFrontalCycler;
+        // level 3
         PanRacer oPanRacer;
         TiltRacer oTiltRacer;
         RadialRacer oRadialRacer;
@@ -69,7 +68,7 @@ class ArmManager
         ~ArmManager();
 
        // launches the arm manager to handle the specified robot arm (returns false if something fails)
-       bool launch(Arm& oArm, ArmBus& oArmBus, AmyConfig& oAmyConfig,int maxLevel);
+       bool launch(ArmBus& oArmBus, Arm& oArm);
        // ends the arm manager
        bool end();
        bool isLaunched() {return blaunched;};                

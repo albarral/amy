@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#define AMY_MAX_JOINTS 5
+
 namespace amy
 {
 class AmyConfig 
@@ -23,13 +25,13 @@ class AmyConfig
         AmyConfig();
         ~AmyConfig();
 
-        void setUsedRobot(std::string value) {this->usedRobot = value;}
+        void setUsedRobot(std::string value) {usedRobot = value;}
         std::string getUsedRobot() {return usedRobot;}
                         
-        void setModulesFreq(float value) {this->modulesFreq = value;}
+        void setModulesFreq(float value) {modulesFreq = value;}
         float getModulesFreq() {return modulesFreq;}
 
-        void setListControlledJoints(std::vector<std::string>& list) {this->listControlledJoints = list;}
+        void setListControlledJoints(std::vector<std::string>& list) {listControlledJoints = list;}
         std::vector<std::string>& getListControlledJoints() {return listControlledJoints;}
 
         // TEMPORAL configurations (to be removed)

@@ -18,7 +18,7 @@ LoggerPtr ArmManager::logger(Logger::getLogger("amy.arm"));
 ArmManager::ArmManager ()
 {    
     blaunched = false;
-    topLevel = 0;       
+    topLevel = 4;       
     pArm = 0; 
     pArmBus = 0;       
     pAmyConfig = 0;
@@ -31,7 +31,7 @@ ArmManager::~ArmManager ()
 }
 
 
-bool ArmManager::launch(Arm& oArm, ArmBus& oArmBus, AmyConfig& oAmyConfig, int maxLevel) 
+bool ArmManager::launch(ArmBus& oArmBus, Arm& oArm) 
 {  
     // launch it if not launched yet
     if (!blaunched)
@@ -40,10 +40,8 @@ bool ArmManager::launch(Arm& oArm, ArmBus& oArmBus, AmyConfig& oAmyConfig, int m
         LOG4CXX_INFO(logger, "Launching for arm " << oArm.toString());
 
         // store pointers to external objects
+        pArmBus = &oArmBus;        
         pArm = &oArm;
-        pArmBus = &oArmBus;
-        pAmyConfig = &oAmyConfig;
-        topLevel = maxLevel;
                 
         LOG4CXX_INFO(logger, "top level: " << topLevel);
         // organize control architecture in levels
@@ -75,7 +73,7 @@ bool ArmManager::end()
 
 void ArmManager::initArchitecture()
 {
-    std::vector<std::string>& listControlledJoints = pAmyConfig->getListControlledJoints();
+    std::vector<std::string>& listControlledJoints = oAmyConfig.getListControlledJoints();
     int nivel, i;
     
     // LEVEL 1    

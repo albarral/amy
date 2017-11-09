@@ -29,8 +29,6 @@ bool AmyControl::launch(Robot& oRobot)
     bool bok = false;
     LOG4CXX_INFO(logger, "Launch amy control for robot " << oRobot.getName());
     
-    float freq = oAmyConfig.getModulesFreq();
-    
     // for now, just single arm robots supported
     if (oRobot.getNumArms() == 1)
     {
@@ -41,8 +39,7 @@ bool AmyControl::launch(Robot& oRobot)
         oArmBus.init(oArm);
 
         // launch arm manager
-        int topLevel = 4;
-        bok = oArmManager.launch(oArm, oArmBus, oAmyConfig, topLevel);
+        bok = oArmManager.launch(oArmBus, oArm);
 
         // launch coms
         oAmyComs.launch(oArmBus);        
