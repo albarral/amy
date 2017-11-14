@@ -9,7 +9,7 @@
 #include <string>
 
 #include "amy/arm/move/JointPositioner.h"
-#include "amy/math/ArmMath.h"
+#include "maty/math/ArmMath.h"
 
 namespace amy
 {
@@ -28,7 +28,7 @@ private:
     // request
     float targetRadius;          // requested joint position
     // control 
-    ArmMath oArmMath;       // class for arm computations
+    maty::ArmMath oArmMath;       // class for arm computations
     int workSign;                 // sign of target angles (defines the working plane)  
 
 public:

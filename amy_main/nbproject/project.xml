@@ -14,7 +14,7 @@
                 <make-dep-project>../amy_talk</make-dep-project>
                 <make-dep-project>../../tron/tuly</make-dep-project>
                 <make-dep-project>../amy_coms</make-dep-project>
-                <make-dep-project>../amy_math</make-dep-project>
+                <make-dep-project>../../tron/maty</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
                 <make-dep-project>../../tron/talky</make-dep-project>
                 <make-dep-project>../../tron/tivy</make-dep-project>

@@ -12,7 +12,7 @@
 #include "amy/core/bus/AxisBus.h"
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/arm/move/SpeedSensor3.h"
-#include "amy/math/ArmPolar.h"
+#include "maty/math/ArmPolar.h"
 
 namespace amy
 {
@@ -43,7 +43,7 @@ protected:
     float speedPan;           // computed pan speed (deg/s)
     float speedTilt;            // computed tilt  speed (deg/s)
     float speedRadius;       // computed radius speed  (cm/s))
-    ArmPolar oArmPolar; // utility class for axes computations
+    maty::ArmPolar oArmPolar; // utility class for axes computations
     SpeedSensor3 oSpeedSensor3;
     float istHS;            // real HS angle (degrees)
     float istVS;            // real VS angle (degrees)

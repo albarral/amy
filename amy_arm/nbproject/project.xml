@@ -10,7 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../../tron/tuly</make-dep-project>
-                <make-dep-project>../amy_math</make-dep-project>
+                <make-dep-project>../../tron/maty</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
             </make-dep-projects>
             <sourceRootList>

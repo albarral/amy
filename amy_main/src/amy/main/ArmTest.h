@@ -36,7 +36,6 @@ private:
     void testJointMove();
     void testJointControl();
     void testRadialControl();
-    void testArmMath();
 };
 
 }    

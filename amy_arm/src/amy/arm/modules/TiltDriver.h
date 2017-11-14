@@ -9,7 +9,7 @@
 #include "amy/core/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
 #include "amy/arm/move/JointPositioner.h"
-#include "amy/math/ArmMath.h"
+#include "maty/math/ArmMath.h"
 
 namespace amy
 {
@@ -25,7 +25,7 @@ private:
     AxisBus* pBusTilt;    // bus connection to tilt axis
     JointBus* pELBus;       // additional bus connection to EL (for axis position computation)
     JointPositioner oJointPositioner;      // utility class to drive the VS
-    ArmMath oArmMath;       // utility class for arm computations
+    maty::ArmMath oArmMath;       // utility class for arm computations
     float istVS;               // measured VS angle
     float istEL;               // measured EL angle
 
