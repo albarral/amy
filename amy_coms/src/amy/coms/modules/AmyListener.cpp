@@ -55,36 +55,57 @@ void AmyListener::first()
 
 void AmyListener::loop()
 {
+    std::string message;
     // listen to joint messages
-    if (oComyServerJoints.readMessage())
+    oComyServerJoints.readMessages();
+    while (oComyServerJoints.hasMessages())
     {
-        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerJoints.getRawMessage());        
-        // if something received process it
-        oAmyComsServer.processMessage(oComyServerJoints.getRawMessage(), oComsData);
+        message = oComyServerJoints.getMessage();
+        if (!message.empty())
+        {
+            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
+            // if something received process it
+            oAmyComsServer.processMessage(message, oComsData);
+        }
     }            
 
     // listen to axis messages
-    if (oComyServerAxis.readMessage())
+    oComyServerAxis.readMessages();
+    while (oComyServerAxis.hasMessages())
     {
-        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerAxis.getRawMessage());        
-        // if something received process it
-        oAmyComsServer.processMessage(oComyServerAxis.getRawMessage(), oComsData);
+        message = oComyServerAxis.getMessage();
+        if (!message.empty())
+        {
+            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
+            // if something received process it
+            oAmyComsServer.processMessage(message, oComsData);
+        }
     }            
 
     // listen to cyclic messages
-    if (oComyServerCyclic.readMessage())
+    oComyServerCyclic.readMessages();
+    while (oComyServerCyclic.hasMessages())
     {
-        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerCyclic.getRawMessage());        
-        // if something received process it
-        oAmyComsServer.processMessage(oComyServerCyclic.getRawMessage(), oComsData);
+        message = oComyServerCyclic.getMessage();
+        if (!message.empty())
+        {
+            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
+            // if something received process it
+            oAmyComsServer.processMessage(message, oComsData);
+        }
     }            
 
     // listen to extra messages
-    if (oComyServerExtra.readMessage())
+    oComyServerExtra.readMessages();
+    while (oComyServerExtra.hasMessages())
     {
-        LOG4CXX_INFO(logger, modName + ": msg received - " + oComyServerExtra.getRawMessage());        
-        // if something received process it
-        oAmyComsServer.processMessage(oComyServerExtra.getRawMessage(), oComsData);
+        message = oComyServerExtra.getMessage();
+        if (!message.empty())
+        {
+            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
+            // if something received process it
+            oAmyComsServer.processMessage(message, oComsData);
+        }
     }            
 }
 
