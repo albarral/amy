@@ -4,6 +4,9 @@
  ***************************************************************************/
 
 #include "amy/coms/out/ArmComsSensing.h"
+#include "talky/Topics.h"
+#include "talky/coms/Command.h"
+#include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
@@ -53,38 +56,40 @@ bool ArmComsSensing::senseJointAngles(talky::CommandBlock& oCommandBlock)
     return oDataBlockJoints.writeBlock(oCommandBlock);
 }
 
-//bool ArmComsSensing::senseJointStates(talky::CommandBlock& oCommandBlock)
-//{
-//    // skip if no interface connection
-//    if (pBusHS == 0)
-//        return false;
-//
-//    // read state of all joint drivers
-//    oDataBlockJointDrivers.setStateHS(pBusHS->getSO_DRIVER_STATE().getValue());
-//    oDataBlockJointDrivers.setStateVS(pBusVS->getSO_DRIVER_STATE().getValue());
-//    oDataBlockJointDrivers.setStateEL(pBusEL->getSO_DRIVER_STATE().getValue());
-//    oDataBlockJointDrivers.setStateHW(pBusHW->getSO_DRIVER_STATE().getValue());
-//    oDataBlockJointDrivers.setStateVW(pBusVW->getSO_DRIVER_STATE().getValue());
-//
-//    // and convert them to a command block
-//    return oDataBlockJointDrivers.writeBlock(oCommandBlock);
-//}
+bool ArmComsSensing::senseArmAxes(talky::CommandQueue& oCommandQueue)
+{
+    // skip if no interface connection
+    if (pBusPan == 0)
+        return false;
+    
+    // fill queue with commands of arm topic and axis category
+    talky::Command oCommand;        
+    oCommand.setTopic(talky::Topics::eTOPIC_ARM);
+    oCommand.setCategory(talky::ArmTopic::eCAT_ARM_AXIS);
+       
+    // read commanded axes values and their sensed speeds
+    // pan
+    oCommand.setConcept(talky::ArmTopic::eAXIS_PAN_POS);
+    oCommand.setQuantity(pBusPan->getCO_AXIS_POS().getValue());
+    oCommandQueue.add(oCommand);
+    // tilt
+    oCommand.setConcept(talky::ArmTopic::eAXIS_TILT_POS);
+    oCommand.setQuantity(pBusTilt->getCO_AXIS_POS().getValue());
+    oCommandQueue.add(oCommand);
+    // radius
+    oCommand.setConcept(talky::ArmTopic::eAXIS_RAD_POS);
+    oCommand.setQuantity(pBusRadial->getCO_AXIS_POS().getValue());
+    oCommandQueue.add(oCommand);
+    // pan speed
+    oCommand.setConcept(talky::ArmTopic::eAXIS_PAN_SPEED);
+    oCommand.setQuantity(pBusPan->getSO_AXIS_SPEED().getValue());
+    oCommandQueue.add(oCommand);
+    // tilt speed
+    oCommand.setConcept(talky::ArmTopic::eAXIS_TILT_SPEED);
+    oCommand.setQuantity(pBusTilt->getSO_AXIS_SPEED().getValue());
+    oCommandQueue.add(oCommand);
 
-//bool ArmComsSensing::senseArmAxes(talky::CommandBlock& oCommandBlock)
-//{
-//    // skip if no interface connection
-//    if (pBusPan == 0)
-//        return false;
-//
-//    // read commanded axes values and their sensed speeds
-//    oDataBlockAxes.setPan(pBusPan->getCO_AXIS_POS().getValue());
-//    oDataBlockAxes.setTilt(pBusTilt->getCO_AXIS_POS().getValue());
-//    oDataBlockAxes.setRadius(pBusRadial->getCO_AXIS_POS().getValue());
-//    oDataBlockAxes.setPanSpeed(pBusPan->getSO_AXIS_SPEED().getValue());
-//    oDataBlockAxes.setTiltSpeed(pBusTilt->getSO_AXIS_SPEED().getValue());
-//
-//    // and convert them to a command block
-//    return oDataBlockAxes.writeBlock(oCommandBlock);
-//}
+    return true;
+}
 
 }

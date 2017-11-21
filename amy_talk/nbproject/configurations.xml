@@ -13,10 +13,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="talk" displayName="talk" projectFiles="true">
-        <itemPath>src/amy/talk/DataBlockAxes.cpp</itemPath>
-        <itemPath>src/amy/talk/DataBlockAxes.h</itemPath>
-        <itemPath>src/amy/talk/DataBlockJointDrivers.cpp</itemPath>
-        <itemPath>src/amy/talk/DataBlockJointDrivers.h</itemPath>
         <itemPath>src/amy/talk/DataBlockJoints.cpp</itemPath>
         <itemPath>src/amy/talk/DataBlockJoints.h</itemPath>
       </logicalFolder>
@@ -69,20 +65,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="src/amy/talk/DataBlockAxes.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/talk/DataBlockAxes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/talk/DataBlockJointDrivers.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/talk/DataBlockJointDrivers.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/talk/DataBlockJoints.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/talk/DataBlockJoints.h" ex="false" tool="3" flavor2="0">
@@ -108,20 +90,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="src/amy/talk/DataBlockAxes.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/talk/DataBlockAxes.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/talk/DataBlockJointDrivers.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/talk/DataBlockJointDrivers.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/talk/DataBlockJoints.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/talk/DataBlockJoints.h" ex="false" tool="3" flavor2="0">

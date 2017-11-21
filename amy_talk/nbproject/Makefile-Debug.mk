@@ -35,8 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/amy/talk/DataBlockAxes.o \
-	${OBJECTDIR}/src/amy/talk/DataBlockJointDrivers.o \
 	${OBJECTDIR}/src/amy/talk/DataBlockJoints.o
 
 
@@ -65,16 +63,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_talk.${CND_DLIB_EXT}: ../../tr
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_talk.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_talk.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
-
-${OBJECTDIR}/src/amy/talk/DataBlockAxes.o: src/amy/talk/DataBlockAxes.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/talk
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/talk/DataBlockAxes.o src/amy/talk/DataBlockAxes.cpp
-
-${OBJECTDIR}/src/amy/talk/DataBlockJointDrivers.o: src/amy/talk/DataBlockJointDrivers.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/talk
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/talky/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/talk/DataBlockJointDrivers.o src/amy/talk/DataBlockJointDrivers.cpp
 
 ${OBJECTDIR}/src/amy/talk/DataBlockJoints.o: src/amy/talk/DataBlockJoints.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/talk

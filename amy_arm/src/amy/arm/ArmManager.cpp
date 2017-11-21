@@ -68,6 +68,8 @@ bool ArmManager::launch(ArmBus& oArmBus, Arm& oArm)
 bool ArmManager::end()
 {
     stopModules();
+    
+    return true;    
 }
 
 void ArmManager::initArchitecture()

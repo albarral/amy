@@ -6,7 +6,9 @@
 
 #include "amy/coms/out/AmyComsInformer.h"
 #include "talky/Topics.h"
+#include "talky/coms/Message.h"
 #include "talky/coms/MessageBlock.h"
+#include "talky/coms/Command.h"
 
 namespace amy
 {
@@ -36,16 +38,13 @@ bool AmyComsInformer::getArmInfo()
         
     // reset command blocks
     oCommandBlock1.reset();
-//    oCommandBlock2.reset();
-//    oCommandBlock3.reset();
+    oAxesCommandQueue.clean();
     
     // fetch arm info into command blocks        
     bool bret1 = oArmComsSensing.senseJointAngles(oCommandBlock1);
-//    bool bret2 = oArmComsSensing.senseJointStates(oCommandBlock2);
-//    bool bret3 = oArmComsSensing.senseArmAxes(oCommandBlock3);
+    bool bret2 = oArmComsSensing.senseArmAxes(oAxesCommandQueue);
         
-//    if (!bret1 || !bret2 || !bret3)
-    if (!bret1)
+    if (!bret1 || !bret2)
     {
         LOG4CXX_ERROR(logger, "AmyComsInformer: error fetching arm info");           
         return false;        
@@ -68,39 +67,31 @@ bool AmyComsInformer::getArmInfo()
         LOG4CXX_ERROR(logger, "AmyComsInformer: message 1 could not be built!");    
         LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock1.toString());    
     }
+    
+    // update messages queue for axis cat
+    oAxesMessageQueue.clean();
+    if (oAxesCommandQueue.isFilled())
+        convertCommands2Messages(oAxesCommandQueue, oAxesMessageQueue);
 
-    // message 2 (joint states)
-//    if (oInterpreter.buildMessageBlock(oCommandBlock2, oMessageBlock))
-//    {
-//        // if message built ok, get its raw text
-//        messageJointStates = oMessageBlock.getRawText();
-//    }
-//    else
-//    {
-//        // otherwise set empty message
-//        messageJointStates = "";
-//        bret2 = false;
-//        LOG4CXX_ERROR(logger, "AmyComsInformer: message 2 could not be built!");    
-//        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock2.toString());    
-//    }
+    return (bret1 && bret2);
+}
+
+void AmyComsInformer::convertCommands2Messages(talky::CommandQueue& oCommandQueue, tuly::MessageQueue& oMessageQueue)
+{
+    talky::Command oCommand;        
+    talky::Message oMessage;
     
-    // message 3 (axes)
-//    if (oInterpreter.buildMessageBlock(oCommandBlock3, oMessageBlock))
-//    {
-//        // if message built ok, get its raw text
-//        messageAxes = oMessageBlock.getRawText();
-//    }
-//    else
-//    {
-//        // otherwise set empty message
-//        messageAxes = "";
-//        bret3 = false;
-//        LOG4CXX_ERROR(logger, "AmyComsInformer: message 3 could not be built!");    
-//        LOG4CXX_ERROR(logger, "AmyComsInformer: " + oCommandBlock3.toString());    
-//    }
-    
-//    return (bret1 && bret2 && bret3);
-    return (bret1);
+    while (oCommandQueue.isFilled())
+    {
+        if (oCommandQueue.fetch(oCommand))
+        {
+            // build message from command
+            if (oInterpreter.buildSimpleMessage(oCommand, oMessage))
+            {
+                oMessageQueue.add(oMessage.getRawText());                
+            }
+        }            
+    }
 }
 
 }

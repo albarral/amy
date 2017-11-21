@@ -31,7 +31,9 @@ AmyShow::~AmyShow()
     // launch plotter module
     oShowPlotter.init(oShowData);
     oShowPlotter.setFrequency(freq);
-    oShowPlotter.on();        
+    oShowPlotter.on();      
+    
+    return true;
   }
 
 bool AmyShow::end()
@@ -44,6 +46,8 @@ bool AmyShow::end()
     // finish plotter module
     oShowPlotter.off();
     oShowPlotter.wait();      
+    
+    return true;
 }
 
 }		

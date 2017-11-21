@@ -32,7 +32,9 @@ AmyComs::~AmyComs()
     oAmyBroadcaster.init(oArmBus);
     oAmyBroadcaster.setFrequency(freq);
     oAmyBroadcaster.on();
-  }
+    
+    return true;
+}
 
 bool AmyComs::end()
 {
@@ -45,6 +47,8 @@ bool AmyComs::end()
     // finish broadcaster module
     oAmyBroadcaster.off();
     oAmyBroadcaster.wait();      
+
+    return true;
 }
 
 bool AmyComs::checkAmyEndRequested()

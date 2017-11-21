@@ -26,7 +26,7 @@ private:
     bool benabled;
     // logic
     comy::ComyFilePublisher oComyPublisherJoints;      // communications publisher for joint category
-    //comy::ComyFilePublisher oComyPublisherAxis;    // communications publisher for axis category
+    comy::ComyFilePublisher oComyPublisherAxis;    // communications publisher for axis category
     AmyComsInformer oAmyComsInformer;           // amy sensor informer
 
 public:

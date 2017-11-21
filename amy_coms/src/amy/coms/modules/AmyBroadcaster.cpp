@@ -8,6 +8,7 @@
 #include "amy/coms/modules/AmyBroadcaster.h"
 #include "talky/Topics.h"
 #include "talky/languages/ArmLanguage.h"
+#include "tuly/utils/MessageQueue.h"
 
 using namespace log4cxx;
 
@@ -27,12 +28,13 @@ void AmyBroadcaster::init(ArmBus& oArmBus)
     talky::ArmLanguage oArmLanguage;    
     // prepare communication publishers
     oComyPublisherJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
-    //oComyPublisherAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
+    oComyPublisherAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
     // prepare amy sensor informer
     oAmyComsInformer.connect2Arm(oArmBus);
     
     // if publishers enabled
-    if (oComyPublisherJoints.isConnected() &&             
+    if (oComyPublisherJoints.isConnected() &&     
+            oComyPublisherAxis.isConnected() &&
             oAmyComsInformer.isConnected())
     {
         benabled = true;
@@ -50,12 +52,24 @@ void AmyBroadcaster::first()
 void AmyBroadcaster::loop()
 {      
     // get arm info in form of talky messages
-    // if info obtained, broadcast them
-    if (oAmyComsInformer.getArmInfo())
+    oAmyComsInformer.getArmInfo();
+    
+    // publish joints category info
+    oComyPublisherJoints.newPublishing();
+    oComyPublisherJoints.publishMessage(oAmyComsInformer.getMessage4JointAngles());
+    
+    // publish axis category info
+    tuly::MessageQueue& oMessageQueue = oAmyComsInformer.getMessageQueue4Axes();
+    oComyPublisherAxis.newPublishing();
+    while (oMessageQueue.isFilled())
     {
-        oComyPublisherJoints.publishMessage(oAmyComsInformer.getMessage4JointAngles());
-        //oComyPublisherAxis.publishMessage(oAmyComsInformer.getMessage4Axes());
+        std::string message = oMessageQueue.fetch();
+        if (!message.empty())
+        {
+            oComyPublisherAxis.publishMessage(message);
+        }
     }
+    
 }
 
 }

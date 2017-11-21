@@ -38,14 +38,16 @@ bool AmyControl::launch(Robot& oRobot)
         // init bus
         oArmBus.init(oArm);
 
-        // launch arm manager
-        bok = oArmManager.launch(oArmBus, oArm);
-
         // launch coms
-        oAmyComs.launch(oArmBus);        
+        bok = oAmyComs.launch(oArmBus);        
 
-        // launch gui
-        oAmyShow.launch(oArmBus);
+        if (bok)
+            // launch arm manager
+            bok = oArmManager.launch(oArmBus, oArm);
+
+        if (bok)
+            // launch gui
+            bok = oAmyShow.launch(oArmBus);
     }
     else
     {
