@@ -7,7 +7,8 @@
 
 #include "amy/coms/modules/AmyListener.h"
 #include "talky/Topics.h"
-#include "talky/languages/ArmLanguage.h"
+#include "talky/topics/ArmTopic.h"
+#include "tuly/utils/IntegerQueue.h"
 
 using namespace log4cxx;
 
@@ -24,28 +25,26 @@ AmyListener::AmyListener()
 
 void AmyListener::init(ArmBus& oArmBus)
 {
-    talky::ArmLanguage oArmLanguage;
+    int topic = talky::Topics::eTOPIC_ARM;
     // prepare communication servers
-    oComyServerJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
-    oComyServerAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
-    oComyServerCyclic.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_CYCLIC);
-    oComyServerExtra.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_EXTRA);    
+    oNetyServerJoints.init(topic, talky::ArmTopic::eCAT_ARM_JOINT);
+    oNetyServerAxis.init(topic, talky::ArmTopic::eCAT_ARM_AXIS);
+    oNetyServerCyclic.init(topic, talky::ArmTopic::eCAT_ARM_CYCLIC);
+    oNetyServerExtra.init(topic, talky::ArmTopic::eCAT_ARM_EXTRA);    
     
-    // prepare amy control server
-    oAmyComsServer.connect2Arm(oArmBus);
+    oComsArmControl.connect2Arm(&oArmBus);
     
     // if servers enabled
-    if (oComyServerJoints.isConnected() && 
-            oComyServerAxis.isConnected() &&
-            oComyServerCyclic.isConnected() &&
-            oComyServerExtra.isConnected() &&
-            oAmyComsServer.isConnected())
+    if (oNetyServerJoints.isConnected() && 
+            oNetyServerAxis.isConnected() &&
+            oNetyServerCyclic.isConnected() &&
+            oNetyServerExtra.isConnected())
     {
         benabled = true;
         LOG4CXX_INFO(logger, modName + " initialized");                                
     }
     else
-        LOG4CXX_ERROR(logger, modName + ": failed initialization, coms servers not connected!");                        
+        LOG4CXX_ERROR(logger, modName + ": failed initialization, server nodes not connected!");                        
 }
 
 void AmyListener::first()
@@ -55,67 +54,66 @@ void AmyListener::first()
 
 void AmyListener::loop()
 {
-    std::string message;
     // listen to joint messages
-    oComyServerJoints.readMessages();
-    while (oComyServerJoints.hasMessages())
-    {
-        message = oComyServerJoints.getMessage();
-        if (!message.empty())
-        {
-            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
-            // if something received process it
-            oAmyComsServer.processMessage(message, oComsData);
-        }
-    }            
-
+    checkServer(oNetyServerJoints);
     // listen to axis messages
-    oComyServerAxis.readMessages();
-    while (oComyServerAxis.hasMessages())
-    {
-        message = oComyServerAxis.getMessage();
-        if (!message.empty())
-        {
-            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
-            // if something received process it
-            oAmyComsServer.processMessage(message, oComsData);
-        }
-    }            
-
+    checkServer(oNetyServerAxis);
     // listen to cyclic messages
-    oComyServerCyclic.readMessages();
-    while (oComyServerCyclic.hasMessages())
-    {
-        message = oComyServerCyclic.getMessage();
-        if (!message.empty())
-        {
-            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
-            // if something received process it
-            oAmyComsServer.processMessage(message, oComsData);
-        }
-    }            
-
+    checkServer(oNetyServerCyclic);
     // listen to extra messages
-    oComyServerExtra.readMessages();
-    while (oComyServerExtra.hasMessages())
-    {
-        message = oComyServerExtra.getMessage();
-        if (!message.empty())
+    checkServer(oNetyServerExtra);
+}
+
+void AmyListener::checkServer(nety::NetNodeServer& oNetyServer)
+{
+    talky::Command oCommand;
+
+    // get received messages
+    oNetyServer.absorb();
+    // process them to commands
+    oNetyServer.process();
+    // consume commands queue
+    while (oNetyServer.hasCommands())
+    {                    
+        // process each command to a proper bus action
+        if (oNetyServer.fetchCommand(oCommand))
         {
-            LOG4CXX_INFO(logger, modName + ": msg received - " + message);        
-            // if something received process it
-            oAmyComsServer.processMessage(message, oComsData);
+            LOG4CXX_INFO(logger, modName + ": cmd received - " + oCommand.toString());        
+            oComsArmControl.processCommand(oCommand);
         }
-    }            
+    }                
 }
 
 bool AmyListener::checkSpecialActions()
 {
-    return oComsData.hasPendingActions();
+    // clear all flags
+    brequestedAmyEnd = false;
+    brequestedGUIShow = false;
+    brequestedGUIHide = false;
+
+    tuly::IntegerQueue& oQueue = oComsArmControl.getQueueSpecialActions();
+    int numActions = oQueue.getSize();
+    int action; 
+    // consume queue of special actions
+    while (oQueue.isFilled())
+    {
+         oQueue.fetch(action);
+         // set flags proper to requested actions    
+         switch (action)
+         {
+             case ComsArmControl::eACTION_AMY_END:
+                 brequestedAmyEnd = true;
+                 break;
+             case ComsArmControl::eACTION_SHOW_GUI:
+                 brequestedGUIShow = true;
+                 break;
+             case ComsArmControl::eACTION_HIDE_GUI:
+                 brequestedGUIHide = true;
+                 break;                 
+         }
+    }
+        
+    return (numActions > 0);    
 }
 
-void AmyListener::clearSpecialActions()
-{
-    oComsData.reset();    
-}
 }

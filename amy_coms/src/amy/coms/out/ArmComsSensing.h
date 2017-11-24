@@ -11,15 +11,13 @@
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/JointBus.h"
-#include "amy/talk/DataBlockJoints.h"
-#include "talky/coms/CommandBlock.h"
-#include "talky/coms/CommandQueue.h"
+#include "nety/NetNodePublisher.h"
 
 namespace amy
 {
 // Class used to fetch arm sensor info.
 // Info is returned in the form of talky command blocks (of arm topic).
-class ArmComsSensing 
+class ComsArmSensing 
 {    
 private:
     static log4cxx::LoggerPtr logger;    
@@ -31,16 +29,15 @@ private:
     AxisBus* pBusPan;          // access to pan bus 
     AxisBus* pBusTilt;          // access to tilt bus
     AxisBus* pBusRadial;      // access to radial bus
-    DataBlockJoints oDataBlockJoints;                      // data block for joint angles
     
 public:       
-    ArmComsSensing();
+    ComsArmSensing();
     void connect2Arm(ArmBus& oArmBus);
     
-    // read commanded joint angles (and convert it to command block)
-    bool senseJointAngles(talky::CommandBlock& oCommandBlock);
-    // read axes positions and speeds and convert them to a commands queue
-    bool senseArmAxes(talky::CommandQueue& oCommandQueue);
+    // sense joint angles, convert them to talky commands and add them to given publisher
+    bool senseJoints(nety::NetNodePublisher& oNetyPublisher);
+    // sense axes positions and speeds, convert them to talky commands and add them to given publisher
+    bool senseAxes(nety::NetNodePublisher& oNetyPublisher);
 };
 }
 #endif

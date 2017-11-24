@@ -10,8 +10,8 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/out/AmyComsInformer.h"
-#include "comy/file/ComyFilePublisher.h"
+#include "amy/coms/out/ArmComsSensing.h"
+#include "nety/NetNodePublisher.h"
 #include "tuly/control/module2.h"
 
 namespace amy
@@ -25,9 +25,9 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    comy::ComyFilePublisher oComyPublisherJoints;      // communications publisher for joint category
-    comy::ComyFilePublisher oComyPublisherAxis;    // communications publisher for axis category
-    AmyComsInformer oAmyComsInformer;           // amy sensor informer
+    nety::NetNodePublisher oNetyPublisherJoints;      // communications publisher for joint category
+    nety::NetNodePublisher oNetyPublisherAxis;       // communications publisher for axis category
+    ComsArmSensing oComsArmSensing;                 // object that senses bus values and transforms them to talky commands
 
 public:
     AmyBroadcaster ();

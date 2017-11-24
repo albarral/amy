@@ -5,24 +5,25 @@
 
 #include <string>
 
-#include "amy/coms/in/ArmComsControl.h"
+#include "amy/coms/in/ComsArmControl.h"
 #include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
-log4cxx::LoggerPtr ArmComsControl::logger(log4cxx::Logger::getLogger("amy.coms"));
+log4cxx::LoggerPtr ComsArmControl::logger(log4cxx::Logger::getLogger("amy.coms"));
 
-ArmComsControl::ArmComsControl()
+ComsArmControl::ComsArmControl()
 {    
     pArmBus = 0;
 }
 
-void ArmComsControl::connect2Arm(ArmBus* pArmBus)
+void ComsArmControl::connect2Arm(ArmBus* pArmBus)
 {
     this->pArmBus = pArmBus;
 }
 
-bool ArmComsControl::processCommand(talky::Command& oCommand, ComsData& oComsData)
+
+bool ComsArmControl::processCommand(talky::Command& oCommand)
 {
     bool bret = true;
 
@@ -48,7 +49,7 @@ bool ArmComsControl::processCommand(talky::Command& oCommand, ComsData& oComsDat
             break;
 
         case talky::ArmTopic::eCAT_ARM_EXTRA:
-            bret = processExtraCommand(oCommand, oComsData);
+            bret = processExtraCommand(oCommand);
             break;
 
         default:
@@ -58,7 +59,7 @@ bool ArmComsControl::processCommand(talky::Command& oCommand, ComsData& oComsDat
     return bret;
 }
 
-bool ArmComsControl::processJointCommand(talky::Command& oCommand)
+bool ComsArmControl::processJointCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -97,7 +98,7 @@ bool ArmComsControl::processJointCommand(talky::Command& oCommand)
     return bret;
 }
 
-bool ArmComsControl::processAxisCommand(talky::Command& oCommand)
+bool ComsArmControl::processAxisCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -141,7 +142,7 @@ bool ArmComsControl::processAxisCommand(talky::Command& oCommand)
     return bret;
 }
 
-bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
+bool ComsArmControl::processCyclicCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -198,7 +199,7 @@ bool ArmComsControl::processCyclicCommand(talky::Command& oCommand)
     return bret;
 }
 
-bool ArmComsControl::processExtraCommand(talky::Command& oCommand, ComsData& oComsData)
+bool ComsArmControl::processExtraCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -217,7 +218,7 @@ bool ArmComsControl::processExtraCommand(talky::Command& oCommand, ComsData& oCo
             
         case talky::ArmTopic::eEXTRA_AMY_END:
             LOG4CXX_INFO(logger, "> end emy");  
-            oComsData.addSpecialAction(ComsData::eACTION_AMY_END);
+            oQueueSpecialActions.add(ComsArmControl::eACTION_AMY_END);
             break;
 
         default:
@@ -228,7 +229,7 @@ bool ArmComsControl::processExtraCommand(talky::Command& oCommand, ComsData& oCo
 }
 
 
-void ArmComsControl::toDoCommand(float value)
+void ComsArmControl::toDoCommand(float value)
 {
     // nothing done
     // dummy method for to do commands

@@ -19,6 +19,7 @@
                 <make-dep-project>../../tron/talky</make-dep-project>
                 <make-dep-project>../../tron/tivy</make-dep-project>
                 <make-dep-project>../amy_arm</make-dep-project>
+                <make-dep-project>../../tron/nety</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src/amy/main</sourceRootElem>

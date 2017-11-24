@@ -36,12 +36,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComs.o \
-	${OBJECTDIR}/src/amy/coms/ComsData.o \
-	${OBJECTDIR}/src/amy/coms/in/AmyComsServer.o \
-	${OBJECTDIR}/src/amy/coms/in/ArmComsControl.o \
+	${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyListener.o \
-	${OBJECTDIR}/src/amy/coms/out/AmyComsInformer.o \
 	${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o
 
 
@@ -74,20 +71,10 @@ ${OBJECTDIR}/src/amy/coms/AmyComs.o: src/amy/coms/AmyComs.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
 
-${OBJECTDIR}/src/amy/coms/ComsData.o: src/amy/coms/ComsData.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ComsData.o src/amy/coms/ComsData.cpp
-
-${OBJECTDIR}/src/amy/coms/in/AmyComsServer.o: src/amy/coms/in/AmyComsServer.cpp 
+${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o: src/amy/coms/in/ComsArmControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/AmyComsServer.o src/amy/coms/in/AmyComsServer.cpp
-
-${OBJECTDIR}/src/amy/coms/in/ArmComsControl.o: src/amy/coms/in/ArmComsControl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/ArmComsControl.o src/amy/coms/in/ArmComsControl.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o src/amy/coms/in/ComsArmControl.cpp
 
 ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o: src/amy/coms/modules/AmyBroadcaster.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
@@ -98,11 +85,6 @@ ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o: src/amy/coms/modules/AmyListene
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o src/amy/coms/modules/AmyListener.cpp
-
-${OBJECTDIR}/src/amy/coms/out/AmyComsInformer.o: src/amy/coms/out/AmyComsInformer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/AmyComsInformer.o src/amy/coms/out/AmyComsInformer.cpp
 
 ${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o: src/amy/coms/out/ArmComsSensing.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out

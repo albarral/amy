@@ -4,7 +4,6 @@
  ***************************************************************************/
 
 #include "amy/coms/AmyComs.h"
-#include "amy/coms/ComsData.h"
 
 namespace amy
 {
@@ -53,25 +52,10 @@ bool AmyComs::end()
 
 bool AmyComs::checkAmyEndRequested()
 {
-    bool byes = false;
-
-    // if pending special actions
-    if (oAmyListener.checkSpecialActions())
-    {
-        // check if end action requested
-        for (int action : oAmyListener.getComsData().getListSpecialActions())
-        {
-            if (action == ComsData::eACTION_AMY_END)
-            {
-                byes = true;
-                break;
-            }
-        }
-
-        // reset special actions
-        oAmyListener.clearSpecialActions();
-    }
-    return byes;    
+    // checks for received special actions
+    oAmyListener.checkSpecialActions();
+    
+    return oAmyListener.getAmyEndRequested();
 }
 
 }		

@@ -14,10 +14,8 @@
                    projectFiles="true">
       <logicalFolder name="coms" displayName="coms" projectFiles="true">
         <logicalFolder name="in" displayName="in" projectFiles="true">
-          <itemPath>src/amy/coms/in/AmyComsServer.cpp</itemPath>
-          <itemPath>src/amy/coms/in/AmyComsServer.h</itemPath>
-          <itemPath>src/amy/coms/in/ArmComsControl.cpp</itemPath>
-          <itemPath>src/amy/coms/in/ArmComsControl.h</itemPath>
+          <itemPath>src/amy/coms/in/ComsArmControl.cpp</itemPath>
+          <itemPath>src/amy/coms/in/ComsArmControl.h</itemPath>
         </logicalFolder>
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
           <itemPath>src/amy/coms/modules/AmyBroadcaster.cpp</itemPath>
@@ -26,15 +24,11 @@
           <itemPath>src/amy/coms/modules/AmyListener.h</itemPath>
         </logicalFolder>
         <logicalFolder name="out" displayName="out" projectFiles="true">
-          <itemPath>src/amy/coms/out/AmyComsInformer.cpp</itemPath>
-          <itemPath>src/amy/coms/out/AmyComsInformer.h</itemPath>
           <itemPath>src/amy/coms/out/ArmComsSensing.cpp</itemPath>
           <itemPath>src/amy/coms/out/ArmComsSensing.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/coms/AmyComs.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComs.h</itemPath>
-        <itemPath>src/amy/coms/ComsData.cpp</itemPath>
-        <itemPath>src/amy/coms/ComsData.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -78,9 +72,10 @@
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_talk/src</pElem>
-            <pElem>../../tron/comy/src</pElem>
+            <pElem>../../tron/nety/src</pElem>
             <pElem>../../tron/talky/src</pElem>
             <pElem>../../tron/tuly/src</pElem>
+            <pElem>../../tron/comy/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -111,15 +106,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/comy"
+              <makeArtifact PL="../../tron/nety"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../../tron/comy"
+                            WD="../../tron/nety"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_comy.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_nety.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -132,6 +127,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_talky.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/comy"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/comy"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_comy.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -153,17 +160,9 @@
       </item>
       <item path="src/amy/coms/AmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/ComsData.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/coms/in/ComsArmControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/coms/ComsData.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/AmyComsServer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/AmyComsServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/ArmComsControl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/ArmComsControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/in/ComsArmControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/modules/AmyBroadcaster.cpp"
             ex="false"
@@ -181,13 +180,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/modules/AmyListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/out/AmyComsInformer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/out/AmyComsInformer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/out/ArmComsSensing.cpp"
             ex="false"
@@ -221,17 +213,9 @@
       </item>
       <item path="src/amy/coms/AmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/ComsData.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/amy/coms/in/ComsArmControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/amy/coms/ComsData.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/AmyComsServer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/AmyComsServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/ArmComsControl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/in/ArmComsControl.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/in/ComsArmControl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/modules/AmyBroadcaster.cpp"
             ex="false"
@@ -249,13 +233,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/modules/AmyListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/out/AmyComsInformer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/out/AmyComsInformer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/coms/out/ArmComsSensing.cpp"
             ex="false"

@@ -7,8 +7,7 @@
 
 #include "amy/coms/modules/AmyBroadcaster.h"
 #include "talky/Topics.h"
-#include "talky/languages/ArmLanguage.h"
-#include "tuly/utils/MessageQueue.h"
+#include "talky/topics/ArmTopic.h"
 
 using namespace log4cxx;
 
@@ -25,17 +24,18 @@ AmyBroadcaster::AmyBroadcaster ()
 
 void AmyBroadcaster::init(ArmBus& oArmBus)
 {
-    talky::ArmLanguage oArmLanguage;    
+    int topic = talky::Topics::eTOPIC_ARM;
+
     // prepare communication publishers
-    oComyPublisherJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
-    oComyPublisherAxis.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_AXIS);
+    oNetyPublisherJoints.init(topic, talky::ArmTopic::eCAT_ARM_JOINT);
+    oNetyPublisherAxis.init(topic, talky::ArmTopic::eCAT_ARM_AXIS);
+    
     // prepare amy sensor informer
-    oAmyComsInformer.connect2Arm(oArmBus);
+    oComsArmSensing.connect2Arm(oArmBus);
     
     // if publishers enabled
-    if (oComyPublisherJoints.isConnected() &&     
-            oComyPublisherAxis.isConnected() &&
-            oAmyComsInformer.isConnected())
+    if (oNetyPublisherJoints.isConnected() &&     
+        oNetyPublisherAxis.isConnected())
     {
         benabled = true;
         LOG4CXX_INFO(logger, modName + " initialized");                                
@@ -52,24 +52,16 @@ void AmyBroadcaster::first()
 void AmyBroadcaster::loop()
 {      
     // get arm info in form of talky messages
-    oAmyComsInformer.getArmInfo();
-    
+    oComsArmSensing.senseJoints(oNetyPublisherJoints);
+    oComsArmSensing.senseAxes(oNetyPublisherAxis);
+
     // publish joints category info
-    oComyPublisherJoints.newPublishing();
-    oComyPublisherJoints.publishMessage(oAmyComsInformer.getMessage4JointAngles());
+    oNetyPublisherJoints.process();
+    oNetyPublisherJoints.flush();
     
     // publish axis category info
-    tuly::MessageQueue& oMessageQueue = oAmyComsInformer.getMessageQueue4Axes();
-    oComyPublisherAxis.newPublishing();
-    while (oMessageQueue.isFilled())
-    {
-        std::string message = oMessageQueue.fetch();
-        if (!message.empty())
-        {
-            oComyPublisherAxis.publishMessage(message);
-        }
-    }
-    
+    oNetyPublisherAxis.process();
+    oNetyPublisherAxis.flush();    
 }
 
 }

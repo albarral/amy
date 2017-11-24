@@ -5,15 +5,14 @@
 
 #include "amy/coms/out/ArmComsSensing.h"
 #include "talky/Topics.h"
-#include "talky/coms/Command.h"
 #include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
-log4cxx::LoggerPtr ArmComsSensing::logger(log4cxx::Logger::getLogger("amy.coms"));
+log4cxx::LoggerPtr ComsArmSensing::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 
-ArmComsSensing::ArmComsSensing()
+ComsArmSensing::ComsArmSensing()
 {
     pBusHS = 0;
     pBusVS = 0;
@@ -25,7 +24,7 @@ ArmComsSensing::ArmComsSensing()
     pBusRadial = 0;    
 }
 
-void ArmComsSensing::connect2Arm(ArmBus& oArmBus)
+void ComsArmSensing::connect2Arm(ArmBus& oArmBus)
 {
     // buses for joints
     pBusHS = &oArmBus.getBusHS();    
@@ -39,57 +38,41 @@ void ArmComsSensing::connect2Arm(ArmBus& oArmBus)
     pBusRadial = &oArmBus.getRadialBus();
 }
 
-bool ArmComsSensing::senseJointAngles(talky::CommandBlock& oCommandBlock)
+bool ComsArmSensing::senseJoints(nety::NetNodePublisher& oNetyPublisher)
 {
     // skip if no interface connection
     if (pBusHS == 0)
         return false;
 
     // read commanded control values of all joints ...
-    oDataBlockJoints.setPosHS(pBusHS->getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosVS(pBusVS->getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosEL(pBusEL->getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosHW(pBusHW->getCO_JOINT_ANGLE().getValue());
-    oDataBlockJoints.setPosVW(pBusVW->getCO_JOINT_ANGLE().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eJOINT_HS_POS, pBusHS->getCO_JOINT_ANGLE().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eJOINT_VS_POS, pBusVS->getCO_JOINT_ANGLE().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eJOINT_ELB_POS, pBusEL->getCO_JOINT_ANGLE().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eJOINT_HWRI_POS, pBusHW->getCO_JOINT_ANGLE().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eJOINT_VWRI_POS, pBusVW->getCO_JOINT_ANGLE().getValue());
 
-    // and convert them to a command block
-    return oDataBlockJoints.writeBlock(oCommandBlock);
+    return (oNetyPublisher.getSizeCommandsQueue() > 0);
 }
 
-bool ArmComsSensing::senseArmAxes(talky::CommandQueue& oCommandQueue)
+bool ComsArmSensing::senseAxes(nety::NetNodePublisher& oNetyPublisher)
 {
     // skip if no interface connection
     if (pBusPan == 0)
         return false;
-    
-    // fill queue with commands of arm topic and axis category
-    talky::Command oCommand;        
-    oCommand.setTopic(talky::Topics::eTOPIC_ARM);
-    oCommand.setCategory(talky::ArmTopic::eCAT_ARM_AXIS);
-       
+           
     // read commanded axes values and their sensed speeds
-    // pan
-    oCommand.setConcept(talky::ArmTopic::eAXIS_PAN_POS);
-    oCommand.setQuantity(pBusPan->getCO_AXIS_POS().getValue());
-    oCommandQueue.add(oCommand);
+    // pan    
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_PAN_POS, pBusPan->getCO_AXIS_POS().getValue());
     // tilt
-    oCommand.setConcept(talky::ArmTopic::eAXIS_TILT_POS);
-    oCommand.setQuantity(pBusTilt->getCO_AXIS_POS().getValue());
-    oCommandQueue.add(oCommand);
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_TILT_POS, pBusTilt->getCO_AXIS_POS().getValue());
     // radius
-    oCommand.setConcept(talky::ArmTopic::eAXIS_RAD_POS);
-    oCommand.setQuantity(pBusRadial->getCO_AXIS_POS().getValue());
-    oCommandQueue.add(oCommand);
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_RAD_POS, pBusRadial->getCO_AXIS_POS().getValue());
     // pan speed
-    oCommand.setConcept(talky::ArmTopic::eAXIS_PAN_SPEED);
-    oCommand.setQuantity(pBusPan->getSO_AXIS_SPEED().getValue());
-    oCommandQueue.add(oCommand);
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_PAN_SPEED, pBusPan->getSO_AXIS_SPEED().getValue());
     // tilt speed
-    oCommand.setConcept(talky::ArmTopic::eAXIS_TILT_SPEED);
-    oCommand.setQuantity(pBusTilt->getSO_AXIS_SPEED().getValue());
-    oCommandQueue.add(oCommand);
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_TILT_SPEED, pBusTilt->getSO_AXIS_SPEED().getValue());
 
-    return true;
+    return (oNetyPublisher.getSizeCommandsQueue() > 0);
 }
 
 }

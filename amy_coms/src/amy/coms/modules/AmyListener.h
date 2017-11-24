@@ -9,10 +9,10 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/coms/ComsData.h"
-#include "amy/coms/in/AmyComsServer.h"
+#include "amy/coms/in/ComsArmControl.h"
 #include "amy/core/bus/ArmBus.h"
 #include "comy/file/ComyFileServer.h"
+#include "nety/NetNodeServer.h"
 #include "tuly/control/module2.h"
 
 namespace amy
@@ -26,12 +26,14 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    comy::ComyFileServer oComyServerJoints;      // communications server for joint category
-    comy::ComyFileServer oComyServerAxis;      // communications server for axis category
-    comy::ComyFileServer oComyServerCyclic;      // communications server for cyclic category
-    comy::ComyFileServer oComyServerExtra;      // communications server for extra category
-    AmyComsServer oAmyComsServer;       // amy control server
-    ComsData oComsData;     // shared coms data
+    nety::NetNodeServer oNetyServerJoints;      // communications server for joint category
+    nety::NetNodeServer oNetyServerAxis;      // communications server for axis category
+    nety::NetNodeServer oNetyServerCyclic;      // communications server for cyclic category
+    nety::NetNodeServer oNetyServerExtra;      // communications server for extra category
+    ComsArmControl oComsArmControl;         // object that gets talky commands and transforms them to bus control values
+    bool brequestedAmyEnd;
+    bool brequestedGUIShow;
+    bool brequestedGUIHide;
 
 public:
     AmyListener();
@@ -40,17 +42,18 @@ public:
     void init(ArmBus& oArmBus);       
     bool isEnabled() {return benabled;};
         
-    // check if there are special actions pending to process
-    bool checkSpecialActions();
-    // get special actions
-    ComsData& getComsData() {return oComsData;};
-    // clear special actions
-    void clearSpecialActions();    
-    
+    // check special actions
+    bool checkSpecialActions();    
+    bool getAmyEndRequested() {return brequestedAmyEnd;};
+    bool getGUISHowRequested() {return brequestedGUIShow;};
+    bool getGUIHideRequested() {return brequestedGUIHide;};
+        
 private:
     virtual void first();
     // executes the behaviour
     virtual void loop();
+    // check given server for received messages and process them
+    void checkServer(nety::NetNodeServer& oNetyServer);
 };
 }		
 #endif
