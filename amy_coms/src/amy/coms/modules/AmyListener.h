@@ -9,16 +9,15 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/coms/in/ComsArmControl.h"
 #include "amy/core/bus/ArmBus.h"
-#include "comy/file/ComyFileServer.h"
+#include "amy/coms/in/ComsArmControl.h"
 #include "nety/NetNodeServer.h"
 #include "tuly/control/module2.h"
 
 namespace amy
 {
 // This module listens to external control request for amy control and processes them.
-// It uses a communications server (from libtron_comy) and an amy control server.
+// It uses nety server nodes for communications.
 class AmyListener : public tuly::Module2
 {
 private:

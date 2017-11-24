@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/out/ArmComsSensing.h"
+#include "amy/coms/out/ComsArmSensing.h"
 #include "nety/NetNodePublisher.h"
 #include "tuly/control/module2.h"
 

@@ -39,7 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyListener.o \
-	${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o
+	${OBJECTDIR}/src/amy/coms/out/ComsArmSensing.o
 
 
 # C Compiler Flags
@@ -86,10 +86,10 @@ ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o: src/amy/coms/modules/AmyListene
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o src/amy/coms/modules/AmyListener.cpp
 
-${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o: src/amy/coms/out/ArmComsSensing.cpp 
+${OBJECTDIR}/src/amy/coms/out/ComsArmSensing.o: src/amy/coms/out/ComsArmSensing.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ArmComsSensing.o src/amy/coms/out/ArmComsSensing.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsArmSensing.o src/amy/coms/out/ComsArmSensing.cpp
 
 # Subprojects
 .build-subprojects:

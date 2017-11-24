@@ -3,7 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/out/ArmComsSensing.h"
+#include "amy/coms/out/ComsArmSensing.h"
 #include "talky/Topics.h"
 #include "talky/topics/ArmTopic.h"
 
