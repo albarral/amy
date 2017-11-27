@@ -1,5 +1,5 @@
-#ifndef __AMY_COMS_ARMCOMSSENSING_H
-#define __AMY_COMS_ARMCOMSSENSING_H
+#ifndef __AMY_COMS_OUT_ARMSENSE_H
+#define __AMY_COMS_OUT_ARMSENSE_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
@@ -17,7 +17,7 @@ namespace amy
 {
 // Class used to fetch arm sensor info.
 // Info is returned in the form of talky command blocks (of arm topic).
-class ComsArmSensing 
+class ComsOutArmSense 
 {    
 private:
     static log4cxx::LoggerPtr logger;    
@@ -31,7 +31,7 @@ private:
     AxisBus* pBusRadial;      // access to radial bus
     
 public:       
-    ComsArmSensing();
+    ComsOutArmSense();
     void connect2Arm(ArmBus& oArmBus);
     
     // sense joint angles, convert them to talky commands and add them to given publisher

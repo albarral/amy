@@ -5,32 +5,32 @@
 
 #include <string>
 
-#include "amy/coms/in/ComsArmControl.h"
+#include "amy/coms/in/ComsInArmControl.h"
 #include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
-log4cxx::LoggerPtr ComsArmControl::logger(log4cxx::Logger::getLogger("amy.coms"));
+log4cxx::LoggerPtr ComsInArmControl::logger(log4cxx::Logger::getLogger("amy.coms"));
 
-ComsArmControl::ComsArmControl()
+ComsInArmControl::ComsInArmControl()
 {    
     pArmBus = 0;
 }
 
-void ComsArmControl::connect2Arm(ArmBus* pArmBus)
+void ComsInArmControl::connect2Arm(ArmBus* pArmBus)
 {
     this->pArmBus = pArmBus;
 }
 
 
-bool ComsArmControl::processCommand(talky::Command& oCommand)
+bool ComsInArmControl::processCommand(talky::Command& oCommand)
 {
     bool bret = true;
 
     // skip if no interface connection
     if (pArmBus == 0)
     {
-        LOG4CXX_ERROR(logger, "ArmComsControl: can't process command, no connection to arm interface");           
+        LOG4CXX_ERROR(logger, "ComsInArmControl: can't process command, no bus connection");           
         return false;
     }
 
@@ -54,12 +54,12 @@ bool ComsArmControl::processCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated category " << oCommand.getCategory());                        
+            LOG4CXX_WARN(logger, "ComsInArmControl: can't process command, untreated category " << oCommand.getCategory());                        
     }                
     return bret;
 }
 
-bool ComsArmControl::processJointCommand(talky::Command& oCommand)
+bool ComsInArmControl::processJointCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -93,12 +93,12 @@ bool ComsArmControl::processJointCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated joint concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ComsInArmControl: can't process command, untreated joint concept " << oCommand.getConcept());           
     }    
     return bret;
 }
 
-bool ComsArmControl::processAxisCommand(talky::Command& oCommand)
+bool ComsInArmControl::processAxisCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -137,12 +137,12 @@ bool ComsArmControl::processAxisCommand(talky::Command& oCommand)
             
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated axis concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ComsInArmControl: can't process command, untreated axis concept " << oCommand.getConcept());           
     }    
     return bret;
 }
 
-bool ComsArmControl::processCyclicCommand(talky::Command& oCommand)
+bool ComsInArmControl::processCyclicCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -194,12 +194,12 @@ bool ComsArmControl::processCyclicCommand(talky::Command& oCommand)
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated cyclic concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ComsInArmControl: can't process command, untreated cyclic concept " << oCommand.getConcept());           
     }    
     return bret;
 }
 
-bool ComsArmControl::processExtraCommand(talky::Command& oCommand)
+bool ComsInArmControl::processExtraCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
@@ -218,18 +218,18 @@ bool ComsArmControl::processExtraCommand(talky::Command& oCommand)
             
         case talky::ArmTopic::eEXTRA_AMY_END:
             LOG4CXX_INFO(logger, "> end emy");  
-            oQueueSpecialActions.add(ComsArmControl::eACTION_AMY_END);
+            oQueueSpecialActions.add(ComsInArmControl::eACTION_AMY_END);
             break;
 
         default:
             bret = false;
-            LOG4CXX_WARN(logger, "ArmComsControl: can't process command, untreated extra concept " << oCommand.getConcept());           
+            LOG4CXX_WARN(logger, "ComsInArmControl: can't process command, untreated extra concept " << oCommand.getConcept());           
     }    
     return bret;
 }
 
 
-void ComsArmControl::toDoCommand(float value)
+void ComsInArmControl::toDoCommand(float value)
 {
     // nothing done
     // dummy method for to do commands

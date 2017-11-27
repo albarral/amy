@@ -3,16 +3,16 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/coms/out/ComsArmSensing.h"
+#include "amy/coms/out/ComsOutArmSense.h"
 #include "talky/Topics.h"
 #include "talky/topics/ArmTopic.h"
 
 namespace amy
 {
-log4cxx::LoggerPtr ComsArmSensing::logger(log4cxx::Logger::getLogger("amy.coms"));
+log4cxx::LoggerPtr ComsOutArmSense::logger(log4cxx::Logger::getLogger("amy.coms"));
 
 
-ComsArmSensing::ComsArmSensing()
+ComsOutArmSense::ComsOutArmSense()
 {
     pBusHS = 0;
     pBusVS = 0;
@@ -24,7 +24,7 @@ ComsArmSensing::ComsArmSensing()
     pBusRadial = 0;    
 }
 
-void ComsArmSensing::connect2Arm(ArmBus& oArmBus)
+void ComsOutArmSense::connect2Arm(ArmBus& oArmBus)
 {
     // buses for joints
     pBusHS = &oArmBus.getBusHS();    
@@ -38,7 +38,7 @@ void ComsArmSensing::connect2Arm(ArmBus& oArmBus)
     pBusRadial = &oArmBus.getRadialBus();
 }
 
-bool ComsArmSensing::senseJoints(nety::NetNodePublisher& oNetyPublisher)
+bool ComsOutArmSense::senseJoints(nety::NetNodePublisher& oNetyPublisher)
 {
     // skip if no interface connection
     if (pBusHS == 0)
@@ -54,7 +54,7 @@ bool ComsArmSensing::senseJoints(nety::NetNodePublisher& oNetyPublisher)
     return (oNetyPublisher.getSizeCommandsQueue() > 0);
 }
 
-bool ComsArmSensing::senseAxes(nety::NetNodePublisher& oNetyPublisher)
+bool ComsOutArmSense::senseAxes(nety::NetNodePublisher& oNetyPublisher)
 {
     // skip if no interface connection
     if (pBusPan == 0)
@@ -71,6 +71,8 @@ bool ComsArmSensing::senseAxes(nety::NetNodePublisher& oNetyPublisher)
     oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_PAN_SPEED, pBusPan->getSO_AXIS_SPEED().getValue());
     // tilt speed
     oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_TILT_SPEED, pBusTilt->getSO_AXIS_SPEED().getValue());
+    // radial speed
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_RAD_SPEED, pBusRadial->getSO_AXIS_SPEED().getValue());
 
     return (oNetyPublisher.getSizeCommandsQueue() > 0);
 }

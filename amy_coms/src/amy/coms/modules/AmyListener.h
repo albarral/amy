@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/in/ComsArmControl.h"
+#include "amy/coms/in/ComsInArmControl.h"
 #include "nety/NetNodeServer.h"
 #include "tuly/control/module2.h"
 
@@ -29,7 +29,7 @@ private:
     nety::NetNodeServer oNetyServerAxis;      // communications server for axis category
     nety::NetNodeServer oNetyServerCyclic;      // communications server for cyclic category
     nety::NetNodeServer oNetyServerExtra;      // communications server for extra category
-    ComsArmControl oComsArmControl;         // object that gets talky commands and transforms them to bus control values
+    ComsInArmControl oComsArmControl;         // object that gets talky commands and transforms them to bus control values
     bool brequestedAmyEnd;
     bool brequestedGUIShow;
     bool brequestedGUIHide;

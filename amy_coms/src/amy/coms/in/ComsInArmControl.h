@@ -1,5 +1,5 @@
-#ifndef __AMY_COMS_COMSARMCONTROL_H
-#define __AMY_COMS_COMSARMCONTROL_H
+#ifndef __AMY_COMS_IN_ARMCONTROL_H
+#define __AMY_COMS_IN_ARMCONTROL_H
 
 /***************************************************************************
  *   Copyright (C) 2017 by Migtron Robotics   *
@@ -16,7 +16,7 @@ namespace amy
 {
 // Class used to process arm control requests.
 // Requests are converted to proper arm interface commands.
-class ComsArmControl 
+class ComsInArmControl 
 {    
 public:
     // special actions
@@ -33,7 +33,7 @@ private:
     tuly::IntegerQueue oQueueSpecialActions;  // queue of special actions
     
 public:
-    ComsArmControl();
+    ComsInArmControl();
     //~ComsArmControl();
     
     void connect2Arm(ArmBus* pArmBus);

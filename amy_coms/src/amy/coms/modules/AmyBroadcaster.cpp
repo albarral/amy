@@ -31,7 +31,7 @@ void AmyBroadcaster::init(ArmBus& oArmBus)
     oNetyPublisherAxis.init(topic, talky::ArmTopic::eCAT_ARM_AXIS);
     
     // prepare amy sensor informer
-    oComsArmSensing.connect2Arm(oArmBus);
+    oComsOutArmSense.connect2Arm(oArmBus);
     
     // if publishers enabled
     if (oNetyPublisherJoints.isConnected() &&     
@@ -52,8 +52,8 @@ void AmyBroadcaster::first()
 void AmyBroadcaster::loop()
 {      
     // get arm info in form of talky messages
-    oComsArmSensing.senseJoints(oNetyPublisherJoints);
-    oComsArmSensing.senseAxes(oNetyPublisherAxis);
+    oComsOutArmSense.senseJoints(oNetyPublisherJoints);
+    oComsOutArmSense.senseAxes(oNetyPublisherAxis);
 
     // publish joints category info
     oNetyPublisherJoints.process();

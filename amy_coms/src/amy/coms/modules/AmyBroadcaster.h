@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/out/ComsArmSensing.h"
+#include "amy/coms/out/ComsOutArmSense.h"
 #include "nety/NetNodePublisher.h"
 #include "tuly/control/module2.h"
 
@@ -27,7 +27,7 @@ private:
     // logic
     nety::NetNodePublisher oNetyPublisherJoints;      // communications publisher for joint category
     nety::NetNodePublisher oNetyPublisherAxis;       // communications publisher for axis category
-    ComsArmSensing oComsArmSensing;                 // object that senses bus values and transforms them to talky commands
+    ComsOutArmSense oComsOutArmSense;                 // object that senses bus values and transforms them to talky commands
 
 public:
     AmyBroadcaster ();

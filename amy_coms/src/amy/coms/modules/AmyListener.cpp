@@ -101,13 +101,13 @@ bool AmyListener::checkSpecialActions()
          // set flags proper to requested actions    
          switch (action)
          {
-             case ComsArmControl::eACTION_AMY_END:
+             case ComsInArmControl::eACTION_AMY_END:
                  brequestedAmyEnd = true;
                  break;
-             case ComsArmControl::eACTION_SHOW_GUI:
+             case ComsInArmControl::eACTION_SHOW_GUI:
                  brequestedGUIShow = true;
                  break;
-             case ComsArmControl::eACTION_HIDE_GUI:
+             case ComsInArmControl::eACTION_HIDE_GUI:
                  brequestedGUIHide = true;
                  break;                 
          }

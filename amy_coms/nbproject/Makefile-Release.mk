@@ -36,10 +36,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComs.o \
-	${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o \
+	${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyListener.o \
-	${OBJECTDIR}/src/amy/coms/out/ComsArmSensing.o
+	${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o
 
 
 # C Compiler Flags
@@ -71,10 +71,10 @@ ${OBJECTDIR}/src/amy/coms/AmyComs.o: src/amy/coms/AmyComs.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
 
-${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o: src/amy/coms/in/ComsArmControl.cpp 
+${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o: src/amy/coms/in/ComsInArmControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/ComsArmControl.o src/amy/coms/in/ComsArmControl.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o src/amy/coms/in/ComsInArmControl.cpp
 
 ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o: src/amy/coms/modules/AmyBroadcaster.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
@@ -86,10 +86,10 @@ ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o: src/amy/coms/modules/AmyListene
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o src/amy/coms/modules/AmyListener.cpp
 
-${OBJECTDIR}/src/amy/coms/out/ComsArmSensing.o: src/amy/coms/out/ComsArmSensing.cpp 
+${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o: src/amy/coms/out/ComsOutArmSense.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsArmSensing.o src/amy/coms/out/ComsArmSensing.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o src/amy/coms/out/ComsOutArmSense.cpp
 
 # Subprojects
 .build-subprojects:
