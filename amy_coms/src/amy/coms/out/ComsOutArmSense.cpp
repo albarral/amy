@@ -60,13 +60,13 @@ bool ComsOutArmSense::senseAxes(nety::NetNodePublisher& oNetyPublisher)
     if (pBusPan == 0)
         return false;
            
-    // read commanded axes values and their sensed speeds
+    // read sensed axes positions and speeds
     // pan    
-    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_PAN_POS, pBusPan->getCO_AXIS_POS().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_PAN_POS, pBusPan->getSO_AXIS_POS().getValue());
     // tilt
-    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_TILT_POS, pBusTilt->getCO_AXIS_POS().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_TILT_POS, pBusTilt->getSO_AXIS_POS().getValue());
     // radius
-    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_RAD_POS, pBusRadial->getCO_AXIS_POS().getValue());
+    oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_RAD_POS, pBusRadial->getSO_AXIS_POS().getValue());
     // pan speed
     oNetyPublisher.addCommand(talky::ArmTopic::eAXIS_PAN_SPEED, pBusPan->getSO_AXIS_SPEED().getValue());
     // tilt speed
