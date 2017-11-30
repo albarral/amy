@@ -30,7 +30,7 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("amy"));
 int main(int argc, char** argv) 
 {
     std::string home = getHomePath();
-    std::string configFile = home + "/.amy/log4cxx_config_amy.xml";
+    std::string configFile = home + "/.tron/log4cxx_config_amy.xml";
     log4cxx::xml::DOMConfigurator::configure(configFile);    
         
     // use UR5 (should be specified by argument)
