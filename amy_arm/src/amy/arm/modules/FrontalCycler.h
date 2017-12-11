@@ -10,9 +10,10 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/util/ArmModule3.h"
+#include "amy/arm/move/LinearCycler.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
-#include "maty/math/LinearCycler.h"
+#include "maty/math/Clock.h"
 
 namespace amy
 {
@@ -39,8 +40,9 @@ private:
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
-    maty::LinearCycler oLinearCycler1;    // first cyclic component
-    maty::LinearCycler oLinearCycler2;    // second cyclic component
+    maty::Clock oClock;     // clock used to evolve linear cyclers
+    LinearCycler oLinearCycler1;    // first cyclic component
+    LinearCycler oLinearCycler2;    // second cyclic component
     int phase;               // phase difference between both components
     // output
     int priority;               // module's priority in control commands

@@ -51,6 +51,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/TiltRacer.o \
 	${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o \
 	${OBJECTDIR}/src/amy/arm/move/JointPositioner.o \
+	${OBJECTDIR}/src/amy/arm/move/LinearCycler.o \
 	${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o \
 	${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
@@ -167,6 +168,11 @@ ${OBJECTDIR}/src/amy/arm/move/JointPositioner.o: src/amy/arm/move/JointPositione
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/maty/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointPositioner.o src/amy/arm/move/JointPositioner.cpp
+
+${OBJECTDIR}/src/amy/arm/move/LinearCycler.o: src/amy/arm/move/LinearCycler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/maty/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/LinearCycler.o src/amy/arm/move/LinearCycler.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o: src/amy/arm/move/RadialPositioner.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move

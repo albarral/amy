@@ -19,6 +19,7 @@ FrontalCycler::FrontalCycler()
     pBusFrontalCycler = 0;
     pPanBus = 0;
     pTiltBus = 0;
+    oClock.setFrequency(50);
     // control priority
     priority = 1; 
 }
@@ -94,9 +95,10 @@ void FrontalCycler::loop()
 // triggers a cyclic movement
 void FrontalCycler::triggerMove()
 {
-    // trigger new oscillation   
-    oLinearCycler1.trigger();
-    oLinearCycler2.trigger();
+    // trigger new oscillation 
+    oClock.reset();
+    oLinearCycler1.trigger(oClock);
+    oLinearCycler2.trigger(oClock);
     xspeed = yspeed = 0.0;
 }
 
@@ -104,8 +106,9 @@ void FrontalCycler::triggerMove()
 void FrontalCycler::updateMove()
 {
     // update movement components
-    oLinearCycler1.update();
-    oLinearCycler2.update();
+    oClock.update();
+    oLinearCycler1.update(oClock);
+    oLinearCycler2.update(oClock);
     // and combine them
     xspeed =  oLinearCycler1.getXSpeed() + oLinearCycler2.getXSpeed();
     yspeed =  oLinearCycler1.getYSpeed() + oLinearCycler2.getYSpeed();

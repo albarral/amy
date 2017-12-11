@@ -48,6 +48,8 @@
           <itemPath>src/amy/arm/move/JointAccelerator.h</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.cpp</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.h</itemPath>
+          <itemPath>src/amy/arm/move/LinearCycler.cpp</itemPath>
+          <itemPath>src/amy/arm/move/LinearCycler.h</itemPath>
           <itemPath>src/amy/arm/move/RadialPositioner.cpp</itemPath>
           <itemPath>src/amy/arm/move/RadialPositioner.h</itemPath>
           <itemPath>src/amy/arm/move/SpeedSensor3.cpp</itemPath>
@@ -227,6 +229,10 @@
       </item>
       <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/move/LinearCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/LinearCycler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/move/RadialPositioner.cpp"
             ex="false"
             tool="1"
@@ -361,6 +367,10 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/LinearCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/LinearCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialPositioner.cpp"
             ex="false"
