@@ -29,23 +29,8 @@ void PanDriver::setControlledJoint()
        
 void PanDriver::setNewTarget()
 {
-    // update movement params
-    if (pArmConfig != 0)
-    {
-        oJointPositioner.init(pArmConfig->getDriverKaccel(),
-                               pArmConfig->getDriverKspeed(),
-                               pArmConfig->getDriverTolerance(),
-                               pArmConfig->getDriverSpeed());        
-    }
-        
     // prepare for new move
-    oJointPositioner.setNewMove(targetAxis);
-    
-    // show data
-    LOG4CXX_INFO(logger, ">> new request");  
-    LOG4CXX_INFO(logger, "target pan = " << targetAxis);  
-    LOG4CXX_INFO(logger, "ist HS = " << istHS);
-    LOG4CXX_INFO(logger, oJointPositioner.paramsToString());      
+    oJointPositioner.setNewMove(targetAxis);    
 }
 
 void PanDriver::senseBus()

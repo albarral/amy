@@ -36,23 +36,8 @@ void RadiusDriver::setControlledJoint()
        
 void RadiusDriver::setNewTarget()
 {
-    // update movement params
-    if (pArmConfig != 0)
-    {
-        oRadialPositioner.init(pArmConfig->getDriverKaccel(),
-                               pArmConfig->getDriverKspeed(),
-                               pArmConfig->getDriverTolerance(),
-                               pArmConfig->getDriverSpeed());        
-    }
-        
     // prepare for new move
-    oRadialPositioner.newRadialMove(targetAxis);
-    
-    // show data
-    LOG4CXX_INFO(logger, ">> new request");  
-    LOG4CXX_INFO(logger, "target radius = " << targetAxis);  
-    LOG4CXX_INFO(logger, "ist ELB = " << istEL);
-    LOG4CXX_INFO(logger, oRadialPositioner.paramsToString());      
+    oRadialPositioner.newRadialMove(targetAxis);    
 }
 
 void RadiusDriver::senseBus()

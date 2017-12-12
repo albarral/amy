@@ -60,7 +60,10 @@ void AxisRacer::loop()
     }
     else
         silentCycles++;
-            
+    
+    if (isStateChanged())
+        showState();
+    
     switch (getState())
     {
         case eSTATE_DONE:
@@ -83,9 +86,6 @@ void AxisRacer::loop()
                 outAccel = 0.0;            
                 setState(eSTATE_DRIVE);
             }
-            // show data
-            LOG4CXX_INFO(logger, ">> new request");  
-            LOG4CXX_INFO(logger, "target speed = " << targetSpeed);  
             break;  
 
         case eSTATE_DRIVE:
@@ -107,7 +107,7 @@ void AxisRacer::loop()
                 // compute movement acceleration
                 outAccel = oPIDControl.control(targetSpeed - axisSpeed);                      
             
-            LOG4CXX_INFO(logger, " sollSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(axisSpeed) +  ", accel=" + std::to_string(outAccel) + "]");
+            LOG4CXX_DEBUG(logger, " sollSpeed=" + std::to_string(targetSpeed) + " istSpeed=" + std::to_string(axisSpeed) +  ", accel=" + std::to_string(outAccel) + "]");
             break;
 
         case eSTATE_BLOCKED:
@@ -120,9 +120,6 @@ void AxisRacer::loop()
                 setState(eSTATE_NEWMOVE);   
             break;
     }   // end switch    
-
-    if (isStateChanged())
-        showState();
 
     writeBus();        
 }
@@ -152,7 +149,7 @@ void AxisRacer::showState()
             break;
                         
         case eSTATE_NEWMOVE:
-            LOG4CXX_INFO(logger, ">> new move");
+            LOG4CXX_INFO(logger, ">> new move - speed = " << targetSpeed);
             break;
 
         case eSTATE_DRIVE:

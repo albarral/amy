@@ -42,7 +42,6 @@ void AxisDriver::init(Arm& oArm, ArmConfig& oArmConfig)
     benabled = true;
 
     LOG4CXX_INFO(logger, modName << " initialized");                  
-    LOG4CXX_INFO(logger, oArmConfig.toString());      
 };
 
 void AxisDriver::connect(ArmBus& oArmBus)
@@ -64,12 +63,14 @@ void AxisDriver::prepareDriver()
     // set movement params
     if (pArmConfig != 0)
     {
-        // get used joint controller and initialize it
-        JointPositioner& oJointControl = getController();        
-        oJointControl.init(pArmConfig->getDriverKaccel(),
+        // get used joint positioner and initialize it
+        JointPositioner& oJointPositioner = getController();        
+        oJointPositioner.init(pArmConfig->getDriverKaccel(),
                                pArmConfig->getDriverKspeed(),
                                pArmConfig->getDriverTolerance(),
-                               pArmConfig->getDriverSpeed());        
+                               pArmConfig->getDriverSpeed());    
+        
+        LOG4CXX_INFO(logger, modName << oJointPositioner.paramsToString());              
     }        
 }
 
@@ -90,12 +91,15 @@ void AxisDriver::loop()
     // skip if DONE or BLOCKED
     if (state == eSTATE_DONE ||state == eSTATE_BLOCKED)            
         return;
-            
+
+    if (isStateChanged())
+        showState();
+    
     switch (state)
     {
         case eSTATE_NEWMOVE:
             // new move requested -> update target & go to DRIVE
-            setNewTarget();        
+            setNewTarget();
             outAccel = 0.0;
             setState(eSTATE_DRIVE);
             break;
@@ -115,9 +119,6 @@ void AxisDriver::loop()
             break;
     }   // end switch    
 
-    if (isStateChanged())
-        showState();
-
     writeBus();        
 }
 
@@ -130,7 +131,7 @@ bool AxisDriver::doMove()
     JointPositioner& oJointPositioner = getController();        
     outAccel = oJointPositioner.drive(istAxis);
     
-    LOG4CXX_INFO(logger, oJointPositioner.toString());
+    LOG4CXX_DEBUG(logger, oJointPositioner.toString());
     
     // check if movement finished 
     if (oJointPositioner.isMovementDone())
@@ -164,7 +165,7 @@ void AxisDriver::showState()
             break;
                         
         case eSTATE_NEWMOVE:
-            LOG4CXX_INFO(logger, ">> new move");
+            LOG4CXX_INFO(logger, ">> new move - target = " << targetAxis);
             break;
 
         case eSTATE_DRIVE:

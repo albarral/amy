@@ -6,6 +6,8 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <string>
+
 #include "maty/math/Clock.h"
 #include "maty/math/TriangularSignal.h"
 #include "maty/math/Vector.h"
@@ -47,7 +49,8 @@ public:
     float getYSpeed() {return oSpeedVector.getYComponent();}; 
     // get movement phase
     int getPhase();
-    
+    // get description
+    std::string toString();
 private:    
     // define movement's max speed
     void redefine();

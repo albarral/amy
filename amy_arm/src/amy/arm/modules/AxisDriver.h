@@ -76,9 +76,9 @@ protected:
         virtual void prepareDriver();
         // read bus data
         virtual void senseBus() = 0;
-        // set target for new movement
+         // prepare movement
         virtual void setNewTarget() = 0;
-        // computes the axis position
+       // computes the axis position
         virtual void computeAxisPosition() = 0;
         
 private:

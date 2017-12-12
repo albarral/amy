@@ -73,7 +73,7 @@ void ArmSense::loop()
 
     if (barmMoved)
     {
-        LOG4CXX_INFO(logger, "(pan, tilt, radius) = (" << istPan << ", " << istTilt << ", " << istRadius << ") - (vpan, vtilt, vradius) = (" << speedPan << ", " << speedTilt << ", " << speedRadius << ")");
+        LOG4CXX_DEBUG(logger, "(pan, tilt, radius) = (" << istPan << ", " << istTilt << ", " << istRadius << ") - (vpan, vtilt, vradius) = (" << speedPan << ", " << speedTilt << ", " << speedRadius << ")");
     }
 //    else
 //        LOG4CXX_INFO(logger, "(pan, tilt, radius) = (" << istPan << ", " << istTilt << ", " << istRadius << ")");

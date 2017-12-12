@@ -48,6 +48,9 @@ void FrontalCycler::loop()
     // skip if DONE 
     if (state == eSTATE_DONE)            
         return;
+
+    if (isStateChanged())
+        showState();
             
     switch (state)
     {
@@ -63,17 +66,14 @@ void FrontalCycler::loop()
             // otherwise, nothing to do -> DONE
             else
                 setState(eSTATE_DONE);                            
-
-            // show data
-            LOG4CXX_INFO(logger, ">> new request");  
             break;  
 
         case eSTATE_GO:
 
             // perform movement
             updateMove();
-            LOG4CXX_INFO(logger, "speeds1: " << oLinearCycler1.getXSpeed() << ", " << oLinearCycler1.getYSpeed());  
-            LOG4CXX_INFO(logger, "speeds2: " << oLinearCycler2.getXSpeed() << ", " << oLinearCycler2.getYSpeed());  
+            LOG4CXX_DEBUG(logger, "speeds1: " << oLinearCycler1.getXSpeed() << ", " << oLinearCycler1.getYSpeed());  
+            LOG4CXX_DEBUG(logger, "speeds2: " << oLinearCycler2.getXSpeed() << ", " << oLinearCycler2.getYSpeed());  
             //LOG4CXX_INFO(logger, "speeds: " << xspeed << ", " << yspeed);  
             break;
 
@@ -86,9 +86,6 @@ void FrontalCycler::loop()
             break;
     }   // end switch    
 
-    if (isStateChanged())
-        showState();
-
     writeBus();        
 }
 
@@ -100,6 +97,10 @@ void FrontalCycler::triggerMove()
     oLinearCycler1.trigger(oClock);
     oLinearCycler2.trigger(oClock);
     xspeed = yspeed = 0.0;
+
+    // show cyclers data
+    LOG4CXX_INFO(logger, "cycler 1 - " << oLinearCycler1.toString());  
+    LOG4CXX_INFO(logger, "cycler 2 - " << oLinearCycler2.toString());  
 }
 
 // update the cyclic movement

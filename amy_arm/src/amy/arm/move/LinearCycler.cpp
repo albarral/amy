@@ -62,4 +62,11 @@ void LinearCycler::update(maty::Clock& oClock)
     float magnitude = movSpeed * oTriangularSignal.update(oClock);
     oSpeedVector.compute(magnitude);
 }
+
+std::string LinearCycler::toString()
+{
+    std::string desc = "LinearCycler:[freq = " + std::to_string(freq) + ", angle = " + std::to_string(angle) + ", amplitude = " + std::to_string(amplitude) + "]";                        
+    return desc;
+}
+
 }
