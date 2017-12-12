@@ -146,7 +146,7 @@ bool ComsInArmControl::processCyclicCommand(talky::Command& oCommand)
 {
     bool bret = true;
     float quantity = oCommand.getQuantity();
-    bool byes;
+    bool bgo;
 
     switch (oCommand.getConcept())
     {
@@ -162,7 +162,7 @@ bool ComsInArmControl::processCyclicCommand(talky::Command& oCommand)
             break;
 
         case talky::ArmTopic::eCYCLIC_FRONT1_ANGLE:
-            LOG4CXX_INFO(logger, "> set front1 angle ");                        
+            LOG4CXX_INFO(logger, "> set front1 angle " << quantity);                        
             pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(quantity);
             break;
 
@@ -177,18 +177,19 @@ bool ComsInArmControl::processCyclicCommand(talky::Command& oCommand)
             break;
 
         case talky::ArmTopic::eCYCLIC_FRONT2_ANGLE:
-            LOG4CXX_INFO(logger, "> set front2 angle ");                        
+            LOG4CXX_INFO(logger, "> set front2 angle " << quantity);                        
             pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE2().request(quantity);
             break;
 
-        case talky::ArmTopic::eCYCLIC_FRONT_START:
-            LOG4CXX_INFO(logger, "> front start ");                        
-            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(true);
+        case talky::ArmTopic::eCYCLIC_FRONT_PHASE:
+            LOG4CXX_INFO(logger, "> set front phase " << quantity);                        
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_PHASE().request((int)quantity);
             break;
 
-        case talky::ArmTopic::eCYCLIC_FRONT_STOP:
-            LOG4CXX_INFO(logger, "> front stop ");                        
-            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(false);
+        case talky::ArmTopic::eCYCLIC_FRONT_ACTION:
+            bgo = ((int)quantity != 0); 
+            LOG4CXX_INFO(logger, "> front action " << bgo);                        
+            pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(bgo);
             break;
 
 
