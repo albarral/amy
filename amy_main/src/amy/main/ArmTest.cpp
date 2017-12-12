@@ -16,6 +16,7 @@
 #include "amy/arm/move/JointAccelerator.h"
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/move/RadialPositioner.h"
+#include "amy/core/bus/CyclerBus.h"
 
 using namespace log4cxx;
 
@@ -40,14 +41,23 @@ void ArmTest::testCycler2()
     if (!isConnected())
          return;
         
-    float angle = 45; 
-    float amplitude = 20;
-    float freq = 0.5;
-    bool bgo = true;
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(angle);
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE1().request(amplitude);
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ1().request(freq);
-    pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(bgo);
+    float angle = 0; 
+    float amplitude = 40;
+    float freq = 0.3;
+    int phase = 90;
+    
+    CyclerBus& oBusFrontalCycler = pArmBus->getFrontalCyclerBus();
+    // circular movement
+    oBusFrontalCycler.getCO_CYCLER_ANGLE1().request(angle);
+    oBusFrontalCycler.getCO_CYCLER_AMPLITUDE1().request(amplitude);
+    oBusFrontalCycler.getCO_CYCLER_FREQ1().request(freq);
+
+    oBusFrontalCycler.getCO_CYCLER_ANGLE2().request(angle + 90);
+    oBusFrontalCycler.getCO_CYCLER_AMPLITUDE2().request(amplitude);
+    oBusFrontalCycler.getCO_CYCLER_FREQ2().request(freq);
+    
+    oBusFrontalCycler.getCO_CYCLER_PHASE().request(phase);
+    oBusFrontalCycler.getCO_CYCLER_ACTION().request(true);
 }
 
 void ArmTest::setPos(int pan, int tilt, int radius)

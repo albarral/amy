@@ -124,7 +124,7 @@ void FrontalCycler::stopMove()
 
 void FrontalCycler::senseBus()
 {  
-    // first component's ...
+    // component 1 ...    
     // frequency 
     if (pBusFrontalCycler->getCO_CYCLER_FREQ1().checkRequested())
     {
@@ -141,7 +141,7 @@ void FrontalCycler::senseBus()
         oLinearCycler1.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
     }
     
-    // second component's ...
+    // component 2 ...
     // frequency
     if (pBusFrontalCycler->getCO_CYCLER_FREQ2().checkRequested())
     {
@@ -158,6 +158,12 @@ void FrontalCycler::senseBus()
         oLinearCycler2.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
     }
     
+    // phase between components
+    if (pBusFrontalCycler->getCO_CYCLER_PHASE().checkRequested())
+    {
+        oLinearCycler2.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE().getValue());
+    }
+
     // action requested 
     if (pBusFrontalCycler->getCO_CYCLER_ACTION().checkRequested())
     {

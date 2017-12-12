@@ -27,6 +27,7 @@ std::string CyclerBus::toString()
          "CO_CYCLER_FREQ2: " + std::to_string(CO_CYCLER_FREQ2.getRequested()) + " - " + std::to_string(CO_CYCLER_FREQ2.getValue()) + "\n" +
          "CO_CYCLER_AMPLITUDE2: " + std::to_string(CO_CYCLER_AMPLITUDE2.getRequested()) + " - " + std::to_string(CO_CYCLER_AMPLITUDE2.getValue()) + "\n" +
          "CO_CYCLER_ANGLE2: " + std::to_string(CO_CYCLER_ANGLE2.getRequested()) + " - " + std::to_string(CO_CYCLER_ANGLE2.getValue()) + "\n" +
+         "CO_CYCLER_PHASE: " + std::to_string(CO_CYCLER_PHASE.getRequested()) + " - " + std::to_string(CO_CYCLER_PHASE.getValue()) + "\n" +
          "CO_CYCLER_ACTION: " + std::to_string(CO_CYCLER_ACTION.getRequested()) + " - " + std::to_string(CO_CYCLER_ACTION.getValue()) + "\n" +
             "\n";
     

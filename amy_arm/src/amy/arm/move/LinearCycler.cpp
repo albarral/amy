@@ -17,9 +17,10 @@ LinearCycler::LinearCycler()
 
 void  LinearCycler::setFreq(float value) 
 {
-    freq = value;
-    // set triangular signal's frequency
-    oTriangularSignal.setFrequency(freq);
+    // set frequency of triangular signal 
+    oTriangularSignal.setFrequency(value);
+    // get changed value
+    freq = oTriangularSignal.getFrequency();
     // redefine movement speed
     redefine();
 }
@@ -36,6 +37,14 @@ void  LinearCycler::setAmp(float value)
     amplitude = value;
     // redefine movement speed
     redefine();
+}
+
+void  LinearCycler::setPhase(int value)
+{
+    // set phase of triangular signal
+    oTriangularSignal.setPhase(value);
+    // get changed value
+    phase = oTriangularSignal.getPhase();
 }
 
 // triggers a cyclic movement

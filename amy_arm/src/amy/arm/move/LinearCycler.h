@@ -21,9 +21,10 @@ namespace amy
 class LinearCycler
 {
 private:
-    float freq;             // movement frequency (Hz))
-    float angle;             // movement frequency (Hz))
+    float freq;             // movement frequency (Hz)
+    float angle;             // movement orientation (degrees)
     float amplitude;     // movement amplitude (degrees)
+    int phase;              // movement phase (degrees)
     float movSpeed;     // max speed for the movement (depends on amplitude & frequency)
     maty::TriangularSignal oTriangularSignal;     // triangular signal used to achieve cyclic output
     // output
@@ -36,9 +37,11 @@ public:
     void setFreq(float value);
     void setAngle(float value);
     void setAmp(float value);
+    void setPhase(int value);
     float getFreq() {return freq;}; 
     float getAngle() {return angle;}; 
     float getAmp() {return amplitude;}; 
+    int getPhase() {return phase;};
 
     // trigger the movement
     void trigger(maty::Clock& oClock);
@@ -47,8 +50,6 @@ public:
     // get movement xy speeds
     float getXSpeed() {return oSpeedVector.getXComponent();}; 
     float getYSpeed() {return oSpeedVector.getYComponent();}; 
-    // get movement phase
-    int getPhase();
     // get description
     std::string toString();
 private:    
