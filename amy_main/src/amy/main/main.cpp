@@ -78,9 +78,9 @@ void runAmy(Robot& oRobot)
 {        
     AmyControl oAmyControl; 
 
-    ArmTest oArmTest;
-    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
-    int test = 0;
+//    ArmTest oArmTest;
+//    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
+//    int test = 0;
     //oArmTest.testKeepTilt();
 
     // launch amy control & wait for it to end        
@@ -92,9 +92,9 @@ void runAmy(Robot& oRobot)
             
 //            test++;
 //            if (test == 1)
-//                oArmTest.setPos(30, 30, 80);
+//                oArmTest.setPos(0, 30, 80);
 //            else if (test == 5)
-//                oArmTest.testArmMover();
+//                oArmTest.testCycler2();
         }    
 
         LOG4CXX_INFO(logger, "\namy end requested ...\n");

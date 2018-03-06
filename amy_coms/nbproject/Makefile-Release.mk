@@ -36,10 +36,16 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComs.o \
+	${OBJECTDIR}/src/amy/coms/ArmConnector.o \
 	${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyListener.o \
-	${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o
+	${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o \
+	${OBJECTDIR}/src/amy/coms/server/ArmServer.o \
+	${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o \
+	${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o \
+	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o \
+	${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o
 
 
 # C Compiler Flags
@@ -71,6 +77,11 @@ ${OBJECTDIR}/src/amy/coms/AmyComs.o: src/amy/coms/AmyComs.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
 
+${OBJECTDIR}/src/amy/coms/ArmConnector.o: src/amy/coms/ArmConnector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ArmConnector.o src/amy/coms/ArmConnector.cpp
+
 ${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o: src/amy/coms/in/ComsInArmControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
 	${RM} "$@.d"
@@ -90,6 +101,31 @@ ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o: src/amy/coms/out/ComsOutArmSens
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o src/amy/coms/out/ComsOutArmSense.cpp
+
+${OBJECTDIR}/src/amy/coms/server/ArmServer.o: src/amy/coms/server/ArmServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/ArmServer.o src/amy/coms/server/ArmServer.cpp
+
+${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o: src/amy/coms/server/AxisChannelServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o src/amy/coms/server/AxisChannelServer.cpp
+
+${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o: src/amy/coms/server/CyclicChannelServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o src/amy/coms/server/CyclicChannelServer.cpp
+
+${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o: src/amy/coms/server/ExtraChannelServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o src/amy/coms/server/ExtraChannelServer.cpp
+
+${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o: src/amy/coms/server/JointChannelServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o src/amy/coms/server/JointChannelServer.cpp
 
 # Subprojects
 .build-subprojects:
