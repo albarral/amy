@@ -11,7 +11,7 @@
 
 namespace amy
 {
-// Channel listener implementation for arm joints topic.
+// Channel server implementation for arm axis topic.
 class AxisChannelServer : public tron::ChannelServer, public ArmConnector
 {            
 public:

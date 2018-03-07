@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/AxisChannelServer.h"
-#include "tron/talky2/arm/JointTalker.h"
+#include "tron/talky2/arm/AxisTalker.h"
 #include "tron/robot/RobotNodes.h"
 #include "tron/robot/topics/ArmTopics.h"
 
@@ -16,7 +16,7 @@ AxisChannelServer::AxisChannelServer() : ChannelServer(tron::RobotNodes::eNODE_A
 {    
 }
 
-//JointListener::~JointListener()
+//AxisChannelServer::~AxisChannelServer()
 //{    
 //}
 
@@ -42,33 +42,38 @@ void AxisChannelServer::processCommands()
             {
                 switch (code)
                 {
-                    case tron::JointTalker::eJOINT_HS_POS:
-                        LOG4CXX_INFO(logger, "> set HS " << value);                        
-                        pArmBus->getBusHS().getCO_JOINT_ANGLE().request(value);
+                    case tron::AxisTalker::eAXIS_PAN_POS:
+                        LOG4CXX_INFO(logger, "> set pan " << value);                        
+                        pArmBus->getPanBus().getCO_AXIS_POS().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_VS_POS:
-                        LOG4CXX_INFO(logger, "> set VS " << value);                        
-                        pArmBus->getBusVS().getCO_JOINT_ANGLE().request(value);
+                    case tron::AxisTalker::eAXIS_TILT_POS:
+                        LOG4CXX_INFO(logger, "> set tilt " << value);                        
+                        pArmBus->getTiltBus().getCO_AXIS_POS().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_ELB_POS:
-                        LOG4CXX_INFO(logger, "> set ELB " << value);                        
-                        pArmBus->getBusEL().getCO_JOINT_ANGLE().request(value);
+                    case tron::AxisTalker::eAXIS_RAD_POS:
+                        LOG4CXX_INFO(logger, "> set radius " << value);                        
+                        pArmBus->getRadialBus().getCO_AXIS_POS().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_HWRI_POS:
-                        LOG4CXX_INFO(logger, "> set HW " << value);                        
-                        pArmBus->getBusHW().getCO_JOINT_ANGLE().request(value);
+                    case tron::AxisTalker::eAXIS_PAN_SPEED:
+                        LOG4CXX_INFO(logger, "> pan speed " << value);                        
+                        pArmBus->getPanBus().getCO_AXIS_SPEED().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_VWRI_POS:
-                        LOG4CXX_INFO(logger, "> set VW " << value);                        
-                        pArmBus->getBusVW().getCO_JOINT_ANGLE().request(value);
+                    case tron::AxisTalker::eAXIS_TILT_SPEED:
+                        LOG4CXX_INFO(logger, "> tilt speed " << value);                        
+                       pArmBus->getTiltBus().getCO_AXIS_SPEED().request(value);
+                        break;
+
+                    case tron::AxisTalker::eAXIS_RAD_SPEED:
+                        LOG4CXX_INFO(logger, "> rad speed " << value);                        
+                        pArmBus->getRadialBus().getCO_AXIS_SPEED().request(value);
                         break;
 
                     default:
-                        LOG4CXX_WARN(logger, "AxisChannelServer: can't process command, untreated joint concept " << code);                                   
+                        LOG4CXX_WARN(logger, "AxisChannelServer: can't process command, untreated concept " << code);                                   
                 }    
             }
             else
@@ -85,3 +90,4 @@ void AxisChannelServer::processCommands()
 }
 
 }
+

@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/ExtraChannelServer.h"
-#include "tron/talky2/arm/JointTalker.h"
+#include "tron/talky2/arm/BasicTalker.h"
 #include "tron/robot/RobotNodes.h"
 #include "tron/robot/topics/ArmTopics.h"
 
@@ -14,9 +14,10 @@ namespace amy
 {
 ExtraChannelServer::ExtraChannelServer() : ChannelServer(tron::RobotNodes::eNODE_ARM, tron::ArmTopics::eARM_EXTRA)
 {    
+    bEndRequested = false;
 }
 
-//JointListener::~JointListener()
+//ExtraChannelServer::~ExtraChannelServer()
 //{    
 //}
 
@@ -42,33 +43,22 @@ void ExtraChannelServer::processCommands()
             {
                 switch (code)
                 {
-                    case tron::JointTalker::eJOINT_HS_POS:
-                        LOG4CXX_INFO(logger, "> set HS " << value);                        
-                        pArmBus->getBusHS().getCO_JOINT_ANGLE().request(value);
+                    case tron::BasicTalker::eEXTRA_ARM_STOP:
+                        LOG4CXX_INFO(logger, "> arm stop ... TO DO");                        
                         break;
 
-                    case tron::JointTalker::eJOINT_VS_POS:
-                        LOG4CXX_INFO(logger, "> set VS " << value);                        
-                        pArmBus->getBusVS().getCO_JOINT_ANGLE().request(value);
+                    case tron::BasicTalker::eEXTRA_KEEP_TILT:
+                        LOG4CXX_INFO(logger, "> keep tilt " << value);                        
+                        pArmBus->getCO_KEEP_TILT().request((int)value);
                         break;
 
-                    case tron::JointTalker::eJOINT_ELB_POS:
-                        LOG4CXX_INFO(logger, "> set ELB " << value);                        
-                        pArmBus->getBusEL().getCO_JOINT_ANGLE().request(value);
-                        break;
-
-                    case tron::JointTalker::eJOINT_HWRI_POS:
-                        LOG4CXX_INFO(logger, "> set HW " << value);                        
-                        pArmBus->getBusHW().getCO_JOINT_ANGLE().request(value);
-                        break;
-
-                    case tron::JointTalker::eJOINT_VWRI_POS:
-                        LOG4CXX_INFO(logger, "> set VW " << value);                        
-                        pArmBus->getBusVW().getCO_JOINT_ANGLE().request(value);
+                    case tron::BasicTalker::eEXTRA_ARM_END:
+                        LOG4CXX_INFO(logger, "> end arm");  
+                        bEndRequested = true;
                         break;
 
                     default:
-                        LOG4CXX_WARN(logger, "ExtraChannelServer: can't process command, untreated joint concept " << code);                                   
+                        LOG4CXX_WARN(logger, "ExtraChannelServer: can't process command, untreated concept " << code);                                   
                 }    
             }
             else

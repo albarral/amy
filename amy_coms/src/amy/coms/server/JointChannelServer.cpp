@@ -16,7 +16,7 @@ JointChannelServer::JointChannelServer() : ChannelServer(tron::RobotNodes::eNODE
 {    
 }
 
-//JointListener::~JointListener()
+//JointChannelServer::~JointChannelServer()
 //{    
 //}
 
@@ -68,7 +68,7 @@ void JointChannelServer::processCommands()
                         break;
 
                     default:
-                        LOG4CXX_WARN(logger, "JointChannelServer: can't process command, untreated joint concept " << code);                                   
+                        LOG4CXX_WARN(logger, "JointChannelServer: can't process command, untreated concept " << code);                                   
                 }    
             }
             else

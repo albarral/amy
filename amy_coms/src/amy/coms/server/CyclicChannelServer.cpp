@@ -4,7 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/CyclicChannelServer.h"
-#include "tron/talky2/arm/JointTalker.h"
+#include "tron/talky2/arm/CyclicTalker.h"
 #include "tron/robot/RobotNodes.h"
 #include "tron/robot/topics/ArmTopics.h"
 
@@ -16,7 +16,7 @@ CyclicChannelServer::CyclicChannelServer() : ChannelServer(tron::RobotNodes::eNO
 {    
 }
 
-//JointListener::~JointListener()
+//CyclicChannelServer::~CyclicChannelServer()
 //{    
 //}
 
@@ -42,33 +42,52 @@ void CyclicChannelServer::processCommands()
             {
                 switch (code)
                 {
-                    case tron::JointTalker::eJOINT_HS_POS:
-                        LOG4CXX_INFO(logger, "> set HS " << value);                        
-                        pArmBus->getBusHS().getCO_JOINT_ANGLE().request(value);
+                    // FRONTAL CYCLER
+                    case tron::CyclicTalker::eCYCLIC_FRONT1_FREQ:
+                        LOG4CXX_INFO(logger, "> set front1 freq " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ1().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_VS_POS:
-                        LOG4CXX_INFO(logger, "> set VS " << value);                        
-                        pArmBus->getBusVS().getCO_JOINT_ANGLE().request(value);
+                    case tron::CyclicTalker::eCYCLIC_FRONT1_AMP:
+                        LOG4CXX_INFO(logger, "> set front1 amplitude " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE1().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_ELB_POS:
-                        LOG4CXX_INFO(logger, "> set ELB " << value);                        
-                        pArmBus->getBusEL().getCO_JOINT_ANGLE().request(value);
+                    case tron::CyclicTalker::eCYCLIC_FRONT1_ANGLE:
+                        LOG4CXX_INFO(logger, "> set front1 angle " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_HWRI_POS:
-                        LOG4CXX_INFO(logger, "> set HW " << value);                        
-                        pArmBus->getBusHW().getCO_JOINT_ANGLE().request(value);
+                    case tron::CyclicTalker::eCYCLIC_FRONT2_FREQ:
+                        LOG4CXX_INFO(logger, "> set front2 freq " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_FREQ2().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_VWRI_POS:
-                        LOG4CXX_INFO(logger, "> set VW " << value);                        
-                        pArmBus->getBusVW().getCO_JOINT_ANGLE().request(value);
+                    case tron::CyclicTalker::eCYCLIC_FRONT2_AMP:
+                        LOG4CXX_INFO(logger, "> set front2 amplitude " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE2().request(value);
                         break;
+
+                    case tron::CyclicTalker::eCYCLIC_FRONT2_ANGLE:
+                        LOG4CXX_INFO(logger, "> set front2 angle " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE2().request(value);
+                        break;
+
+                    case tron::CyclicTalker::eCYCLIC_FRONT_PHASE:
+                        LOG4CXX_INFO(logger, "> set front phase " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_PHASE().request((int)value);
+                        break;
+
+                    case tron::CyclicTalker::eCYCLIC_FRONT_ACTION:
+                    {
+                        bool bgo = ((int)value != 0); 
+                        LOG4CXX_INFO(logger, "> front action " << bgo);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_ACTION().request(bgo);
+                        break;
+                    }
 
                     default:
-                        LOG4CXX_WARN(logger, "CyclicChannelServer: can't process command, untreated joint concept " << code);                                   
+                        LOG4CXX_WARN(logger, "CyclicChannelServer: can't process command, untreated concept " << code);                                   
                 }    
             }
             else

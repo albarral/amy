@@ -9,7 +9,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/coms/modules/AmyBroadcaster.h"
-#include "amy/coms/modules/AmyListener.h"
+#include "amy/coms/modules/ArmServer.h"
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/config/AmyConfig.h"
 
@@ -20,7 +20,7 @@ class AmyComs
 private:    
     static log4cxx::LoggerPtr logger;      
     AmyConfig oAmyConfig;
-    AmyListener oAmyListener;               // communications module for responding to external requests
+    ArmServer oAmyListener;               // communications module for responding to external requests
     AmyBroadcaster oAmyBroadcaster;   // communications module for broadcasting the control info
 
 public:

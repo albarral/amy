@@ -52,9 +52,6 @@ bool AmyComs::end()
 
 bool AmyComs::checkAmyEndRequested()
 {
-    // checks for received special actions
-    oAmyListener.checkSpecialActions();
-    
     return oAmyListener.getAmyEndRequested();
 }
 

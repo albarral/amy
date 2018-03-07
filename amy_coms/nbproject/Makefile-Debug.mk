@@ -37,11 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComs.o \
 	${OBJECTDIR}/src/amy/coms/ArmConnector.o \
-	${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o \
 	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
-	${OBJECTDIR}/src/amy/coms/modules/AmyListener.o \
+	${OBJECTDIR}/src/amy/coms/modules/ArmServer.o \
 	${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o \
-	${OBJECTDIR}/src/amy/coms/server/ArmServer.o \
 	${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o \
@@ -102,30 +100,20 @@ ${OBJECTDIR}/src/amy/coms/ArmConnector.o: src/amy/coms/ArmConnector.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ArmConnector.o src/amy/coms/ArmConnector.cpp
 
-${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o: src/amy/coms/in/ComsInArmControl.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/in
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/in/ComsInArmControl.o src/amy/coms/in/ComsInArmControl.cpp
-
 ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o: src/amy/coms/modules/AmyBroadcaster.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o src/amy/coms/modules/AmyBroadcaster.cpp
 
-${OBJECTDIR}/src/amy/coms/modules/AmyListener.o: src/amy/coms/modules/AmyListener.cpp 
+${OBJECTDIR}/src/amy/coms/modules/ArmServer.o: src/amy/coms/modules/ArmServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyListener.o src/amy/coms/modules/AmyListener.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/ArmServer.o src/amy/coms/modules/ArmServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o: src/amy/coms/out/ComsOutArmSense.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o src/amy/coms/out/ComsOutArmSense.cpp
-
-${OBJECTDIR}/src/amy/coms/server/ArmServer.o: src/amy/coms/server/ArmServer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/ArmServer.o src/amy/coms/server/ArmServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o: src/amy/coms/server/AxisChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
