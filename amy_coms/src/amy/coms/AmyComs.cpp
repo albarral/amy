@@ -22,15 +22,15 @@ AmyComs::~AmyComs()
     LOG4CXX_INFO(logger, "AmyComs: launch modules");
     float freq = oAmyConfig.getModulesFreq();
      
-    // launch listener module
-    oAmyListener.init(oArmBus);
-    oAmyListener.setFrequency(freq);
-    oAmyListener.on();
+    // launch server module
+    oArmServer.init(oArmBus);
+    oArmServer.setFrequency(freq);
+    oArmServer.on();
 
-    // launch broadcaster module
-    oAmyBroadcaster.init(oArmBus);
-    oAmyBroadcaster.setFrequency(freq);
-    oAmyBroadcaster.on();
+    // launch publisher module
+    oArmPublisher.init(oArmBus);
+    oArmPublisher.setFrequency(freq);
+    oArmPublisher.on();
     
     return true;
 }
@@ -39,20 +39,20 @@ bool AmyComs::end()
 {
     LOG4CXX_INFO(logger, "AmyComs: end modules");
 
-    // finish listener module
-    oAmyListener.off();
-    oAmyListener.wait();      
+    // finish server module
+    oArmServer.off();
+    oArmServer.wait();      
     
-    // finish broadcaster module
-    oAmyBroadcaster.off();
-    oAmyBroadcaster.wait();      
+    // finish publisher module
+    oArmPublisher.off();
+    oArmPublisher.wait();      
 
     return true;
 }
 
 bool AmyComs::checkAmyEndRequested()
 {
-    return oAmyListener.getAmyEndRequested();
+    return oArmServer.getAmyEndRequested();
 }
 
 }		

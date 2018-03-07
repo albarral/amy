@@ -14,14 +14,16 @@
                    projectFiles="true">
       <logicalFolder name="coms" displayName="coms" projectFiles="true">
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
-          <itemPath>src/amy/coms/modules/AmyBroadcaster.cpp</itemPath>
-          <itemPath>src/amy/coms/modules/AmyBroadcaster.h</itemPath>
+          <itemPath>src/amy/coms/modules/ArmPublisher.cpp</itemPath>
+          <itemPath>src/amy/coms/modules/ArmPublisher.h</itemPath>
           <itemPath>src/amy/coms/modules/ArmServer.cpp</itemPath>
           <itemPath>src/amy/coms/modules/ArmServer.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="out" displayName="out" projectFiles="true">
-          <itemPath>src/amy/coms/out/ComsOutArmSense.cpp</itemPath>
-          <itemPath>src/amy/coms/out/ComsOutArmSense.h</itemPath>
+        <logicalFolder name="publisher" displayName="publisher" projectFiles="true">
+          <itemPath>src/amy/coms/publisher/AxisChannelPublisher.cpp</itemPath>
+          <itemPath>src/amy/coms/publisher/AxisChannelPublisher.h</itemPath>
+          <itemPath>src/amy/coms/publisher/JointChannelPublisher.cpp</itemPath>
+          <itemPath>src/amy/coms/publisher/JointChannelPublisher.h</itemPath>
         </logicalFolder>
         <logicalFolder name="server" displayName="server" projectFiles="true">
           <itemPath>src/amy/coms/server/AxisChannelServer.cpp</itemPath>
@@ -79,11 +81,7 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
-            <pElem>../amy_talk/src</pElem>
-            <pElem>../../tron/nety/src</pElem>
-            <pElem>../../tron/talky/src</pElem>
             <pElem>../../tron/tuly/src</pElem>
-            <pElem>../../tron/comy/src</pElem>
             <pElem>../../tron/robot/src</pElem>
             <pElem>../../tron/talky2/src</pElem>
             <pElem>../../tron/wire/src</pElem>
@@ -103,54 +101,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../amy_talk"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../amy_talk"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_talk.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/nety"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron/nety"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_nety.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/talky"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron/talky"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_talky.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/comy"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron/comy"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_comy.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -224,12 +174,12 @@
       </item>
       <item path="src/amy/coms/ArmConnector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/modules/AmyBroadcaster.cpp"
+      <item path="src/amy/coms/modules/ArmPublisher.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/modules/AmyBroadcaster.h"
+      <item path="src/amy/coms/modules/ArmPublisher.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -238,12 +188,25 @@
       </item>
       <item path="src/amy/coms/modules/ArmServer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/out/ComsOutArmSense.cpp"
+      <item path="src/amy/coms/publisher/AxisChannelPublisher.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/out/ComsOutArmSense.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/publisher/AxisChannelPublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/publisher/JointChannelPublisher.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/publisher/JointChannelPublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/coms/server/AxisChannelServer.cpp"
             ex="false"
@@ -314,12 +277,12 @@
       </item>
       <item path="src/amy/coms/ArmConnector.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/modules/AmyBroadcaster.cpp"
+      <item path="src/amy/coms/modules/ArmPublisher.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/modules/AmyBroadcaster.h"
+      <item path="src/amy/coms/modules/ArmPublisher.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -328,12 +291,25 @@
       </item>
       <item path="src/amy/coms/modules/ArmServer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/out/ComsOutArmSense.cpp"
+      <item path="src/amy/coms/publisher/AxisChannelPublisher.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/out/ComsOutArmSense.h" ex="false" tool="3" flavor2="0">
+      <item path="src/amy/coms/publisher/AxisChannelPublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/publisher/JointChannelPublisher.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/coms/publisher/JointChannelPublisher.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/amy/coms/server/AxisChannelServer.cpp"
             ex="false"

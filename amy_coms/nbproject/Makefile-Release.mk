@@ -37,9 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComs.o \
 	${OBJECTDIR}/src/amy/coms/ArmConnector.o \
-	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
+	${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o \
 	${OBJECTDIR}/src/amy/coms/modules/ArmServer.o \
-	${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o \
+	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o \
+	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o \
 	${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o \
@@ -80,20 +81,25 @@ ${OBJECTDIR}/src/amy/coms/ArmConnector.o: src/amy/coms/ArmConnector.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ArmConnector.o src/amy/coms/ArmConnector.cpp
 
-${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o: src/amy/coms/modules/AmyBroadcaster.cpp 
+${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o: src/amy/coms/modules/ArmPublisher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o src/amy/coms/modules/AmyBroadcaster.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o src/amy/coms/modules/ArmPublisher.cpp
 
 ${OBJECTDIR}/src/amy/coms/modules/ArmServer.o: src/amy/coms/modules/ArmServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/ArmServer.o src/amy/coms/modules/ArmServer.cpp
 
-${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o: src/amy/coms/out/ComsOutArmSense.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
+${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o: src/amy/coms/publisher/AxisChannelPublisher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o src/amy/coms/out/ComsOutArmSense.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o src/amy/coms/publisher/AxisChannelPublisher.cpp
+
+${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o: src/amy/coms/publisher/JointChannelPublisher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o src/amy/coms/publisher/JointChannelPublisher.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o: src/amy/coms/server/AxisChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server

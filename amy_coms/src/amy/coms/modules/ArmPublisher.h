@@ -1,8 +1,8 @@
-#ifndef _AMY_COMS_AMYBROADCASTER_H
-#define _AMY_COMS_AMYBROADCASTER_H
+#ifndef _AMY_COMS_ARMPUBLISHER_H
+#define _AMY_COMS_ARMPUBLISHER_H
 
 /***************************************************************************
- *   Copyright (C) 2017 by Migtron Robotics   *
+ *   Copyright (C) 2018 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -10,28 +10,27 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/out/ComsOutArmSense.h"
-#include "nety/NetNodePublisher.h"
+#include "amy/coms/publisher/JointChannelPublisher.h"
+#include "amy/coms/publisher/AxisChannelPublisher.h"
 #include "tuly/control/module2.h"
 
 namespace amy
 {
 // This module is in charge of publishing the commanded joint angles to be applied to the arm.
 // It uses an AmyPublisher object to broadcast the data.
-class AmyBroadcaster : public tuly::Module2
+class ArmPublisher : public tuly::Module2
 {
 private:
     static log4cxx::LoggerPtr logger;
     std::string modName;          // module name
     bool benabled;
     // logic
-    nety::NetNodePublisher oNetyPublisherJoints;      // communications publisher for joint category
-    nety::NetNodePublisher oNetyPublisherAxis;       // communications publisher for axis category
-    ComsOutArmSense oComsOutArmSense;                 // object that senses bus values and transforms them to talky commands
+    JointChannelPublisher oJointChannelPublisher;      // communications publisher for joints channel
+    AxisChannelPublisher oAxisChannelPublisher;       // communications publisher for axis channel
 
 public:
-    AmyBroadcaster ();
-    //~AmyBroadcaster();
+    ArmPublisher ();
+    //~ArmPublisher();
 
     void init(ArmBus& oArmBus);       
     bool isEnabled() {return benabled;};

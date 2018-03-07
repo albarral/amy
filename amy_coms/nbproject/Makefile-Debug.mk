@@ -37,9 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/AmyComs.o \
 	${OBJECTDIR}/src/amy/coms/ArmConnector.o \
-	${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o \
+	${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o \
 	${OBJECTDIR}/src/amy/coms/modules/ArmServer.o \
-	${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o \
+	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o \
+	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o \
 	${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o \
@@ -60,21 +61,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_talk/dist/Debug/GNU-Linux -L../amy_talk/dist/Debug/GNU-Linux -lamy_talk -Wl,-rpath,../../tron/nety/dist/Debug/GNU-Linux -L../../tron/nety/dist/Debug/GNU-Linux -ltron_nety -Wl,-rpath,../../tron/talky/dist/Debug/GNU-Linux -L../../tron/talky/dist/Debug/GNU-Linux -ltron_talky -Wl,-rpath,../../tron/comy/dist/Debug/GNU-Linux -L../../tron/comy/dist/Debug/GNU-Linux -ltron_comy -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly -Wl,-rpath,../../tron/robot/dist/Debug/GNU-Linux -L../../tron/robot/dist/Debug/GNU-Linux -ltron_robot -Wl,-rpath,../../tron/talky2/dist/Debug/GNU-Linux -L../../tron/talky2/dist/Debug/GNU-Linux -ltron_talky2 -Wl,-rpath,../../tron/wire/dist/Debug/GNU-Linux -L../../tron/wire/dist/Debug/GNU-Linux -ltron_wire -Wl,-rpath,../../tron/wire2/dist/Debug/GNU-Linux -L../../tron/wire2/dist/Debug/GNU-Linux -ltron_wire2
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly -Wl,-rpath,../../tron/robot/dist/Debug/GNU-Linux -L../../tron/robot/dist/Debug/GNU-Linux -ltron_robot -Wl,-rpath,../../tron/talky2/dist/Debug/GNU-Linux -L../../tron/talky2/dist/Debug/GNU-Linux -ltron_talky2 -Wl,-rpath,../../tron/wire/dist/Debug/GNU-Linux -L../../tron/wire/dist/Debug/GNU-Linux -ltron_wire -Wl,-rpath,../../tron/wire2/dist/Debug/GNU-Linux -L../../tron/wire2/dist/Debug/GNU-Linux -ltron_wire2
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_core/dist/Debug/GNU-Linux/libamy_core.so
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../amy_talk/dist/Debug/GNU-Linux/libamy_talk.so
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/nety/dist/Debug/GNU-Linux/libtron_nety.so
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/talky/dist/Debug/GNU-Linux/libtron_talky.so
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/comy/dist/Debug/GNU-Linux/libtron_comy.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
 
@@ -93,55 +86,56 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/amy/coms/AmyComs.o: src/amy/coms/AmyComs.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/AmyComs.o src/amy/coms/AmyComs.cpp
 
 ${OBJECTDIR}/src/amy/coms/ArmConnector.o: src/amy/coms/ArmConnector.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ArmConnector.o src/amy/coms/ArmConnector.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/ArmConnector.o src/amy/coms/ArmConnector.cpp
 
-${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o: src/amy/coms/modules/AmyBroadcaster.cpp 
+${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o: src/amy/coms/modules/ArmPublisher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/AmyBroadcaster.o src/amy/coms/modules/AmyBroadcaster.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o src/amy/coms/modules/ArmPublisher.cpp
 
 ${OBJECTDIR}/src/amy/coms/modules/ArmServer.o: src/amy/coms/modules/ArmServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/modules
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/ArmServer.o src/amy/coms/modules/ArmServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/modules/ArmServer.o src/amy/coms/modules/ArmServer.cpp
 
-${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o: src/amy/coms/out/ComsOutArmSense.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/out
+${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o: src/amy/coms/publisher/AxisChannelPublisher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/out/ComsOutArmSense.o src/amy/coms/out/ComsOutArmSense.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o src/amy/coms/publisher/AxisChannelPublisher.cpp
+
+${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o: src/amy/coms/publisher/JointChannelPublisher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o src/amy/coms/publisher/JointChannelPublisher.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o: src/amy/coms/server/AxisChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o src/amy/coms/server/AxisChannelServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o src/amy/coms/server/AxisChannelServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o: src/amy/coms/server/CyclicChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o src/amy/coms/server/CyclicChannelServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o src/amy/coms/server/CyclicChannelServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o: src/amy/coms/server/ExtraChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o src/amy/coms/server/ExtraChannelServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o src/amy/coms/server/ExtraChannelServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o: src/amy/coms/server/JointChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_talk/src -I../../tron/nety/src -I../../tron/talky/src -I../../tron/tuly/src -I../../tron/comy/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o src/amy/coms/server/JointChannelServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tuly/src -I../../tron/robot/src -I../../tron/talky2/src -I../../tron/wire/src -I../../tron/wire2/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o src/amy/coms/server/JointChannelServer.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug
-	cd ../amy_talk && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../tron/nety && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../tron/comy && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/robot && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/talky2 && ${MAKE}  -f Makefile CONF=Debug
@@ -156,10 +150,6 @@ ${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o: src/amy/coms/server/Joint
 # Subprojects
 .clean-subprojects:
 	cd ../amy_core && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../amy_talk && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../tron/nety && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../tron/talky && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../tron/comy && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/robot && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/talky2 && ${MAKE}  -f Makefile CONF=Debug clean
