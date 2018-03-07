@@ -71,6 +71,11 @@ void AxisChannelServer::processCommands()
                         LOG4CXX_INFO(logger, "> rad speed " << value);                        
                         pArmBus->getRadialBus().getCO_AXIS_SPEED().request(value);
                         break;
+                        
+                    case tron::AxisTalker::eAXIS_KEEP_TILT:
+                        LOG4CXX_INFO(logger, "> keep tilt " << value);                        
+                        pArmBus->getCO_KEEP_TILT().request((int)value);
+                        break;
 
                     default:
                         LOG4CXX_WARN(logger, "AxisChannelServer: can't process command, untreated concept " << code);                                   

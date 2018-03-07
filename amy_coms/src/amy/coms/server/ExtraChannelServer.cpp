@@ -47,11 +47,6 @@ void ExtraChannelServer::processCommands()
                         LOG4CXX_INFO(logger, "> arm stop ... TO DO");                        
                         break;
 
-                    case tron::BasicTalker::eEXTRA_KEEP_TILT:
-                        LOG4CXX_INFO(logger, "> keep tilt " << value);                        
-                        pArmBus->getCO_KEEP_TILT().request((int)value);
-                        break;
-
                     case tron::BasicTalker::eEXTRA_ARM_END:
                         LOG4CXX_INFO(logger, "> end arm");  
                         bEndRequested = true;
