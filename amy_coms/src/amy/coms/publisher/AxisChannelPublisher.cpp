@@ -60,13 +60,14 @@ bool AxisChannelPublisher::sendData()
     clearChannel();
     // publish messages with obtained axes data ...
     // positions
-    publishMessage(tron::AxisTalker::eAXIS_PAN_POS, axesPositions.pan);
-    publishMessage(tron::AxisTalker::eAXIS_TILT_POS, axesPositions.tilt);
-    publishMessage(tron::AxisTalker::eAXIS_RAD_POS, axesPositions.radial);
+    addMessage(tron::AxisTalker::eAXIS_PAN_POS, axesPositions.pan);
+    addMessage(tron::AxisTalker::eAXIS_TILT_POS, axesPositions.tilt);
+    addMessage(tron::AxisTalker::eAXIS_RAD_POS, axesPositions.radial);
     // speeds
-    publishMessage(tron::AxisTalker::eAXIS_PAN_SPEED, axesSpeeds.pan);
-    publishMessage(tron::AxisTalker::eAXIS_TILT_SPEED, axesSpeeds.tilt);
-    publishMessage(tron::AxisTalker::eAXIS_RAD_SPEED, axesSpeeds.radial);
+    addMessage(tron::AxisTalker::eAXIS_PAN_SPEED, axesSpeeds.pan);
+    addMessage(tron::AxisTalker::eAXIS_TILT_SPEED, axesSpeeds.tilt);
+    addMessage(tron::AxisTalker::eAXIS_RAD_SPEED, axesSpeeds.radial);
+    publishAll();
     return true;
 }
 

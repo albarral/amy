@@ -61,11 +61,12 @@ bool JointChannelPublisher::sendData()
     // clear channel
     clearChannel();
     // publish messages with obtained joints data
-    publishMessage(tron::JointTalker::eJOINT_HS_POS, jointsData.hs);
-    publishMessage(tron::JointTalker::eJOINT_VS_POS, jointsData.vs);
-    publishMessage(tron::JointTalker::eJOINT_ELB_POS, jointsData.elb);
-    publishMessage(tron::JointTalker::eJOINT_HWRI_POS, jointsData.hwri);
-    publishMessage(tron::JointTalker::eJOINT_VWRI_POS, jointsData.vwri);
+    addMessage(tron::JointTalker::eJOINT_HS_POS, jointsData.hs);
+    addMessage(tron::JointTalker::eJOINT_VS_POS, jointsData.vs);
+    addMessage(tron::JointTalker::eJOINT_ELB_POS, jointsData.elb);
+    addMessage(tron::JointTalker::eJOINT_HWRI_POS, jointsData.hwri);
+    addMessage(tron::JointTalker::eJOINT_VWRI_POS, jointsData.vwri);
+    publishAll();
     return true;
 }
 
