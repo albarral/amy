@@ -43,8 +43,8 @@ bool AxisChannelPublisher::senseData()
         axesPositions.radial = pBusRadial->getSO_AXIS_POS().getValue();
         // read sensed axes speeds ...
         axesSpeeds.pan = pBusPan->getSO_AXIS_SPEED().getValue();
-        axesSpeeds.pan = pBusTilt->getSO_AXIS_SPEED().getValue();
-        axesSpeeds.pan = pBusRadial->getSO_AXIS_SPEED().getValue();        
+        axesSpeeds.tilt = pBusTilt->getSO_AXIS_SPEED().getValue();
+        axesSpeeds.radial = pBusRadial->getSO_AXIS_SPEED().getValue();        
         return true;
     }
     else
