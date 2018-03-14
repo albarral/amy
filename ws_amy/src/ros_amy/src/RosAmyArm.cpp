@@ -10,9 +10,6 @@
 #include "RosAmyArm.h"
 #include "YoubotArm.h"
 #include "UR5Arm.h"
-#include "talky/Topics.h"
-#include "talky/coms/CommandBlock.h"
-#include "talky/languages/ArmLanguage.h"
 
 int main(int argc, char** argv) 
 {
@@ -45,55 +42,44 @@ RosAmyArm::~RosAmyArm()
     float freq = 5.0;    
     ros::Rate rate(freq);
     float moveDelay = 0.20; // 200 ms
+    bool bnewInfo;
     
     UR5Arm oUR5Arm;
     oUR5Arm.setHandPos(0.0, 0.0, 0.0); 
-   
-    // prepare interpreter for arm topic communications
-    oInterpreter.addLanguage(talky::Topics::eTOPIC_ARM);    
-    
-    // prepare coms subscriber
-    talky::ArmLanguage oArmLanguage;
-    // prepare communication servers
-    oComySubscriberJoints.connect(talky::Topics::ARM_TOPIC, oArmLanguage.CAT_ARM_JOINT);
-    
-    // prepare coms subscriber
-    if (!oComySubscriberJoints.isConnected())
+       
+    // check listener connection
+    if (!oArmListener.senseChannels())
     {
-        ROS_ERROR("RosAmyArm: failed connection of comy subscriber");
+        ROS_ERROR("RosAmyArm: failed arm listener connections");
         return;
     }
-    
-    // reset joints info
-    oDataBlockJoints0.resetData();    
-    bool bnewInfo;
-    
+        
     while (ros::ok()) 
     {
         // process callbacks
         ros::spinOnce();
 
-        if (oComySubscriberJoints.readMessage())
+        if (oArmListener.senseChannels())
         {            
-            bnewInfo = processMessage(oComySubscriberJoints.getRawMessage());            
+            bnewInfo = !compareData(jointPositions, oArmListener.getJointPositions());            
         }            
         else
             bnewInfo = false;       
         
         // if new info received and different from previous one
-        if (bnewInfo && !oDataBlockJoints.isEqual(oDataBlockJoints0))
-        {                        
-            showAngles();
+        if (bnewInfo)
+        {               
+            // store data
+            jointPositions = oArmListener.getJointPositions(); 
+
+            showAngles(jointPositions);
     
             // set hshoulder, vshouler & elbow joints
-            oUR5Arm.setArmPos(-oDataBlockJoints.getPosHS(), -oDataBlockJoints.getPosVS(), -oDataBlockJoints.getPosEL());
+            oUR5Arm.setArmPos(-jointPositions.hs, -jointPositions.vs, -jointPositions.elb);
             // set wrist & hand joints
-            oUR5Arm.setHandPos(oDataBlockJoints.getPosVW(), 0.0, 0.0);
+            oUR5Arm.setHandPos(jointPositions.vwri, 0.0, 0.0);
             oUR5Arm.prepareMove(moveDelay);
             oUR5Arm.move();
-
-            // store data for next iteration
-            oDataBlockJoints0 = oDataBlockJoints;
         }
         rate.sleep();
     }    
@@ -103,40 +89,22 @@ RosAmyArm::~RosAmyArm()
     return;
 }
 
-
-bool RosAmyArm::processMessage(std::string rawMessage)
+// check if given joint positions are the same
+bool RosAmyArm::compareData(tron::JointsData& jointPositions1, tron::JointsData& jointPositions2)
 {
-    bool bret = false;
-
-    // interpret received message
-    if (oInterpreter.processMessage(rawMessage))
-    {
-        // if message block
-        if (oInterpreter.isBlockProcessed())
-        {
-            // show obtained command block
-            // ROS_INFO("RosAmyArm: %s", oInterpreter.getCommandBlock().toString());        
-
-            // process interpreted command block
-            bret = oDataBlockJoints.readBlock(oInterpreter.getCommandBlock());
-        }
-        // if simple message
-        else
-        {
-            ROS_INFO("RosAmyArm: simple msg received, ignore");
-        }            
-    }
-    else
-    {
-        ROS_WARN("RosAmyArm: message processing failed!");            
-    }
-
-    return bret;    
+    if (jointPositions1.hs == jointPositions2.hs &&
+            jointPositions1.vs == jointPositions2.vs &&
+            jointPositions1.elb == jointPositions2.elb &&
+            jointPositions1.hwri == jointPositions2.hwri &&
+            jointPositions1.vwri == jointPositions2.vwri)
+        return true;
+    else 
+        return false;
 }
 
-void RosAmyArm::showAngles()
+void RosAmyArm::showAngles(tron::JointsData& jointPositions)
 {
-    ROS_INFO("arm angles: %d, %d, %d", (int)oDataBlockJoints.getPosHS(), (int)oDataBlockJoints.getPosVS(), (int)oDataBlockJoints.getPosEL());      
+    ROS_INFO("arm angles: %d, %d, %d", (int)jointPositions.hs, (int)jointPositions.vs, (int)jointPositions.elb);      
 }
 
   

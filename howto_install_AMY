@@ -64,9 +64,6 @@ git clone https://github.com/albarral/amy.git
 edit /path_to_amy/ws_amy/src/cmake/Modules/Findtron.cmake
 - set TRON_HOME to be the tron installation path
 
-edit /path_to_amy/ws_amy/src/cmake/Modules/Findamy.cmake
-- set AMY_HOME to be the amy installation path
-
 follow instructions in path_to_amy/ws_amy/src/README_amy_ROS 
 
 

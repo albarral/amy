@@ -22,7 +22,7 @@
   </root>
 
   <!-- Specify the level for some specific categories -->
-  <category name="sam" >
+  <category name="tron" >
         <priority value ="info" />
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="dailyAppender"/>

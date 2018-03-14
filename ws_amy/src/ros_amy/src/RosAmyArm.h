@@ -6,20 +6,15 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <string>
-
-#include "comy/file/ComyFileSubscriber.h"
-#include "talky/talk/Interpreter.h"
-#include "amy/talk/DataBlockJoints.h"
+#include "tron/talky2/arm/ArmListener.h"
+#include "tron/robot/sensors/ArmSensors.h"
 
 class RosAmyArm
 {
 private:    
     int counter;          
-    comy::ComyFileSubscriber oComySubscriberJoints;     // coms subscriber for arm topic & joint category
-    talky::Interpreter oInterpreter;                                   // talky language interpreter        
-    amy::DataBlockJoints oDataBlockJoints;                    // amy utility to process arm joints info
-    amy::DataBlockJoints oDataBlockJoints0;                  // amy utility to process arm joints info
+    tron::ArmListener oArmListener;         // listener utility for arm published info
+    tron::JointsData jointPositions;           // structure for storing joints data
   
 public:
   RosAmyArm();
@@ -32,8 +27,8 @@ public:
 private:
     //void waitMoveDone(YoubotArm& oYoubotArm);
     
-    bool processMessage(std::string rawMessage);    
-    void showAngles();  
+    bool compareData(tron::JointsData& jointPositions1, tron::JointsData& jointPositions2);    
+    void showAngles(tron::JointsData& jointPositions);  
 };
 
 #endif

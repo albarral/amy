@@ -58,9 +58,10 @@ See howto_dady file in tron folder for installation instructions.
 > Launch dady programm:
 
 (terminal 3)
-./dady arm*joint*hs*10
+./dady arm joint pan*10
+./dady arm joint tilt*60
 ...
-./dady arm*extra*end
+./dady arm extra end*1
 
 
 
