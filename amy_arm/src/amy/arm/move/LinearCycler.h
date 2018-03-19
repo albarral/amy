@@ -48,8 +48,8 @@ public:
     // update the movement (perform it)
     void update(maty::Clock& oClock);
     // get movement xy speeds
-    float getXSpeed() {return oSpeedVector.getXComponent();}; 
-    float getYSpeed() {return oSpeedVector.getYComponent();}; 
+    float getXSpeed() {return oSpeedVector.getX();}; 
+    float getYSpeed() {return oSpeedVector.getY();}; 
     // get description
     std::string toString();
 private:    

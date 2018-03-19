@@ -52,7 +52,7 @@ void LinearCycler::trigger(maty::Clock& oClock)
 {
     // trigger new oscillation            
     oTriangularSignal.start(oClock);
-    oSpeedVector.compute(0.0);
+    oSpeedVector.updateMagnitude(0.0);
 }
                     
 void LinearCycler::redefine()
@@ -69,7 +69,7 @@ void LinearCycler::update(maty::Clock& oClock)
     // modulate speed as a triangular signal
     // and decompose it in x & y speeds
     float magnitude = movSpeed * oTriangularSignal.update(oClock);
-    oSpeedVector.compute(magnitude);
+    oSpeedVector.updateMagnitude(magnitude);
 }
 
 std::string LinearCycler::toString()

@@ -14,7 +14,7 @@
 #include "amy/core/config/AmyConfig.h"
 #include "amy/core/robot/Arm.h"
 #include "amy/arm/config/ArmConfig.h"
-#include "amy/arm/modules/FrontalCycler.h"
+#include "amy/arm/modules/FrontalCycler2.h"
 #include "amy/arm/modules/PanRacer.h"
 #include "amy/arm/modules/TiltRacer.h"
 #include "amy/arm/modules/RadialRacer.h"
@@ -44,7 +44,7 @@ class ArmManager
         int topLevel; // allow activation of modules until this level
         // modules ...
         // level 4
-        FrontalCycler oFrontalCycler;
+        FrontalCycler2 oFrontalCycler;
         // level 3
         PanRacer oPanRacer;
         TiltRacer oTiltRacer;
