@@ -50,12 +50,17 @@ void CyclicChannelServer::processCommands()
 
                     case tron::CyclicTalker::eCYCLIC_FRONT1_AMP:
                         LOG4CXX_INFO(logger, "> set front1 amplitude " << value);                        
-                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE1().request(value);
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMP1().request(value);
                         break;
 
                     case tron::CyclicTalker::eCYCLIC_FRONT1_ANGLE:
                         LOG4CXX_INFO(logger, "> set front1 angle " << value);                        
                         pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE1().request(value);
+                        break;
+
+                    case tron::CyclicTalker::eCYCLIC_FRONT1_PHASE:
+                        LOG4CXX_INFO(logger, "> set front1 phase " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_PHASE1().request((int)value);
                         break;
 
                     case tron::CyclicTalker::eCYCLIC_FRONT2_FREQ:
@@ -65,7 +70,7 @@ void CyclicChannelServer::processCommands()
 
                     case tron::CyclicTalker::eCYCLIC_FRONT2_AMP:
                         LOG4CXX_INFO(logger, "> set front2 amplitude " << value);                        
-                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMPLITUDE2().request(value);
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_AMP2().request(value);
                         break;
 
                     case tron::CyclicTalker::eCYCLIC_FRONT2_ANGLE:
@@ -73,9 +78,9 @@ void CyclicChannelServer::processCommands()
                         pArmBus->getFrontalCyclerBus().getCO_CYCLER_ANGLE2().request(value);
                         break;
 
-                    case tron::CyclicTalker::eCYCLIC_FRONT_PHASE:
-                        LOG4CXX_INFO(logger, "> set front phase " << value);                        
-                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_PHASE().request((int)value);
+                    case tron::CyclicTalker::eCYCLIC_FRONT2_PHASE:
+                        LOG4CXX_INFO(logger, "> set front2 phase " << value);                        
+                        pArmBus->getFrontalCyclerBus().getCO_CYCLER_PHASE2().request((int)value);
                         break;
 
                     case tron::CyclicTalker::eCYCLIC_FRONT_ACTION:

@@ -10,15 +10,15 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/util/ArmModule3.h"
-#include "maty/signals/DualOscillator.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
+#include "maty/signals/DualOscillator.h"
 
 namespace amy
 {
 // Module used to perform cyclic movements in the frontal plane (just involving pan & tilt).
-// Movement parameters such as frequency, amplitude and orientation angle can be changed dynamically (without restarting the movement).
-// Movements are achieved by the use of a dual oscillator (a combination of two orthogonal vectorial oscillators working synchronously).
+// Movement parameters (frequency, amplitude, orientation and phase) can be changed dynamically without restarting the movement.
+// Movements are achieved by the use of a dual oscillator (a combination of two vectorial oscillators working synchronously).
 // The module's outputs are the pan & tilt speeds.
 class FrontalCycler2: public ArmModule3
 {
@@ -39,7 +39,9 @@ private:
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
-    maty::DualOscillator oDualOscillator;    
+    maty::DualOscillator oDualOscillator;   
+    float amplitude1;        // amplitude of first movement component (degrees)   
+    float amplitude2;       // amplitude of second movement component (degrees)
     // output
     int priority;               // module's priority in control commands
     float xspeed;             // commanded pan speed 

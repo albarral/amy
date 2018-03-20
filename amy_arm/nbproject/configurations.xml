@@ -24,8 +24,6 @@
           <itemPath>src/amy/arm/modules/AxisDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisRacer.cpp</itemPath>
           <itemPath>src/amy/arm/modules/AxisRacer.h</itemPath>
-          <itemPath>src/amy/arm/modules/FrontalCycler.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/FrontalCycler.h</itemPath>
           <itemPath>src/amy/arm/modules/FrontalCycler2.cpp</itemPath>
           <itemPath>src/amy/arm/modules/FrontalCycler2.h</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.cpp</itemPath>
@@ -46,12 +44,12 @@
           <itemPath>src/amy/arm/modules/TiltRacer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="move" displayName="move" projectFiles="true">
+          <itemPath>src/amy/arm/move/CyclicMove.cpp</itemPath>
+          <itemPath>src/amy/arm/move/CyclicMove.h</itemPath>
           <itemPath>src/amy/arm/move/JointAccelerator.cpp</itemPath>
           <itemPath>src/amy/arm/move/JointAccelerator.h</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.cpp</itemPath>
           <itemPath>src/amy/arm/move/JointPositioner.h</itemPath>
-          <itemPath>src/amy/arm/move/LinearCycler.cpp</itemPath>
-          <itemPath>src/amy/arm/move/LinearCycler.h</itemPath>
           <itemPath>src/amy/arm/move/RadialPositioner.cpp</itemPath>
           <itemPath>src/amy/arm/move/RadialPositioner.h</itemPath>
           <itemPath>src/amy/arm/move/SpeedSensor3.cpp</itemPath>
@@ -163,16 +161,6 @@
       </item>
       <item path="src/amy/arm/modules/AxisRacer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/FrontalCycler.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/FrontalCycler.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/FrontalCycler2.cpp"
             ex="false"
             tool="1"
@@ -224,6 +212,10 @@
       </item>
       <item path="src/amy/arm/modules/TiltRacer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/move/CyclicMove.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/CyclicMove.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/move/JointAccelerator.cpp"
             ex="false"
             tool="1"
@@ -240,10 +232,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/LinearCycler.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/LinearCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialPositioner.cpp"
             ex="false"
@@ -312,16 +300,6 @@
       </item>
       <item path="src/amy/arm/modules/AxisRacer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/FrontalCycler.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/FrontalCycler.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/FrontalCycler2.cpp"
             ex="false"
             tool="1"
@@ -373,6 +351,10 @@
       </item>
       <item path="src/amy/arm/modules/TiltRacer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/move/CyclicMove.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/move/CyclicMove.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/move/JointAccelerator.cpp"
             ex="false"
             tool="1"
@@ -389,10 +371,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointPositioner.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/LinearCycler.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/move/LinearCycler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/RadialPositioner.cpp"
             ex="false"

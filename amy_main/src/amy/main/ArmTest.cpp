@@ -49,14 +49,15 @@ void ArmTest::testCycler2()
     CyclerBus& oBusFrontalCycler = pArmBus->getFrontalCyclerBus();
     // circular movement
     oBusFrontalCycler.getCO_CYCLER_ANGLE1().request(angle);
-    oBusFrontalCycler.getCO_CYCLER_AMPLITUDE1().request(amplitude);
+    oBusFrontalCycler.getCO_CYCLER_AMP1().request(amplitude);
     oBusFrontalCycler.getCO_CYCLER_FREQ1().request(freq);
+    oBusFrontalCycler.getCO_CYCLER_PHASE1().request(0);
 
     oBusFrontalCycler.getCO_CYCLER_ANGLE2().request(angle + 90);
-    oBusFrontalCycler.getCO_CYCLER_AMPLITUDE2().request(amplitude);
+    oBusFrontalCycler.getCO_CYCLER_AMP2().request(amplitude);
     oBusFrontalCycler.getCO_CYCLER_FREQ2().request(freq);
+    oBusFrontalCycler.getCO_CYCLER_PHASE2().request(phase);
     
-    oBusFrontalCycler.getCO_CYCLER_PHASE().request(phase);
     oBusFrontalCycler.getCO_CYCLER_ACTION().request(true);
 }
 
