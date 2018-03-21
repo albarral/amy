@@ -13,6 +13,7 @@
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
 #include "maty/signals/DualOscillator.h"
+#include "maty/moves/CyclicMove.h"
 
 namespace amy
 {
@@ -40,8 +41,8 @@ private:
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
     maty::DualOscillator oDualOscillator;   
-    float amplitude1;        // amplitude of first movement component (degrees)   
-    float amplitude2;       // amplitude of second movement component (degrees)
+    maty::CyclicMove oCyclicMove1;    //  first cyclic component
+    maty::CyclicMove oCyclicMove2;     // second cyclic component  
     // output
     int priority;               // module's priority in control commands
     float xspeed;             // commanded pan speed 

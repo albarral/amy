@@ -6,7 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/FrontalCycler2.h"
-#include "amy/arm/move/CyclicMove.h"
+#include "maty/moves/CyclicMath.h"
 
 using namespace log4cxx;
 
@@ -20,7 +20,6 @@ FrontalCycler2::FrontalCycler2()
     pBusFrontalCycler = 0;
     pPanBus = 0;
     pTiltBus = 0;
-    amplitude1 = amplitude2 = 0.0;
     // control priority
     priority = 1; 
 }
@@ -58,7 +57,7 @@ void FrontalCycler2::loop()
         case eSTATE_START:         
             
             // if some amplitude defined -> GO 
-            if (oDualOscillator.getPrimaryAmp() != 0.0)
+            if (oCyclicMove1.getAmp() != 0.0 || oCyclicMove2.getAmp() != 0.0)
             {
                 // launch movement    
                 triggerMove();
@@ -118,50 +117,77 @@ void FrontalCycler2::stopMove()
 
 void FrontalCycler2::senseBus()
 {  
-    // component 1 ...    
+    // COMPONENT 1 ...    
+    bool bchanged1 = false;
     // frequency 
     if (pBusFrontalCycler->getCO_CYCLER_FREQ1().checkRequested())
     {
-        oDualOscillator.setPrimaryFreq(pBusFrontalCycler->getCO_CYCLER_FREQ1().getValue());
-        float maxSpeed1 = CyclicMove::getTriangularSpeed4Movement(oDualOscillator.getPrimaryFreq(), amplitude1);
-        oDualOscillator.setPrimaryAmp(maxSpeed1);
+        oCyclicMove1.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ1().getValue());
+        bchanged1 = true;
     }
     // amplitude 
     if (pBusFrontalCycler->getCO_CYCLER_AMP1().checkRequested())
     {
-        amplitude1 = pBusFrontalCycler->getCO_CYCLER_AMP1().getValue();
-        float maxSpeed1 = CyclicMove::getTriangularSpeed4Movement(oDualOscillator.getPrimaryFreq(), amplitude1);
-        oDualOscillator.setPrimaryAmp(maxSpeed1);
+        oCyclicMove1.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP1().getValue());
+        bchanged1 = true;
     }
     // angle 
     if (pBusFrontalCycler->getCO_CYCLER_ANGLE1().checkRequested())
-        oDualOscillator.setPrimaryAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
+    {
+        oCyclicMove1.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
+        bchanged1 = true;
+    }
     // phase
     if (pBusFrontalCycler->getCO_CYCLER_PHASE1().checkRequested())
-        oDualOscillator.setPrimaryPhase(pBusFrontalCycler->getCO_CYCLER_PHASE1().getValue());
+    {
+        oCyclicMove1.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE1().getValue());
+        bchanged1 = true;
+    }
     
-    // component 2 ...
-    // frequency
+    // COMPONENT 2 ...    
+    bool bchanged2 = false;
+    // frequency 
     if (pBusFrontalCycler->getCO_CYCLER_FREQ2().checkRequested())
     {
-        oDualOscillator.setSecondaryFreq(pBusFrontalCycler->getCO_CYCLER_FREQ2().getValue());
-        float maxSpeed2 = CyclicMove::getTriangularSpeed4Movement(oDualOscillator.getSecondaryFreq(), amplitude2);
-        oDualOscillator.setSecondaryAmp(maxSpeed2);
+        oCyclicMove2.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ2().getValue());
+        bchanged2 = true;
     }
-    // amplitude
+    // amplitude 
     if (pBusFrontalCycler->getCO_CYCLER_AMP2().checkRequested())
     {
-        amplitude2 = pBusFrontalCycler->getCO_CYCLER_AMP2().getValue();
-        float maxSpeed2 = CyclicMove::getTriangularSpeed4Movement(oDualOscillator.getSecondaryFreq(), amplitude2);
-        oDualOscillator.setSecondaryAmp(maxSpeed2);
+        oCyclicMove2.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP2().getValue());
+        bchanged2 = true;
     }
     // angle 
     if (pBusFrontalCycler->getCO_CYCLER_ANGLE2().checkRequested())
-        oDualOscillator.setSecondaryAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
+    {
+        oCyclicMove2.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
+        bchanged2 = true;
+    }
     // phase
     if (pBusFrontalCycler->getCO_CYCLER_PHASE2().checkRequested())
-        oDualOscillator.setSecondaryPhase(pBusFrontalCycler->getCO_CYCLER_PHASE2().getValue());
+    {
+        oCyclicMove2.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE2().getValue());
+        bchanged2 = true;
+    }
     
+    if (bchanged1)
+    {
+        float maxSpeed1 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicMove1.getFreq(), oCyclicMove1.getAmp());
+        oDualOscillator.setPrimaryFreq(oCyclicMove1.getFreq());
+        oDualOscillator.setPrimaryAmp(maxSpeed1);        
+        oDualOscillator.setPrimaryAngle(oCyclicMove1.getAngle());
+        oDualOscillator.setPrimaryPhase(oCyclicMove1.getPhase());
+    }
+    
+    if (bchanged2)
+    {
+        float maxSpeed2 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicMove2.getFreq(), oCyclicMove2.getAmp());
+        oDualOscillator.setSecondaryFreq(oCyclicMove2.getFreq());
+        oDualOscillator.setSecondaryAmp(maxSpeed2);        
+        oDualOscillator.setSecondaryAngle(oCyclicMove2.getAngle());
+        oDualOscillator.setSecondaryPhase(oCyclicMove2.getPhase());
+    }
 
     // action requested 
     if (pBusFrontalCycler->getCO_CYCLER_ACTION().checkRequested())
