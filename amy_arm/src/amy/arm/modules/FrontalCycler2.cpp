@@ -57,7 +57,7 @@ void FrontalCycler2::loop()
         case eSTATE_START:         
             
             // if some amplitude defined -> GO 
-            if (oCyclicMove1.getAmp() != 0.0 || oCyclicMove2.getAmp() != 0.0)
+            if (oCyclicComponent1.getAmp() != 0.0 || oCyclicComponent2.getAmp() != 0.0)
             {
                 // launch movement    
                 triggerMove();
@@ -122,25 +122,25 @@ void FrontalCycler2::senseBus()
     // frequency 
     if (pBusFrontalCycler->getCO_CYCLER_FREQ1().checkRequested())
     {
-        oCyclicMove1.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ1().getValue());
+        oCyclicComponent1.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ1().getValue());
         bchanged1 = true;
     }
     // amplitude 
     if (pBusFrontalCycler->getCO_CYCLER_AMP1().checkRequested())
     {
-        oCyclicMove1.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP1().getValue());
+        oCyclicComponent1.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP1().getValue());
         bchanged1 = true;
     }
     // angle 
     if (pBusFrontalCycler->getCO_CYCLER_ANGLE1().checkRequested())
     {
-        oCyclicMove1.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
+        oCyclicComponent1.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
         bchanged1 = true;
     }
     // phase
     if (pBusFrontalCycler->getCO_CYCLER_PHASE1().checkRequested())
     {
-        oCyclicMove1.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE1().getValue());
+        oCyclicComponent1.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE1().getValue());
         bchanged1 = true;
     }
     
@@ -149,44 +149,44 @@ void FrontalCycler2::senseBus()
     // frequency 
     if (pBusFrontalCycler->getCO_CYCLER_FREQ2().checkRequested())
     {
-        oCyclicMove2.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ2().getValue());
+        oCyclicComponent2.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ2().getValue());
         bchanged2 = true;
     }
     // amplitude 
     if (pBusFrontalCycler->getCO_CYCLER_AMP2().checkRequested())
     {
-        oCyclicMove2.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP2().getValue());
+        oCyclicComponent2.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP2().getValue());
         bchanged2 = true;
     }
     // angle 
     if (pBusFrontalCycler->getCO_CYCLER_ANGLE2().checkRequested())
     {
-        oCyclicMove2.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
+        oCyclicComponent2.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
         bchanged2 = true;
     }
     // phase
     if (pBusFrontalCycler->getCO_CYCLER_PHASE2().checkRequested())
     {
-        oCyclicMove2.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE2().getValue());
+        oCyclicComponent2.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE2().getValue());
         bchanged2 = true;
     }
     
     if (bchanged1)
     {
-        float maxSpeed1 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicMove1.getFreq(), oCyclicMove1.getAmp());
-        oDualOscillator.setPrimaryFreq(oCyclicMove1.getFreq());
+        float maxSpeed1 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicComponent1.getFreq(), oCyclicComponent1.getAmp());
+        oDualOscillator.setPrimaryFreq(oCyclicComponent1.getFreq());
         oDualOscillator.setPrimaryAmp(maxSpeed1);        
-        oDualOscillator.setPrimaryAngle(oCyclicMove1.getAngle());
-        oDualOscillator.setPrimaryPhase(oCyclicMove1.getPhase());
+        oDualOscillator.setPrimaryAngle(oCyclicComponent1.getAngle());
+        oDualOscillator.setPrimaryPhase(oCyclicComponent1.getPhase());
     }
     
     if (bchanged2)
     {
-        float maxSpeed2 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicMove2.getFreq(), oCyclicMove2.getAmp());
-        oDualOscillator.setSecondaryFreq(oCyclicMove2.getFreq());
+        float maxSpeed2 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicComponent2.getFreq(), oCyclicComponent2.getAmp());
+        oDualOscillator.setSecondaryFreq(oCyclicComponent2.getFreq());
         oDualOscillator.setSecondaryAmp(maxSpeed2);        
-        oDualOscillator.setSecondaryAngle(oCyclicMove2.getAngle());
-        oDualOscillator.setSecondaryPhase(oCyclicMove2.getPhase());
+        oDualOscillator.setSecondaryAngle(oCyclicComponent2.getAngle());
+        oDualOscillator.setSecondaryPhase(oCyclicComponent2.getPhase());
     }
 
     // action requested 
