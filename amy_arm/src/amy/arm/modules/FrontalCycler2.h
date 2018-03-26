@@ -13,7 +13,7 @@
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
 #include "maty/signals/DualOscillator.h"
-#include "maty/moves/CyclicComponent.h"
+#include "maty/math/CyclicComponent.h"
 
 namespace amy
 {

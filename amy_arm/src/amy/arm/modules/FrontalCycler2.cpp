@@ -6,7 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/FrontalCycler2.h"
-#include "maty/moves/CyclicMath.h"
+#include "maty/math/CyclicMath.h"
 
 using namespace log4cxx;
 
