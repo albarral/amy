@@ -80,7 +80,7 @@ void TiltKeeper::loop()
             break;              
     }
     
-    if (isStateChanged())
+    if (getStable() == 0)
         showState();
 }
 

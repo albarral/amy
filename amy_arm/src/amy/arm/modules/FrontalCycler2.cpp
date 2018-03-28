@@ -49,7 +49,7 @@ void FrontalCycler2::loop()
     if (state == eSTATE_DONE)            
         return;
 
-    if (isStateChanged())
+    if (getStable() == 0)
         showState();
     
     switch (state)
