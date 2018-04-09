@@ -6,7 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/FrontalCycler2.h"
-#include "maty/math/CyclicMath.h"
+#include "tron/signals/CyclicMath.h"
 
 using namespace log4cxx;
 
@@ -173,7 +173,7 @@ void FrontalCycler2::senseBus()
     
     if (bchanged1)
     {
-        float maxSpeed1 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicComponent1.getFreq(), oCyclicComponent1.getAmp());
+        float maxSpeed1 = tron::CyclicMath::getTriangularSpeed4Movement(oCyclicComponent1.getFreq(), oCyclicComponent1.getAmp());
         oDualOscillator.setPrimaryFreq(oCyclicComponent1.getFreq());
         oDualOscillator.setPrimaryAmp(maxSpeed1);        
         oDualOscillator.setPrimaryAngle(oCyclicComponent1.getAngle());
@@ -182,7 +182,7 @@ void FrontalCycler2::senseBus()
     
     if (bchanged2)
     {
-        float maxSpeed2 = maty::CyclicMath::getTriangularSpeed4Movement(oCyclicComponent2.getFreq(), oCyclicComponent2.getAmp());
+        float maxSpeed2 = tron::CyclicMath::getTriangularSpeed4Movement(oCyclicComponent2.getFreq(), oCyclicComponent2.getAmp());
         oDualOscillator.setSecondaryFreq(oCyclicComponent2.getFreq());
         oDualOscillator.setSecondaryAmp(maxSpeed2);        
         oDualOscillator.setSecondaryAngle(oCyclicComponent2.getAngle());

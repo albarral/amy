@@ -12,13 +12,13 @@
 #include "amy/core/bus/ArmBus.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/JointBus.h"
-#include "tuly/control/module3.h"
+#include "tron/control/module3.h"
 
 namespace amy
 {
 // Module used to plot an arm's position (for debugging purpose).
 // It gets the info from the arm bus.
-class ShowSenser : public tuly::Module3
+class ShowSenser : public tron::Module3
 {
 private:
     static log4cxx::LoggerPtr logger;      

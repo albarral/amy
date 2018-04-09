@@ -8,8 +8,8 @@
 
 #include <string>
 
-#include "tuly/control/brooks/controlT.h"
-#include "tuly/control/brooks/sensorT.h"
+#include "tron/control/brooks/controlT.h"
+#include "tron/control/brooks/sensorT.h"
 
 namespace amy
 {
@@ -21,14 +21,14 @@ class JointBus
         std::string jointName;
 
         // CONTROLS 
-        tuly::ControlT<float> CO_JOINT_ACCEL;         // commanded joint acceleration (degrees/s2)
-        tuly::ControlT<float> CO_JOINT_ANGLE;         // commanded joint angle (degrees)
+        tron::ControlT<float> CO_JOINT_ACCEL;         // commanded joint acceleration (degrees/s2)
+        tron::ControlT<float> CO_JOINT_ANGLE;         // commanded joint angle (degrees)
 
         // SENSORS 
-        tuly::SensorT<int> SO_DRIVER_STATE;               //  state of JointDriver module
-        tuly::SensorT<float> SO_JOINT_SPEED;               //  internally commanded speed (degrees/s)
-        tuly::SensorT<int> SO_JOINT_LIMIT_REACHED;     //  joint range limit reached: 0, 1 (top limit), -1 (bottom limit)
-        tuly::SensorT<float> SO_IST_ANGLE;                 // real joint angle (degrees)
+        tron::SensorT<int> SO_DRIVER_STATE;               //  state of JointDriver module
+        tron::SensorT<float> SO_JOINT_SPEED;               //  internally commanded speed (degrees/s)
+        tron::SensorT<int> SO_JOINT_LIMIT_REACHED;     //  joint range limit reached: 0, 1 (top limit), -1 (bottom limit)
+        tron::SensorT<float> SO_IST_ANGLE;                 // real joint angle (degrees)
         
     public:
         JointBus();
@@ -40,14 +40,14 @@ class JointBus
         std::string& getJointName() {return jointName;};
 
         // CONTROLS 
-        tuly::ControlT<float>& getCO_JOINT_ACCEL() {return CO_JOINT_ACCEL;};                
-        tuly::ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
+        tron::ControlT<float>& getCO_JOINT_ACCEL() {return CO_JOINT_ACCEL;};                
+        tron::ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
         // SENSORS 
-        tuly::SensorT<int>& getSO_DRIVER_STATE() {return SO_DRIVER_STATE;}; 
-        tuly::SensorT<float>& getSO_JOINT_SPEED() {return SO_JOINT_SPEED;}; 
-        tuly::SensorT<int>& getSO_JOINT_LIMIT_REACHED() {return SO_JOINT_LIMIT_REACHED;}; 
-        tuly::SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
+        tron::SensorT<int>& getSO_DRIVER_STATE() {return SO_DRIVER_STATE;}; 
+        tron::SensorT<float>& getSO_JOINT_SPEED() {return SO_JOINT_SPEED;}; 
+        tron::SensorT<int>& getSO_JOINT_LIMIT_REACHED() {return SO_JOINT_LIMIT_REACHED;}; 
+        tron::SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
         
         std::string toString();
 };

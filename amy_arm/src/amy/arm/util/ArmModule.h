@@ -9,14 +9,14 @@
 #include "amy/core/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
-#include <tuly/control/module2.h>
+#include <tron/control/module2.h>
 
 namespace amy
 {
 // Base class for amy arm modules.
 // It's associated to a hierarchical level & holds a connection to the ArmBus.
 // usage: set level, init, connect and on
-class ArmModule : public tuly::Module2
+class ArmModule : public tron::Module2
 {
 private:
     int level;              // module's level (hierarchy level in the control architecture)

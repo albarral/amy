@@ -4,15 +4,15 @@
  ***************************************************************************/
 
 #include "amy/coms/server/JointChannelServer.h"
-#include "tron/talky2/arm/JointTalker.h"
-#include "tron/robot/RobotNodes.h"
-#include "tron/robot/topics/ArmTopics.h"
+#include "tron2/talky/arm/JointTalker.h"
+#include "tron2/robot/RobotNodes.h"
+#include "tron2/robot/topics/ArmTopics.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-JointChannelServer::JointChannelServer() : ChannelServer(tron::RobotNodes::eNODE_ARM, tron::ArmTopics::eARM_JOINT)
+JointChannelServer::JointChannelServer() : ChannelServer(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_JOINT)
 {    
 }
 
@@ -42,27 +42,27 @@ void JointChannelServer::processCommands()
             {
                 switch (code)
                 {
-                    case tron::JointTalker::eJOINT_HS_POS:
+                    case tron2::JointTalker::eJOINT_HS_POS:
                         LOG4CXX_INFO(logger, "> set HS " << value);                        
                         pArmBus->getBusHS().getCO_JOINT_ANGLE().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_VS_POS:
+                    case tron2::JointTalker::eJOINT_VS_POS:
                         LOG4CXX_INFO(logger, "> set VS " << value);                        
                         pArmBus->getBusVS().getCO_JOINT_ANGLE().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_ELB_POS:
+                    case tron2::JointTalker::eJOINT_ELB_POS:
                         LOG4CXX_INFO(logger, "> set ELB " << value);                        
                         pArmBus->getBusEL().getCO_JOINT_ANGLE().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_HWRI_POS:
+                    case tron2::JointTalker::eJOINT_HWRI_POS:
                         LOG4CXX_INFO(logger, "> set HW " << value);                        
                         pArmBus->getBusHW().getCO_JOINT_ANGLE().request(value);
                         break;
 
-                    case tron::JointTalker::eJOINT_VWRI_POS:
+                    case tron2::JointTalker::eJOINT_VWRI_POS:
                         LOG4CXX_INFO(logger, "> set VW " << value);                        
                         pArmBus->getBusVW().getCO_JOINT_ANGLE().request(value);
                         break;

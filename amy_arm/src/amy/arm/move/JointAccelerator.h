@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "maty/math/Click.h"
+#include "tron/util/Click.h"
 
 namespace amy
 {
@@ -25,7 +25,7 @@ private:
     float angle;              // obtained joint angle (degrees)
     float prevAngle;        // last measured joint angle (degrees)
     float time;                //elapsed time (secs)
-    maty::Click oClick;      // clock utility
+    tron::Click oClick;      // clock utility
 
 public:
     JointAccelerator();

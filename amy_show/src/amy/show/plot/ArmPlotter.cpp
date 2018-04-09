@@ -16,7 +16,7 @@ ArmPlotter::ArmPlotter()
 //{
 //}
 
-void ArmPlotter::init(tivy::SharedDisplay& oSharedDisplay)
+void ArmPlotter::init(tron2::SharedDisplay& oSharedDisplay)
 {
     // should be read from config
     int lenH = 40;
@@ -36,7 +36,7 @@ void ArmPlotter::init(tivy::SharedDisplay& oSharedDisplay)
 }
                     
 // drives the axis towards the target position
-void ArmPlotter::draw(tivy::SharedDisplay& oSharedDisplay, ShowData* pShowData)
+void ArmPlotter::draw(tron2::SharedDisplay& oSharedDisplay, ShowData* pShowData)
 {        
     // axis positions
     pan = pShowData->pan;
@@ -76,16 +76,16 @@ int ArmPlotter::driverState2DiscColor(int driveState)
     switch (driveState) 
     {
         case 0:
-            disc = tivy::DiscPlot::eSTATE_RED;
+            disc = tron2::DiscPlot::eSTATE_RED;
             break;
         case 1:
-            disc = tivy::DiscPlot::eSTATE_GREEN;
+            disc = tron2::DiscPlot::eSTATE_GREEN;
             break;
         case 2:
-            disc = tivy::DiscPlot::eSTATE_YELLOW;
+            disc = tron2::DiscPlot::eSTATE_YELLOW;
             break;
         default:
-            disc = tivy::DiscPlot::eSTATE_GREY;            
+            disc = tron2::DiscPlot::eSTATE_GREY;            
     }
     return disc;
 }

@@ -12,8 +12,8 @@
 #include "amy/arm/util/ArmModule3.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
-#include "maty/signals/DualOscillator.h"
-#include "maty/math/CyclicComponent.h"
+#include "tron/signals/DualOscillator.h"
+#include "tron/signals/CyclicComponent.h"
 
 namespace amy
 {
@@ -40,9 +40,9 @@ private:
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
-    maty::DualOscillator oDualOscillator;   
-    maty::CyclicComponent oCyclicComponent1;    //  first cyclic component
-    maty::CyclicComponent oCyclicComponent2;     // second cyclic component  
+    tron::DualOscillator oDualOscillator;   
+    tron::CyclicComponent oCyclicComponent1;    //  first cyclic component
+    tron::CyclicComponent oCyclicComponent2;     // second cyclic component  
     // output
     int priority;               // module's priority in control commands
     float xspeed;             // commanded pan speed 

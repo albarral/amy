@@ -58,7 +58,7 @@ void ArmServer::loop()
     checkChannelServer(oExtraChannelServer);        
 }
 
-bool ArmServer::checkChannelServer(tron::ChannelServer& oChannelServer)
+bool ArmServer::checkChannelServer(tron2::ChannelServer& oChannelServer)
 {    
     // receive messages from the given channel
     if (oChannelServer.senseChannel())

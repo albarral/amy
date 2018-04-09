@@ -4,15 +4,15 @@
  ***************************************************************************/
 
 #include "amy/coms/server/ExtraChannelServer.h"
-#include "tron/talky2/BasicTalker.h"
-#include "tron/robot/RobotNodes.h"
-#include "tron/robot/topics/ArmTopics.h"
+#include "tron2/talky/BasicTalker.h"
+#include "tron2/robot/RobotNodes.h"
+#include "tron2/robot/topics/ArmTopics.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-ExtraChannelServer::ExtraChannelServer() : ChannelServer(tron::RobotNodes::eNODE_ARM, tron::ArmTopics::eARM_EXTRA)
+ExtraChannelServer::ExtraChannelServer() : ChannelServer(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_EXTRA)
 {    
     bEndRequested = false;
 }
@@ -43,11 +43,11 @@ void ExtraChannelServer::processCommands()
             {
                 switch (code)
                 {
-                    case tron::BasicTalker::eBASIC_FULL_STOP:
+                    case tron2::BasicTalker::eBASIC_FULL_STOP:
                         LOG4CXX_INFO(logger, "> arm stop ... TO DO");                        
                         break;
 
-                    case tron::BasicTalker::eBASIC_CONTROL_END:
+                    case tron2::BasicTalker::eBASIC_CONTROL_END:
                         LOG4CXX_INFO(logger, "> end arm");  
                         bEndRequested = true;
                         break;

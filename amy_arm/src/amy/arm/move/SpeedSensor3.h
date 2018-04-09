@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "maty/math/Click.h"
+#include "tron/util/Click.h"
 
 namespace amy
 {
@@ -20,7 +20,7 @@ private:
     float preValue1;          
     float preValue2;          
     float preValue3;          
-    maty::Click oClick;        // utility class for time computation
+    tron::Click oClick;        // utility class for time computation
 
 public:
         SpeedSensor3();

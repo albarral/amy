@@ -11,7 +11,7 @@
 #include "amy/core/bus/CyclerBus.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/JointBus.h"
-#include "tuly/control/brooks/controlT.h"
+#include "tron/control/brooks/controlT.h"
 #include "amy/core/robot/Arm.h"
 
 namespace amy
@@ -23,13 +23,13 @@ class ArmBus
         std::string armName;
         
         // CONTROLS 
-        tuly::ControlT<bool> CO_ARM_STOP;       // arm stop
+        tron::ControlT<bool> CO_ARM_STOP;       // arm stop
 
         // connections for all cyclers
         CyclerBus oFrontalCyclerBus;
                 
         // TiltKeeper
-        tuly::ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
+        tron::ControlT<bool> CO_KEEP_TILT;    // arm's keep tilt
 
         // connection for each axis (pan, tilt, radial)
         AxisBus oBusPan;
@@ -54,13 +54,13 @@ class ArmBus
         bool isEnabled() {return benabled;};
         
         // CONTROLS
-        tuly::ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};        
+        tron::ControlT<bool>& getCO_ARM_STOP() {return CO_ARM_STOP;};        
         
         // CONTROLS & SENSORS for cyclers
         CyclerBus& getFrontalCyclerBus() {return oFrontalCyclerBus;};
 
         // TiltKeeper
-        tuly::ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
+        tron::ControlT<bool>& getCO_KEEP_TILT() {return CO_KEEP_TILT;};
         
         // CONTROLS & SENSORS for axes
         AxisBus& getPanBus() {return oBusPan;};

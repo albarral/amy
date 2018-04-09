@@ -12,13 +12,13 @@
 #include "amy/core/bus/ArmBus.h"
 #include "amy/coms/publisher/JointChannelPublisher.h"
 #include "amy/coms/publisher/AxisChannelPublisher.h"
-#include "tuly/control/module2.h"
+#include "tron/control/module2.h"
 
 namespace amy
 {
 // This module is in charge of publishing the commanded joint angles to be applied to the arm.
 // It uses an AmyPublisher object to broadcast the data.
-class ArmPublisher : public tuly::Module2
+class ArmPublisher : public tron::Module2
 {
 private:
     static log4cxx::LoggerPtr logger;

@@ -10,7 +10,7 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/util/ArmModule3.h"
-#include "maty/math/PIDControl.h"
+#include "tron/math/PIDControl.h"
 
 namespace amy
 {
@@ -31,7 +31,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // logic
-    maty::PIDControl oPIDControl;      // utility class to achieve the target speed (0)
+    tron::PIDControl oPIDControl;      // utility class to achieve the target speed (0)
     float elbowSpeed;           // elbow speed
     float tiltSpeed;                // measured tilt speed
     float outAccel;                 // control VS accel

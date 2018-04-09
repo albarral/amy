@@ -9,9 +9,9 @@
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>../../tron/tuly</make-dep-project>
+                <make-dep-project>../../tron/tron_control</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
-                <make-dep-project>../../tron/tivy</make-dep-project>
+                <make-dep-project>../../tron2/tron2_tivy</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src/amy/show</sourceRootElem>
