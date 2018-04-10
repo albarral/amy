@@ -3,19 +3,32 @@
 
 ros_amy (ROS package) allows controlling a robot arm through the amy library.
 
-To use it you need to:
+> Requirements:
 
-- get amy.git repo
-- create a catkin workspace
-- build the ROS node
+libtron_util.so
+libtron_tools.so
+libtron_wire.so
+libtron_wire2.so
+libtron2_robot.so
+libtron2_talky.so
 
 
-> Download amy repo:
+> Repos: 
 
 git clone https://github.com/albarral/amy.git
+git clone https://github.com/albarral/tron.git
+git clone https://github.com/albarral/tron2.git
 
 
-> Create the catkin workspace (from terminal):
+> Installation:
+
+- get repos
+- compile them (with Netbeans)
+- create catkin workspace
+- build ROS node
+
+
+> Create workspace (from terminal):
 
 cd path_to_amy/ws_amy/src
 catkin_init_workspace
@@ -23,7 +36,7 @@ catkin_init_workspace
 (note: path_to_amy = amy installation path)
 
 
-> Build the ROS node (from terminal):
+> Build ROS node (from terminal):
 
 cd path_to_amy/ws_amy
 source devel/setup.bash
