@@ -92,7 +92,7 @@ void AxisDriver::loop()
     if (state == eSTATE_DONE ||state == eSTATE_BLOCKED)            
         return;
 
-    if (isStateChanged())
+    if (getStable() == 0)
         showState();
     
     switch (state)

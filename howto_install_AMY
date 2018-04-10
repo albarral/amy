@@ -1,7 +1,7 @@
 
 *** HOW TO INSTALL AMY
 
-(last update: albarral 28/2/2017)
+(last update: albarral 9/4/2018)
 
 This document explains how to install amy to control a simulated UR5 arm.
 
@@ -15,7 +15,8 @@ Components to be installed:
 - ur_gazebo  	(ROS package for UR5 simulator)
 - ros_amy  	(ROS package to connect amy to arm)
 - amy 		(process where the arm control is done)
-- tron libs	(libraries used for robotic communication)
+- tron libs	(libraries used for robotic communication & control)
+- tron2 libs	(libraries used for robotic communication & control)
 - dady		(program to externally control amy from CLI)
 
 
@@ -32,49 +33,51 @@ sudo apt-get install liblog4cxx10-dev
 
 
 
-*** INSTALL TRON ***
+*** INSTALL TRON & TRON2 LIBS ***
 
-> download tron repo:
+> download tron & tron2 repos:
 
 git clone https://github.com/albarral/tron.git
+git clone https://github.com/albarral/tron2.git
 
-> build tron libs
+> build tron & tron2 libs
 
 follow instructions in howto_install_tron 
-
-> build dady
-
-follow instruction in howto_use_dady 
+follow instructions in howto_install_tron2 
 
 
+> INSTALLATION
 
-*** INSTALL AMY ***
 
-> download amy repo:
+1. Download amy repo
 
 git clone https://github.com/albarral/amy.git
 
-> build amy:
 
-(Netbeans)
-- amy_main project 	
+2. Build amy_main project (in Netbeans)
 
-> build ros_amy: 
+
+3. Make amy libs accessible from everywhere:
+
+cd <amy_installation_path>
+gedit amy.conf
+change paths to meet real amy installation 
+
+sudo cp amy.conf /etc/ld.so.conf.d
+sudo /sbin/ldconfig
+
+
+4. Prepare config files for amy logging:
+
+see instructions in file logging/README_amy_logging
+located in <amy_installation_path>
+
+
+5. Build ros_amy: 
 
 edit /path_to_amy/ws_amy/src/cmake/Modules/Findtron.cmake
 - set TRON_HOME to be the tron installation path
 
 follow instructions in path_to_amy/ws_amy/src/README_amy_ROS 
-
-
-
-*** PREPARE ENVIRONMENT ***
-
-
-1. Prepare config files for amy logging:
-
-see instructions in path_to_amy/logging/README_amy_logging file
-(note: path_to_amy = amy installation path)
-
 
 

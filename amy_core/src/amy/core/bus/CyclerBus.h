@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "tuly/control/brooks/controlT.h"
+#include "tron/control/brooks/controlT.h"
 
 namespace amy
 {
@@ -19,16 +19,17 @@ class CyclerBus
         std::string cyclerName;
         
         // first cycler component
-        tuly::ControlT<float> CO_CYCLER_FREQ1;              // movement frequency
-        tuly::ControlT<float> CO_CYCLER_AMPLITUDE1;      // movement amplitude (degrees)
-        tuly::ControlT<float> CO_CYCLER_ANGLE1;            // movement orientation (degrees)
+        tron::ControlT<float> CO_CYCLER_FREQ1;              // movement frequency
+        tron::ControlT<float> CO_CYCLER_AMP1;                // movement amplitude (degrees)
+        tron::ControlT<float> CO_CYCLER_ANGLE1;            // movement orientation (degrees)
+        tron::ControlT<int> CO_CYCLER_PHASE1;                 // movement phase(degrees)
         // second cycler component
-        tuly::ControlT<float> CO_CYCLER_FREQ2;              // movement frequency
-        tuly::ControlT<float> CO_CYCLER_AMPLITUDE2;      // movement amplitude (degrees)
-        tuly::ControlT<float> CO_CYCLER_ANGLE2;            // movement orientation (degrees)
+        tron::ControlT<float> CO_CYCLER_FREQ2;              // movement frequency
+        tron::ControlT<float> CO_CYCLER_AMP2;               // movement amplitude (degrees)
+        tron::ControlT<float> CO_CYCLER_ANGLE2;            // movement orientation (degrees)
+        tron::ControlT<int> CO_CYCLER_PHASE2;                 // movement phase(degrees)
         // common to both components
-        tuly::ControlT<int> CO_CYCLER_PHASE;            // phase difference between components (degrees)
-        tuly::ControlT<bool> CO_CYCLER_ACTION;           // start/stop movement
+        tron::ControlT<bool> CO_CYCLER_ACTION;           // start/stop movement
                 
     public:
         CyclerBus();
@@ -39,16 +40,17 @@ class CyclerBus
         std::string& getCyclerName() {return cyclerName;};
                 
         // first cycler component
-        tuly::ControlT<float>& getCO_CYCLER_FREQ1() {return CO_CYCLER_FREQ1;};        
-        tuly::ControlT<float>& getCO_CYCLER_AMPLITUDE1() {return CO_CYCLER_AMPLITUDE1;};        
-        tuly::ControlT<float>& getCO_CYCLER_ANGLE1() {return CO_CYCLER_ANGLE1;};        
+        tron::ControlT<float>& getCO_CYCLER_FREQ1() {return CO_CYCLER_FREQ1;};        
+        tron::ControlT<float>& getCO_CYCLER_AMP1() {return CO_CYCLER_AMP1;};        
+        tron::ControlT<float>& getCO_CYCLER_ANGLE1() {return CO_CYCLER_ANGLE1;};        
+        tron::ControlT<int>& getCO_CYCLER_PHASE1() {return CO_CYCLER_PHASE1;};           
         // second cycler component
-        tuly::ControlT<float>& getCO_CYCLER_FREQ2() {return CO_CYCLER_FREQ2;};        
-        tuly::ControlT<float>& getCO_CYCLER_AMPLITUDE2() {return CO_CYCLER_AMPLITUDE2;};        
-        tuly::ControlT<float>& getCO_CYCLER_ANGLE2() {return CO_CYCLER_ANGLE2;};        
+        tron::ControlT<float>& getCO_CYCLER_FREQ2() {return CO_CYCLER_FREQ2;};        
+        tron::ControlT<float>& getCO_CYCLER_AMP2() {return CO_CYCLER_AMP2;};        
+        tron::ControlT<float>& getCO_CYCLER_ANGLE2() {return CO_CYCLER_ANGLE2;};        
+        tron::ControlT<int>& getCO_CYCLER_PHASE2() {return CO_CYCLER_PHASE2;};           
         // common to both components
-        tuly::ControlT<int>& getCO_CYCLER_PHASE() {return CO_CYCLER_PHASE;};           
-        tuly::ControlT<bool>& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};                
+        tron::ControlT<bool>& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};                
         
         std::string toString();
 };

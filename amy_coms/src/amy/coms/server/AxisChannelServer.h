@@ -6,13 +6,13 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "tron/talky2/channel/ChannelServer.h"
+#include "tron2/talky/channel/ChannelServer.h"
 #include "amy/coms/ArmConnector.h"
 
 namespace amy
 {
 // Channel server implementation for arm axis topic.
-class AxisChannelServer : public tron::ChannelServer, public ArmConnector
+class AxisChannelServer : public tron2::ChannelServer, public ArmConnector
 {            
 public:
     AxisChannelServer();

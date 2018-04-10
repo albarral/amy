@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "maty/math/Click.h"
+#include "tron/util/Click.h"
 
 namespace amy
 {
@@ -52,7 +52,7 @@ protected:
     int steps;               // counter of movement steps
     // output
     float outAccel;           // acceleration to control the joint 
-    maty::Click oClick;      // clock utility
+    tron::Click oClick;      // clock utility
 
 public:
         JointPositioner();

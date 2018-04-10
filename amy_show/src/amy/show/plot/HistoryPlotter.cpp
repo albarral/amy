@@ -16,7 +16,7 @@ HistoryPlotter::HistoryPlotter()
 //{
 //}
 
-void HistoryPlotter::init(tivy::SharedDisplay& oSharedDisplay)
+void HistoryPlotter::init(tron2::SharedDisplay& oSharedDisplay)
 {
     int timeSpan = 10000;    // 10s history shown
     int signalRange = 150;  // speed range
@@ -31,7 +31,7 @@ void HistoryPlotter::init(tivy::SharedDisplay& oSharedDisplay)
 }
                     
 // drives the axis towards the target position
-void HistoryPlotter::draw(tivy::SharedDisplay& oSharedDisplay, ShowData* pShowData)
+void HistoryPlotter::draw(tron2::SharedDisplay& oSharedDisplay, ShowData* pShowData)
 {
     // update pan speed history
     float panSOSpeed = pShowData->panSOSpeed;

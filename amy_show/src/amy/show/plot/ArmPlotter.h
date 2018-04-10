@@ -9,8 +9,8 @@
 #include "amy/show/ShowData.h"
 #include "amy/show/arm/ArmFrontView.h"
 #include "amy/show/arm/ArmSideView.h"
-#include "tivy/SharedDisplay.h"
-#include "tivy/plot/DiscPlot.h"
+#include "tron2/tivy/SharedDisplay.h"
+#include "tron2/tivy/plot/DiscPlot.h"
 
 
 namespace amy
@@ -32,18 +32,18 @@ private:
     ArmFrontView oArmFrontView;    // plotting of frontal arm view 
     ArmSideView oArmSideView;     // plotting of side arm view  
     // disk plots
-    tivy::DiscPlot oDiscPlot1;  
-    tivy::DiscPlot oDiscPlot2;  
-    tivy::DiscPlot oDiscPlot3;  
+    tron2::DiscPlot oDiscPlot1;  
+    tron2::DiscPlot oDiscPlot2;  
+    tron2::DiscPlot oDiscPlot3;  
 
 public:
     ArmPlotter();
     //~ArmPlotter();
         
     // initialize plot
-    void init(tivy::SharedDisplay& oSharedDisplay);
+    void init(tron2::SharedDisplay& oSharedDisplay);
     // draw plot
-    void draw(tivy::SharedDisplay& oSharedDisplay, ShowData* pShowData);
+    void draw(tron2::SharedDisplay& oSharedDisplay, ShowData* pShowData);
     
 private:
         // translate state of joint driver module to DiscPlot color

@@ -8,17 +8,17 @@
 
 #include "amy/coms/ArmConnector.h"
 #include "amy/core/bus/AxisBus.h"
-#include "tron/robot/sensors/ArmSensors.h"
-#include "tron/talky2/channel/ChannelPublisher.h"
+#include "tron2/robot/sensors/ArmSensors.h"
+#include "tron2/talky/channel/ChannelPublisher.h"
 
 namespace amy
 {
 // Channel publisher implementation for arm joints topic.
-class AxisChannelPublisher : public tron::ChannelPublisher, public ArmConnector
+class AxisChannelPublisher : public tron2::ChannelPublisher, public ArmConnector
 {            
 private:
-    tron::AxesData axesPositions;
-    tron::AxesData axesSpeeds;
+    tron2::AxesData axesPositions;
+    tron2::AxesData axesSpeeds;
     AxisBus* pBusPan;          // access to pan bus 
     AxisBus* pBusTilt;          // access to tilt bus
     AxisBus* pBusRadial;      // access to radial bus

@@ -13,7 +13,7 @@
 #include "amy/arm/move/JointPositioner.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
-#include "tuly/control/module3.h"
+#include "tron/control/module3.h"
 
 namespace amy
 {
@@ -24,7 +24,7 @@ namespace amy
 // - responds to new move requests
 // - performs move steps iteratively ...
 // - until movement is finished or blocked by any cause.
-class AxisDriver: public tuly::Module3
+class AxisDriver: public tron::Module3
 {
 public:
     // states of AxisDriver module

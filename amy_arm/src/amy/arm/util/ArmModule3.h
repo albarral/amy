@@ -6,7 +6,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include <tuly/control/module3.h>
+#include <tron/control/module3.h>
 #include "amy/core/bus/ArmBus.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/core/robot/Arm.h"
@@ -20,7 +20,7 @@ namespace amy
 // - init
 // - on (now it works)
 // - off    
-class ArmModule3 : public tuly::Module3
+class ArmModule3 : public tron::Module3
 {
 protected:
     bool benabled;

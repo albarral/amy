@@ -4,15 +4,15 @@
  ***************************************************************************/
 
 #include "amy/coms/publisher/AxisChannelPublisher.h"
-#include "tron/talky2/arm/AxisTalker.h"
-#include "tron/robot/RobotNodes.h"
-#include "tron/robot/topics/ArmTopics.h"
+#include "tron2/talky/arm/AxisTalker.h"
+#include "tron2/robot/RobotNodes.h"
+#include "tron2/robot/topics/ArmTopics.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-AxisChannelPublisher::AxisChannelPublisher() : ChannelPublisher(tron::RobotNodes::eNODE_ARM, tron::ArmTopics::eARM_AXIS)
+AxisChannelPublisher::AxisChannelPublisher() : ChannelPublisher(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_AXIS)
 {    
     pBusPan = 0;
     pBusTilt = 0;
@@ -60,13 +60,13 @@ bool AxisChannelPublisher::sendData()
     clearChannel();
     // publish messages with obtained axes data ...
     // positions
-    addMessage(tron::AxisTalker::eAXIS_PAN_POS, axesPositions.pan);
-    addMessage(tron::AxisTalker::eAXIS_TILT_POS, axesPositions.tilt);
-    addMessage(tron::AxisTalker::eAXIS_RAD_POS, axesPositions.radial);
+    addMessage(tron2::AxisTalker::eAXIS_PAN_POS, axesPositions.pan);
+    addMessage(tron2::AxisTalker::eAXIS_TILT_POS, axesPositions.tilt);
+    addMessage(tron2::AxisTalker::eAXIS_RAD_POS, axesPositions.radial);
     // speeds
-    addMessage(tron::AxisTalker::eAXIS_PAN_SPEED, axesSpeeds.pan);
-    addMessage(tron::AxisTalker::eAXIS_TILT_SPEED, axesSpeeds.tilt);
-    addMessage(tron::AxisTalker::eAXIS_RAD_SPEED, axesSpeeds.radial);
+    addMessage(tron2::AxisTalker::eAXIS_PAN_SPEED, axesSpeeds.pan);
+    addMessage(tron2::AxisTalker::eAXIS_TILT_SPEED, axesSpeeds.tilt);
+    addMessage(tron2::AxisTalker::eAXIS_RAD_SPEED, axesSpeeds.radial);
     publishAll();
     return true;
 }

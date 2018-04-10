@@ -14,15 +14,15 @@
 #include "amy/coms/server/AxisChannelServer.h"
 #include "amy/coms/server/CyclicChannelServer.h"
 #include "amy/coms/server/ExtraChannelServer.h"
-#include "tron/talky2/channel/ChannelServer.h"
+#include "tron2/talky/channel/ChannelServer.h"
 #include "amy/core/bus/ArmBus.h"
-#include "tuly/control/module2.h"
+#include "tron/control/module2.h"
 
 namespace amy
 {
 // This module serves external control request for arm control. 
 // It uses a dedicated channel server for each communications channel (one for each arm topic).
-class ArmServer : public tuly::Module2
+class ArmServer : public tron::Module2
 {
 private:
     static log4cxx::LoggerPtr logger;
@@ -48,7 +48,7 @@ private:
     // executes the behaviour
     virtual void loop();
     // check given channel server for received messages and process them
-    bool checkChannelServer(tron::ChannelServer& oChannelServer);
+    bool checkChannelServer(tron2::ChannelServer& oChannelServer);
 };
 }		
 #endif

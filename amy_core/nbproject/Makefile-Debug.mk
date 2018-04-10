@@ -59,13 +59,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../tron/tuly/dist/Debug/GNU-Linux -L../../tron/tuly/dist/Debug/GNU-Linux -ltron_tuly
+LDLIBSOPTIONS=-Wl,-rpath,../../tron/tron_control/dist/Debug/GNU-Linux -L../../tron/tron_control/dist/Debug/GNU-Linux -ltron_control
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ../../tron/tuly/dist/Debug/GNU-Linux/libtron_tuly.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ../../tron/tron_control/dist/Debug/GNU-Linux/libtron_control.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -74,46 +74,46 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_core.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/src/amy/core/bus/ArmBus.o: src/amy/core/bus/ArmBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/ArmBus.o src/amy/core/bus/ArmBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/ArmBus.o src/amy/core/bus/ArmBus.cpp
 
 ${OBJECTDIR}/src/amy/core/bus/AxisBus.o: src/amy/core/bus/AxisBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/AxisBus.o src/amy/core/bus/AxisBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/AxisBus.o src/amy/core/bus/AxisBus.cpp
 
 ${OBJECTDIR}/src/amy/core/bus/CyclerBus.o: src/amy/core/bus/CyclerBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/CyclerBus.o src/amy/core/bus/CyclerBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/CyclerBus.o src/amy/core/bus/CyclerBus.cpp
 
 ${OBJECTDIR}/src/amy/core/bus/JointBus.o: src/amy/core/bus/JointBus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/bus
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/JointBus.o src/amy/core/bus/JointBus.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/bus/JointBus.o src/amy/core/bus/JointBus.cpp
 
 ${OBJECTDIR}/src/amy/core/config/AmyConfig.o: src/amy/core/config/AmyConfig.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/config
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/AmyConfig.o src/amy/core/config/AmyConfig.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/config/AmyConfig.o src/amy/core/config/AmyConfig.cpp
 
 ${OBJECTDIR}/src/amy/core/robot/Arm.o: src/amy/core/robot/Arm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Arm.o src/amy/core/robot/Arm.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Arm.o src/amy/core/robot/Arm.cpp
 
 ${OBJECTDIR}/src/amy/core/robot/Joint.o: src/amy/core/robot/Joint.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Joint.o src/amy/core/robot/Joint.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Joint.o src/amy/core/robot/Joint.cpp
 
 ${OBJECTDIR}/src/amy/core/robot/Robot.o: src/amy/core/robot/Robot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/core/robot
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tuly/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Robot.o src/amy/core/robot/Robot.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_control/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/core/robot/Robot.o src/amy/core/robot/Robot.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tron_control && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -122,7 +122,7 @@ ${OBJECTDIR}/src/amy/core/robot/Robot.o: src/amy/core/robot/Robot.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../../tron/tuly && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tron_control && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

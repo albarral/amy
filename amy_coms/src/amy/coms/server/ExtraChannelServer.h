@@ -6,13 +6,13 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "tron/talky2/channel/ChannelServer.h"
+#include "tron2/talky/channel/ChannelServer.h"
 #include "amy/coms/ArmConnector.h"
 
 namespace amy
 {
 // Channel server implementation for arm extra topic.
-class ExtraChannelServer : public tron::ChannelServer, public ArmConnector
+class ExtraChannelServer : public tron2::ChannelServer, public ArmConnector
 {       
 private:
     bool bEndRequested;         // end of arm process requested

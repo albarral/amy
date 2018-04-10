@@ -4,15 +4,15 @@
  ***************************************************************************/
 
 #include "amy/coms/server/AxisChannelServer.h"
-#include "tron/talky2/arm/AxisTalker.h"
-#include "tron/robot/RobotNodes.h"
-#include "tron/robot/topics/ArmTopics.h"
+#include "tron2/talky/arm/AxisTalker.h"
+#include "tron2/robot/RobotNodes.h"
+#include "tron2/robot/topics/ArmTopics.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-AxisChannelServer::AxisChannelServer() : ChannelServer(tron::RobotNodes::eNODE_ARM, tron::ArmTopics::eARM_AXIS)
+AxisChannelServer::AxisChannelServer() : ChannelServer(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_AXIS)
 {    
 }
 
@@ -42,37 +42,37 @@ void AxisChannelServer::processCommands()
             {
                 switch (code)
                 {
-                    case tron::AxisTalker::eAXIS_PAN_POS:
+                    case tron2::AxisTalker::eAXIS_PAN_POS:
                         LOG4CXX_INFO(logger, "> set pan " << value);                        
                         pArmBus->getPanBus().getCO_AXIS_POS().request(value);
                         break;
 
-                    case tron::AxisTalker::eAXIS_TILT_POS:
+                    case tron2::AxisTalker::eAXIS_TILT_POS:
                         LOG4CXX_INFO(logger, "> set tilt " << value);                        
                         pArmBus->getTiltBus().getCO_AXIS_POS().request(value);
                         break;
 
-                    case tron::AxisTalker::eAXIS_RAD_POS:
+                    case tron2::AxisTalker::eAXIS_RAD_POS:
                         LOG4CXX_INFO(logger, "> set radius " << value);                        
                         pArmBus->getRadialBus().getCO_AXIS_POS().request(value);
                         break;
 
-                    case tron::AxisTalker::eAXIS_PAN_SPEED:
+                    case tron2::AxisTalker::eAXIS_PAN_SPEED:
                         LOG4CXX_INFO(logger, "> pan speed " << value);                        
                         pArmBus->getPanBus().getCO_AXIS_SPEED().request(value);
                         break;
 
-                    case tron::AxisTalker::eAXIS_TILT_SPEED:
+                    case tron2::AxisTalker::eAXIS_TILT_SPEED:
                         LOG4CXX_INFO(logger, "> tilt speed " << value);                        
                        pArmBus->getTiltBus().getCO_AXIS_SPEED().request(value);
                         break;
 
-                    case tron::AxisTalker::eAXIS_RAD_SPEED:
+                    case tron2::AxisTalker::eAXIS_RAD_SPEED:
                         LOG4CXX_INFO(logger, "> rad speed " << value);                        
                         pArmBus->getRadialBus().getCO_AXIS_SPEED().request(value);
                         break;
                         
-                    case tron::AxisTalker::eAXIS_KEEP_TILT:
+                    case tron2::AxisTalker::eAXIS_KEEP_TILT:
                         LOG4CXX_INFO(logger, "> keep tilt " << value);                        
                         pArmBus->getCO_KEEP_TILT().request((int)value);
                         break;

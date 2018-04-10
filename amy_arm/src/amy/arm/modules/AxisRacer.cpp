@@ -61,7 +61,7 @@ void AxisRacer::loop()
     else
         silentCycles++;
     
-    if (isStateChanged())
+    if (getStable() == 0)
         showState();
     
     switch (getState())

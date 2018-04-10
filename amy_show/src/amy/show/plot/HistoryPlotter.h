@@ -7,9 +7,9 @@
  ***************************************************************************/
 
 #include "amy/show/ShowData.h"
-#include "tivy/SharedDisplay.h"
-#include "tivy/plot/HistoryPlot.h"
-#include "tivy/history/History2D.h"
+#include "tron2/tivy/SharedDisplay.h"
+#include "tron2/tivy/plot/HistoryPlot.h"
+#include "tron2/tivy/history/History2D.h"
 
 namespace amy
 {
@@ -18,19 +18,19 @@ class HistoryPlotter
 {
 private:
     // logic
-    tivy::History2D oPanHistory2D;        // pan speed history
-    tivy::HistoryPlot oPanHistoryPlot;    // plotting of pan speed
-    tivy::History2D oTiltHistory2D;       // tilt speed history
-    tivy::HistoryPlot oTiltHistoryPlot;    // plotting of tilt speed
+    tron2::History2D oPanHistory2D;        // pan speed history
+    tron2::HistoryPlot oPanHistoryPlot;    // plotting of pan speed
+    tron2::History2D oTiltHistory2D;       // tilt speed history
+    tron2::HistoryPlot oTiltHistoryPlot;    // plotting of tilt speed
 
 public:
     HistoryPlotter();
     //~HistoryPlotter();
 
     // initialize plot
-    void init(tivy::SharedDisplay& oSharedDisplay);
+    void init(tron2::SharedDisplay& oSharedDisplay);
     // draw plot
-    void draw(tivy::SharedDisplay& oSharedDisplay, ShowData* pShowData);    
+    void draw(tron2::SharedDisplay& oSharedDisplay, ShowData* pShowData);    
 };
 }		
 #endif

@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "maty/math/PIDControl.h"
+#include "tron/math/PIDControl.h"
 #include "amy/arm/util/ArmModule3.h"
 
 namespace amy
@@ -31,7 +31,7 @@ public:
 protected:
     static log4cxx::LoggerPtr logger;
     // control 
-    maty::PIDControl oPIDControl;       // PID controller to achieve the target speed    
+    tron::PIDControl oPIDControl;       // PID controller to achieve the target speed    
     float speed1;                     // requested primary speed
     float speed2;                     // requested secondary speed
     bool brequested;                // flag indicating a speed request has arrived

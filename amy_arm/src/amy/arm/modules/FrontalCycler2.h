@@ -1,8 +1,8 @@
-#ifndef __AMY_ARM_FRONTALCYCLER_H
-#define __AMY_ARM_FRONTALCYCLER_H
+#ifndef __AMY_ARM_FRONTALCYCLER2_H
+#define __AMY_ARM_FRONTALCYCLER2_H
 
 /***************************************************************************
- *   Copyright (C) 2017 by Migtron Robotics   *
+ *   Copyright (C) 2018 by Migtron Robotics   *
  *   albarral@migtron.com   *
  ***************************************************************************/
 
@@ -10,18 +10,18 @@
 #include <log4cxx/logger.h>
 
 #include "amy/arm/util/ArmModule3.h"
-#include "amy/arm/move/LinearCycler.h"
 #include "amy/core/bus/AxisBus.h"
 #include "amy/core/bus/CyclerBus.h"
-#include "maty/math/Clock.h"
+#include "tron/signals/DualOscillator.h"
+#include "tron/signals/CyclicComponent.h"
 
 namespace amy
 {
 // Module used to perform cyclic movements in the frontal plane (just involving pan & tilt).
-// Movement parameters such as frequency, amplitude and orientation angle can be changed dynamically (without restarting the movement).
-// Movements are achieved by the combination of two perpendicular linear cyclers working in a coordinated way.
+// Movement parameters (frequency, amplitude, orientation and phase) can be changed dynamically without restarting the movement.
+// Movements are achieved by the use of a dual oscillator (a combination of two vectorial oscillators working synchronously).
 // The module's outputs are the pan & tilt speeds.
-class FrontalCycler: public ArmModule3
+class FrontalCycler2: public ArmModule3
 {
 public:
     // states 
@@ -40,18 +40,17 @@ private:
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
-    maty::Clock oClock;     // clock used to evolve linear cyclers
-    LinearCycler oLinearCycler1;    // first cyclic component
-    LinearCycler oLinearCycler2;    // second cyclic component
-    int phase;               // phase difference between both components
+    tron::DualOscillator oDualOscillator;   
+    tron::CyclicComponent oCyclicComponent1;    //  first cyclic component
+    tron::CyclicComponent oCyclicComponent2;     // second cyclic component  
     // output
     int priority;               // module's priority in control commands
     float xspeed;             // commanded pan speed 
     float yspeed;             // commanded tilt speed 
     
 public:
-        FrontalCycler();
-        //~FrontalCycler();                
+        FrontalCycler2();
+        //~FrontalCycler2();                
 
 private:
         // first actions when the thread begins 
