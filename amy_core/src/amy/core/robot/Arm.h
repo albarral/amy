@@ -30,6 +30,14 @@ public:
         eSINGLE_ARM,
         eUNDEF_ARM
     };
+    // arm axes
+    enum eAxes
+    {
+        eAXIS_PAN,
+        eAXIS_TILT,
+        eAXIS_RADIAL,
+        eAXIS_DIM
+    };
     
 private:
     std::string name;   // arm name

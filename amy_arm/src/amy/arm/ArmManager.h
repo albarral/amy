@@ -15,9 +15,7 @@
 #include "amy/core/robot/Arm.h"
 #include "amy/arm/config/ArmConfig.h"
 #include "amy/arm/modules/FrontalCycler2.h"
-#include "amy/arm/modules/PanRacer.h"
-#include "amy/arm/modules/TiltRacer.h"
-#include "amy/arm/modules/RadialRacer.h"
+#include "amy/arm/modules/AxisRacer.h"
 #include "amy/arm/modules/TiltKeeper.h"
 #include "amy/arm/modules/PanDriver.h"
 #include "amy/arm/modules/TiltDriver.h"
@@ -46,9 +44,9 @@ class ArmManager
         // level 4
         FrontalCycler2 oFrontalCycler;
         // level 3
-        PanRacer oPanRacer;
-        TiltRacer oTiltRacer;
-        RadialRacer oRadialRacer;
+        AxisRacer oPanRacer;
+        AxisRacer oTiltRacer;
+        AxisRacer oRadialRacer;
         // level 2
         TiltKeeper oTiltKeeper;
         PanDriver oPanDriver;

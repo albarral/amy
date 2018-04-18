@@ -11,6 +11,7 @@
 #include "tron/control/brooks/control2.h"
 #include "tron/control/brooks/control3.h"
 #include "tron/control/brooks/sensor3.h"
+#include "tron/control/operators/ControlAdder3.h"
 
 namespace amy
 {
@@ -21,8 +22,10 @@ class AxisBus
         std::string axisName;
         
         // AxisRacer
-        tron::Control3 CO_AXIS_SPEED;          // axis speed (degrees/s)
+        tron::Control3 CO_AXIS_SPEED1;          // axis primary speed (degrees/s)
         tron::Control3 CO_AXIS_SPEED2;        // axis secondary speed (degrees/s)
+        tron::Control3 CO_AXIS_SPEED3;        // axis third speed (degrees/s)
+        tron::ControlAdder3 CO_AXIS_SPEEDS;     // sum of axis speeds (degrees/s)
         // AxisDriver
         tron::Control2 CO_AXIS_POS;                // axis target position (degrees)
         
@@ -40,8 +43,10 @@ class AxisBus
         std::string& getAxisName() {return axisName;};
                 
         // AxisRacer
-        tron::Control3& getCO_AXIS_SPEED() {return CO_AXIS_SPEED;};        
+        tron::Control3& getCO_AXIS_SPEED1() {return CO_AXIS_SPEED1;};        
         tron::Control3& getCO_AXIS_SPEED2() {return CO_AXIS_SPEED2;};        
+        tron::Control3& getCO_AXIS_SPEED3() {return CO_AXIS_SPEED3;};        
+        tron::ControlAdder3& getCO_AXIS_SPEEDS() {return CO_AXIS_SPEEDS;};        
         // AxisDriver
         tron::Control2& getCO_AXIS_POS() {return CO_AXIS_POS;};        
         

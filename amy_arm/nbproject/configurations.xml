@@ -30,18 +30,12 @@
           <itemPath>src/amy/arm/modules/JointDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/PanDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/PanDriver.h</itemPath>
-          <itemPath>src/amy/arm/modules/PanRacer.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/PanRacer.h</itemPath>
-          <itemPath>src/amy/arm/modules/RadialRacer.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/RadialRacer.h</itemPath>
           <itemPath>src/amy/arm/modules/RadiusDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/RadiusDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/TiltDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/TiltDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/TiltKeeper.cpp</itemPath>
           <itemPath>src/amy/arm/modules/TiltKeeper.h</itemPath>
-          <itemPath>src/amy/arm/modules/TiltRacer.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/TiltRacer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="move" displayName="move" projectFiles="true">
           <itemPath>src/amy/arm/move/JointAccelerator.cpp</itemPath>
@@ -206,17 +200,6 @@
       </item>
       <item path="src/amy/arm/modules/PanDriver.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/PanRacer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/PanRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/RadialRacer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/RadialRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/RadiusDriver.cpp"
             ex="false"
             tool="1"
@@ -231,10 +214,6 @@
       <item path="src/amy/arm/modules/TiltKeeper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/TiltKeeper.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/TiltRacer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/TiltRacer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointAccelerator.cpp"
             ex="false"
@@ -341,17 +320,6 @@
       </item>
       <item path="src/amy/arm/modules/PanDriver.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/arm/modules/PanRacer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/PanRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/RadialRacer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/RadialRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/arm/modules/RadiusDriver.cpp"
             ex="false"
             tool="1"
@@ -366,10 +334,6 @@
       <item path="src/amy/arm/modules/TiltKeeper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/TiltKeeper.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/TiltRacer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/TiltRacer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/arm/move/JointAccelerator.cpp"
             ex="false"

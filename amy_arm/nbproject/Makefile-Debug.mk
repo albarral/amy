@@ -43,12 +43,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/FrontalCycler2.o \
 	${OBJECTDIR}/src/amy/arm/modules/JointDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/PanDriver.o \
-	${OBJECTDIR}/src/amy/arm/modules/PanRacer.o \
-	${OBJECTDIR}/src/amy/arm/modules/RadialRacer.o \
 	${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o \
-	${OBJECTDIR}/src/amy/arm/modules/TiltRacer.o \
 	${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o \
 	${OBJECTDIR}/src/amy/arm/move/JointPositioner.o \
 	${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o \
@@ -132,16 +129,6 @@ ${OBJECTDIR}/src/amy/arm/modules/PanDriver.o: src/amy/arm/modules/PanDriver.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/PanDriver.o src/amy/arm/modules/PanDriver.cpp
 
-${OBJECTDIR}/src/amy/arm/modules/PanRacer.o: src/amy/arm/modules/PanRacer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/PanRacer.o src/amy/arm/modules/PanRacer.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/RadialRacer.o: src/amy/arm/modules/RadialRacer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/RadialRacer.o src/amy/arm/modules/RadialRacer.cpp
-
 ${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o: src/amy/arm/modules/RadiusDriver.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
@@ -156,11 +143,6 @@ ${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o: src/amy/arm/modules/TiltKeeper.cp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o src/amy/arm/modules/TiltKeeper.cpp
-
-${OBJECTDIR}/src/amy/arm/modules/TiltRacer.o: src/amy/arm/modules/TiltRacer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/modules
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/TiltRacer.o src/amy/arm/modules/TiltRacer.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o: src/amy/arm/move/JointAccelerator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move

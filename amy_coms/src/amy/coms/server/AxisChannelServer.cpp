@@ -59,17 +59,17 @@ void AxisChannelServer::processCommands()
 
                     case tron2::AxisTalker::eAXIS_PAN_SPEED:
                         LOG4CXX_INFO(logger, "> pan speed " << value);                        
-                        pArmBus->getPanBus().getCO_AXIS_SPEED().request(value);
+                        pArmBus->getPanBus().getCO_AXIS_SPEED1().request(value);
                         break;
 
                     case tron2::AxisTalker::eAXIS_TILT_SPEED:
                         LOG4CXX_INFO(logger, "> tilt speed " << value);                        
-                       pArmBus->getTiltBus().getCO_AXIS_SPEED().request(value);
+                       pArmBus->getTiltBus().getCO_AXIS_SPEED1().request(value);
                         break;
 
                     case tron2::AxisTalker::eAXIS_RAD_SPEED:
                         LOG4CXX_INFO(logger, "> rad speed " << value);                        
-                        pArmBus->getRadialBus().getCO_AXIS_SPEED().request(value);
+                        pArmBus->getRadialBus().getCO_AXIS_SPEED1().request(value);
                         break;
                         
                     case tron2::AxisTalker::eAXIS_KEEP_TILT:

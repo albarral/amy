@@ -79,9 +79,9 @@ void ShowSenser::loop()
     pShowData->stateELB = pELBus->getSO_DRIVER_STATE().getValue();     
     // pan speeds 
     pShowData->panSOSpeed = pPanBus->getSO_AXIS_SPEED().getValue();
-    pShowData->panCOSpeed = pPanBus->getCO_AXIS_SPEED().getValue();
+    pShowData->panCOSpeed = pPanBus->getCO_AXIS_SPEED1().getValue();
     // tilt speeds
     pShowData->tiltSOSpeed = pTiltBus->getSO_AXIS_SPEED().getValue();
-    pShowData->tiltCOSpeed = pTiltBus->getCO_AXIS_SPEED().getValue();
+    pShowData->tiltCOSpeed = pTiltBus->getCO_AXIS_SPEED1().getValue();
 }
 }

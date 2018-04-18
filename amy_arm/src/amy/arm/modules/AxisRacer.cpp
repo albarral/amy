@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/AxisRacer.h"
+#include "amy/core/robot/Arm.h"
 
 using namespace log4cxx;
 
@@ -16,6 +17,9 @@ LoggerPtr AxisRacer::logger(Logger::getLogger("amy.arm"));
 AxisRacer::AxisRacer()
 {
     modName = "AxisRacer";
+    axis = -1;
+    pAxisBus = 0;
+    pJointBus = 0;
     // control priority
     priority = oArmConfig.getPriority4AxisRacers();
 }
@@ -25,21 +29,84 @@ void AxisRacer::showInitialized()
     LOG4CXX_INFO(logger, modName << " initialized");          
 }
 
+bool AxisRacer::tune4Axis(int value)
+{
+    // safety check
+    if (value >= 0 && value < Arm::eAXIS_DIM)
+    {
+        axis = value;
+        bool bok = true;    
+        switch (axis)
+        {
+            case Arm::eAXIS_PAN:
+                modName = "PanRacer";
+                break;
+            case Arm::eAXIS_TILT:
+                modName = "TiltRacer";
+                break;
+            case Arm::eAXIS_RADIAL:
+                modName = "RadialRacer";
+                break;                        
+            default:
+                bok = false;
+        }
+        return bok;
+    }
+    else    
+        return false;        
+}
+
 void AxisRacer::first()
 {
+    // connect to proper joint, end if failed
+    if (!setConnections())    
+    {
+        LOG4CXX_WARN(logger, modName << " couldn't connect to proper axis. Ending module!");
+        tron::Module3::off();
+        return;
+    }
+
     // start at done
     setState(eSTATE_DONE);
-    // connect to controlled joint (defined in derived modules)
-    setSpecificConnections();    
     // tune PID controller
     float* pPID = oArmConfig.getPIDRacer();
     oPIDControl.init(pPID[0], pPID[1], pPID[2]);
-    speed1 = speed2 = 0.0;
+    targetSpeed = 0.0;
     silentCycles = 0;
 
     log4cxx::NDC::push(modName);   	
 }
                     
+bool AxisRacer::setConnections()
+{
+    // safety check
+    if (pArmBus == 0)
+        return false;
+
+    bool bok = true;    
+    switch (axis)
+    {
+        case Arm::eAXIS_PAN:
+            pAxisBus = &(pArmBus->getPanBus());
+            // control HS joint 
+            pJointBus = &(pArmBus->getBusHS());
+            break;
+        case Arm::eAXIS_TILT:
+            pAxisBus = &(pArmBus->getTiltBus());
+            // control VS joint 
+            pJointBus = &(pArmBus->getBusVS());
+            break;
+        case Arm::eAXIS_RADIAL:
+            pAxisBus = &(pArmBus->getRadialBus());
+            // control ELB joint
+            pJointBus = &(pArmBus->getBusEL());
+            break;                        
+        default:
+            bok = false;
+    }
+    
+    return bok;
+}
 
 // drives the axis towards the target position
 void AxisRacer::loop()
@@ -54,9 +121,6 @@ void AxisRacer::loop()
         // exit from DONE 
         if (getState() == eSTATE_DONE)            
             setState(eSTATE_NEWMOVE);                           
-
-        // update target speed 
-        updateTargetSpeed();
     }
     else
         silentCycles++;
@@ -124,12 +188,6 @@ void AxisRacer::loop()
     writeBus();        
 }
 
-
-void AxisRacer::updateTargetSpeed()
-{
-    targetSpeed = speed1 + speed2;  
-}
-
 bool AxisRacer::checkBlocked()
 {
     // check if movement is blocked (pushing beyond the joint's limit)
@@ -137,6 +195,29 @@ bool AxisRacer::checkBlocked()
         return ((targetSpeed > 0.0 && jointLimit > 0) || (targetSpeed < 0.0 && jointLimit < 0));
     else
         return false;
+}
+
+void AxisRacer::senseBus()
+{
+    // sense axis speeds adder -> NEWMOVE
+    if (pAxisBus->getCO_AXIS_SPEEDS().checkRequested())
+    {
+        targetSpeed = pAxisBus->getCO_AXIS_SPEEDS().getValue();
+        brequested = true;
+    }
+    else
+        brequested = false;
+    
+    // sense axis speed
+    axisSpeed= pAxisBus->getSO_AXIS_SPEED().getValue();    
+    // sense reached joint limit
+    jointLimit = pJointBus->getSO_JOINT_LIMIT_REACHED().getValue();
+}
+
+void AxisRacer::writeBus()
+{  
+    // control joint
+    pJointBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 

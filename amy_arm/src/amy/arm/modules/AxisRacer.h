@@ -9,12 +9,14 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "tron/math/PIDControl.h"
 #include "amy/arm/util/ArmModule3.h"
+#include "amy/core/bus/AxisBus.h"
+#include "amy/core/bus/JointBus.h"
+#include "tron/math/PIDControl.h"
 
 namespace amy
 {
-// (Base) Module for driving a given axis (pan, tilt, radius) at requested speed.
+// Module for driving a given axis (pan, tilt, radius) at a requested speed.
 // The module controls a single joint (sends commands to just one).
 class AxisRacer: public ArmModule3
 {
@@ -28,14 +30,16 @@ public:
          eSTATE_BLOCKED,      // movement blocked
     };
    
-protected:
+private:
     static log4cxx::LoggerPtr logger;
+    int axis;                       // controlled axis
+    // bus
+    AxisBus* pAxisBus;       // connection to axis bus
+    JointBus* pJointBus;      // connection to specific joint bus
     // control 
     tron::PIDControl oPIDControl;       // PID controller to achieve the target speed    
-    float speed1;                     // requested primary speed
-    float speed2;                     // requested secondary speed
     bool brequested;                // flag indicating a speed request has arrived
-    float targetSpeed;              // final requested axis speed
+    float targetSpeed;              // requested axis speed
     // sensor
     float axisSpeed;                // measured axis speed
     int jointLimit;                    // value indicating the controlled joint is blocked (due to reached limit)   
@@ -47,22 +51,22 @@ protected:
 public:
         AxisRacer();
         //~ArmRacer();                
-
-protected:
-        // connect module to specific joint
-        virtual void setSpecificConnections() = 0;
-        // read bus data
-        virtual void senseBus() = 0;
-        // write info (control & sensory) to bus
-        virtual void writeBus() = 0;
+        
+        // tunes racer for given axis
+        bool tune4Axis(int value);
         
 private:
         // first actions when the thread begins 
         virtual void first();
         // loop inside the module thread 
         virtual void loop();            
-        // updates target speed
-        void updateTargetSpeed();
+        // read bus data
+        virtual void senseBus();
+        // write info (control & sensory) to bus
+        virtual void writeBus();
+
+        // connect module to specific joint
+        bool setConnections();    
         // check if controlled joint is blocked (due to reached range limit)
         bool checkBlocked();                                                
 

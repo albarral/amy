@@ -7,6 +7,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/ArmManager.h"
+#include "amy/core/robot/Arm.h"
 
 using namespace log4cxx;
 
@@ -110,10 +111,13 @@ void ArmManager::initArchitecture()
 
     // pan / tilt / radial racer modules
     oPanRacer.setLevel(nivel);
+    oPanRacer.tune4Axis(Arm::eAXIS_PAN);
     listModules3.push_back(&oPanRacer);
     oTiltRacer.setLevel(nivel);
+    oTiltRacer.tune4Axis(Arm::eAXIS_TILT);
     listModules3.push_back(&oTiltRacer);
     oRadialRacer.setLevel(nivel);
+    oRadialRacer.tune4Axis(Arm::eAXIS_RADIAL);    
     listModules3.push_back(&oRadialRacer);
 
     // LEVEL 4    
