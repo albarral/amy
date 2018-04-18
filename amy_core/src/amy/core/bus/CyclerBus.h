@@ -8,7 +8,9 @@
 
 #include <string>
 
-#include "tron/control/brooks/controlT.h"
+#include "tron/control/brooks/control1.h"
+#include "tron/control/brooks/control2.h"
+#include "tron/control/brooks/control3.h"
 
 namespace amy
 {
@@ -19,17 +21,17 @@ class CyclerBus
         std::string cyclerName;
         
         // first cycler component
-        tron::ControlT<float> CO_CYCLER_FREQ1;              // movement frequency
-        tron::ControlT<float> CO_CYCLER_AMP1;                // movement amplitude (degrees)
-        tron::ControlT<float> CO_CYCLER_ANGLE1;            // movement orientation (degrees)
-        tron::ControlT<int> CO_CYCLER_PHASE1;                 // movement phase(degrees)
+        tron::Control3 CO_CYCLER_FREQ1;              // movement frequency
+        tron::Control3 CO_CYCLER_AMP1;                // movement amplitude (degrees)
+        tron::Control3 CO_CYCLER_ANGLE1;            // movement orientation (degrees)
+        tron::Control2 CO_CYCLER_PHASE1;                 // movement phase(degrees)
         // second cycler component
-        tron::ControlT<float> CO_CYCLER_FREQ2;              // movement frequency
-        tron::ControlT<float> CO_CYCLER_AMP2;               // movement amplitude (degrees)
-        tron::ControlT<float> CO_CYCLER_ANGLE2;            // movement orientation (degrees)
-        tron::ControlT<int> CO_CYCLER_PHASE2;                 // movement phase(degrees)
+        tron::Control3 CO_CYCLER_FREQ2;              // movement frequency
+        tron::Control3 CO_CYCLER_AMP2;               // movement amplitude (degrees)
+        tron::Control3 CO_CYCLER_ANGLE2;            // movement orientation (degrees)
+        tron::Control2 CO_CYCLER_PHASE2;                 // movement phase(degrees)
         // common to both components
-        tron::ControlT<bool> CO_CYCLER_ACTION;           // start/stop movement
+        tron::Control1 CO_CYCLER_ACTION;           // start/stop movement
                 
     public:
         CyclerBus();
@@ -40,17 +42,17 @@ class CyclerBus
         std::string& getCyclerName() {return cyclerName;};
                 
         // first cycler component
-        tron::ControlT<float>& getCO_CYCLER_FREQ1() {return CO_CYCLER_FREQ1;};        
-        tron::ControlT<float>& getCO_CYCLER_AMP1() {return CO_CYCLER_AMP1;};        
-        tron::ControlT<float>& getCO_CYCLER_ANGLE1() {return CO_CYCLER_ANGLE1;};        
-        tron::ControlT<int>& getCO_CYCLER_PHASE1() {return CO_CYCLER_PHASE1;};           
+        tron::Control3& getCO_CYCLER_FREQ1() {return CO_CYCLER_FREQ1;};        
+        tron::Control3& getCO_CYCLER_AMP1() {return CO_CYCLER_AMP1;};        
+        tron::Control3& getCO_CYCLER_ANGLE1() {return CO_CYCLER_ANGLE1;};        
+        tron::Control2& getCO_CYCLER_PHASE1() {return CO_CYCLER_PHASE1;};           
         // second cycler component
-        tron::ControlT<float>& getCO_CYCLER_FREQ2() {return CO_CYCLER_FREQ2;};        
-        tron::ControlT<float>& getCO_CYCLER_AMP2() {return CO_CYCLER_AMP2;};        
-        tron::ControlT<float>& getCO_CYCLER_ANGLE2() {return CO_CYCLER_ANGLE2;};        
-        tron::ControlT<int>& getCO_CYCLER_PHASE2() {return CO_CYCLER_PHASE2;};           
+        tron::Control3& getCO_CYCLER_FREQ2() {return CO_CYCLER_FREQ2;};        
+        tron::Control3& getCO_CYCLER_AMP2() {return CO_CYCLER_AMP2;};        
+        tron::Control3& getCO_CYCLER_ANGLE2() {return CO_CYCLER_ANGLE2;};        
+        tron::Control2& getCO_CYCLER_PHASE2() {return CO_CYCLER_PHASE2;};           
         // common to both components
-        tron::ControlT<bool>& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};                
+        tron::Control1& getCO_CYCLER_ACTION() {return CO_CYCLER_ACTION;};                
         
         std::string toString();
 };

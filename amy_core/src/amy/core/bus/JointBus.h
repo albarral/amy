@@ -8,8 +8,9 @@
 
 #include <string>
 
-#include "tron/control/brooks/controlT.h"
-#include "tron/control/brooks/sensorT.h"
+#include "tron/control/brooks/control3.h"
+#include "tron/control/brooks/sensor2.h"
+#include "tron/control/brooks/sensor3.h"
 
 namespace amy
 {
@@ -21,14 +22,14 @@ class JointBus
         std::string jointName;
 
         // CONTROLS 
-        tron::ControlT<float> CO_JOINT_ACCEL;         // commanded joint acceleration (degrees/s2)
-        tron::ControlT<float> CO_JOINT_ANGLE;         // commanded joint angle (degrees)
+        tron::Control3 CO_JOINT_ACCEL;         // commanded joint acceleration (degrees/s2)
+        tron::Control3 CO_JOINT_ANGLE;         // commanded joint angle (degrees)
 
         // SENSORS 
-        tron::SensorT<int> SO_DRIVER_STATE;               //  state of JointDriver module
-        tron::SensorT<float> SO_JOINT_SPEED;               //  internally commanded speed (degrees/s)
-        tron::SensorT<int> SO_JOINT_LIMIT_REACHED;     //  joint range limit reached: 0, 1 (top limit), -1 (bottom limit)
-        tron::SensorT<float> SO_IST_ANGLE;                 // real joint angle (degrees)
+        tron::Sensor2 SO_DRIVER_STATE;               //  state of JointDriver module
+        tron::Sensor3 SO_JOINT_SPEED;               //  internally commanded speed (degrees/s)
+        tron::Sensor2 SO_JOINT_LIMIT_REACHED;     //  joint range limit reached: 0, 1 (top limit), -1 (bottom limit)
+        tron::Sensor3 SO_IST_ANGLE;                 // real joint angle (degrees)
         
     public:
         JointBus();
@@ -40,14 +41,14 @@ class JointBus
         std::string& getJointName() {return jointName;};
 
         // CONTROLS 
-        tron::ControlT<float>& getCO_JOINT_ACCEL() {return CO_JOINT_ACCEL;};                
-        tron::ControlT<float>& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
+        tron::Control3& getCO_JOINT_ACCEL() {return CO_JOINT_ACCEL;};                
+        tron::Control3& getCO_JOINT_ANGLE() {return CO_JOINT_ANGLE;};                
         
         // SENSORS 
-        tron::SensorT<int>& getSO_DRIVER_STATE() {return SO_DRIVER_STATE;}; 
-        tron::SensorT<float>& getSO_JOINT_SPEED() {return SO_JOINT_SPEED;}; 
-        tron::SensorT<int>& getSO_JOINT_LIMIT_REACHED() {return SO_JOINT_LIMIT_REACHED;}; 
-        tron::SensorT<float>& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
+        tron::Sensor2& getSO_DRIVER_STATE() {return SO_DRIVER_STATE;}; 
+        tron::Sensor3& getSO_JOINT_SPEED() {return SO_JOINT_SPEED;}; 
+        tron::Sensor2& getSO_JOINT_LIMIT_REACHED() {return SO_JOINT_LIMIT_REACHED;}; 
+        tron::Sensor3& getSO_IST_ANGLE() {return SO_IST_ANGLE;}; 
         
         std::string toString();
 };
