@@ -17,11 +17,6 @@ namespace amy
 class Arm
 {
 public:
-    static const std::string horizontal_shoulder;
-    static const std::string vertical_shoulder;
-    static const std::string elbow;
-    static const std::string horizontal_wrist;
-    static const std::string vertical_wrist;
     // arm types
     enum eType
     {
@@ -38,10 +33,14 @@ public:
         eAXIS_RADIAL,
         eAXIS_DIM
     };
+    // axes names
+    static const std::string pan;
+    static const std::string tilt;
+    static const std::string radial;
     
 private:
     std::string name;   // arm name
-    int type;
+    int type;                // arm type (one of eTypes)   
     std::vector<Joint> listJoints;
 protected:    
     // segments
@@ -66,15 +65,18 @@ public:
     int getNumJoints() {return listJoints.size();};
 
     // checks if the arm has the given joint
-    bool hasJoint(std::string jointName);
+    bool hasJoint(int jointType);
     // get specific joint by position
     Joint* getJointByPos(int pos);
-    // get specific joint by name
-    Joint* getJointByName(std::string jointName);
+    // get specific joint by type
+    Joint* getJointByType(int jointType);
     
     int getLenHumerus() {return lenHumerus;};            
     int getLenRadius() {return lenRadius;};                
 
+    static bool isValidAxis(int value);
+    static std::string getName4Axis(int axis);
+    
     // return arm description
     std::string toString();
     

@@ -75,16 +75,16 @@ bool ArmManager::end()
 
 void ArmManager::initArchitecture()
 {
-    std::vector<std::string>& listControlledJoints = oAmyConfig.getListControlledJoints();
+    std::vector<int>& listControlledJoints = oAmyConfig.getListControlledJoints();
     int nivel, i;
     
     // LEVEL 1    
     nivel = 1;
     // joint control modules
     i=0;
-    for (std::string& jointName : listControlledJoints)
+    for (int jointType : listControlledJoints)
     {        
-        oJointDriver[i].setTargetJoint(jointName);        
+        oJointDriver[i].setTargetJoint(jointType);        
         oJointDriver[i].setLevel(nivel);
         listModules.push_back(&oJointDriver[i]);
         i++;
@@ -111,13 +111,13 @@ void ArmManager::initArchitecture()
 
     // pan / tilt / radial racer modules
     oPanRacer.setLevel(nivel);
-    oPanRacer.tune4Axis(Arm::eAXIS_PAN);
+    oPanRacer.setTargetAxis(Arm::eAXIS_PAN);
     listModules3.push_back(&oPanRacer);
     oTiltRacer.setLevel(nivel);
-    oTiltRacer.tune4Axis(Arm::eAXIS_TILT);
+    oTiltRacer.setTargetAxis(Arm::eAXIS_TILT);
     listModules3.push_back(&oTiltRacer);
     oRadialRacer.setLevel(nivel);
-    oRadialRacer.tune4Axis(Arm::eAXIS_RADIAL);    
+    oRadialRacer.setTargetAxis(Arm::eAXIS_RADIAL);    
     listModules3.push_back(&oRadialRacer);
 
     // LEVEL 4    

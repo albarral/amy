@@ -19,7 +19,7 @@ namespace amy
 class AxisBus
 {
     private:        
-        std::string axisName;
+        std::string busName;
         
         // AxisRacer
         tron::Control3 CO_AXIS_SPEED1;          // axis primary speed (degrees/s)
@@ -38,9 +38,9 @@ class AxisBus
         AxisBus();
         //~AxisBus();
         
-        // initializes the class with the given axis name
-        void init (std::string axisName);        
-        std::string& getAxisName() {return axisName;};
+        // set bus name
+        void setBusName(std::string name) {busName = name;};                
+        std::string& getBusName() {return busName;};
                 
         // AxisRacer
         tron::Control3& getCO_AXIS_SPEED1() {return CO_AXIS_SPEED1;};        

@@ -18,8 +18,7 @@ namespace amy
 class JointBus
 {
     private:        
-        bool benabled;
-        std::string jointName;
+        std::string busName;
 
         // CONTROLS 
         tron::Control3 CO_JOINT_ACCEL;         // commanded joint acceleration (degrees/s2)
@@ -33,12 +32,11 @@ class JointBus
         
     public:
         JointBus();
-        //~ConnectionsJoint();
+        //~JointBus();
                 
         // initializes the class with the given joint name
-        void init (std::string jointName);        
-        bool isEnabled() {return benabled;};
-        std::string& getJointName() {return jointName;};
+        void setBusName(std::string name) {busName = name;};        
+        std::string& getBusName() {return busName;};
 
         // CONTROLS 
         tron::Control3& getCO_JOINT_ACCEL() {return CO_JOINT_ACCEL;};                

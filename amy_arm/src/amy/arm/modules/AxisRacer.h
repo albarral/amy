@@ -32,7 +32,7 @@ public:
    
 private:
     static log4cxx::LoggerPtr logger;
-    int axis;                       // controlled axis
+    int targetAxis;                       // controlled axis
     // bus
     AxisBus* pAxisBus;       // connection to axis bus
     JointBus* pJointBus;      // connection to specific joint bus
@@ -52,8 +52,8 @@ public:
         AxisRacer();
         //~ArmRacer();                
         
-        // tunes racer for given axis
-        bool tune4Axis(int value);
+        // sets target axis
+        bool setTargetAxis(int value);
         
 private:
         // first actions when the thread begins 

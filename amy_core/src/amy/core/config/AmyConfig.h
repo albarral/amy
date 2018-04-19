@@ -19,7 +19,7 @@ class AmyConfig
         std::string usedRobot;     // name of controlled robot
         float modulesFreq;  // execution frequency for all modules (loops/sec)
         // amy arm
-        std::vector<std::string> listControlledJoints;  // list of controlled joint names
+        std::vector<int> listControlledJoints;  // list of controlled joint types
         
     public:
         AmyConfig();
@@ -31,8 +31,7 @@ class AmyConfig
         void setModulesFreq(float value) {modulesFreq = value;}
         float getModulesFreq() {return modulesFreq;}
 
-        void setListControlledJoints(std::vector<std::string>& list) {listControlledJoints = list;}
-        std::vector<std::string>& getListControlledJoints() {return listControlledJoints;}
+        std::vector<int>& getListControlledJoints() {return listControlledJoints;}
 
         // TEMPORAL configurations (to be removed)
         // real position not read yet. When done, return true here

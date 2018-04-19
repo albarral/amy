@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/main/robots/ArmYoubot.h"
+#include "amy/core/robot/Joint.h"
 
 namespace amy
 {
@@ -15,24 +16,24 @@ ArmYoubot::ArmYoubot ()
     Joint oJoint; 
 
     // horizontal shoulder - frontal arm ?
-    oJoint.setName(Arm::horizontal_shoulder);
+    oJoint.setType(Joint::eJOINT_HS);
     oJoint.setLimits(0, 90);
     addJoint(oJoint);
 
     // vertical shoulder - horizontal arm ?
-    oJoint.setName(Arm::vertical_shoulder);
+    oJoint.setType(Joint::eJOINT_VS);
     oJoint.setLimits(-30, 160);
     addJoint(oJoint);
 
     // elbow -  straight arm ?
-    oJoint.setName(Arm::elbow);
+    oJoint.setType(Joint::eJOINT_ELB);
     oJoint.setLimits(-240, -60);
     addJoint(oJoint);
 
     // NO horizontal wrist
     
     // vertical wrist - straight hand ?
-    oJoint.setName(Arm::vertical_wrist);
+    oJoint.setType(Joint::eJOINT_VW);
     oJoint.setLimits(0, 180);
     addJoint(oJoint);
         
@@ -40,4 +41,3 @@ ArmYoubot::ArmYoubot ()
     lenRadius = 20;
 }
 }
-

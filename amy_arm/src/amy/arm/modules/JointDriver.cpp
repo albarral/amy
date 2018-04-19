@@ -29,7 +29,7 @@ JointDriver::JointDriver()
 
 void JointDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
-    Joint* pJoint = oArm.getJointByName(jointName);
+    Joint* pJoint = oArm.getJointByType(targetJoint);
     lowLimit = pJoint->getLowerLimit();
     highLimit = pJoint->getUpperLimit();
     brakeAccel = oArmConfig.getBrakeAccel();

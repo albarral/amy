@@ -19,7 +19,7 @@ namespace amy
 class JointModule : public ArmModule
 {  
 protected:
-    std::string jointName;    // name of the controlled joint  
+    int targetJoint;    // controlled joint type
     // bus
     JointBus* pJointBus;    // bus connection for the controlled joint
 
@@ -27,7 +27,7 @@ public:
         JointModule();
         //~JointModule();
                 
-        void setTargetJoint(std::string name); 
+        void setTargetJoint(int type); 
         
        // bus connection               
        virtual void connect(ArmBus& oArmBus);              

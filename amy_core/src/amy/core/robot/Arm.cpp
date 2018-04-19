@@ -9,11 +9,9 @@
 
 namespace amy
 {
-const std::string Arm::horizontal_shoulder = "hs";
-const std::string Arm::vertical_shoulder = "vs";
-const std::string Arm::elbow = "el";
-const std::string Arm::horizontal_wrist = "hw";
-const std::string Arm::vertical_wrist = "vw";
+const std::string Arm::pan = "pan";
+const std::string Arm::tilt = "tilt";
+const std::string Arm::radial = "radial";
 
 Arm::Arm ()
 {
@@ -38,13 +36,13 @@ void Arm::addJoint(Joint& oJoint)
     listJoints.push_back(oJoint);    
 }
 
-bool Arm::hasJoint(std::string jointName)
+bool Arm::hasJoint(int jointType)
 {
     bool bfound = false;
     
     for (Joint& oJoint: listJoints)
     {
-        if (oJoint.getName().compare(jointName) == 0)
+        if (oJoint.getType() == jointType)
         {
             bfound = true;
             break;
@@ -63,13 +61,13 @@ Joint* Arm::getJointByPos(int pos)
     return pJoint;
 }
 
-Joint* Arm::getJointByName(std::string jointName)
+Joint* Arm::getJointByType(int jointType)
 {
     Joint* pJoint = 0;
     
     for (Joint& oJoint: listJoints)
     {
-        if (oJoint.getName().compare(jointName) == 0)
+        if (oJoint.getType() == jointType)
         {
             pJoint = &(oJoint);
             break;
@@ -77,6 +75,29 @@ Joint* Arm::getJointByName(std::string jointName)
     }    
 
     return pJoint;
+}
+
+bool Arm::isValidAxis(int value)
+{
+    return (value >= 0 && value < Arm::eAXIS_DIM);
+}
+
+std::string Arm::getName4Axis(int axis)
+{
+    switch (axis)
+    {
+        case Arm::eAXIS_PAN:
+            return Arm::pan;
+            break;
+        case Arm::eAXIS_TILT:
+            return Arm::tilt;
+            break;
+        case Arm::eAXIS_RADIAL:
+            return Arm::radial;
+            break;
+        default:
+            return "";
+    }
 }
 
 std::string Arm::toString()

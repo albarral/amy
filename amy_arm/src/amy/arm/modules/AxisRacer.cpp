@@ -17,7 +17,7 @@ LoggerPtr AxisRacer::logger(Logger::getLogger("amy.arm"));
 AxisRacer::AxisRacer()
 {
     modName = "AxisRacer";
-    axis = -1;
+    targetAxis = -1;
     pAxisBus = 0;
     pJointBus = 0;
     // control priority
@@ -29,14 +29,14 @@ void AxisRacer::showInitialized()
     LOG4CXX_INFO(logger, modName << " initialized");          
 }
 
-bool AxisRacer::tune4Axis(int value)
+bool AxisRacer::setTargetAxis(int value)
 {
     // safety check
-    if (value >= 0 && value < Arm::eAXIS_DIM)
+    if (Arm::isValidAxis(value))
     {
-        axis = value;
+        targetAxis = value;
         bool bok = true;    
-        switch (axis)
+        switch (targetAxis)
         {
             case Arm::eAXIS_PAN:
                 modName = "PanRacer";
@@ -84,7 +84,7 @@ bool AxisRacer::setConnections()
         return false;
 
     bool bok = true;    
-    switch (axis)
+    switch (targetAxis)
     {
         case Arm::eAXIS_PAN:
             pAxisBus = &(pArmBus->getPanBus());

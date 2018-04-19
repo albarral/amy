@@ -4,19 +4,19 @@
  ***************************************************************************/
 
 #include "amy/core/config/AmyConfig.h"
-#include "amy/core/robot/Arm.h"
+#include "amy/core/robot/Joint.h"
 
 namespace amy
 {    
 // Constructor
 AmyConfig::AmyConfig ()
 {    
-    modulesFreq = 20;  // 10 Hz
+    modulesFreq = 20;  
     
-    listControlledJoints.push_back(Arm::horizontal_shoulder);
-    listControlledJoints.push_back(Arm::vertical_shoulder);
-    listControlledJoints.push_back(Arm::elbow);
-    listControlledJoints.push_back(Arm::vertical_wrist);
+    listControlledJoints.push_back(Joint::eJOINT_HS);
+    listControlledJoints.push_back(Joint::eJOINT_VS);
+    listControlledJoints.push_back(Joint::eJOINT_ELB);
+    listControlledJoints.push_back(Joint::eJOINT_VW);
 }
 
 AmyConfig::~AmyConfig()
