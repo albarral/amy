@@ -26,7 +26,8 @@ class ArmBus
         tron::Control1 CO_ARM_STOP;       // arm stop
 
         // connections for all cyclers
-        CyclerBus oFrontalCyclerBus;
+        CyclerBus oCyclerBus1;
+        CyclerBus oCyclerBus2;
                 
         // TiltKeeper
         tron::Control1 CO_KEEP_TILT;    // arm's keep tilt
@@ -57,7 +58,8 @@ class ArmBus
         tron::Control1& getCO_ARM_STOP() {return CO_ARM_STOP;};        
         
         // CONTROLS & SENSORS for cyclers
-        CyclerBus& getFrontalCyclerBus() {return oFrontalCyclerBus;};
+        CyclerBus& getCyclerBus1() {return oCyclerBus1;};
+        CyclerBus& getCyclerBus2() {return oCyclerBus2;};
 
         // TiltKeeper
         tron::Control1& getCO_KEEP_TILT() {return CO_KEEP_TILT;};

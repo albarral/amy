@@ -12,8 +12,9 @@ using namespace log4cxx;
 
 namespace amy
 {
-AxisChannelServer::AxisChannelServer() : ChannelServer(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_AXIS)
+AxisChannelServer::AxisChannelServer()
 {    
+    tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_AXIS);    
 }
 
 //AxisChannelServer::~AxisChannelServer()

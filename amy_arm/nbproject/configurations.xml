@@ -18,14 +18,14 @@
           <itemPath>src/amy/arm/config/ArmConfig.h</itemPath>
         </logicalFolder>
         <logicalFolder name="modules" displayName="modules" projectFiles="true">
+          <itemPath>src/amy/arm/modules/ArmCycler.cpp</itemPath>
+          <itemPath>src/amy/arm/modules/ArmCycler.h</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.cpp</itemPath>
           <itemPath>src/amy/arm/modules/ArmSense.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/AxisDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/AxisRacer.cpp</itemPath>
           <itemPath>src/amy/arm/modules/AxisRacer.h</itemPath>
-          <itemPath>src/amy/arm/modules/FrontalCycler2.cpp</itemPath>
-          <itemPath>src/amy/arm/modules/FrontalCycler2.h</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.cpp</itemPath>
           <itemPath>src/amy/arm/modules/JointDriver.h</itemPath>
           <itemPath>src/amy/arm/modules/PanDriver.cpp</itemPath>
@@ -167,6 +167,10 @@
       </item>
       <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmCycler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmSense.h" ex="false" tool="3" flavor2="0">
@@ -178,16 +182,6 @@
       <item path="src/amy/arm/modules/AxisRacer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/FrontalCycler2.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/FrontalCycler2.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.cpp"
             ex="false"
@@ -287,6 +281,10 @@
       </item>
       <item path="src/amy/arm/config/ArmConfig.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/amy/arm/modules/ArmCycler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/amy/arm/modules/ArmCycler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/amy/arm/modules/ArmSense.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/ArmSense.h" ex="false" tool="3" flavor2="0">
@@ -298,16 +296,6 @@
       <item path="src/amy/arm/modules/AxisRacer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/arm/modules/AxisRacer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/FrontalCycler2.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/arm/modules/FrontalCycler2.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
       <item path="src/amy/arm/modules/JointDriver.cpp"
             ex="false"

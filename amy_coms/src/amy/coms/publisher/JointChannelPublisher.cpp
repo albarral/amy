@@ -12,8 +12,9 @@ using namespace log4cxx;
 
 namespace amy
 {
-JointChannelPublisher::JointChannelPublisher() : ChannelPublisher(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_JOINT)
+JointChannelPublisher::JointChannelPublisher()
 {    
+    tron2::ChannelPublisher::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_JOINT);    
     pBusHS = 0;
     pBusVS = 0;
     pBusEL = 0;

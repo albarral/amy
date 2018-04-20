@@ -42,7 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o \
 	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o \
 	${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o \
-	${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o \
+	${OBJECTDIR}/src/amy/coms/server/CyclerChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/JointChannelServer.o
 
@@ -106,10 +106,10 @@ ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o: src/amy/coms/server/AxisCh
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/AxisChannelServer.o src/amy/coms/server/AxisChannelServer.cpp
 
-${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o: src/amy/coms/server/CyclicChannelServer.cpp 
+${OBJECTDIR}/src/amy/coms/server/CyclerChannelServer.o: src/amy/coms/server/CyclerChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/CyclicChannelServer.o src/amy/coms/server/CyclicChannelServer.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/CyclerChannelServer.o src/amy/coms/server/CyclerChannelServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o: src/amy/coms/server/ExtraChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server

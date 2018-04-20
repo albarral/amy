@@ -20,7 +20,8 @@ void ArmBus::init(Arm& oArm)
     armName = oArm.getName();
     
     // init cycler buses
-    oFrontalCyclerBus.init("frontalcycler");
+    oCyclerBus1.init("cycler1");
+    oCyclerBus2.init("cycler2");
     
     // init axis buses
     oBusPan.setBusName(Arm::pan);
@@ -40,7 +41,8 @@ void ArmBus::init(Arm& oArm)
 std::string ArmBus::toString()
 {
     std::string text = "ArmBus:[" + armName + "]\n" +       
-        "\n" + oFrontalCyclerBus.toString() +   
+        "\n" + oCyclerBus1.toString() +   
+        "\n" + oCyclerBus2.toString() +   
         "CO_KEEP_TILT: " + std::to_string(CO_KEEP_TILT.getRequested()) + " - " + std::to_string(CO_KEEP_TILT.getValue()) + "\n" +
         "\n" + oBusPan.toString() +   
         "\n" + oBusTilt.toString() +   

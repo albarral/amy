@@ -5,42 +5,42 @@
 
 #include "log4cxx/ndc.h"
 
-#include "amy/arm/modules/FrontalCycler2.h"
+#include "amy/arm/modules/ArmCycler.h"
 #include "tron/signals/CyclicMath.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr FrontalCycler2::logger(Logger::getLogger("amy.arm"));
+LoggerPtr ArmCycler::logger(Logger::getLogger("amy.arm"));
 
-FrontalCycler2::FrontalCycler2()
+ArmCycler::ArmCycler()
 {
-    modName = "FrontalCycler2";
-    pBusFrontalCycler = 0;
+    modName = "ArmCycler";
+    pCyclerBus = 0;
     pPanBus = 0;
     pTiltBus = 0;
     // control priority
     priority = 1; 
 }
 
-void FrontalCycler2::showInitialized()
+void ArmCycler::showInitialized()
 {
     LOG4CXX_INFO(logger, modName << " initialized");          
 }
 
-void FrontalCycler2::first()
+void ArmCycler::first()
 {
     // start at done
     setState(eSTATE_DONE);
     
-    pBusFrontalCycler = &pArmBus->getFrontalCyclerBus();
+    pCyclerBus = &pArmBus->getCyclerBus1();
     pPanBus = &pArmBus->getPanBus();
     pTiltBus = &pArmBus->getTiltBus();
     log4cxx::NDC::push(modName);   	
 }
                     
-void FrontalCycler2::loop()
+void ArmCycler::loop()
 {    
     senseBus();
 
@@ -88,7 +88,7 @@ void FrontalCycler2::loop()
 }
 
 // triggers a cyclic movement
-void FrontalCycler2::triggerMove()
+void ArmCycler::triggerMove()
 {
     // trigger new oscillation 
     oDualOscillator.reset();
@@ -99,7 +99,7 @@ void FrontalCycler2::triggerMove()
 }
 
 // update the cyclic movement
-void FrontalCycler2::updateMove()
+void ArmCycler::updateMove()
 {
     // update oscillator
     oDualOscillator.update();
@@ -109,65 +109,65 @@ void FrontalCycler2::updateMove()
 }
 
 // stop the cyclic movement
-void FrontalCycler2::stopMove()
+void ArmCycler::stopMove()
 {
     // command null speeds
     xspeed = yspeed = 0.0;
 }
 
-void FrontalCycler2::senseBus()
+void ArmCycler::senseBus()
 {  
     // COMPONENT 1 ...    
     bool bchanged1 = false;
     // frequency 
-    if (pBusFrontalCycler->getCO_CYCLER_FREQ1().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_FREQ1().checkRequested())
     {
-        oCyclicComponent1.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ1().getValue());
+        oCyclicComponent1.setFreq(pCyclerBus->getCO_CYCLER_FREQ1().getValue());
         bchanged1 = true;
     }
     // amplitude 
-    if (pBusFrontalCycler->getCO_CYCLER_AMP1().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_AMP1().checkRequested())
     {
-        oCyclicComponent1.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP1().getValue());
+        oCyclicComponent1.setAmp(pCyclerBus->getCO_CYCLER_AMP1().getValue());
         bchanged1 = true;
     }
     // angle 
-    if (pBusFrontalCycler->getCO_CYCLER_ANGLE1().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_ANGLE1().checkRequested())
     {
-        oCyclicComponent1.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE1().getValue());
+        oCyclicComponent1.setAngle(pCyclerBus->getCO_CYCLER_ANGLE1().getValue());
         bchanged1 = true;
     }
     // phase
-    if (pBusFrontalCycler->getCO_CYCLER_PHASE1().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_PHASE1().checkRequested())
     {
-        oCyclicComponent1.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE1().getValue());
+        oCyclicComponent1.setPhase(pCyclerBus->getCO_CYCLER_PHASE1().getValue());
         bchanged1 = true;
     }
     
     // COMPONENT 2 ...    
     bool bchanged2 = false;
     // frequency 
-    if (pBusFrontalCycler->getCO_CYCLER_FREQ2().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_FREQ2().checkRequested())
     {
-        oCyclicComponent2.setFreq(pBusFrontalCycler->getCO_CYCLER_FREQ2().getValue());
+        oCyclicComponent2.setFreq(pCyclerBus->getCO_CYCLER_FREQ2().getValue());
         bchanged2 = true;
     }
     // amplitude 
-    if (pBusFrontalCycler->getCO_CYCLER_AMP2().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_AMP2().checkRequested())
     {
-        oCyclicComponent2.setAmp(pBusFrontalCycler->getCO_CYCLER_AMP2().getValue());
+        oCyclicComponent2.setAmp(pCyclerBus->getCO_CYCLER_AMP2().getValue());
         bchanged2 = true;
     }
     // angle 
-    if (pBusFrontalCycler->getCO_CYCLER_ANGLE2().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_ANGLE2().checkRequested())
     {
-        oCyclicComponent2.setAngle(pBusFrontalCycler->getCO_CYCLER_ANGLE2().getValue());
+        oCyclicComponent2.setAngle(pCyclerBus->getCO_CYCLER_ANGLE2().getValue());
         bchanged2 = true;
     }
     // phase
-    if (pBusFrontalCycler->getCO_CYCLER_PHASE2().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_PHASE2().checkRequested())
     {
-        oCyclicComponent2.setPhase(pBusFrontalCycler->getCO_CYCLER_PHASE2().getValue());
+        oCyclicComponent2.setPhase(pCyclerBus->getCO_CYCLER_PHASE2().getValue());
         bchanged2 = true;
     }
     
@@ -190,10 +190,10 @@ void FrontalCycler2::senseBus()
     }
 
     // action requested 
-    if (pBusFrontalCycler->getCO_CYCLER_ACTION().checkRequested())
+    if (pCyclerBus->getCO_CYCLER_ACTION().checkRequested())
     {
         // start requested
-        if (pBusFrontalCycler->getCO_CYCLER_ACTION().getValue()) 
+        if (pCyclerBus->getCO_CYCLER_ACTION().getValue()) 
             setState(eSTATE_START);                   
         // stop requested
         else
@@ -201,7 +201,7 @@ void FrontalCycler2::senseBus()
     }
 }
 
-void FrontalCycler2::writeBus()
+void ArmCycler::writeBus()
 {  
     // control pan & tilt speeds
     pPanBus->getCO_AXIS_SPEED2().request(xspeed, priority);
@@ -209,7 +209,7 @@ void FrontalCycler2::writeBus()
 }
 
 
-void FrontalCycler2::showState()
+void ArmCycler::showState()
 {
     switch (getState())
     {

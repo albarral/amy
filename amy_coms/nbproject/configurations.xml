@@ -28,8 +28,8 @@
         <logicalFolder name="server" displayName="server" projectFiles="true">
           <itemPath>src/amy/coms/server/AxisChannelServer.cpp</itemPath>
           <itemPath>src/amy/coms/server/AxisChannelServer.h</itemPath>
-          <itemPath>src/amy/coms/server/CyclicChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/CyclicChannelServer.h</itemPath>
+          <itemPath>src/amy/coms/server/CyclerChannelServer.cpp</itemPath>
+          <itemPath>src/amy/coms/server/CyclerChannelServer.h</itemPath>
           <itemPath>src/amy/coms/server/ExtraChannelServer.cpp</itemPath>
           <itemPath>src/amy/coms/server/ExtraChannelServer.h</itemPath>
           <itemPath>src/amy/coms/server/JointChannelServer.cpp</itemPath>
@@ -244,12 +244,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/CyclicChannelServer.cpp"
+      <item path="src/amy/coms/server/CyclerChannelServer.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/CyclicChannelServer.h"
+      <item path="src/amy/coms/server/CyclerChannelServer.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -347,12 +347,12 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/CyclicChannelServer.cpp"
+      <item path="src/amy/coms/server/CyclerChannelServer.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/CyclicChannelServer.h"
+      <item path="src/amy/coms/server/CyclerChannelServer.h"
             ex="false"
             tool="3"
             flavor2="0">

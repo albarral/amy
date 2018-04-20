@@ -12,8 +12,9 @@ using namespace log4cxx;
 
 namespace amy
 {
-JointChannelServer::JointChannelServer() : ChannelServer(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_JOINT)
+JointChannelServer::JointChannelServer()
 {    
+    tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_JOINT);    
 }
 
 //JointChannelServer::~JointChannelServer()

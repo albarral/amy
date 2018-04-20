@@ -18,6 +18,9 @@ ArmServer::ArmServer()
 {    
     modName = "ArmServer";
     benabled = false;
+    // assign cycler servers
+    oCycler1ChannelServer.setTargetCycler(1);
+    oCycler2ChannelServer.setTargetCycler(2);
  }
 
 void ArmServer::init(ArmBus& oArmBus)
@@ -25,13 +28,15 @@ void ArmServer::init(ArmBus& oArmBus)
     // prepare communication servers
     oJointChannelServer.connect2Bus(oArmBus);    
     oAxisChannelServer.connect2Bus(oArmBus);    
-    oCyclicChannelServer.connect2Bus(oArmBus);    
+    oCycler1ChannelServer.connect2Bus(oArmBus);    
+    oCycler2ChannelServer.connect2Bus(oArmBus);    
     oExtraChannelServer.connect2Bus(oArmBus);    
     
     // if servers enabled
     if (oJointChannelServer.isTuned() && 
         oAxisChannelServer.isTuned() && 
-        oCyclicChannelServer.isTuned() && 
+        oCycler1ChannelServer.isTuned() && 
+        oCycler2ChannelServer.isTuned() && 
         oExtraChannelServer.isTuned())
     {
         benabled = true;
@@ -52,8 +57,10 @@ void ArmServer::loop()
     checkChannelServer(oJointChannelServer);        
     // check axis channel
     checkChannelServer(oAxisChannelServer);        
-    // check cyclic channel
-    checkChannelServer(oCyclicChannelServer);        
+    // check cycler1 channel
+    checkChannelServer(oCycler1ChannelServer);        
+    // check cycler2 channel
+    checkChannelServer(oCycler2ChannelServer);        
     // check extra channel
     checkChannelServer(oExtraChannelServer);        
 }

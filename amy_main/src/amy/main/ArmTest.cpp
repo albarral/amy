@@ -46,7 +46,7 @@ void ArmTest::testCycler2()
     float freq = 0.3;
     int phase = 90;
     
-    CyclerBus& oBusFrontalCycler = pArmBus->getFrontalCyclerBus();
+    CyclerBus& oBusFrontalCycler = pArmBus->getCyclerBus1();
     // circular movement
     oBusFrontalCycler.getCO_CYCLER_ANGLE1().request(angle);
     oBusFrontalCycler.getCO_CYCLER_AMP1().request(amplitude);

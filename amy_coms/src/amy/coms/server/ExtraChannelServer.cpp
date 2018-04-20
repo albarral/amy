@@ -12,8 +12,9 @@ using namespace log4cxx;
 
 namespace amy
 {
-ExtraChannelServer::ExtraChannelServer() : ChannelServer(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_EXTRA)
+ExtraChannelServer::ExtraChannelServer()
 {    
+    tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_EXTRA);        
     bEndRequested = false;
 }
 

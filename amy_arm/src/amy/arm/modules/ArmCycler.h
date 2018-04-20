@@ -1,5 +1,5 @@
-#ifndef __AMY_ARM_FRONTALCYCLER2_H
-#define __AMY_ARM_FRONTALCYCLER2_H
+#ifndef __AMY_ARM_ARMCYCLER_H
+#define __AMY_ARM_ARMCYCLER_H
 
 /***************************************************************************
  *   Copyright (C) 2018 by Migtron Robotics   *
@@ -21,7 +21,7 @@ namespace amy
 // Movement parameters (frequency, amplitude, orientation and phase) can be changed dynamically without restarting the movement.
 // Movements are achieved by the use of a dual oscillator (a combination of two vectorial oscillators working synchronously).
 // The module's outputs are the pan & tilt speeds.
-class FrontalCycler2: public ArmModule3
+class ArmCycler: public ArmModule3
 {
 public:
     // states 
@@ -36,7 +36,7 @@ public:
 private:
     static log4cxx::LoggerPtr logger;
     // bus 
-    CyclerBus* pBusFrontalCycler;  // bus connection for this cycler
+    CyclerBus* pCyclerBus;  // bus connection for this cycler
     AxisBus* pPanBus;    // bus connection to pan axis
     AxisBus* pTiltBus;     // bus connection to tilt axis
     // control 
@@ -49,8 +49,8 @@ private:
     float yspeed;             // commanded tilt speed 
     
 public:
-        FrontalCycler2();
-        //~FrontalCycler2();                
+        ArmCycler();
+        //~ArmCycler();                
 
 private:
         // first actions when the thread begins 
