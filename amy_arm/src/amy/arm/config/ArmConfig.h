@@ -12,7 +12,7 @@ namespace amy
 {
 // Parameters for amy_arm project.
 class ArmConfig
-{
+{    
     private:     
         // JointDriver modules
         int brakeAccel;      // degrees/s2

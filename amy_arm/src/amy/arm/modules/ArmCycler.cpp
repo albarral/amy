@@ -6,6 +6,7 @@
 #include "log4cxx/ndc.h"
 
 #include "amy/arm/modules/ArmCycler.h"
+#include "amy/core/config/AmyConfig.h"
 #include "tron/signals/CyclicMath.h"
 
 using namespace log4cxx;
@@ -17,11 +18,23 @@ LoggerPtr ArmCycler::logger(Logger::getLogger("amy.arm"));
 ArmCycler::ArmCycler()
 {
     modName = "ArmCycler";
+    id = 0;
     pCyclerBus = 0;
     pPanBus = 0;
     pTiltBus = 0;
     // control priority
     priority = 1; 
+}
+
+void ArmCycler::setCyclerId(int value)
+{
+    // safety check
+    if (value == AmyConfig::CYCLER1 || value == AmyConfig::CYCLER2)
+    {
+        id = value;
+        // add id to module name
+        modName += std::to_string(id);
+    }
 }
 
 void ArmCycler::showInitialized()
@@ -34,7 +47,17 @@ void ArmCycler::first()
     // start at done
     setState(eSTATE_DONE);
     
-    pCyclerBus = &pArmBus->getCyclerBus1();
+    if (id == AmyConfig::CYCLER1)
+        pCyclerBus = &pArmBus->getCyclerBus1();
+    else if (id == AmyConfig::CYCLER2)
+        pCyclerBus = &pArmBus->getCyclerBus2();
+    else
+    {
+        LOG4CXX_WARN(logger, modName << " couldn't connect to proper cycler. Ending module!");
+        tron::Module3::off();
+        return;
+    }
+
     pPanBus = &pArmBus->getPanBus();
     pTiltBus = &pArmBus->getTiltBus();
     log4cxx::NDC::push(modName);   	
@@ -203,9 +226,17 @@ void ArmCycler::senseBus()
 
 void ArmCycler::writeBus()
 {  
-    // control pan & tilt speeds
-    pPanBus->getCO_AXIS_SPEED2().request(xspeed, priority);
-    pTiltBus->getCO_AXIS_SPEED2().request(yspeed, priority);
+    // control pan & tilt speeds (speed channels depend on cycler id)
+    if (id == AmyConfig::CYCLER1)
+    {
+        pPanBus->getCO_AXIS_SPEED2().request(xspeed, priority);
+        pTiltBus->getCO_AXIS_SPEED2().request(yspeed, priority);
+    }
+    else if (id == AmyConfig::CYCLER2)
+    {
+        pPanBus->getCO_AXIS_SPEED3().request(xspeed, priority);
+        pTiltBus->getCO_AXIS_SPEED3().request(yspeed, priority);
+    }
 }
 
 

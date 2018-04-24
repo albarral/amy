@@ -15,7 +15,11 @@ namespace amy
 {
 class AmyConfig 
 {
-    private:                
+public: 
+    static const int CYCLER1 = 1; 
+    static const int CYCLER2 = 2;
+
+private:                
         std::string usedRobot;     // name of controlled robot
         float modulesFreq;  // execution frequency for all modules (loops/sec)
         // amy arm

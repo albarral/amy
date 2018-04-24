@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/CyclerChannelServer.h"
+#include "amy/core/config/AmyConfig.h"
 #include "tron2/talky/arm/CyclicTalker.h"
 #include "tron2/robot/RobotNodes.h"
 #include "tron2/robot/topics/ArmTopics.h"
@@ -24,11 +25,15 @@ CyclerChannelServer::CyclerChannelServer()
 
 void CyclerChannelServer::setTargetCycler(int i)
 {
-    if (i == 1 || i == 2)
+    // safety check
+    if (i == AmyConfig::CYCLER1 || i == AmyConfig::CYCLER2)
     {
         targetCycler = i;
-        int topic = (targetCycler == 1) ? tron2::ArmTopics::eARM_CYCLER1 : tron2::ArmTopics::eARM_CYCLER2;
-        tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, topic);        
+        // tune channel server depending on target cycler
+        if (targetCycler == AmyConfig::CYCLER1)
+            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_CYCLER1);
+        else 
+            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_CYCLER2);            
     }
 }
 
@@ -38,7 +43,10 @@ void CyclerChannelServer::connect2Bus(ArmBus& oArmBus)
     if (targetCycler != 0)
     {
         ArmConnector::connect2Bus(oArmBus);
-        pCyclerBus = (targetCycler == 1) ? &(oArmBus.getCyclerBus1()) : &(oArmBus.getCyclerBus2());
+        if (targetCycler == AmyConfig::CYCLER1)
+            pCyclerBus = &(oArmBus.getCyclerBus1());
+        else 
+            pCyclerBus = &(oArmBus.getCyclerBus2());
     }
 }
 

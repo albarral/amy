@@ -42,7 +42,8 @@ class ArmManager
         int topLevel; // allow activation of modules until this level
         // modules ...
         // level 4
-        ArmCycler oFrontalCycler;
+        ArmCycler oArmCycler1;
+        ArmCycler oArmCycler2;
         // level 3
         AxisRacer oPanRacer;
         AxisRacer oTiltRacer;

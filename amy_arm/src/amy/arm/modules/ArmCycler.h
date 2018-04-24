@@ -35,6 +35,7 @@ public:
    
 private:
     static log4cxx::LoggerPtr logger;
+    int id;                         // cycler id
     // bus 
     CyclerBus* pCyclerBus;  // bus connection for this cycler
     AxisBus* pPanBus;    // bus connection to pan axis
@@ -52,6 +53,8 @@ public:
         ArmCycler();
         //~ArmCycler();                
 
+        void setCyclerId(int value);
+        int getCyclerId() {return id;};
 private:
         // first actions when the thread begins 
         virtual void first();
