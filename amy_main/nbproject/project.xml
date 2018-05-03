@@ -15,6 +15,7 @@
                 <make-dep-project>../../tron/tron_wire2</make-dep-project>
                 <make-dep-project>../../tron2/tron2_robot</make-dep-project>
                 <make-dep-project>../../tron/tron_math</make-dep-project>
+                <make-dep-project>../../tron2/tron2_coms</make-dep-project>
                 <make-dep-project>../../tron2/tron2_talky</make-dep-project>
                 <make-dep-project>../../tron/tron_signals</make-dep-project>
                 <make-dep-project>../../tron/tron_util</make-dep-project>

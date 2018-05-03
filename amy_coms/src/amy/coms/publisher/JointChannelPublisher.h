@@ -8,8 +8,8 @@
 
 #include "amy/coms/ArmConnector.h"
 #include "amy/core/bus/JointBus.h"
-#include "tron2/robot/sensors/ArmSensors.h"
-#include "tron2/talky/channel/ChannelPublisher.h"
+#include "tron2/robot/arm/ArmSensors.h"
+#include "tron2/coms/ChannelPublisher.h"
 
 namespace amy
 {

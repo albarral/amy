@@ -14,7 +14,7 @@
 #include "amy/coms/server/AxisChannelServer.h"
 #include "amy/coms/server/CyclerChannelServer.h"
 #include "amy/coms/server/ExtraChannelServer.h"
-#include "tron2/talky/channel/ChannelServer.h"
+#include "tron2/coms/ChannelServer.h"
 #include "amy/core/bus/ArmBus.h"
 #include "tron/control/module2.h"
 
@@ -32,7 +32,7 @@ private:
     JointChannelServer oJointChannelServer;       // communications server for joint channel
     AxisChannelServer oAxisChannelServer;     // communications server for axis channel
     CyclerChannelServer oCycler1ChannelServer;   // communications server for cycler1 channel
-    CyclerChannelServer oCycler2ChannelServer;   // communications server for cycler2 channel
+    //CyclerChannelServer oCycler2ChannelServer;   // communications server for cycler2 channel
     ExtraChannelServer oExtraChannelServer;    // communications server for extra channel
 
 public:

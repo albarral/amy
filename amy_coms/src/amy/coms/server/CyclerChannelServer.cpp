@@ -5,9 +5,9 @@
 
 #include "amy/coms/server/CyclerChannelServer.h"
 #include "amy/core/config/AmyConfig.h"
-#include "tron2/talky/arm/CyclicTalker.h"
-#include "tron2/robot/RobotNodes.h"
-#include "tron2/robot/topics/ArmTopics.h"
+#include "tron2/robot/RobotSystem.h"
+#include "tron2/robot/arm/ArmNode.h"
+#include "tron2/robot/arm/CyclicTopic.h"
 
 using namespace log4cxx;
 
@@ -31,9 +31,9 @@ void CyclerChannelServer::setTargetCycler(int i)
         targetCycler = i;
         // tune channel server depending on target cycler
         if (targetCycler == AmyConfig::CYCLER1)
-            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_CYCLER1);
+            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_CYCLIC);
         else 
-            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotNodes::eNODE_ARM, tron2::ArmTopics::eARM_CYCLER2);            
+            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_CYCLIC);            
     }
 }
 
@@ -73,47 +73,47 @@ void CyclerChannelServer::processCommands()
                 switch (code)
                 {
                     // FRONTAL CYCLER
-                    case tron2::CyclicTalker::eCYCLER_MAIN_FREQ:
+                    case tron2::CyclicTopic::eCYCLIC_MAIN_FREQ:
                         LOG4CXX_INFO(logger, identity << "> set cycler main freq " << value);                        
                         pCyclerBus->getCO_CYCLER_FREQ1().request(value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_MAIN_AMP:
+                    case tron2::CyclicTopic::eCYCLIC_MAIN_AMP:
                         LOG4CXX_INFO(logger, identity << "> set cycler main amplitude " << value);                        
                         pCyclerBus->getCO_CYCLER_AMP1().request(value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_MAIN_ANGLE:
+                    case tron2::CyclicTopic::eCYCLIC_MAIN_ANGLE:
                         LOG4CXX_INFO(logger, identity << "> set cycler main angle " << value);                        
                         pCyclerBus->getCO_CYCLER_ANGLE1().request(value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_MAIN_PHASE:
+                    case tron2::CyclicTopic::eCYCLIC_MAIN_PHASE:
                         LOG4CXX_INFO(logger, identity << "> set cycler main phase " << value);                        
                         pCyclerBus->getCO_CYCLER_PHASE1().request((int)value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_SEC_FREQ:
+                    case tron2::CyclicTopic::eCYCLIC_SEC_FREQ:
                         LOG4CXX_INFO(logger, identity << "> set cycler secondary freq " << value);                        
                         pCyclerBus->getCO_CYCLER_FREQ2().request(value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_SEC_AMP:
+                    case tron2::CyclicTopic::eCYCLIC_SEC_AMP:
                         LOG4CXX_INFO(logger, identity << "> set cycler secondary amplitude " << value);                        
                         pCyclerBus->getCO_CYCLER_AMP2().request(value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_SEC_ANGLE:
+                    case tron2::CyclicTopic::eCYCLIC_SEC_ANGLE:
                         LOG4CXX_INFO(logger, identity << "> set cycler secondary angle " << value);                        
                         pCyclerBus->getCO_CYCLER_ANGLE2().request(value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_SEC_PHASE:
+                    case tron2::CyclicTopic::eCYCLIC_SEC_PHASE:
                         LOG4CXX_INFO(logger, identity << "> set cycler secondary phase " << value);                        
                         pCyclerBus->getCO_CYCLER_PHASE2().request((int)value);
                         break;
 
-                    case tron2::CyclicTalker::eCYCLER_ACTION:
+                    case tron2::CyclicTopic::eCYCLIC_ACTION:
                     {
                         bool bgo = ((int)value != 0); 
                         LOG4CXX_INFO(logger, identity << "> cycler action " << bgo);                        
