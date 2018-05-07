@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/CyclerChannelServer.h"
+#include "tron2/robot/RobotNetwork.h"
 #include "amy/core/config/AmyConfig.h"
 #include "tron2/robot/RobotSystem.h"
 #include "tron2/robot/arm/ArmNode.h"
@@ -31,9 +32,9 @@ void CyclerChannelServer::setTargetCycler(int i)
         targetCycler = i;
         // tune channel server depending on target cycler
         if (targetCycler == AmyConfig::CYCLER1)
-            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_CYCLIC);
+            tron2::ChannelServer::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_CYCLER1_CHANNEL, tron2::ArmNode::eARM_CYCLIC);
         else 
-            tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_CYCLIC);            
+            tron2::ChannelServer::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_CYCLER2_CHANNEL, tron2::ArmNode::eARM_CYCLIC);            
     }
 }
 
@@ -68,7 +69,7 @@ void CyclerChannelServer::processCommands()
         {
             LOG4CXX_TRACE(logger, identity << "-CyclicChannelServer: check msg " << message);
             // if message interpreted, call proper bus action
-            if (pTalker->interpretMessage(message, code, value))
+            if (oTalker.interpretMessage(message, code, value))
             {
                 switch (code)
                 {

@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/ExtraChannelServer.h"
+#include "tron2/robot/RobotNetwork.h"
 #include "tron2/robot/RobotSystem.h"
 #include "tron2/robot/Node.h"
 #include "tron2/robot/common/ExtraTopic.h"
@@ -14,7 +15,7 @@ namespace amy
 {
 ExtraChannelServer::ExtraChannelServer()
 {    
-    tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::Node::eEXTRA_TOPIC);        
+    tron2::ChannelServer::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_EXTRA_CHANNEL, tron2::Node::eEXTRA_TOPIC);        
     bEndRequested = false;
 }
 
@@ -40,7 +41,7 @@ void ExtraChannelServer::processCommands()
         {
             LOG4CXX_TRACE(logger, "ExtraChannelServer: check msg " << message);
             // if message interpreted, call proper bus action
-            if (pTalker->interpretMessage(message, code, value))
+            if (oTalker.interpretMessage(message, code, value))
             {
                 switch (code)
                 {

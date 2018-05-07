@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/publisher/JointChannelPublisher.h"
+#include "tron2/robot/RobotNetwork.h"
 #include "tron2/robot/RobotSystem.h"
 #include "tron2/robot/arm/ArmNode.h"
 #include "tron2/robot/arm/JointTopic.h"
@@ -14,7 +15,7 @@ namespace amy
 {
 JointChannelPublisher::JointChannelPublisher()
 {    
-    tron2::ChannelPublisher::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_JOINT);    
+    tron2::ChannelPublisher::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_JOINTS_CHANNEL, tron2::ArmNode::eARM_JOINT);    
     pBusHS = 0;
     pBusVS = 0;
     pBusEL = 0;

@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/server/JointChannelServer.h"
+#include "tron2/robot/RobotNetwork.h"
 #include "tron2/robot/RobotSystem.h"
 #include "tron2/robot/arm/ArmNode.h"
 #include "tron2/robot/arm/JointTopic.h"
@@ -14,7 +15,7 @@ namespace amy
 {
 JointChannelServer::JointChannelServer()
 {    
-    tron2::ChannelServer::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_JOINT);    
+    tron2::ChannelServer::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_JOINTS_CHANNEL, tron2::ArmNode::eARM_JOINT);    
 }
 
 //JointChannelServer::~JointChannelServer()
@@ -39,7 +40,7 @@ void JointChannelServer::processCommands()
         {
             LOG4CXX_TRACE(logger, "JointChannelServer: check msg " << message);
             // if message interpreted, call proper bus action
-            if (pTalker->interpretMessage(message, code, value))
+            if (oTalker.interpretMessage(message, code, value))
             {
                 switch (code)
                 {

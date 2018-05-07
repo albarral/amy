@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/coms/publisher/AxisChannelPublisher.h"
+#include "tron2/robot/RobotNetwork.h"
 #include "tron2/robot/RobotSystem.h"
 #include "tron2/robot/arm/ArmNode.h"
 #include "tron2/robot/arm/AxisTopic.h"
@@ -14,7 +15,7 @@ namespace amy
 {
 AxisChannelPublisher::AxisChannelPublisher()
 {    
-    tron2::ChannelPublisher::tune4NodeAndTopic(tron2::RobotSystem::eNODE_ARM, tron2::ArmNode::eARM_AXIS);
+    tron2::ChannelPublisher::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_AXES_CHANNEL, tron2::ArmNode::eARM_AXIS);
     pBusPan = 0;
     pBusTilt = 0;
     pBusRadial = 0;    
