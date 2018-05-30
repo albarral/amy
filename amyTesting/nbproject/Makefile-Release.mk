@@ -64,17 +64,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/test/AmyCommander.o: src/amy/test/AmyCommander.cpp
+${OBJECTDIR}/src/amy/test/AmyCommander.o: src/amy/test/AmyCommander.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/AmyCommander.o src/amy/test/AmyCommander.cpp
 
-${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp
+${OBJECTDIR}/src/amy/test/Interpreter.o: src/amy/test/Interpreter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/Interpreter.o src/amy/test/Interpreter.cpp
 
-${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp
+${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/main.o src/amy/test/main.cpp
@@ -85,6 +85,7 @@ ${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amytesting
 
 # Subprojects
 .clean-subprojects:

@@ -70,47 +70,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}: ${OBJEC
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/utils/Console.o: src/amy/utils/Console.cpp
+${OBJECTDIR}/src/amy/utils/Console.o: src/amy/utils/Console.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Console.o src/amy/utils/Console.cpp
 
-${OBJECTDIR}/src/amy/utils/File.o: src/amy/utils/File.cpp
+${OBJECTDIR}/src/amy/utils/File.o: src/amy/utils/File.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/File.o src/amy/utils/File.cpp
 
-${OBJECTDIR}/src/amy/utils/FileReader.o: src/amy/utils/FileReader.cpp
+${OBJECTDIR}/src/amy/utils/FileReader.o: src/amy/utils/FileReader.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileReader.o src/amy/utils/FileReader.cpp
 
-${OBJECTDIR}/src/amy/utils/FileWriter.o: src/amy/utils/FileWriter.cpp
+${OBJECTDIR}/src/amy/utils/FileWriter.o: src/amy/utils/FileWriter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/FileWriter.o src/amy/utils/FileWriter.cpp
 
-${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp
+${OBJECTDIR}/src/amy/utils/Record.o: src/amy/utils/Record.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/Record.o src/amy/utils/Record.cpp
 
-${OBJECTDIR}/src/amy/utils/StringUtil.o: src/amy/utils/StringUtil.cpp
+${OBJECTDIR}/src/amy/utils/StringUtil.o: src/amy/utils/StringUtil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/StringUtil.o src/amy/utils/StringUtil.cpp
 
-${OBJECTDIR}/src/amy/utils/module.o: src/amy/utils/module.cpp
+${OBJECTDIR}/src/amy/utils/module.o: src/amy/utils/module.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module.o src/amy/utils/module.cpp
 
-${OBJECTDIR}/src/amy/utils/module2.o: src/amy/utils/module2.cpp
+${OBJECTDIR}/src/amy/utils/module2.o: src/amy/utils/module2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module2.o src/amy/utils/module2.cpp
 
-${OBJECTDIR}/src/amy/utils/module3.o: src/amy/utils/module3.cpp
+${OBJECTDIR}/src/amy/utils/module3.o: src/amy/utils/module3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/utils/module3.o src/amy/utils/module3.cpp
@@ -121,6 +121,7 @@ ${OBJECTDIR}/src/amy/utils/module3.o: src/amy/utils/module3.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_utils.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:

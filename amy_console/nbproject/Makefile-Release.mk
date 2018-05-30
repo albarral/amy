@@ -64,17 +64,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_console: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_console ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/src/amy/console/AmyConnector.o: src/amy/console/AmyConnector.cpp
+${OBJECTDIR}/src/amy/console/AmyConnector.o: src/amy/console/AmyConnector.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/AmyConnector.o src/amy/console/AmyConnector.cpp
 
-${OBJECTDIR}/src/amy/console/Interpreter.o: src/amy/console/Interpreter.cpp
+${OBJECTDIR}/src/amy/console/Interpreter.o: src/amy/console/Interpreter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/Interpreter.o src/amy/console/Interpreter.cpp
 
-${OBJECTDIR}/src/amy/console/main.o: src/amy/console/main.cpp
+${OBJECTDIR}/src/amy/console/main.o: src/amy/console/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/console
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/console/main.o src/amy/console/main.cpp
@@ -85,6 +85,7 @@ ${OBJECTDIR}/src/amy/console/main.o: src/amy/console/main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_console
 
 # Subprojects
 .clean-subprojects:

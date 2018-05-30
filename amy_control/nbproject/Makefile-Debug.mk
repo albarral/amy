@@ -66,27 +66,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT}: ${OBJ
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
-${OBJECTDIR}/src/amy/control/Click.o: src/amy/control/Click.cpp
+${OBJECTDIR}/src/amy/control/Click.o: src/amy/control/Click.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Click.o src/amy/control/Click.cpp
 
-${OBJECTDIR}/src/amy/control/Oscillator.o: src/amy/control/Oscillator.cpp
+${OBJECTDIR}/src/amy/control/Oscillator.o: src/amy/control/Oscillator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/Oscillator.o src/amy/control/Oscillator.cpp
 
-${OBJECTDIR}/src/amy/control/PIDControl.o: src/amy/control/PIDControl.cpp
+${OBJECTDIR}/src/amy/control/PIDControl.o: src/amy/control/PIDControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/PIDControl.o src/amy/control/PIDControl.cpp
 
-${OBJECTDIR}/src/amy/control/brooks/control.o: src/amy/control/brooks/control.cpp
+${OBJECTDIR}/src/amy/control/brooks/control.o: src/amy/control/brooks/control.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control/brooks
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/brooks/control.o src/amy/control/brooks/control.cpp
 
-${OBJECTDIR}/src/amy/control/brooks/inhibition.o: src/amy/control/brooks/inhibition.cpp
+${OBJECTDIR}/src/amy/control/brooks/inhibition.o: src/amy/control/brooks/inhibition.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/control/brooks
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/control/brooks/inhibition.o src/amy/control/brooks/inhibition.cpp
@@ -97,6 +97,7 @@ ${OBJECTDIR}/src/amy/control/brooks/inhibition.o: src/amy/control/brooks/inhibit
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_control.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:
