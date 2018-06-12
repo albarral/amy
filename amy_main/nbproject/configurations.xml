@@ -59,6 +59,7 @@
             <pElem>../amy_core/src</pElem>
             <pElem>../amy_arm/src</pElem>
             <pElem>../amy_coms/src</pElem>
+            <pElem>../amy_interface/src</pElem>
             <pElem>../amy_show/src</pElem>
             <pElem>../../tron2/tron2_coms/src</pElem>
             <pElem>../../tron2/tron2_robot/src</pElem>
@@ -109,6 +110,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_coms.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../amy_interface"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_interface"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
