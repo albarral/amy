@@ -4,10 +4,9 @@
  ***************************************************************************/
 
 #include "amy/coms/publisher/JointChannelPublisher.h"
-#include "tron2/robot/RobotNetwork.h"
+#include "amy/interface/ArmNode.h"
+#include "amy/interface/topics/JointTopic.h"
 #include "tron2/robot/RobotSystem.h"
-#include "tron2/robot/arm/ArmNode.h"
-#include "tron2/robot/arm/JointTopic.h"
 
 using namespace log4cxx;
 
@@ -15,7 +14,8 @@ namespace amy
 {
 JointChannelPublisher::JointChannelPublisher()
 {    
-    tron2::ChannelPublisher::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_JOINTS_CHANNEL, tron2::ArmNode::eARM_JOINT);    
+    int channel = ArmNode::eARM_JOINTS_CHANNEL;    
+    tron2::ChannelPublisher::connect2Channel(tron2::RobotSystem::eNODE_ARM, channel, ArmNode::getTopic4Channel(channel));    
     pBusHS = 0;
     pBusVS = 0;
     pBusEL = 0;
@@ -63,11 +63,11 @@ bool JointChannelPublisher::sendData()
     // clear channel
     clearChannel();
     // publish messages with obtained joints data
-    addMessage(tron2::JointTopic::eJOINT_HS_POS, jointsData.hs);
-    addMessage(tron2::JointTopic::eJOINT_VS_POS, jointsData.vs);
-    addMessage(tron2::JointTopic::eJOINT_ELB_POS, jointsData.elb);
-    addMessage(tron2::JointTopic::eJOINT_HWRI_POS, jointsData.hwri);
-    addMessage(tron2::JointTopic::eJOINT_VWRI_POS, jointsData.vwri);
+    addMessage(JointTopic::eJOINT_HS_POS, jointsData.hs);
+    addMessage(JointTopic::eJOINT_VS_POS, jointsData.vs);
+    addMessage(JointTopic::eJOINT_ELB_POS, jointsData.elb);
+    addMessage(JointTopic::eJOINT_HWRI_POS, jointsData.hwri);
+    addMessage(JointTopic::eJOINT_VWRI_POS, jointsData.vwri);
     publishAll();
     return true;
 }

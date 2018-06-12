@@ -8,7 +8,7 @@
 
 #include "amy/coms/ArmConnector.h"
 #include "amy/core/bus/AxisBus.h"
-#include "tron2/robot/arm/ArmSensors.h"
+#include "amy/interface/ArmSensors.h"
 #include "tron2/coms/ChannelPublisher.h"
 
 namespace amy
@@ -17,8 +17,8 @@ namespace amy
 class AxisChannelPublisher : public tron2::ChannelPublisher, public ArmConnector
 {            
 private:
-    tron2::AxesData axesPositions;
-    tron2::AxesData axesSpeeds;
+    AxesData axesPositions;
+    AxesData axesSpeeds;
     AxisBus* pBusPan;          // access to pan bus 
     AxisBus* pBusTilt;          // access to tilt bus
     AxisBus* pBusRadial;      // access to radial bus

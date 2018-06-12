@@ -4,9 +4,8 @@
  ***************************************************************************/
 
 #include "amy/coms/server/ExtraChannelServer.h"
-#include "tron2/robot/RobotNetwork.h"
+#include "amy/interface/ArmNode.h"
 #include "tron2/robot/RobotSystem.h"
-#include "tron2/robot/Node.h"
 #include "tron2/robot/common/ExtraTopic.h"
 
 using namespace log4cxx;
@@ -15,7 +14,8 @@ namespace amy
 {
 ExtraChannelServer::ExtraChannelServer()
 {    
-    tron2::ChannelServer::connect2Channel(tron2::RobotSystem::eNODE_ARM, tron2::RobotNetwork::eARM_EXTRA_CHANNEL, tron2::Node::eEXTRA_TOPIC);        
+    int channel = ArmNode::eARM_EXTRA_CHANNEL;    
+    tron2::ChannelServer::connect2Channel(tron2::RobotSystem::eNODE_ARM, channel, ArmNode::getTopic4Channel(channel));    
     bEndRequested = false;
 }
 

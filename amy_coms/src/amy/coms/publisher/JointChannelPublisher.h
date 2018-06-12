@@ -8,7 +8,7 @@
 
 #include "amy/coms/ArmConnector.h"
 #include "amy/core/bus/JointBus.h"
-#include "tron2/robot/arm/ArmSensors.h"
+#include "amy/interface/ArmSensors.h"
 #include "tron2/coms/ChannelPublisher.h"
 
 namespace amy
@@ -17,7 +17,7 @@ namespace amy
 class JointChannelPublisher : public tron2::ChannelPublisher, public ArmConnector
 {            
 private:
-    tron2::JointsData jointsData;
+    JointsData jointsData;
     JointBus* pBusHS;     // access to arm's HS joint
     JointBus* pBusVS;     // access to arm's VS joint
     JointBus* pBusEL;     // access to arm's ELB joint
