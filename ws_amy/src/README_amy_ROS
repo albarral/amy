@@ -9,9 +9,9 @@ libtron_util.so
 libtron_tools.so
 libtron_wire.so
 libtron_wire2.so
+libtron2_coms.so
 libtron2_robot.so
-libtron2_talky.so
-
+libamy_interface.so
 
 > Repos: 
 

@@ -6,15 +6,15 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "tron2/talky/arm/ArmListener.h"
-#include "tron2/robot/sensors/ArmSensors.h"
+#include "amy/interface/ArmListener.h"
+#include "amy/interface/ArmSensors.h"
 
 class RosAmyArm
 {
 private:    
     int counter;          
-    tron2::ArmListener oArmListener;         // listener utility for arm published info
-    tron2::JointsData jointPositions;           // structure for storing joints data
+    amy::ArmListener oArmListener;         // listener utility for arm published info
+    amy::JointsData jointPositions;           // structure for storing arm joints data
   
 public:
   RosAmyArm();
@@ -27,8 +27,8 @@ public:
 private:
     //void waitMoveDone(YoubotArm& oYoubotArm);
     
-    bool compareData(tron2::JointsData& jointPositions1, tron2::JointsData& jointPositions2);    
-    void showAngles(tron2::JointsData& jointPositions);  
+    bool compareData(amy::JointsData& jointPositions1, amy::JointsData& jointPositions2);    
+    void showAngles(amy::JointsData& jointPositions);  
 };
 
 #endif

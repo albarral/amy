@@ -31,7 +31,7 @@ set(tron_INCLUDE_DIRS   ${tron_util_INC} ${tron_tools_INC} ${tron_wire_INC} ${tr
 
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set module_FOUND to TRUE if all listed variables are TRUE
-find_package_handle_standard_args(amy DEFAULT_MSG tron_util_INC tron_tools_INC tron_wire_INC tron_wire2_INC tron_util_LIB tron_tools_LIB tron_wire_LIB tron_wire2_LIB)
+find_package_handle_standard_args(tron DEFAULT_MSG tron_util_INC tron_tools_INC tron_wire_INC tron_wire2_INC tron_util_LIB tron_tools_LIB tron_wire_LIB tron_wire2_LIB)
 
 mark_as_advanced(tron_util_INC tron_tools_INC tron_wire_INC2 tron_wire_INC tron_util_LIB tron_tools_LIB tron_wire_LIB tron_wire2_LIB)
 

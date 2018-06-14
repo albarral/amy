@@ -90,7 +90,7 @@ RosAmyArm::~RosAmyArm()
 }
 
 // check if given joint positions are the same
-bool RosAmyArm::compareData(tron2::JointsData& jointPositions1, tron2::JointsData& jointPositions2)
+bool RosAmyArm::compareData(amy::JointsData& jointPositions1, amy::JointsData& jointPositions2)
 {
     if (jointPositions1.hs == jointPositions2.hs &&
             jointPositions1.vs == jointPositions2.vs &&
@@ -102,7 +102,7 @@ bool RosAmyArm::compareData(tron2::JointsData& jointPositions1, tron2::JointsDat
         return false;
 }
 
-void RosAmyArm::showAngles(tron2::JointsData& jointPositions)
+void RosAmyArm::showAngles(amy::JointsData& jointPositions)
 {
     ROS_INFO("arm angles: %d, %d, %d", (int)jointPositions.hs, (int)jointPositions.vs, (int)jointPositions.elb);      
 }
