@@ -18,6 +18,13 @@
 #include "amy/arm/move/RadialPositioner.h"
 #include "amy/core/bus/CyclerBus.h"
 
+#include "amy/interface2/ArmNode.h"
+#include "amy/interface2/channels/JointsSection.h"
+#include "amy/interface2/JointsClient.h"
+#include "tron/coms/ComsReceiver.h"
+#include "tron/topics/RobotNodes.h"
+#include "tron/topics/Topic.h"
+
 using namespace log4cxx;
 
 namespace amy
@@ -147,6 +154,45 @@ void ArmTest::testRadialControl()
     }    
 }
 
+
+void ArmTest::testComs()
+{
+    LOG4CXX_INFO(logger, "testComs: start \n");
+    
+    tron::ComsReceiver oComsReceiver;
+    //tron::ComsSender oComsSender;    
+    JointsClient oJointsClient;
+    
+    // define coms topic
+    tron::Topic oTopic;
+    oTopic.set(tron::RobotNodes::eNODE_ARM, 
+            ArmNode2::eSECTION_JOINTS,
+            JointsSection::eJOINTS_HS,
+            tron::Topic::eTYPE_CONTROL);
+        
+    // test communication 
+    // (adding receiver channel for topic)
+    amy::ArmNode2 oArmNode;
+    if (oArmNode.buildTopic(oTopic))
+    {
+        oComsReceiver.addChannel(oTopic.getTopicName());
+
+        oJointsClient.setHS(10.0);
+    }
+    
+    usleep(1000000);    
+    
+    std::vector<std::string> listMessages;
+    //oComsReceiver.getChannel(0)->getMessages(listMessages);
+    listMessages = oComsReceiver.getChannel(0)->getMessages2();
+    
+    if (!listMessages.empty())
+    {
+        LOG4CXX_INFO(logger, "testComs: received message = " + listMessages.at(0));            
+    }
+        
+    LOG4CXX_INFO(logger, "testComs: end \n");    
+}
 
 
 }

@@ -32,10 +32,13 @@ public:
     void testCycler2();
     void testKeepTilt();    
 
+    void testComs();
+
 private:        
     void testJointMove();
     void testJointControl();
     void testRadialControl();
+    
 };
 
 }    

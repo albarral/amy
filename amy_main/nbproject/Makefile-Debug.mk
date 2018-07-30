@@ -57,7 +57,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -Wl,-rpath,../amy_interface/dist/Debug/GNU-Linux -L../amy_interface/dist/Debug/GNU-Linux -lamy_interface -Wl,-rpath,../amy_show/dist/Debug/GNU-Linux -L../amy_show/dist/Debug/GNU-Linux -lamy_show -Wl,-rpath,../../tron2/tron2_coms/dist/Debug/GNU-Linux -L../../tron2/tron2_coms/dist/Debug/GNU-Linux -ltron2_coms -Wl,-rpath,../../tron2/tron2_robot/dist/Debug/GNU-Linux -L../../tron2/tron2_robot/dist/Debug/GNU-Linux -ltron2_robot -Wl,-rpath,../../tron2/tron2_tivy/dist/Debug/GNU-Linux -L../../tron2/tron2_tivy/dist/Debug/GNU-Linux -ltron2_tivy -Wl,-rpath,../../tron/tron_control/dist/Debug/GNU-Linux -L../../tron/tron_control/dist/Debug/GNU-Linux -ltron_control -Wl,-rpath,../../tron/tron_math/dist/Debug/GNU-Linux -L../../tron/tron_math/dist/Debug/GNU-Linux -ltron_math -Wl,-rpath,../../tron/tron_signals/dist/Debug/GNU-Linux -L../../tron/tron_signals/dist/Debug/GNU-Linux -ltron_signals -Wl,-rpath,../../tron/tron_tools/dist/Debug/GNU-Linux -L../../tron/tron_tools/dist/Debug/GNU-Linux -ltron_tools -Wl,-rpath,../../tron/tron_util/dist/Debug/GNU-Linux -L../../tron/tron_util/dist/Debug/GNU-Linux -ltron_util -Wl,-rpath,../../tron/tron_wire/dist/Debug/GNU-Linux -L../../tron/tron_wire/dist/Debug/GNU-Linux -ltron_wire -Wl,-rpath,../../tron/tron_wire2/dist/Debug/GNU-Linux -L../../tron/tron_wire2/dist/Debug/GNU-Linux -ltron_wire2 -llog4cxx -lopencv_core -lopencv_highgui
+LDLIBSOPTIONS=-Wl,-rpath,../amy_core/dist/Debug/GNU-Linux -L../amy_core/dist/Debug/GNU-Linux -lamy_core -Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../amy_coms/dist/Debug/GNU-Linux -L../amy_coms/dist/Debug/GNU-Linux -lamy_coms -Wl,-rpath,../amy_interface/dist/Debug/GNU-Linux -L../amy_interface/dist/Debug/GNU-Linux -lamy_interface -Wl,-rpath,../amy_interface2/dist/Debug/GNU-Linux -L../amy_interface2/dist/Debug/GNU-Linux -lamy_interface2 -Wl,-rpath,../amy_show/dist/Debug/GNU-Linux -L../amy_show/dist/Debug/GNU-Linux -lamy_show -Wl,-rpath,../../tron2/tron2_coms/dist/Debug/GNU-Linux -L../../tron2/tron2_coms/dist/Debug/GNU-Linux -ltron2_coms -Wl,-rpath,../../tron2/tron2_robot/dist/Debug/GNU-Linux -L../../tron2/tron2_robot/dist/Debug/GNU-Linux -ltron2_robot -Wl,-rpath,../../tron2/tron2_tivy/dist/Debug/GNU-Linux -L../../tron2/tron2_tivy/dist/Debug/GNU-Linux -ltron2_tivy -Wl,-rpath,../../tron/tron_control/dist/Debug/GNU-Linux -L../../tron/tron_control/dist/Debug/GNU-Linux -ltron_control -Wl,-rpath,../../tron/tron_math/dist/Debug/GNU-Linux -L../../tron/tron_math/dist/Debug/GNU-Linux -ltron_math -Wl,-rpath,../../tron/tron_signals/dist/Debug/GNU-Linux -L../../tron/tron_signals/dist/Debug/GNU-Linux -ltron_signals -Wl,-rpath,../../tron/tron_tools/dist/Debug/GNU-Linux -L../../tron/tron_tools/dist/Debug/GNU-Linux -ltron_tools -Wl,-rpath,../../tron/tron_util/dist/Debug/GNU-Linux -L../../tron/tron_util/dist/Debug/GNU-Linux -ltron_util -Wl,-rpath,../../tron/tron_wire/dist/Debug/GNU-Linux -L../../tron/tron_wire/dist/Debug/GNU-Linux -ltron_wire -Wl,-rpath,../../tron/tron_wire2/dist/Debug/GNU-Linux -L../../tron/tron_wire2/dist/Debug/GNU-Linux -ltron_wire2 -Wl,-rpath,../../tron/tron_coms/dist/Debug/GNU-Linux -L../../tron/tron_coms/dist/Debug/GNU-Linux -ltron_coms -Wl,-rpath,../../tron/tron_topics/dist/Debug/GNU-Linux -L../../tron/tron_topics/dist/Debug/GNU-Linux -ltron_topics -llog4cxx -lopencv_core -lopencv_highgui
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -70,6 +70,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../amy_arm/dist/Debug/GNU-Linux/
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../amy_coms/dist/Debug/GNU-Linux/libamy_coms.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../amy_interface/dist/Debug/GNU-Linux/libamy_interface.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../amy_interface2/dist/Debug/GNU-Linux/libamy_interface2.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../amy_show/dist/Debug/GNU-Linux/libamy_show.so
 
@@ -93,6 +95,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/tron_wire/dist/Debug/
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/tron_wire2/dist/Debug/GNU-Linux/libtron_wire2.so
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/tron_coms/dist/Debug/GNU-Linux/libtron_coms.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ../../tron/tron_topics/dist/Debug/GNU-Linux/libtron_topics.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy ${OBJECTFILES} ${LDLIBSOPTIONS}
@@ -100,32 +106,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy: ${OBJECTFILES}
 ${OBJECTDIR}/src/amy/main/AmyControl.o: src/amy/main/AmyControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyControl.o src/amy/main/AmyControl.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyControl.o src/amy/main/AmyControl.cpp
 
 ${OBJECTDIR}/src/amy/main/ArmTest.o: src/amy/main/ArmTest.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/ArmTest.o src/amy/main/ArmTest.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/ArmTest.o src/amy/main/ArmTest.cpp
 
 ${OBJECTDIR}/src/amy/main/main.o: src/amy/main/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/main.o src/amy/main/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/main.o src/amy/main/main.cpp
 
 ${OBJECTDIR}/src/amy/main/robots/ArmUR5.o: src/amy/main/robots/ArmUR5.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main/robots
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/robots/ArmUR5.o src/amy/main/robots/ArmUR5.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/robots/ArmUR5.o src/amy/main/robots/ArmUR5.cpp
 
 ${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o: src/amy/main/robots/ArmYoubot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main/robots
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o src/amy/main/robots/ArmYoubot.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o src/amy/main/robots/ArmYoubot.cpp
 
 ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o: src/amy/main/robots/SupportedRobots.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main/robots
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o src/amy/main/robots/SupportedRobots.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_interface/src -I../amy_show/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron2/tron2_tivy/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o src/amy/main/robots/SupportedRobots.cpp
 
 # Subprojects
 .build-subprojects:
@@ -133,6 +139,7 @@ ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o: src/amy/main/robots/Supporte
 	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_coms && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_interface && ${MAKE}  -f Makefile CONF=Debug
+	cd ../amy_interface2 && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_show && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron2/tron2_coms && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron2/tron2_robot && ${MAKE}  -f Makefile CONF=Debug
@@ -144,6 +151,8 @@ ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o: src/amy/main/robots/Supporte
 	cd ../../tron/tron_util && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_wire && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_wire2 && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tron_coms && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tron_topics && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -156,6 +165,7 @@ ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o: src/amy/main/robots/Supporte
 	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_coms && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_interface && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../amy_interface2 && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_show && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron2/tron2_coms && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron2/tron2_robot && ${MAKE}  -f Makefile CONF=Debug clean
@@ -167,6 +177,8 @@ ${OBJECTDIR}/src/amy/main/robots/SupportedRobots.o: src/amy/main/robots/Supporte
 	cd ../../tron/tron_util && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_wire && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_wire2 && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tron_coms && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tron_topics && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
