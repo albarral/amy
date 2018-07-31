@@ -18,12 +18,8 @@
 #include "amy/arm/move/RadialPositioner.h"
 #include "amy/core/bus/CyclerBus.h"
 
-#include "amy/interface2/ArmNode.h"
-#include "amy/interface2/channels/JointsSection.h"
-#include "amy/interface2/JointsClient.h"
-#include "tron/coms/ComsReceiver.h"
-#include "tron/topics/RobotNodes.h"
-#include "tron/topics/Topic.h"
+#include "amy/interface2/control/JointsClient.h"
+#include "amy/interface2/control/JointsServer.h"
 
 using namespace log4cxx;
 
@@ -159,38 +155,32 @@ void ArmTest::testComs()
 {
     LOG4CXX_INFO(logger, "testComs: start \n");
     
-    tron::ComsReceiver oComsReceiver;
-    //tron::ComsSender oComsSender;    
     JointsClient oJointsClient;
-    
-    // define coms topic
-    tron::Topic oTopic;
-    oTopic.set(tron::RobotNodes::eNODE_ARM, 
-            ArmNode2::eSECTION_JOINTS,
-            JointsSection::eJOINTS_HS,
-            tron::Topic::eTYPE_CONTROL);
+    JointsServer oJointsServer;
         
     // test communication 
-    // (adding receiver channel for topic)
-    amy::ArmNode2 oArmNode;
-    if (oArmNode.buildTopic(oTopic))
-    {
-        oComsReceiver.addChannel(oTopic.getTopicName());
-
-        oJointsClient.setHS(10.0);
-    }
+    oJointsClient.setHS(10.0);
+    oJointsClient.setVS(15.0);
+    oJointsClient.setELB(20.0);
     
     usleep(1000000);    
     
-    std::vector<std::string> listMessages;
-    //oComsReceiver.getChannel(0)->getMessages(listMessages);
-    listMessages = oComsReceiver.getChannel(0)->getMessages2();
-    
-    if (!listMessages.empty())
+    float hs;
+    if (oJointsServer.getHS(hs))
     {
-        LOG4CXX_INFO(logger, "testComs: received message = " + listMessages.at(0));            
-    }
-        
+        LOG4CXX_INFO(logger, "testComs: received hs = " + std::to_string(hs));            
+    }        
+    float vs;
+    if (oJointsServer.getVS(vs))
+    {
+        LOG4CXX_INFO(logger, "testComs: received vs = " + std::to_string(vs));            
+    }        
+    float elb;
+    if (oJointsServer.getELB(elb))
+    {
+        LOG4CXX_INFO(logger, "testComs: received elb = " + std::to_string(elb));            
+    }        
+            
     LOG4CXX_INFO(logger, "testComs: end \n");    
 }
 

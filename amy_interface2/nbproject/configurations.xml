@@ -21,10 +21,14 @@
           <itemPath>src/amy/interface2/channels/JointsSection.cpp</itemPath>
           <itemPath>src/amy/interface2/channels/JointsSection.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f1" displayName="control" projectFiles="true">
+          <itemPath>src/amy/interface2/control/JointsClient.cpp</itemPath>
+          <itemPath>src/amy/interface2/control/JointsClient.h</itemPath>
+          <itemPath>src/amy/interface2/control/JointsServer.cpp</itemPath>
+          <itemPath>src/amy/interface2/control/JointsServer.h</itemPath>
+        </logicalFolder>
         <itemPath>src/amy/interface2/ArmNode.cpp</itemPath>
         <itemPath>src/amy/interface2/ArmNode.h</itemPath>
-        <itemPath>src/amy/interface2/JointsClient.cpp</itemPath>
-        <itemPath>src/amy/interface2/JointsClient.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -110,13 +114,6 @@
       </item>
       <item path="src/amy/interface2/ArmNode.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/interface2/JointsClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/interface2/JointsClient.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/interface2/channels/AxesSection.cpp"
             ex="false"
             tool="1"
@@ -143,6 +140,26 @@
             flavor2="0">
       </item>
       <item path="src/amy/interface2/channels/JointsSection.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsClient.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsServer.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -172,13 +189,6 @@
       </item>
       <item path="src/amy/interface2/ArmNode.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/interface2/JointsClient.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/interface2/JointsClient.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/interface2/channels/AxesSection.cpp"
             ex="false"
             tool="1"
@@ -205,6 +215,26 @@
             flavor2="0">
       </item>
       <item path="src/amy/interface2/channels/JointsSection.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsClient.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/JointsServer.h"
             ex="false"
             tool="3"
             flavor2="0">

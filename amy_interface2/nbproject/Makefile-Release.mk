@@ -36,10 +36,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/interface2/ArmNode.o \
-	${OBJECTDIR}/src/amy/interface2/JointsClient.o \
 	${OBJECTDIR}/src/amy/interface2/channels/AxesSection.o \
 	${OBJECTDIR}/src/amy/interface2/channels/CyclerSection.o \
-	${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o
+	${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o \
+	${OBJECTDIR}/src/amy/interface2/control/JointsClient.o \
+	${OBJECTDIR}/src/amy/interface2/control/JointsServer.o
 
 
 # C Compiler Flags
@@ -71,11 +72,6 @@ ${OBJECTDIR}/src/amy/interface2/ArmNode.o: src/amy/interface2/ArmNode.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/ArmNode.o src/amy/interface2/ArmNode.cpp
 
-${OBJECTDIR}/src/amy/interface2/JointsClient.o: src/amy/interface2/JointsClient.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/JointsClient.o src/amy/interface2/JointsClient.cpp
-
 ${OBJECTDIR}/src/amy/interface2/channels/AxesSection.o: src/amy/interface2/channels/AxesSection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/channels
 	${RM} "$@.d"
@@ -90,6 +86,16 @@ ${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o: src/amy/interface2/cha
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/channels
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o src/amy/interface2/channels/JointsSection.cpp
+
+${OBJECTDIR}/src/amy/interface2/control/JointsClient.o: src/amy/interface2/control/JointsClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsClient.o src/amy/interface2/control/JointsClient.cpp
+
+${OBJECTDIR}/src/amy/interface2/control/JointsServer.o: src/amy/interface2/control/JointsServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsServer.o src/amy/interface2/control/JointsServer.cpp
 
 # Subprojects
 .build-subprojects:
