@@ -47,8 +47,9 @@ tron::NodeSection* ArmNode2::getSection(int sectionCode)
 
 bool ArmNode2::buildTopic(tron::Topic & oTopic)
 {
+    tron::RobotNodes oRobotNodes;
     // get node name
-    oTopic.setNodeName(tron::RobotNodes::getName4Node(oTopic.getNode()));
+    oTopic.setNodeName(oRobotNodes.getName4Node(oTopic.getNode()));
     // get section name
     oTopic.setSectionName(getName4Section(oTopic.getSection()));    
     // get channel name

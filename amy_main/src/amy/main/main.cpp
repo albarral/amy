@@ -80,7 +80,7 @@ void runAmy(Robot& oRobot)
 
     ArmTest oArmTest;
     oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
-    oArmTest.testComs();
+    oArmTest.testComsReception();
 
 /*    
     // launch amy control & wait for it to end        

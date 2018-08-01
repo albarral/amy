@@ -33,6 +33,7 @@ public:
     void testKeepTilt();    
 
     void testComs();
+    void testComsReception();
 
 private:        
     void testJointMove();

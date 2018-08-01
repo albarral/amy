@@ -185,4 +185,36 @@ void ArmTest::testComs()
 }
 
 
+void ArmTest::testComsReception()
+{
+    LOG4CXX_INFO(logger, "testComsReception: start \n");
+    
+    JointsServer oJointsServer;
+
+    for (int i=0; i<200; i++)
+    {    
+        //LOG4CXX_INFO(logger, "i = " + std::to_string(i));            
+        
+        float hs;
+        if (oJointsServer.getHS(hs))
+        {
+            LOG4CXX_INFO(logger, "testComs: received hs = " + std::to_string(hs));            
+        }        
+        float vs;
+        if (oJointsServer.getVS(vs))
+        {
+            LOG4CXX_INFO(logger, "testComs: received vs = " + std::to_string(vs));            
+        }        
+        float elb;
+        if (oJointsServer.getELB(elb))
+        {
+            LOG4CXX_INFO(logger, "testComs: received elb = " + std::to_string(elb));            
+        }        
+        
+        usleep(100000);            
+    }    
+                    
+    LOG4CXX_INFO(logger, "testComs: end \n");    
+}
+
 }

@@ -35,15 +35,16 @@ public:
      
  public:     
    ArmNode2();
-               
+
+   // get node section with given code
+   tron::NodeSection* getSection(int sectionCode);
+   
     // build given topic (build topic name from its node/section/channel/type codes)
     virtual bool buildTopic(tron::Topic & oTopic) override;
     
     // return node description
     virtual std::string toString() override;    
     
- private:
-     tron::NodeSection* getSection(int sectionCode);
      
 };
 }
