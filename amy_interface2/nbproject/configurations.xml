@@ -22,6 +22,10 @@
           <itemPath>src/amy/interface2/channels/JointsSection.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="control" projectFiles="true">
+          <itemPath>src/amy/interface2/control/AxesClient.cpp</itemPath>
+          <itemPath>src/amy/interface2/control/AxesClient.h</itemPath>
+          <itemPath>src/amy/interface2/control/AxesServer.cpp</itemPath>
+          <itemPath>src/amy/interface2/control/AxesServer.h</itemPath>
           <itemPath>src/amy/interface2/control/JointsClient.cpp</itemPath>
           <itemPath>src/amy/interface2/control/JointsClient.h</itemPath>
           <itemPath>src/amy/interface2/control/JointsServer.cpp</itemPath>
@@ -144,6 +148,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/amy/interface2/control/AxesClient.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesServer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/interface2/control/JointsClient.cpp"
             ex="false"
             tool="1"
@@ -215,6 +239,26 @@
             flavor2="0">
       </item>
       <item path="src/amy/interface2/channels/JointsSection.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesClient.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/AxesServer.h"
             ex="false"
             tool="3"
             flavor2="0">
