@@ -78,11 +78,10 @@ void runAmy(Robot& oRobot)
 {        
     AmyControl oAmyControl; 
 
-    ArmTest oArmTest;
-    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
-    oArmTest.testComsReception();
+//    ArmTest oArmTest;
+//    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
+//    oArmTest.testComsReception();
 
-/*    
     // launch amy control & wait for it to end        
     if (oAmyControl.launch(oRobot))
     {
@@ -96,8 +95,7 @@ void runAmy(Robot& oRobot)
     }
     else
         LOG4CXX_ERROR(logger, "AmyControl could not be launched");
-        
- */ 
+
     return;
 }
 

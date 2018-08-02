@@ -26,14 +26,10 @@
           <itemPath>src/amy/coms/publisher/JointChannelPublisher.h</itemPath>
         </logicalFolder>
         <logicalFolder name="server" displayName="server" projectFiles="true">
-          <itemPath>src/amy/coms/server/AxisChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/AxisChannelServer.h</itemPath>
           <itemPath>src/amy/coms/server/CyclerChannelServer.cpp</itemPath>
           <itemPath>src/amy/coms/server/CyclerChannelServer.h</itemPath>
           <itemPath>src/amy/coms/server/ExtraChannelServer.cpp</itemPath>
           <itemPath>src/amy/coms/server/ExtraChannelServer.h</itemPath>
-          <itemPath>src/amy/coms/server/JointChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/JointChannelServer.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/coms/AmyComs.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComs.h</itemPath>
@@ -88,7 +84,12 @@
             <pElem>../../tron/tron_wire/src</pElem>
             <pElem>../../tron/tron_wire2/src</pElem>
             <pElem>../../tron/tron_tools/src</pElem>
+            <pElem>../amy_interface2/src</pElem>
+            <pElem>../../tron/tron_coms/src</pElem>
             <pElem>../../tron/tron_util/src</pElem>
+            <pElem>/usr/include/ignition/transport3</pElem>
+            <pElem>/usr/include/ignition/msgs0</pElem>
+            <pElem>/usr/include/ignition/math2</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -191,6 +192,30 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../amy_interface2"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../amy_interface2"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/tron_coms"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/tron_coms"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_coms.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../../tron/tron_util"
                             CT="2"
                             CN="Debug"
@@ -247,16 +272,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/AxisChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/AxisChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/coms/server/CyclerChannelServer.cpp"
             ex="false"
             tool="1"
@@ -273,16 +288,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/server/ExtraChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -350,16 +355,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/AxisChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/AxisChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/coms/server/CyclerChannelServer.cpp"
             ex="false"
             tool="1"
@@ -376,16 +371,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/server/ExtraChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.h"
             ex="false"
             tool="3"
             flavor2="0">
