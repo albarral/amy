@@ -26,8 +26,6 @@
           <itemPath>src/amy/coms/publisher/JointChannelPublisher.h</itemPath>
         </logicalFolder>
         <logicalFolder name="server" displayName="server" projectFiles="true">
-          <itemPath>src/amy/coms/server/CyclerChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/CyclerChannelServer.h</itemPath>
           <itemPath>src/amy/coms/server/ExtraChannelServer.cpp</itemPath>
           <itemPath>src/amy/coms/server/ExtraChannelServer.h</itemPath>
         </logicalFolder>
@@ -272,16 +270,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="src/amy/coms/server/ExtraChannelServer.cpp"
             ex="false"
             tool="1"
@@ -351,16 +339,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/publisher/JointChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.h"
             ex="false"
             tool="3"
             flavor2="0">

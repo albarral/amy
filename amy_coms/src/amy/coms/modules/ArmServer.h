@@ -9,13 +9,11 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-
-#include "amy/coms/server/CyclerChannelServer.h"
-#include "amy/coms/server/ExtraChannelServer.h"
-#include "tron2/coms/ChannelServer.h"
-
+//#include "amy/coms/server/ExtraChannelServer.h"
+//#include "tron2/coms/ChannelServer.h"
 #include "amy/interface2/control/JointsServer.h"
 #include "amy/interface2/control/AxesServer.h"
+#include "amy/interface2/control/CyclerServer.h"
 #include "amy/core/bus/ArmBus.h"
 #include "tron/control/module2.h"
 
@@ -33,9 +31,9 @@ private:
     ArmBus* pArmBus;      // access to arm bus    
     JointsServer oJointsServer;
     AxesServer oAxesServer;    
-    CyclerChannelServer oCycler1ChannelServer;   // communications server for cycler1 channel
-    CyclerChannelServer oCycler2ChannelServer;   // communications server for cycler2 channel
-    ExtraChannelServer oExtraChannelServer;    // communications server for extra channel
+    CyclerServer oCyclerServer1;
+    CyclerServer oCyclerServer2;
+//    ExtraChannelServer oExtraChannelServer;    // communications server for extra channel
 
 public:
     ArmServer();
@@ -51,10 +49,11 @@ private:
     // executes the behaviour
     virtual void loop();
     // check given channel server for received messages and process them
-    bool checkChannelServer(tron2::ChannelServer& oChannelServer);
+    //bool checkChannelServer(tron2::ChannelServer& oChannelServer);
     
     void checkJointsSection();        
     void checkAxesSection();
+    void checkCyclerSection(int i);
 };
 }		
 #endif

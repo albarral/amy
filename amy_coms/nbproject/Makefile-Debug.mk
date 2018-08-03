@@ -41,7 +41,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/modules/ArmServer.o \
 	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o \
 	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o \
-	${OBJECTDIR}/src/amy/coms/server/CyclerChannelServer.o \
 	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o
 
 
@@ -120,11 +119,6 @@ ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o: src/amy/coms/publis
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_interface/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron/tron_control/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../amy_interface2/src -I../../tron/tron_coms/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o src/amy/coms/publisher/JointChannelPublisher.cpp
-
-${OBJECTDIR}/src/amy/coms/server/CyclerChannelServer.o: src/amy/coms/server/CyclerChannelServer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_interface/src -I../../tron2/tron2_coms/src -I../../tron2/tron2_robot/src -I../../tron/tron_control/src -I../../tron/tron_wire/src -I../../tron/tron_wire2/src -I../../tron/tron_tools/src -I../amy_interface2/src -I../../tron/tron_coms/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/CyclerChannelServer.o src/amy/coms/server/CyclerChannelServer.cpp
 
 ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o: src/amy/coms/server/ExtraChannelServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server

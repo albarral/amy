@@ -7,6 +7,7 @@
 
 #include "amy/coms/modules/ArmServer.h"
 #include "amy/core/config/AmyConfig.h"
+#include "amy/core/bus/CyclerBus.h"
 
 using namespace log4cxx;
 
@@ -20,9 +21,9 @@ ArmServer::ArmServer()
     modName = "ArmServer";
     benabled = false;
     pArmBus = 0;
-    // assign cycler servers
-    oCycler1ChannelServer.setTargetCycler(AmyConfig::CYCLER1);
-    oCycler2ChannelServer.setTargetCycler(AmyConfig::CYCLER2);
+    // tune cycler servers
+    oCyclerServer1.tune2Cycler(AmyConfig::CYCLER1);
+    oCyclerServer2.tune2Cycler(AmyConfig::CYCLER2);
  }
 
 void ArmServer::init(ArmBus& oArmBus)
@@ -30,20 +31,16 @@ void ArmServer::init(ArmBus& oArmBus)
     pArmBus = &oArmBus;
     
     // prepare communication servers
-    oCycler1ChannelServer.connect2Bus(oArmBus);    
-    oCycler2ChannelServer.connect2Bus(oArmBus);    
-    oExtraChannelServer.connect2Bus(oArmBus);    
+    //oExtraChannelServer.connect2Bus(oArmBus);    
     
     // if servers enabled
-    if (oCycler1ChannelServer.isTuned() && 
-        oCycler2ChannelServer.isTuned() && 
-        oExtraChannelServer.isTuned())
+    if (oCyclerServer1.isTuned() && oCyclerServer2.isTuned())
     {
         benabled = true;
         LOG4CXX_INFO(logger, modName + " initialized");                                
     }
     else
-        LOG4CXX_ERROR(logger, modName + ": failed initialization, channel servers not tuned!");                        
+        LOG4CXX_ERROR(logger, modName + ": failed initialization, some servers not tuned!");                        
 }
 
 void ArmServer::first()
@@ -57,32 +54,20 @@ void ArmServer::loop()
     checkJointsSection();
     // check axes section
     checkAxesSection();
-
     // check cycler1 channel
-    checkChannelServer(oCycler1ChannelServer);        
+    checkCyclerSection(1);
     // check cycler2 channel
-    checkChannelServer(oCycler2ChannelServer);        
+    checkCyclerSection(2);
     // check extra channel
-    checkChannelServer(oExtraChannelServer);        
+//    checkChannelServer(oExtraChannelServer);        
 }
 
-bool ArmServer::checkChannelServer(tron2::ChannelServer& oChannelServer)
-{    
-    // receive messages from the given channel
-    if (oChannelServer.senseChannel())
-    {
-        // and process them
-        oChannelServer.processCommands();
-        return true;
-    }
-    // if no messages could be read
-    else
-        return false;
-}
 
 bool ArmServer::getAmyEndRequested()
 {
-    return oExtraChannelServer.getArmEndRequested();
+//    return oExtraChannelServer.getArmEndRequested();
+    // TO DO
+    return false;
 }
 
 void ArmServer::checkJointsSection()
@@ -167,4 +152,73 @@ void ArmServer::checkAxesSection()
     }    
 }
 
+void ArmServer::checkCyclerSection(int i)
+{
+    // security check
+    if (i<1 && i>2) 
+        return; 
+        
+    // select cycler server to use
+    CyclerServer& oCyclerServer = (i==1) ? oCyclerServer1 : oCyclerServer2;        
+    CyclerBus& oCyclerBus = (i==1) ? pArmBus->getCyclerBus1() : pArmBus->getCyclerBus2(); 
+    std::string identity = (i==1) ? "> cycler1 " : "> cycler2 ";
+       
+    float value;
+    int ivalue;
+    if (oCyclerServer.getMainFreq(value))
+    {
+        oCyclerBus.getCO_CYCLER_FREQ1().request(value);
+        LOG4CXX_INFO(logger, identity << "main freq " << value);                        
+    }
+    
+    if (oCyclerServer.getMainAmplitude(value))
+    {
+        oCyclerBus.getCO_CYCLER_AMP1().request(value);
+        LOG4CXX_INFO(logger, identity << "main amplitude " << value);                        
+    }
+
+    if (oCyclerServer.getMainAngle(value))
+    {
+        oCyclerBus.getCO_CYCLER_ANGLE1().request(value);
+        LOG4CXX_INFO(logger, identity << "main angle " << value);                        
+    }
+
+    if (oCyclerServer.getMainPhase(value))
+    {
+        oCyclerBus.getCO_CYCLER_PHASE1().request((int)value);
+        LOG4CXX_INFO(logger, identity << "main phase " << value);                        
+    }
+
+    if (oCyclerServer.getSecondaryFreq(value))
+    {
+        oCyclerBus.getCO_CYCLER_FREQ2().request(value);
+        LOG4CXX_INFO(logger, identity << "secondary freq " << value);                        
+    }
+    
+    if (oCyclerServer.getSecondaryAmplitude(value))
+    {
+        oCyclerBus.getCO_CYCLER_AMP2().request(value);
+        LOG4CXX_INFO(logger, identity << "secondary amplitude " << value);                        
+    }
+
+    if (oCyclerServer.getSecondaryAngle(value))
+    {
+        oCyclerBus.getCO_CYCLER_ANGLE2().request(value);
+        LOG4CXX_INFO(logger, identity << "secondary angle " << value);                        
+    }
+
+    if (oCyclerServer.getSecondaryPhase(value))
+    {
+        oCyclerBus.getCO_CYCLER_PHASE2().request((int)value);
+        LOG4CXX_INFO(logger, identity << "secondary phase " << value);                        
+    }
+
+    if (oCyclerServer.getAction(ivalue))
+    {
+        bool bgo = (ivalue != 0); 
+        oCyclerBus.getCO_CYCLER_ACTION().request(bgo);
+        LOG4CXX_INFO(logger, identity << " action " << bgo);                        
+    }
+
+}
 }
