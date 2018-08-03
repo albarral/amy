@@ -26,6 +26,10 @@
           <itemPath>src/amy/interface2/control/AxesClient.h</itemPath>
           <itemPath>src/amy/interface2/control/AxesServer.cpp</itemPath>
           <itemPath>src/amy/interface2/control/AxesServer.h</itemPath>
+          <itemPath>src/amy/interface2/control/CyclerClient.cpp</itemPath>
+          <itemPath>src/amy/interface2/control/CyclerClient.h</itemPath>
+          <itemPath>src/amy/interface2/control/CyclerServer.cpp</itemPath>
+          <itemPath>src/amy/interface2/control/CyclerServer.h</itemPath>
           <itemPath>src/amy/interface2/control/JointsClient.cpp</itemPath>
           <itemPath>src/amy/interface2/control/JointsClient.h</itemPath>
           <itemPath>src/amy/interface2/control/JointsServer.cpp</itemPath>
@@ -168,6 +172,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/amy/interface2/control/CyclerClient.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerServer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/interface2/control/JointsClient.cpp"
             ex="false"
             tool="1"
@@ -259,6 +283,26 @@
             flavor2="0">
       </item>
       <item path="src/amy/interface2/control/AxesServer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerClient.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerClient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerServer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/control/CyclerServer.h"
             ex="false"
             tool="3"
             flavor2="0">

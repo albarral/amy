@@ -41,6 +41,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesServer.o \
+	${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o \
+	${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o \
 	${OBJECTDIR}/src/amy/interface2/control/JointsClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/JointsServer.o
 
@@ -104,6 +106,16 @@ ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o: src/amy/interface2/control
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o src/amy/interface2/control/AxesServer.cpp
+
+${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o: src/amy/interface2/control/CyclerClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o src/amy/interface2/control/CyclerClient.cpp
+
+${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o: src/amy/interface2/control/CyclerServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o src/amy/interface2/control/CyclerServer.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/JointsClient.o: src/amy/interface2/control/JointsClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
