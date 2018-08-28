@@ -59,7 +59,7 @@ bool CyclerServer::tune2Cycler(int i)
         // set its topic 
         oTopic.set(node, section, channel, type);
         // and add a channel reader for it
-        if (oArmNode.buildTopic(oTopic))
+        if (oArmNode.buildTopicName(oTopic))
             oComsReceiver.addChannel(oTopic.getTopicName());            
     }
     

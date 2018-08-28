@@ -30,7 +30,7 @@ JointsClient::JointsClient()
         // set its topic 
         oTopic.set(node, section, channel, type);
         // and add a channel writer for it
-        if (oArmNode.buildTopic(oTopic))
+        if (oArmNode.buildTopicName(oTopic))
             oComsSender.addChannel(oTopic.getTopicName());            
     }
     
