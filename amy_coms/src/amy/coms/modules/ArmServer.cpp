@@ -21,6 +21,7 @@ ArmServer::ArmServer()
     modName = "ArmServer";
     benabled = false;
     pArmBus = 0;
+    bEndRequested = false;
     // tune cycler servers
     oCyclerServer1.tune2Cycler(AmyConfig::CYCLER1);
     oCyclerServer2.tune2Cycler(AmyConfig::CYCLER2);
@@ -59,7 +60,7 @@ void ArmServer::loop()
     // check cycler2 channel
     checkCyclerSection(2);
     // check extra channel
-//    checkChannelServer(oExtraChannelServer);        
+    checkExtraSection();
 }
 
 
@@ -102,7 +103,6 @@ void ArmServer::checkJointsSection()
         pArmBus->getBusVW().getCO_JOINT_ANGLE().request(value);
         LOG4CXX_INFO(logger, "> set VW " << value);                        
     }
-
 }
 
 void ArmServer::checkAxesSection()
@@ -219,6 +219,22 @@ void ArmServer::checkCyclerSection(int i)
         oCyclerBus.getCO_CYCLER_ACTION().request(bgo);
         LOG4CXX_INFO(logger, identity << " action " << bgo);                        
     }
-
 }
+
+void ArmServer::checkExtraSection()
+{
+    float value;
+    if (oExtraServer.getStop(value))
+    {
+        pArmBus->getCO_ARM_STOP().request(true);
+        LOG4CXX_INFO(logger, "> stop");                        
+    }
+
+    if (oExtraServer.getEnd(value))
+    {
+        bEndRequested = true;
+        LOG4CXX_INFO(logger, "> end arm");  
+    }
+}
+
 }

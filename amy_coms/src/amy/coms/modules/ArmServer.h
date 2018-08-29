@@ -9,13 +9,12 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-//#include "amy/coms/server/ExtraChannelServer.h"
-//#include "tron2/coms/ChannelServer.h"
 #include "amy/interface2/control/JointsServer.h"
 #include "amy/interface2/control/AxesServer.h"
 #include "amy/interface2/control/CyclerServer.h"
 #include "amy/core/bus/ArmBus.h"
 #include "tron/control/module2.h"
+#include "tron/interface/ExtraServer.h"
 
 namespace amy
 {
@@ -33,7 +32,8 @@ private:
     AxesServer oAxesServer;    
     CyclerServer oCyclerServer1;
     CyclerServer oCyclerServer2;
-//    ExtraChannelServer oExtraChannelServer;    // communications server for extra channel
+    tron::ExtraServer oExtraServer;    // communications server for extra channel
+    bool bEndRequested;         // end of arm process requested
 
 public:
     ArmServer();
@@ -48,12 +48,11 @@ private:
     virtual void first();
     // executes the behaviour
     virtual void loop();
-    // check given channel server for received messages and process them
-    //bool checkChannelServer(tron2::ChannelServer& oChannelServer);
     
     void checkJointsSection();        
     void checkAxesSection();
     void checkCyclerSection(int i);
+    void checkExtraSection();
 };
 }		
 #endif

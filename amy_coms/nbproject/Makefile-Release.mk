@@ -40,8 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o \
 	${OBJECTDIR}/src/amy/coms/modules/ArmServer.o \
 	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o \
-	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o \
-	${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o
+	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o
 
 
 # C Compiler Flags
@@ -97,11 +96,6 @@ ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o: src/amy/coms/publis
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o src/amy/coms/publisher/JointChannelPublisher.cpp
-
-${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o: src/amy/coms/server/ExtraChannelServer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/server
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/server/ExtraChannelServer.o src/amy/coms/server/ExtraChannelServer.cpp
 
 # Subprojects
 .build-subprojects:
