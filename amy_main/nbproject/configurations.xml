@@ -73,6 +73,7 @@
             <pElem>../../tron/tron_wire2/src</pElem>
             <pElem>../../tron/tron_tools/src</pElem>
             <pElem>../../tron/tron_coms/src</pElem>
+            <pElem>../../tron/tron_interface/src</pElem>
             <pElem>../../tron/tron_topics/src</pElem>
             <pElem>/usr/include/ignition/transport3</pElem>
             <pElem>/usr/include/ignition/msgs0</pElem>
@@ -284,6 +285,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_coms.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../tron/tron_interface"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../tron/tron_interface"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_interface.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

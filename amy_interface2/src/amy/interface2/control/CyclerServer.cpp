@@ -85,11 +85,10 @@ bool CyclerServer::tune2Cycler(int i)
 
 bool CyclerServer::getMainFreq(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pFreq1Channel->getMessages(listMessages) != 0)
+    // if main freq command received, get it
+    if (pFreq1Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pFreq1Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get main freq > " << std::to_string(value));
         return true;
     }
@@ -99,11 +98,10 @@ bool CyclerServer::getMainFreq(float& value)
 
 bool CyclerServer::getMainAmplitude(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pAmp1Channel->getMessages(listMessages))
+    // if main amp command received, get it
+    if (pAmp1Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pAmp1Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get main amplitude > " << std::to_string(value));
         return true;
     }
@@ -113,11 +111,10 @@ bool CyclerServer::getMainAmplitude(float& value)
 
 bool CyclerServer::getMainAngle(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pAngle1Channel->getMessages(listMessages))
+    // if main angle command received, get it
+    if (pAngle1Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pAngle1Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get main angle > " << std::to_string(value));
         return true;
     }
@@ -127,11 +124,10 @@ bool CyclerServer::getMainAngle(float& value)
 
 bool CyclerServer::getMainPhase(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pPhase1Channel->getMessages(listMessages))
+    // if main phase command received, get it
+    if (pPhase1Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pPhase1Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get main phase > " << std::to_string(value));
         return true;
     }
@@ -141,11 +137,10 @@ bool CyclerServer::getMainPhase(float& value)
 
 bool CyclerServer::getSecondaryFreq(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pFreq2Channel->getMessages(listMessages) != 0)
+    // if secondary freq command received, get it
+    if (pFreq2Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pFreq2Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get secondary freq > " << std::to_string(value));
         return true;
     }
@@ -155,11 +150,10 @@ bool CyclerServer::getSecondaryFreq(float& value)
 
 bool CyclerServer::getSecondaryAmplitude(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pAmp2Channel->getMessages(listMessages))
+    // if secondary amp command received, get it
+    if (pAmp2Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pAmp2Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get secondary amplitude > " << std::to_string(value));
         return true;
     }
@@ -169,11 +163,10 @@ bool CyclerServer::getSecondaryAmplitude(float& value)
 
 bool CyclerServer::getSecondaryAngle(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pAngle2Channel->getMessages(listMessages))
+    // if secondary angle command received, get it
+    if (pAngle2Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pAngle2Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get secondary angle > " << std::to_string(value));
         return true;
     }
@@ -183,11 +176,10 @@ bool CyclerServer::getSecondaryAngle(float& value)
 
 bool CyclerServer::getSecondaryPhase(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pPhase2Channel->getMessages(listMessages))
+    // if secondary phase command received, get it
+    if (pPhase2Channel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pPhase2Channel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get secondary phase > " << std::to_string(value));
         return true;
     }
@@ -197,11 +189,10 @@ bool CyclerServer::getSecondaryPhase(float& value)
 
 bool CyclerServer::getAction(int& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pRunChannel->getMessages(listMessages))
+    // if action command received, get it
+    if (pRunChannel->hasNew())
     {
-        value = std::stoi(listMessages.back());
+        value = std::stoi(pRunChannel->getMessage());
         LOG4CXX_DEBUG(logger, serverName + ": get action > " << std::to_string(value));
         return true;
     }

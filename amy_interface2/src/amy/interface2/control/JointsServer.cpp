@@ -51,11 +51,10 @@ JointsServer::JointsServer()
 
 bool JointsServer::getHS(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pHSChannel->getMessages(listMessages) != 0)
+    // if hs command received, get it
+    if (pHSChannel->hasNew()) 
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pHSChannel->getMessage());
         LOG4CXX_DEBUG(logger, "JointsServer: get HS > " << std::to_string(value));
         return true;
     }
@@ -65,11 +64,10 @@ bool JointsServer::getHS(float& value)
 
 bool JointsServer::getVS(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pVSChannel->getMessages(listMessages))
+    // if vs command received, get it
+    if (pVSChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pVSChannel->getMessage());
         LOG4CXX_DEBUG(logger, "JointsServer: get VS > " << std::to_string(value));
         return true;
     }
@@ -79,11 +77,10 @@ bool JointsServer::getVS(float& value)
 
 bool JointsServer::getELB(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pELBChannel->getMessages(listMessages))
+    // if elbow command received, get it
+    if (pELBChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pELBChannel->getMessage());
         LOG4CXX_DEBUG(logger, "JointsServer: get ELB > " << std::to_string(value));
         return true;
     }
@@ -93,11 +90,10 @@ bool JointsServer::getELB(float& value)
 
 bool JointsServer::getHWRI(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pHWRIChannel->getMessages(listMessages))
+    // if h wrist command received, get it
+    if (pHWRIChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pHWRIChannel->getMessage());
         LOG4CXX_DEBUG(logger, "JointsServer: get HWRI > " << std::to_string(value));
         return true;
     }
@@ -107,11 +103,10 @@ bool JointsServer::getHWRI(float& value)
 
 bool JointsServer::getVWRI(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pVWRIChannel->getMessages(listMessages))
+    // if v wrist command received, get it
+    if (pVWRIChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pVWRIChannel->getMessage());
         LOG4CXX_DEBUG(logger, "JointsServer: get VWRI > " << std::to_string(value));
         return true;
     }

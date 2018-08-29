@@ -42,7 +42,7 @@ public:
     void init(ArmBus& oArmBus);       
     bool isEnabled() {return benabled;};
         
-    bool getAmyEndRequested();        
+    bool getAmyEndRequested() {return bEndRequested;};        
 
 private:
     virtual void first();

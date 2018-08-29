@@ -64,13 +64,6 @@ void ArmServer::loop()
 }
 
 
-bool ArmServer::getAmyEndRequested()
-{
-//    return oExtraChannelServer.getArmEndRequested();
-    // TO DO
-    return false;
-}
-
 void ArmServer::checkJointsSection()
 {
     float value;
@@ -223,14 +216,13 @@ void ArmServer::checkCyclerSection(int i)
 
 void ArmServer::checkExtraSection()
 {
-    float value;
-    if (oExtraServer.getStop(value))
+    if (oExtraServer.getStop())
     {
         pArmBus->getCO_ARM_STOP().request(true);
         LOG4CXX_INFO(logger, "> stop");                        
     }
 
-    if (oExtraServer.getEnd(value))
+    if (oExtraServer.getEnd())
     {
         bEndRequested = true;
         LOG4CXX_INFO(logger, "> end arm");  

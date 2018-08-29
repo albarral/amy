@@ -53,11 +53,10 @@ AxesServer::AxesServer()
 
 bool AxesServer::getPan(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pPanChannel->getMessages(listMessages) != 0)
+    // if pan command received, get it
+    if (pPanChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pPanChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get Pan > " << std::to_string(value));
         return true;
     }
@@ -67,11 +66,10 @@ bool AxesServer::getPan(float& value)
 
 bool AxesServer::getTilt(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pTiltChannel->getMessages(listMessages))
+    // if tilt command received, get it
+    if (pTiltChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pTiltChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get Tilt > " << std::to_string(value));
         return true;
     }
@@ -81,11 +79,10 @@ bool AxesServer::getTilt(float& value)
 
 bool AxesServer::getRadial(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pRadialChannel->getMessages(listMessages))
+    // if radial command received, get it
+    if (pRadialChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pRadialChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get Radial > " << std::to_string(value));
         return true;
     }
@@ -95,11 +92,10 @@ bool AxesServer::getRadial(float& value)
 
 bool AxesServer::getPanSpeed(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pPanSpeedChannel->getMessages(listMessages))
+    // if pan speed command received, get it
+    if (pPanSpeedChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pPanSpeedChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get PanSpeed > " << std::to_string(value));
         return true;
     }
@@ -109,11 +105,10 @@ bool AxesServer::getPanSpeed(float& value)
 
 bool AxesServer::getTiltSpeed(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pTiltSpeedChannel->getMessages(listMessages))
+    // if tilt speed command received, get it
+    if (pTiltSpeedChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pTiltSpeedChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get TiltSpeed > " << std::to_string(value));
         return true;
     }
@@ -123,11 +118,10 @@ bool AxesServer::getTiltSpeed(float& value)
 
 bool AxesServer::getRadialSpeed(float& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pRadialSpeedChannel->getMessages(listMessages))
+    // if radial speed command received, get it
+    if (pRadialSpeedChannel->hasNew())
     {
-        value = std::stof(listMessages.back());
+        value = std::stof(pRadialSpeedChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get RadialSpeed > " << std::to_string(value));
         return true;
     }
@@ -137,11 +131,10 @@ bool AxesServer::getRadialSpeed(float& value)
 
 bool AxesServer::getKeepTilt(bool& value)
 {    
-    std::vector<std::string> listMessages; 
-    // if messages received, get last
-    if (pKeepTiltChannel->getMessages(listMessages))
+    // if keep tilt command received, get it
+    if (pKeepTiltChannel->hasNew())
     {
-        value = (bool)std::stoi(listMessages.back());
+        value = (bool)std::stoi(pKeepTiltChannel->getMessage());
         LOG4CXX_DEBUG(logger, "AxesServer: get keep tilt > " << std::to_string(value));
         return true;
     }
