@@ -10,8 +10,9 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
-#include "amy/coms/publisher/JointChannelPublisher.h"
-#include "amy/coms/publisher/AxisChannelPublisher.h"
+#include "amy/core/bus/JointBus.h"
+#include "amy/interface2/sense/JointsInformer.h"
+//#include "amy/coms/publisher/AxisChannelPublisher.h"
 #include "tron/control/module2.h"
 
 namespace amy
@@ -25,8 +26,13 @@ private:
     std::string modName;          // module name
     bool benabled;
     // logic
-    JointChannelPublisher oJointChannelPublisher;      // communications publisher for joints channel
-    AxisChannelPublisher oAxisChannelPublisher;       // communications publisher for axis channel
+    JointsInformer oJointsInformer;
+//    AxisChannelPublisher oAxisChannelPublisher;       // communications publisher for axis channel
+    JointBus* pBusHS;     // access to arm's HS joint
+    JointBus* pBusVS;     // access to arm's VS joint
+    JointBus* pBusEL;     // access to arm's ELB joint
+    JointBus* pBusHW;     // access to arm's HWRI joint
+    JointBus* pBusVW;     // access to arm's VWRI joint
 
 public:
     ArmPublisher ();
@@ -39,6 +45,9 @@ private:
     void first();
     // executes the behaviour
     void loop ();    
+    
+    void publishJointsSection();        
+    
 };
 }		
 #endif

@@ -9,10 +9,10 @@
 #include <string>
 #include <log4cxx/logger.h>
 
+#include "amy/core/bus/ArmBus.h"
 #include "amy/interface2/control/JointsServer.h"
 #include "amy/interface2/control/AxesServer.h"
 #include "amy/interface2/control/CyclerServer.h"
-#include "amy/core/bus/ArmBus.h"
 #include "tron/control/module2.h"
 #include "tron/interface/ExtraServer.h"
 

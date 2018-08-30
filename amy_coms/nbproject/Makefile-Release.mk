@@ -39,8 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/coms/ArmConnector.o \
 	${OBJECTDIR}/src/amy/coms/modules/ArmPublisher.o \
 	${OBJECTDIR}/src/amy/coms/modules/ArmServer.o \
-	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o \
-	${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o
+	${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o
 
 
 # C Compiler Flags
@@ -91,11 +90,6 @@ ${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o: src/amy/coms/publish
 	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/AxisChannelPublisher.o src/amy/coms/publisher/AxisChannelPublisher.cpp
-
-${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o: src/amy/coms/publisher/JointChannelPublisher.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/coms/publisher
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/coms/publisher/JointChannelPublisher.o src/amy/coms/publisher/JointChannelPublisher.cpp
 
 # Subprojects
 .build-subprojects:

@@ -22,8 +22,6 @@
         <logicalFolder name="publisher" displayName="publisher" projectFiles="true">
           <itemPath>src/amy/coms/publisher/AxisChannelPublisher.cpp</itemPath>
           <itemPath>src/amy/coms/publisher/AxisChannelPublisher.h</itemPath>
-          <itemPath>src/amy/coms/publisher/JointChannelPublisher.cpp</itemPath>
-          <itemPath>src/amy/coms/publisher/JointChannelPublisher.h</itemPath>
         </logicalFolder>
         <itemPath>src/amy/coms/AmyComs.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComs.h</itemPath>
@@ -282,16 +280,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="2">
       <toolsSet>
@@ -341,16 +329,6 @@
             flavor2="0">
       </item>
       <item path="src/amy/coms/publisher/AxisChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.h"
             ex="false"
             tool="3"
             flavor2="0">

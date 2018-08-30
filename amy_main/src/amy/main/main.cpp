@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 
+#include <exception>
 #include <vector>
 #include <string>
 #include <unistd.h> // for sleep() 
@@ -76,25 +77,32 @@ int main(int argc, char** argv)
 // runs the amy control for the specified robot
 void runAmy(Robot& oRobot)
 {        
-    AmyControl oAmyControl; 
-
-//    ArmTest oArmTest;
-//    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
-//    oArmTest.testComsReception();
-
-    // launch amy control & wait for it to end        
-    if (oAmyControl.launch(oRobot))
+    try
     {
-        while (!oAmyControl.checkEndRequested()) 
-        {
-            sleep(1);            
-        }    
+        AmyControl oAmyControl; 
 
-        LOG4CXX_INFO(logger, "\namy end requested ...\n");
-        oAmyControl.end();        
+    //    ArmTest oArmTest;
+    //    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
+    //    oArmTest.testComsReception();
+
+        // launch amy control & wait for it to end        
+        if (oAmyControl.launch(oRobot))
+        {
+            while (!oAmyControl.checkEndRequested()) 
+            {
+                sleep(1);            
+            }    
+
+            LOG4CXX_INFO(logger, "\namy end requested ...\n");
+            oAmyControl.end();        
+        }
+        else
+            LOG4CXX_ERROR(logger, "AmyControl could not be launched");
+    } 
+    catch (std::exception& e) 
+    {
+        std::cout << "runAmy: exception: " << e.what() << std::endl;
     }
-    else
-        LOG4CXX_ERROR(logger, "AmyControl could not be launched");
 
     return;
 }

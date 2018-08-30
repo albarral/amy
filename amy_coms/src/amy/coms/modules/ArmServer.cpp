@@ -8,6 +8,7 @@
 #include "amy/coms/modules/ArmServer.h"
 #include "amy/core/config/AmyConfig.h"
 #include "amy/core/bus/CyclerBus.h"
+#include "amy/interface2/ArmNode.h"
 
 using namespace log4cxx;
 
@@ -25,6 +26,9 @@ ArmServer::ArmServer()
     // tune cycler servers
     oCyclerServer1.tune2Cycler(AmyConfig::CYCLER1);
     oCyclerServer2.tune2Cycler(AmyConfig::CYCLER2);
+    // tune extra server
+    ArmNode2 oArmNode;
+    oExtraServer.tune4Node(oArmNode, ArmNode2::eSECTION_EXTRA);
  }
 
 void ArmServer::init(ArmBus& oArmBus)

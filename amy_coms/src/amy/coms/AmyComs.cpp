@@ -3,6 +3,7 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
+#include <exception>
 #include "amy/coms/AmyComs.h"
 
 namespace amy
@@ -22,17 +23,25 @@ AmyComs::~AmyComs()
     LOG4CXX_INFO(logger, "AmyComs: launch modules");
     float freq = oAmyConfig.getModulesFreq();
      
-    // launch server module
-    oArmServer.init(oArmBus);
-    oArmServer.setFrequency(freq);
-    oArmServer.on();
+    try 
+    {
+        // launch server module
+        oArmServer.init(oArmBus);
+        oArmServer.setFrequency(freq);
+        oArmServer.on();
 
-    // launch publisher module
-    oArmPublisher.init(oArmBus);
-    oArmPublisher.setFrequency(freq);
-    oArmPublisher.on();
-    
-    return true;
+        // launch publisher module
+        oArmPublisher.init(oArmBus);
+        oArmPublisher.setFrequency(freq);
+        oArmPublisher.on();
+        
+        return true;
+    } 
+    catch (std::exception& e) 
+    {
+        std::cout << "AmyComs::launch: exception: " << e.what() << std::endl;
+        return false;
+    }
 }
 
 bool AmyComs::end()
