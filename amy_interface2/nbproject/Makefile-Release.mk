@@ -44,7 +44,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o \
 	${OBJECTDIR}/src/amy/interface2/control/JointsClient.o \
-	${OBJECTDIR}/src/amy/interface2/control/JointsServer.o
+	${OBJECTDIR}/src/amy/interface2/control/JointsServer.o \
+	${OBJECTDIR}/src/amy/interface2/sense/JointsInformer.o \
+	${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o
 
 
 # C Compiler Flags
@@ -120,6 +122,16 @@ ${OBJECTDIR}/src/amy/interface2/control/JointsServer.o: src/amy/interface2/contr
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsServer.o src/amy/interface2/control/JointsServer.cpp
+
+${OBJECTDIR}/src/amy/interface2/sense/JointsInformer.o: src/amy/interface2/sense/JointsInformer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/sense
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/JointsInformer.o src/amy/interface2/sense/JointsInformer.cpp
+
+${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o: src/amy/interface2/sense/JointsListener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/sense
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o src/amy/interface2/sense/JointsListener.cpp
 
 # Subprojects
 .build-subprojects:
