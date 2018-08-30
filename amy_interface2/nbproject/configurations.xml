@@ -36,6 +36,10 @@
           <itemPath>src/amy/interface2/control/JointsServer.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="sense" projectFiles="true">
+          <itemPath>src/amy/interface2/sense/AxesInformer.cpp</itemPath>
+          <itemPath>src/amy/interface2/sense/AxesInformer.h</itemPath>
+          <itemPath>src/amy/interface2/sense/AxesListener.cpp</itemPath>
+          <itemPath>src/amy/interface2/sense/AxesListener.h</itemPath>
           <itemPath>src/amy/interface2/sense/JointsInformer.cpp</itemPath>
           <itemPath>src/amy/interface2/sense/JointsInformer.h</itemPath>
           <itemPath>src/amy/interface2/sense/JointsListener.cpp</itemPath>
@@ -218,6 +222,26 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/amy/interface2/sense/AxesInformer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesInformer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesListener.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesListener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/amy/interface2/sense/JointsInformer.cpp"
             ex="false"
             tool="1"
@@ -349,6 +373,26 @@
             flavor2="0">
       </item>
       <item path="src/amy/interface2/control/JointsServer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesInformer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesInformer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesListener.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/amy/interface2/sense/AxesListener.h"
             ex="false"
             tool="3"
             flavor2="0">

@@ -9,6 +9,7 @@
 #include <log4cxx/logger.h>
 
 #include "tron/coms/ComsSender.h"
+#include "tron/coms/ChannelWriter.h"
 
 namespace amy
 {
