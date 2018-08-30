@@ -59,28 +59,28 @@ RosAmyArm::~RosAmyArm()
         // process callbacks
         ros::spinOnce();
 
-        if (oArmListener.senseChannels())
+        // if new joints info received 
+        if (senseJoints())
         {            
-            bnewInfo = !compareData(jointPositions, oArmListener.getJointPositions());            
+            // and joints info changed, update arm position
+            if (checkChanged())
+            {               
+                // store data for next check
+                joints0 = joints;
+
+                showAngles(joints);
+
+                // set hshoulder, vshouler & elbow joints
+                oUR5Arm.setArmPos(-joints.hs, -joints.vs, -joints.elb);
+                // set wrist & hand joints
+                oUR5Arm.setHandPos(joints.vwri, 0.0, 0.0);
+                oUR5Arm.prepareMove(moveDelay);
+                oUR5Arm.move();
+            }
         }            
         else
             bnewInfo = false;       
         
-        // if new info received and different from previous one
-        if (bnewInfo)
-        {               
-            // store data
-            jointPositions = oArmListener.getJointPositions(); 
-
-            showAngles(jointPositions);
-    
-            // set hshoulder, vshouler & elbow joints
-            oUR5Arm.setArmPos(-jointPositions.hs, -jointPositions.vs, -jointPositions.elb);
-            // set wrist & hand joints
-            oUR5Arm.setHandPos(jointPositions.vwri, 0.0, 0.0);
-            oUR5Arm.prepareMove(moveDelay);
-            oUR5Arm.move();
-        }
         rate.sleep();
     }    
     
@@ -89,22 +89,37 @@ RosAmyArm::~RosAmyArm()
     return;
 }
 
-// check if given joint positions are the same
-bool RosAmyArm::compareData(amy::JointsData& jointPositions1, amy::JointsData& jointPositions2)
+bool RosAmyArm::senseJoints()
+{    
+    bool bnew1 = oJointsListener.senseHS(joints.hs);
+    bool bnew2 = oJointsListener.senseVS(joints.vs);
+    bool bnew3 = oJointsListener.senseELB(joints.elb);
+    bool bnew4 = oJointsListener.senseHWRI(joints.hwri);
+    bool bnew5 = oJointsListener.senseVWRI(joints.vwri);
+    
+    return (bnew1 || 
+            bnew2 ||
+            bnew3 ||
+            bnew4 ||
+            bnew5 );
+}
+  
+// check if joint positions have changed
+bool RosAmyArm::checkChanged()
 {
-    if (jointPositions1.hs == jointPositions2.hs &&
-            jointPositions1.vs == jointPositions2.vs &&
-            jointPositions1.elb == jointPositions2.elb &&
-            jointPositions1.hwri == jointPositions2.hwri &&
-            jointPositions1.vwri == jointPositions2.vwri)
+    if (joints.hs != joints0.hs ||
+        joints.vs != joints0.vs ||
+        joints.elb != joints0.elb ||
+        joints.hwri != joints0.hwri ||
+        joints.vwri != joints0.vwri)
         return true;
-    else 
+    else
         return false;
 }
 
-void RosAmyArm::showAngles(amy::JointsData& jointPositions)
+void RosAmyArm::showAngles(JointsData& joints)
 {
-    ROS_INFO("arm angles: %d, %d, %d", (int)jointPositions.hs, (int)jointPositions.vs, (int)jointPositions.elb);      
+    ROS_INFO("arm angles: %d, %d, %d", (int)joints.hs, (int)joints.vs, (int)joints.elb);      
 }
 
   
