@@ -18,8 +18,8 @@
 
 namespace amy
 {
-// This module serves external control request for arm control. 
-// It uses a dedicated channel server for each communications channel (one for each arm topic).
+// This module serves external control requests for arm control. 
+// It uses an ignition based server for each arm node's section.
 class ArmServer : public tron::Module2
 {
 private:
@@ -32,7 +32,7 @@ private:
     AxesServer oAxesServer;    
     CyclerServer oCyclerServer1;
     CyclerServer oCyclerServer2;
-    tron::ExtraServer oExtraServer;    // communications server for extra channel
+    tron::ExtraServer oExtraServer;      
     bool bEndRequested;         // end of arm process requested
 
 public:
