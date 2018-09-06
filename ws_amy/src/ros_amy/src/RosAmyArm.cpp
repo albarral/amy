@@ -47,13 +47,6 @@ RosAmyArm::~RosAmyArm()
     UR5Arm oUR5Arm;
     oUR5Arm.setHandPos(0.0, 0.0, 0.0); 
        
-    // check listener connection
-    if (!oArmListener.senseChannels())
-    {
-        ROS_ERROR("RosAmyArm: failed arm listener connections");
-        return;
-    }
-        
     while (ros::ok()) 
     {
         // process callbacks
