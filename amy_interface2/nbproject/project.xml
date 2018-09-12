@@ -14,7 +14,6 @@
                 <make-dep-project>../../tron/tron_coms</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
-                <sourceRootElem>src/amy/interface</sourceRootElem>
                 <sourceRootElem>src/amy/interface2</sourceRootElem>
             </sourceRootList>
             <confList>

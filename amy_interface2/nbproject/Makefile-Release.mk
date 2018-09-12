@@ -36,9 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/interface2/ArmNode.o \
-	${OBJECTDIR}/src/amy/interface2/channels/AxesSection.o \
-	${OBJECTDIR}/src/amy/interface2/channels/CyclerSection.o \
-	${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesServer.o \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o \
@@ -79,21 +76,6 @@ ${OBJECTDIR}/src/amy/interface2/ArmNode.o: src/amy/interface2/ArmNode.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/ArmNode.o src/amy/interface2/ArmNode.cpp
-
-${OBJECTDIR}/src/amy/interface2/channels/AxesSection.o: src/amy/interface2/channels/AxesSection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/channels
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/channels/AxesSection.o src/amy/interface2/channels/AxesSection.cpp
-
-${OBJECTDIR}/src/amy/interface2/channels/CyclerSection.o: src/amy/interface2/channels/CyclerSection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/channels
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/channels/CyclerSection.o src/amy/interface2/channels/CyclerSection.cpp
-
-${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o: src/amy/interface2/channels/JointsSection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/channels
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/channels/JointsSection.o src/amy/interface2/channels/JointsSection.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/AxesClient.o: src/amy/interface2/control/AxesClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control

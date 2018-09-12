@@ -5,7 +5,6 @@
 
 #include "amy/interface2/control/CyclerServer.h"
 #include "amy/interface2/ArmNode.h"
-#include "amy/interface2/channels/CyclerSection.h"
 #include "tron/topics/RobotNodes.h"
 #include "tron/topics/Topic.h"
 
@@ -54,7 +53,7 @@ bool CyclerServer::tune2Cycler(int i)
     tron::Topic oTopic;
     ArmNode2 oArmNode;
     // for each channel in section
-    for (int channel=0; channel<CyclerSection::eCYCLER_DIM; channel++)
+    for (int channel=0; channel<ArmNode2::eCYCLER_DIM; channel++)
     {
         // set its topic 
         oTopic.set(node, section, channel, type);
@@ -67,17 +66,17 @@ bool CyclerServer::tune2Cycler(int i)
     oComsReceiver.connect();
     
     // store channel pointers for faster access
-    pFreq1Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_MAIN_FREQ);
-    pAmp1Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_MAIN_AMP);
-    pAngle1Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_MAIN_ANGLE);
-    pPhase1Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_MAIN_PHASE);
+    pFreq1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_FREQ);
+    pAmp1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_AMP);
+    pAngle1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_ANGLE);
+    pPhase1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_PHASE);
     
-    pFreq2Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_SEC_FREQ);
-    pAmp2Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_SEC_AMP);
-    pAngle2Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_SEC_ANGLE);
-    pPhase2Channel = oComsReceiver.getChannel(CyclerSection::eCYCLER_SEC_PHASE);
+    pFreq2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_FREQ);
+    pAmp2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_AMP);
+    pAngle2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_ANGLE);
+    pPhase2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_PHASE);
     
-    pRunChannel = oComsReceiver.getChannel(CyclerSection::eCYCLER_ACTION);        
+    pRunChannel = oComsReceiver.getChannel(ArmNode2::eCYCLER_ACTION);        
     
     btuned = true;
     return true;

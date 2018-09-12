@@ -5,7 +5,6 @@
 
 #include "amy/interface2/sense/JointsInformer.h"
 #include "amy/interface2/ArmNode.h"
-#include "amy/interface2/channels/JointsSection.h"
 #include "tron/topics/RobotNodes.h"
 #include "tron/topics/Topic.h"
 
@@ -25,7 +24,7 @@ JointsInformer::JointsInformer()
     tron::Topic oTopic;
     ArmNode2 oArmNode;
     // for each channel in section
-    for (int channel=0; channel<JointsSection::eJOINTS_DIM; channel++)
+    for (int channel=0; channel<ArmNode2::eJOINTS_DIM; channel++)
     {
         // set its topic 
         oTopic.set(node, section, channel, type);
@@ -35,11 +34,11 @@ JointsInformer::JointsInformer()
     }
     
     // store channel pointers for faster access
-    pHSChannel = oComsSender.getChannel(JointsSection::eJOINTS_HS);
-    pVSChannel = oComsSender.getChannel(JointsSection::eJOINTS_VS);
-    pELBChannel = oComsSender.getChannel(JointsSection::eJOINTS_ELB);
-    pHWRIChannel = oComsSender.getChannel(JointsSection::eJOINTS_HWRI);
-    pVWRIChannel = oComsSender.getChannel(JointsSection::eJOINTS_VWRI);    
+    pHSChannel = oComsSender.getChannel(ArmNode2::eJOINTS_HS);
+    pVSChannel = oComsSender.getChannel(ArmNode2::eJOINTS_VS);
+    pELBChannel = oComsSender.getChannel(ArmNode2::eJOINTS_ELB);
+    pHWRIChannel = oComsSender.getChannel(ArmNode2::eJOINTS_HWRI);
+    pVWRIChannel = oComsSender.getChannel(ArmNode2::eJOINTS_VWRI);    
 }
 
 //JointsInformer::~JointsInformer()

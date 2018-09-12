@@ -5,7 +5,6 @@
 
 #include "amy/interface2/control/AxesClient.h"
 #include "amy/interface2/ArmNode.h"
-#include "amy/interface2/channels/AxesSection.h"
 #include "tron/topics/RobotNodes.h"
 #include "tron/topics/Topic.h"
 
@@ -25,7 +24,7 @@ AxesClient::AxesClient()
     tron::Topic oTopic;
     ArmNode2 oArmNode;
     // for each channel in section
-    for (int channel=0; channel<AxesSection::eAXES_DIM; channel++)
+    for (int channel=0; channel<ArmNode2::eAXES_DIM; channel++)
     {
         // set its topic 
         oTopic.set(node, section, channel, type);
@@ -35,13 +34,13 @@ AxesClient::AxesClient()
     }
     
     // store channel pointers for faster access
-    pPanChannel = oComsSender.getChannel(AxesSection::eAXES_PAN);
-    pTiltChannel = oComsSender.getChannel(AxesSection::eAXES_TILT);
-    pRadialChannel = oComsSender.getChannel(AxesSection::eAXES_RAD);
-    pPanSpeedChannel = oComsSender.getChannel(AxesSection::eAXES_PAN_SPEED);
-    pTiltSpeedChannel = oComsSender.getChannel(AxesSection::eAXES_TILT_SPEED);    
-    pRadialSpeedChannel = oComsSender.getChannel(AxesSection::eAXES_RAD_SPEED);    
-    pKeepTiltChannel = oComsSender.getChannel(AxesSection::eAXES_KEEP_TILT);    
+    pPanChannel = oComsSender.getChannel(ArmNode2::eAXES_PAN);
+    pTiltChannel = oComsSender.getChannel(ArmNode2::eAXES_TILT);
+    pRadialChannel = oComsSender.getChannel(ArmNode2::eAXES_RAD);
+    pPanSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_PAN_SPEED);
+    pTiltSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_TILT_SPEED);    
+    pRadialSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_RAD_SPEED);    
+    pKeepTiltChannel = oComsSender.getChannel(ArmNode2::eAXES_KEEP_TILT);    
 }
 
 //AxesClient::~AxesClient()
