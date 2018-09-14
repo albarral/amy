@@ -12,7 +12,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr AxesListener::logger(Logger::getLogger("amy.interface"));
+LoggerPtr AxesListener::logger(Logger::getLogger("amy.interface.sense"));
 
 AxesListener::AxesListener()
 {    

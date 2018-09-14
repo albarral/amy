@@ -12,7 +12,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr JointsServer::logger(Logger::getLogger("amy.interface"));
+LoggerPtr JointsServer::logger(Logger::getLogger("amy.interface.control"));
 
 JointsServer::JointsServer()
 {    

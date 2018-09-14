@@ -12,7 +12,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr JointsInformer::logger(Logger::getLogger("amy.interface"));
+LoggerPtr JointsInformer::logger(Logger::getLogger("amy.interface.sense"));
 
 JointsInformer::JointsInformer()
 {    

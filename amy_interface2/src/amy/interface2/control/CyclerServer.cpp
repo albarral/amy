@@ -12,7 +12,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr CyclerServer::logger(Logger::getLogger("amy.interface"));
+LoggerPtr CyclerServer::logger(Logger::getLogger("amy.interface.control"));
 
 CyclerServer::CyclerServer()
 {    

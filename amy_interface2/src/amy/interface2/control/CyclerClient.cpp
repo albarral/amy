@@ -12,7 +12,7 @@ using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr CyclerClient::logger(Logger::getLogger("amy.interface"));
+LoggerPtr CyclerClient::logger(Logger::getLogger("amy.interface.control"));
 
 CyclerClient::CyclerClient()
 {    
@@ -75,6 +75,8 @@ bool CyclerClient::tune2Cycler(int i)
     
     pRunChannel = oComsSender.getChannel(ArmNode2::eCYCLER_ACTION);        
     
+    btuned = true;
+
     return true;
 }
 
