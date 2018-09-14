@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/main/AmyControl.o \
-	${OBJECTDIR}/src/amy/main/ArmTest.o \
 	${OBJECTDIR}/src/amy/main/main.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmUR5.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o \
@@ -97,11 +96,6 @@ ${OBJECTDIR}/src/amy/main/AmyControl.o: src/amy/main/AmyControl.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_show/src -I../../tron/tron_control/src -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron2/tron2_tivy/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyControl.o src/amy/main/AmyControl.cpp
-
-${OBJECTDIR}/src/amy/main/ArmTest.o: src/amy/main/ArmTest.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/main
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../amy_arm/src -I../amy_coms/src -I../amy_interface2/src -I../amy_show/src -I../../tron/tron_control/src -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron2/tron2_tivy/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/ArmTest.o src/amy/main/ArmTest.cpp
 
 ${OBJECTDIR}/src/amy/main/main.o: src/amy/main/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main

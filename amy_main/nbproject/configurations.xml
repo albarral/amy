@@ -23,8 +23,6 @@
         </logicalFolder>
         <itemPath>src/amy/main/AmyControl.cpp</itemPath>
         <itemPath>src/amy/main/AmyControl.h</itemPath>
-        <itemPath>src/amy/main/ArmTest.cpp</itemPath>
-        <itemPath>src/amy/main/ArmTest.h</itemPath>
         <itemPath>src/amy/main/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -243,10 +241,6 @@
       </item>
       <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/main/ArmTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/main/ArmTest.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/main/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/robots/ArmUR5.cpp" ex="false" tool="1" flavor2="0">
@@ -291,10 +285,6 @@
       <item path="src/amy/main/AmyControl.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/main/AmyControl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/main/ArmTest.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/main/ArmTest.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/amy/main/main.cpp" ex="false" tool="1" flavor2="0">
       </item>

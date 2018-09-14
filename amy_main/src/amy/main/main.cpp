@@ -16,8 +16,6 @@
 #include "amy/main/robots/SupportedRobots.h"
 #include "amy/core/robot/Robot.h"
 
-#include "amy/main/ArmTest.h"
-
 using namespace amy;
 
 // starts the amy control for the specified robot
@@ -80,10 +78,6 @@ void runAmy(Robot& oRobot)
     try
     {
         AmyControl oAmyControl; 
-
-    //    ArmTest oArmTest;
-    //    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
-    //    oArmTest.testComsReception();
 
         // launch amy control & wait for it to end        
         if (oAmyControl.launch(oRobot))
