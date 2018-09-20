@@ -8,18 +8,16 @@
 
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsSender.h"
+#include "tron/interface/SectionInformer.h"
 #include "tron/coms/ChannelWriter.h"
 
 namespace amy
 {
 // Broadcaster of axes section info of a robot arm.
-// Uses tron ComsSender for communications
-class AxesInformer
+class AxesInformer : public tron::SectionInformer
 {            
 private:
     static log4cxx::LoggerPtr logger;
-    tron::ComsSender oComsSender;   // communications object
     tron::ChannelWriter* pPanChannel;    // channel writer for Pan axis
     tron::ChannelWriter* pTiltChannel;    // channel writer for Tilt axis
     tron::ChannelWriter* pRadialChannel;   // channel writer for Radial axis

@@ -8,18 +8,16 @@
 
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsReceiver.h"
+#include "tron/interface/SectionServer.h"
 #include "tron/coms/ChannelReader.h"
 
 namespace amy
 {
 // Axes section server to control a robot arm.
-// Uses tron ComsReceiver for communications    
-class AxesServer
+class AxesServer : public tron::SectionServer
 {            
 private:
-    static log4cxx::LoggerPtr logger;
-    tron::ComsReceiver oComsReceiver;  // communications object     
+    static log4cxx::LoggerPtr logger2;
     tron::ChannelReader* pPanChannel;    // channel reader for Pan axis
     tron::ChannelReader* pTiltChannel;    // channel reader for Tilt axis
     tron::ChannelReader* pRadialChannel;   // channel reader for Radial axis

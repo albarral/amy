@@ -8,18 +8,16 @@
 
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsReceiver.h"
+#include "tron/interface/SectionServer.h"
 #include "tron/coms/ChannelReader.h"
 
 namespace amy
 {
 // Joints section server to control a robot arm.
-// Uses tron ComsReceiver for communications    
-class JointsServer
+class JointsServer : public tron::SectionServer
 {            
 private:
-    static log4cxx::LoggerPtr logger;
-    tron::ComsReceiver oComsReceiver;  // communications object     
+    static log4cxx::LoggerPtr logger2;
     tron::ChannelReader* pHSChannel;    // channel reader for HS joint
     tron::ChannelReader* pVSChannel;    // channel reader for VS joint
     tron::ChannelReader* pELBChannel;   // channel reader for ELB joint

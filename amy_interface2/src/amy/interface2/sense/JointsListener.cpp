@@ -6,42 +6,28 @@
 #include "amy/interface2/sense/JointsListener.h"
 #include "amy/interface2/ArmNode.h"
 #include "tron/topics/RobotNodes.h"
-#include "tron/topics/Topic.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr JointsListener::logger(Logger::getLogger("amy.interface.sense"));
+LoggerPtr JointsListener::logger2(Logger::getLogger("amy.interface.sense"));
 
 JointsListener::JointsListener()
 {    
     // set topics for arm joints sense
-    int node = tron::RobotNodes::eNODE_ARM;
-    int section = ArmNode2::eSECTION_JOINTS;
-    int type = tron::Topic::eTYPE_SENSOR;
-    
-    tron::Topic oTopic;
     ArmNode2 oArmNode;
-    // for each channel in section
-    for (int channel=0; channel<ArmNode2::eJOINTS_DIM; channel++)
+    tron::SectionListener::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_JOINTS, oArmNode);
+
+    if (isTuned())
     {
-        // set its topic 
-        oTopic.set(node, section, channel, type);
-        // and add a channel reader for it
-        if (oArmNode.buildTopicName(oTopic))
-            oComsReceiver.addChannel(oTopic.getTopicName());            
+        // store channel pointers for faster access
+        pHSChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_HS);
+        pVSChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_VS);
+        pELBChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_ELB);
+        pHWRIChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_HWRI);
+        pVWRIChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_VWRI);    
     }
-    
-    // connect all readers
-    oComsReceiver.connect();
-    
-    // store channel pointers for faster access
-    pHSChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_HS);
-    pVSChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_VS);
-    pELBChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_ELB);
-    pHWRIChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_HWRI);
-    pVWRIChannel = oComsReceiver.getChannel(ArmNode2::eJOINTS_VWRI);    
 }
 
 //JointsListener::~JointsListener()
@@ -54,7 +40,7 @@ bool JointsListener::senseHS(float& value)
     if (pHSChannel->hasNew()) 
     {
         value = std::stof(pHSChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "JointsListener: sense HS > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "JointsListener: sense HS > " << std::to_string(value));
         return true;
     }
     else
@@ -67,7 +53,7 @@ bool JointsListener::senseVS(float& value)
     if (pVSChannel->hasNew())
     {
         value = std::stof(pVSChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "JointsListener: sense VS > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "JointsListener: sense VS > " << std::to_string(value));
         return true;
     }
     else
@@ -80,7 +66,7 @@ bool JointsListener::senseELB(float& value)
     if (pELBChannel->hasNew())
     {
         value = std::stof(pELBChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "JointsListener: sense ELB > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "JointsListener: sense ELB > " << std::to_string(value));
         return true;
     }
     else
@@ -93,7 +79,7 @@ bool JointsListener::senseHWRI(float& value)
     if (pHWRIChannel->hasNew())
     {
         value = std::stof(pHWRIChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "JointsListener: sense HWRI > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "JointsListener: sense HWRI > " << std::to_string(value));
         return true;
     }
     else
@@ -106,7 +92,7 @@ bool JointsListener::senseVWRI(float& value)
     if (pVWRIChannel->hasNew())
     {
         value = std::stof(pVWRIChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "JointsListener: sense VWRI > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "JointsListener: sense VWRI > " << std::to_string(value));
         return true;
     }
     else

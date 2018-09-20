@@ -6,7 +6,6 @@
 #include "amy/interface2/sense/AxesListener.h"
 #include "amy/interface2/ArmNode.h"
 #include "tron/topics/RobotNodes.h"
-#include "tron/topics/Topic.h"
 
 using namespace log4cxx;
 
@@ -17,32 +16,19 @@ LoggerPtr AxesListener::logger(Logger::getLogger("amy.interface.sense"));
 AxesListener::AxesListener()
 {    
     // set topics for arm axes sense
-    int node = tron::RobotNodes::eNODE_ARM;
-    int section = ArmNode2::eSECTION_AXES;
-    int type = tron::Topic::eTYPE_SENSOR;
-    
-    tron::Topic oTopic;
     ArmNode2 oArmNode;
-    // for each channel in section
-    for (int channel=0; channel<ArmNode2::eAXES_DIM; channel++)
+    tron::SectionListener::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_AXES, oArmNode);
+
+    if (isTuned())
     {
-        // set its topic 
-        oTopic.set(node, section, channel, type);
-        // and add a channel reader for it
-        if (oArmNode.buildTopicName(oTopic))
-            oComsReceiver.addChannel(oTopic.getTopicName());            
+        // store channel pointers for faster access
+        pPanChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN);
+        pTiltChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT);
+        pRadialChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD);
+        pPanSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN_SPEED);
+        pTiltSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT_SPEED);    
+        pRadialSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD_SPEED);    
     }
-    
-    // connect all readers
-    oComsReceiver.connect();
-    
-    // store channel pointers for faster access
-    pPanChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN);
-    pTiltChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT);
-    pRadialChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD);
-    pPanSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN_SPEED);
-    pTiltSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT_SPEED);    
-    pRadialSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD_SPEED);    
 }
 
 //AxesListener::~AxesListener()

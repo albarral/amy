@@ -17,7 +17,7 @@ namespace amy
 // Cycler section client to control a robot arm.
 // Various cycler sections exist, so client must be tuned to one of them.
 // Uses tron ComsSender for communications
-class CyclerClient
+class CyclerClient 
 {            
 private:
     static log4cxx::LoggerPtr logger;

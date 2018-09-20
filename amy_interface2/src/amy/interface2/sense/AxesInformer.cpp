@@ -6,7 +6,6 @@
 #include "amy/interface2/sense/AxesInformer.h"
 #include "amy/interface2/ArmNode.h"
 #include "tron/topics/RobotNodes.h"
-#include "tron/topics/Topic.h"
 
 using namespace log4cxx;
 
@@ -17,29 +16,19 @@ LoggerPtr AxesInformer::logger(Logger::getLogger("amy.interface.sense"));
 AxesInformer::AxesInformer()
 {    
     // set topics for arm axes sense
-    int node = tron::RobotNodes::eNODE_ARM;
-    int section = ArmNode2::eSECTION_AXES;
-    int type = tron::Topic::eTYPE_SENSOR;
-    
-    tron::Topic oTopic;
     ArmNode2 oArmNode;
-    // for each channel in section
-    for (int channel=0; channel<ArmNode2::eAXES_DIM; channel++)
+    tron::SectionInformer::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_AXES, oArmNode);
+
+    if (isTuned())
     {
-        // set its topic 
-        oTopic.set(node, section, channel, type);
-        // and add a channel writer for it
-        if (oArmNode.buildTopicName(oTopic))
-            oComsSender.addChannel(oTopic.getTopicName());            
+        // store channel pointers for faster access
+        pPanChannel = oComsSender.getChannel(ArmNode2::eAXES_PAN);
+        pTiltChannel = oComsSender.getChannel(ArmNode2::eAXES_TILT);
+        pRadialChannel = oComsSender.getChannel(ArmNode2::eAXES_RAD);
+        pPanSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_PAN_SPEED);
+        pTiltSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_TILT_SPEED);    
+        pRadialSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_RAD_SPEED);    
     }
-    
-    // store channel pointers for faster access
-    pPanChannel = oComsSender.getChannel(ArmNode2::eAXES_PAN);
-    pTiltChannel = oComsSender.getChannel(ArmNode2::eAXES_TILT);
-    pRadialChannel = oComsSender.getChannel(ArmNode2::eAXES_RAD);
-    pPanSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_PAN_SPEED);
-    pTiltSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_TILT_SPEED);    
-    pRadialSpeedChannel = oComsSender.getChannel(ArmNode2::eAXES_RAD_SPEED);    
 }
 
 //AxesInformer::~AxesInformer()

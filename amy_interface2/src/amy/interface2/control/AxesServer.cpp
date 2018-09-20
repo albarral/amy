@@ -6,44 +6,30 @@
 #include "amy/interface2/control/AxesServer.h"
 #include "amy/interface2/ArmNode.h"
 #include "tron/topics/RobotNodes.h"
-#include "tron/topics/Topic.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr AxesServer::logger(Logger::getLogger("amy.interface.control"));
+LoggerPtr AxesServer::logger2(Logger::getLogger("amy.interface.control"));
 
 AxesServer::AxesServer()
 {    
-    // set topics for arm joints control
-    int node = tron::RobotNodes::eNODE_ARM;
-    int section = ArmNode2::eSECTION_AXES;
-    int type = tron::Topic::eTYPE_CONTROL;
-    
-    tron::Topic oTopic;
     ArmNode2 oArmNode;
-    // for each channel in section
-    for (int channel=0; channel<ArmNode2::eAXES_DIM; channel++)
+    // set topics for arm axes control
+    tron::SectionServer::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_AXES, oArmNode);
+
+    if (isTuned())
     {
-        // set its topic 
-        oTopic.set(node, section, channel, type);
-        // and add a channel reader for it
-        if (oArmNode.buildTopicName(oTopic))
-            oComsReceiver.addChannel(oTopic.getTopicName());            
+        // store channel pointers for faster access
+        pPanChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN);
+        pTiltChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT);
+        pRadialChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD);
+        pPanSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN_SPEED);
+        pTiltSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT_SPEED);    
+        pRadialSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD_SPEED);    
+        pKeepTiltChannel = oComsReceiver.getChannel(ArmNode2::eAXES_KEEP_TILT);    
     }
-    
-    // connect all readers
-    oComsReceiver.connect();
-    
-    // store channel pointers for faster access
-    pPanChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN);
-    pTiltChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT);
-    pRadialChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD);
-    pPanSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_PAN_SPEED);
-    pTiltSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_TILT_SPEED);    
-    pRadialSpeedChannel = oComsReceiver.getChannel(ArmNode2::eAXES_RAD_SPEED);    
-    pKeepTiltChannel = oComsReceiver.getChannel(ArmNode2::eAXES_KEEP_TILT);    
 }
 
 //AxesServer::~AxesServer()
@@ -56,7 +42,7 @@ bool AxesServer::getPan(float& value)
     if (pPanChannel->hasNew())
     {
         value = std::stof(pPanChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get Pan > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get Pan > " << std::to_string(value));
         return true;
     }
     else
@@ -69,7 +55,7 @@ bool AxesServer::getTilt(float& value)
     if (pTiltChannel->hasNew())
     {
         value = std::stof(pTiltChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get Tilt > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get Tilt > " << std::to_string(value));
         return true;
     }
     else
@@ -82,7 +68,7 @@ bool AxesServer::getRadial(float& value)
     if (pRadialChannel->hasNew())
     {
         value = std::stof(pRadialChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get Radial > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get Radial > " << std::to_string(value));
         return true;
     }
     else
@@ -95,7 +81,7 @@ bool AxesServer::getPanSpeed(float& value)
     if (pPanSpeedChannel->hasNew())
     {
         value = std::stof(pPanSpeedChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get PanSpeed > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get PanSpeed > " << std::to_string(value));
         return true;
     }
     else
@@ -108,7 +94,7 @@ bool AxesServer::getTiltSpeed(float& value)
     if (pTiltSpeedChannel->hasNew())
     {
         value = std::stof(pTiltSpeedChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get TiltSpeed > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get TiltSpeed > " << std::to_string(value));
         return true;
     }
     else
@@ -121,7 +107,7 @@ bool AxesServer::getRadialSpeed(float& value)
     if (pRadialSpeedChannel->hasNew())
     {
         value = std::stof(pRadialSpeedChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get RadialSpeed > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get RadialSpeed > " << std::to_string(value));
         return true;
     }
     else
@@ -134,7 +120,7 @@ bool AxesServer::getKeepTilt(bool& value)
     if (pKeepTiltChannel->hasNew())
     {
         value = (bool)std::stoi(pKeepTiltChannel->getMessage());
-        LOG4CXX_DEBUG(logger, "AxesServer: get keep tilt > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, "AxesServer: get keep tilt > " << std::to_string(value));
         return true;
     }
     else

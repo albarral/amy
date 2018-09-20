@@ -8,18 +8,16 @@
 
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsSender.h"
+#include "tron/interface/SectionClient.h"
 #include "tron/coms/ChannelWriter.h"
 
 namespace amy
 {
 // Joints section client to control a robot arm.
-// Uses tron ComsSender for communications
-class JointsClient
+class JointsClient : public tron::SectionClient
 {            
 private:
-    static log4cxx::LoggerPtr logger;
-    tron::ComsSender oComsSender;   // communications object
+    static log4cxx::LoggerPtr logger2;
     tron::ChannelWriter* pHSChannel;    // channel writer for HS joint
     tron::ChannelWriter* pVSChannel;    // channel writer for VS joint
     tron::ChannelWriter* pELBChannel;   // channel writer for ELB joint

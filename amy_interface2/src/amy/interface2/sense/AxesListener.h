@@ -8,18 +8,16 @@
 
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsReceiver.h"
+#include "tron/interface/SectionListener.h"
 #include "tron/coms/ChannelReader.h"
 
 namespace amy
 {
 // Listener of axes section info of a robot arm.
-// Uses tron ComsReceiver for communications    
-class AxesListener
+class AxesListener : public tron::SectionListener
 {            
 private:
     static log4cxx::LoggerPtr logger;
-    tron::ComsReceiver oComsReceiver;  // communications object     
     tron::ChannelReader* pPanChannel;    // channel reader for Pan axis
     tron::ChannelReader* pTiltChannel;    // channel reader for Tilt axis
     tron::ChannelReader* pRadialChannel;   // channel reader for Radial axis
