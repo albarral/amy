@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/interface2/ArmNode.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesServer.o \
+	${OBJECTDIR}/src/amy/interface2/control/AxesServer2.o \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o \
 	${OBJECTDIR}/src/amy/interface2/control/JointsClient.o \
@@ -86,6 +87,11 @@ ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o: src/amy/interface2/control
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o src/amy/interface2/control/AxesServer.cpp
+
+${OBJECTDIR}/src/amy/interface2/control/AxesServer2.o: src/amy/interface2/control/AxesServer2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesServer2.o src/amy/interface2/control/AxesServer2.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o: src/amy/interface2/control/CyclerClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control

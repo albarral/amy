@@ -11,7 +11,7 @@
 
 #include "amy/core/bus/ArmBus.h"
 #include "amy/interface2/control/JointsServer.h"
-#include "amy/interface2/control/AxesServer.h"
+#include "amy/interface2/control/AxesServer2.h"
 #include "amy/interface2/control/CyclerServer.h"
 #include "tron/control/module2.h"
 #include "tron/interface/ExtraServer.h"
@@ -29,7 +29,7 @@ private:
     // logic
     ArmBus* pArmBus;      // access to arm bus    
     JointsServer oJointsServer;
-    AxesServer oAxesServer;    
+    AxesServer2 oAxesServer;    
     CyclerServer oCyclerServer1;
     CyclerServer oCyclerServer2;
     tron::ExtraServer oExtraServer;      

@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/interface2/ArmNode.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/AxesServer.o \
+	${OBJECTDIR}/src/amy/interface2/control/AxesServer2.o \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o \
 	${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o \
 	${OBJECTDIR}/src/amy/interface2/control/JointsClient.o \
@@ -62,13 +63,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../../tron/tron_coms/dist/Debug/GNU-Linux -L../../tron/tron_coms/dist/Debug/GNU-Linux -ltron_coms -Wl,-rpath,../../tron/tron_topics/dist/Debug/GNU-Linux -L../../tron/tron_topics/dist/Debug/GNU-Linux -ltron_topics -Wl,-rpath,../../tron/tron_util/dist/Debug/GNU-Linux -L../../tron/tron_util/dist/Debug/GNU-Linux -ltron_util
+LDLIBSOPTIONS=-Wl,-rpath,../../tron/tron_coms/dist/Debug/GNU-Linux -L../../tron/tron_coms/dist/Debug/GNU-Linux -ltron_coms -Wl,-rpath,../../tron/tron_interface/dist/Debug/GNU-Linux -L../../tron/tron_interface/dist/Debug/GNU-Linux -ltron_interface -Wl,-rpath,../../tron/tron_topics/dist/Debug/GNU-Linux -L../../tron/tron_topics/dist/Debug/GNU-Linux -ltron_topics -Wl,-rpath,../../tron/tron_util/dist/Debug/GNU-Linux -L../../tron/tron_util/dist/Debug/GNU-Linux -ltron_util
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}: ../../tron/tron_coms/dist/Debug/GNU-Linux/libtron_coms.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}: ../../tron/tron_interface/dist/Debug/GNU-Linux/libtron_interface.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}: ../../tron/tron_topics/dist/Debug/GNU-Linux/libtron_topics.so
 
@@ -81,61 +84,67 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}: ${
 ${OBJECTDIR}/src/amy/interface2/ArmNode.o: src/amy/interface2/ArmNode.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/ArmNode.o src/amy/interface2/ArmNode.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/ArmNode.o src/amy/interface2/ArmNode.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/AxesClient.o: src/amy/interface2/control/AxesClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesClient.o src/amy/interface2/control/AxesClient.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesClient.o src/amy/interface2/control/AxesClient.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o: src/amy/interface2/control/AxesServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o src/amy/interface2/control/AxesServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesServer.o src/amy/interface2/control/AxesServer.cpp
+
+${OBJECTDIR}/src/amy/interface2/control/AxesServer2.o: src/amy/interface2/control/AxesServer2.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/AxesServer2.o src/amy/interface2/control/AxesServer2.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o: src/amy/interface2/control/CyclerClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o src/amy/interface2/control/CyclerClient.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/CyclerClient.o src/amy/interface2/control/CyclerClient.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o: src/amy/interface2/control/CyclerServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o src/amy/interface2/control/CyclerServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/CyclerServer.o src/amy/interface2/control/CyclerServer.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/JointsClient.o: src/amy/interface2/control/JointsClient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsClient.o src/amy/interface2/control/JointsClient.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsClient.o src/amy/interface2/control/JointsClient.cpp
 
 ${OBJECTDIR}/src/amy/interface2/control/JointsServer.o: src/amy/interface2/control/JointsServer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/control
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsServer.o src/amy/interface2/control/JointsServer.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/control/JointsServer.o src/amy/interface2/control/JointsServer.cpp
 
 ${OBJECTDIR}/src/amy/interface2/sense/AxesInformer.o: src/amy/interface2/sense/AxesInformer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/sense
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/AxesInformer.o src/amy/interface2/sense/AxesInformer.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/AxesInformer.o src/amy/interface2/sense/AxesInformer.cpp
 
 ${OBJECTDIR}/src/amy/interface2/sense/AxesListener.o: src/amy/interface2/sense/AxesListener.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/sense
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/AxesListener.o src/amy/interface2/sense/AxesListener.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/AxesListener.o src/amy/interface2/sense/AxesListener.cpp
 
 ${OBJECTDIR}/src/amy/interface2/sense/JointsInformer.o: src/amy/interface2/sense/JointsInformer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/sense
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/JointsInformer.o src/amy/interface2/sense/JointsInformer.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/JointsInformer.o src/amy/interface2/sense/JointsInformer.cpp
 
 ${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o: src/amy/interface2/sense/JointsListener.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/interface2/sense
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o src/amy/interface2/sense/JointsListener.cpp
+	$(COMPILE.cc) -g -Isrc -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o src/amy/interface2/sense/JointsListener.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../../tron/tron_coms && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tron_interface && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_topics && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_util && ${MAKE}  -f Makefile CONF=Debug
 
@@ -147,6 +156,7 @@ ${OBJECTDIR}/src/amy/interface2/sense/JointsListener.o: src/amy/interface2/sense
 # Subprojects
 .clean-subprojects:
 	cd ../../tron/tron_coms && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tron_interface && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_topics && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_util && ${MAKE}  -f Makefile CONF=Debug clean
 
