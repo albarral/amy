@@ -5,7 +5,6 @@
 
 #include "amy/interface2/control/AxesClient.h"
 #include "amy/interface2/ArmNode.h"
-#include "tron/topics/RobotNodes.h"
 
 using namespace log4cxx;
 
@@ -17,7 +16,7 @@ AxesClient::AxesClient()
 {    
     ArmNode2 oArmNode;
     // set topics for arm joints control
-    tron::SectionClient::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_AXES, oArmNode);
+    tron::SectionClient::tune4Node(oArmNode, ArmNode2::eSECTION_AXES);
 
     if (isTuned())
     {

@@ -53,7 +53,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../amy_interface2/dist/Debug/GNU-Linux -L../amy_interface2/dist/Debug/GNU-Linux -lamy_interface2 -Wl,-rpath,../../tron/tron_coms/dist/Debug/GNU-Linux -L../../tron/tron_coms/dist/Debug/GNU-Linux -ltron_coms -Wl,-rpath,../../tron/tron_topics/dist/Debug/GNU-Linux -L../../tron/tron_topics/dist/Debug/GNU-Linux -ltron_topics -Wl,-rpath,../../tron/tron_util/dist/Debug/GNU-Linux -L../../tron/tron_util/dist/Debug/GNU-Linux -ltron_util -Wl,-rpath,../../tron/tron_math/dist/Debug/GNU-Linux -L../../tron/tron_math/dist/Debug/GNU-Linux -ltron_math -lignition-math2 -lignition-msgs0 -lignition-transport3 -llog4cxx
+LDLIBSOPTIONS=-Wl,-rpath,../amy_arm/dist/Debug/GNU-Linux -L../amy_arm/dist/Debug/GNU-Linux -lamy_arm -Wl,-rpath,../amy_interface2/dist/Debug/GNU-Linux -L../amy_interface2/dist/Debug/GNU-Linux -lamy_interface2 -Wl,-rpath,../../tron/tron_coms/dist/Debug/GNU-Linux -L../../tron/tron_coms/dist/Debug/GNU-Linux -ltron_coms -Wl,-rpath,../../tron/tron_interface/dist/Debug/GNU-Linux -L../../tron/tron_interface/dist/Debug/GNU-Linux -ltron_interface -Wl,-rpath,../../tron/tron_topics/dist/Debug/GNU-Linux -L../../tron/tron_topics/dist/Debug/GNU-Linux -ltron_topics -Wl,-rpath,../../tron/tron_util/dist/Debug/GNU-Linux -L../../tron/tron_util/dist/Debug/GNU-Linux -ltron_util -Wl,-rpath,../../tron/tron_math/dist/Debug/GNU-Linux -L../../tron/tron_math/dist/Debug/GNU-Linux -ltron_math -lignition-math2 -lignition-msgs0 -lignition-transport3 -llog4cxx
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -64,6 +64,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_test: ../amy_arm/dist/Debug/GNU-L
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_test: ../amy_interface2/dist/Debug/GNU-Linux/libamy_interface2.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_test: ../../tron/tron_coms/dist/Debug/GNU-Linux/libtron_coms.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_test: ../../tron/tron_interface/dist/Debug/GNU-Linux/libtron_interface.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_test: ../../tron/tron_topics/dist/Debug/GNU-Linux/libtron_topics.so
 
@@ -78,18 +80,19 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/amy_test: ${OBJECTFILES}
 ${OBJECTDIR}/src/amy/test/ArmTest.o: src/amy/test/ArmTest.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_arm/src -I../amy_interface2/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I../../tron/tron_math/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/ArmTest.o src/amy/test/ArmTest.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_arm/src -I../amy_interface2/src -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I../../tron/tron_math/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/ArmTest.o src/amy/test/ArmTest.cpp
 
 ${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/test
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_arm/src -I../amy_interface2/src -I../../tron/tron_coms/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I../../tron/tron_math/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/main.o src/amy/test/main.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_arm/src -I../amy_interface2/src -I../../tron/tron_coms/src -I../../tron/tron_interface/src -I../../tron/tron_topics/src -I../../tron/tron_util/src -I../../tron/tron_math/src -I/usr/include/ignition/transport3 -I/usr/include/ignition/msgs0 -I/usr/include/ignition/math2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/test/main.o src/amy/test/main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug
 	cd ../amy_interface2 && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_coms && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../tron/tron_interface && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_topics && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_util && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../tron/tron_math && ${MAKE}  -f Makefile CONF=Debug
@@ -104,6 +107,7 @@ ${OBJECTDIR}/src/amy/test/main.o: src/amy/test/main.cpp
 	cd ../amy_arm && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../amy_interface2 && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_coms && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../tron/tron_interface && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_topics && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_util && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../tron/tron_math && ${MAKE}  -f Makefile CONF=Debug clean

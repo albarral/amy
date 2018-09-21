@@ -28,7 +28,7 @@ ArmServer::ArmServer()
     oCyclerServer2.tune2Cycler(AmyConfig::CYCLER2);
     // tune extra server
     ArmNode2 oArmNode;
-    oExtraServer.tune4Node(oArmNode, ArmNode2::eSECTION_EXTRA);
+    oExtraServer.init(oArmNode, ArmNode2::eSECTION_EXTRA);
  }
 
 void ArmServer::init(ArmBus& oArmBus)

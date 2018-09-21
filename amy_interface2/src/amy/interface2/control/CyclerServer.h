@@ -8,22 +8,19 @@
 
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsReceiver.h"
+#include "tron/interface/SectionServer.h"
 #include "tron/coms/ChannelReader.h"
 
 namespace amy
 {
 // Cycler section server to control a robot arm.
 // Various cycler sections exist, so server must be tuned to one of them.
-// Uses tron ComsReceiver for communications    
-class CyclerServer
+class CyclerServer : public tron::SectionServer
 {            
 private:
-    static log4cxx::LoggerPtr logger;
+    static log4cxx::LoggerPtr logger2;
     std::string serverName;
-    bool btuned;            // server tuned to one cycler
     int targetCycler;       // defines which cycler is controlled
-    tron::ComsReceiver oComsReceiver;  // communications object     
     // main component
     tron::ChannelReader* pFreq1Channel;    // channel reader for main frequency
     tron::ChannelReader* pAmp1Channel;    // channel reader for main amplitude
@@ -41,7 +38,6 @@ public:
     CyclerServer();
     //~CyclerServer();
 
-    bool isTuned() {return btuned;};
     // tune server to given cycler (connect channels to proper topics)
     bool tune2Cycler(int i);
 

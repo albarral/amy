@@ -5,18 +5,15 @@
 
 #include "amy/interface2/control/CyclerServer.h"
 #include "amy/interface2/ArmNode.h"
-#include "tron/topics/RobotNodes.h"
-#include "tron/topics/Topic.h"
 
 using namespace log4cxx;
 
 namespace amy
 {
-LoggerPtr CyclerServer::logger(Logger::getLogger("amy.interface.control"));
+LoggerPtr CyclerServer::logger2(Logger::getLogger("amy.interface.control"));
 
 CyclerServer::CyclerServer()
 {    
-    btuned = false;
     targetCycler = 0;
     serverName = "CyclerServer";
     
@@ -39,47 +36,37 @@ bool CyclerServer::tune2Cycler(int i)
 {
     if (i < 1 || i > 2)
     {
-        LOG4CXX_WARN(logger, serverName + ": invalid target, must be tuned to cycler 1 or 2");
+        LOG4CXX_WARN(logger2, serverName + ": invalid target, must be tuned to cycler 1 or 2");
         return false;
     }
     
     targetCycler = i;
     serverName += std::to_string(targetCycler);
-    // set topics for arm cycler control
-    int node = tron::RobotNodes::eNODE_ARM;
+
+    // set proper section
     int section = (targetCycler == 1) ? ArmNode2::eSECTION_CYCLER1 : ArmNode2::eSECTION_CYCLER2;
-    int type = tron::Topic::eTYPE_CONTROL;
     
-    tron::Topic oTopic;
     ArmNode2 oArmNode;
-    // for each channel in section
-    for (int channel=0; channel<ArmNode2::eCYCLER_DIM; channel++)
+    // set topics for arm cycler control
+    tron::SectionServer::tune4Node(oArmNode, section);
+    
+    if (isTuned())
     {
-        // set its topic 
-        oTopic.set(node, section, channel, type);
-        // and add a channel reader for it
-        if (oArmNode.buildTopicName(oTopic))
-            oComsReceiver.addChannel(oTopic.getTopicName());            
+        // store channel pointers for faster access
+        pFreq1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_FREQ);
+        pAmp1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_AMP);
+        pAngle1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_ANGLE);
+        pPhase1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_PHASE);
+
+        pFreq2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_FREQ);
+        pAmp2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_AMP);
+        pAngle2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_ANGLE);
+        pPhase2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_PHASE);
+
+        pRunChannel = oComsReceiver.getChannel(ArmNode2::eCYCLER_ACTION);        
     }
     
-    // connect all readers
-    oComsReceiver.connect();
-    
-    // store channel pointers for faster access
-    pFreq1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_FREQ);
-    pAmp1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_AMP);
-    pAngle1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_ANGLE);
-    pPhase1Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_MAIN_PHASE);
-    
-    pFreq2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_FREQ);
-    pAmp2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_AMP);
-    pAngle2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_ANGLE);
-    pPhase2Channel = oComsReceiver.getChannel(ArmNode2::eCYCLER_SEC_PHASE);
-    
-    pRunChannel = oComsReceiver.getChannel(ArmNode2::eCYCLER_ACTION);        
-    
-    btuned = true;
-    return true;
+    return btuned;
 }
 
 bool CyclerServer::getMainFreq(float& value)
@@ -88,7 +75,7 @@ bool CyclerServer::getMainFreq(float& value)
     if (pFreq1Channel->hasNew())
     {
         value = std::stof(pFreq1Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get main freq > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get main freq > " << std::to_string(value));
         return true;
     }
     else
@@ -101,7 +88,7 @@ bool CyclerServer::getMainAmplitude(float& value)
     if (pAmp1Channel->hasNew())
     {
         value = std::stof(pAmp1Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get main amplitude > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get main amplitude > " << std::to_string(value));
         return true;
     }
     else
@@ -114,7 +101,7 @@ bool CyclerServer::getMainAngle(float& value)
     if (pAngle1Channel->hasNew())
     {
         value = std::stof(pAngle1Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get main angle > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get main angle > " << std::to_string(value));
         return true;
     }
     else
@@ -127,7 +114,7 @@ bool CyclerServer::getMainPhase(float& value)
     if (pPhase1Channel->hasNew())
     {
         value = std::stof(pPhase1Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get main phase > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get main phase > " << std::to_string(value));
         return true;
     }
     else
@@ -140,7 +127,7 @@ bool CyclerServer::getSecondaryFreq(float& value)
     if (pFreq2Channel->hasNew())
     {
         value = std::stof(pFreq2Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get secondary freq > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get secondary freq > " << std::to_string(value));
         return true;
     }
     else
@@ -153,7 +140,7 @@ bool CyclerServer::getSecondaryAmplitude(float& value)
     if (pAmp2Channel->hasNew())
     {
         value = std::stof(pAmp2Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get secondary amplitude > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get secondary amplitude > " << std::to_string(value));
         return true;
     }
     else
@@ -166,7 +153,7 @@ bool CyclerServer::getSecondaryAngle(float& value)
     if (pAngle2Channel->hasNew())
     {
         value = std::stof(pAngle2Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get secondary angle > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get secondary angle > " << std::to_string(value));
         return true;
     }
     else
@@ -179,7 +166,7 @@ bool CyclerServer::getSecondaryPhase(float& value)
     if (pPhase2Channel->hasNew())
     {
         value = std::stof(pPhase2Channel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get secondary phase > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get secondary phase > " << std::to_string(value));
         return true;
     }
     else
@@ -192,7 +179,7 @@ bool CyclerServer::getAction(int& value)
     if (pRunChannel->hasNew())
     {
         value = std::stoi(pRunChannel->getMessage());
-        LOG4CXX_DEBUG(logger, serverName + ": get action > " << std::to_string(value));
+        LOG4CXX_DEBUG(logger2, serverName + ": get action > " << std::to_string(value));
         return true;
     }
     else

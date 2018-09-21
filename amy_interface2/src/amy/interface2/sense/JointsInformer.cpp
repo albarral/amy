@@ -5,7 +5,6 @@
 
 #include "amy/interface2/sense/JointsInformer.h"
 #include "amy/interface2/ArmNode.h"
-#include "tron/topics/RobotNodes.h"
 
 using namespace log4cxx;
 
@@ -17,7 +16,7 @@ JointsInformer::JointsInformer()
 {    
     // set topics for arm joints sense
     ArmNode2 oArmNode;
-    tron::SectionInformer::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_JOINTS, oArmNode);
+    tron::SectionInformer::tune4Node(oArmNode, ArmNode2::eSECTION_JOINTS);
 
     if (isTuned())
     {

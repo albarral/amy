@@ -9,22 +9,19 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "tron/coms/ComsSender.h"
+#include "tron/interface/SectionClient.h"
 #include "tron/coms/ChannelWriter.h"
 
 namespace amy
 {
 // Cycler section client to control a robot arm.
 // Various cycler sections exist, so client must be tuned to one of them.
-// Uses tron ComsSender for communications
-class CyclerClient 
+class CyclerClient  : public tron::SectionClient
 {            
 private:
-    static log4cxx::LoggerPtr logger;
+    static log4cxx::LoggerPtr logger2;
     std::string clientName;
-    bool btuned;            // client tuned to one cycler
     int targetCycler;       // defines which cycler is controlled
-    tron::ComsSender oComsSender;   // communications object
     // main component
     tron::ChannelWriter* pFreq1Channel;    // channel writer for main frequency
     tron::ChannelWriter* pAmp1Channel;    // channel writer for main amplitude

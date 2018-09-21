@@ -5,7 +5,6 @@
 
 #include "amy/interface2/sense/AxesInformer.h"
 #include "amy/interface2/ArmNode.h"
-#include "tron/topics/RobotNodes.h"
 
 using namespace log4cxx;
 
@@ -17,7 +16,7 @@ AxesInformer::AxesInformer()
 {    
     // set topics for arm axes sense
     ArmNode2 oArmNode;
-    tron::SectionInformer::tune4Node(tron::RobotNodes::eNODE_ARM, ArmNode2::eSECTION_AXES, oArmNode);
+    tron::SectionInformer::tune4Node(oArmNode, ArmNode2::eSECTION_AXES);
 
     if (isTuned())
     {
