@@ -7,7 +7,6 @@
 
 #include "amy/coms/modules/ArmServer.h"
 #include "amy/core/config/AmyConfig.h"
-#include "amy/core/bus/CyclerBus.h"
 #include "amy/interface2/ArmNode.h"
 
 using namespace log4cxx;
@@ -22,6 +21,13 @@ ArmServer::ArmServer()
     modName = "ArmServer";
     benabled = false;
     pArmBus = 0;
+    // buses for axes
+    pBusPan = 0;
+    pBusTilt = 0;
+    pBusRadial = 0;    
+    pCyclerBus1 = 0;
+    pCyclerBus2 = 0;
+    
     bEndRequested = false;
     // tune cycler servers
     oCyclerServer1.tune2Cycler(AmyConfig::CYCLER1);
@@ -34,6 +40,11 @@ ArmServer::ArmServer()
 void ArmServer::init(ArmBus& oArmBus)
 {
     pArmBus = &oArmBus;
+    pBusPan = &(pArmBus->getPanBus());
+    pBusTilt = &(pArmBus->getTiltBus());
+    pBusRadial = &(pArmBus->getRadialBus());
+    pCyclerBus1 = &(pArmBus->getCyclerBus1());
+    pCyclerBus2 = &(pArmBus->getCyclerBus2());
     
     // prepare communication servers
     //oExtraChannelServer.connect2Bus(oArmBus);    
@@ -59,11 +70,11 @@ void ArmServer::loop()
     checkJointsSection();
     // check axes section
     checkAxesSection();
-    // check cycler1 channel
-    checkCyclerSection(1);
-    // check cycler2 channel
-    checkCyclerSection(2);
-    // check extra channel
+    // check cycler1 section
+    checkCyclerSection(oCyclerServer1, pCyclerBus1, "cycler1");
+    // check cycler2 section
+    checkCyclerSection(oCyclerServer2, pCyclerBus2, "cycler2");
+    // check extra section
     checkExtraSection();
 }
 
@@ -108,37 +119,37 @@ void ArmServer::checkAxesSection()
     bool bvalue;
     if (oAxesServer.getPan(value))
     {
-        pArmBus->getPanBus().getCO_AXIS_POS().request(value);
+        pBusPan->getCO_AXIS_POS().request(value);
         LOG4CXX_INFO(logger, "> set pan " << value);                        
     }
     
     if (oAxesServer.getTilt(value))
     {
-        pArmBus->getTiltBus().getCO_AXIS_POS().request(value);
+        pBusTilt->getCO_AXIS_POS().request(value);
         LOG4CXX_INFO(logger, "> set tilt " << value);                        
     }
 
     if (oAxesServer.getRadial(value))
     {
-        pArmBus->getRadialBus().getCO_AXIS_POS().request(value);
+        pBusRadial->getCO_AXIS_POS().request(value);
         LOG4CXX_INFO(logger, "> set radius " << value);                        
     }
 
     if (oAxesServer.getPanSpeed(value))
     {
-        pArmBus->getPanBus().getCO_AXIS_SPEED1().request(value);
+        pBusPan->getCO_AXIS_SPEED1().request(value);
         LOG4CXX_INFO(logger, "> pan speed " << value);                        
     }
 
     if (oAxesServer.getTiltSpeed(value))
     {
-       pArmBus->getTiltBus().getCO_AXIS_SPEED1().request(value);
+       pBusTilt->getCO_AXIS_SPEED1().request(value);
        LOG4CXX_INFO(logger, "> tilt speed " << value);                        
     }
 
     if (oAxesServer.getRadialSpeed(value))
     {
-        pArmBus->getRadialBus().getCO_AXIS_SPEED1().request(value);
+        pBusRadial->getCO_AXIS_SPEED1().request(value);
         LOG4CXX_INFO(logger, "> rad speed " << value);                                
     }
 
@@ -149,72 +160,63 @@ void ArmServer::checkAxesSection()
     }    
 }
 
-void ArmServer::checkCyclerSection(int i)
-{
-    // security check
-    if (i<1 && i>2) 
-        return; 
-        
-    // select cycler server to use
-    CyclerServer& oCyclerServer = (i==1) ? oCyclerServer1 : oCyclerServer2;        
-    CyclerBus& oCyclerBus = (i==1) ? pArmBus->getCyclerBus1() : pArmBus->getCyclerBus2(); 
-    std::string identity = (i==1) ? "> cycler1 " : "> cycler2 ";
-       
+void ArmServer::checkCyclerSection(CyclerServer& oCyclerServer, CyclerBus* pCyclerBus, std::string identity)
+{       
     float value;
     int ivalue;
     if (oCyclerServer.getMainFreq(value))
     {
-        oCyclerBus.getCO_CYCLER_FREQ1().request(value);
-        LOG4CXX_INFO(logger, identity << "main freq " << value);                        
+        pCyclerBus->getCO_CYCLER_FREQ1().request(value);
+        LOG4CXX_INFO(logger, identity << "main freq < " << value);                        
     }
     
     if (oCyclerServer.getMainAmplitude(value))
     {
-        oCyclerBus.getCO_CYCLER_AMP1().request(value);
-        LOG4CXX_INFO(logger, identity << "main amplitude " << value);                        
+        pCyclerBus->getCO_CYCLER_AMP1().request(value);
+        LOG4CXX_INFO(logger, identity << "main amplitude < " << value);                        
     }
 
     if (oCyclerServer.getMainAngle(value))
     {
-        oCyclerBus.getCO_CYCLER_ANGLE1().request(value);
-        LOG4CXX_INFO(logger, identity << "main angle " << value);                        
+        pCyclerBus->getCO_CYCLER_ANGLE1().request(value);
+        LOG4CXX_INFO(logger, identity << "main angle < " << value);                        
     }
 
     if (oCyclerServer.getMainPhase(value))
     {
-        oCyclerBus.getCO_CYCLER_PHASE1().request((int)value);
-        LOG4CXX_INFO(logger, identity << "main phase " << value);                        
+        pCyclerBus->getCO_CYCLER_PHASE1().request((int)value);
+        LOG4CXX_INFO(logger, identity << "main phase < " << value);                        
     }
 
     if (oCyclerServer.getSecondaryFreq(value))
     {
-        oCyclerBus.getCO_CYCLER_FREQ2().request(value);
-        LOG4CXX_INFO(logger, identity << "secondary freq " << value);                        
+        pCyclerBus->getCO_CYCLER_FREQ2().request(value);
+        LOG4CXX_INFO(logger, identity << "secondary freq < " << value);                        
     }
     
     if (oCyclerServer.getSecondaryAmplitude(value))
     {
-        oCyclerBus.getCO_CYCLER_AMP2().request(value);
-        LOG4CXX_INFO(logger, identity << "secondary amplitude " << value);                        
+        pCyclerBus->getCO_CYCLER_AMP2().request(value);
+        LOG4CXX_INFO(logger, identity << "secondary amplitude < " << value);                        
     }
 
     if (oCyclerServer.getSecondaryAngle(value))
     {
-        oCyclerBus.getCO_CYCLER_ANGLE2().request(value);
-        LOG4CXX_INFO(logger, identity << "secondary angle " << value);                        
+        pCyclerBus->getCO_CYCLER_ANGLE2().request(value);
+        LOG4CXX_INFO(logger, identity << "secondary angle < " << value);                        
     }
 
     if (oCyclerServer.getSecondaryPhase(value))
     {
-        oCyclerBus.getCO_CYCLER_PHASE2().request((int)value);
-        LOG4CXX_INFO(logger, identity << "secondary phase " << value);                        
+        pCyclerBus->getCO_CYCLER_PHASE2().request((int)value);
+        LOG4CXX_INFO(logger, identity << "secondary phase < " << value);                        
     }
 
     if (oCyclerServer.getAction(ivalue))
     {
         bool bgo = (ivalue != 0); 
-        oCyclerBus.getCO_CYCLER_ACTION().request(bgo);
-        LOG4CXX_INFO(logger, identity << " action " << bgo);                        
+        pCyclerBus->getCO_CYCLER_ACTION().request(bgo);
+        LOG4CXX_INFO(logger, identity << " action < " << bgo);                        
     }
 }
 

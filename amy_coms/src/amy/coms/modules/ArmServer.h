@@ -10,6 +10,9 @@
 #include <log4cxx/logger.h>
 
 #include "amy/core/bus/ArmBus.h"
+#include "amy/core/bus/JointBus.h"
+#include "amy/core/bus/AxisBus.h"
+#include "amy/core/bus/CyclerBus.h"
 #include "amy/interface2/control/JointsServer.h"
 #include "amy/interface2/control/AxesServer.h"
 #include "amy/interface2/control/CyclerServer.h"
@@ -26,6 +29,12 @@ private:
     static log4cxx::LoggerPtr logger;
     std::string modName;          // module name
     bool benabled;
+    // bus connections
+    AxisBus* pBusPan;          // access to pan bus 
+    AxisBus* pBusTilt;          // access to tilt bus
+    AxisBus* pBusRadial;      // access to radial bus
+    CyclerBus* pCyclerBus1;
+    CyclerBus* pCyclerBus2;
     // logic
     ArmBus* pArmBus;      // access to arm bus    
     JointsServer oJointsServer;
@@ -51,7 +60,7 @@ private:
     
     void checkJointsSection();        
     void checkAxesSection();
-    void checkCyclerSection(int i);
+    void checkCyclerSection(CyclerServer& oCyclerServer, CyclerBus* pCyclerBus, std::string identity);
     void checkExtraSection();
 };
 }		
