@@ -36,7 +36,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/amy/main/AmyControl.o \
-	${OBJECTDIR}/src/amy/main/ArmTest.o \
 	${OBJECTDIR}/src/amy/main/main.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmUR5.o \
 	${OBJECTDIR}/src/amy/main/robots/ArmYoubot.o \
@@ -71,11 +70,6 @@ ${OBJECTDIR}/src/amy/main/AmyControl.o: src/amy/main/AmyControl.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/AmyControl.o src/amy/main/AmyControl.cpp
-
-${OBJECTDIR}/src/amy/main/ArmTest.o: src/amy/main/ArmTest.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/amy/main
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/main/ArmTest.o src/amy/main/ArmTest.cpp
 
 ${OBJECTDIR}/src/amy/main/main.o: src/amy/main/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/main

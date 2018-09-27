@@ -95,7 +95,7 @@ void ArmCycler::loop()
 
             // perform movement
             updateMove();
-            LOG4CXX_INFO(logger, "speeds: " << xspeed << ", " << yspeed);  
+            LOG4CXX_DEBUG(logger, "speeds: " << xspeed << ", " << yspeed);  
             break;
 
         case eSTATE_STOP:

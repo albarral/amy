@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 
+#include <exception>
 #include <vector>
 #include <string>
 #include <unistd.h> // for sleep() 
@@ -14,8 +15,6 @@
 #include "amy/main/AmyControl.h"
 #include "amy/main/robots/SupportedRobots.h"
 #include "amy/core/robot/Robot.h"
-
-#include "amy/main/ArmTest.h"
 
 using namespace amy;
 
@@ -76,33 +75,29 @@ int main(int argc, char** argv)
 // runs the amy control for the specified robot
 void runAmy(Robot& oRobot)
 {        
-    AmyControl oAmyControl; 
-
-//    ArmTest oArmTest;
-//    oArmTest.connect2Bus(oAmyControl.getArmBus4Test());
-//    int test = 0;
-    //oArmTest.testKeepTilt();
-
-    // launch amy control & wait for it to end        
-    if (oAmyControl.launch(oRobot))
+    try
     {
-        while (!oAmyControl.checkEndRequested()) 
-        {
-            sleep(1);
-            
-//            test++;
-//            if (test == 1)
-//                oArmTest.setPos(0, 30, 80);
-//            else if (test == 5)
-//                oArmTest.testCycler2();
-        }    
+        AmyControl oAmyControl; 
 
-        LOG4CXX_INFO(logger, "\namy end requested ...\n");
-        oAmyControl.end();        
+        // launch amy control & wait for it to end        
+        if (oAmyControl.launch(oRobot))
+        {
+            while (!oAmyControl.checkEndRequested()) 
+            {
+                sleep(1);            
+            }    
+
+            LOG4CXX_INFO(logger, "\namy end requested ...\n");
+            oAmyControl.end();        
+        }
+        else
+            LOG4CXX_ERROR(logger, "AmyControl could not be launched");
+    } 
+    catch (std::exception& e) 
+    {
+        std::cout << "runAmy: exception: " << e.what() << std::endl;
     }
-    else
-        LOG4CXX_ERROR(logger, "AmyControl could not be launched");
-        
+
     return;
 }
 

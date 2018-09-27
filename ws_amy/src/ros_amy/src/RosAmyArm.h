@@ -6,15 +6,24 @@
  *   albarral@migtron.com   *
  ***************************************************************************/
 
-#include "amy/interface/ArmListener.h"
-#include "amy/interface/ArmSensors.h"
+#include "amy/interface2/sense/JointsListener.h"
+
+struct JointsData
+{
+    float hs; 
+    float vs; 
+    float elb; 
+    float hwri; 
+    float vwri;   
+};
 
 class RosAmyArm
 {
 private:    
     int counter;          
-    amy::ArmListener oArmListener;         // listener utility for arm published info
-    amy::JointsData jointPositions;           // structure for storing arm joints data
+    amy::JointsListener oJointsListener;         // amy listener for published arm joints
+    JointsData joints;           // present arm joints data
+    JointsData joints0;         // previous arm joints data
   
 public:
   RosAmyArm();
@@ -27,8 +36,9 @@ public:
 private:
     //void waitMoveDone(YoubotArm& oYoubotArm);
     
-    bool compareData(amy::JointsData& jointPositions1, amy::JointsData& jointPositions2);    
-    void showAngles(amy::JointsData& jointPositions);  
+    bool senseJoints();
+    bool checkChanged();    
+    void showAngles(JointsData& jointPositions);  
 };
 
 #endif

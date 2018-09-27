@@ -5,19 +5,15 @@ ros_amy (ROS package) allows controlling a robot arm through the amy library.
 
 > Requirements:
 
+libtron_coms.so
+libtron_topics.so
 libtron_util.so
-libtron_tools.so
-libtron_wire.so
-libtron_wire2.so
-libtron2_coms.so
-libtron2_robot.so
-libamy_interface.so
+libamy_interface2.so
 
 > Repos: 
 
 git clone https://github.com/albarral/amy.git
 git clone https://github.com/albarral/tron.git
-git clone https://github.com/albarral/tron2.git
 
 
 > Installation:

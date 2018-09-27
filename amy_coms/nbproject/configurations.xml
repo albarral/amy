@@ -19,26 +19,8 @@
           <itemPath>src/amy/coms/modules/ArmServer.cpp</itemPath>
           <itemPath>src/amy/coms/modules/ArmServer.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="publisher" displayName="publisher" projectFiles="true">
-          <itemPath>src/amy/coms/publisher/AxisChannelPublisher.cpp</itemPath>
-          <itemPath>src/amy/coms/publisher/AxisChannelPublisher.h</itemPath>
-          <itemPath>src/amy/coms/publisher/JointChannelPublisher.cpp</itemPath>
-          <itemPath>src/amy/coms/publisher/JointChannelPublisher.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="server" displayName="server" projectFiles="true">
-          <itemPath>src/amy/coms/server/AxisChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/AxisChannelServer.h</itemPath>
-          <itemPath>src/amy/coms/server/CyclerChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/CyclerChannelServer.h</itemPath>
-          <itemPath>src/amy/coms/server/ExtraChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/ExtraChannelServer.h</itemPath>
-          <itemPath>src/amy/coms/server/JointChannelServer.cpp</itemPath>
-          <itemPath>src/amy/coms/server/JointChannelServer.h</itemPath>
-        </logicalFolder>
         <itemPath>src/amy/coms/AmyComs.cpp</itemPath>
         <itemPath>src/amy/coms/AmyComs.h</itemPath>
-        <itemPath>src/amy/coms/ArmConnector.cpp</itemPath>
-        <itemPath>src/amy/coms/ArmConnector.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -81,14 +63,15 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../amy_core/src</pElem>
-            <pElem>../amy_interface/src</pElem>
-            <pElem>../../tron2/tron2_coms/src</pElem>
-            <pElem>../../tron2/tron2_robot/src</pElem>
+            <pElem>../amy_interface2/src</pElem>
             <pElem>../../tron/tron_control/src</pElem>
-            <pElem>../../tron/tron_wire/src</pElem>
-            <pElem>../../tron/tron_wire2/src</pElem>
-            <pElem>../../tron/tron_tools/src</pElem>
+            <pElem>../../tron/tron_coms/src</pElem>
+            <pElem>../../tron/tron_interface/src</pElem>
+            <pElem>../../tron/tron_topics/src</pElem>
             <pElem>../../tron/tron_util/src</pElem>
+            <pElem>/usr/include/ignition/transport3</pElem>
+            <pElem>/usr/include/ignition/msgs0</pElem>
+            <pElem>/usr/include/ignition/math2</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -107,39 +90,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../amy_interface"
+              <makeArtifact PL="../amy_interface2"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../amy_interface"
+                            WD="../amy_interface2"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../tron2/tron2_coms"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron2/tron2_coms"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron2_coms.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../tron2/tron2_robot"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../../tron2/tron2_robot"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron2_robot.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libamy_interface2.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -155,39 +114,39 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/tron_wire"
+              <makeArtifact PL="../../tron/tron_coms"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../../tron/tron_wire"
+                            WD="../../tron/tron_coms"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_wire.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_coms.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/tron_wire2"
+              <makeArtifact PL="../../tron/tron_interface"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../../tron/tron_wire2"
+                            WD="../../tron/tron_interface"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_wire2.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_interface.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../../tron/tron_tools"
+              <makeArtifact PL="../../tron/tron_topics"
                             CT="2"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../../tron/tron_tools"
+                            WD="../../tron/tron_topics"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_tools.${CND_DLIB_EXT}">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libtron_topics.${CND_DLIB_EXT}">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -209,10 +168,6 @@
       </item>
       <item path="src/amy/coms/AmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/ArmConnector.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ArmConnector.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/coms/modules/ArmPublisher.cpp"
             ex="false"
             tool="1"
@@ -226,66 +181,6 @@
       <item path="src/amy/coms/modules/ArmServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/modules/ArmServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/AxisChannelPublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/AxisChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/AxisChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/AxisChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/ExtraChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/ExtraChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -312,10 +207,6 @@
       </item>
       <item path="src/amy/coms/AmyComs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/amy/coms/ArmConnector.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/amy/coms/ArmConnector.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/amy/coms/modules/ArmPublisher.cpp"
             ex="false"
             tool="1"
@@ -329,66 +220,6 @@
       <item path="src/amy/coms/modules/ArmServer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/amy/coms/modules/ArmServer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/AxisChannelPublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/AxisChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/publisher/JointChannelPublisher.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/AxisChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/AxisChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/CyclerChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/ExtraChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/ExtraChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/amy/coms/server/JointChannelServer.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
       </item>
     </conf>
   </confs>

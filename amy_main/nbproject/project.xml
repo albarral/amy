@@ -10,20 +10,18 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../amy_show</make-dep-project>
+                <make-dep-project>../../tron/tron_topics</make-dep-project>
                 <make-dep-project>../amy_coms</make-dep-project>
                 <make-dep-project>../../tron/tron_control</make-dep-project>
-                <make-dep-project>../../tron/tron_wire2</make-dep-project>
-                <make-dep-project>../../tron2/tron2_robot</make-dep-project>
+                <make-dep-project>../../tron/tron_interface</make-dep-project>
                 <make-dep-project>../../tron/tron_math</make-dep-project>
-                <make-dep-project>../../tron2/tron2_coms</make-dep-project>
-                <make-dep-project>../amy_interface</make-dep-project>
                 <make-dep-project>../../tron/tron_signals</make-dep-project>
                 <make-dep-project>../../tron/tron_util</make-dep-project>
-                <make-dep-project>../../tron/tron_wire</make-dep-project>
                 <make-dep-project>../amy_core</make-dep-project>
-                <make-dep-project>../../tron/tron_tools</make-dep-project>
+                <make-dep-project>../../tron/tron_coms</make-dep-project>
                 <make-dep-project>../../tron2/tron2_tivy</make-dep-project>
                 <make-dep-project>../amy_arm</make-dep-project>
+                <make-dep-project>../amy_interface2</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src/amy/main</sourceRootElem>
