@@ -46,9 +46,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/amy/arm/modules/RadiusDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltDriver.o \
 	${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o \
-	${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o \
-	${OBJECTDIR}/src/amy/arm/move/JointPositioner.o \
-	${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o \
+	${OBJECTDIR}/src/amy/arm/move/JointControl.o \
+	${OBJECTDIR}/src/amy/arm/move/JointDrive.o \
+	${OBJECTDIR}/src/amy/arm/move/RadialControl.o \
 	${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule.o \
 	${OBJECTDIR}/src/amy/arm/util/ArmModule3.o \
@@ -144,20 +144,20 @@ ${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o: src/amy/arm/modules/TiltKeeper.cp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/modules/TiltKeeper.o src/amy/arm/modules/TiltKeeper.cpp
 
-${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o: src/amy/arm/move/JointAccelerator.cpp 
+${OBJECTDIR}/src/amy/arm/move/JointControl.o: src/amy/arm/move/JointControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointAccelerator.o src/amy/arm/move/JointAccelerator.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointControl.o src/amy/arm/move/JointControl.cpp
 
-${OBJECTDIR}/src/amy/arm/move/JointPositioner.o: src/amy/arm/move/JointPositioner.cpp 
+${OBJECTDIR}/src/amy/arm/move/JointDrive.o: src/amy/arm/move/JointDrive.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointPositioner.o src/amy/arm/move/JointPositioner.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/JointDrive.o src/amy/arm/move/JointDrive.cpp
 
-${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o: src/amy/arm/move/RadialPositioner.cpp 
+${OBJECTDIR}/src/amy/arm/move/RadialControl.o: src/amy/arm/move/RadialControl.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialPositioner.o src/amy/arm/move/RadialPositioner.cpp
+	$(COMPILE.cc) -g -Isrc -I../amy_core/src -I../../tron/tron_control/src -I../../tron/tron_math/src -I../../tron/tron_signals/src -I../../tron/tron_util/src -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/amy/arm/move/RadialControl.o src/amy/arm/move/RadialControl.cpp
 
 ${OBJECTDIR}/src/amy/arm/move/SpeedSensor3.o: src/amy/arm/move/SpeedSensor3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/amy/arm/move

@@ -8,7 +8,6 @@
 
 #include "amy/core/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
-#include "amy/arm/move/JointPositioner.h"
 
 namespace amy
 {
@@ -22,7 +21,6 @@ class PanDriver: public AxisDriver
 private:
     // bus
     AxisBus* pBusPan;    // bus connection to pan axis
-    JointPositioner oJointPositioner;      // utility class to drive the horizontal shoulder
     float istHS;               // measured HS angle
 
 public:
@@ -30,16 +28,14 @@ public:
         //~PanDriver();
                        
 private:       
-        // return reference to the used joint controller
-        virtual JointPositioner& getController() {return oJointPositioner;};
+        // create proper joint controllers
+        virtual void createControllers(Arm& oArm) override;
         // connect driver to specific joint
         virtual void setControlledJoint();
         // read bus data
         virtual void senseBus();
-        // prepare movement
-        virtual void setNewTarget();
         // computes the axis position
-        virtual void computeAxisPosition();
+        virtual float computeAxisPosition() override;
 
         void showMovementData();
 

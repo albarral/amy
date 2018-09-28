@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_JOINTCONTROL_H
-#define __AMY_MOVE_JOINTCONTROL_H
+#ifndef __AMY_ARM_JOINTCONTROL_H
+#define __AMY_ARM_JOINTCONTROL_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -20,7 +20,7 @@ namespace amy
 // To request a movement, call newMove() with the target angle.
 // Then, the drive() function must be called periodically. This internally computes the joint speed and updates the acceleration control.
 // Movement is finished when the state is DONE.
-class JointPositioner
+class JointControl
 {
 public:    
     // movement states
@@ -55,13 +55,13 @@ protected:
     tron::Click oClick;      // clock utility
 
 public:
-        JointPositioner();
+        JointControl();
         //~JointControl();
                 
        void init(float kaccel, float kspeed, float posTolerance, float maxSpeed);
 
-       // new move requested (to target angle)
-        void setNewMove(float angle);
+       // new move requested (to new angle)
+        virtual void newMove(float angle);
         float getTargetAngle() {return targetAngle;}
         
         // drive the joint with a proper acceleration, the acceleration is returned

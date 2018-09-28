@@ -19,6 +19,10 @@ PanDriver::PanDriver()
 //{
 //}
 
+void PanDriver::createControllers(Arm& oArm)
+{
+    pJointControl = new JointControl();      // utility class to drive the HS
+}
 
 void PanDriver::setControlledJoint()
 {
@@ -27,12 +31,6 @@ void PanDriver::setControlledJoint()
     pJointBus = &pArmBus->getBusHS();
 }
        
-void PanDriver::setNewTarget()
-{
-    // prepare for new move
-    oJointPositioner.setNewMove(targetAxis);    
-}
-
 void PanDriver::senseBus()
 {
     // if pan requested, new move
@@ -48,8 +46,8 @@ void PanDriver::senseBus()
     jointLimit = pJointBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
-void PanDriver::computeAxisPosition()
+float PanDriver::computeAxisPosition()
 {
-    istAxis = istHS;    // pan position = HS position
+    return istHS;    // pan position = HS position
 }
 }

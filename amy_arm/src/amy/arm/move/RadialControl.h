@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_RADIALCONTROL_H
-#define __AMY_MOVE_RADIALCONTROL_H
+#ifndef __AMY_ARM_RADIALCONTROL_H
+#define __AMY_ARM_RADIALCONTROL_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "amy/arm/move/JointPositioner.h"
+#include "amy/arm/move/JointControl.h"
 #include "tron/math/ArmMath.h"
 
 namespace amy
@@ -22,7 +22,7 @@ namespace amy
 // Initialize as a normal RadialControl (sensitivity and tolerance) 
 // Set arm segments and work plane
 // Then work as normal RadialControl (request target and call drive repeatedly till movement finished)     
-class RadialPositioner : public JointPositioner
+class RadialControl : public JointControl
 {
 private:
     // request
@@ -32,21 +32,19 @@ private:
     int workSign;                 // sign of target angles (defines the working plane)  
 
 public:
-        RadialPositioner();
+        RadialControl(int lenHumerus, int lenRadius);
         //~RadialControl();
                 
-       // sets sizes of arm segments 
-       void setArmSize(int lenHumerus, int lenRadius);               
        // sets elbow to work upside (with positive elbow angles)
        void workUp();
        // sets elbow to work downside (with negative elbow angles)
        void workDown();
 
        // new radial move requested (to target radius)
-        void newRadialMove(float radius);
+        virtual void newMove(float radius) override;
                       
-        virtual std::string toString();
-        virtual std::string paramsToString();
+        virtual std::string toString() override;
+        virtual std::string paramsToString() override;
         
 };
 }

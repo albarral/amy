@@ -8,7 +8,6 @@
 
 #include "amy/core/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
-#include "amy/arm/move/JointPositioner.h"
 #include "tron/math/ArmMath.h"
 
 namespace amy
@@ -24,7 +23,6 @@ private:
     // bus
     AxisBus* pBusTilt;    // bus connection to tilt axis
     JointBus* pELBus;       // additional bus connection to EL (for axis position computation)
-    JointPositioner oJointPositioner;      // utility class to drive the VS
     tron::ArmMath oArmMath;       // utility class for arm computations
     float istVS;               // measured VS angle
     float istEL;               // measured EL angle
@@ -34,18 +32,14 @@ public:
         //~TiltDriver();
 
 private:       
-        // return reference to the used joint controller
-        virtual JointPositioner& getController() {return oJointPositioner;};
-        // prepare axis driver
-        virtual void prepareDriver();
+        // create proper joint controllers
+        virtual void createControllers(Arm& oArm) override;
         // connect driver to specific joint
         virtual void setControlledJoint();
         // read bus data
         virtual void senseBus();
-        // prepare movement
-        virtual void setNewTarget();
         // computes the axis position
-        virtual void computeAxisPosition();
+        virtual float computeAxisPosition() override;
 
         void showMovementData();
 

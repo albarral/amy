@@ -19,29 +19,38 @@ AxisDriver::AxisDriver()
     benabled = false;
     modName = "AxisDriver";
     
-    pArmConfig = 0;
-    pArm = 0;        
-        
     bconnected = false;
     pArmBus = 0;
-    pJointBus = 0;        
+    pJointBus = 0;    
+    pJointControl = 0;
 }
 
-//AxisDriver::~AxisDriver()
-//{
-//}
+AxisDriver::~AxisDriver()
+{
+    if (pJointControl != 0)
+        delete(pJointControl);
+}
 
 void AxisDriver::init(Arm& oArm, ArmConfig& oArmConfig)
 {
-    pArmConfig = &oArmConfig;      
-    pArm = &oArm;
     // control priority
-    priority = pArmConfig->getPriority4AxisDrivers();
-    // set specific preparation (in derived class)
-    prepareDriver();
-    benabled = true;
+    priority = oArmConfig.getPriority4AxisDrivers();
+    // create proper joint controllers
+    createControllers(oArm);
+    // initialize joint controllers
+    if (pJointControl != 0)
+    {
+        pJointControl->init(oArmConfig.getDriverKaccel(),
+                               oArmConfig.getDriverKspeed(),
+                               oArmConfig.getDriverTolerance(),
+                               oArmConfig.getDriverSpeed());    
 
-    LOG4CXX_INFO(logger, modName << " initialized");                  
+        LOG4CXX_INFO(logger, modName << pJointControl->paramsToString());              
+        benabled = true;
+        LOG4CXX_INFO(logger, modName << " initialized");                  
+    }
+    else
+        LOG4CXX_WARN(logger, modName << " failed initialization!");                          
 };
 
 void AxisDriver::connect(ArmBus& oArmBus)
@@ -56,22 +65,6 @@ void AxisDriver::connect(ArmBus& oArmBus)
     }
     else        
         LOG4CXX_ERROR(logger, modName << " failed connection to out joint bus");              
-}
-
-void AxisDriver::prepareDriver()
-{
-    // set movement params
-    if (pArmConfig != 0)
-    {
-        // get used joint positioner and initialize it
-        JointPositioner& oJointPositioner = getController();        
-        oJointPositioner.init(pArmConfig->getDriverKaccel(),
-                               pArmConfig->getDriverKspeed(),
-                               pArmConfig->getDriverTolerance(),
-                               pArmConfig->getDriverSpeed());    
-        
-        LOG4CXX_INFO(logger, modName << oJointPositioner.paramsToString());              
-    }        
 }
 
 void AxisDriver::first()
@@ -99,7 +92,7 @@ void AxisDriver::loop()
     {
         case eSTATE_NEWMOVE:
             // new move requested -> update target & go to DRIVE
-            setNewTarget();
+            pJointControl->newMove(targetAxis);    
             outAccel = 0.0;
             setState(eSTATE_DRIVE);
             break;
@@ -125,16 +118,15 @@ void AxisDriver::loop()
 
 bool AxisDriver::doMove()
 {
-    computeAxisPosition();
+    istAxis = computeAxisPosition();
     
     // perform the control (compute the proper joint accel)
-    JointPositioner& oJointPositioner = getController();        
-    outAccel = oJointPositioner.drive(istAxis);
+    outAccel = pJointControl->drive(istAxis);
     
-    LOG4CXX_DEBUG(logger, oJointPositioner.toString());
+    LOG4CXX_DEBUG(logger, pJointControl->toString());
     
     // check if movement finished 
-    if (oJointPositioner.isMovementDone())
+    if (pJointControl->isMovementDone())
         return false;
     else
         return true;
@@ -142,17 +134,21 @@ bool AxisDriver::doMove()
 
 bool AxisDriver::checkBlocked()
 {
-    int moveSign = getController().getMoveSign();
-
     // check if movement is blocked (pushing beyond the joint's limit)    
-    return ((jointLimit > 0 && moveSign > 0) || (jointLimit < 0 && moveSign < 0));
+    if (jointLimit == 0)
+        return false;
+    // top limit and pushing up
+    else if (jointLimit > 0)
+        return (pJointControl->getMoveSign() > 0);
+    // bottom limit and pushing down
+    else 
+        return (pJointControl->getMoveSign() < 0);
 }
 
 void AxisDriver::writeBus()
 {  
     // send command to joint (the computed acceleration)
-    if (pJointBus != 0)
-        pJointBus->getCO_JOINT_ACCEL().request(outAccel, priority);
+    pJointBus->getCO_JOINT_ACCEL().request(outAccel, priority);
 }
 
 

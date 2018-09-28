@@ -20,12 +20,11 @@ TiltDriver::TiltDriver()
 //{
 //}
 
-void TiltDriver::prepareDriver()
+void TiltDriver::createControllers(Arm& oArm)
 {
-    // set movement params
-    AxisDriver::prepareDriver();
+    pJointControl = new JointControl();      // utility class to drive the VS
     // tune arm math
-    oArmMath.setLengths(pArm->getLenHumerus(), pArm->getLenRadius());
+    oArmMath.setLengths(oArm.getLenHumerus(), oArm.getLenRadius());
 }
 
 void TiltDriver::setControlledJoint()
@@ -37,12 +36,6 @@ void TiltDriver::setControlledJoint()
     pELBus = &pArmBus->getBusEL();
 }
        
-void TiltDriver::setNewTarget()
-{
-    // prepare for new move
-    oJointPositioner.setNewMove(targetAxis);    
-}
-
 void TiltDriver::senseBus()
 {
     // if tilt requested, new move
@@ -60,10 +53,10 @@ void TiltDriver::senseBus()
     istEL = pELBus->getCO_JOINT_ANGLE().getValue();
 }
 
-void TiltDriver::computeAxisPosition()
+float TiltDriver::computeAxisPosition()
 {
     // tilt position = function of VS and EL positions
-    istAxis = oArmMath.computeTilt4JointAngles(istVS, istEL);
+    return oArmMath.computeTilt4JointAngles(istVS, istEL);
 }
 
 }

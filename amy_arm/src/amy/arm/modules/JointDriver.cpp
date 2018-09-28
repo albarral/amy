@@ -7,7 +7,7 @@
 
 #include "amy/arm/modules/JointDriver.h"
 #include "amy/core/robot/Joint.h"
-#include "amy/arm/move/JointAccelerator.h"
+#include "amy/arm/move/JointDrive.h"
 
 using namespace log4cxx;
 
@@ -44,7 +44,7 @@ void JointDriver::first()
     setState(JointDriver::eSTATE_DONE);
     setNextState(JointDriver::eSTATE_DONE);
   
-    oJointAccelerator.reset();
+    oJointDrive.reset();
     log4cxx::NDC::push(modName);   	
 }
                     
@@ -68,7 +68,7 @@ void JointDriver::loop()
                 setNextState(eSTATE_MOVE);
                 // if coming from DONE, store angle 
                 if (state == eSTATE_DONE)
-                    oJointAccelerator.touch(angle);                      
+                    oJointDrive.touch(angle);                      
             }
         }
         // if no accel request -> BRAKE        
@@ -84,9 +84,9 @@ void JointDriver::loop()
         case eSTATE_BRAKE:            
 
             // if joint is moving, brake it
-            if (oJointAccelerator.getSpeed() != 0.0)
+            if (oJointDrive.getSpeed() != 0.0)
             {
-                angle = oJointAccelerator.brake(angle, brakeAccel);
+                angle = oJointDrive.brake(angle, brakeAccel);
                 angle = limitAngle(angle);
                 //LOG4CXX_INFO(logger, oJointMove.toString());
             }
@@ -103,7 +103,7 @@ void JointDriver::loop()
         case eSTATE_MOVE:
             
             // do the control
-            angle = oJointAccelerator.move(angle, accel);            
+            angle = oJointDrive.move(angle, accel);            
             angle = limitAngle(angle);
             //LOG4CXX_INFO(logger, oJointMove.toString());
             break;            
@@ -135,7 +135,7 @@ void JointDriver::senseBus()
 
 void JointDriver::writeBus()
 {
-    float sollSpeed = oJointAccelerator.getSpeed();        
+    float sollSpeed = oJointDrive.getSpeed();        
     int state = getState();
     
     // CO commands ...

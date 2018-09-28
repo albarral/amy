@@ -4,6 +4,7 @@
  ***************************************************************************/
 
 #include "amy/arm/modules/RadiusDriver.h"
+#include "amy/arm/move/RadialControl.h"
 
 using namespace log4cxx;
 
@@ -19,12 +20,9 @@ RadiusDriver::RadiusDriver()
 //{
 //}
 
-void RadiusDriver::prepareDriver()
+void RadiusDriver::createControllers(Arm& oArm)
 {
-    // set movement params
-    AxisDriver::prepareDriver();
-    
-    oRadialPositioner.setArmSize(pArm->getLenHumerus(), pArm->getLenRadius());
+    pJointControl = new RadialControl(oArm.getLenHumerus(), oArm.getLenRadius());      // utility class to drive the ELB
 }
 
 void RadiusDriver::setControlledJoint()
@@ -34,12 +32,6 @@ void RadiusDriver::setControlledJoint()
     pJointBus = &pArmBus->getBusEL();
 }
        
-void RadiusDriver::setNewTarget()
-{
-    // prepare for new move
-    oRadialPositioner.newRadialMove(targetAxis);    
-}
-
 void RadiusDriver::senseBus()
 {
     // if radius requested, new move
@@ -55,11 +47,11 @@ void RadiusDriver::senseBus()
     jointLimit = pJointBus->getSO_JOINT_LIMIT_REACHED().getValue();
 }
 
-void RadiusDriver::computeAxisPosition()
+float RadiusDriver::computeAxisPosition()
 {
-    // radial distance = function of EL position and arm lengths, BUT ...
-    // only EL position used here -> as the RadialPositioner class internally computes the radial position itself
-    istAxis = istEL;
+    // radial distance = function of EL position and arm lengths
+    // but only EL position returned here as used RadialControl internally computes the radial position itself
+    return istEL;
 }
 
 }

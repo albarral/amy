@@ -8,7 +8,6 @@
 
 #include "amy/core/bus/AxisBus.h"
 #include "amy/arm/modules/AxisDriver.h"
-#include "amy/arm/move/RadialPositioner.h"
 
 namespace amy
 {
@@ -21,7 +20,6 @@ class RadiusDriver: public AxisDriver
 {
 private:
     AxisBus* pBusRadial;    // bus connection to radial axis
-    RadialPositioner oRadialPositioner;      // utility class to drive the ELB
     float istEL;               // measured EL angle
 
 public:
@@ -30,18 +28,14 @@ public:
                        
 
 private:       
-        // return reference to the used joint controller
-        virtual JointPositioner& getController() {return oRadialPositioner;};
-        // prepare axis driver
-        virtual void prepareDriver();
+        // create proper joint controllers
+        virtual void createControllers(Arm& oArm) override;
         // connect driver to specific joint
         virtual void setControlledJoint();
         // read bus data
         virtual void senseBus();
-        // prepare movement
-        virtual void setNewTarget();
         // computes the axis position
-        virtual void computeAxisPosition();
+        virtual float computeAxisPosition() override;
 
         void showMovementData();
 

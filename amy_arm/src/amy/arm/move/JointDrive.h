@@ -1,5 +1,5 @@
-#ifndef __AMY_MOVE_JOINTACCELERATOR_H
-#define __AMY_MOVE_JOINTACCELERATOR_H
+#ifndef __AMY_ARM_JOINTDRIVE_H
+#define __AMY_ARM_JOINTDRIVE_H
 
 /***************************************************************************
  *   Copyright (C) 2016 by Migtron Robotics   *
@@ -17,7 +17,7 @@ namespace amy
 // A brake mode is also available, which reduces the speed until 0 is reached.
 // The brake mode works by periodically calling the brake() function instead of move().
 // The elapsed time between calls is measured and used for the movement computation.
-class JointAccelerator
+class JointDrive
 {
 private:
     float accel;                // average speed in last control period, used for the position update (degrees/s) 
@@ -28,7 +28,7 @@ private:
     tron::Click oClick;      // clock utility
 
 public:
-    JointAccelerator();
+    JointDrive();
     //~JointMove();
 
     // control inputs

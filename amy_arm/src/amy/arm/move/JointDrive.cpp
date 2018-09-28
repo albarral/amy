@@ -5,24 +5,24 @@
 
 #include <cmath>
 
-#include "amy/arm/move/JointAccelerator.h"
+#include "amy/arm/move/JointDrive.h"
 
 namespace amy
 {
 
-JointAccelerator::JointAccelerator()
+JointDrive::JointDrive()
 {
     accel = 0.0;
     prevAngle = angle = 0.0;
 }
        
-void JointAccelerator::reset()
+void JointDrive::reset()
 {
     oClick.reset();   
     accel = 0.0;
 }
 
-float JointAccelerator::move(float istAngle, float acceleration)
+float JointDrive::move(float istAngle, float acceleration)
 {
     touch(istAngle);
         
@@ -44,7 +44,7 @@ float JointAccelerator::move(float istAngle, float acceleration)
 }
 
 
-float JointAccelerator::brake(float istAngle, float deceleration)
+float JointDrive::brake(float istAngle, float deceleration)
 {
     touch(istAngle);
     
@@ -75,7 +75,7 @@ float JointAccelerator::brake(float istAngle, float deceleration)
 }
 
 
-void JointAccelerator::touch(float istAngle)
+void JointDrive::touch(float istAngle)
 {
     // compute ellapsed time 
     oClick.read();
@@ -92,8 +92,8 @@ void JointAccelerator::touch(float istAngle)
     prevAngle = istAngle;
 }
 
-std::string JointAccelerator::toString()
+std::string JointDrive::toString()
 {
-    return "JointAccelerator: [speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) +  ", accel=" + std::to_string(accel) + "]";
+    return "JointDrive: [speed=" + std::to_string(speed) + ", angle=" + std::to_string(angle) +  ", accel=" + std::to_string(accel) + "]";
 }
 }

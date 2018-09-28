@@ -9,7 +9,7 @@
 #include <string>
 #include <log4cxx/logger.h>
 
-#include "amy/arm/move/JointAccelerator.h"
+#include "amy/arm/move/JointDrive.h"
 #include "amy/arm/util/JointModule.h"
 
 namespace amy
@@ -32,7 +32,7 @@ private:
     static log4cxx::LoggerPtr logger;
     // logic
     bool baccel;         // indicates no input received
-    JointAccelerator oJointAccelerator;     // utility class used to compute the joint movement 
+    JointDrive oJointDrive;     // utility class used to compute the joint movement 
     float angle;
     float accel;
     int lowLimit;             // lower joint angle  
